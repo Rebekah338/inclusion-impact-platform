@@ -12,7 +12,7 @@ const TRENDING = [
 
 export default function DashboardPage() {
   
-  const firstName = user?.firstName || "there";
+  const firstName = "there";
 
   const [dyslexiaMode, setDyslexiaMode] = useState(false);
   const [largeText, setLargeText] = useState(false);

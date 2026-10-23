@@ -87,7 +87,7 @@ export default function CommunityPage() {
             <div className="card" style={{ marginBottom: "2rem" }}>
               <div style={{ display: "flex", gap: "0.875rem", alignItems: "flex-start" }}>
                 <div style={{ width: "38px", height: "38px", borderRadius: "50%", background: "var(--sage-dark)", color: "var(--white)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", flexShrink: 0 }}>
-                  {user?.firstName?.[0]}{user?.lastName?.[0]}
+                  {"M"}
                 </div>
                 <div style={{ flex: 1 }}>
                   <input
