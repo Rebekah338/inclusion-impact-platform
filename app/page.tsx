@@ -21,8 +21,6 @@ const PULSE_RECOMMENDATIONS: Record<string, { module: string; id: string; reason
   "Understanding data and measuring impact": { module: "EDI Data & Workforce Monitoring", id: "edi-data", reason: "Learn to collect, analyse and act on EDI data ethically and effectively." },
 };
 
-const FREE_IDS = new Set(CONTENT.filter((c) => c.free).map((c) => c.id));
-
 const modulesByPathway = {
   "People & Culture": CONTENT.filter((c) => c.type === "module" && c.pathway === "People & Culture"),
   "Systems & Processes": CONTENT.filter((c) => c.type === "module" && c.pathway === "Systems & Processes"),
@@ -53,68 +51,51 @@ const PATHWAY_INFO = [
   {
     key: "Leadership & Strategy",
     icon: "🎯",
-    color: "#3D5C42",
-    bg: "#E8F0EA",
-    border: "#B5CDB9",
-    desc: "Strategy, business case, stakeholder buy-in, and leading inclusion at scale.",
+    color: "#4A5E4E",
+    bg: "#EEF3EF",
+    border: "#BDD0C0",
+    desc: "Strategy, governance, stakeholder engagement, and leading inclusion at scale.",
     count: modulesByPathway["Leadership & Strategy"].length,
-    img: "/hero-people.jpg",
+    img: "/workshop.jpg",
   },
 ];
+
+const WATCH_ITEMS = {
+  "deep-dives": [
+    { title: "What is EDI and Why Does It Matter?", duration: "~25 min", img: "/collaboration.jpg" },
+    { title: "Leading with Inclusion: A Framework for Managers", duration: "~30 min", img: "/team-meeting.jpg" },
+    { title: "How to Build an EDI Strategy from Scratch", duration: "~35 min", img: "/workshop.jpg" },
+  ],
+  "masterclasses": [
+    { title: "Understanding Intersectionality", duration: "~20 min", img: "/team-meeting.jpg" },
+    { title: "Psychological Safety in Teams", duration: "~25 min", img: "/collaboration.jpg" },
+    { title: "Making the Business Case for EDI", duration: "~30 min", img: "/workshop.jpg" },
+  ],
+  "quick-wins": [
+    { title: "Running an Inclusive Meeting", duration: "~6 min", img: "/collaboration.jpg" },
+    { title: "Reading Your EDI Data", duration: "~10 min", img: "/team-meeting.jpg" },
+    { title: "Anti-Racism at Work: Quick Wins", duration: "~8 min", img: "/workshop.jpg" },
+  ],
+} as const;
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<ReturnType<typeof searchContent>>([]);
   const [searchOpen, setSearchOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
+  const heroSearchRef = useRef<HTMLDivElement>(null);
+  const [heroSearchQuery, setHeroSearchQuery] = useState("");
+  const [heroSearchResults, setHeroSearchResults] = useState<ReturnType<typeof searchContent>>([]);
+  const [heroSearchOpen, setHeroSearchOpen] = useState(false);
 
-  const [pulseStarted, setPulseStarted] = useState(false);
-  const [pulseStep, setPulseStep] = useState(0);
-  const [pulseAnswers, setPulseAnswers] = useState<Record<string, string>>({});
-  const [pulseComplete, setPulseComplete] = useState(false);
-  const [pulseVisible, setPulseVisible] = useState(false);
-
-  const [joinModalOpen, setJoinModalOpen] = useState(false);
-  const [joinModalItem, setJoinModalItem] = useState("");
-
-  const [featuredIdx, setFeaturedIdx] = useState(0);
   const [activePathway, setActivePathway] = useState<string | null>(null);
-
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [challengeText, setChallengeText] = useState("");
-  const [challengeSubmitted, setChallengeSubmitted] = useState(false);
   const [watchTab, setWatchTab] = useState<"deep-dives" | "masterclasses" | "quick-wins">("deep-dives");
   const [carouselIdx, setCarouselIdx] = useState(0);
-
-  const WATCH_ITEMS = {
-    "deep-dives": [
-      { title: "What is EDI and Why Does It Matter?", duration: "~30 min", img: "/hero-people.jpg" },
-      { title: "Leading with Inclusion", duration: "~35 min", img: "/team-meeting.jpg" },
-      { title: "Anti-Racism at Work", duration: "~40 min", img: "/collaboration.jpg" },
-    ],
-    "masterclasses": [
-      { title: "Psychological Safety in Teams", duration: "~20 min", img: "/coaching.jpg" },
-      { title: "Inclusive Recruitment Deep Dive", duration: "~25 min", img: "/team-meeting.jpg" },
-      { title: "Making the Business Case", duration: "~20 min", img: "/hero-people.jpg" },
-    ],
-    "quick-wins": [
-      { title: "5 Microaggressions to Avoid", duration: "~8 min", img: "/workshop.jpg" },
-      { title: "Running an Inclusive Meeting", duration: "~6 min", img: "/collaboration.jpg" },
-      { title: "Reading Your EDI Data", duration: "~10 min", img: "/team-meeting.jpg" },
-    ],
-  };
-
-  useEffect(() => {
-    const t = setInterval(() => setFeaturedIdx((i) => (i + 1) % FEATURED_CONTENT.length), 6000);
-    return () => clearInterval(t);
-  }, []);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => { if (entry.isIntersecting) setPulseVisible(true); }, { threshold: 0.15 });
-    const el = document.getElementById("pulse-section");
-    if (el) observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const [joinModalOpen, setJoinModalOpen] = useState(false);
+  const [joinModalItem, setJoinModalItem] = useState("");
+  const [challengeText, setChallengeText] = useState("");
+  const [challengeSubmitted, setChallengeSubmitted] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     setSearchResults(searchContent(searchQuery));
@@ -122,34 +103,23 @@ export default function Home() {
   }, [searchQuery]);
 
   useEffect(() => {
+    setHeroSearchResults(searchContent(heroSearchQuery));
+    setHeroSearchOpen(heroSearchQuery.length >= 2);
+  }, [heroSearchQuery]);
+
+  useEffect(() => {
     function handleClick(e: MouseEvent) {
       if (searchRef.current && !searchRef.current.contains(e.target as Node)) setSearchOpen(false);
+      if (heroSearchRef.current && !heroSearchRef.current.contains(e.target as Node)) setHeroSearchOpen(false);
     }
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
-  function handlePulseAnswer(answer: string) {
-    const question = PULSE_QUESTIONS[pulseStep];
-    const newAnswers = { ...pulseAnswers, [question.id]: answer };
-    setPulseAnswers(newAnswers);
-    if (pulseStep < PULSE_QUESTIONS.length - 1) {
-      setTimeout(() => setPulseStep((s) => s + 1), 280);
-    } else {
-      setTimeout(() => setPulseComplete(true), 280);
-    }
-  }
-
-  function resetPulse() {
-    setPulseStarted(false); setPulseStep(0); setPulseAnswers({}); setPulseComplete(false);
-  }
-
   function handleLockedClick(title: string) {
     setJoinModalItem(title); setJoinModalOpen(true);
   }
 
-  const featured = FEATURED_CONTENT[featuredIdx];
-  const pulseRec = pulseComplete ? PULSE_RECOMMENDATIONS[pulseAnswers.priority] || PULSE_RECOMMENDATIONS["Knowing where to start"] : null;
   const visibleModules = activePathway
     ? modulesByPathway[activePathway as keyof typeof modulesByPathway] || []
     : Object.values(modulesByPathway).flat();
@@ -166,7 +136,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "var(--white)" }}>
 
-      {/* ── STICKY NAV ── */}
+      {/* STICKY NAV */}
       <nav
         role="navigation"
         aria-label="Main navigation"
@@ -180,8 +150,7 @@ export default function Home() {
           zIndex: 100,
         }}
       >
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem", height: "68px", display: "flex", alignItems: "center", gap: "1.5rem" }}>
-          {/* Logo */}
+        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem", height: "68px", display: "flex", alignItems: "center", gap: "1.25rem" }}>
           <Link href="/" aria-label="The Inclusion Edit home" style={{ textDecoration: "none", flexShrink: 0 }}>
             <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.82rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--charcoal)" }}>
               THE INCLUSION EDIT
@@ -191,11 +160,10 @@ export default function Home() {
             </span>
           </Link>
 
-          {/* Platform links — hidden on small screens */}
           <div className="hidden md:flex" style={{ gap: "0.125rem", flex: 1 }}>
             {NAV_LINKS.map((l) => (
               <Link key={l.href} href={l.href}
-                style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--charcoal)", textDecoration: "none", padding: "0.4rem 0.7rem", borderRadius: "6px", transition: "background 0.15s", letterSpacing: "0.01em", whiteSpace: "nowrap" }}
+                style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--charcoal)", textDecoration: "none", padding: "0.4rem 0.65rem", borderRadius: "6px", transition: "background 0.15s", letterSpacing: "0.01em", whiteSpace: "nowrap" }}
                 onMouseEnter={(e) => (e.currentTarget.style.background = "var(--sage-xlight)")}
                 onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
               >
@@ -204,8 +172,7 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Search */}
-          <div ref={searchRef} style={{ position: "relative", flex: "0 1 300px" }}>
+          <div ref={searchRef} style={{ position: "relative", flex: "0 1 260px" }}>
             <input
               type="search"
               placeholder="Search modules, tools…"
@@ -213,15 +180,15 @@ export default function Home() {
               onChange={(e) => setSearchQuery(e.target.value)}
               onFocus={() => searchQuery.length >= 2 && setSearchOpen(true)}
               aria-label="Search platform content"
-              style={{ width: "100%", padding: "0.45rem 1rem 0.45rem 2.25rem", borderRadius: "999px", border: "1.5px solid var(--sage-dark)", fontFamily: "var(--font-body)", fontSize: "0.82rem", background: "var(--sage-xlight)", color: "var(--charcoal)", outline: "none", boxShadow: "0 2px 12px rgba(42,74,48,0.15)" }}
+              style={{ width: "100%", padding: "0.45rem 1rem 0.45rem 2.25rem", borderRadius: "999px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.82rem", background: "var(--sage-xlight)", color: "var(--charcoal)", outline: "none" }}
             />
             <span style={{ position: "absolute", left: "0.75rem", top: "50%", transform: "translateY(-50%)", color: "var(--gray-soft)", fontSize: "0.8rem" }} aria-hidden="true">🔍</span>
             {searchOpen && searchResults.length > 0 && (
-              <div role="listbox" style={{ position: "absolute", top: "calc(100% + 8px)", left: 0, right: 0, background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: "12px", boxShadow: "0 12px 40px rgba(0,0,0,0.13)", zIndex: 200, overflow: "hidden" }}>
+              <div role="listbox" style={{ position: "absolute", top: "calc(100% + 8px)", left: "-60px", right: "-60px", minWidth: "420px", background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: "12px", boxShadow: "0 12px 40px rgba(0,0,0,0.13)", zIndex: 200, overflow: "hidden" }}>
                 {searchResults.map((item) => (
                   <button key={item.id} role="option" aria-selected="false"
                     onClick={() => { item.free ? (window.location.href = item.href) : handleLockedClick(item.title); setSearchOpen(false); setSearchQuery(""); }}
-                    style={{ width: "100%", padding: "0.7rem 1rem", display: "flex", alignItems: "center", gap: "0.75rem", border: "none", background: "none", cursor: "pointer", textAlign: "left", borderBottom: "1px solid var(--gray-border)" }}
+                    style={{ width: "100%", padding: "0.75rem 1.25rem", display: "flex", alignItems: "center", gap: "0.75rem", border: "none", background: "none", cursor: "pointer", textAlign: "left", borderBottom: "1px solid var(--gray-border)" }}
                     onMouseEnter={(e) => (e.currentTarget.style.background = "var(--sage-xlight)")}
                     onMouseLeave={(e) => (e.currentTarget.style.background = "none")}
                   >
@@ -239,32 +206,33 @@ export default function Home() {
             )}
           </div>
 
-          {/* Auth buttons — hidden on small screens */}
-          <div className="hidden md:flex" style={{ gap: "0.625rem", alignItems: "center", flexShrink: 0 }}>
-            <Link href="/sign-in" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", padding: "0.45rem 1.1rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", textDecoration: "none", whiteSpace: "nowrap" }}>
+          <div className="hidden md:flex" style={{ gap: "0.75rem", alignItems: "center", flexShrink: 0 }}>
+            <img src="/Transparent%20Green%20Current%20main%20%20logo%202026%202.png" alt="The Inclusion Edit" style={{ height: "36px", width: "auto", objectFit: "contain" }} />
+            <Link href="/dashboard"
+              style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "var(--white)", padding: "0.45rem 1rem", borderRadius: "8px", background: "var(--sage-dark)", textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 2px 8px rgba(42,74,48,0.25)" }}
+            >
+              Members Dashboard
+            </Link>
+            <Link href="/sign-in" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--charcoal)", padding: "0.45rem 0.875rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", textDecoration: "none", whiteSpace: "nowrap" }}>
               Sign in
             </Link>
-            <Link href="/sign-up" className="btn-primary" style={{ fontSize: "0.82rem", padding: "0.45rem 1.1rem", whiteSpace: "nowrap" }}>
+            <Link href="/sign-up" className="btn-primary" style={{ fontSize: "0.78rem", padding: "0.45rem 1rem", whiteSpace: "nowrap" }}>
               Join now
             </Link>
           </div>
-
-          {/* Mobile menu button — visible on small screens only */}
           <button
             className="mobile-menu-btn"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileMenuOpen}
-            style={{ background: "none", border: "none", cursor: "pointer", padding: "0.5rem", color: "var(--charcoal)", display: "none" }}
+            style={{ background: "none", border: "none", cursor: "pointer", padding: "0.5rem", color: "var(--charcoal)", display: "none", fontSize: "1.25rem" }}
           >
             {mobileMenuOpen ? "✕" : "☰"}
           </button>
         </div>
       </nav>
-
-      {/* ── MOBILE NAV DROPDOWN ── */}
       {mobileMenuOpen && (
-        <div className="mobile-nav-dropdown" style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)", padding: "1rem 1.5rem 1.5rem", zIndex: 99, position: "relative" }}>
+        <div style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)", padding: "1rem 1.5rem 1.5rem", position: "relative", zIndex: 99 }}>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem", marginBottom: "1rem" }}>
             {NAV_LINKS.map((l) => (
               <Link key={l.href} href={l.href}
@@ -276,6 +244,7 @@ export default function Home() {
             ))}
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
+            <Link href="/dashboard" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", background: "var(--sage-dark)", color: "var(--white)", padding: "0.75rem", borderRadius: "8px", textDecoration: "none", textAlign: "center" }}>Members Dashboard</Link>
             <Link href="/sign-up" className="btn-primary" style={{ textAlign: "center", fontSize: "0.9rem" }}>Join now</Link>
             <Link href="/sign-in" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", color: "var(--charcoal)", textDecoration: "none", textAlign: "center", padding: "0.5rem" }}>Sign in</Link>
           </div>
@@ -284,34 +253,41 @@ export default function Home() {
 
       <main id="main-content">
 
-        {/* ── HERO ── */}
+        {/* HERO */}
         <section
           style={{
             position: "relative",
-            minHeight: "clamp(480px, 65vh, 760px)",
+            minHeight: "clamp(520px, 68vh, 780px)",
             display: "flex",
             alignItems: "center",
             overflow: "hidden",
           }}
         >
-          {/* Background image — visible, not blacked out */}
+          {/* Deep green gradient background */}
           <div style={{
             position: "absolute", inset: 0,
-            backgroundImage: "url('/hero.jpg')",
+            background: "linear-gradient(105deg, #1A3220 0%, #243D28 40%, #2E5235 65%, rgba(46,82,53,0.4) 100%)",
+          }} aria-hidden="true" />
+
+          {/* Hero photo overlay */}
+          <div style={{
+            position: "absolute", inset: 0,
+            backgroundImage: "url('/hero-people.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center 30%",
+            opacity: 0.35,
+            mixBlendMode: "luminosity",
           }} aria-hidden="true" />
 
-          {/* Semi-transparent overlay — left side darker for text legibility, right fades */}
+          {/* Fade left so text stays readable */}
           <div style={{
             position: "absolute", inset: 0,
-            background: "linear-gradient(100deg, rgba(20,36,22,0.82) 0%, rgba(30,50,34,0.7) 45%, rgba(0,0,0,0.25) 100%)",
+            background: "linear-gradient(100deg, rgba(20,40,25,0.95) 0%, rgba(20,40,25,0.85) 38%, rgba(20,40,25,0.3) 70%, rgba(20,40,25,0.1) 100%)",
           }} aria-hidden="true" />
 
-          {/* Content — left aligned */}
-          <div style={{ position: "relative", zIndex: 2, maxWidth: "1200px", margin: "0 auto", padding: "5rem 2rem 5rem", width: "100%" }}>
+          <div style={{ position: "relative", zIndex: 2, maxWidth: "1200px", margin: "0 auto", padding: "5rem 2rem", width: "100%" }}>
             <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>
-              CPD-accredited · Members-only platform
+              Members-only platform · EDI professionals
             </span>
 
             <h1 style={{
@@ -320,23 +296,23 @@ export default function Home() {
               fontSize: "clamp(3rem, 7vw, 5.5rem)",
               lineHeight: 1.05,
               color: "var(--white)",
-              maxWidth: "700px",
+              maxWidth: "680px",
               marginBottom: "1.25rem",
               letterSpacing: "-0.02em",
             }}>
-              Your EDI practice<br />
-              <span style={{ color: "#A8D4B0" }}>built to last.</span>
+              Your EDI Practice<br />
+              <span style={{ color: "#A8D4B0" }}>Built To Last.</span>
             </h1>
 
             <p style={{
               fontFamily: "var(--font-body)",
               fontSize: "clamp(1rem, 1.8vw, 1.15rem)",
               color: "rgba(255,255,255,0.85)",
-              maxWidth: "640px",
+              maxWidth: "580px",
               marginBottom: "2.5rem",
               lineHeight: 1.7,
             }}>
-              The Impact Platform gives you the tools, training and evidence to lead inclusion that works — not just in theory, but in practice.
+              The tools, training and evidence to lead inclusion that works not just in theory, but in practice.
             </p>
 
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.875rem", marginBottom: "2.5rem" }}>
@@ -345,12 +321,8 @@ export default function Home() {
                 background: "linear-gradient(135deg, #5C8360 0%, #3D6142 100%)", color: "var(--white)",
                 padding: "0.875rem 2rem", borderRadius: "10px", textDecoration: "none",
                 boxShadow: "0 4px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15)",
-                transition: "transform 0.15s, box-shadow 0.15s",
                 display: "inline-block",
-              }}
-                onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 28px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.15)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15)"; }}
-              >
+              }}>
                 Start your membership →
               </Link>
               <Link href="/sign-in" style={{
@@ -359,73 +331,110 @@ export default function Home() {
                 border: "1.5px solid rgba(255,255,255,0.35)",
                 padding: "0.875rem 2rem", borderRadius: "10px", textDecoration: "none",
                 backdropFilter: "blur(4px)",
-                transition: "background 0.15s",
                 display: "inline-block",
-              }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.2)")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.12)")}
-              >
+              }}>
                 Already a member? Sign in
               </Link>
             </div>
 
             {/* Trust bar */}
             <div style={{ display: "flex", flexWrap: "wrap", gap: "1.5rem" }}>
-              {["✓ WCAG 2.1 AA accessible", "✓ CPD-accredited content", "✓ UK-based EDI expertise"].map((t) => (
+              {["✓ Tools · Training · Evidence", "✓ CPD content", "✓ UK-based EDI expertise"].map((t) => (
                 <span key={t} style={{ fontFamily: "var(--font-heading)", fontSize: "0.78rem", fontWeight: 600, color: "rgba(255,255,255,0.65)", letterSpacing: "0.04em" }}>{t}</span>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── TWO PATHS ── */}
-        <section style={{ padding: "3.5rem 1.5rem 0", background: "var(--white)" }}>
+        {/* BIG SEARCH BAR */}
+        <section style={{ background: "var(--white)", padding: "3rem 1.5rem 0" }}>
+          <div style={{ maxWidth: "760px", margin: "0 auto" }}>
+            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.1rem", color: "var(--charcoal)", textAlign: "center", marginBottom: "1.25rem" }}>
+              What are you looking for today?
+            </p>
+            <div ref={heroSearchRef} style={{ position: "relative" }}>
+              <input
+                type="search"
+                placeholder="Search modules, tools, guides, research…"
+                value={heroSearchQuery}
+                onChange={(e) => setHeroSearchQuery(e.target.value)}
+                onFocus={() => heroSearchQuery.length >= 2 && setHeroSearchOpen(true)}
+                aria-label="Search all platform content"
+                style={{
+                  width: "100%", padding: "1rem 1.5rem 1rem 3.25rem",
+                  borderRadius: "14px", border: "2px solid var(--sage-dark)",
+                  fontFamily: "var(--font-body)", fontSize: "1rem",
+                  background: "var(--sage-xlight)", color: "var(--charcoal)", outline: "none",
+                  boxShadow: "0 4px 24px rgba(42,74,48,0.18)",
+                  boxSizing: "border-box",
+                }}
+              />
+              <span style={{ position: "absolute", left: "1.125rem", top: "50%", transform: "translateY(-50%)", fontSize: "1.1rem" }} aria-hidden="true">🔍</span>
+              {heroSearchOpen && heroSearchResults.length > 0 && (
+                <div role="listbox" style={{ position: "absolute", top: "calc(100% + 8px)", left: 0, right: 0, background: "var(--white)", border: "1.5px solid var(--sage-light)", borderRadius: "14px", boxShadow: "0 16px 48px rgba(0,0,0,0.14)", zIndex: 200, overflow: "hidden" }}>
+                  {heroSearchResults.map((item) => (
+                    <button key={item.id} role="option" aria-selected="false"
+                      onClick={() => { item.free ? (window.location.href = item.href) : handleLockedClick(item.title); setHeroSearchOpen(false); setHeroSearchQuery(""); }}
+                      style={{ width: "100%", padding: "0.9rem 1.5rem", display: "flex", alignItems: "center", gap: "0.875rem", border: "none", background: "none", cursor: "pointer", textAlign: "left", borderBottom: "1px solid var(--gray-border)" }}
+                      onMouseEnter={(e) => (e.currentTarget.style.background = "var(--sage-xlight)")}
+                      onMouseLeave={(e) => (e.currentTarget.style.background = "none")}
+                    >
+                      <span style={{ fontSize: "1.1rem" }} aria-hidden="true">{TYPE_ICONS[item.type]}</span>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.9rem", color: "var(--charcoal)" }}>{item.title}</div>
+                        {item.subtitle && <div style={{ fontSize: "0.75rem", color: "var(--gray-soft)" }}>{item.subtitle}</div>}
+                      </div>
+                      <span style={{ fontSize: "0.65rem", fontFamily: "var(--font-heading)", fontWeight: 700, textTransform: "uppercase", color: "var(--sage-dark)", background: "var(--sage-light)", padding: "0.2rem 0.6rem", borderRadius: "999px", whiteSpace: "nowrap" }}>
+                        {item.free ? "Free" : TYPE_LABELS[item.type]}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* WHERE WOULD YOU LIKE TO START */}
+        <section style={{ padding: "2.5rem 1.5rem 0", background: "var(--white)" }}>
           <div style={{ maxWidth: "900px", margin: "0 auto" }}>
             <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--gray-soft)", textAlign: "center", marginBottom: "1.25rem" }}>
               Where would you like to start?
             </p>
             <div className="two-paths-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem" }}>
-              <Link href="#pulse-section" style={{ textDecoration: "none" }}>
+              <Link href="/sign-up" style={{ textDecoration: "none" }}>
                 <div style={{
                   borderRadius: "18px", padding: "2rem",
                   background: "linear-gradient(135deg, #3D6142 0%, #2A4A30 100%)",
-                  boxShadow: "0 8px 32px rgba(42,74,48,0.25), inset 0 1px 0 rgba(255,255,255,0.12)",
-                  cursor: "pointer", transition: "transform 0.18s, box-shadow 0.18s", position: "relative", overflow: "hidden",
-                }}
-                  onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 14px 40px rgba(42,74,48,0.35), inset 0 1px 0 rgba(255,255,255,0.12)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 8px 32px rgba(42,74,48,0.25), inset 0 1px 0 rgba(255,255,255,0.12)"; }}
-                >
+                  boxShadow: "0 8px 32px rgba(42,74,48,0.25)",
+                  cursor: "pointer", position: "relative", overflow: "hidden",
+                }}>
                   <div style={{ position: "absolute", top: "-20px", right: "-20px", width: "100px", height: "100px", borderRadius: "50%", background: "rgba(255,255,255,0.06)" }} />
-                  <div style={{ position: "absolute", bottom: "-30px", right: "20px", width: "70px", height: "70px", borderRadius: "50%", background: "rgba(255,255,255,0.04)" }} />
                   <div style={{ fontSize: "2rem", marginBottom: "0.875rem" }}>👤</div>
-                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.1rem", color: "white", marginBottom: "0.375rem" }}>I'm an individual</div>
-                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.55, marginBottom: "1.25rem" }}>Find out where to start your EDI learning journey</div>
-                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "rgba(255,255,255,0.9)" }}>Take the Inclusion Pulse →</span>
+                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.1rem", color: "white", marginBottom: "0.375rem" }}>I&apos;m an individual</div>
+                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.55, marginBottom: "1.25rem" }}>Practitioners, HR leads, people managers building their EDI capability.</div>
+                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "rgba(255,255,255,0.9)" }}>Join as an individual →</span>
                 </div>
               </Link>
-              <Link href="/dashboard/checkup" style={{ textDecoration: "none" }}>
+              <Link href="/sign-up" style={{ textDecoration: "none" }}>
                 <div style={{
                   borderRadius: "18px", padding: "2rem",
                   background: "linear-gradient(135deg, #5C8360 0%, #4A6E4E 100%)",
-                  boxShadow: "0 8px 32px rgba(92,131,96,0.25), inset 0 1px 0 rgba(255,255,255,0.12)",
-                  cursor: "pointer", transition: "transform 0.18s, box-shadow 0.18s", position: "relative", overflow: "hidden",
-                }}
-                  onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 14px 40px rgba(92,131,96,0.35), inset 0 1px 0 rgba(255,255,255,0.12)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 8px 32px rgba(92,131,96,0.25), inset 0 1px 0 rgba(255,255,255,0.12)"; }}
-                >
+                  boxShadow: "0 8px 32px rgba(92,131,96,0.25)",
+                  cursor: "pointer", position: "relative", overflow: "hidden",
+                }}>
                   <div style={{ position: "absolute", top: "-20px", right: "-20px", width: "100px", height: "100px", borderRadius: "50%", background: "rgba(255,255,255,0.06)" }} />
-                  <div style={{ position: "absolute", bottom: "-30px", right: "20px", width: "70px", height: "70px", borderRadius: "50%", background: "rgba(255,255,255,0.04)" }} />
                   <div style={{ fontSize: "2rem", marginBottom: "0.875rem" }}>🏢</div>
                   <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.1rem", color: "white", marginBottom: "0.375rem" }}>I represent an organisation</div>
-                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.55, marginBottom: "1.25rem" }}>Find out which areas your organisation could improve on</div>
-                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "rgba(255,255,255,0.9)" }}>Take the Organisation Checkup →</span>
+                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.55, marginBottom: "1.25rem" }}>Team access, group learning, and organisation-wide reporting.</div>
+                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "rgba(255,255,255,0.9)" }}>Get organisation access →</span>
                 </div>
               </Link>
             </div>
           </div>
         </section>
 
-        {/* ── EVERYTHING YOU NEED ── */}
+        {/* EVERYTHING YOU NEED */}
         <section style={{ padding: "5rem 1.5rem", background: "var(--white)" }}>
           <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
@@ -436,15 +445,14 @@ export default function Home() {
                 Everything you need in one place
               </h2>
               <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.05rem", maxWidth: "480px", margin: "0 auto", lineHeight: 1.65 }}>
-                A complete EDI learning ecosystem — structured, practical, and evidence-based.
+                A complete EDI learning ecosystem structured, practical, and evidence-based.
               </p>
             </div>
 
-            {/* 4 + 2 centred grid — glossy green cards */}
             <div className="platform-cards-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem", marginBottom: "1.25rem" }}>
               {[
-                { href: "/dashboard/learn", icon: "📚", label: "Learn", sub: "CPD Modules", desc: "31 structured CPD-accredited modules across three learning pathways." },
-                { href: "/dashboard/watch", icon: "🎥", label: "Watch", sub: "Masterclasses", desc: "Expert-led video masterclasses on inclusive practice — coming soon." },
+                { href: "/dashboard/learn", icon: "📚", label: "Learn", sub: "CPD Modules", desc: "31 structured CPD modules across three learning pathways." },
+                { href: "/dashboard/watch", icon: "🎥", label: "Watch", sub: "Masterclasses", desc: "Expert-led video masterclasses on inclusive practice coming soon." },
                 { href: "/dashboard/apply", icon: "🛠️", label: "Apply", sub: "Tools & Frameworks", desc: "Interactive tools, guides, checklists, and frameworks for your work." },
                 { href: "/dashboard/evidence", icon: "📊", label: "Make the Case", sub: "Evidence & ROI", desc: "Research, data, case studies and resources for your business case." },
               ].map((f) => (
@@ -452,13 +460,9 @@ export default function Home() {
                   <div style={{
                     background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)",
                     borderRadius: "18px", padding: "1.75rem 1.5rem",
-                    boxShadow: "0 6px 28px rgba(42,74,48,0.22), inset 0 1px 0 rgba(255,255,255,0.14), inset 0 -1px 0 rgba(0,0,0,0.15)",
-                    transition: "box-shadow 0.2s, transform 0.15s",
+                    boxShadow: "0 6px 28px rgba(42,74,48,0.22)",
                     cursor: "pointer", height: "100%", position: "relative", overflow: "hidden",
-                  }}
-                    onMouseEnter={(e) => { const d = e.currentTarget; d.style.boxShadow = "0 12px 40px rgba(42,74,48,0.35), inset 0 1px 0 rgba(255,255,255,0.14)"; d.style.transform = "translateY(-4px)"; }}
-                    onMouseLeave={(e) => { const d = e.currentTarget; d.style.boxShadow = "0 6px 28px rgba(42,74,48,0.22), inset 0 1px 0 rgba(255,255,255,0.14), inset 0 -1px 0 rgba(0,0,0,0.15)"; d.style.transform = "none"; }}
-                  >
+                  }}>
                     <div style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
                     <div style={{ fontSize: "2rem", marginBottom: "1rem" }} aria-hidden="true">{f.icon}</div>
                     <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.05rem", color: "white", marginBottom: "0.2rem" }}>{f.label}</div>
@@ -468,22 +472,18 @@ export default function Home() {
                 </Link>
               ))}
             </div>
-            {/* Bottom 2 — centred */}
             <div className="platform-cards-bottom" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1.25rem", maxWidth: "600px", margin: "0 auto" }}>
               {[
                 { href: "/dashboard/support", icon: "🤝", label: "Get Support", sub: "Coaching & Office Hours", desc: "Book office hours with Rebekah, enquire about expert coaching, or join a live event." },
-                { href: "/dashboard/community", icon: "🌡️", label: "The Inclusion Editors", sub: "Community", desc: "Connect with practitioners, share insights, and grow your network." },
+                { href: "/dashboard/community", icon: "🌍", label: "The Inclusion Editors", sub: "Community", desc: "Connect with practitioners, share insights, and grow your network." },
               ].map((f) => (
                 <Link key={f.label} href={f.href} style={{ textDecoration: "none" }}>
                   <div style={{
                     background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)",
                     borderRadius: "18px", padding: "1.75rem 1.5rem",
-                    boxShadow: "0 6px 28px rgba(42,74,48,0.22), inset 0 1px 0 rgba(255,255,255,0.14), inset 0 -1px 0 rgba(0,0,0,0.15)",
-                    transition: "box-shadow 0.2s, transform 0.15s", cursor: "pointer", position: "relative", overflow: "hidden",
-                  }}
-                    onMouseEnter={(e) => { const d = e.currentTarget; d.style.boxShadow = "0 12px 40px rgba(42,74,48,0.35), inset 0 1px 0 rgba(255,255,255,0.14)"; d.style.transform = "translateY(-4px)"; }}
-                    onMouseLeave={(e) => { const d = e.currentTarget; d.style.boxShadow = "0 6px 28px rgba(42,74,48,0.22), inset 0 1px 0 rgba(255,255,255,0.14), inset 0 -1px 0 rgba(0,0,0,0.15)"; d.style.transform = "none"; }}
-                  >
+                    boxShadow: "0 6px 28px rgba(42,74,48,0.22)",
+                    cursor: "pointer", position: "relative", overflow: "hidden",
+                  }}>
                     <div style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
                     <div style={{ fontSize: "2rem", marginBottom: "1rem" }} aria-hidden="true">{f.icon}</div>
                     <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.05rem", color: "white", marginBottom: "0.2rem" }}>{f.label}</div>
@@ -496,7 +496,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── STATS STRIP ── */}
+        {/* STATS STRIP */}
         <section style={{ background: "linear-gradient(135deg, var(--sage-dark) 0%, #3A6040 100%)", padding: "3rem 1.5rem" }}>
           <div className="stats-grid" style={{ maxWidth: "900px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem", textAlign: "center" }}>
             {[
@@ -513,59 +513,37 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── EXPLORE THE PLATFORM ── */}
+        {/* EXPLORE LEARNING PATHWAYS */}
         <section style={{ padding: "5rem 1.5rem", position: "relative", overflow: "hidden" }}>
-          {/* Glazed photo background */}
-          <div style={{
-            position: "absolute", inset: 0,
-            backgroundImage: "url('/hero-people.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center 40%",
-            zIndex: 0,
-          }} aria-hidden="true" />
-          <div style={{
-            position: "absolute", inset: 0,
-            background: "rgba(240, 244, 241, 0.91)",
-            backdropFilter: "blur(2px)",
-            zIndex: 1,
-          }} aria-hidden="true" />
+          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/team-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 0 }} aria-hidden="true" />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(240, 244, 241, 0.91)", backdropFilter: "blur(2px)", zIndex: 1 }} aria-hidden="true" />
           <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 2 }}>
             <div style={{ textAlign: "center", marginBottom: "3rem" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--white)", border: "1px solid var(--sage-light)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1rem" }}>
                 Learning pathways
               </span>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "0.75rem", letterSpacing: "-0.01em" }}>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "0.75rem" }}>
                 Explore the platform
               </h2>
               <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.05rem", maxWidth: "460px", margin: "0 auto" }}>
-                Browse all 31 modules. A selection is free — join to unlock the full library.
+                Browse all 31 modules. A selection is free join to unlock the full library.
               </p>
             </div>
 
-            {/* Pathway selector cards */}
             <div className="pathways-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", marginBottom: "2.5rem" }}>
               {PATHWAY_INFO.map((p) => (
                 <button
                   key={p.key}
                   onClick={() => setActivePathway(activePathway === p.key ? null : p.key)}
                   style={{
-                    background: "var(--white)",
-                    borderRadius: "16px",
-                    overflow: "hidden",
+                    background: "var(--white)", borderRadius: "16px", overflow: "hidden",
                     border: `2px solid ${activePathway === p.key ? p.color : "var(--gray-border)"}`,
-                    cursor: "pointer",
-                    textAlign: "left",
-                    transition: "all 0.2s",
-                    boxShadow: activePathway === p.key ? `0 0 0 4px ${p.border}` : "none",
-                    transform: activePathway === p.key ? "translateY(-3px)" : "none",
+                    cursor: "pointer", textAlign: "left",
                   }}
                 >
-                  {/* Image strip */}
                   <div style={{ height: "140px", backgroundImage: `url('${p.img}')`, backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
-                    <div style={{ position: "absolute", inset: 0, background: `linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.55) 100%)` }} />
-                    <span style={{ position: "absolute", bottom: "0.75rem", left: "1rem", fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.72rem", color: "white", textTransform: "uppercase", letterSpacing: "0.12em" }}>
-                      {p.count} modules
-                    </span>
+                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.55) 100%)" }} />
+                    <span style={{ position: "absolute", bottom: "0.75rem", left: "1rem", fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.72rem", color: "white", textTransform: "uppercase", letterSpacing: "0.12em" }}>{p.count} modules</span>
                   </div>
                   <div style={{ padding: "1.25rem 1.25rem 1.5rem" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
@@ -581,6 +559,23 @@ export default function Home() {
               ))}
             </div>
 
+            {activePathway && visibleModules.length > 0 && (
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1rem", marginBottom: "2rem" }}>
+                {visibleModules.map((m) => (
+                  <div key={m.id} className="card" style={{ background: "var(--white)", opacity: m.free ? 1 : 0.85 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.5rem" }}>
+                      <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.35 }}>{m.title}</span>
+                      {!m.free && <span style={{ fontSize: "0.8rem", flexShrink: 0 }}>🔒</span>}
+                    </div>
+                    <button onClick={() => m.free ? (window.location.href = m.href) : handleLockedClick(m.title)}
+                      style={{ marginTop: "0.75rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: m.free ? "var(--sage-dark)" : "var(--gray-soft)", background: "none", border: "none", cursor: "pointer", padding: 0 }}>
+                      {m.free ? "Start free →" : "Members only"}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+
             <div style={{ textAlign: "center", marginTop: "0.5rem" }}>
               <Link href="/sign-up" className="btn-primary" style={{ fontSize: "0.95rem", padding: "0.875rem 2rem" }}>
                 Join to access all 31 modules →
@@ -589,40 +584,35 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── EXPLORE THE WATCH LIBRARY ── */}
+        {/* EXPLORE THE WATCH LIBRARY */}
         <section style={{ padding: "5rem 1.5rem", background: "var(--white)" }}>
           <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "3rem" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--sage-xlight)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1rem" }}>
                 Coming soon
               </span>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "0.75rem", letterSpacing: "-0.01em" }}>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "0.75rem" }}>
                 Explore the Watch library
               </h2>
               <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.05rem", maxWidth: "520px", margin: "0 auto" }}>
-                Expert-led video content in production — launching to members first. Three formats, designed to fit your day.
+                Expert-led video content in production launching to members first. Three formats, designed to fit your day.
               </p>
             </div>
 
-            {/* Three category description boxes */}
             <div className="watch-tabs-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", marginBottom: "3.5rem" }}>
               {[
-                { icon: "🎓", label: "Deep Dives", desc: "Full 30–45 minute expert-led training sessions on complex EDI topics — structured, evidence-based and CPD-eligible.", key: "deep-dives" as const },
-                { icon: "🎬", label: "Masterclasses", desc: "Focused 15–20 minute sessions on a single skill, framework or challenge — practical and immediately applicable.", key: "masterclasses" as const },
-                { icon: "⚡", label: "Quick Wins", desc: "5–10 minute sharp, actionable takeaways — easy to fit into your week and share with your team.", key: "quick-wins" as const },
+                { icon: "🎓", label: "Deep Dives", desc: "Full 30–45 minute expert-led training sessions on complex EDI topics.", key: "deep-dives" as const },
+                { icon: "🎬", label: "Masterclasses", desc: "Focused 15–20 minute sessions on a single skill, framework or challenge.", key: "masterclasses" as const },
+                { icon: "⚡", label: "Nuggets", desc: "5–10 minute sharp, actionable takeaways easy to fit into your week.", key: "quick-wins" as const },
               ].map((w) => (
                 <button key={w.label}
                   onClick={() => { setWatchTab(w.key); setCarouselIdx(0); }}
                   style={{
                     textAlign: "left",
-                    background: watchTab === w.key
-                      ? "linear-gradient(160deg, #3D6142 0%, #2C4A31 100%)"
-                      : "var(--sage-xlight)",
+                    background: watchTab === w.key ? "linear-gradient(160deg, #3D6142 0%, #2C4A31 100%)" : "var(--sage-xlight)",
                     border: watchTab === w.key ? "2px solid var(--sage-dark)" : "1.5px solid var(--sage-light)",
                     borderRadius: "16px", padding: "1.75rem 1.5rem",
-                    cursor: "pointer", transition: "all 0.2s",
-                    boxShadow: watchTab === w.key ? "0 6px 28px rgba(42,74,48,0.2)" : "none",
-                    transform: watchTab === w.key ? "translateY(-3px)" : "none",
+                    cursor: "pointer",
                   }}
                 >
                   <div style={{ fontSize: "2rem", marginBottom: "0.875rem" }} aria-hidden="true">{w.icon}</div>
@@ -632,60 +622,40 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Video carousel — images with play button overlay, tabbed by category */}
-            <div>
-              <div className="watch-videos-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem" }}>
-                {WATCH_ITEMS[watchTab].map((item, i) => (
-                  <div key={item.title} style={{
-                    borderRadius: "16px", overflow: "hidden",
-                    boxShadow: carouselIdx === i ? "0 12px 40px rgba(0,0,0,0.18)" : "0 4px 16px rgba(0,0,0,0.08)",
-                    transform: carouselIdx === i ? "scale(1.02)" : "scale(1)",
-                    transition: "all 0.3s",
-                    cursor: "pointer",
-                    border: carouselIdx === i ? "2px solid var(--sage-dark)" : "1.5px solid var(--gray-border)",
-                  }}
-                    onClick={() => setCarouselIdx(i)}
-                  >
-                    {/* Image with play button overlay */}
-                    <div style={{ position: "relative", height: "190px", backgroundImage: `url('${item.img}')`, backgroundSize: "cover", backgroundPosition: "center" }}>
-                      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%)" }} />
-                      {/* Lock badge */}
-                      <div style={{ position: "absolute", top: "0.75rem", left: "0.75rem", background: "rgba(0,0,0,0.45)", backdropFilter: "blur(4px)", borderRadius: "999px", padding: "0.2rem 0.6rem", display: "flex", alignItems: "center", gap: "0.3rem" }}>
-                        <span style={{ fontSize: "0.65rem" }}>🔒</span>
-                        <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.62rem", color: "rgba(255,255,255,0.9)", textTransform: "uppercase", letterSpacing: "0.06em" }}>Members only</span>
-                      </div>
-                      {/* Play button */}
-                      <div style={{
-                        position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)",
-                        width: "56px", height: "56px", borderRadius: "50%",
-                        background: "rgba(255,255,255,0.95)",
-                        boxShadow: "0 4px 24px rgba(0,0,0,0.35)",
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        transition: "transform 0.2s",
-                      }}>
-                        <div style={{ width: 0, height: 0, borderTop: "10px solid transparent", borderBottom: "10px solid transparent", borderLeft: "18px solid var(--sage-dark)", marginLeft: "4px" }} />
-                      </div>
-                      <span style={{ position: "absolute", bottom: "0.75rem", right: "0.75rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "rgba(255,255,255,0.9)", background: "rgba(0,0,0,0.4)", padding: "0.2rem 0.55rem", borderRadius: "999px", backdropFilter: "blur(4px)" }}>
-                        {item.duration}
-                      </span>
+            <div className="watch-videos-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem" }}>
+              {WATCH_ITEMS[watchTab].map((item, i) => (
+                <div key={item.title} style={{
+                  borderRadius: "16px", overflow: "hidden",
+                  boxShadow: carouselIdx === i ? "0 12px 40px rgba(0,0,0,0.18)" : "0 4px 16px rgba(0,0,0,0.08)",
+                  border: carouselIdx === i ? "2px solid var(--sage-dark)" : "1.5px solid var(--gray-border)",
+                  cursor: "pointer",
+                }} onClick={() => setCarouselIdx(i)}>
+                  <div style={{ position: "relative", height: "190px", backgroundImage: `url('${item.img}')`, backgroundSize: "cover", backgroundPosition: "center" }}>
+                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%)" }} />
+                    <div style={{ position: "absolute", top: "0.75rem", left: "0.75rem", background: "rgba(0,0,0,0.45)", backdropFilter: "blur(4px)", borderRadius: "999px", padding: "0.2rem 0.6rem", display: "flex", alignItems: "center", gap: "0.3rem" }}>
+                      <span style={{ fontSize: "0.65rem" }}>🔒</span>
+                      <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.62rem", color: "rgba(255,255,255,0.9)", textTransform: "uppercase", letterSpacing: "0.06em" }}>Members only</span>
                     </div>
-                    <div style={{ background: "var(--white)", padding: "1.125rem 1.25rem" }}>
-                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", color: "var(--charcoal)", lineHeight: 1.35 }}>{item.title}</div>
-                      <div style={{ marginTop: "0.45rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.68rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
-                        {watchTab === "deep-dives" ? "Deep Dive" : watchTab === "masterclasses" ? "Masterclass" : "Quick Win"} · Coming soon
-                      </div>
+                    <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: "56px", height: "56px", borderRadius: "50%", background: "rgba(255,255,255,0.95)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <div style={{ width: 0, height: 0, borderTop: "10px solid transparent", borderBottom: "10px solid transparent", borderLeft: "18px solid var(--sage-dark)", marginLeft: "4px" }} />
+                    </div>
+                    <span style={{ position: "absolute", bottom: "0.75rem", right: "0.75rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "rgba(255,255,255,0.9)", background: "rgba(0,0,0,0.4)", padding: "0.2rem 0.55rem", borderRadius: "999px" }}>{item.duration}</span>
+                  </div>
+                  <div style={{ background: "var(--white)", padding: "1.125rem 1.25rem" }}>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", color: "var(--charcoal)", lineHeight: 1.35 }}>{item.title}</div>
+                    <div style={{ marginTop: "0.45rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.68rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                      {watchTab === "deep-dives" ? "Deep Dive" : watchTab === "masterclasses" ? "Masterclass" : "Nugget"} · Coming soon
                     </div>
                   </div>
-                ))}
-              </div>
-              {/* Carousel dots */}
-              <div style={{ display: "flex", justifyContent: "center", gap: "0.4rem", marginTop: "1.5rem" }}>
-                {WATCH_ITEMS[watchTab].map((_, i) => (
-                  <button key={i} onClick={() => setCarouselIdx(i)} aria-label={`Show video ${i + 1}`}
-                    style={{ width: carouselIdx === i ? "22px" : "8px", height: "8px", borderRadius: "999px", background: carouselIdx === i ? "var(--sage-dark)" : "var(--gray-border)", border: "none", cursor: "pointer", transition: "all 0.3s", padding: 0 }}
-                  />
-                ))}
-              </div>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ display: "flex", justifyContent: "center", gap: "0.4rem", marginTop: "1.5rem" }}>
+              {WATCH_ITEMS[watchTab].map((_, i) => (
+                <button key={i} onClick={() => setCarouselIdx(i)} aria-label={`Show video ${i + 1}`}
+                  style={{ width: carouselIdx === i ? "22px" : "8px", height: "8px", borderRadius: "999px", background: carouselIdx === i ? "var(--sage-dark)" : "var(--gray-border)", border: "none", cursor: "pointer", padding: 0 }} />
+              ))}
             </div>
 
             <div style={{ textAlign: "center", marginTop: "2.5rem" }}>
@@ -696,96 +666,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── INCLUSION PULSE ── */}
-        <section id="pulse-section" style={{
-          padding: "5rem 1.5rem",
-          position: "relative",
-          overflow: "hidden",
-          opacity: pulseVisible ? 1 : 0,
-          transform: pulseVisible ? "none" : "translateY(30px)",
-          transition: "opacity 0.7s ease, transform 0.7s ease",
-        }}>
-          {/* Background photo */}
-          <div style={{
-            position: "absolute", inset: 0,
-            backgroundImage: "url('/workshop.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            zIndex: 0,
-          }} />
-          {/* Dark overlay for readability */}
-          <div style={{
-            position: "absolute", inset: 0,
-            background: "linear-gradient(135deg, rgba(30,58,38,0.88) 0%, rgba(42,74,48,0.82) 100%)",
-            zIndex: 1,
-          }} />
-          <div style={{ maxWidth: "700px", margin: "0 auto", textAlign: "center", position: "relative", zIndex: 2 }}>
-            <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "rgba(255,255,255,0.6)", marginBottom: "1rem" }}>
-              🌡️ Inclusion Pulse
-            </span>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.5rem)", color: "var(--white)", marginBottom: "0.75rem" }}>
-              Not sure where to start?
-            </h2>
-            <p style={{ fontFamily: "var(--font-body)", color: "rgba(255,255,255,0.78)", fontSize: "1.05rem", marginBottom: "2.5rem", lineHeight: 1.65 }}>
-              Answer 5 quick questions and we'll point you to your best starting point on the platform.
-            </p>
-
-            {!pulseStarted && !pulseComplete && (
-              <button onClick={() => setPulseStarted(true)}
-                style={{ background: "var(--white)", color: "var(--sage-dark)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", padding: "0.875rem 2.25rem", borderRadius: "10px", border: "none", cursor: "pointer", boxShadow: "0 4px 20px rgba(0,0,0,0.2)", transition: "transform 0.15s" }}
-                onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.02)")}
-                onMouseLeave={(e) => (e.currentTarget.style.transform = "none")}
-              >
-                Let's find out →
-              </button>
-            )}
-
-            {pulseStarted && !pulseComplete && (
-              <div style={{ background: "rgba(255,255,255,0.08)", borderRadius: "20px", padding: "2rem 2.25rem", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.15)" }}>
-                <div style={{ display: "flex", gap: "0.375rem", justifyContent: "center", marginBottom: "1.75rem" }}>
-                  {PULSE_QUESTIONS.map((_, i) => (
-                    <div key={i} style={{ width: "8px", height: "8px", borderRadius: "999px", background: i <= pulseStep ? "var(--white)" : "rgba(255,255,255,0.25)", transition: "background 0.3s" }} />
-                  ))}
-                </div>
-                <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.1rem", color: "var(--white)", marginBottom: "1.25rem" }}>
-                  {PULSE_QUESTIONS[pulseStep].question}
-                </p>
-                <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
-                  {PULSE_QUESTIONS[pulseStep].options.map((opt) => (
-                    <button key={opt} onClick={() => handlePulseAnswer(opt)}
-                      style={{
-                        background: pulseAnswers[PULSE_QUESTIONS[pulseStep].id] === opt ? "var(--white)" : "rgba(255,255,255,0.1)",
-                        color: pulseAnswers[PULSE_QUESTIONS[pulseStep].id] === opt ? "var(--sage-dark)" : "var(--white)",
-                        border: "1.5px solid rgba(255,255,255,0.25)", borderRadius: "8px", padding: "0.75rem 1rem",
-                        fontFamily: "var(--font-body)", fontSize: "0.9rem", cursor: "pointer", textAlign: "left", transition: "all 0.18s",
-                      }}
-                    >{opt}</button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {pulseComplete && pulseRec && (
-              <div style={{ background: "rgba(255,255,255,0.1)", borderRadius: "20px", padding: "2.25rem", backdropFilter: "blur(8px)", border: "1px solid rgba(255,255,255,0.15)" }}>
-                <div style={{ fontSize: "2.25rem", marginBottom: "0.875rem" }}>🎯</div>
-                <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase", letterSpacing: "0.12em", color: "rgba(255,255,255,0.6)", marginBottom: "0.625rem" }}>Your recommended starting point</div>
-                <div style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.6rem", color: "var(--white)", marginBottom: "0.875rem" }}>{pulseRec.module}</div>
-                <p style={{ fontFamily: "var(--font-body)", color: "rgba(255,255,255,0.82)", marginBottom: "1.75rem", fontSize: "0.95rem", lineHeight: 1.65 }}>{pulseRec.reason}</p>
-                <div style={{ display: "flex", gap: "0.875rem", justifyContent: "center", flexWrap: "wrap" }}>
-                  <Link href="/sign-up" style={{ background: "var(--white)", color: "var(--sage-dark)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", boxShadow: "0 2px 12px rgba(0,0,0,0.2)" }}>
-                    Join to start this module →
-                  </Link>
-                  <button onClick={resetPulse} style={{ background: "transparent", color: "rgba(255,255,255,0.7)", border: "1.5px solid rgba(255,255,255,0.3)", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", padding: "0.75rem 1.25rem", borderRadius: "8px", cursor: "pointer" }}>
-                    Start again
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        </section>
-
-        {/* ── COACHING / EXPERT SUPPORT ── */}
-        <section style={{ padding: "5rem 1.5rem", background: "var(--white)" }}>
+        {/* COACHING */}
+        <section style={{ padding: "5rem 1.5rem", background: "var(--sage-xlight)" }}>
           <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
             <div className="coaching-grid" style={{
               borderRadius: "24px", overflow: "hidden",
@@ -793,41 +675,38 @@ export default function Home() {
               boxShadow: "0 8px 48px rgba(0,0,0,0.1)",
               border: "1.5px solid var(--sage-light)",
             }}>
-              {/* Image panel */}
               <div style={{
                 backgroundImage: "url('/coaching.jpg')",
                 backgroundSize: "cover",
-                backgroundPosition: "center",
-                minHeight: "400px",
+                backgroundPosition: "center top",
+                minHeight: "380px",
                 position: "relative",
               }}>
-                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(42,74,48,0.35) 0%, rgba(0,0,0,0.1) 100%)" }} />
+                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(42,74,48,0.2) 0%, rgba(0,0,0,0.05) 100%)" }} />
               </div>
-
-              {/* Content panel */}
-              <div style={{ background: "var(--sage-xlight)", padding: "3.5rem 3rem" }}>
-                <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--white)", border: "1px solid var(--sage-light)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1.5rem" }}>
+              <div style={{ background: "var(--white)", padding: "3rem 2.75rem" }}>
+                <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--sage-xlight)", border: "1px solid var(--sage-light)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1.5rem" }}>
                   Real-life expert support
                 </span>
-                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.6rem, 3vw, 2.25rem)", color: "var(--charcoal)", marginBottom: "1rem", letterSpacing: "-0.01em" }}>
+                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", color: "var(--charcoal)", marginBottom: "0.875rem" }}>
                   Get coaching from a real inclusion expert
                 </h2>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--gray-soft)", lineHeight: 1.75, marginBottom: "2rem" }}>
-                  The platform isn't just content — it's backed by Rebekah Hayward, an award-winning EDI consultant. Book weekly office hours, enquire about one-to-one coaching, or join a live event to go deeper on what you're learning.
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--gray-soft)", lineHeight: 1.7, marginBottom: "1.75rem" }}>
+                  Backed by Rebekah Hayward, award-winning EDI consultant. Book weekly office hours, enquire about one-to-one coaching, or join a live event.
                 </p>
-                <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginBottom: "2rem" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem", marginBottom: "1.75rem" }}>
                   {[
-                    { icon: "📅", text: "Weekly office hours — book a slot with Rebekah" },
+                    { icon: "📅", text: "Weekly office hours book a slot" },
                     { icon: "🧠", text: "One-to-one expert coaching packages" },
                     { icon: "🎤", text: "Live events and cohort sessions" },
                   ].map((item) => (
                     <div key={item.text} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
-                      <span style={{ fontSize: "1.1rem", flexShrink: 0, marginTop: "0.05rem" }}>{item.icon}</span>
-                      <span style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.5 }}>{item.text}</span>
+                      <span style={{ fontSize: "1rem", flexShrink: 0 }}>{item.icon}</span>
+                      <span style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.5 }}>{item.text}</span>
                     </div>
                   ))}
                 </div>
-                <Link href="/dashboard/support" className="btn-primary" style={{ display: "inline-block", fontSize: "0.9rem" }}>
+                <Link href="/dashboard/support" className="btn-primary" style={{ display: "inline-block", fontSize: "0.875rem" }}>
                   See support options →
                 </Link>
               </div>
@@ -835,18 +714,78 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── MEMBERSHIP / PRICING ── */}
+        {/* SHARE AN INCLUSION CHALLENGE */}
+        <section style={{ padding: "4rem 1.5rem", background: "var(--white)" }}>
+          <div style={{ maxWidth: "760px", margin: "0 auto" }}>
+            <div style={{
+              borderRadius: "20px", padding: "2.75rem",
+              background: "linear-gradient(135deg, #1E3624 0%, #2C4A31 100%)",
+              boxShadow: "0 8px 40px rgba(30,54,36,0.25)",
+              position: "relative", overflow: "hidden",
+            }}>
+              <div style={{ position: "absolute", top: "-30px", right: "-30px", width: "160px", height: "160px", borderRadius: "50%", background: "rgba(255,255,255,0.04)" }} />
+              <div style={{ position: "absolute", bottom: "-40px", left: "-20px", width: "120px", height: "120px", borderRadius: "50%", background: "rgba(255,255,255,0.03)" }} />
+              <div style={{ position: "relative", zIndex: 1 }}>
+                <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "rgba(255,255,255,0.6)", marginBottom: "1rem" }}>
+                  💬 Community
+                </span>
+                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 3vw, 2rem)", color: "var(--white)", marginBottom: "0.75rem" }}>
+                  Share an inclusion challenge
+                </h2>
+                <p style={{ fontFamily: "var(--font-body)", color: "rgba(255,255,255,0.78)", fontSize: "0.95rem", marginBottom: "1.75rem", lineHeight: 1.65, maxWidth: "520px" }}>
+                  Facing something tricky in your EDI work? Share it here and we&apos;ll address it through the platform in content, resources, or our live sessions.
+                </p>
+                {challengeSubmitted ? (
+                  <div style={{ background: "rgba(255,255,255,0.12)", borderRadius: "12px", padding: "1.25rem 1.5rem", border: "1px solid rgba(255,255,255,0.2)" }}>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, color: "var(--white)", fontSize: "0.95rem" }}>✅ Thank you challenge received!</div>
+                    <div style={{ fontFamily: "var(--font-body)", color: "rgba(255,255,255,0.75)", fontSize: "0.85rem", marginTop: "0.375rem" }}>We&apos;ll review it and address it through the platform.</div>
+                  </div>
+                ) : (
+                  <div>
+                    <textarea
+                      className="challenge-textarea"
+                      value={challengeText}
+                      onChange={(e) => setChallengeText(e.target.value)}
+                      placeholder="Describe your inclusion challenge…"
+                      rows={3}
+                      style={{
+                        width: "100%", padding: "0.875rem 1rem", borderRadius: "10px",
+                        border: "1.5px solid rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.1)",
+                        color: "var(--white)", fontFamily: "var(--font-body)", fontSize: "0.9rem",
+                        outline: "none", resize: "vertical", marginBottom: "0.875rem",
+                        boxSizing: "border-box",
+                      }}
+                    />
+                    <button
+                      onClick={() => { if (challengeText.trim()) setChallengeSubmitted(true); }}
+                      style={{
+                        fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem",
+                        background: "var(--white)", color: "var(--sage-dark)",
+                        padding: "0.75rem 1.75rem", borderRadius: "8px", border: "none",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Share your challenge →
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* MEMBERSHIP / PRICING */}
         <section style={{ padding: "5rem 1.5rem", background: "var(--sage-xlight)" }} aria-label="Membership options">
           <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--white)", border: "1px solid var(--sage-light)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1rem" }}>
                 Pricing
               </span>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "0.75rem", letterSpacing: "-0.01em" }}>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "0.75rem" }}>
                 Membership for every stage
               </h2>
               <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.05rem", maxWidth: "440px", margin: "0 auto" }}>
-                Ready to build inclusion that lasts? Choose the plan that fits where you are.
+                Choose the plan that fits where you are.
               </p>
             </div>
 
@@ -876,11 +815,7 @@ export default function Home() {
                   border: t.highlight ? "2px solid var(--sage)" : "1.5px solid var(--gray-border)",
                   boxShadow: t.highlight ? "0 8px 40px rgba(92,131,96,0.18)" : "0 2px 12px rgba(0,0,0,0.04)",
                   position: "relative",
-                  transition: "transform 0.2s, box-shadow 0.2s",
-                }}
-                  onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.boxShadow = t.highlight ? "0 16px 48px rgba(92,131,96,0.22)" : "0 8px 32px rgba(0,0,0,0.09)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = t.highlight ? "0 8px 40px rgba(92,131,96,0.18)" : "0 2px 12px rgba(0,0,0,0.04)"; }}
-                >
+                }}>
                   {t.highlight && (
                     <div style={{ position: "absolute", top: "-1px", left: "50%", transform: "translateX(-50%)", background: "var(--sage-dark)", color: "white", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", textTransform: "uppercase", letterSpacing: "0.1em", padding: "0.3rem 1rem", borderRadius: "0 0 8px 8px" }}>
                       Most popular
@@ -896,7 +831,7 @@ export default function Home() {
                     <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2rem 0", display: "flex", flexDirection: "column", gap: "0.625rem" }}>
                       {t.features.map((f) => (
                         <li key={f} style={{ display: "flex", alignItems: "flex-start", gap: "0.625rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)" }}>
-                          <span style={{ color: "var(--sage)", fontWeight: 700, flexShrink: 0, marginTop: "0.1rem" }}>✓</span>
+                          <span style={{ color: "var(--sage)", fontWeight: 700, flexShrink: 0 }}>✓</span>
                           {f}
                         </li>
                       ))}
@@ -911,122 +846,27 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── TODAY'S FOCUS ── */}
-        <section style={{ background: "var(--sage-xlight)", padding: "4rem 1.5rem", borderTop: "1px solid var(--sage-light)", borderBottom: "1px solid var(--sage-light)" }}>
-          <div style={{ maxWidth: "900px", margin: "0 auto" }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.5rem" }}>
-              <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.82rem", textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--charcoal)", margin: 0 }}>
-                ✨ Today's Focus
-              </h2>
-              <div style={{ display: "flex", gap: "0.375rem" }}>
-                {FEATURED_CONTENT.map((_, i) => (
-                  <button key={i} onClick={() => setFeaturedIdx(i)} aria-label={`Show featured item ${i + 1}`}
-                    style={{ width: i === featuredIdx ? "20px" : "8px", height: "8px", borderRadius: "999px", background: i === featuredIdx ? "var(--sage-dark)" : "var(--gray-border)", border: "none", cursor: "pointer", transition: "all 0.3s", padding: 0 }}
-                  />
-                ))}
-              </div>
-            </div>
-            <div key={featured.id} className="todays-focus-card" style={{
-              background: "var(--white)", borderRadius: "20px", padding: "2.25rem 2.5rem",
-              display: "flex", alignItems: "center", justifyContent: "space-between", gap: "2rem",
-              border: "1.5px solid var(--sage-light)",
-              boxShadow: "0 4px 24px rgba(0,0,0,0.06)",
-              animation: "fadeInUp 0.4s ease",
-            }}>
-              <div>
-                <span className="badge badge-sage" style={{ marginBottom: "0.875rem", display: "inline-block" }}>{featured.pathway}</span>
-                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)", color: "var(--charcoal)", marginBottom: "0.5rem" }}>
-                  {featured.title}
-                </h3>
-                <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1rem", margin: 0 }}>
-                  {featured.tagline}
-                </p>
-              </div>
-              <button onClick={() => handleLockedClick(featured.title)} className="btn-primary" style={{ whiteSpace: "nowrap", flexShrink: 0 }}>
-                Start module →
-              </button>
-            </div>
-          </div>
+        {/* FINAL CTA */}
+        <section style={{ padding: "6rem 1.5rem", textAlign: "center", background: "var(--white)" }}>
+          <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--sage-xlight)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1.5rem" }}>
+            Join today
+          </span>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(2rem, 5vw, 3.25rem)", color: "var(--charcoal)", marginBottom: "1rem" }}>
+            Ready to build inclusion that lasts?
+          </h2>
+          <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.1rem", maxWidth: "36rem", margin: "0 auto 2.5rem", lineHeight: 1.7 }}>
+            Join practitioners, HR leaders, and people managers across the UK building their EDI capability backed by real expertise, not just content.
+          </p>
+          <Link href="/sign-up" className="btn-primary" style={{ fontSize: "1.05rem", padding: "1rem 2.75rem" }}>
+            Start your membership →
+          </Link>
+          <p style={{ marginTop: "1.25rem", fontFamily: "var(--font-heading)", fontSize: "0.78rem", color: "var(--gray-soft)", letterSpacing: "0.04em" }}>
+            CPD content · WCAG 2.1 AA · Cancel any time
+          </p>
         </section>
-
-        {/* ── FINAL CTA ── */}
-        <section style={{ padding: "6rem 1.5rem", textAlign: "center", background: "var(--white)", position: "relative", overflow: "hidden" }}>
-          {/* Subtle background texture */}
-          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/workshop.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", filter: "brightness(0.08) saturate(0.3)", zIndex: 0 }} aria-hidden="true" />
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, var(--white) 0%, rgba(255,255,255,0.96) 30%, rgba(255,255,255,0.96) 70%, var(--white) 100%)", zIndex: 1 }} aria-hidden="true" />
-          <div style={{ position: "relative", zIndex: 2 }}>
-            <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--sage-xlight)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1.5rem" }}>
-              Join today
-            </span>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(2rem, 5vw, 3.25rem)", color: "var(--charcoal)", marginBottom: "1rem", letterSpacing: "-0.01em" }}>
-              Ready to build inclusion that lasts?
-            </h2>
-            <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.1rem", maxWidth: "36rem", margin: "0 auto 2.5rem", lineHeight: 1.7 }}>
-              Join practitioners, HR leaders, and people managers across the UK building their EDI capability — backed by real expertise, not just content.
-            </p>
-            <Link href="/sign-up" className="btn-primary" style={{ fontSize: "1.05rem", padding: "1rem 2.75rem", boxShadow: "0 4px 24px rgba(92,131,96,0.3)" }}>
-              Start your membership →
-            </Link>
-            <p style={{ marginTop: "1.25rem", fontFamily: "var(--font-heading)", fontSize: "0.78rem", color: "var(--gray-soft)", letterSpacing: "0.04em" }}>
-              CPD-accredited · WCAG 2.1 AA · Cancel any time
-            </p>
-          </div>
-        </section>
-
-        {/* ── SHARE AN INCLUSION CHALLENGE ── */}
-        <section style={{ padding: "4rem 1.5rem", background: "var(--white)" }}>
-          <style>{`.hero-challenge-textarea::placeholder { color: rgba(255,255,255,0.5); }`}</style>
-          <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-            <div style={{
-              borderRadius: "20px", padding: "2.75rem",
-              background: "linear-gradient(135deg, #1E3624 0%, #2C4A31 100%)",
-              boxShadow: "0 8px 40px rgba(30,54,36,0.25)",
-              position: "relative", overflow: "hidden",
-            }}>
-              {/* Decorative circles */}
-              <div style={{ position: "absolute", top: "-30px", right: "-30px", width: "160px", height: "160px", borderRadius: "50%", background: "rgba(255,255,255,0.04)" }} />
-              <div style={{ position: "absolute", bottom: "-40px", left: "-20px", width: "120px", height: "120px", borderRadius: "50%", background: "rgba(255,255,255,0.03)" }} />
-              <div style={{ position: "relative", zIndex: 1 }}>
-                <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "rgba(255,255,255,0.6)", marginBottom: "1rem" }}>
-                  💬 Community
-                </span>
-                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)", color: "var(--white)", marginBottom: "0.75rem" }}>
-                  Share an inclusion challenge
-                </h2>
-                <p style={{ fontFamily: "var(--font-body)", color: "rgba(255,255,255,0.78)", fontSize: "0.95rem", marginBottom: "1.75rem", lineHeight: 1.65 }}>
-                  Facing something tricky in your EDI work? Share it here and we&apos;ll address it through the platform in content, resources, or our live sessions.
-                </p>
-                {challengeSubmitted ? (
-                  <div style={{ background: "rgba(255,255,255,0.12)", borderRadius: "12px", padding: "1.25rem 1.5rem", border: "1px solid rgba(255,255,255,0.2)" }}>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, color: "var(--white)", fontSize: "0.95rem" }}>✅ Thank you, challenge received!</div>
-                    <div style={{ fontFamily: "var(--font-body)", color: "rgba(255,255,255,0.75)", fontSize: "0.85rem", marginTop: "0.375rem" }}>We&apos;ll review it and address it through the platform.</div>
-                  </div>
-                ) : (
-                  <div>
-                    <textarea
-                      className="hero-challenge-textarea"
-                      value={challengeText}
-                      onChange={(e) => setChallengeText(e.target.value)}
-                      placeholder="Describe your inclusion challenge…"
-                      rows={3}
-                      style={{ width: "100%", padding: "0.875rem 1rem", borderRadius: "10px", border: "1.5px solid rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.1)", color: "var(--white)", fontFamily: "var(--font-body)", fontSize: "0.9rem", outline: "none", resize: "vertical", marginBottom: "0.875rem", boxSizing: "border-box" }}
-                    />
-                    <button
-                      onClick={() => { if (challengeText.trim()) setChallengeSubmitted(true); }}
-                      style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", background: "var(--white)", color: "var(--sage-dark)", padding: "0.75rem 1.75rem", borderRadius: "8px", border: "none", cursor: "pointer" }}
-                    >
-                      Share your challenge →
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </section>
-
       </main>
 
-      {/* ── FOOTER ── */}
+      {/* FOOTER */}
       <footer role="contentinfo" style={{ borderTop: "1px solid var(--gray-border)", padding: "2rem 1.5rem", background: "var(--white)" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
           <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--charcoal)" }}>
@@ -1040,17 +880,16 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* ── STICKY JOIN BANNER ── */}
+      {/* STICKY JOIN BANNER */}
       <div role="complementary" aria-label="Membership call to action" style={{
         position: "fixed", bottom: 0, left: 0, right: 0,
         background: "rgba(30,40,32,0.97)", backdropFilter: "blur(8px)",
         color: "var(--white)", padding: "0.875rem 1.5rem",
         display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem",
         zIndex: 200, boxShadow: "0 -4px 24px rgba(0,0,0,0.2)",
-        borderTop: "1px solid rgba(255,255,255,0.08)",
       }}>
         <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.8)", margin: 0 }}>
-          <strong style={{ color: "var(--white)" }}>Unlock the full platform</strong> — 31 CPD modules, 50+ tools, evidence resources and expert coaching.
+          <strong style={{ color: "var(--white)" }}>Unlock the full platform</strong> 31 CPD modules, 50+ tools, evidence resources and expert coaching.
         </p>
         <div style={{ display: "flex", gap: "0.75rem", flexShrink: 0 }}>
           <Link href="/sign-in" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "rgba(255,255,255,0.65)", textDecoration: "none", padding: "0.5rem 0.875rem", border: "1px solid rgba(255,255,255,0.2)", borderRadius: "6px" }}>
@@ -1062,7 +901,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── JOIN MODAL ── */}
+      {/* JOIN MODAL */}
       {joinModalOpen && (
         <div role="dialog" aria-modal="true" aria-labelledby="join-modal-title"
           style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.55)", zIndex: 500, display: "flex", alignItems: "center", justifyContent: "center", padding: "1.5rem", backdropFilter: "blur(4px)" }}
@@ -1089,12 +928,7 @@ export default function Home() {
       )}
 
       <style>{`
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(14px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ── Nav show/hide helpers ── */
+        .challenge-textarea::placeholder { color: rgba(255,255,255,0.5); }
         .hidden { display: none !important; }
         @media (min-width: 768px) {
           .hidden.md\\:flex { display: flex !important; }
@@ -1102,13 +936,9 @@ export default function Home() {
         }
         @media (max-width: 767px) {
           .mobile-menu-btn { display: block !important; }
-          /* On mobile, shrink/hide the search bar in nav — rely on mobile menu */
           nav .hidden { display: none !important; }
         }
-
-        /* ── Tablet breakpoint (≤900px) ── */
         @media (max-width: 900px) {
-          /* Grids → 2-col or 1-col */
           .platform-cards-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .platform-cards-bottom { grid-template-columns: repeat(2, 1fr) !important; max-width: 100% !important; }
           .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
@@ -1118,31 +948,14 @@ export default function Home() {
           .pricing-grid { grid-template-columns: 1fr !important; }
           .coaching-grid { grid-template-columns: 1fr !important; }
           .two-paths-grid { grid-template-columns: 1fr !important; }
-          /* Coaching image — hide on tablet to save space, show content */
           .coaching-grid > div:first-child { min-height: 220px !important; }
-          /* Today's focus card — stack on mobile */
-          .todays-focus-card { flex-direction: column !important; align-items: flex-start !important; }
-          .todays-focus-card button { align-self: stretch !important; text-align: center !important; }
-          /* Sticky join banner — stack text above buttons */
           [role="complementary"] { flex-direction: column !important; align-items: flex-start !important; padding: 1rem 1.25rem !important; gap: 0.75rem !important; }
-          [role="complementary"] > div { width: 100% !important; justify-content: stretch !important; }
+          [role="complementary"] > div { width: 100% !important; }
           [role="complementary"] > div a { flex: 1 !important; text-align: center !important; }
         }
-
-        /* ── Mobile breakpoint (≤600px) ── */
         @media (max-width: 600px) {
-          /* Platform cards → single column */
           .platform-cards-grid { grid-template-columns: 1fr !important; }
           .platform-cards-bottom { grid-template-columns: 1fr !important; }
-          /* Stats → 2 col stays fine at 600px */
-          /* Reduced hero padding */
-          section[style*="minHeight"] > div { padding: 3rem 1.25rem !important; }
-          /* Hero buttons stack */
-          section[style*="minHeight"] div[style*="flexWrap: \\"wrap\\""] { flex-direction: column !important; align-items: stretch !important; }
-          section[style*="minHeight"] div[style*="flexWrap: \\"wrap\\""] a { text-align: center !important; }
-          /* Nav search bar — very compact */
-          nav div[style*="flex: \\"0 1 300px\\""] { flex: 0 1 140px !important; }
-          /* Section padding reduction */
           section { padding-left: 1rem !important; padding-right: 1rem !important; }
         }
       `}</style>
