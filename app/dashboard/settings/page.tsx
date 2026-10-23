@@ -1,4 +1,3 @@
-import { UserProfile } from "@clerk/nextjs";
 import Link from "next/link";
 
 export default function SettingsPage() {
@@ -11,7 +10,7 @@ export default function SettingsPage() {
         </div>
       </div>
       <main id="main-content" style={{ maxWidth: "1100px", margin: "0 auto", padding: "2.5rem 1.5rem 5rem" }}>
-        <UserProfile />
+        <p>Settings coming soon.</p>
       </main>
     </div>
   );

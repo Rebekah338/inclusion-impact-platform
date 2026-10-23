@@ -1,6 +1,6 @@
 "use client";
 
-import { useUser } from "@clerk/nextjs";
+
 import Link from "next/link";
 import { useState } from "react";
 
@@ -44,7 +44,7 @@ const SAMPLE_POSTS = [
 ];
 
 export default function CommunityPage() {
-  const { user } = useUser();
+  
   const [newPost, setNewPost] = useState("");
   const [newTitle, setNewTitle] = useState("");
   const [activeTab, setActiveTab] = useState<"discussion" | "blogs">("discussion");

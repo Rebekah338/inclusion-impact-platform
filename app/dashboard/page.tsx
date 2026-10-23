@@ -1,6 +1,6 @@
 "use client";
 
-import { useUser, UserButton } from "@clerk/nextjs";
+
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { searchContent, CONTENT, FEATURED_CONTENT, TYPE_ICONS, TYPE_LABELS } from "@/lib/content";
@@ -11,7 +11,7 @@ const TRENDING = [
 ];
 
 export default function DashboardPage() {
-  const { user } = useUser();
+  
   const firstName = user?.firstName || "there";
 
   const [dyslexiaMode, setDyslexiaMode] = useState(false);
@@ -144,7 +144,7 @@ export default function DashboardPage() {
           <Link href="/dashboard/pulse" style={{ fontSize: "0.8rem", fontFamily: "var(--font-heading)", color: "var(--sage-dark)", fontWeight: 600, textDecoration: "none" }}>Inclusion Pulse</Link>
           <Link href="/dashboard/saved" style={{ fontSize: "0.8rem", fontFamily: "var(--font-heading)", color: "var(--gray-soft)", textDecoration: "none" }}>Saved</Link>
           <Link href="/dashboard/settings" style={{ fontSize: "0.8rem", fontFamily: "var(--font-heading)", color: "var(--gray-soft)", textDecoration: "none" }}>Settings</Link>
-          <UserButton />
+          
         </div>
       </nav>
 
