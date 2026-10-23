@@ -92,7 +92,7 @@ export default function DashboardPage() {
 
       {/* Top nav */}
       <nav role="navigation" aria-label="Platform navigation" style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)", padding: "0 1.5rem", height: "64px", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 50 }}>
-        <Link href="/dashboard" aria-label="Dashboard home" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--charcoal)", textDecoration: "none" }}>
+        <Link href="/" aria-label="Home" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--charcoal)", textDecoration: "none" }}>
           THE INCLUSION EDIT
           <span style={{ color: "var(--sage)", marginLeft: "0.5rem", fontWeight: 400 }}>· Impact Platform</span>
         </Link>
