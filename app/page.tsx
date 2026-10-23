@@ -38,7 +38,7 @@ const PATHWAY_INFO = [
     border: "var(--sage-light)",
     desc: "Psychological safety, belonging, wellbeing, and inclusive workplace culture.",
     count: modulesByPathway["People & Culture"].length,
-    img: "/images/team-meeting.jpg",
+    img: "/team-meeting.jpg",
   },
   {
     key: "Systems & Processes",
@@ -48,7 +48,7 @@ const PATHWAY_INFO = [
     border: "#C8D9CB",
     desc: "Recruitment, policy, data, accessibility, and the structures that shape inclusion.",
     count: modulesByPathway["Systems & Processes"].length,
-    img: "/images/collaboration.jpg",
+    img: "/collaboration.jpg",
   },
   {
     key: "Leadership & Strategy",
@@ -58,7 +58,7 @@ const PATHWAY_INFO = [
     border: "#B5CDB9",
     desc: "Strategy, business case, stakeholder buy-in, and leading inclusion at scale.",
     count: modulesByPathway["Leadership & Strategy"].length,
-    img: "/images/diverse-team.jpg",
+    img: "/hero-people.jpg",
   },
 ];
 
@@ -88,19 +88,19 @@ export default function Home() {
 
   const WATCH_ITEMS = {
     "deep-dives": [
-      { title: "What is EDI and Why Does It Matter?", duration: "~30 min", img: "/images/diverse-team.jpg" },
-      { title: "Leading with Inclusion", duration: "~35 min", img: "/images/team-meeting.jpg" },
-      { title: "Anti-Racism at Work", duration: "~40 min", img: "/images/collaboration.jpg" },
+      { title: "What is EDI and Why Does It Matter?", duration: "~30 min", img: "/hero-people.jpg" },
+      { title: "Leading with Inclusion", duration: "~35 min", img: "/team-meeting.jpg" },
+      { title: "Anti-Racism at Work", duration: "~40 min", img: "/collaboration.jpg" },
     ],
     "masterclasses": [
-      { title: "Psychological Safety in Teams", duration: "~20 min", img: "/images/coaching.jpg" },
-      { title: "Inclusive Recruitment Deep Dive", duration: "~25 min", img: "/images/team-meeting.jpg" },
-      { title: "Making the Business Case", duration: "~20 min", img: "/images/diverse-team.jpg" },
+      { title: "Psychological Safety in Teams", duration: "~20 min", img: "/coaching.jpg" },
+      { title: "Inclusive Recruitment Deep Dive", duration: "~25 min", img: "/team-meeting.jpg" },
+      { title: "Making the Business Case", duration: "~20 min", img: "/hero-people.jpg" },
     ],
     "quick-wins": [
-      { title: "5 Microaggressions to Avoid", duration: "~8 min", img: "/images/workshop.jpg" },
-      { title: "Running an Inclusive Meeting", duration: "~6 min", img: "/images/collaboration.jpg" },
-      { title: "Reading Your EDI Data", duration: "~10 min", img: "/images/team-meeting.jpg" },
+      { title: "5 Microaggressions to Avoid", duration: "~8 min", img: "/workshop.jpg" },
+      { title: "Running an Inclusive Meeting", duration: "~6 min", img: "/collaboration.jpg" },
+      { title: "Reading Your EDI Data", duration: "~10 min", img: "/team-meeting.jpg" },
     ],
   };
 
@@ -297,7 +297,7 @@ export default function Home() {
           {/* Background image — visible, not blacked out */}
           <div style={{
             position: "absolute", inset: 0,
-            backgroundImage: "url('/images/hero.jpg')",
+            backgroundImage: "url('/hero.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center 30%",
           }} aria-hidden="true" />
@@ -518,7 +518,7 @@ export default function Home() {
           {/* Glazed photo background */}
           <div style={{
             position: "absolute", inset: 0,
-            backgroundImage: "url('/images/diverse-team.jpg')",
+            backgroundImage: "url('/hero-people.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center 40%",
             zIndex: 0,
@@ -708,7 +708,7 @@ export default function Home() {
           {/* Background photo */}
           <div style={{
             position: "absolute", inset: 0,
-            backgroundImage: "url('/images/workshop.jpg')",
+            backgroundImage: "url('/workshop.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center",
             zIndex: 0,
@@ -795,7 +795,7 @@ export default function Home() {
             }}>
               {/* Image panel */}
               <div style={{
-                backgroundImage: "url('/images/coaching.jpg')",
+                backgroundImage: "url('/coaching.jpg')",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 minHeight: "400px",
@@ -952,7 +952,7 @@ export default function Home() {
         {/* ── FINAL CTA ── */}
         <section style={{ padding: "6rem 1.5rem", textAlign: "center", background: "var(--white)", position: "relative", overflow: "hidden" }}>
           {/* Subtle background texture */}
-          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/images/workshop.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", filter: "brightness(0.08) saturate(0.3)", zIndex: 0 }} aria-hidden="true" />
+          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/workshop.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", filter: "brightness(0.08) saturate(0.3)", zIndex: 0 }} aria-hidden="true" />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, var(--white) 0%, rgba(255,255,255,0.96) 30%, rgba(255,255,255,0.96) 70%, var(--white) 100%)", zIndex: 1 }} aria-hidden="true" />
           <div style={{ position: "relative", zIndex: 2 }}>
             <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--sage-xlight)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1.5rem" }}>
