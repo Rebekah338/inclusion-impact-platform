@@ -42,6 +42,22 @@ export default function WatchPage() {
           </p>
         </div>
 
+
+        {/* SECTION HEADERS */}
+        <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "0.5rem", marginTop: "2rem", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+          📽️ CPD Training Videos
+        </h2>
+        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", marginBottom: "1.5rem" }}>Structured, CPD-accredited training sessions — coming soon.</p>
+
+        <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "0.5rem", marginTop: "2.5rem", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+          🎓 Masterclasses
+        </h2>
+        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", marginBottom: "1.5rem" }}>Focused sessions with expert practitioners on specific EDI challenges.</p>
+
+        <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "0.5rem", marginTop: "2.5rem", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+          ⚡ Nuggets & Snapshots
+        </h2>
+        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", marginBottom: "1.5rem" }}>Short, actionable video takeaways — 5 to 10 minutes, designed to fit your week.</p>
         <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "1rem", textTransform: "uppercase", letterSpacing: "0.08em" }}>
           What&apos;s coming
         </h2>
@@ -63,6 +79,49 @@ export default function WatchPage() {
             </div>
           ))}
         </div>
+
+        {/* SHARE AN INCLUSION CHALLENGE */}
+        <section style={{ marginTop: "3rem", marginBottom: "1.5rem" }}>
+          <div style={{
+            borderRadius: "18px", padding: "2rem 2.25rem",
+            background: "linear-gradient(135deg, #1E3624 0%, #2C4A31 100%)",
+            boxShadow: "0 6px 28px rgba(30,54,36,0.2)",
+          }}>
+            <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1rem", color: "var(--white)", marginBottom: "0.4rem" }}>
+              💬 Share an inclusion challenge
+            </div>
+            <div style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.6, marginBottom: "1rem" }}>
+              Facing something tricky in your EDI work? Share it here and we&apos;ll address it through the platform — in content, resources, or our live sessions.
+            </div>
+            <a href="mailto:hello@theinclusionedit.com?subject=Inclusion%20Challenge"
+              style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", background: "var(--white)", color: "var(--sage-dark)", padding: "0.65rem 1.25rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>
+              Share your challenge →
+            </a>
+          </div>
+        </section>
+
+        {/* REQUEST A NEW RESOURCE */}
+        <section style={{ marginBottom: "1.5rem" }}>
+          <div style={{
+            borderRadius: "18px", padding: "2rem 2.25rem",
+            background: "linear-gradient(135deg, #2A4A30 0%, #3D6142 100%)",
+            boxShadow: "0 6px 28px rgba(42,74,48,0.2)",
+            display: "flex", alignItems: "center", gap: "2rem", flexWrap: "wrap",
+          }}>
+            <div style={{ flex: 1, minWidth: "200px" }}>
+              <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1rem", color: "var(--white)", marginBottom: "0.4rem" }}>
+                💡 Request a new resource
+              </div>
+              <div style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}>
+                Missing a video topic you need? Let us know and we&apos;ll prioritise it for the Watch library.
+              </div>
+            </div>
+            <a href="mailto:hello@theinclusionedit.com?subject=Video%20Request"
+              style={{ flexShrink: 0, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", background: "var(--white)", color: "var(--sage-dark)", padding: "0.65rem 1.25rem", borderRadius: "8px", textDecoration: "none" }}>
+              Send a request →
+            </a>
+          </div>
+        </section>
       </main>
     </div>
   );

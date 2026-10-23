@@ -30,7 +30,7 @@ const CHECKLISTS = [
   { icon: "🔒", title: "EDI Policy Audit Checklist", desc: "A checklist to review your existing HR and people policies through an inclusion lens — identifying gaps, exclusionary language, and missed opportunities.", tags: ["policy", "audit"], time: "30 min" },
 ];
 
-type Tab = "tools" | "guides" | "checklists";
+type Tab = "tools" | "guides" | "checklists" | "glossary" | "reflection" | "surveys";
 
 export default function ApplyPage() {
   const [activeTab, setActiveTab] = useState<Tab>("tools");
@@ -58,6 +58,9 @@ export default function ApplyPage() {
               { key: "tools", label: "🛠️ Tools & Frameworks" },
               { key: "guides", label: "📖 Guides" },
               { key: "checklists", label: "✅ Checklists" },
+              { key: "glossary", label: "📖 Glossary" },
+              { key: "reflection", label: "🪞 Reflection Tool" },
+              { key: "surveys", label: "📝 Surveys" },
             ] as { key: Tab; label: string }[]).map((tab) => (
               <button key={tab.key} onClick={() => setActiveTab(tab.key)}
                 style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", padding: "0.75rem 1.5rem", background: "none", border: "none", cursor: "pointer", color: activeTab === tab.key ? "var(--sage-dark)" : "var(--gray-soft)", borderBottom: activeTab === tab.key ? "2px solid var(--sage-dark)" : "2px solid transparent", marginBottom: "-2px" }}>
@@ -118,6 +121,57 @@ export default function ApplyPage() {
                 <button className="btn-primary" style={{ fontSize: "0.8rem", padding: "0.5rem 1rem", width: "100%" }}>Open checklist →</button>
               </div>
             ))}
+          </div>
+        )}
+
+        {activeTab === "glossary" && (
+          <div>
+            <div style={{ background: "var(--white)", borderRadius: "16px", padding: "2rem", boxShadow: "0 2px 12px rgba(0,0,0,0.05)", border: "1.5px solid var(--gray-border)" }}>
+              <div style={{ textAlign: "center", padding: "3rem 1.5rem" }}>
+                <div style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>📖</div>
+                <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.25rem", color: "var(--charcoal)", marginBottom: "0.5rem" }}>EDI Glossary</h2>
+                <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.9rem", maxWidth: "480px", margin: "0 auto 1.5rem" }}>
+                  A comprehensive glossary of EDI terms, concepts, and definitions — from allyship to intersectionality, psychological safety to systemic racism. Coming soon.
+                </p>
+                <span style={{ display: "inline-block", background: "var(--sage-xlight)", border: "1px solid var(--sage-light)", color: "var(--sage-dark)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", padding: "0.35rem 1rem", borderRadius: "999px" }}>
+                  Coming soon
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "reflection" && (
+          <div>
+            <div style={{ background: "var(--white)", borderRadius: "16px", padding: "2rem", boxShadow: "0 2px 12px rgba(0,0,0,0.05)", border: "1.5px solid var(--gray-border)" }}>
+              <div style={{ textAlign: "center", padding: "3rem 1.5rem" }}>
+                <div style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>🪞</div>
+                <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.25rem", color: "var(--charcoal)", marginBottom: "0.5rem" }}>Reflection Tool</h2>
+                <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.9rem", maxWidth: "480px", margin: "0 auto 1.5rem" }}>
+                  A guided reflection tool to help you consolidate your learning, identify your next steps, and track your professional development journey. Coming soon.
+                </p>
+                <span style={{ display: "inline-block", background: "var(--sage-xlight)", border: "1px solid var(--sage-light)", color: "var(--sage-dark)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", padding: "0.35rem 1rem", borderRadius: "999px" }}>
+                  Coming soon
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "surveys" && (
+          <div>
+            <div style={{ background: "var(--white)", borderRadius: "16px", padding: "2rem", boxShadow: "0 2px 12px rgba(0,0,0,0.05)", border: "1.5px solid var(--gray-border)" }}>
+              <div style={{ textAlign: "center", padding: "3rem 1.5rem" }}>
+                <div style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>📝</div>
+                <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.25rem", color: "var(--charcoal)", marginBottom: "0.5rem" }}>Surveys</h2>
+                <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.9rem", maxWidth: "480px", margin: "0 auto 1.5rem" }}>
+                  Ready-to-use survey templates for inclusion pulse checks, culture audits, and post-training feedback — with analysis guidance. Coming soon.
+                </p>
+                <span style={{ display: "inline-block", background: "var(--sage-xlight)", border: "1px solid var(--sage-light)", color: "var(--sage-dark)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", padding: "0.35rem 1rem", borderRadius: "999px" }}>
+                  Coming soon
+                </span>
+              </div>
+            </div>
           </div>
         )}
       </main>

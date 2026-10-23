@@ -119,6 +119,29 @@ export default function LearnPage() {
             </div>
           </section>
         ))}
+
+      {/* REQUEST A NEW RESOURCE */}
+      <section style={{ padding: "2rem 0", marginTop: "1rem" }}>
+        <div style={{
+          borderRadius: "18px", padding: "2.25rem 2.5rem",
+          background: "linear-gradient(135deg, #2A4A30 0%, #3D6142 100%)",
+          boxShadow: "0 6px 32px rgba(42,74,48,0.2)",
+          display: "flex", alignItems: "center", gap: "2rem", flexWrap: "wrap",
+        }}>
+          <div style={{ flex: 1, minWidth: "200px" }}>
+            <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.05rem", color: "var(--white)", marginBottom: "0.4rem" }}>
+              💡 Request a new resource
+            </div>
+            <div style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}>
+              Missing a module or topic you need? Let us know and we&apos;ll prioritise it.
+            </div>
+          </div>
+          <a href="mailto:hello@theinclusionedit.com?subject=Module%20Request"
+            style={{ flexShrink: 0, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", background: "var(--white)", color: "var(--sage-dark)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none" }}>
+            Send a request →
+          </a>
+        </div>
+      </section>
       </main>
     </div>
   );

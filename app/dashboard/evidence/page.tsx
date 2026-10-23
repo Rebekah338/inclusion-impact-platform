@@ -162,7 +162,7 @@ export default function EvidencePage() {
             {([
               { key: "research", label: "📊 Research & Data" },
               { key: "cases", label: "🏢 Case Studies" },
-              { key: "downloads", label: "📁 Downloads" },
+              { key: "downloads", label: "📁 Templates and Resources" },
             ] as { key: Tab; label: string }[]).map((tab) => (
               <button key={tab.key} onClick={() => setActiveTab(tab.key)}
                 style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", padding: "0.75rem 1.5rem", background: "none", border: "none", cursor: "pointer", color: activeTab === tab.key ? "var(--sage-dark)" : "var(--gray-soft)", borderBottom: activeTab === tab.key ? "2px solid var(--sage-dark)" : "2px solid transparent", marginBottom: "-2px" }}>
