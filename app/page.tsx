@@ -676,7 +676,7 @@ export default function Home() {
               border: "1.5px solid var(--sage-light)",
             }}>
               <div style={{
-                backgroundImage: "url('/coaching.jpg')",
+                backgroundImage: "url('/coaching-people.jpg')",
                 backgroundSize: "cover",
                 backgroundPosition: "center top",
                 minHeight: "380px",
