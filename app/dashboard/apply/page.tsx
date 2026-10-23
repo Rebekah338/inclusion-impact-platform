@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import PlatformNav from "@/app/components/PlatformNav";
+import BottomBanner from "@/app/components/BottomBanner";
 import { useState } from "react";
 
 const TOOLS = [
@@ -177,6 +178,7 @@ export default function ApplyPage() {
           </div>
         )}
       </main>
+      <BottomBanner />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PlatformNav from "@/app/components/PlatformNav";
+import BottomBanner from "@/app/components/BottomBanner";
 
 const upcomingVideos = [
   { title: "What is EDI and Why Does It Matter?", duration: "~25 min", topic: "Foundations" },
@@ -83,24 +84,6 @@ export default function WatchPage() {
         </div>
 
         {/* SHARE AN INCLUSION CHALLENGE */}
-        <section style={{ marginTop: "3rem", marginBottom: "1.5rem" }}>
-          <div style={{
-            borderRadius: "18px", padding: "2rem 2.25rem",
-            background: "linear-gradient(135deg, #1E3624 0%, #2C4A31 100%)",
-            boxShadow: "0 6px 28px rgba(30,54,36,0.2)",
-          }}>
-            <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1rem", color: "var(--white)", marginBottom: "0.4rem" }}>
-              💬 Share an inclusion challenge
-            </div>
-            <div style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.6, marginBottom: "1rem" }}>
-              Facing something tricky in your EDI work? Share it here and we&apos;ll address it through the platform in content, resources, or our live sessions.
-            </div>
-            <a href="mailto:hello@theinclusionedit.com?subject=Inclusion%20Challenge"
-              style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", background: "var(--white)", color: "var(--sage-dark)", padding: "0.65rem 1.25rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>
-              Share your challenge →
-            </a>
-          </div>
-        </section>
 
         {/* REQUEST A NEW RESOURCE */}
         <section style={{ marginBottom: "1.5rem" }}>
@@ -125,6 +108,7 @@ export default function WatchPage() {
           </div>
         </section>
       </main>
+      <BottomBanner />
     </div>
   );
 }

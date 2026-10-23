@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import PlatformNav from "@/app/components/PlatformNav";
+import BottomBanner from "@/app/components/BottomBanner";
 import { useState } from "react";
 
 const RESEARCH_REPORTS = [
@@ -258,6 +259,7 @@ export default function EvidencePage() {
           </>
         )}
       </main>
+      <BottomBanner />
     </div>
   );
 }
