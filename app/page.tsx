@@ -81,6 +81,26 @@ export default function Home() {
   const [activePathway, setActivePathway] = useState<string | null>(null);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [watchTab, setWatchTab] = useState<"deep-dives" | "masterclasses" | "quick-wins">("deep-dives");
+  const [carouselIdx, setCarouselIdx] = useState(0);
+
+  const WATCH_ITEMS = {
+    "deep-dives": [
+      { title: "What is EDI and Why Does It Matter?", duration: "~30 min", img: "/images/diverse-team.jpg" },
+      { title: "Leading with Inclusion", duration: "~35 min", img: "/images/team-meeting.jpg" },
+      { title: "Anti-Racism at Work", duration: "~40 min", img: "/images/collaboration.jpg" },
+    ],
+    "masterclasses": [
+      { title: "Psychological Safety in Teams", duration: "~20 min", img: "/images/coaching.jpg" },
+      { title: "Inclusive Recruitment Deep Dive", duration: "~25 min", img: "/images/team-meeting.jpg" },
+      { title: "Making the Business Case", duration: "~20 min", img: "/images/diverse-team.jpg" },
+    ],
+    "quick-wins": [
+      { title: "5 Microaggressions to Avoid", duration: "~8 min", img: "/images/workshop.jpg" },
+      { title: "Running an Inclusive Meeting", duration: "~6 min", img: "/images/collaboration.jpg" },
+      { title: "Reading Your EDI Data", duration: "~10 min", img: "/images/team-meeting.jpg" },
+    ],
+  };
 
   useEffect(() => {
     const t = setInterval(() => setFeaturedIdx((i) => (i + 1) % FEATURED_CONTENT.length), 6000);
@@ -241,23 +261,22 @@ export default function Home() {
             overflow: "hidden",
           }}
         >
-          {/* Background image */}
+          {/* Background image — visible, not blacked out */}
           <div style={{
             position: "absolute", inset: 0,
             backgroundImage: "url('/images/hero.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center 30%",
-            filter: "brightness(0.38) saturate(0.7)",
           }} aria-hidden="true" />
 
-          {/* Gradient overlay for polish */}
+          {/* Semi-transparent overlay — left side darker for text legibility, right fades */}
           <div style={{
             position: "absolute", inset: 0,
-            background: "linear-gradient(120deg, rgba(42,74,48,0.72) 0%, rgba(20,40,26,0.55) 60%, rgba(0,0,0,0.3) 100%)",
+            background: "linear-gradient(100deg, rgba(20,36,22,0.82) 0%, rgba(30,50,34,0.7) 45%, rgba(0,0,0,0.25) 100%)",
           }} aria-hidden="true" />
 
-          {/* Content */}
-          <div style={{ position: "relative", zIndex: 2, maxWidth: "1200px", margin: "0 auto", padding: "5rem 2rem 5rem" }}>
+          {/* Content — left aligned */}
+          <div style={{ position: "relative", zIndex: 2, maxWidth: "1200px", margin: "0 auto", padding: "5rem 2rem 5rem", width: "100%" }}>
             <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>
               CPD-accredited · Members-only platform
             </span>
@@ -265,39 +284,39 @@ export default function Home() {
             <h1 style={{
               fontFamily: "var(--font-display)",
               fontWeight: 700,
-              fontSize: "clamp(2.75rem, 6.5vw, 5rem)",
-              lineHeight: 1.1,
+              fontSize: "clamp(3rem, 7vw, 5.5rem)",
+              lineHeight: 1.05,
               color: "var(--white)",
-              maxWidth: "720px",
-              marginBottom: "1.5rem",
-              letterSpacing: "-0.01em",
+              maxWidth: "700px",
+              marginBottom: "1.25rem",
+              letterSpacing: "-0.02em",
             }}>
-              Your EDI practice,{" "}
+              Your EDI practice<br />
               <span style={{ color: "#A8D4B0" }}>built to last.</span>
             </h1>
 
             <p style={{
               fontFamily: "var(--font-body)",
-              fontSize: "clamp(1rem, 2vw, 1.2rem)",
+              fontSize: "clamp(1rem, 1.8vw, 1.15rem)",
               color: "rgba(255,255,255,0.85)",
-              maxWidth: "520px",
+              maxWidth: "640px",
               marginBottom: "2.5rem",
-              lineHeight: 1.75,
+              lineHeight: 1.7,
             }}>
-              The Impact Platform gives you the tools, training, and evidence to lead inclusion that works — not just in theory, but in practice.
+              The Impact Platform gives you the tools, training and evidence to lead inclusion that works — not just in theory, but in practice.
             </p>
 
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.875rem", marginBottom: "2.5rem" }}>
               <Link href="/sign-up" style={{
                 fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem",
-                background: "var(--sage)", color: "var(--white)",
+                background: "linear-gradient(135deg, #5C8360 0%, #3D6142 100%)", color: "var(--white)",
                 padding: "0.875rem 2rem", borderRadius: "10px", textDecoration: "none",
-                boxShadow: "0 4px 20px rgba(0,0,0,0.25)",
+                boxShadow: "0 4px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15)",
                 transition: "transform 0.15s, box-shadow 0.15s",
                 display: "inline-block",
               }}
-                onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 28px rgba(0,0,0,0.3)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.25)"; }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 8px 28px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.15)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.15)"; }}
               >
                 Start your membership →
               </Link>
@@ -326,6 +345,53 @@ export default function Home() {
           </div>
         </section>
 
+        {/* ── TWO PATHS ── */}
+        <section style={{ padding: "3.5rem 1.5rem 0", background: "var(--white)" }}>
+          <div style={{ maxWidth: "900px", margin: "0 auto" }}>
+            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--gray-soft)", textAlign: "center", marginBottom: "1.25rem" }}>
+              Where would you like to start?
+            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem" }}>
+              <Link href="#pulse-section" style={{ textDecoration: "none" }}>
+                <div style={{
+                  borderRadius: "18px", padding: "2rem",
+                  background: "linear-gradient(135deg, #3D6142 0%, #2A4A30 100%)",
+                  boxShadow: "0 8px 32px rgba(42,74,48,0.25), inset 0 1px 0 rgba(255,255,255,0.12)",
+                  cursor: "pointer", transition: "transform 0.18s, box-shadow 0.18s", position: "relative", overflow: "hidden",
+                }}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 14px 40px rgba(42,74,48,0.35), inset 0 1px 0 rgba(255,255,255,0.12)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 8px 32px rgba(42,74,48,0.25), inset 0 1px 0 rgba(255,255,255,0.12)"; }}
+                >
+                  <div style={{ position: "absolute", top: "-20px", right: "-20px", width: "100px", height: "100px", borderRadius: "50%", background: "rgba(255,255,255,0.06)" }} />
+                  <div style={{ position: "absolute", bottom: "-30px", right: "20px", width: "70px", height: "70px", borderRadius: "50%", background: "rgba(255,255,255,0.04)" }} />
+                  <div style={{ fontSize: "2rem", marginBottom: "0.875rem" }}>👤</div>
+                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.1rem", color: "white", marginBottom: "0.375rem" }}>I'm an individual</div>
+                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.55, marginBottom: "1.25rem" }}>Find out where to start your EDI learning journey</div>
+                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "rgba(255,255,255,0.9)" }}>Take the Inclusion Pulse →</span>
+                </div>
+              </Link>
+              <Link href="/dashboard/checkup" style={{ textDecoration: "none" }}>
+                <div style={{
+                  borderRadius: "18px", padding: "2rem",
+                  background: "linear-gradient(135deg, #5C8360 0%, #4A6E4E 100%)",
+                  boxShadow: "0 8px 32px rgba(92,131,96,0.25), inset 0 1px 0 rgba(255,255,255,0.12)",
+                  cursor: "pointer", transition: "transform 0.18s, box-shadow 0.18s", position: "relative", overflow: "hidden",
+                }}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 14px 40px rgba(92,131,96,0.35), inset 0 1px 0 rgba(255,255,255,0.12)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 8px 32px rgba(92,131,96,0.25), inset 0 1px 0 rgba(255,255,255,0.12)"; }}
+                >
+                  <div style={{ position: "absolute", top: "-20px", right: "-20px", width: "100px", height: "100px", borderRadius: "50%", background: "rgba(255,255,255,0.06)" }} />
+                  <div style={{ position: "absolute", bottom: "-30px", right: "20px", width: "70px", height: "70px", borderRadius: "50%", background: "rgba(255,255,255,0.04)" }} />
+                  <div style={{ fontSize: "2rem", marginBottom: "0.875rem" }}>🏢</div>
+                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.1rem", color: "white", marginBottom: "0.375rem" }}>I represent an organisation</div>
+                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.55, marginBottom: "1.25rem" }}>Find out which areas your organisation could improve on</div>
+                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "rgba(255,255,255,0.9)" }}>Take the Organisation Checkup →</span>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* ── EVERYTHING YOU NEED ── */}
         <section style={{ padding: "5rem 1.5rem", background: "var(--white)" }}>
           <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
@@ -341,7 +407,7 @@ export default function Home() {
               </p>
             </div>
 
-            {/* 4 + 2 centred grid */}
+            {/* 4 + 2 centred grid — glossy green cards */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem", marginBottom: "1.25rem" }}>
               {[
                 { href: "/dashboard/learn", icon: "📚", label: "Learn", sub: "CPD Modules", desc: "31 structured CPD-accredited modules across three learning pathways." },
@@ -351,16 +417,20 @@ export default function Home() {
               ].map((f) => (
                 <Link key={f.label} href={f.href} style={{ textDecoration: "none" }}>
                   <div style={{
-                    background: "var(--white)", border: "1.5px solid var(--gray-border)", borderRadius: "16px", padding: "1.75rem 1.5rem",
-                    transition: "box-shadow 0.2s, transform 0.15s, border-color 0.2s", cursor: "pointer", height: "100%",
+                    background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)",
+                    borderRadius: "18px", padding: "1.75rem 1.5rem",
+                    boxShadow: "0 6px 28px rgba(42,74,48,0.22), inset 0 1px 0 rgba(255,255,255,0.14), inset 0 -1px 0 rgba(0,0,0,0.15)",
+                    transition: "box-shadow 0.2s, transform 0.15s",
+                    cursor: "pointer", height: "100%", position: "relative", overflow: "hidden",
                   }}
-                    onMouseEnter={(e) => { const d = e.currentTarget; d.style.boxShadow = "0 8px 32px rgba(0,0,0,0.09)"; d.style.transform = "translateY(-3px)"; d.style.borderColor = "var(--sage-light)"; }}
-                    onMouseLeave={(e) => { const d = e.currentTarget; d.style.boxShadow = "none"; d.style.transform = "none"; d.style.borderColor = "var(--gray-border)"; }}
+                    onMouseEnter={(e) => { const d = e.currentTarget; d.style.boxShadow = "0 12px 40px rgba(42,74,48,0.35), inset 0 1px 0 rgba(255,255,255,0.14)"; d.style.transform = "translateY(-4px)"; }}
+                    onMouseLeave={(e) => { const d = e.currentTarget; d.style.boxShadow = "0 6px 28px rgba(42,74,48,0.22), inset 0 1px 0 rgba(255,255,255,0.14), inset 0 -1px 0 rgba(0,0,0,0.15)"; d.style.transform = "none"; }}
                   >
+                    <div style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
                     <div style={{ fontSize: "2rem", marginBottom: "1rem" }} aria-hidden="true">{f.icon}</div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.05rem", color: "var(--charcoal)", marginBottom: "0.2rem" }}>{f.label}</div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.72rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.75rem" }}>{f.sub}</div>
-                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.87rem", color: "var(--gray-soft)", lineHeight: 1.6 }}>{f.desc}</div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.05rem", color: "white", marginBottom: "0.2rem" }}>{f.label}</div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>{f.sub}</div>
+                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}>{f.desc}</div>
                   </div>
                 </Link>
               ))}
@@ -369,20 +439,23 @@ export default function Home() {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1.25rem", maxWidth: "600px", margin: "0 auto" }}>
               {[
                 { href: "/dashboard/support", icon: "🤝", label: "Get Support", sub: "Coaching & Office Hours", desc: "Book office hours with Rebekah, enquire about expert coaching, or join a live event." },
-                { href: "#pulse-section", icon: "🌡️", label: "Inclusion Pulse", sub: "Your Starting Point", desc: "5 quick questions to find your recommended starting point on the platform." },
+                { href: "/dashboard/community", icon: "🌡️", label: "The Inclusion Editors", sub: "Community", desc: "Connect with practitioners, share insights, and grow your network." },
               ].map((f) => (
                 <Link key={f.label} href={f.href} style={{ textDecoration: "none" }}>
                   <div style={{
-                    background: "var(--white)", border: "1.5px solid var(--gray-border)", borderRadius: "16px", padding: "1.75rem 1.5rem",
-                    transition: "box-shadow 0.2s, transform 0.15s, border-color 0.2s", cursor: "pointer",
+                    background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)",
+                    borderRadius: "18px", padding: "1.75rem 1.5rem",
+                    boxShadow: "0 6px 28px rgba(42,74,48,0.22), inset 0 1px 0 rgba(255,255,255,0.14), inset 0 -1px 0 rgba(0,0,0,0.15)",
+                    transition: "box-shadow 0.2s, transform 0.15s", cursor: "pointer", position: "relative", overflow: "hidden",
                   }}
-                    onMouseEnter={(e) => { const d = e.currentTarget; d.style.boxShadow = "0 8px 32px rgba(0,0,0,0.09)"; d.style.transform = "translateY(-3px)"; d.style.borderColor = "var(--sage-light)"; }}
-                    onMouseLeave={(e) => { const d = e.currentTarget; d.style.boxShadow = "none"; d.style.transform = "none"; d.style.borderColor = "var(--gray-border)"; }}
+                    onMouseEnter={(e) => { const d = e.currentTarget; d.style.boxShadow = "0 12px 40px rgba(42,74,48,0.35), inset 0 1px 0 rgba(255,255,255,0.14)"; d.style.transform = "translateY(-4px)"; }}
+                    onMouseLeave={(e) => { const d = e.currentTarget; d.style.boxShadow = "0 6px 28px rgba(42,74,48,0.22), inset 0 1px 0 rgba(255,255,255,0.14), inset 0 -1px 0 rgba(0,0,0,0.15)"; d.style.transform = "none"; }}
                   >
+                    <div style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
                     <div style={{ fontSize: "2rem", marginBottom: "1rem" }} aria-hidden="true">{f.icon}</div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.05rem", color: "var(--charcoal)", marginBottom: "0.2rem" }}>{f.label}</div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.72rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.75rem" }}>{f.sub}</div>
-                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.87rem", color: "var(--gray-soft)", lineHeight: 1.6 }}>{f.desc}</div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.05rem", color: "white", marginBottom: "0.2rem" }}>{f.label}</div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>{f.sub}</div>
+                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}>{f.desc}</div>
                   </div>
                 </Link>
               ))}
@@ -408,8 +481,22 @@ export default function Home() {
         </section>
 
         {/* ── EXPLORE THE PLATFORM ── */}
-        <section style={{ padding: "5rem 1.5rem", background: "var(--sage-xlight)" }}>
-          <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+        <section style={{ padding: "5rem 1.5rem", position: "relative", overflow: "hidden" }}>
+          {/* Glazed photo background */}
+          <div style={{
+            position: "absolute", inset: 0,
+            backgroundImage: "url('/images/diverse-team.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center 40%",
+            zIndex: 0,
+          }} aria-hidden="true" />
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "rgba(240, 244, 241, 0.91)",
+            backdropFilter: "blur(2px)",
+            zIndex: 1,
+          }} aria-hidden="true" />
+          <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 2 }}>
             <div style={{ textAlign: "center", marginBottom: "3rem" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--white)", border: "1px solid var(--sage-light)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1rem" }}>
                 Learning pathways
@@ -461,39 +548,7 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Module grid */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1rem" }}>
-              {visibleModules.map((m) => {
-                const isFree = FREE_IDS.has(m.id);
-                return (
-                  <button key={m.id}
-                    onClick={() => isFree ? (window.location.href = m.href) : handleLockedClick(m.title)}
-                    style={{
-                      textAlign: "left", background: "var(--white)", border: "1.5px solid var(--gray-border)",
-                      borderRadius: "12px", padding: "1.125rem", cursor: "pointer",
-                      transition: "box-shadow 0.2s, transform 0.15s", position: "relative",
-                    }}
-                    onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,0,0,0.08)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.transform = "none"; }}
-                  >
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.375rem" }}>
-                      <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.3 }}>{m.title}</span>
-                      {isFree
-                        ? <span style={{ fontSize: "0.6rem", fontFamily: "var(--font-heading)", fontWeight: 700, textTransform: "uppercase", color: "var(--sage-dark)", background: "var(--sage-light)", padding: "0.15rem 0.5rem", borderRadius: "999px", whiteSpace: "nowrap", marginLeft: "0.5rem", flexShrink: 0 }}>Free</span>
-                        : <span style={{ fontSize: "0.95rem", marginLeft: "0.5rem", flexShrink: 0 }} aria-hidden="true">🔒</span>
-                      }
-                    </div>
-                    {m.subtitle && <p style={{ fontSize: "0.79rem", color: "var(--gray-soft)", margin: "0 0 0.5rem", lineHeight: 1.5 }}>{m.subtitle}</p>}
-                    {m.duration && <div style={{ fontSize: "0.7rem", color: "var(--sage-dark)", fontFamily: "var(--font-heading)", fontWeight: 600 }}>⏱ {m.duration}</div>}
-                    {m.pathway && (
-                      <div style={{ marginTop: "0.5rem", fontSize: "0.65rem", fontFamily: "var(--font-heading)", fontWeight: 700, color: "var(--gray-soft)", textTransform: "uppercase", letterSpacing: "0.06em" }}>{m.pathway}</div>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-
-            <div style={{ textAlign: "center", marginTop: "2.5rem" }}>
+            <div style={{ textAlign: "center", marginTop: "0.5rem" }}>
               <Link href="/sign-up" className="btn-primary" style={{ fontSize: "0.95rem", padding: "0.875rem 2rem" }}>
                 Join to access all 31 modules →
               </Link>
@@ -504,81 +559,106 @@ export default function Home() {
         {/* ── EXPLORE THE WATCH LIBRARY ── */}
         <section style={{ padding: "5rem 1.5rem", background: "var(--white)" }}>
           <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "center" }}>
-              {/* Text side */}
-              <div>
-                <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--sage-xlight)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1.25rem" }}>
-                  Coming soon
-                </span>
-                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", color: "var(--charcoal)", marginBottom: "1rem", letterSpacing: "-0.01em" }}>
-                  Explore the Watch library
-                </h2>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--gray-soft)", lineHeight: 1.7, marginBottom: "2rem" }}>
-                  Expert-led video content is in production — launching to members first. Three types of content, designed to fit your day.
-                </p>
-                <Link href="/sign-up" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", textDecoration: "underline" }}>
-                  Join now to be first to know →
-                </Link>
-              </div>
+            <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--sage-xlight)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1rem" }}>
+                Coming soon
+              </span>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "0.75rem", letterSpacing: "-0.01em" }}>
+                Explore the Watch library
+              </h2>
+              <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.05rem", maxWidth: "520px", margin: "0 auto" }}>
+                Expert-led video content in production — launching to members first. Three formats, designed to fit your day.
+              </p>
+            </div>
 
-              {/* Three boxes */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-                {[
-                  { icon: "🎓", label: "Deep Dives", desc: "Full training sessions — 30–45 minute expert-led masterclasses on complex topics." },
-                  { icon: "🎬", label: "Masterclasses", desc: "Focused 15–20 minute sessions on a single skill, framework, or challenge." },
-                  { icon: "⚡", label: "Quick Wins", desc: "5–10 minute practical takeaways — actionable, sharp, and easy to fit into your week." },
-                ].map((w) => (
-                  <div key={w.label} style={{
-                    display: "flex", gap: "1rem", alignItems: "flex-start",
-                    background: "var(--sage-xlight)", borderRadius: "12px", padding: "1.25rem 1.25rem",
-                    border: "1px solid var(--sage-light)",
-                  }}>
-                    <div style={{ fontSize: "1.5rem", flexShrink: 0, marginTop: "0.1rem" }} aria-hidden="true">{w.icon}</div>
-                    <div>
-                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.95rem", color: "var(--charcoal)", marginBottom: "0.25rem" }}>{w.label}</div>
-                      <div style={{ fontFamily: "var(--font-body)", fontSize: "0.84rem", color: "var(--gray-soft)", lineHeight: 1.55 }}>{w.desc}</div>
+            {/* Three category description boxes */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", marginBottom: "3.5rem" }}>
+              {[
+                { icon: "🎓", label: "Deep Dives", desc: "Full 30–45 minute expert-led training sessions on complex EDI topics — structured, evidence-based and CPD-eligible.", key: "deep-dives" as const },
+                { icon: "🎬", label: "Masterclasses", desc: "Focused 15–20 minute sessions on a single skill, framework or challenge — practical and immediately applicable.", key: "masterclasses" as const },
+                { icon: "⚡", label: "Quick Wins", desc: "5–10 minute sharp, actionable takeaways — easy to fit into your week and share with your team.", key: "quick-wins" as const },
+              ].map((w) => (
+                <button key={w.label}
+                  onClick={() => { setWatchTab(w.key); setCarouselIdx(0); }}
+                  style={{
+                    textAlign: "left",
+                    background: watchTab === w.key
+                      ? "linear-gradient(160deg, #3D6142 0%, #2C4A31 100%)"
+                      : "var(--sage-xlight)",
+                    border: watchTab === w.key ? "2px solid var(--sage-dark)" : "1.5px solid var(--sage-light)",
+                    borderRadius: "16px", padding: "1.75rem 1.5rem",
+                    cursor: "pointer", transition: "all 0.2s",
+                    boxShadow: watchTab === w.key ? "0 6px 28px rgba(42,74,48,0.2)" : "none",
+                    transform: watchTab === w.key ? "translateY(-3px)" : "none",
+                  }}
+                >
+                  <div style={{ fontSize: "2rem", marginBottom: "0.875rem" }} aria-hidden="true">{w.icon}</div>
+                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1rem", color: watchTab === w.key ? "white" : "var(--charcoal)", marginBottom: "0.5rem" }}>{w.label}</div>
+                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.84rem", color: watchTab === w.key ? "rgba(255,255,255,0.82)" : "var(--gray-soft)", lineHeight: 1.6 }}>{w.desc}</div>
+                </button>
+              ))}
+            </div>
+
+            {/* Video carousel — images with play button overlay, tabbed by category */}
+            <div>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem" }}>
+                {WATCH_ITEMS[watchTab].map((item, i) => (
+                  <div key={item.title} style={{
+                    borderRadius: "16px", overflow: "hidden",
+                    boxShadow: carouselIdx === i ? "0 12px 40px rgba(0,0,0,0.18)" : "0 4px 16px rgba(0,0,0,0.08)",
+                    transform: carouselIdx === i ? "scale(1.02)" : "scale(1)",
+                    transition: "all 0.3s",
+                    cursor: "pointer",
+                    border: carouselIdx === i ? "2px solid var(--sage-dark)" : "1.5px solid var(--gray-border)",
+                  }}
+                    onClick={() => setCarouselIdx(i)}
+                  >
+                    {/* Image with play button overlay */}
+                    <div style={{ position: "relative", height: "190px", backgroundImage: `url('${item.img}')`, backgroundSize: "cover", backgroundPosition: "center" }}>
+                      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%)" }} />
+                      {/* Lock badge */}
+                      <div style={{ position: "absolute", top: "0.75rem", left: "0.75rem", background: "rgba(0,0,0,0.45)", backdropFilter: "blur(4px)", borderRadius: "999px", padding: "0.2rem 0.6rem", display: "flex", alignItems: "center", gap: "0.3rem" }}>
+                        <span style={{ fontSize: "0.65rem" }}>🔒</span>
+                        <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.62rem", color: "rgba(255,255,255,0.9)", textTransform: "uppercase", letterSpacing: "0.06em" }}>Members only</span>
+                      </div>
+                      {/* Play button */}
+                      <div style={{
+                        position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)",
+                        width: "56px", height: "56px", borderRadius: "50%",
+                        background: "rgba(255,255,255,0.95)",
+                        boxShadow: "0 4px 24px rgba(0,0,0,0.35)",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        transition: "transform 0.2s",
+                      }}>
+                        <div style={{ width: 0, height: 0, borderTop: "10px solid transparent", borderBottom: "10px solid transparent", borderLeft: "18px solid var(--sage-dark)", marginLeft: "4px" }} />
+                      </div>
+                      <span style={{ position: "absolute", bottom: "0.75rem", right: "0.75rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "rgba(255,255,255,0.9)", background: "rgba(0,0,0,0.4)", padding: "0.2rem 0.55rem", borderRadius: "999px", backdropFilter: "blur(4px)" }}>
+                        {item.duration}
+                      </span>
+                    </div>
+                    <div style={{ background: "var(--white)", padding: "1.125rem 1.25rem" }}>
+                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", color: "var(--charcoal)", lineHeight: 1.35 }}>{item.title}</div>
+                      <div style={{ marginTop: "0.45rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.68rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                        {watchTab === "deep-dives" ? "Deep Dive" : watchTab === "masterclasses" ? "Masterclass" : "Quick Win"} · Coming soon
+                      </div>
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ── TODAY'S FOCUS ── */}
-        <section style={{ background: "var(--sage-xlight)", padding: "4rem 1.5rem", borderTop: "1px solid var(--sage-light)", borderBottom: "1px solid var(--sage-light)" }}>
-          <div style={{ maxWidth: "900px", margin: "0 auto" }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.5rem" }}>
-              <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.82rem", textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--charcoal)", margin: 0 }}>
-                ✨ Today's Focus
-              </h2>
-              <div style={{ display: "flex", gap: "0.375rem" }}>
-                {FEATURED_CONTENT.map((_, i) => (
-                  <button key={i} onClick={() => setFeaturedIdx(i)} aria-label={`Show featured item ${i + 1}`}
-                    style={{ width: i === featuredIdx ? "20px" : "8px", height: "8px", borderRadius: "999px", background: i === featuredIdx ? "var(--sage-dark)" : "var(--gray-border)", border: "none", cursor: "pointer", transition: "all 0.3s", padding: 0 }}
+              {/* Carousel dots */}
+              <div style={{ display: "flex", justifyContent: "center", gap: "0.4rem", marginTop: "1.5rem" }}>
+                {WATCH_ITEMS[watchTab].map((_, i) => (
+                  <button key={i} onClick={() => setCarouselIdx(i)} aria-label={`Show video ${i + 1}`}
+                    style={{ width: carouselIdx === i ? "22px" : "8px", height: "8px", borderRadius: "999px", background: carouselIdx === i ? "var(--sage-dark)" : "var(--gray-border)", border: "none", cursor: "pointer", transition: "all 0.3s", padding: 0 }}
                   />
                 ))}
               </div>
             </div>
-            <div key={featured.id} style={{
-              background: "var(--white)", borderRadius: "20px", padding: "2.25rem 2.5rem",
-              display: "flex", alignItems: "center", justifyContent: "space-between", gap: "2rem",
-              border: "1.5px solid var(--sage-light)",
-              boxShadow: "0 4px 24px rgba(0,0,0,0.06)",
-              animation: "fadeInUp 0.4s ease",
-            }}>
-              <div>
-                <span className="badge badge-sage" style={{ marginBottom: "0.875rem", display: "inline-block" }}>{featured.pathway}</span>
-                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)", color: "var(--charcoal)", marginBottom: "0.5rem" }}>
-                  {featured.title}
-                </h3>
-                <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1rem", margin: 0 }}>
-                  {featured.tagline}
-                </p>
-              </div>
-              <button onClick={() => handleLockedClick(featured.title)} className="btn-primary" style={{ whiteSpace: "nowrap", flexShrink: 0 }}>
-                Start module →
-              </button>
+
+            <div style={{ textAlign: "center", marginTop: "2.5rem" }}>
+              <Link href="/sign-up" className="btn-primary" style={{ fontSize: "0.9rem" }}>
+                Join to access the full Watch library →
+              </Link>
             </div>
           </div>
         </section>
@@ -586,12 +666,27 @@ export default function Home() {
         {/* ── INCLUSION PULSE ── */}
         <section id="pulse-section" style={{
           padding: "5rem 1.5rem",
-          background: "linear-gradient(135deg, var(--sage-dark) 0%, #2A4A30 50%, #1E3A26 100%)",
+          position: "relative",
+          overflow: "hidden",
           opacity: pulseVisible ? 1 : 0,
           transform: pulseVisible ? "none" : "translateY(30px)",
           transition: "opacity 0.7s ease, transform 0.7s ease",
         }}>
-          <div style={{ maxWidth: "700px", margin: "0 auto", textAlign: "center" }}>
+          {/* Background photo */}
+          <div style={{
+            position: "absolute", inset: 0,
+            backgroundImage: "url('/images/workshop.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            zIndex: 0,
+          }} />
+          {/* Dark overlay for readability */}
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "linear-gradient(135deg, rgba(30,58,38,0.88) 0%, rgba(42,74,48,0.82) 100%)",
+            zIndex: 1,
+          }} />
+          <div style={{ maxWidth: "700px", margin: "0 auto", textAlign: "center", position: "relative", zIndex: 2 }}>
             <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "rgba(255,255,255,0.6)", marginBottom: "1rem" }}>
               🌡️ Inclusion Pulse
             </span>
@@ -779,6 +874,44 @@ export default function Home() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ── TODAY'S FOCUS ── */}
+        <section style={{ background: "var(--sage-xlight)", padding: "4rem 1.5rem", borderTop: "1px solid var(--sage-light)", borderBottom: "1px solid var(--sage-light)" }}>
+          <div style={{ maxWidth: "900px", margin: "0 auto" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.5rem" }}>
+              <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.82rem", textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--charcoal)", margin: 0 }}>
+                ✨ Today's Focus
+              </h2>
+              <div style={{ display: "flex", gap: "0.375rem" }}>
+                {FEATURED_CONTENT.map((_, i) => (
+                  <button key={i} onClick={() => setFeaturedIdx(i)} aria-label={`Show featured item ${i + 1}`}
+                    style={{ width: i === featuredIdx ? "20px" : "8px", height: "8px", borderRadius: "999px", background: i === featuredIdx ? "var(--sage-dark)" : "var(--gray-border)", border: "none", cursor: "pointer", transition: "all 0.3s", padding: 0 }}
+                  />
+                ))}
+              </div>
+            </div>
+            <div key={featured.id} style={{
+              background: "var(--white)", borderRadius: "20px", padding: "2.25rem 2.5rem",
+              display: "flex", alignItems: "center", justifyContent: "space-between", gap: "2rem",
+              border: "1.5px solid var(--sage-light)",
+              boxShadow: "0 4px 24px rgba(0,0,0,0.06)",
+              animation: "fadeInUp 0.4s ease",
+            }}>
+              <div>
+                <span className="badge badge-sage" style={{ marginBottom: "0.875rem", display: "inline-block" }}>{featured.pathway}</span>
+                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)", color: "var(--charcoal)", marginBottom: "0.5rem" }}>
+                  {featured.title}
+                </h3>
+                <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1rem", margin: 0 }}>
+                  {featured.tagline}
+                </p>
+              </div>
+              <button onClick={() => handleLockedClick(featured.title)} className="btn-primary" style={{ whiteSpace: "nowrap", flexShrink: 0 }}>
+                Start module →
+              </button>
             </div>
           </div>
         </section>
