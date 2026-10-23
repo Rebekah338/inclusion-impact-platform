@@ -239,7 +239,7 @@ export default function DashboardPage() {
         </h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem", marginBottom: "2rem" }}>
           {sections.map((s) => (
-            <Link key={s.href} href={s.href} className="card" style={{ textDecoration: "none", display: "block" }} aria-label={`${s.title} — ${s.subtitle}`}>
+            <Link key={s.href} href={s.href} className="card" style={{ textDecoration: "none", display: "block" }} aria-label={`${s.title} ${s.subtitle}`}>
               <div style={{ fontSize: "1.75rem", marginBottom: "0.625rem" }} aria-hidden="true">{s.icon}</div>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.2rem" }}>
                 <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)" }}>{s.title}</span>

@@ -8,10 +8,10 @@ const upcomingVideos = [
   { title: "How to Build an EDI Strategy from Scratch", duration: "~35 min", topic: "Strategy" },
   { title: "Psychological Safety in Teams", duration: "~25 min", topic: "People & Culture" },
   { title: "Making the Business Case for EDI", duration: "~30 min", topic: "ROI & Evidence" },
-  { title: "Inclusive Recruitment — Common Mistakes", duration: "~20 min", topic: "Systems" },
+  { title: "Inclusive Recruitment Common Mistakes", duration: "~20 min", topic: "Systems" },
   { title: "Anti-Racism at Work: Moving Beyond Awareness", duration: "~40 min", topic: "Anti-Racism" },
   { title: "Disability Inclusion in Practice", duration: "~25 min", topic: "Disability" },
-  { title: "EDI Data — Collecting, Using, and Communicating It", duration: "~30 min", topic: "Data & Insight" },
+  { title: "EDI Data Collecting, Using, and Communicating It", duration: "~30 min", topic: "Data & Insight" },
 ];
 
 export default function WatchPage() {
@@ -27,7 +27,7 @@ export default function WatchPage() {
             Watch
           </h1>
           <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)" }}>
-            Expert-led masterclasses on inclusive practice — coming soon.
+            Expert-led masterclasses on inclusive practice coming soon.
           </p>
         </div>
       </div>
@@ -49,7 +49,7 @@ export default function WatchPage() {
         <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "0.5rem", marginTop: "2rem", textTransform: "uppercase", letterSpacing: "0.08em" }}>
           📽️ CPD Training Videos
         </h2>
-        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", marginBottom: "1.5rem" }}>Structured, CPD-accredited training sessions — coming soon.</p>
+        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", marginBottom: "1.5rem" }}>Structured, CPD-accredited training sessions coming soon.</p>
 
         <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "0.5rem", marginTop: "2.5rem", textTransform: "uppercase", letterSpacing: "0.08em" }}>
           🎓 Masterclasses
@@ -59,7 +59,7 @@ export default function WatchPage() {
         <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "0.5rem", marginTop: "2.5rem", textTransform: "uppercase", letterSpacing: "0.08em" }}>
           ⚡ Nuggets & Snapshots
         </h2>
-        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", marginBottom: "1.5rem" }}>Short, actionable video takeaways — 5 to 10 minutes, designed to fit your week.</p>
+        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", marginBottom: "1.5rem" }}>Short, actionable video takeaways 5 to 10 minutes, designed to fit your week.</p>
         <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "1rem", textTransform: "uppercase", letterSpacing: "0.08em" }}>
           What&apos;s coming
         </h2>
@@ -93,7 +93,7 @@ export default function WatchPage() {
               💬 Share an inclusion challenge
             </div>
             <div style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.6, marginBottom: "1rem" }}>
-              Facing something tricky in your EDI work? Share it here and we&apos;ll address it through the platform — in content, resources, or our live sessions.
+              Facing something tricky in your EDI work? Share it here and we&apos;ll address it through the platform in content, resources, or our live sessions.
             </div>
             <a href="mailto:hello@theinclusionedit.com?subject=Inclusion%20Challenge"
               style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", background: "var(--white)", color: "var(--sage-dark)", padding: "0.65rem 1.25rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>

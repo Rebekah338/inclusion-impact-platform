@@ -17,7 +17,7 @@ const questions = [
   {
     id: "experience",
     question: "How would you describe your EDI experience?",
-    options: ["New to EDI — just starting out", "Some experience — building my knowledge", "Experienced — looking to go deeper", "Senior practitioner — want cutting-edge thinking"],
+    options: ["New to EDI just starting out", "Some experience building my knowledge", "Experienced looking to go deeper", "Senior practitioner want cutting-edge thinking"],
   },
   {
     id: "priority",
@@ -33,7 +33,7 @@ const questions = [
 
 const recommendations: Record<string, { module: string; id: string; reason: string }> = {
   "Getting leadership buy-in": { module: "The ROI of Inclusion", id: "roi-inclusion", reason: "You need evidence and narrative frameworks to take to senior stakeholders." },
-  "Knowing where to start": { module: "Building an EDI Strategy", id: "edi-strategy", reason: "This gives you a clear framework to work from — wherever you are." },
+  "Knowing where to start": { module: "Building an EDI Strategy", id: "edi-strategy", reason: "This gives you a clear framework to work from wherever you are." },
   "Building an evidence base / business case": { module: "The ROI of Inclusion", id: "roi-inclusion", reason: "Start with the data and business case before anything else." },
   "Embedding inclusion in day-to-day practice": { module: "Psychological Safety", id: "psychological-safety", reason: "Creating the conditions for inclusion to thrive starts with psychological safety." },
   "Improving recruitment and retention": { module: "Inclusive Recruitment", id: "inclusive-recruitment", reason: "Bias in recruitment is one of the biggest barriers to inclusive organisations." },

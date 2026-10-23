@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 
-// Demo module content — replaced per module when PDFs are uploaded
+// Demo module content replaced per module when PDFs are uploaded
 const demoModule = {
   id: "psychological-safety",
   title: "Psychological Safety",
@@ -27,15 +27,15 @@ const demoModule = {
           id: "s2",
           type: "scenario" as const,
           heading: "Real-world scenario",
-          scenario: "Marcus has noticed a pattern in his team meetings — the same three people always speak, and the rest stay quiet. A junior colleague, Priya, started to raise a concern last week but stopped mid-sentence when the team lead glanced at his watch. Marcus wonders: is this a psychological safety issue?",
+          scenario: "Marcus has noticed a pattern in his team meetings the same three people always speak, and the rest stay quiet. A junior colleague, Priya, started to raise a concern last week but stopped mid-sentence when the team lead glanced at his watch. Marcus wonders: is this a psychological safety issue?",
           question: "What might this tell us about the team's psychological safety?",
-          body: "This is a classic sign of low psychological safety. When people self-censor — especially junior team members — it's often because they've learned, through subtle signals, that speaking up carries social risk.",
+          body: "This is a classic sign of low psychological safety. When people self-censor especially junior team members it's often because they've learned, through subtle signals, that speaking up carries social risk.",
         },
         {
           id: "s3",
           type: "text" as const,
           heading: "The four stages of psychological safety",
-          body: "Timothy Clark identified four progressive stages: (1) Inclusion Safety — feeling safe to belong, (2) Learner Safety — safe to ask questions and make mistakes, (3) Contributor Safety — safe to use your skills and make a difference, (4) Challenger Safety — safe to challenge the status quo.",
+          body: "Timothy Clark identified four progressive stages: (1) Inclusion Safety feeling safe to belong, (2) Learner Safety safe to ask questions and make mistakes, (3) Contributor Safety safe to use your skills and make a difference, (4) Challenger Safety safe to challenge the status quo.",
           image: null,
         },
       ],
@@ -57,7 +57,7 @@ const demoModule = {
             "Disagreements are raised and discussed",
           ],
           correct: 2,
-          explanation: "Self-censoring — especially by junior team members — is one of the clearest signs that people don't feel safe to speak up. The other options are signs of HIGH psychological safety.",
+          explanation: "Self-censoring especially by junior team members is one of the clearest signs that people don't feel safe to speak up. The other options are signs of HIGH psychological safety.",
         },
       ],
     },
@@ -69,7 +69,7 @@ const demoModule = {
           id: "s4",
           type: "text" as const,
           heading: "The leader's role",
-          body: "Psychological safety starts at the top. Leaders set the tone — consciously or not. Research shows that how a leader responds to the first person who raises a difficult issue sets the expectation for everyone else.",
+          body: "Psychological safety starts at the top. Leaders set the tone consciously or not. Research shows that how a leader responds to the first person who raises a difficult issue sets the expectation for everyone else.",
           image: null,
         },
         {
@@ -78,13 +78,13 @@ const demoModule = {
           heading: "Real-world scenario",
           scenario: "Adeola is a team leader who has started saying 'What am I missing?' at the end of every team meeting. Within three weeks, two people who never spoke in meetings have started contributing ideas. Her colleague asks what changed.",
           question: "Why might this simple question have such a big impact?",
-          body: "Asking 'What am I missing?' signals intellectual humility and genuine curiosity. It communicates that the leader doesn't have all the answers — and that it's safe to fill in the gaps. Small, consistent signals like this build psychological safety over time.",
+          body: "Asking 'What am I missing?' signals intellectual humility and genuine curiosity. It communicates that the leader doesn't have all the answers and that it's safe to fill in the gaps. Small, consistent signals like this build psychological safety over time.",
         },
         {
           id: "s6",
           type: "text" as const,
           heading: "Practical actions for leaders",
-          body: "1. Model vulnerability — share your own mistakes openly. 2. Ask before telling — 'What do you think?' before 'Here's what I think.' 3. Respond to concerns with curiosity, not defensiveness. 4. Create structured opportunities to speak (e.g. round-robins, anonymous input). 5. Follow up — when someone speaks up, acknowledge it publicly.",
+          body: "1. Model vulnerability share your own mistakes openly. 2. Ask before telling 'What do you think?' before 'Here's what I think.' 3. Respond to concerns with curiosity, not defensiveness. 4. Create structured opportunities to speak (e.g. round-robins, anonymous input). 5. Follow up when someone speaks up, acknowledge it publicly.",
           image: null,
         },
       ],
@@ -115,14 +115,14 @@ const demoModule = {
         "Being liked by your colleagues",
       ],
       correct: 1,
-      explanation: "Psychological safety is specifically about the belief that interpersonal risk-taking — asking questions, raising concerns, admitting mistakes — won't result in punishment or humiliation.",
+      explanation: "Psychological safety is specifically about the belief that interpersonal risk-taking asking questions, raising concerns, admitting mistakes won't result in punishment or humiliation.",
     },
     {
       id: "fq2",
       question: "Which stage of Timothy Clark's model involves feeling safe to challenge the status quo?",
       options: ["Inclusion Safety", "Learner Safety", "Contributor Safety", "Challenger Safety"],
       correct: 3,
-      explanation: "Challenger Safety is the fourth and most advanced stage — it's where people feel safe to question existing processes, raise difficult issues, and propose change.",
+      explanation: "Challenger Safety is the fourth and most advanced stage it's where people feel safe to question existing processes, raise difficult issues, and propose change.",
     },
     {
       id: "fq3",
@@ -134,7 +134,7 @@ const demoModule = {
         "They are naturally introverted",
       ],
       correct: 1,
-      explanation: "Silence from competent team members is a classic indicator of low psychological safety — not lack of expertise or engagement. Introversion alone doesn't prevent people from contributing when they feel safe.",
+      explanation: "Silence from competent team members is a classic indicator of low psychological safety not lack of expertise or engagement. Introversion alone doesn't prevent people from contributing when they feel safe.",
     },
     {
       id: "fq4",
@@ -153,26 +153,26 @@ const demoModule = {
       question: "What is the most important thing a leader can do after someone speaks up with a concern?",
       options: [
         "Investigate it privately",
-        "Acknowledge it — ideally publicly — and follow up",
+        "Acknowledge it ideally publicly and follow up",
         "Thank them in a private email",
         "Add it to the next meeting agenda",
       ],
       correct: 1,
-      explanation: "Public acknowledgement signals to the whole team that speaking up is valued and safe. Following up shows that voices are actually heard — not just noted and forgotten.",
+      explanation: "Public acknowledgement signals to the whole team that speaking up is valued and safe. Following up shows that voices are actually heard not just noted and forgotten.",
     },
     {
       id: "fq6",
       question: "Psychological safety is the same as being nice to your colleagues.",
       options: ["True", "False"],
       correct: 1,
-      explanation: "False. Psychological safety is about the conditions for candour and risk-taking, not niceness. A team can be pleasant but still have low psychological safety — and sometimes high psychological safety involves productive challenge and difficult conversations.",
+      explanation: "False. Psychological safety is about the conditions for candour and risk-taking, not niceness. A team can be pleasant but still have low psychological safety and sometimes high psychological safety involves productive challenge and difficult conversations.",
     },
   ],
   keyLearnings: [
     "Psychological safety is the belief that speaking up won't result in punishment or humiliation",
     "Amy Edmondson identified it as the single biggest predictor of team performance",
     "There are four stages: Inclusion, Learner, Contributor, and Challenger Safety",
-    "Leaders set the tone — small, consistent signals matter most",
+    "Leaders set the tone small, consistent signals matter most",
     "Self-censoring from team members is a key warning sign",
     "Responding to concerns with curiosity (not defensiveness) is one of the most powerful things a leader can do",
   ],
@@ -373,7 +373,7 @@ export default function ModulePage() {
         {phase === "lesson-quiz" && (
           <div>
             <div style={{ marginBottom: "1.5rem" }}>
-              <span className="badge badge-sage" style={{ marginBottom: "0.625rem" }}>Quick check — {currentLesson.title}</span>
+              <span className="badge badge-sage" style={{ marginBottom: "0.625rem" }}>Quick check {currentLesson.title}</span>
               <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.25rem", color: "var(--charcoal)" }}>
                 Answer these questions to continue
               </h2>
@@ -428,7 +428,7 @@ export default function ModulePage() {
                 {quizSubmitted[q.id] && (
                   <div style={{ marginTop: "1rem", padding: "1rem", background: quizAnswers[q.id] === q.correct ? "#e8f5e9" : "#fff3e0", borderRadius: "8px" }}>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal-mid)", margin: 0, lineHeight: 1.6 }}>
-                      <strong>{quizAnswers[q.id] === q.correct ? "Correct! " : "Not quite — "}</strong>
+                      <strong>{quizAnswers[q.id] === q.correct ? "Correct! " : "Not quite "}</strong>
                       {q.explanation}
                     </p>
                   </div>
@@ -445,7 +445,7 @@ export default function ModulePage() {
                 ) : (
                   <div>
                     <p style={{ fontFamily: "var(--font-body)", color: "var(--charcoal-mid)", fontSize: "0.875rem", marginBottom: "0.75rem" }}>
-                      Review the slides and try again — you need all correct to continue.
+                      Review the slides and try again you need all correct to continue.
                     </p>
                     <button
                       onClick={() => {
@@ -471,7 +471,7 @@ export default function ModulePage() {
             <div style={{ marginBottom: "1.5rem" }}>
               <span className="badge badge-sage" style={{ marginBottom: "0.625rem" }}>Final Assessment</span>
               <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.375rem", color: "var(--charcoal)", marginBottom: "0.5rem" }}>
-                {module.title} — Final Assessment
+                {module.title} Final Assessment
               </h2>
               <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.875rem" }}>
                 {module.finalQuiz.length} questions · Pass mark 70% · You can retake if needed
@@ -514,7 +514,7 @@ export default function ModulePage() {
                 {finalSubmitted && (
                   <div style={{ marginTop: "1rem", padding: "1rem", background: finalAnswers[q.id] === q.correct ? "#e8f5e9" : "#fff3e0", borderRadius: "8px" }}>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal-mid)", margin: 0, lineHeight: 1.6 }}>
-                      <strong>{finalAnswers[q.id] === q.correct ? "Correct. " : "Incorrect — "}</strong>
+                      <strong>{finalAnswers[q.id] === q.correct ? "Correct. " : "Incorrect "}</strong>
                       {q.explanation}
                     </p>
                   </div>
@@ -535,7 +535,7 @@ export default function ModulePage() {
               <div className="card" style={{ padding: "2rem", textAlign: "center", marginTop: "1rem", background: finalPassed ? "var(--sage-light)" : "var(--cream)" }}>
                 <div style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>{finalPassed ? "🎉" : "📖"}</div>
                 <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.25rem", color: "var(--charcoal)", marginBottom: "0.5rem" }}>
-                  {finalPassed ? `You passed! ${finalScore}/${module.finalQuiz.length} correct` : `${finalScore}/${module.finalQuiz.length} correct — almost there`}
+                  {finalPassed ? `You passed! ${finalScore}/${module.finalQuiz.length} correct` : `${finalScore}/${module.finalQuiz.length} correct almost there`}
                 </h3>
                 <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.875rem", marginBottom: "1.25rem" }}>
                   {finalPassed ? "Excellent work. Your certificate is ready." : "Review the explanations above and retake when ready."}
@@ -669,7 +669,7 @@ export default function ModulePage() {
                 What next?
               </div>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal-mid)", marginBottom: "1rem" }}>
-                Now you&apos;ve completed <strong>Psychological Safety</strong>, a natural next step is understanding how it connects to belonging — how people need to feel safe <em>and</em> valued to truly thrive.
+                Now you&apos;ve completed <strong>Psychological Safety</strong>, a natural next step is understanding how it connects to belonging how people need to feel safe <em>and</em> valued to truly thrive.
               </p>
               <Link href={`/dashboard/learn/${module.nextModule.id}`} className="btn-primary" style={{ fontSize: "0.875rem" }}>
                 Next: {module.nextModule.title} →

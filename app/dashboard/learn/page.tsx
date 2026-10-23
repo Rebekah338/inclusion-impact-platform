@@ -57,7 +57,7 @@ const pathways = [
       { id: "psychological-contract", title: "The Psychological Contract", duration: "50 min", cpd: "0.75 hrs" },
       { id: "edi-communications", title: "Communicating EDI Internally", duration: "45 min", cpd: "0.75 hrs" },
       { id: "resilience-wellbeing", title: "EDI & Workplace Wellbeing", duration: "50 min", cpd: "0.75 hrs" },
-      { id: "global-edi", title: "Global EDI — Cross-Cultural Contexts", duration: "65 min", cpd: "1 hr" },
+      { id: "global-edi", title: "Global EDI Cross-Cultural Contexts", duration: "65 min", cpd: "1 hr" },
     ],
   },
 ];

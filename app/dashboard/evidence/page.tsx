@@ -30,7 +30,7 @@ const RESEARCH_REPORTS = [
     title: "Gender Pay Gap Evidence Base",
     year: "2023",
     source: "CIPD / Fawcett Society",
-    desc: "Comprehensive look at the UK gender pay gap — drivers, sector breakdowns, and interventions with the strongest evidence base.",
+    desc: "Comprehensive look at the UK gender pay gap drivers, sector breakdowns, and interventions with the strongest evidence base.",
     tags: ["gender pay gap", "UK", "data"],
     type: "Data report",
     access: "Read summary",
@@ -40,7 +40,7 @@ const RESEARCH_REPORTS = [
     title: "Parker Review: Ethnic Diversity in Boardrooms",
     year: "2022",
     source: "Parker Review Committee",
-    desc: "Annual tracking of ethnic representation in FTSE 100 and 250 boardrooms — with targets, progress, and sector comparison.",
+    desc: "Annual tracking of ethnic representation in FTSE 100 and 250 boardrooms with targets, progress, and sector comparison.",
     tags: ["ethnicity", "leadership", "board"],
     type: "Data report",
     access: "Read summary",
@@ -60,7 +60,7 @@ const RESEARCH_REPORTS = [
     title: "Stonewall Workplace Equality Index 2023",
     year: "2023",
     source: "Stonewall",
-    desc: "Findings from 300+ employers on LGBTQ+ inclusion at work — what drives belonging, performance, and retention.",
+    desc: "Findings from 300+ employers on LGBTQ+ inclusion at work what drives belonging, performance, and retention.",
     tags: ["LGBTQ+", "belonging", "measurement"],
     type: "Index report",
     access: "Read summary",
@@ -85,7 +85,7 @@ const CASE_STUDIES = [
   {
     org: "Local Authority",
     sector: "Public sector",
-    title: "Embedding EDI in Policy — An EIA Success Story",
+    title: "Embedding EDI in Policy An EIA Success Story",
     outcome: "Equality Impact Assessments embedded in all policy cycles reduced legal risk and improved service design for 3 marginalised groups.",
     tags: ["policy", "EIA", "public sector"],
   },
@@ -93,7 +93,7 @@ const CASE_STUDIES = [
     org: "Financial services firm",
     sector: "Finance",
     title: "Pay Gap Transparency as a Talent Strategy",
-    outcome: "Publishing a full gender and ethnicity pay gap report — with a five-year action plan — increased diverse applications by 44%.",
+    outcome: "Publishing a full gender and ethnicity pay gap report with a five-year action plan increased diverse applications by 44%.",
     tags: ["pay gap", "transparency", "talent"],
   },
 ];
@@ -102,7 +102,7 @@ const DOWNLOADS = [
   {
     icon: "📄",
     title: "Business Case for Inclusion: Template",
-    desc: "A structured Word document to present your EDI business case to senior stakeholders — with prompts, data placeholders, and worked examples.",
+    desc: "A structured Word document to present your EDI business case to senior stakeholders with prompts, data placeholders, and worked examples.",
     type: "Word document",
     free: true,
   },
@@ -115,7 +115,7 @@ const DOWNLOADS = [
   },
   {
     icon: "💰",
-    title: "ROI of Inclusion — Key Stats Sheet",
+    title: "ROI of Inclusion Key Stats Sheet",
     desc: "Ready-to-use statistics from peer-reviewed research and major reports. Cite confidently in internal presentations.",
     type: "PDF",
     free: false,
@@ -123,14 +123,14 @@ const DOWNLOADS = [
   {
     icon: "🗣️",
     title: "Talking to Sceptics: Script Guide",
-    desc: "Conversation frameworks and language for responding to common objections to EDI — from senior leaders and budget holders.",
+    desc: "Conversation frameworks and language for responding to common objections to EDI from senior leaders and budget holders.",
     type: "PDF",
     free: false,
   },
   {
     icon: "📋",
     title: "Stakeholder Mapping Template",
-    desc: "Map and analyse your internal stakeholders on influence and attitude to EDI — to prioritise your engagement strategy.",
+    desc: "Map and analyse your internal stakeholders on influence and attitude to EDI to prioritise your engagement strategy.",
     type: "Excel / Sheets",
     free: false,
   },
@@ -180,7 +180,7 @@ export default function EvidencePage() {
         {activeTab === "research" && (
           <>
             <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.9rem", marginBottom: "1.75rem" }}>
-              Key findings from the major reports — curated and contextualised for EDI practitioners and the stakeholders they need to influence.
+              Key findings from the major reports curated and contextualised for EDI practitioners and the stakeholders they need to influence.
             </p>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "1.25rem" }}>
               {RESEARCH_REPORTS.map((r) => (
@@ -207,7 +207,7 @@ export default function EvidencePage() {
         {activeTab === "cases" && (
           <>
             <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.9rem", marginBottom: "1.75rem" }}>
-              Real examples of inclusion driving measurable change — for sharing with leadership, informing strategy, or as inspiration.
+              Real examples of inclusion driving measurable change for sharing with leadership, informing strategy, or as inspiration.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
               {CASE_STUDIES.map((c) => (
@@ -237,7 +237,7 @@ export default function EvidencePage() {
         {activeTab === "downloads" && (
           <>
             <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.9rem", marginBottom: "1.75rem" }}>
-              Ready-to-use documents and templates — download and adapt for your organisation.
+              Ready-to-use documents and templates download and adapt for your organisation.
             </p>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1.25rem" }}>
               {DOWNLOADS.map((d) => (

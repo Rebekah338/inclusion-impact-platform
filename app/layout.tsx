@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Impact Platform — The Inclusion Edit",
+  title: "Impact Platform The Inclusion Edit",
   description: "Your members-only EDI learning and resource hub. Build capacity, grow capability, and create lasting change.",
 };
 

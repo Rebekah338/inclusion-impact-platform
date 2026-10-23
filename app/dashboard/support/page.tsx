@@ -26,7 +26,7 @@ export default function SupportPage() {
 
       <main id="main-content" style={{ maxWidth: "900px", margin: "0 auto", padding: "2.5rem 1.5rem" }}>
         <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.25rem)", color: "var(--charcoal)", marginBottom: "0.5rem" }}>Get Support</h1>
-        <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", marginBottom: "2.5rem" }}>Expert coaching, live office hours, and peer support — all in one place.</p>
+        <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", marginBottom: "2.5rem" }}>Expert coaching, live office hours, and peer support all in one place.</p>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(380px, 1fr))", gap: "1.5rem" }}>
 
@@ -88,7 +88,7 @@ export default function SupportPage() {
             <div style={{ fontSize: "2rem", marginBottom: "0.75rem" }}>💬</div>
             <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.1rem", color: "var(--charcoal)", marginBottom: "0.5rem" }}>The Inclusion Editors</h2>
             <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", lineHeight: 1.6, marginBottom: "1.25rem" }}>
-              Your peer community — ask questions, share insights, read blogs from Rebekah and guests. Think of it as a private LinkedIn group, just for EDI practitioners.
+              Your peer community ask questions, share insights, read blogs from Rebekah and guests. Think of it as a private LinkedIn group, just for EDI practitioners.
             </p>
             <Link href="/dashboard/community" className="btn-secondary" style={{ fontSize: "0.875rem", textAlign: "center", display: "block" }}>
               Go to community →
@@ -104,7 +104,7 @@ export default function SupportPage() {
             </p>
             <div style={{ background: "var(--cream)", borderRadius: "10px", padding: "1.25rem", textAlign: "center" }}>
               <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.875rem", margin: 0 }}>
-                📣 Next event coming soon — watch this space.
+                📣 Next event coming soon watch this space.
               </p>
             </div>
           </div>

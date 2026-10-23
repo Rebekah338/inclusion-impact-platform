@@ -283,7 +283,7 @@ export default function Home() {
               marginBottom: "2.5rem",
               lineHeight: 1.7,
             }}>
-              The tools, training and evidence to lead inclusion that works — not just in theory, but in practice.
+              The tools, training and evidence to lead inclusion that works not just in theory, but in practice.
             </p>
 
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.875rem", marginBottom: "2.5rem" }}>
@@ -416,14 +416,14 @@ export default function Home() {
                 Everything you need in one place
               </h2>
               <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.05rem", maxWidth: "480px", margin: "0 auto", lineHeight: 1.65 }}>
-                A complete EDI learning ecosystem — structured, practical, and evidence-based.
+                A complete EDI learning ecosystem structured, practical, and evidence-based.
               </p>
             </div>
 
             <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem", marginBottom: "1.25rem" }}>
               {[
                 { href: "/dashboard/learn", icon: "📚", label: "Learn", sub: "CPD Modules", desc: "31 structured CPD modules across three learning pathways." },
-                { href: "/dashboard/watch", icon: "🎥", label: "Watch", sub: "Masterclasses", desc: "Expert-led video masterclasses on inclusive practice — coming soon." },
+                { href: "/dashboard/watch", icon: "🎥", label: "Watch", sub: "Masterclasses", desc: "Expert-led video masterclasses on inclusive practice coming soon." },
                 { href: "/dashboard/apply", icon: "🛠️", label: "Apply", sub: "Tools & Frameworks", desc: "Interactive tools, guides, checklists, and frameworks for your work." },
                 { href: "/dashboard/evidence", icon: "📊", label: "Make the Case", sub: "Evidence & ROI", desc: "Research, data, case studies and resources for your business case." },
               ].map((f) => (
@@ -497,7 +497,7 @@ export default function Home() {
                 Explore the platform
               </h2>
               <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.05rem", maxWidth: "460px", margin: "0 auto" }}>
-                Browse all 31 modules. A selection is free — join to unlock the full library.
+                Browse all 31 modules. A selection is free join to unlock the full library.
               </p>
             </div>
 
@@ -566,7 +566,7 @@ export default function Home() {
                 Explore the Watch library
               </h2>
               <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.05rem", maxWidth: "520px", margin: "0 auto" }}>
-                Expert-led video content in production — launching to members first. Three formats, designed to fit your day.
+                Expert-led video content in production launching to members first. Three formats, designed to fit your day.
               </p>
             </div>
 
@@ -574,7 +574,7 @@ export default function Home() {
               {[
                 { icon: "🎓", label: "Deep Dives", desc: "Full 30–45 minute expert-led training sessions on complex EDI topics.", key: "deep-dives" as const },
                 { icon: "🎬", label: "Masterclasses", desc: "Focused 15–20 minute sessions on a single skill, framework or challenge.", key: "masterclasses" as const },
-                { icon: "⚡", label: "Nuggets", desc: "5–10 minute sharp, actionable takeaways — easy to fit into your week.", key: "quick-wins" as const },
+                { icon: "⚡", label: "Nuggets", desc: "5–10 minute sharp, actionable takeaways easy to fit into your week.", key: "quick-wins" as const },
               ].map((w) => (
                 <button key={w.label}
                   onClick={() => { setWatchTab(w.key); setCarouselIdx(0); }}
@@ -667,7 +667,7 @@ export default function Home() {
                 </p>
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem", marginBottom: "1.75rem" }}>
                   {[
-                    { icon: "📅", text: "Weekly office hours — book a slot" },
+                    { icon: "📅", text: "Weekly office hours book a slot" },
                     { icon: "🧠", text: "One-to-one expert coaching packages" },
                     { icon: "🎤", text: "Live events and cohort sessions" },
                   ].map((item) => (
@@ -704,11 +704,11 @@ export default function Home() {
                   Share an inclusion challenge
                 </h2>
                 <p style={{ fontFamily: "var(--font-body)", color: "rgba(255,255,255,0.78)", fontSize: "0.95rem", marginBottom: "1.75rem", lineHeight: 1.65, maxWidth: "520px" }}>
-                  Facing something tricky in your EDI work? Share it here and we&apos;ll address it through the platform — in content, resources, or our live sessions.
+                  Facing something tricky in your EDI work? Share it here and we&apos;ll address it through the platform in content, resources, or our live sessions.
                 </p>
                 {challengeSubmitted ? (
                   <div style={{ background: "rgba(255,255,255,0.12)", borderRadius: "12px", padding: "1.25rem 1.5rem", border: "1px solid rgba(255,255,255,0.2)" }}>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, color: "var(--white)", fontSize: "0.95rem" }}>✅ Thank you — challenge received!</div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, color: "var(--white)", fontSize: "0.95rem" }}>✅ Thank you challenge received!</div>
                     <div style={{ fontFamily: "var(--font-body)", color: "rgba(255,255,255,0.75)", fontSize: "0.85rem", marginTop: "0.375rem" }}>We&apos;ll review it and address it through the platform.</div>
                   </div>
                 ) : (
@@ -825,7 +825,7 @@ export default function Home() {
             Ready to build inclusion that lasts?
           </h2>
           <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.1rem", maxWidth: "36rem", margin: "0 auto 2.5rem", lineHeight: 1.7 }}>
-            Join practitioners, HR leaders, and people managers across the UK building their EDI capability — backed by real expertise, not just content.
+            Join practitioners, HR leaders, and people managers across the UK building their EDI capability backed by real expertise, not just content.
           </p>
           <Link href="/sign-up" className="btn-primary" style={{ fontSize: "1.05rem", padding: "1rem 2.75rem" }}>
             Start your membership →
@@ -859,7 +859,7 @@ export default function Home() {
         zIndex: 200, boxShadow: "0 -4px 24px rgba(0,0,0,0.2)",
       }}>
         <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.8)", margin: 0 }}>
-          <strong style={{ color: "var(--white)" }}>Unlock the full platform</strong> — 31 CPD modules, 50+ tools, evidence resources and expert coaching.
+          <strong style={{ color: "var(--white)" }}>Unlock the full platform</strong> 31 CPD modules, 50+ tools, evidence resources and expert coaching.
         </p>
         <div style={{ display: "flex", gap: "0.75rem", flexShrink: 0 }}>
           <Link href="/sign-in" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "rgba(255,255,255,0.65)", textDecoration: "none", padding: "0.5rem 0.875rem", border: "1px solid rgba(255,255,255,0.2)", borderRadius: "6px" }}>

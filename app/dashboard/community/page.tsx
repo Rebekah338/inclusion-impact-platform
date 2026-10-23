@@ -13,7 +13,7 @@ const SAMPLE_POSTS = [
     role: "Head of People, Tech Sector",
     time: "2 hours ago",
     title: "How do you handle resistance when introducing EDI frameworks to a sceptical leadership team?",
-    body: "I've been working on embedding our first EDI strategy and keep hitting a wall at SLT level. The data is there, the case is made — but there's still a lot of 'this doesn't apply to us'. Would love to hear how others have navigated this.",
+    body: "I've been working on embedding our first EDI strategy and keep hitting a wall at SLT level. The data is there, the case is made but there's still a lot of 'this doesn't apply to us'. Would love to hear how others have navigated this.",
     tags: ["leadership", "buy-in", "strategy"],
     replies: 4,
     likes: 11,
@@ -24,7 +24,7 @@ const SAMPLE_POSTS = [
     initials: "DK",
     role: "HR Business Partner",
     time: "Yesterday",
-    title: "Sharing: our approach to neurodiversity disclosure — what worked",
+    title: "Sharing: our approach to neurodiversity disclosure what worked",
     body: "We completely overhauled how we handle neurodiversity disclosures during recruitment. Happy to share the process and templates we built if anyone would find it useful.",
     tags: ["neurodiversity", "recruitment", "disclosure"],
     replies: 7,
@@ -69,7 +69,7 @@ export default function CommunityPage() {
             The Inclusion Editors
           </h1>
           <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.95rem" }}>
-            A peer space for EDI practitioners — ask questions, share wins, get unstuck together.
+            A peer space for EDI practitioners ask questions, share wins, get unstuck together.
           </p>
         </div>
 
@@ -159,7 +159,7 @@ export default function CommunityPage() {
           <div className="card" style={{ textAlign: "center", padding: "3rem" }}>
             <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>✍️</div>
             <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.25rem", color: "var(--charcoal)", marginBottom: "0.5rem" }}>
-              Blogs & Insights — coming soon
+              Blogs & Insights coming soon
             </h2>
             <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.9rem" }}>
               Rebekah and guest contributors will post EDI insights, case studies, and practical guides here.
