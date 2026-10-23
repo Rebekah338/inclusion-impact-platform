@@ -2,6 +2,7 @@
 
 
 import Link from "next/link";
+import PlatformNav from "@/app/components/PlatformNav";
 import { useState } from "react";
 
 const SAMPLE_POSTS = [
@@ -51,6 +52,7 @@ export default function CommunityPage() {
 
   return (
     <div className="min-h-screen" style={{ background: "var(--sage-xlight)" }}>
+      <PlatformNav />
       <nav role="navigation" style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)", padding: "0 1.5rem", height: "64px", display: "flex", alignItems: "center", gap: "1.5rem", position: "sticky", top: 0, zIndex: 50 }}>
         <Link href="/" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--charcoal)", textDecoration: "none" }}>
           ← Dashboard

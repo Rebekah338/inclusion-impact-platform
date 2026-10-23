@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PlatformNav from "@/app/components/PlatformNav";
 
 const pathways = [
   {
@@ -64,6 +65,7 @@ const pathways = [
 export default function LearnPage() {
   return (
     <div className="min-h-screen" style={{ background: "var(--sage-xlight)" }}>
+      <PlatformNav />
       <div style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)", padding: "2rem 1.5rem" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <Link href="/dashboard" style={{ fontSize: "0.875rem", fontFamily: "var(--font-heading)", color: "var(--gray-soft)", textDecoration: "none" }}>

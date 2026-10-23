@@ -205,7 +205,8 @@ export default function Home() {
             )}
           </div>
 
-          <div style={{ display: "flex", gap: "0.5rem", alignItems: "center", flexShrink: 0 }}>
+          <div style={{ display: "flex", gap: "0.75rem", alignItems: "center", flexShrink: 0 }}>
+            <img src="/Transparent%20Green%20Current%20main%20%20logo%202026%202.png" alt="The Inclusion Edit" style={{ height: "36px", width: "auto", objectFit: "contain" }} />
             <Link href="/dashboard"
               style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "var(--white)", padding: "0.45rem 1rem", borderRadius: "8px", background: "var(--sage-dark)", textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 2px 8px rgba(42,74,48,0.25)" }}
             >
