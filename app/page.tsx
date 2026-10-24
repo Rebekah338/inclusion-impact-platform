@@ -301,7 +301,8 @@ export default function Home() {
               letterSpacing: "-0.02em",
             }}>
               Your Culture Is<br />
-              <span style={{ color: "#A8D4B0" }}>Your Competitive Edge.</span>
+              Your Competitive<br />
+              <span style={{ color: "#A8D4B0" }}>Edge.</span>
             </h1>
 
             <p style={{
@@ -364,6 +365,68 @@ export default function Home() {
           <p style={{ textAlign: "center", fontFamily: "var(--font-body)", fontSize: "0.72rem", color: "rgba(255,255,255,0.45)", marginTop: "1.25rem" }}>
             *Organisations with inclusive cultures are 35% more likely to outperform competitors. McKinsey, 2023.
           </p>
+        </section>
+
+        {/* EVERYTHING YOU NEED */}
+        <section style={{ padding: "4rem 1.5rem 5rem", background: "var(--white)" }}>
+          <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+            <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--sage-xlight)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1rem" }}>
+                The platform
+              </span>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "0.75rem", letterSpacing: "-0.01em" }}>
+                Everything you need in one place
+              </h2>
+              <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.05rem", maxWidth: "480px", margin: "0 auto", lineHeight: 1.65 }}>
+                A complete EDI learning ecosystem structured, practical, and evidence-based.
+              </p>
+            </div>
+
+            <div className="platform-cards-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem", marginBottom: "1.25rem" }}>
+              {[
+                { href: "/dashboard/learn", icon: "📚", label: "Learn", sub: "CPD Modules", desc: "Build the knowledge base that reduces risk and drives performance." },
+                { href: "/dashboard/watch", icon: "🎥", label: "Watch", sub: "Masterclasses", desc: "Expert insight you can apply the same week." },
+                { href: "/dashboard/apply", icon: "🛠️", label: "Apply", sub: "Tools & Frameworks", desc: "Turn good intentions into documented, defensible action." },
+                { href: "/dashboard/evidence", icon: "📊", label: "Make the Case", sub: "Evidence & ROI", desc: "The data and evidence your leadership team needs." },
+              ].map((f) => (
+                <Link key={f.label} href={f.href} style={{ textDecoration: "none" }}>
+                  <div style={{
+                    background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)",
+                    borderRadius: "18px", padding: "1.75rem 1.5rem",
+                    boxShadow: "0 6px 28px rgba(42,74,48,0.22)",
+                    cursor: "pointer", height: "100%", position: "relative", overflow: "hidden",
+                  }}>
+                    <div style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
+                    <div style={{ fontSize: "2rem", marginBottom: "1rem" }} aria-hidden="true">{f.icon}</div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.05rem", color: "white", marginBottom: "0.2rem" }}>{f.label}</div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>{f.sub}</div>
+                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}>{f.desc}</div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <div className="platform-cards-bottom" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1.25rem", maxWidth: "600px", margin: "0 auto" }}>
+              {[
+                { href: "/dashboard/support", icon: "🤝", label: "Get Support", sub: "Coaching & Office Hours", desc: "Book office hours with Rebekah, enquire about expert coaching, or join a live event." },
+                { href: "/dashboard/community", icon: "🌍", label: "The Inclusion Editors", sub: "Community", desc: "Connect with practitioners, share insights, and grow your network." },
+              ].map((f) => (
+                <Link key={f.label} href={f.href} style={{ textDecoration: "none" }}>
+                  <div style={{
+                    background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)",
+                    borderRadius: "18px", padding: "1.75rem 1.5rem",
+                    boxShadow: "0 6px 28px rgba(42,74,48,0.22)",
+                    cursor: "pointer", position: "relative", overflow: "hidden",
+                  }}>
+                    <div style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
+                    <div style={{ fontSize: "2rem", marginBottom: "1rem" }} aria-hidden="true">{f.icon}</div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.05rem", color: "white", marginBottom: "0.2rem" }}>{f.label}</div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>{f.sub}</div>
+                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}>{f.desc}</div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
         </section>
 
         {/* BIG SEARCH BAR */}
@@ -450,68 +513,6 @@ export default function Home() {
                   <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "rgba(255,255,255,0.9)" }}>Get organisation access →</span>
                 </div>
               </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* EVERYTHING YOU NEED */}
-        <section style={{ padding: "4rem 1.5rem 5rem", background: "var(--white)" }}>
-          <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-            <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--sage-xlight)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1rem" }}>
-                The platform
-              </span>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "0.75rem", letterSpacing: "-0.01em" }}>
-                Everything you need in one place
-              </h2>
-              <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.05rem", maxWidth: "480px", margin: "0 auto", lineHeight: 1.65 }}>
-                A complete EDI learning ecosystem structured, practical, and evidence-based.
-              </p>
-            </div>
-
-            <div className="platform-cards-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem", marginBottom: "1.25rem" }}>
-              {[
-                { href: "/dashboard/learn", icon: "📚", label: "Learn", sub: "CPD Modules", desc: "Build the knowledge base that reduces risk and drives performance." },
-                { href: "/dashboard/watch", icon: "🎥", label: "Watch", sub: "Masterclasses", desc: "Expert insight you can apply the same week." },
-                { href: "/dashboard/apply", icon: "🛠️", label: "Apply", sub: "Tools & Frameworks", desc: "Turn good intentions into documented, defensible action." },
-                { href: "/dashboard/evidence", icon: "📊", label: "Make the Case", sub: "Evidence & ROI", desc: "The data and evidence your leadership team needs." },
-              ].map((f) => (
-                <Link key={f.label} href={f.href} style={{ textDecoration: "none" }}>
-                  <div style={{
-                    background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)",
-                    borderRadius: "18px", padding: "1.75rem 1.5rem",
-                    boxShadow: "0 6px 28px rgba(42,74,48,0.22)",
-                    cursor: "pointer", height: "100%", position: "relative", overflow: "hidden",
-                  }}>
-                    <div style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
-                    <div style={{ fontSize: "2rem", marginBottom: "1rem" }} aria-hidden="true">{f.icon}</div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.05rem", color: "white", marginBottom: "0.2rem" }}>{f.label}</div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>{f.sub}</div>
-                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}>{f.desc}</div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-            <div className="platform-cards-bottom" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1.25rem", maxWidth: "600px", margin: "0 auto" }}>
-              {[
-                { href: "/dashboard/support", icon: "🤝", label: "Get Support", sub: "Coaching & Office Hours", desc: "Book office hours with Rebekah, enquire about expert coaching, or join a live event." },
-                { href: "/dashboard/community", icon: "🌍", label: "The Inclusion Editors", sub: "Community", desc: "Connect with practitioners, share insights, and grow your network." },
-              ].map((f) => (
-                <Link key={f.label} href={f.href} style={{ textDecoration: "none" }}>
-                  <div style={{
-                    background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)",
-                    borderRadius: "18px", padding: "1.75rem 1.5rem",
-                    boxShadow: "0 6px 28px rgba(42,74,48,0.22)",
-                    cursor: "pointer", position: "relative", overflow: "hidden",
-                  }}>
-                    <div style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
-                    <div style={{ fontSize: "2rem", marginBottom: "1rem" }} aria-hidden="true">{f.icon}</div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.05rem", color: "white", marginBottom: "0.2rem" }}>{f.label}</div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>{f.sub}</div>
-                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}>{f.desc}</div>
-                  </div>
-                </Link>
-              ))}
             </div>
           </div>
         </section>
