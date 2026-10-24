@@ -419,7 +419,7 @@ export default function LearnPage() {
               >
                 {/* Thumbnail */}
                 <div style={{ background: lesson.thumbnailBg, height: "80px", position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <span style={{ fontSize: "2rem" }} aria-hidden="true">▶️</span>
+                  <span style={{ fontSize: "2rem" }} aria-hidden="true">📖</span>
                   <span style={{ position: "absolute", top: "0.6rem", right: "0.75rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.6rem", textTransform: "uppercase", letterSpacing: "0.08em", background: "rgba(255,255,255,0.25)", color: "var(--white)", padding: "0.2rem 0.5rem", borderRadius: "999px" }}>
                     ⚡ Quick lesson
                   </span>
