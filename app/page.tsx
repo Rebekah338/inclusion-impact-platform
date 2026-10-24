@@ -351,22 +351,23 @@ export default function Home() {
         </section>
 
         {/* STATS STRIP */}
-        <section style={{ background: "linear-gradient(135deg, var(--sage-dark) 0%, #3A6040 100%)", padding: "3rem 1.5rem" }}>
-          <div className="stats-grid" style={{ maxWidth: "900px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem", textAlign: "center" }}>
+        <section style={{ background: "linear-gradient(135deg, var(--sage-dark) 0%, #3A6040 100%)", padding: "1.5rem 1.5rem" }}>
+          <div className="stats-grid" style={{ maxWidth: "1100px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "0.5rem", textAlign: "center" }}>
             {[
               { value: "31", label: "EDI modules" },
               { value: "50+", label: "Practical tools" },
-              { value: "35%*", label: "Outperform competitors" },
+              { value: "87%*", label: "Better decisions" },
+              { value: "35%**", label: "Outperform competitors" },
               { value: "WCAG 2.1", label: "Accessibility standard" },
             ].map((s) => (
-              <div key={s.label} style={{ padding: "1rem" }}>
-                <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2rem, 4vw, 2.75rem)", color: "var(--white)", lineHeight: 1, marginBottom: "0.5rem" }}>{s.value}</div>
-                <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "rgba(255,255,255,0.7)", textTransform: "uppercase", letterSpacing: "0.08em" }}>{s.label}</div>
+              <div key={s.label} style={{ padding: "0.75rem 0.5rem" }}>
+                <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.5rem, 3vw, 2.25rem)", color: "var(--white)", lineHeight: 1, marginBottom: "0.35rem" }}>{s.value}</div>
+                <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.72rem", color: "rgba(255,255,255,0.7)", textTransform: "uppercase", letterSpacing: "0.08em" }}>{s.label}</div>
               </div>
             ))}
           </div>
-          <p style={{ textAlign: "center", fontFamily: "var(--font-body)", fontSize: "0.72rem", color: "rgba(255,255,255,0.45)", marginTop: "1.25rem" }}>
-            *Organisations with inclusive cultures are 35% more likely to outperform competitors. McKinsey, 2023.
+          <p style={{ textAlign: "center", fontFamily: "var(--font-body)", fontSize: "0.68rem", color: "rgba(255,255,255,0.45)", marginTop: "0.75rem" }}>
+            *Inclusive teams make better decisions 87% of the time. Cloverpop, 2017. **Organisations with inclusive cultures are 35% more likely to outperform competitors. McKinsey, 2023.
           </p>
         </section>
 
