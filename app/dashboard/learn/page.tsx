@@ -213,6 +213,63 @@ const pathways = [
   },
 ];
 
+const QUICK_LESSONS = [
+  {
+    id: "understanding-your-bias",
+    title: "Understanding Your Bias: A Self-Reflection Starter",
+    blurb: "Walk away with a clear picture of your own biases and a simple framework to keep them in check.",
+    duration: "10 min",
+    color: "#2A6B3A",
+    thumbnailBg: "linear-gradient(135deg, #2A6B3A 0%, #4A8F5A 100%)",
+    tag: "Bias",
+  },
+  {
+    id: "recruit-inclusively",
+    title: "Recruit Inclusively: Your Quick-Start Checklist",
+    blurb: "A practical checklist you can apply to your next recruitment cycle immediately.",
+    duration: "8 min",
+    color: "#5a4a7a",
+    thumbnailBg: "linear-gradient(135deg, #5a4a7a 0%, #7b6fa0 100%)",
+    tag: "Recruitment",
+  },
+  {
+    id: "run-meetings",
+    title: "Run Meetings That Work for Everyone",
+    blurb: "Simple, actionable changes to make every meeting more inclusive from your next one.",
+    duration: "12 min",
+    color: "#2A6B3A",
+    thumbnailBg: "linear-gradient(135deg, #2A6B3A 0%, #4A8F5A 100%)",
+    tag: "Culture",
+  },
+  {
+    id: "pronouns-language",
+    title: "Pronouns and Language: A Practical Workplace Guide",
+    blurb: "Get confident with inclusive language and pronouns — with real workplace examples.",
+    duration: "10 min",
+    color: "#2A6B3A",
+    thumbnailBg: "linear-gradient(135deg, #2A6B3A 0%, #4A8F5A 100%)",
+    tag: "Language",
+  },
+  {
+    id: "positive-action",
+    title: "Positive Action vs Positive Discrimination: Know the Difference",
+    blurb: "One of the most misunderstood distinctions in EDI — explained clearly in under 15 minutes.",
+    duration: "12 min",
+    color: "#5a4a7a",
+    thumbnailBg: "linear-gradient(135deg, #5a4a7a 0%, #7b6fa0 100%)",
+    tag: "Policy",
+  },
+  {
+    id: "imagery-inclusively",
+    title: "Representation Matters: Using Imagery Inclusively",
+    blurb: "Audit your visual communications and make changes that signal inclusion to everyone.",
+    duration: "8 min",
+    color: "#2A6B3A",
+    thumbnailBg: "linear-gradient(135deg, #2A6B3A 0%, #4A8F5A 100%)",
+    tag: "Culture",
+  },
+];
+
 const ALL_TAGS = [
   "Allyship", "Belonging", "Bias", "Culture", "Data & Evidence",
   "Disability", "Language", "Leadership", "Policy",
@@ -322,6 +379,64 @@ export default function LearnPage() {
 
       {/* CONTENT */}
       <main id="main-content" style={{ maxWidth: "1100px", margin: "0 auto", padding: "2.5rem 1.5rem 5rem" }}>
+
+        {/* SHORT ON TIME SECTION */}
+        <section style={{ marginBottom: "3.5rem" }}>
+          <div style={{ marginBottom: "1.25rem" }}>
+            <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.15rem", color: "var(--charcoal)", margin: "0 0 0.35rem 0" }}>
+              ⚡ Short on time? Start here.
+            </h2>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", margin: 0 }}>
+              No time for a full module? These standalone lessons deliver practical tools in under 15 minutes.
+            </p>
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1rem" }}>
+            {QUICK_LESSONS.map((lesson) => (
+              <div
+                key={lesson.id}
+                style={{ display: "flex", flexDirection: "column", background: "var(--white)", borderRadius: "14px", overflow: "hidden", border: "1px solid var(--gray-border)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)", cursor: "pointer", transition: "box-shadow 0.18s, transform 0.18s" }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 6px 24px rgba(0,0,0,0.11)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 1px 4px rgba(0,0,0,0.06)"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
+              >
+                {/* Thumbnail */}
+                <div style={{ background: lesson.thumbnailBg, height: "80px", position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <span style={{ fontSize: "2rem" }} aria-hidden="true">▶️</span>
+                  <span style={{ position: "absolute", top: "0.6rem", right: "0.75rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.6rem", textTransform: "uppercase", letterSpacing: "0.08em", background: "rgba(255,255,255,0.25)", color: "var(--white)", padding: "0.2rem 0.5rem", borderRadius: "999px" }}>
+                    ⚡ Quick lesson
+                  </span>
+                  <span style={{ position: "absolute", bottom: "0.6rem", left: "0.75rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", color: "rgba(255,255,255,0.85)", background: "rgba(0,0,0,0.2)", padding: "0.15rem 0.5rem", borderRadius: "999px" }}>
+                    ⏱ {lesson.duration}
+                  </span>
+                </div>
+
+                {/* Card body */}
+                <div style={{ padding: "1rem 1.25rem 1.25rem", flex: 1, display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.35 }}>
+                    {lesson.title}
+                  </div>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", lineHeight: 1.5, margin: 0, flex: 1 }}>
+                    {lesson.blurb}
+                  </p>
+                  <div style={{ marginTop: "0.5rem" }}>
+                    <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.62rem", textTransform: "uppercase", letterSpacing: "0.07em", color: lesson.color, background: lesson.color + "18", padding: "0.15rem 0.5rem", borderRadius: "999px" }}>
+                      {lesson.tag}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* DIVIDER */}
+        <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "2.5rem" }}>
+          <div style={{ flex: 1, height: "1px", background: "var(--gray-border)" }} />
+          <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--gray-soft)", whiteSpace: "nowrap" }}>
+            Or explore the full course library
+          </span>
+          <div style={{ flex: 1, height: "1px", background: "var(--gray-border)" }} />
+        </div>
 
         {filteredPathways.length === 0 && (
           <div style={{ textAlign: "center", padding: "4rem 1.5rem", color: "var(--gray-soft)", fontFamily: "var(--font-body)" }}>
