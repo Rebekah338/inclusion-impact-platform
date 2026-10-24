@@ -381,7 +381,7 @@ export default function Home() {
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "0.75rem", letterSpacing: "-0.01em" }}>
                 From knowledge to action to measurable change; all in one place.
               </h2>
-              <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.05rem", maxWidth: "480px", margin: "0 auto", lineHeight: 1.65 }}>
+              <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.05rem", maxWidth: "640px", margin: "0 auto", lineHeight: 1.65, whiteSpace: "nowrap" }}>
                 The tools, training and evidence to build a culture that performs.
               </p>
             </div>
