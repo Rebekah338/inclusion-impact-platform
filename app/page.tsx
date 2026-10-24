@@ -293,16 +293,15 @@ export default function Home() {
             <h1 style={{
               fontFamily: "var(--font-display)",
               fontWeight: 700,
-              fontSize: "clamp(3rem, 7vw, 5.5rem)",
+              fontSize: "clamp(2.75rem, 5.5vw, 4.75rem)",
               lineHeight: 1.05,
               color: "var(--white)",
-              maxWidth: "680px",
+              maxWidth: "780px",
               marginBottom: "1.25rem",
               letterSpacing: "-0.02em",
             }}>
               Your Culture Is<br />
-              Your Competitive<br />
-              <span style={{ color: "#A8D4B0" }}>Edge.</span>
+              <span style={{ color: "#A8D4B0" }}>Your Competitive<br />Edge.</span>
             </h1>
 
             <p style={{
