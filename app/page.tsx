@@ -286,7 +286,7 @@ export default function Home() {
 
           {/* Logo top-right of hero */}
           <div style={{ position: "absolute", top: "1.75rem", right: "2rem", zIndex: 3 }}>
-            <img src="/Transparent%20Green%20Current%20main%20%20logo%202026%202.png" alt="The Inclusion Edit" style={{ height: "80px", width: "auto", objectFit: "contain" }} />
+            <img src="/Short%20Green%20Current%20logo%202026%203.png" alt="The Inclusion Edit" style={{ height: "110px", width: "auto", objectFit: "contain" }} />
           </div>
 
           <div style={{ position: "relative", zIndex: 2, maxWidth: "1200px", margin: "0 auto", padding: "5rem 2rem", width: "100%" }}>
