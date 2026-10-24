@@ -12,15 +12,75 @@ const pathways = [
     bg: "var(--sage-light)",
     thumbnailBg: "linear-gradient(135deg, #2A6B3A 0%, #4A8F5A 100%)",
     icon: "🤝",
-    modules: [
-      { id: "psychological-safety", title: "Psychological Safety", duration: "45 min", cpd: "0.75 hrs", tags: ["Belonging", "Culture", "Wellbeing"] },
-      { id: "belonging", title: "Belonging at Work", duration: "50 min", cpd: "0.75 hrs", tags: ["Belonging", "Culture"] },
-      { id: "allyship", title: "Active Allyship", duration: "40 min", cpd: "0.75 hrs", tags: ["Allyship", "Race", "LGBTQ+"] },
-      { id: "microaggressions", title: "Microaggressions & Micro-affirmations", duration: "55 min", cpd: "1 hr", tags: ["Bias", "Race", "Language"] },
-      { id: "power-privilege", title: "Power & Privilege", duration: "60 min", cpd: "1 hr", tags: ["Bias", "Race", "Culture"] },
-      { id: "unconscious-bias", title: "Unconscious Bias", duration: "50 min", cpd: "0.75 hrs", tags: ["Bias"] },
-      { id: "inclusive-language", title: "Inclusive Language", duration: "40 min", cpd: "0.75 hrs", tags: ["Language", "Culture"] },
-      { id: "cultural-competence", title: "Cultural Competence", duration: "55 min", cpd: "1 hr", tags: ["Culture", "Race"] },
+    courses: [
+      {
+        id: "foundations-of-inclusion",
+        title: "Foundations of Inclusion",
+        description: "Understand yourself, communicate inclusively, and move from good intentions to real allyship.",
+        tags: ["Bias", "Language", "Allyship"],
+        modules: [
+          {
+            id: "understanding-yourself",
+            title: "Understanding Yourself",
+            lessons: [
+              { id: "understanding-your-bias", title: "Understanding Your Bias: A Self-Reflection Starter" },
+              { id: "managing-edi-fatigue", title: "Sustaining Your Inclusion Practice: Managing EDI Fatigue" },
+            ],
+          },
+          {
+            id: "language-communication",
+            title: "Language & Communication",
+            lessons: [
+              { id: "communicating-inclusively", title: "Communicating Inclusively: Language, Tone and Boundaries" },
+              { id: "pronouns-language", title: "Pronouns and Language: A Practical Workplace Guide" },
+              { id: "speaking-up", title: "Speaking Up: Challenging Exclusionary Behaviour at Work" },
+            ],
+          },
+          {
+            id: "allyship-in-action",
+            title: "Allyship in Action",
+            lessons: [
+              { id: "active-allyship", title: "Active Allyship: Moving from Intention to Impact" },
+              { id: "what-is-intersectionality", title: "What Is Intersectionality? A Practical Introduction", proposed: true },
+            ],
+          },
+        ],
+      },
+      {
+        id: "building-inclusive-culture",
+        title: "Building an Inclusive Culture",
+        description: "Create workplaces where everyone belongs — through culture, representation, and identity.",
+        tags: ["Culture", "Belonging", "Race"],
+        modules: [
+          {
+            id: "culture-belonging",
+            title: "Culture & Belonging",
+            lessons: [
+              { id: "building-inclusive-workplace", title: "Building an Inclusive Workplace Culture" },
+              { id: "run-meetings", title: "Run Meetings That Work for Everyone" },
+              { id: "hybrid-remote", title: "Inclusion Across Distance: Hybrid and Remote Working" },
+            ],
+          },
+          {
+            id: "representation-visibility",
+            title: "Representation & Visibility",
+            lessons: [
+              { id: "imagery-inclusively", title: "Representation Matters: Using Imagery Inclusively" },
+              { id: "inclusive-events", title: "Plan Events Everyone Can Access" },
+              { id: "faith-culture-work", title: "Faith, Culture and Work: What Leaders Must Know" },
+            ],
+          },
+          {
+            id: "identity-at-work",
+            title: "Identity at Work",
+            lessons: [
+              { id: "ageism", title: "Age-Inclusive Workplaces: Recognising and Addressing Ageism" },
+              { id: "gender-equitable", title: "Creating Gender-Equitable Workplaces" },
+              { id: "anti-racist-practice", title: "Anti-Racist Practice: A Practical Framework" },
+            ],
+          },
+        ],
+      },
     ],
   },
   {
@@ -30,17 +90,67 @@ const pathways = [
     bg: "#f0eef8",
     thumbnailBg: "linear-gradient(135deg, #5a4a7a 0%, #7b6fa0 100%)",
     icon: "⚙️",
-    modules: [
-      { id: "inclusive-recruitment", title: "Inclusive Recruitment", duration: "60 min", cpd: "1 hr", tags: ["Recruitment", "Policy"] },
-      { id: "pay-gap-reporting", title: "Pay Gap Reporting & Analysis", duration: "55 min", cpd: "1 hr", tags: ["Data & Evidence", "Policy"] },
-      { id: "edi-data", title: "Collecting & Using EDI Data", duration: "50 min", cpd: "0.75 hrs", tags: ["Data & Evidence"] },
-      { id: "policy-audit", title: "Policy Auditing for Inclusion", duration: "45 min", cpd: "0.75 hrs", tags: ["Policy"] },
-      { id: "reasonable-adjustments", title: "Reasonable Adjustments", duration: "50 min", cpd: "0.75 hrs", tags: ["Disability", "Policy"] },
-      { id: "complaints-process", title: "Inclusive Complaints Processes", duration: "45 min", cpd: "0.75 hrs", tags: ["Policy"] },
-      { id: "supplier-diversity", title: "Supplier Diversity", duration: "40 min", cpd: "0.75 hrs", tags: ["Strategy", "Recruitment"] },
-      { id: "equality-impact", title: "Equality Impact Assessments", duration: "55 min", cpd: "1 hr", tags: ["Data & Evidence", "Policy"] },
-      { id: "menopause-policy", title: "Menopause & Workplace Policy", duration: "45 min", cpd: "0.75 hrs", tags: ["Policy", "Wellbeing"] },
-      { id: "neuroinclusivity", title: "Neuroinclusion in Practice", duration: "50 min", cpd: "0.75 hrs", tags: ["Neurodiversity", "Policy"] },
+    courses: [
+      {
+        id: "inclusive-recruitment-retention",
+        title: "Inclusive Recruitment & Retention",
+        description: "Attract diverse talent, hire without bias, and build conditions where people stay.",
+        tags: ["Recruitment", "Policy", "Data & Evidence"],
+        modules: [
+          {
+            id: "attracting-diverse-talent",
+            title: "Attracting Diverse Talent",
+            lessons: [
+              { id: "job-descriptions", title: "Write Job Descriptions That Include Everyone" },
+              { id: "recruit-inclusively", title: "Recruit Inclusively: Your Quick-Start Checklist" },
+              { id: "bias-free-interviewing", title: "Bias-Free Interviewing: Ask Better Questions" },
+            ],
+          },
+          {
+            id: "joining-staying",
+            title: "Joining & Staying",
+            lessons: [
+              { id: "onboard-inclusively", title: "Onboard Inclusively From Day One" },
+              { id: "exit-interviews", title: "Exit Interviews That Surface Inclusion Data" },
+              { id: "retention", title: "Retention That Works: Keeping an Inclusive Workforce" },
+            ],
+          },
+        ],
+      },
+      {
+        id: "policy-data-legal",
+        title: "Policy, Data & Legal Frameworks",
+        description: "Audit your policies, understand the law, collect meaningful data, and embed disability inclusion.",
+        tags: ["Policy", "Data & Evidence", "Disability"],
+        modules: [
+          {
+            id: "policy-legal-foundations",
+            title: "Policy & Legal Foundations",
+            lessons: [
+              { id: "policy-audit", title: "Inclusion-Ready Policies: A Practical Audit" },
+              { id: "positive-action", title: "Positive Action vs Positive Discrimination: Know the Difference" },
+              { id: "equality-act", title: "Understanding the Equality Act: What Practitioners Need to Know", proposed: true },
+            ],
+          },
+          {
+            id: "data-drives-decisions",
+            title: "Data That Drives Decisions",
+            lessons: [
+              { id: "collecting-inclusion-data", title: "Collecting Inclusion Data That Drives Decisions" },
+              { id: "gender-pay-gap", title: "The Gender Pay Gap: An Intersectional Approach" },
+            ],
+          },
+          {
+            id: "disability-neuroinclusion",
+            title: "Disability & Neuroinclusion",
+            lessons: [
+              { id: "disability-inclusion", title: "Disability Inclusion: Best Practice for Leaders" },
+              { id: "neuroinclusion", title: "Neuroinclusion at Work: What Leaders Need to Know" },
+              { id: "reasonable-adjustments", title: "Reasonable Adjustments in Practice", proposed: true },
+            ],
+          },
+        ],
+      },
     ],
   },
   {
@@ -50,51 +160,107 @@ const pathways = [
     bg: "#fdf3e8",
     thumbnailBg: "linear-gradient(135deg, #8a5a28 0%, #b07d4a 100%)",
     icon: "🎯",
-    modules: [
-      { id: "edi-strategy", title: "Building an EDI Strategy", duration: "70 min", cpd: "1.25 hrs", tags: ["Strategy", "Leadership"] },
-      { id: "stakeholder-engagement", title: "Stakeholder Engagement for EDI", duration: "55 min", cpd: "1 hr", tags: ["Leadership", "Strategy"] },
-      { id: "roi-inclusion", title: "The ROI of Inclusion", duration: "60 min", cpd: "1 hr", tags: ["Strategy", "Data & Evidence"] },
-      { id: "board-accountability", title: "Board-Level Accountability", duration: "50 min", cpd: "0.75 hrs", tags: ["Leadership", "Strategy"] },
-      { id: "intersectionality", title: "Intersectionality in Practice", duration: "65 min", cpd: "1 hr", tags: ["Race", "Disability", "Culture"] },
-      { id: "edi-governance", title: "EDI Governance Frameworks", duration: "55 min", cpd: "1 hr", tags: ["Strategy", "Policy", "Leadership"] },
-      { id: "anti-racism", title: "Anti-Racism in Organisations", duration: "70 min", cpd: "1.25 hrs", tags: ["Race", "Culture", "Leadership"] },
-      { id: "change-management", title: "Change Management for Inclusion", duration: "60 min", cpd: "1 hr", tags: ["Leadership", "Strategy"] },
-      { id: "measuring-impact", title: "Measuring Inclusion Impact", duration: "55 min", cpd: "1 hr", tags: ["Data & Evidence", "Strategy"] },
-      { id: "psychological-contract", title: "The Psychological Contract", duration: "50 min", cpd: "0.75 hrs", tags: ["Culture", "Leadership"] },
-      { id: "edi-communications", title: "Communicating EDI Internally", duration: "45 min", cpd: "0.75 hrs", tags: ["Language", "Leadership"] },
-      { id: "resilience-wellbeing", title: "EDI & Workplace Wellbeing", duration: "50 min", cpd: "0.75 hrs", tags: ["Wellbeing", "Culture"] },
-      { id: "global-edi", title: "Global EDI Cross-Cultural Contexts", duration: "65 min", cpd: "1 hr", tags: ["Culture", "Race", "Strategy"] },
+    courses: [
+      {
+        id: "inclusive-leadership",
+        title: "Inclusive Leadership",
+        description: "Develop the reflection, decision-making and stakeholder skills of an inclusive leader.",
+        tags: ["Leadership", "Strategy"],
+        modules: [
+          {
+            id: "leading-inclusively",
+            title: "Leading Inclusively",
+            lessons: [
+              { id: "leadership-reflection", title: "Inclusive Leadership: A Structured Reflection Programme" },
+              { id: "decide-inclusively", title: "Decide Inclusively: A Framework for Leaders" },
+              { id: "psychological-safety", title: "Psychological Safety: What Leaders Need to Create It", proposed: true },
+            ],
+          },
+          {
+            id: "ergs-stakeholders",
+            title: "ERGs & Stakeholders",
+            lessons: [
+              { id: "building-ergs", title: "Building ERGs That Work" },
+              { id: "stakeholder-engagement", title: "Inclusive Stakeholder Engagement" },
+            ],
+          },
+        ],
+      },
+      {
+        id: "strategy-organisational-change",
+        title: "Strategy & Organisational Change",
+        description: "Build the business case, develop a strategy, and embed inclusion at every level of your organisation.",
+        tags: ["Strategy", "Data & Evidence", "Leadership"],
+        modules: [
+          {
+            id: "building-business-case",
+            title: "Building the Business Case",
+            lessons: [
+              { id: "business-case-inclusion", title: "Making the Business Case for Inclusion", proposed: true },
+              { id: "measuring-inclusion", title: "Measuring Inclusion: Metrics That Matter", proposed: true },
+            ],
+          },
+          {
+            id: "embedding-systemically",
+            title: "Embedding Inclusion Systemically",
+            lessons: [
+              { id: "edi-strategy", title: "Developing an EDI Strategy from Scratch", proposed: true },
+            ],
+          },
+        ],
+      },
     ],
   },
 ];
 
 const ALL_TAGS = [
   "Allyship", "Belonging", "Bias", "Culture", "Data & Evidence",
-  "Disability", "Language", "Leadership", "LGBTQ+", "Neurodiversity",
-  "Policy", "Race", "Recruitment", "Strategy", "Wellbeing",
+  "Disability", "Language", "Leadership", "Policy",
+  "Race", "Recruitment", "Strategy",
 ];
-
-const allModules = pathways.flatMap((p) =>
-  p.modules.map((m, idx) => ({ ...m, pathway: p, indexInPathway: idx }))
-);
 
 export default function LearnPage() {
   const [search, setSearch] = useState("");
   const [activeTag, setActiveTag] = useState<string | null>(null);
+  const [expandedCourses, setExpandedCourses] = useState<Set<string>>(new Set());
 
-  const filtered = useMemo(() => {
+  const toggleCourse = (courseId: string) => {
+    setExpandedCourses((prev) => {
+      const next = new Set(prev);
+      if (next.has(courseId)) next.delete(courseId);
+      else next.add(courseId);
+      return next;
+    });
+  };
+
+  const filteredPathways = useMemo(() => {
     const q = search.toLowerCase();
     return pathways.map((pathway) => ({
       ...pathway,
-      modules: pathway.modules.filter((mod) => {
-        const matchesSearch = !q || mod.title.toLowerCase().includes(q) || mod.tags.some((t) => t.toLowerCase().includes(q));
-        const matchesTag = !activeTag || mod.tags.includes(activeTag);
-        return matchesSearch && matchesTag;
+      courses: pathway.courses.map((course) => ({
+        ...course,
+        modules: course.modules.map((mod) => ({
+          ...mod,
+          lessons: mod.lessons.filter((lesson) => {
+            const matchesSearch = !q || lesson.title.toLowerCase().includes(q) || course.tags.some((t) => t.toLowerCase().includes(q));
+            const matchesTag = !activeTag || course.tags.includes(activeTag);
+            return matchesSearch && matchesTag;
+          }),
+        })).filter((mod) => mod.lessons.length > 0),
+      })).filter((course) => {
+        if (activeTag && !course.tags.includes(activeTag)) return false;
+        if (q) {
+          return course.title.toLowerCase().includes(q) ||
+            course.modules.some((mod) => mod.lessons.some((l) => l.title.toLowerCase().includes(q)));
+        }
+        return true;
       }),
-    })).filter((p) => p.modules.length > 0);
+    })).filter((p) => p.courses.length > 0);
   }, [search, activeTag]);
 
-  const totalVisible = filtered.reduce((sum, p) => sum + p.modules.length, 0);
+  const totalLessons = pathways.reduce((sum, p) => sum + p.courses.reduce((s, c) => s + c.modules.reduce((ms, m) => ms + m.lessons.length, 0), 0), 0);
+  const totalCourses = pathways.reduce((sum, p) => sum + p.courses.length, 0);
+  const totalModules = pathways.reduce((sum, p) => sum + p.courses.reduce((s, c) => s + c.modules.length, 0), 0);
 
   return (
     <div className="min-h-screen" style={{ background: "var(--sage-xlight)" }}>
@@ -109,13 +275,13 @@ export default function LearnPage() {
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: "1rem", marginBottom: "1.75rem" }}>
             <div>
               <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.5rem)", color: "var(--charcoal)", marginBottom: "0.4rem", letterSpacing: "-0.01em" }}>
-                Explore Modules
+                Explore Courses
               </h1>
               <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.95rem" }}>
-                31 CPD-accredited modules across three learning pathways.
+                {totalCourses} CPD-accredited courses · {totalModules} modules · {totalLessons} lessons · Certificate after every module
               </p>
             </div>
-            <div style={{ display: "flex", gap: "0.75rem" }}>
+            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
               {pathways.map((p) => (
                 <div key={p.id} style={{ display: "flex", alignItems: "center", gap: "0.4rem", padding: "0.35rem 0.75rem", borderRadius: "999px", background: p.bg, fontSize: "0.72rem", fontFamily: "var(--font-heading)", fontWeight: 600, color: p.color, whiteSpace: "nowrap" }}>
                   <span aria-hidden="true">{p.icon}</span> {p.title}
@@ -129,62 +295,24 @@ export default function LearnPage() {
             <span style={{ position: "absolute", left: "1.25rem", top: "50%", transform: "translateY(-50%)", fontSize: "1rem", color: "var(--gray-soft)" }} aria-hidden="true">🔍</span>
             <input
               type="search"
-              placeholder="Search modules by title or topic…"
+              placeholder="Search courses by title or topic…"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              aria-label="Search modules"
-              style={{
-                width: "100%",
-                padding: "0.9rem 1.25rem 0.9rem 3rem",
-                borderRadius: "12px",
-                border: "1.5px solid var(--gray-border)",
-                fontFamily: "var(--font-body)",
-                fontSize: "1rem",
-                background: "var(--sage-xlight)",
-                color: "var(--charcoal)",
-                outline: "none",
-                boxSizing: "border-box",
-              }}
+              aria-label="Search courses"
+              style={{ width: "100%", padding: "0.9rem 1.25rem 0.9rem 3rem", borderRadius: "12px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "1rem", background: "var(--sage-xlight)", color: "var(--charcoal)", outline: "none", boxSizing: "border-box" }}
             />
             {search && (
-              <button
-                onClick={() => setSearch("")}
-                aria-label="Clear search"
-                style={{ position: "absolute", right: "1rem", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "var(--gray-soft)", fontSize: "1.1rem", padding: "0.25rem" }}
-              >
-                ✕
-              </button>
+              <button onClick={() => setSearch("")} aria-label="Clear search" style={{ position: "absolute", right: "1rem", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "var(--gray-soft)", fontSize: "1.1rem", padding: "0.25rem" }}>✕</button>
             )}
           </div>
 
           {/* TOPIC TAG PILLS */}
           <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", paddingBottom: "1.5rem" }}>
-            <button
-              onClick={() => setActiveTag(null)}
-              style={{
-                fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem",
-                padding: "0.4rem 1rem", borderRadius: "999px", cursor: "pointer", border: "1.5px solid",
-                borderColor: !activeTag ? "var(--sage-dark)" : "var(--gray-border)",
-                background: !activeTag ? "var(--sage-dark)" : "transparent",
-                color: !activeTag ? "var(--white)" : "var(--charcoal)",
-                transition: "all 0.15s",
-              }}
-            >
-              All modules
+            <button onClick={() => setActiveTag(null)} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", padding: "0.4rem 1rem", borderRadius: "999px", cursor: "pointer", border: "1.5px solid", borderColor: !activeTag ? "var(--sage-dark)" : "var(--gray-border)", background: !activeTag ? "var(--sage-dark)" : "transparent", color: !activeTag ? "var(--white)" : "var(--charcoal)", transition: "all 0.15s" }}>
+              All courses
             </button>
             {ALL_TAGS.map((tag) => (
-              <button
-                key={tag}
-                onClick={() => setActiveTag(activeTag === tag ? null : tag)}
-                style={{
-                  fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem",
-                  padding: "0.4rem 1rem", borderRadius: "999px", cursor: "pointer", border: "1.5px solid",
-                  borderColor: activeTag === tag ? "var(--sage-dark)" : "var(--gray-border)",
-                  background: activeTag === tag ? "var(--sage-dark)" : "transparent",
-                  color: activeTag === tag ? "var(--white)" : "var(--charcoal)",
-                  transition: "all 0.15s",
-                }}
-              >
+              <button key={tag} onClick={() => setActiveTag(activeTag === tag ? null : tag)} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", padding: "0.4rem 1rem", borderRadius: "999px", cursor: "pointer", border: "1.5px solid", borderColor: activeTag === tag ? "var(--sage-dark)" : "var(--gray-border)", background: activeTag === tag ? "var(--sage-dark)" : "transparent", color: activeTag === tag ? "var(--white)" : "var(--charcoal)", transition: "all 0.15s" }}>
                 {tag}
               </button>
             ))}
@@ -192,99 +320,128 @@ export default function LearnPage() {
         </div>
       </div>
 
-      {/* MODULES */}
+      {/* CONTENT */}
       <main id="main-content" style={{ maxWidth: "1100px", margin: "0 auto", padding: "2.5rem 1.5rem 5rem" }}>
 
-        {/* Results count */}
-        {(search || activeTag) && (
-          <p style={{ fontFamily: "var(--font-heading)", fontSize: "0.85rem", color: "var(--gray-soft)", marginBottom: "1.5rem" }}>
-            {totalVisible === 0 ? "No modules found" : `${totalVisible} module${totalVisible === 1 ? "" : "s"} found`}
-            {activeTag && <> in <strong style={{ color: "var(--charcoal)" }}>{activeTag}</strong></>}
-            {search && <> matching <strong style={{ color: "var(--charcoal)" }}>&ldquo;{search}&rdquo;</strong></>}
-            <button onClick={() => { setSearch(""); setActiveTag(null); }} style={{ marginLeft: "0.75rem", fontFamily: "var(--font-heading)", fontSize: "0.8rem", color: "var(--sage-dark)", background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}>
-              Clear filters
-            </button>
-          </p>
-        )}
-
-        {totalVisible === 0 && (
+        {filteredPathways.length === 0 && (
           <div style={{ textAlign: "center", padding: "4rem 1.5rem", color: "var(--gray-soft)", fontFamily: "var(--font-body)" }}>
             <div style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>🔍</div>
-            <p style={{ fontSize: "1.05rem", marginBottom: "0.5rem", fontFamily: "var(--font-heading)", fontWeight: 600, color: "var(--charcoal)" }}>No modules match your search</p>
-            <p>Try a different keyword or clear your filters.</p>
+            <p style={{ fontSize: "1.05rem", marginBottom: "0.5rem", fontFamily: "var(--font-heading)", fontWeight: 600, color: "var(--charcoal)" }}>No courses match your search</p>
+            <p>Try a different keyword or <button onClick={() => { setSearch(""); setActiveTag(null); }} style={{ color: "var(--sage-dark)", background: "none", border: "none", cursor: "pointer", textDecoration: "underline", fontFamily: "var(--font-body)", fontSize: "inherit" }}>clear your filters</button>.</p>
           </div>
         )}
 
-        {filtered.map((pathway) => (
-          <section key={pathway.id} style={{ marginBottom: "3rem" }} aria-labelledby={`pathway-${pathway.id}`}>
+        {filteredPathways.map((pathway) => (
+          <section key={pathway.id} style={{ marginBottom: "3.5rem" }} aria-labelledby={`pathway-${pathway.id}`}>
+
             {/* Pathway header */}
-            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.25rem", padding: "0.875rem 1.25rem", background: pathway.bg, borderRadius: "12px", borderLeft: `4px solid ${pathway.color}` }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.5rem", padding: "0.875rem 1.25rem", background: pathway.bg, borderRadius: "12px", borderLeft: `4px solid ${pathway.color}` }}>
               <span style={{ fontSize: "1.4rem" }} aria-hidden="true">{pathway.icon}</span>
               <div>
                 <h2 id={`pathway-${pathway.id}`} style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", margin: 0 }}>
                   {pathway.title}
                 </h2>
                 <span style={{ fontSize: "0.75rem", color: "var(--gray-soft)", fontFamily: "var(--font-body)" }}>
-                  {pathway.modules.length} of {pathways.find(p => p.id === pathway.id)!.modules.length} modules
+                  {pathway.courses.length} courses
                 </span>
               </div>
             </div>
 
-            {/* Module cards grid */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1rem" }}>
-              {pathway.modules.map((mod, idx) => (
-                <Link
-                  key={mod.id}
-                  href={`/dashboard/learn/${mod.id}`}
-                  style={{ textDecoration: "none", display: "flex", flexDirection: "column", background: "var(--white)", borderRadius: "14px", overflow: "hidden", border: "1px solid var(--gray-border)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)", transition: "box-shadow 0.18s, transform 0.18s" }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 6px 24px rgba(0,0,0,0.11)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 1px 4px rgba(0,0,0,0.06)"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
-                >
-                  {/* Colour thumbnail */}
-                  <div style={{ background: pathway.thumbnailBg, height: "80px", position: "relative", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 1.25rem" }}>
-                    <span style={{ fontSize: "1.75rem" }} aria-hidden="true">{pathway.icon}</span>
-                    <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.5rem", color: "rgba(255,255,255,0.2)", lineHeight: 1 }}>
-                      {String(idx + 1).padStart(2, "0")}
-                    </span>
-                    {/* Free badge on first module of each pathway */}
-                    {idx === 0 && (
-                      <span style={{ position: "absolute", top: "0.6rem", left: "0.75rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.6rem", textTransform: "uppercase", letterSpacing: "0.08em", background: "rgba(255,255,255,0.25)", color: "var(--white)", padding: "0.2rem 0.5rem", borderRadius: "999px" }}>
-                        Free preview
-                      </span>
-                    )}
-                  </div>
+            {/* Course cards */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+              {pathway.courses.map((course) => {
+                const isExpanded = expandedCourses.has(course.id);
+                const lessonCount = course.modules.reduce((s, m) => s + m.lessons.length, 0);
+                return (
+                  <div key={course.id} style={{ background: "var(--white)", borderRadius: "16px", border: "1px solid var(--gray-border)", overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
 
-                  {/* Card body */}
-                  <div style={{ padding: "1rem 1.25rem 1.25rem", flex: 1, display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.35 }}>
-                      {mod.title}
-                    </div>
-
-                    <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginTop: "0.25rem" }}>
-                      {mod.tags.slice(0, 2).map((tag) => (
-                        <span key={tag} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.62rem", textTransform: "uppercase", letterSpacing: "0.07em", color: pathway.color, background: pathway.bg, padding: "0.15rem 0.5rem", borderRadius: "999px" }}>
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div style={{ display: "flex", gap: "0.75rem", alignItems: "center", marginTop: "auto", paddingTop: "0.5rem" }}>
-                      <span style={{ fontSize: "0.75rem", color: "var(--gray-soft)", fontFamily: "var(--font-body)" }}>⏱ {mod.duration}</span>
-                      <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.62rem", textTransform: "uppercase", letterSpacing: "0.07em", color: "var(--sage-dark)", background: "var(--sage-xlight)", padding: "0.18rem 0.5rem", borderRadius: "999px" }}>
-                        {mod.cpd} CPD
-                      </span>
-                    </div>
-
-                    {/* Progress bar */}
-                    <div style={{ marginTop: "0.5rem" }}>
-                      <div style={{ height: "4px", background: "var(--gray-border)", borderRadius: "999px", overflow: "hidden" }}>
-                        <div style={{ height: "100%", width: "0%", background: pathway.color, borderRadius: "999px", transition: "width 0.3s" }} />
+                    {/* Course header band */}
+                    <div style={{ background: pathway.thumbnailBg, padding: "1.25rem 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem" }}>
+                      <div>
+                        <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.05rem", color: "var(--white)", marginBottom: "0.3rem" }}>
+                          {course.title}
+                        </div>
+                        <div style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "rgba(255,255,255,0.8)" }}>
+                          {course.modules.length} modules · {lessonCount} lessons · CPD certificate per module
+                        </div>
                       </div>
-                      <div style={{ marginTop: "0.3rem", fontSize: "0.68rem", color: "var(--gray-soft)", fontFamily: "var(--font-body)" }}>Not started</div>
+                      <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+                        {course.tags.map((tag) => (
+                          <span key={tag} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.62rem", textTransform: "uppercase", letterSpacing: "0.07em", color: "var(--white)", background: "rgba(255,255,255,0.2)", padding: "0.2rem 0.6rem", borderRadius: "999px" }}>
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Course body */}
+                    <div style={{ padding: "1.25rem 1.5rem" }}>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: "0 0 1rem 0" }}>
+                        {course.description}
+                      </p>
+
+                      {/* Expand/collapse modules */}
+                      <button
+                        onClick={() => toggleCourse(course.id)}
+                        style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: pathway.color, background: "none", border: "none", cursor: "pointer", padding: 0, display: "flex", alignItems: "center", gap: "0.4rem" }}
+                        aria-expanded={isExpanded}
+                      >
+                        <span style={{ display: "inline-block", transform: isExpanded ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 0.2s", fontSize: "0.7rem" }}>▶</span>
+                        {isExpanded ? "Hide" : "Show"} modules & lessons
+                      </button>
+
+                      {isExpanded && (
+                        <div style={{ marginTop: "1.25rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
+                          {course.modules.map((mod, modIdx) => (
+                            <div key={mod.id} style={{ borderRadius: "10px", border: `1px solid ${pathway.bg === "var(--sage-light)" ? "var(--sage-light)" : pathway.bg}`, overflow: "hidden" }}>
+
+                              {/* Module header */}
+                              <div style={{ padding: "0.75rem 1rem", background: pathway.bg, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                                <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.7rem", color: pathway.color, textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                                    Module {modIdx + 1}
+                                  </span>
+                                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--charcoal)" }}>
+                                    {mod.title}
+                                  </span>
+                                </div>
+                                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                                  <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", color: "var(--gray-soft)" }}>
+                                    {mod.lessons.length} lessons
+                                  </span>
+                                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.6rem", textTransform: "uppercase", letterSpacing: "0.07em", color: pathway.color, background: "rgba(255,255,255,0.7)", padding: "0.15rem 0.5rem", borderRadius: "999px" }}>
+                                    🎓 Certificate
+                                  </span>
+                                </div>
+                              </div>
+
+                              {/* Lessons list */}
+                              <div style={{ padding: "0.5rem 0" }}>
+                                {mod.lessons.map((lesson, lessonIdx) => (
+                                  <div key={lesson.id} style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.6rem 1rem", borderBottom: lessonIdx < mod.lessons.length - 1 ? "1px solid var(--gray-border)" : "none" }}>
+                                    <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", color: "var(--gray-soft)", minWidth: "1.5rem" }}>
+                                      {String(lessonIdx + 1).padStart(2, "0")}
+                                    </span>
+                                    <span style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", flex: 1, lineHeight: 1.4 }}>
+                                      {lesson.title}
+                                    </span>
+                                    {(lesson as any).proposed && (
+                                      <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.58rem", textTransform: "uppercase", letterSpacing: "0.07em", color: "#8a5a28", background: "#fdf3e8", padding: "0.15rem 0.5rem", borderRadius: "999px", whiteSpace: "nowrap" }}>
+                                        Coming soon
+                                      </span>
+                                    )}
+                                    <span style={{ fontSize: "0.7rem", color: "var(--gray-soft)" }}>🔒</span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
-                </Link>
-              ))}
+                );
+              })}
             </div>
           </section>
         ))}
