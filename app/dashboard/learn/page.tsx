@@ -268,6 +268,24 @@ const QUICK_LESSONS = [
     thumbnailBg: "linear-gradient(135deg, #2A6B3A 0%, #4A8F5A 100%)",
     tag: "Culture",
   },
+  {
+    id: "onboard-inclusively",
+    title: "Onboard Inclusively From Day One",
+    blurb: "Simple changes to your onboarding process that make every new starter feel they belong.",
+    duration: "10 min",
+    color: "#5a4a7a",
+    thumbnailBg: "linear-gradient(135deg, #5a4a7a 0%, #7b6fa0 100%)",
+    tag: "Recruitment",
+  },
+  {
+    id: "active-allyship",
+    title: "Active Allyship: Moving from Intention to Impact",
+    blurb: "Move beyond good intentions with a clear framework for everyday allyship in the workplace.",
+    duration: "12 min",
+    color: "#2A6B3A",
+    thumbnailBg: "linear-gradient(135deg, #2A6B3A 0%, #4A8F5A 100%)",
+    tag: "Allyship",
+  },
 ];
 
 const ALL_TAGS = [
