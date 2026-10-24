@@ -3,7 +3,7 @@
 import Link from "next/link";
 import PlatformNav from "@/app/components/PlatformNav";
 import BottomBanner from "@/app/components/BottomBanner";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 const RESEARCH_REPORTS = [
   {
@@ -141,6 +141,25 @@ type Tab = "research" | "cases" | "downloads";
 
 export default function EvidencePage() {
   const [activeTab, setActiveTab] = useState<Tab>("research");
+  const [search, setSearch] = useState("");
+
+  const filteredResearch = useMemo(() => {
+    const q = search.toLowerCase();
+    if (!q) return RESEARCH_REPORTS;
+    return RESEARCH_REPORTS.filter((r) => r.title.toLowerCase().includes(q) || r.desc.toLowerCase().includes(q) || r.source.toLowerCase().includes(q) || r.tags.some((t) => t.toLowerCase().includes(q)));
+  }, [search]);
+
+  const filteredCases = useMemo(() => {
+    const q = search.toLowerCase();
+    if (!q) return CASE_STUDIES;
+    return CASE_STUDIES.filter((c) => c.title.toLowerCase().includes(q) || c.outcome.toLowerCase().includes(q) || c.sector.toLowerCase().includes(q) || c.tags.some((t) => t.toLowerCase().includes(q)));
+  }, [search]);
+
+  const filteredDownloads = useMemo(() => {
+    const q = search.toLowerCase();
+    if (!q) return DOWNLOADS;
+    return DOWNLOADS.filter((d) => d.title.toLowerCase().includes(q) || d.desc.toLowerCase().includes(q) || d.type.toLowerCase().includes(q));
+  }, [search]);
 
   return (
     <div className="min-h-screen" style={{ background: "var(--sage-xlight)" }}>
@@ -158,9 +177,26 @@ export default function EvidencePage() {
           <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.25rem)", color: "var(--charcoal)", marginBottom: "0.5rem" }}>
             Make the Case
           </h1>
-          <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", marginBottom: "1.5rem" }}>
+          <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", marginBottom: "1.25rem" }}>
             Evidence, data, case studies and resources to build a compelling business case for inclusion.
           </p>
+
+          {/* SEARCH BAR */}
+          <div style={{ position: "relative", marginBottom: "1.5rem", maxWidth: "560px" }}>
+            <span style={{ position: "absolute", left: "1.1rem", top: "50%", transform: "translateY(-50%)", fontSize: "0.95rem", color: "var(--gray-soft)" }} aria-hidden="true">🔍</span>
+            <input
+              type="search"
+              placeholder="Search our library — type a keyword…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              aria-label="Search the library"
+              style={{ width: "100%", padding: "0.8rem 2.75rem 0.8rem 2.75rem", borderRadius: "10px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.95rem", background: "var(--sage-xlight)", color: "var(--charcoal)", outline: "none", boxSizing: "border-box" }}
+            />
+            {search && (
+              <button onClick={() => setSearch("")} aria-label="Clear search" style={{ position: "absolute", right: "0.9rem", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "var(--gray-soft)", fontSize: "1rem", padding: "0.2rem" }}>✕</button>
+            )}
+          </div>
+
           <div style={{ display: "flex", gap: "0", borderBottom: "2px solid var(--gray-border)" }}>
             {([
               { key: "research", label: "📊 Research & Data" },
@@ -184,7 +220,8 @@ export default function EvidencePage() {
               Key findings from the major reports curated and contextualised for EDI practitioners and the stakeholders they need to influence.
             </p>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "1.25rem" }}>
-              {RESEARCH_REPORTS.map((r) => (
+              {filteredResearch.length === 0 && <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", gridColumn: "1/-1" }}>No research matches your search.</p>}
+              {filteredResearch.map((r) => (
                 <div key={r.title} className="card">
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.75rem" }}>
                     <span style={{ fontSize: "1.75rem" }} aria-hidden="true">{r.icon}</span>
@@ -211,7 +248,8 @@ export default function EvidencePage() {
               Real examples of inclusion driving measurable change for sharing with leadership, informing strategy, or as inspiration.
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-              {CASE_STUDIES.map((c) => (
+              {filteredCases.length === 0 && <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)" }}>No case studies match your search.</p>}
+              {filteredCases.map((c) => (
                 <div key={c.title} className="card">
                   <div style={{ display: "flex", gap: "1.25rem", flexWrap: "wrap" }}>
                     <div style={{ flex: 1, minWidth: "280px" }}>
@@ -241,7 +279,8 @@ export default function EvidencePage() {
               Ready-to-use documents and templates download and adapt for your organisation.
             </p>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1.25rem" }}>
-              {DOWNLOADS.map((d) => (
+              {filteredDownloads.length === 0 && <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", gridColumn: "1/-1" }}>No templates match your search.</p>}
+              {filteredDownloads.map((d) => (
                 <div key={d.title} className="card" style={{ position: "relative" }}>
                   {d.free && (
                     <span className="badge badge-sage" style={{ fontSize: "0.6rem", position: "absolute", top: "1rem", right: "1rem" }}>Free</span>

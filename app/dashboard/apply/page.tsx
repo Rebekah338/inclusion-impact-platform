@@ -3,7 +3,7 @@
 import Link from "next/link";
 import PlatformNav from "@/app/components/PlatformNav";
 import BottomBanner from "@/app/components/BottomBanner";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 const TOOLS = [
   { icon: "🔍", title: "EDI Audit Tool", desc: "A structured self-assessment to identify gaps in your current EDI practice across recruitment, leadership, culture, and systems.", type: "Interactive tool", time: "30–45 min" },
@@ -36,6 +36,25 @@ type Tab = "tools" | "guides" | "checklists" | "glossary" | "reflection" | "surv
 
 export default function ApplyPage() {
   const [activeTab, setActiveTab] = useState<Tab>("tools");
+  const [search, setSearch] = useState("");
+
+  const filteredTools = useMemo(() => {
+    const q = search.toLowerCase();
+    if (!q) return TOOLS;
+    return TOOLS.filter((t) => t.title.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q) || t.type.toLowerCase().includes(q));
+  }, [search]);
+
+  const filteredGuides = useMemo(() => {
+    const q = search.toLowerCase();
+    if (!q) return GUIDES;
+    return GUIDES.filter((g) => g.title.toLowerCase().includes(q) || g.desc.toLowerCase().includes(q) || g.tags.some((t) => t.toLowerCase().includes(q)));
+  }, [search]);
+
+  const filteredChecklists = useMemo(() => {
+    const q = search.toLowerCase();
+    if (!q) return CHECKLISTS;
+    return CHECKLISTS.filter((c) => c.title.toLowerCase().includes(q) || c.desc.toLowerCase().includes(q) || c.tags.some((t) => t.toLowerCase().includes(q)));
+  }, [search]);
 
   return (
     <div className="min-h-screen" style={{ background: "var(--sage-xlight)" }}>
@@ -53,9 +72,26 @@ export default function ApplyPage() {
           <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.25rem)", color: "var(--charcoal)", marginBottom: "0.5rem" }}>
             Apply
           </h1>
-          <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", marginBottom: "1.5rem" }}>
+          <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", marginBottom: "1.25rem" }}>
             Tools, frameworks, guides, and checklists everything you need to put your learning into practice.
           </p>
+
+          {/* SEARCH BAR */}
+          <div style={{ position: "relative", marginBottom: "1.5rem", maxWidth: "560px" }}>
+            <span style={{ position: "absolute", left: "1.1rem", top: "50%", transform: "translateY(-50%)", fontSize: "0.95rem", color: "var(--gray-soft)" }} aria-hidden="true">🔍</span>
+            <input
+              type="search"
+              placeholder="Search our resources — type a keyword…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              aria-label="Search resources"
+              style={{ width: "100%", padding: "0.8rem 2.75rem 0.8rem 2.75rem", borderRadius: "10px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.95rem", background: "var(--sage-xlight)", color: "var(--charcoal)", outline: "none", boxSizing: "border-box" }}
+            />
+            {search && (
+              <button onClick={() => setSearch("")} aria-label="Clear search" style={{ position: "absolute", right: "0.9rem", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "var(--gray-soft)", fontSize: "1rem", padding: "0.2rem" }}>✕</button>
+            )}
+          </div>
+
           <div style={{ display: "flex", gap: "0", borderBottom: "2px solid var(--gray-border)" }}>
             {([
               { key: "tools", label: "🛠️ Tools & Frameworks" },
@@ -78,7 +114,8 @@ export default function ApplyPage() {
 
         {activeTab === "tools" && (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1.25rem" }}>
-            {TOOLS.map((t) => (
+            {filteredTools.length === 0 && <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", gridColumn: "1/-1" }}>No tools match your search.</p>}
+            {filteredTools.map((t) => (
               <div key={t.title} className="card">
                 <div style={{ fontSize: "1.75rem", marginBottom: "0.875rem" }} aria-hidden="true">{t.icon}</div>
                 <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9375rem", color: "var(--charcoal)", marginBottom: "0.375rem" }}>{t.title}</div>
@@ -95,7 +132,8 @@ export default function ApplyPage() {
 
         {activeTab === "guides" && (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "1.25rem" }}>
-            {GUIDES.map((g) => (
+            {filteredGuides.length === 0 && <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", gridColumn: "1/-1" }}>No guides match your search.</p>}
+            {filteredGuides.map((g) => (
               <div key={g.title} className="card">
                 <div style={{ fontSize: "1.75rem", marginBottom: "0.875rem" }} aria-hidden="true">{g.icon}</div>
                 <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9375rem", color: "var(--charcoal)", marginBottom: "0.625rem" }}>{g.title}</div>
@@ -112,7 +150,8 @@ export default function ApplyPage() {
 
         {activeTab === "checklists" && (
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1.25rem" }}>
-            {CHECKLISTS.map((c) => (
+            {filteredChecklists.length === 0 && <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", gridColumn: "1/-1" }}>No checklists match your search.</p>}
+            {filteredChecklists.map((c) => (
               <div key={c.title} className="card">
                 <div style={{ fontSize: "1.75rem", marginBottom: "0.875rem" }} aria-hidden="true">{c.icon}</div>
                 <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9375rem", color: "var(--charcoal)", marginBottom: "0.375rem" }}>{c.title}</div>
