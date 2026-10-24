@@ -430,8 +430,11 @@ export default function Home() {
         {/* BIG SEARCH BAR */}
         <section style={{ background: "var(--white)", padding: "2rem 1.5rem 0" }}>
           <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.1rem", color: "var(--charcoal)", textAlign: "center", marginBottom: "1.25rem" }}>
-              What does your culture need? Find the tools and resources to move it forward.
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 3vw, 2.25rem)", color: "var(--charcoal)", textAlign: "center", marginBottom: "0.5rem", letterSpacing: "-0.01em" }}>
+              What does your culture need?
+            </h2>
+            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 500, fontSize: "1rem", color: "var(--gray-soft)", textAlign: "center", marginBottom: "1.5rem" }}>
+              Find the tools and resources to move it forward.
             </p>
             <div ref={heroSearchRef} style={{ position: "relative" }}>
               <input
