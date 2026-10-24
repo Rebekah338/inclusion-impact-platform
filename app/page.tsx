@@ -428,7 +428,7 @@ export default function Home() {
         </section>
 
         {/* BIG SEARCH BAR */}
-        <section style={{ background: "var(--white)", padding: "3rem 1.5rem 0" }}>
+        <section style={{ background: "var(--white)", padding: "2rem 1.5rem 0" }}>
           <div style={{ maxWidth: "760px", margin: "0 auto" }}>
             <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.1rem", color: "var(--charcoal)", textAlign: "center", marginBottom: "1.25rem" }}>
               What are you looking for today?
@@ -477,7 +477,7 @@ export default function Home() {
         </section>
 
         {/* WHERE WOULD YOU LIKE TO START */}
-        <section style={{ padding: "2.5rem 1.5rem 0", background: "var(--white)" }}>
+        <section style={{ padding: "1.5rem 1.5rem 0", background: "var(--white)" }}>
           <div style={{ maxWidth: "900px", margin: "0 auto" }}>
             <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--gray-soft)", textAlign: "center", marginBottom: "1.25rem" }}>
               Where would you like to start?
@@ -587,7 +587,7 @@ export default function Home() {
         </section>
 
         {/* EXPLORE THE WATCH LIBRARY */}
-        <section style={{ padding: "5rem 1.5rem", background: "var(--white)" }}>
+        <section style={{ padding: "3.5rem 1.5rem", background: "var(--white)" }}>
           <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "3rem" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--sage-xlight)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1rem" }}>
@@ -669,7 +669,7 @@ export default function Home() {
         </section>
 
         {/* COACHING */}
-        <section style={{ padding: "5rem 1.5rem", background: "var(--sage-xlight)" }}>
+        <section style={{ padding: "3.5rem 1.5rem", background: "var(--sage-xlight)" }}>
           <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
             <div className="coaching-grid" style={{
               borderRadius: "24px", overflow: "hidden",
@@ -717,7 +717,7 @@ export default function Home() {
         </section>
 
         {/* MEMBERSHIP / PRICING */}
-        <section style={{ padding: "5rem 1.5rem", background: "var(--sage-xlight)" }} aria-label="Membership options">
+        <section style={{ padding: "3.5rem 1.5rem", background: "var(--sage-xlight)" }} aria-label="Membership options">
           <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--white)", border: "1px solid var(--sage-light)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1rem" }}>
@@ -789,7 +789,7 @@ export default function Home() {
         </section>
 
         {/* SHARE A CULTURE CHALLENGE */}
-        <section style={{ padding: "4rem 1.5rem", background: "var(--white)" }}>
+        <section style={{ padding: "3rem 1.5rem", background: "var(--white)" }}>
           <div style={{ maxWidth: "760px", margin: "0 auto" }}>
             <div style={{
               borderRadius: "20px", padding: "2.75rem",
@@ -849,7 +849,7 @@ export default function Home() {
         </section>
 
         {/* FINAL CTA */}
-        <section style={{ padding: "6rem 1.5rem", textAlign: "center", background: "var(--white)" }}>
+        <section style={{ padding: "4rem 1.5rem", textAlign: "center", background: "var(--white)" }}>
           <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--sage-xlight)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1.5rem" }}>
             Join today
           </span>
