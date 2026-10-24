@@ -431,7 +431,7 @@ export default function Home() {
         <section style={{ background: "var(--white)", padding: "2rem 1.5rem 0" }}>
           <div style={{ maxWidth: "760px", margin: "0 auto" }}>
             <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.1rem", color: "var(--charcoal)", textAlign: "center", marginBottom: "1.25rem" }}>
-              What are you looking for today?
+              What does your culture need? Find the tools and resources to move it forward.
             </p>
             <div ref={heroSearchRef} style={{ position: "relative" }}>
               <input
