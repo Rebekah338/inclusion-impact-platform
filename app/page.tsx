@@ -207,7 +207,6 @@ export default function Home() {
           </div>
 
           <div className="hidden md:flex" style={{ gap: "0.75rem", alignItems: "center", flexShrink: 0 }}>
-            <img src="/Transparent%20Green%20Current%20main%20%20logo%202026%202.png" alt="The Inclusion Edit" style={{ height: "36px", width: "auto", objectFit: "contain" }} />
             <Link href="/dashboard"
               style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "var(--white)", padding: "0.45rem 1rem", borderRadius: "8px", background: "var(--sage-dark)", textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 2px 8px rgba(42,74,48,0.25)" }}
             >
@@ -284,6 +283,11 @@ export default function Home() {
             position: "absolute", inset: 0,
             background: "linear-gradient(100deg, rgba(20,40,25,0.95) 0%, rgba(20,40,25,0.85) 38%, rgba(20,40,25,0.3) 70%, rgba(20,40,25,0.1) 100%)",
           }} aria-hidden="true" />
+
+          {/* Logo top-right of hero */}
+          <div style={{ position: "absolute", top: "1.75rem", right: "2rem", zIndex: 3 }}>
+            <img src="/Transparent%20Green%20Current%20main%20%20logo%202026%202.png" alt="The Inclusion Edit" style={{ height: "80px", width: "auto", objectFit: "contain" }} />
+          </div>
 
           <div style={{ position: "relative", zIndex: 2, maxWidth: "1200px", margin: "0 auto", padding: "5rem 2rem", width: "100%" }}>
             <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>
