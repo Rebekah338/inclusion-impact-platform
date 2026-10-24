@@ -172,10 +172,10 @@ export default function Home() {
             ))}
           </div>
 
-          <div ref={searchRef} style={{ position: "relative", flex: "0 1 260px" }}>
+          <div ref={searchRef} style={{ position: "relative", flex: "0 1 400px" }}>
             <input
               type="search"
-              placeholder="Search modules, tools…"
+              placeholder="Search modules, tools, guides…"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onFocus={() => searchQuery.length >= 2 && setSearchOpen(true)}
@@ -207,11 +207,6 @@ export default function Home() {
           </div>
 
           <div className="hidden md:flex" style={{ gap: "0.75rem", alignItems: "center", flexShrink: 0 }}>
-            <Link href="/dashboard"
-              style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "var(--white)", padding: "0.45rem 1rem", borderRadius: "8px", background: "var(--sage-dark)", textDecoration: "none", whiteSpace: "nowrap", boxShadow: "0 2px 8px rgba(42,74,48,0.25)" }}
-            >
-              Members Dashboard
-            </Link>
             <Link href="/sign-in" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--charcoal)", padding: "0.45rem 0.875rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", textDecoration: "none", whiteSpace: "nowrap" }}>
               Sign in
             </Link>
@@ -243,7 +238,6 @@ export default function Home() {
             ))}
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
-            <Link href="/dashboard" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", background: "var(--sage-dark)", color: "var(--white)", padding: "0.75rem", borderRadius: "8px", textDecoration: "none", textAlign: "center" }}>Members Dashboard</Link>
             <Link href="/sign-up" className="btn-primary" style={{ textAlign: "center", fontSize: "0.9rem" }}>Join now</Link>
             <Link href="/sign-in" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", color: "var(--charcoal)", textDecoration: "none", textAlign: "center", padding: "0.5rem" }}>Sign in</Link>
           </div>
