@@ -1466,9 +1466,9 @@ function EvidencePageInner() {
                       style={{
                         textAlign: "center",
                         background: "linear-gradient(160deg, #f0f6f1 0%, #daeadc 60%, #c8deca 100%)",
-                        border: "1.5px solid #8faf93",
+                        border: "2.5px solid #8faf93",
                         borderRadius: "16px",
-                        padding: "2.5rem 1.5rem 2.25rem",
+                        padding: "3rem 1.75rem 2.75rem",
                         cursor: "pointer",
                         transition: "all 0.2s ease",
                         display: "flex",
@@ -1508,9 +1508,9 @@ function EvidencePageInner() {
                       style={{
                         textAlign: "center",
                         background: "linear-gradient(160deg, #f0f6f1 0%, #daeadc 60%, #c8deca 100%)",
-                        border: "1.5px solid #8faf93",
+                        border: "2.5px solid #8faf93",
                         borderRadius: "16px",
-                        padding: "2.5rem 1.5rem 2.25rem",
+                        padding: "3rem 1.75rem 2.75rem",
                         cursor: "pointer",
                         transition: "all 0.2s ease",
                         display: "flex",
