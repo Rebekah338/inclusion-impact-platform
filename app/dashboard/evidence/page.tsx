@@ -1436,7 +1436,7 @@ export default function EvidencePage() {
 
             {/* Category tiles */}
             {!search && (
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "0.875rem", marginBottom: "2rem" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "1rem", marginBottom: "2.25rem" }}>
                 {CATEGORIES.map((cat) => {
                   const count = RESEARCH_REPORTS.filter((r) => r.categories?.includes(cat.key)).length;
                   const isActive = activeCategory === cat.key;
@@ -1445,36 +1445,35 @@ export default function EvidencePage() {
                       key={cat.key}
                       onClick={() => setActiveCategory(isActive ? null : cat.key)}
                       style={{
-                        textAlign: "left",
-                        background: isActive ? "var(--sage-dark)" : "var(--white)",
-                        border: isActive ? "2px solid var(--sage-dark)" : "2px solid var(--gray-border)",
-                        borderRadius: "12px",
-                        padding: "1rem 1.125rem",
+                        textAlign: "center",
+                        background: isActive ? "var(--sage-dark)" : "var(--sage-light)",
+                        border: `2px solid ${isActive ? "var(--sage-dark)" : "var(--sage-dark)"}`,
+                        borderRadius: "14px",
+                        padding: "1.5rem 1rem 1.25rem",
                         cursor: "pointer",
                         transition: "all 0.18s ease",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        gap: "0",
                       }}
                     >
-                      <div style={{ fontSize: "1.5rem", marginBottom: "0.4rem" }}>{cat.icon}</div>
+                      <div style={{ fontSize: "2rem", marginBottom: "0.625rem", lineHeight: 1 }}>{cat.icon}</div>
                       <div style={{
                         fontFamily: "var(--font-heading)",
                         fontWeight: 700,
                         fontSize: "0.8125rem",
                         color: isActive ? "var(--white)" : "var(--charcoal)",
                         lineHeight: 1.35,
-                        marginBottom: "0.3rem",
+                        marginBottom: "0.625rem",
+                        textAlign: "center",
                       }}>{cat.label}</div>
-                      <div style={{
-                        fontFamily: "var(--font-body)",
-                        fontSize: "0.7rem",
-                        color: isActive ? "rgba(255,255,255,0.75)" : "var(--gray-soft)",
-                        lineHeight: 1.4,
-                        marginBottom: "0.5rem",
-                      }}>{cat.desc}</div>
                       <div style={{
                         fontFamily: "var(--font-body)",
                         fontSize: "0.7rem",
                         fontWeight: 600,
                         color: isActive ? "rgba(255,255,255,0.85)" : "var(--sage-dark)",
+                        marginTop: "auto",
                       }}>{count} {count === 1 ? "report" : "reports"}</div>
                     </button>
                   );
