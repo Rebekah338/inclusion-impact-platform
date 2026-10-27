@@ -1381,7 +1381,11 @@ function EvidencePageInner() {
           )}
 
         </main>
-        <BottomBanner />
+        <BottomBanner
+          resourceTitle="Request evidence on a topic"
+          resourceBody="Is there a topic where you need stronger evidence to make the case? Tell us what you are working on and we will source and add the most relevant research to the library."
+          resourcePlaceholder="What topic do you need evidence for? Include any context about your sector or audience if it helps."
+        />
       </div>
     );
   }
@@ -1781,7 +1785,11 @@ function EvidencePageInner() {
         )}
 
       </main>
-      <BottomBanner />
+      <BottomBanner
+          resourceTitle="Request evidence on a topic"
+          resourceBody="Is there a topic where you need stronger evidence to make the case? Tell us what you are working on and we will source and add the most relevant research to the library."
+          resourcePlaceholder="What topic do you need evidence for? Include any context about your sector or audience if it helps."
+        />
     </div>
   );
 }
