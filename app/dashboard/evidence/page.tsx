@@ -1436,8 +1436,54 @@ export default function EvidencePage() {
 
             {/* Category tiles */}
             {!search && (
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "1rem", marginBottom: "2.25rem" }}>
-                {CATEGORIES.map((cat) => {
+              <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "2.25rem" }}>
+                {/* Row 1: 4 tiles */}
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem" }}>
+                  {CATEGORIES.slice(0, 4).map((cat) => {
+                    const count = RESEARCH_REPORTS.filter((r) => r.categories?.includes(cat.key)).length;
+                    const isActive = activeCategory === cat.key;
+                    return (
+                      <button
+                        key={cat.key}
+                        onClick={() => setActiveCategory(isActive ? null : cat.key)}
+                        style={{
+                          textAlign: "center",
+                          background: isActive ? "var(--sage-dark)" : "var(--sage-light)",
+                          border: `2px solid ${isActive ? "var(--sage-dark)" : "var(--sage-dark)"}`,
+                          borderRadius: "14px",
+                          padding: "1.75rem 1.25rem 1.5rem",
+                          cursor: "pointer",
+                          transition: "all 0.18s ease",
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          gap: "0",
+                        }}
+                      >
+                        <div style={{ fontSize: "2rem", marginBottom: "0.625rem", lineHeight: 1 }}>{cat.icon}</div>
+                        <div style={{
+                          fontFamily: "var(--font-heading)",
+                          fontWeight: 700,
+                          fontSize: "0.8125rem",
+                          color: isActive ? "var(--white)" : "var(--charcoal)",
+                          lineHeight: 1.35,
+                          marginBottom: "0.625rem",
+                          textAlign: "center",
+                        }}>{cat.label}</div>
+                        <div style={{
+                          fontFamily: "var(--font-body)",
+                          fontSize: "0.7rem",
+                          fontWeight: 600,
+                          color: isActive ? "rgba(255,255,255,0.85)" : "var(--sage-dark)",
+                          marginTop: "auto",
+                        }}>{count} {count === 1 ? "report" : "reports"}</div>
+                      </button>
+                    );
+                  })}
+                </div>
+                {/* Row 2: 3 tiles centred */}
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem", width: "75%", margin: "0 auto" }}>
+                  {CATEGORIES.slice(4).map((cat) => {
                   const count = RESEARCH_REPORTS.filter((r) => r.categories?.includes(cat.key)).length;
                   const isActive = activeCategory === cat.key;
                   return (
@@ -1449,7 +1495,7 @@ export default function EvidencePage() {
                         background: isActive ? "var(--sage-dark)" : "var(--sage-light)",
                         border: `2px solid ${isActive ? "var(--sage-dark)" : "var(--sage-dark)"}`,
                         borderRadius: "14px",
-                        padding: "1.5rem 1rem 1.25rem",
+                        padding: "1.75rem 1.25rem 1.5rem",
                         cursor: "pointer",
                         transition: "all 0.18s ease",
                         display: "flex",
@@ -1476,8 +1522,9 @@ export default function EvidencePage() {
                         marginTop: "auto",
                       }}>{count} {count === 1 ? "report" : "reports"}</div>
                     </button>
-                  );
-                })}
+                      );
+                    })}
+                  </div>
               </div>
             )}
 
