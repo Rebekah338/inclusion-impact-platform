@@ -1,7 +1,15 @@
 "use client";
 import { useState } from "react";
 
-export default function BottomBanner() {
+export default function BottomBanner({
+  resourceTitle = "Request a new resource",
+  resourceBody = "Is there a topic, tool, or framework you wish existed on the platform? Let us know and we\'ll build it.",
+  resourcePlaceholder = "Describe the resource you need…",
+}: {
+  resourceTitle?: string;
+  resourceBody?: string;
+  resourcePlaceholder?: string;
+} = {}) {
   const [challengeText, setChallengeText] = useState("");
   const [challengeSubmitted, setChallengeSubmitted] = useState(false);
   const [resourceText, setResourceText] = useState("");
@@ -9,7 +17,7 @@ export default function BottomBanner() {
 
   const boxStyle: React.CSSProperties = {
     borderRadius: "20px",
-    padding: "2.75rem",
+    padding: "1.75rem",
     background: "linear-gradient(135deg, #1E3624 0%, #2C4A31 100%)",
     boxShadow: "0 8px 40px rgba(30,54,36,0.25)",
     position: "relative",
@@ -32,7 +40,7 @@ export default function BottomBanner() {
   const headingStyle: React.CSSProperties = {
     fontFamily: "var(--font-display)",
     fontWeight: 700,
-    fontSize: "clamp(1.25rem, 2.5vw, 1.75rem)",
+    fontSize: "clamp(1.1rem, 2vw, 1.4rem)",
     color: "var(--white)",
     marginBottom: "0.75rem",
   };
@@ -41,7 +49,7 @@ export default function BottomBanner() {
     fontFamily: "var(--font-body)",
     color: "rgba(255,255,255,0.78)",
     fontSize: "0.95rem",
-    marginBottom: "1.75rem",
+    marginBottom: "1.25rem",
     lineHeight: 1.65,
   };
 
@@ -129,9 +137,9 @@ export default function BottomBanner() {
             <div style={{ position: "absolute", bottom: "-40px", left: "-20px", width: "120px", height: "120px", borderRadius: "50%", background: "rgba(255,255,255,0.03)" }} />
             <div style={{ position: "relative", zIndex: 1 }}>
               <span style={labelStyle}>📚 Resources</span>
-              <h2 style={headingStyle}>Request a new resource</h2>
+              <h2 style={headingStyle}>{resourceTitle}</h2>
               <p style={bodyStyle}>
-                Is there a topic, tool, or framework you wish existed on the platform? Let us know and we&apos;ll build it.
+                {resourceBody}
               </p>
               {resourceSubmitted ? (
                 <div style={successStyle}>
@@ -144,7 +152,7 @@ export default function BottomBanner() {
                     className="bottom-banner-textarea"
                     value={resourceText}
                     onChange={(e) => setResourceText(e.target.value)}
-                    placeholder="Describe the resource you need…"
+                    placeholder={resourcePlaceholder}
                     rows={3}
                     style={textareaStyle}
                   />
