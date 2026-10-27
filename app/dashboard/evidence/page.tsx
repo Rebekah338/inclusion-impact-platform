@@ -3,7 +3,8 @@
 import Link from "next/link";
 import PlatformNav from "@/app/components/PlatformNav";
 import BottomBanner from "@/app/components/BottomBanner";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 
 /* ─── CATEGORIES ────────────────────────────────────────────────────────── */
@@ -1007,7 +1008,7 @@ const PITCH_TARGETS = [
 
 type Tab = "research" | "evidence-builder" | "cases" | "downloads";
 
-export default function EvidencePage() {
+function EvidencePageInner() {
   const [activeTab, setActiveTab] = useState<Tab>("research");
   const [search, setSearch] = useState("");
 
@@ -1028,7 +1029,21 @@ export default function EvidencePage() {
   const [ebPitchTarget, setEbPitchTarget] = useState("");
   const [ebOutput, setEbOutput] = useState("");
   const [ebLoading, setEbLoading] = useState(false);
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  // Initialise from URL param; updates when URL changes
+  const activeCategory = searchParams.get("category");
+
+  function setActiveCategory(key: string | null) {
+    const params = new URLSearchParams(searchParams.toString());
+    if (key) {
+      params.set("category", key);
+    } else {
+      params.delete("category");
+    }
+    router.push(`/dashboard/evidence?${params.toString()}`, { scroll: false });
+  }
 
   const currentBrief = RESEARCH_REPORTS.find((r) => r.id === activeBrief) ?? null;
   const relatedBriefs = currentBrief
@@ -1430,70 +1445,24 @@ export default function EvidencePage() {
         {/* RESEARCH AND DATA */}
         {activeTab === "research" && (
           <>
-            <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.9rem", marginBottom: "1.75rem" }}>
-              Key findings from major reports, curated and contextualised for EDI practitioners and the stakeholders they need to influence.
-            </p>
-
-            {/* Category tiles */}
-            {!search && (
-              <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "2.25rem" }}>
-                {/* Row 1: 4 tiles */}
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem" }}>
-                  {CATEGORIES.slice(0, 4).map((cat) => {
-                    const count = RESEARCH_REPORTS.filter((r) => r.categories?.includes(cat.key)).length;
-                    const isActive = activeCategory === cat.key;
-                    return (
-                      <button
-                        key={cat.key}
-                        onClick={() => setActiveCategory(isActive ? null : cat.key)}
-                        style={{
-                          textAlign: "center",
-                          background: isActive ? "var(--sage-dark)" : "var(--sage-light)",
-                          border: `2px solid ${isActive ? "var(--sage-dark)" : "var(--sage-dark)"}`,
-                          borderRadius: "14px",
-                          padding: "1.75rem 1.25rem 1.5rem",
-                          cursor: "pointer",
-                          transition: "all 0.18s ease",
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
-                          gap: "0",
-                        }}
-                      >
-                        <div style={{ fontSize: "2rem", marginBottom: "0.625rem", lineHeight: 1 }}>{cat.icon}</div>
-                        <div style={{
-                          fontFamily: "var(--font-heading)",
-                          fontWeight: 700,
-                          fontSize: "0.8125rem",
-                          color: isActive ? "var(--white)" : "var(--charcoal)",
-                          lineHeight: 1.35,
-                          marginBottom: "0.625rem",
-                          textAlign: "center",
-                        }}>{cat.label}</div>
-                        <div style={{
-                          fontFamily: "var(--font-body)",
-                          fontSize: "0.7rem",
-                          fontWeight: 600,
-                          color: isActive ? "rgba(255,255,255,0.85)" : "var(--sage-dark)",
-                          marginTop: "auto",
-                        }}>{count} {count === 1 ? "report" : "reports"}</div>
-                      </button>
-                    );
-                  })}
-                </div>
-                {/* Row 2: 3 tiles centred */}
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem", width: "75%", margin: "0 auto" }}>
-                  {CATEGORIES.slice(4).map((cat) => {
-                  const count = RESEARCH_REPORTS.filter((r) => r.categories?.includes(cat.key)).length;
-                  const isActive = activeCategory === cat.key;
-                  return (
+            {/* ── TILE LANDING (no category selected, no search active) ── */}
+            {!activeCategory && !search && (
+              <>
+                <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.9rem", marginBottom: "2rem" }}>
+                  Choose a business outcome to explore the evidence, or use the search bar above to find a specific report.
+                </p>
+                <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "2.25rem" }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem" }}>
+                    {CATEGORIES.slice(0, 4).map((cat) => {
+                      const count = RESEARCH_REPORTS.filter((r) => r.categories?.includes(cat.key)).length;
+                      return (
                     <button
                       key={cat.key}
-                      onClick={() => setActiveCategory(isActive ? null : cat.key)}
+                      onClick={() => setActiveCategory(cat.key)}
                       style={{
                         textAlign: "center",
-                        background: isActive ? "var(--sage-dark)" : "var(--sage-light)",
-                        border: `2px solid ${isActive ? "var(--sage-dark)" : "var(--sage-dark)"}`,
+                        background: "var(--sage-light)",
+                        border: "2px solid var(--sage-dark)",
                         borderRadius: "14px",
                         padding: "1.75rem 1.25rem 1.5rem",
                         cursor: "pointer",
@@ -1501,15 +1470,14 @@ export default function EvidencePage() {
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
-                        gap: "0",
                       }}
                     >
                       <div style={{ fontSize: "2rem", marginBottom: "0.625rem", lineHeight: 1 }}>{cat.icon}</div>
                       <div style={{
                         fontFamily: "var(--font-heading)",
                         fontWeight: 700,
-                        fontSize: "0.8125rem",
-                        color: isActive ? "var(--white)" : "var(--charcoal)",
+                        fontSize: "0.875rem",
+                        color: "var(--charcoal)",
                         lineHeight: 1.35,
                         marginBottom: "0.625rem",
                         textAlign: "center",
@@ -1518,66 +1486,153 @@ export default function EvidencePage() {
                         fontFamily: "var(--font-body)",
                         fontSize: "0.7rem",
                         fontWeight: 600,
-                        color: isActive ? "rgba(255,255,255,0.85)" : "var(--sage-dark)",
+                        color: "var(--sage-dark)",
                         marginTop: "auto",
                       }}>{count} {count === 1 ? "report" : "reports"}</div>
                     </button>
                       );
                     })}
                   </div>
-              </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem", width: "75%", margin: "0 auto" }}>
+                    {CATEGORIES.slice(4).map((cat) => {
+                      const count = RESEARCH_REPORTS.filter((r) => r.categories?.includes(cat.key)).length;
+                      return (
+                    <button
+                      key={cat.key}
+                      onClick={() => setActiveCategory(cat.key)}
+                      style={{
+                        textAlign: "center",
+                        background: "var(--sage-light)",
+                        border: "2px solid var(--sage-dark)",
+                        borderRadius: "14px",
+                        padding: "1.75rem 1.25rem 1.5rem",
+                        cursor: "pointer",
+                        transition: "all 0.18s ease",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div style={{ fontSize: "2rem", marginBottom: "0.625rem", lineHeight: 1 }}>{cat.icon}</div>
+                      <div style={{
+                        fontFamily: "var(--font-heading)",
+                        fontWeight: 700,
+                        fontSize: "0.875rem",
+                        color: "var(--charcoal)",
+                        lineHeight: 1.35,
+                        marginBottom: "0.625rem",
+                        textAlign: "center",
+                      }}>{cat.label}</div>
+                      <div style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: "0.7rem",
+                        fontWeight: 600,
+                        color: "var(--sage-dark)",
+                        marginTop: "auto",
+                      }}>{count} {count === 1 ? "report" : "reports"}</div>
+                    </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </>
             )}
 
-            {/* Active category header + clear */}
-            {activeCategory && (
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.25rem" }}>
-                <div>
-                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)" }}>
+            {/* ── CATEGORY VIEW (category selected) ── */}
+            {activeCategory && !search && (
+              <>
+                {/* Back link */}
+                <button
+                  onClick={() => setActiveCategory(null)}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.375rem",
+                    fontFamily: "var(--font-body)",
+                    fontSize: "0.875rem",
+                    color: "var(--sage-dark)",
+                    fontWeight: 600,
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    padding: 0,
+                    marginBottom: "1.5rem",
+                  }}
+                >
+                  ← All categories
+                </button>
+                <div style={{ marginBottom: "1.75rem" }}>
+                  <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.5rem", color: "var(--charcoal)", marginBottom: "0.25rem" }}>
                     {CATEGORIES.find((c) => c.key === activeCategory)?.icon}{" "}
                     {CATEGORIES.find((c) => c.key === activeCategory)?.label}
-                  </span>
-                  <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", marginLeft: "0.5rem" }}>
-                    — {filteredResearch.length} {filteredResearch.length === 1 ? "report" : "reports"}
-                  </span>
+                  </h2>
+                  <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.875rem" }}>
+                    {filteredResearch.length} {filteredResearch.length === 1 ? "report" : "reports"}
+                  </p>
                 </div>
-                <button
-                  className="btn-secondary"
-                  style={{ fontSize: "0.75rem", padding: "0.35rem 0.875rem" }}
-                  onClick={() => setActiveCategory(null)}
-                >
-                  View all
-                </button>
-              </div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "1.25rem" }}>
+                  {filteredResearch.map((r) => (
+                    <div key={r.id} className="card">
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.75rem" }}>
+                        <span style={{ fontSize: "1.75rem" }} aria-hidden="true">{r.icon}</span>
+                        <div style={{ display: "flex", gap: "0.375rem", flexWrap: "wrap", justifyContent: "flex-end" }}>
+                          <span className="badge badge-sage" style={{ fontSize: "0.6rem" }}>{r.type}</span>
+                          <span className="badge badge-cream" style={{ fontSize: "0.6rem" }}>{r.year}</span>
+                        </div>
+                      </div>
+                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9375rem", color: "var(--charcoal)", marginBottom: "0.25rem" }}>{r.title}</div>
+                      <div style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--sage-dark)", fontWeight: 600, marginBottom: "0.625rem" }}>{r.source}</div>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: "0 0 1rem 0" }}>{r.desc}</p>
+                      <button
+                        className="btn-secondary"
+                        style={{ fontSize: "0.8rem", padding: "0.5rem 1rem" }}
+                        onClick={() => { setActiveBrief(r.id); setShowRelated(false); setShowTailorModal(false); setTailoredOutput(""); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                      >
+                        Read summary →
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </>
             )}
 
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "1.25rem" }}>
-              {filteredResearch.length === 0 && <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", gridColumn: "1/-1" }}>No research matches your search.</p>}
-              {filteredResearch.map((r) => (
-                <div key={r.id} className="card">
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.75rem" }}>
-                    <span style={{ fontSize: "1.75rem" }} aria-hidden="true">{r.icon}</span>
-                    <div style={{ display: "flex", gap: "0.375rem", flexWrap: "wrap", justifyContent: "flex-end" }}>
-                      <span className="badge badge-sage" style={{ fontSize: "0.6rem" }}>{r.type}</span>
-                      <span className="badge badge-cream" style={{ fontSize: "0.6rem" }}>{r.year}</span>
+            {/* ── SEARCH RESULTS (search active, ignores category) ── */}
+            {search && (
+              <>
+                <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.875rem", marginBottom: "1.25rem" }}>
+                  {filteredResearch.length === 0
+                    ? "No reports match your search."
+                    : `${filteredResearch.length} ${filteredResearch.length === 1 ? "report" : "reports"} found`}
+                </p>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "1.25rem" }}>
+                  {filteredResearch.map((r) => (
+                    <div key={r.id} className="card">
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.75rem" }}>
+                        <span style={{ fontSize: "1.75rem" }} aria-hidden="true">{r.icon}</span>
+                        <div style={{ display: "flex", gap: "0.375rem", flexWrap: "wrap", justifyContent: "flex-end" }}>
+                          <span className="badge badge-sage" style={{ fontSize: "0.6rem" }}>{r.type}</span>
+                          <span className="badge badge-cream" style={{ fontSize: "0.6rem" }}>{r.year}</span>
+                        </div>
+                      </div>
+                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9375rem", color: "var(--charcoal)", marginBottom: "0.25rem" }}>{r.title}</div>
+                      <div style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--sage-dark)", fontWeight: 600, marginBottom: "0.625rem" }}>{r.source}</div>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: "0 0 1rem 0" }}>{r.desc}</p>
+                      <button
+                        className="btn-secondary"
+                        style={{ fontSize: "0.8rem", padding: "0.5rem 1rem" }}
+                        onClick={() => { setActiveBrief(r.id); setShowRelated(false); setShowTailorModal(false); setTailoredOutput(""); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                      >
+                        Read summary →
+                      </button>
                     </div>
-                  </div>
-                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9375rem", color: "var(--charcoal)", marginBottom: "0.25rem" }}>{r.title}</div>
-                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--sage-dark)", fontWeight: 600, marginBottom: "0.625rem" }}>{r.source}</div>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: "0 0 1rem 0" }}>{r.desc}</p>
-                  <button
-                    className="btn-secondary"
-                    style={{ fontSize: "0.8rem", padding: "0.5rem 1rem" }}
-                    onClick={() => { setActiveBrief(r.id); setShowRelated(false); setShowTailorModal(false); setTailoredOutput(""); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-                  >
-                    Read summary →
-                  </button>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </>
+            )}
           </>
         )}
 
-        {/* EVIDENCE BUILDER */}
+                {/* EVIDENCE BUILDER */}
         {activeTab === "evidence-builder" && (
           <>
             <div style={{ maxWidth: "700px" }}>
@@ -1726,5 +1781,13 @@ export default function EvidencePage() {
       </main>
       <BottomBanner />
     </div>
+  );
+}
+
+export default function EvidencePage() {
+  return (
+    <Suspense>
+      <EvidencePageInner />
+    </Suspense>
   );
 }
