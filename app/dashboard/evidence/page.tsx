@@ -5,11 +5,60 @@ import PlatformNav from "@/app/components/PlatformNav";
 import BottomBanner from "@/app/components/BottomBanner";
 import { useState, useMemo } from "react";
 
+
+/* ─── CATEGORIES ────────────────────────────────────────────────────────── */
+
+const CATEGORIES = [
+  {
+    key: "profitability",
+    label: "Profitability and financial performance",
+    icon: "📈",
+    desc: "The direct link between diverse leadership and bottom-line results.",
+  },
+  {
+    key: "innovation",
+    label: "Innovation and decision-making",
+    icon: "💡",
+    desc: "How diverse teams make better decisions and generate more ideas.",
+  },
+  {
+    key: "retention",
+    label: "Retention and reducing turnover costs",
+    icon: "🔁",
+    desc: "What non-inclusion actually costs, and what you save when people stay.",
+  },
+  {
+    key: "talent",
+    label: "Talent attraction and workforce capability",
+    icon: "🌟",
+    desc: "Why the best candidates choose inclusive employers.",
+  },
+  {
+    key: "productivity",
+    label: "Productivity and team performance",
+    icon: "⚡",
+    desc: "Belonging and psychological safety as drivers of day-to-day output.",
+  },
+  {
+    key: "reputation",
+    label: "Reputation, risk and accountability",
+    icon: "🛡️",
+    desc: "Brand protection, ESG accountability, and stakeholder trust.",
+  },
+  {
+    key: "customer",
+    label: "Customer and market growth",
+    icon: "🛍️",
+    desc: "Reaching broader audiences and the revenue opportunity in inclusive design.",
+  },
+];
+
 /* ─── DATA ─────────────────────────────────────────────────────────────── */
 
 const RESEARCH_REPORTS = [
   {
     id: "mckinsey-diversity-wins",
+    categories: ["profitability", "innovation"],
     icon: "📊",
     title: "McKinsey Diversity Wins Report",
     year: "2023",
@@ -41,6 +90,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "deloitte-millennial-survey",
+    categories: ["talent", "retention"],
     icon: "💡",
     title: "Deloitte Millennial Survey: Inclusion at Work",
     year: "2022",
@@ -72,6 +122,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "gender-pay-gap",
+    categories: ["talent", "retention", "profitability"],
     icon: "📈",
     title: "Gender Pay Gap Evidence Base",
     year: "2023",
@@ -103,6 +154,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "parker-review",
+    categories: ["profitability", "reputation"],
     icon: "🌍",
     title: "Parker Review: Ethnic Diversity in Boardrooms",
     year: "2022",
@@ -134,6 +186,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "neurodiversity-work",
+    categories: ["innovation", "productivity"],
     icon: "🧠",
     title: "Neurodiversity at Work: Business Benefits",
     year: "2023",
@@ -165,6 +218,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "stonewall-equality-index",
+    categories: ["retention", "productivity"],
     icon: "🏳️‍🌈",
     title: "Stonewall Workplace Equality Index 2023",
     year: "2023",
@@ -196,6 +250,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "mckinsey-diversity-matters-more",
+    categories: ["profitability", "innovation"],
     icon: "📊",
     title: "Diversity Matters Even More: The Case for Holistic Impact",
     year: "2023",
@@ -227,6 +282,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "bcg-diverse-leadership-innovation",
+    categories: ["profitability", "innovation"],
     icon: "💡",
     title: "How Diverse Leadership Teams Boost Innovation",
     year: "2018",
@@ -258,6 +314,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "deloitte-inclusion-revolution",
+    categories: ["profitability", "talent"],
     icon: "🔄",
     title: "The Diversity and Inclusion Revolution: Eight Powerful Truths",
     year: "2018",
@@ -289,6 +346,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "accenture-culture-equality",
+    categories: ["innovation", "profitability"],
     icon: "⚡",
     title: "Getting to Equal 2019: Culture of Equality as Innovation Multiplier",
     year: "2019",
@@ -320,6 +378,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "mckinsey-women-workplace",
+    categories: ["retention", "talent", "profitability"],
     icon: "👩‍💼",
     title: "Women in the Workplace 2023",
     year: "2023",
@@ -351,6 +410,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "cipd-inclusion-at-work",
+    categories: ["productivity", "retention"],
     icon: "🇬🇧",
     title: "Inclusion at Work: Perspectives on LGBT+ Working Lives",
     year: "2022",
@@ -382,6 +442,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "pwc-women-in-work",
+    categories: ["talent", "profitability"],
     icon: "📉",
     title: "PwC Women in Work Index 2024",
     year: "2024",
@@ -413,6 +474,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "cmi-walking-the-walk",
+    categories: ["productivity", "retention"],
     icon: "🏢",
     title: "Walking the Walk: CMI Research on Inclusion in Management",
     year: "2024",
@@ -444,6 +506,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "catalyst-why-dei-matters",
+    categories: ["profitability", "talent"],
     icon: "🌱",
     title: "Why Diversity and Inclusion Matter: Quick Take",
     year: "2020",
@@ -475,6 +538,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "ilo-women-business-management",
+    categories: ["profitability", "talent"],
     icon: "🌐",
     title: "Women in Business and Management: The Business Case for Change",
     year: "2019",
@@ -506,6 +570,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "kapor-tech-leavers",
+    categories: ["retention", "profitability"],
     icon: "💸",
     title: "Tech Leavers Study: The Cost of Non-Inclusion",
     year: "2017",
@@ -537,6 +602,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "coqual-being-black",
+    categories: ["retention", "productivity"],
     icon: "✊",
     title: "Being Black in Corporate America: An Intersectional Exploration",
     year: "2019",
@@ -568,6 +634,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "mercer-when-women-thrive",
+    categories: ["talent", "profitability"],
     icon: "🔬",
     title: "When Women Thrive: Let's Get Real About Equality",
     year: "2020",
@@ -599,6 +666,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "hbr-diverse-teams-smarter",
+    categories: ["innovation", "productivity"],
     icon: "🧩",
     title: "Why Diverse Teams Are Smarter",
     year: "2016",
@@ -630,6 +698,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "bitc-race-at-work",
+    categories: ["productivity", "reputation"],
     icon: "📋",
     title: "Race at Work: Black Voices Report",
     year: "2020",
@@ -661,6 +730,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "disability-confident-uk",
+    categories: ["talent", "productivity"],
     icon: "♿",
     title: "Disability Confident: Employer Survey Findings",
     year: "2022",
@@ -692,6 +762,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "cipd-race-inclusion",
+    categories: ["productivity", "reputation"],
     icon: "📣",
     title: "Race Inclusion in the Workplace",
     year: "2022",
@@ -723,6 +794,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "stonewall-global-diversity",
+    categories: ["reputation", "talent"],
     icon: "🌍",
     title: "Global Diversity Report: LGBT+ Inclusion Across Borders",
     year: "2022",
@@ -754,6 +826,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "enei-benchmarking",
+    categories: ["retention", "talent"],
     icon: "📏",
     title: "ENEI Talent Inclusion and Diversity Evaluation (TIDE)",
     year: "2023",
@@ -785,6 +858,7 @@ const RESEARCH_REPORTS = [
   },
   {
     id: "race-equality-foundation",
+    categories: ["productivity", "reputation"],
     icon: "🔍",
     title: "Race Equality at Work: The Evidence for Change",
     year: "2021",
@@ -814,8 +888,39 @@ const RESEARCH_REPORTS = [
     ],
     related: ["bitc-race-at-work", "cipd-race-inclusion"],
   },
+  {
+    id: "adobe-diverse-audiences",
+    categories: ["customer", "innovation"],
+    icon: "🛍️",
+    title: "Inclusive Design and Diverse Audiences: The Revenue Opportunity",
+    year: "2022",
+    source: "Accenture and AARP",
+    desc: "Businesses that design inclusively and serve diverse audiences access a combined consumer market worth over $13 trillion annually. Most organisations are leaving significant revenue on the table.",
+    tags: ["customer growth", "inclusive design", "market reach", "revenue"],
+    type: "Industry Report",
+    url: "https://www.accenture.com/us-en/insights/retail/inclusive-design",
+    about: "This report draws on Accenture and AARP research to quantify the commercial opportunity in designing products, services and communications for underrepresented consumer groups — including disabled consumers, older adults, ethnic minority communities, and LGBTQ+ consumers. It argues that inclusive design is not a cost centre but a market expansion strategy with measurable revenue impact.",
+    findings: [
+      "Disabled consumers and their networks control an estimated $13 trillion in annual disposable income globally, yet most products and services are not designed with them as a primary audience.",
+      "Brands perceived as genuinely inclusive are 35% more likely to appeal to diverse consumers and see higher brand loyalty from those groups.",
+      "Companies that reflect diverse customer bases in their leadership and marketing outperform peers in revenue growth within those consumer segments.",
+      "78% of consumers say they are more likely to purchase from a brand that demonstrates a commitment to diversity and inclusion in its communications and workforce.",
+      "Organisations that fail to serve diverse audiences are increasingly at risk of market share loss as demographic shifts make majority-minority markets the norm in many sectors.",
+    ],
+    leadership: [
+      "If your product or service is not designed for disabled consumers, you are ignoring a $13 trillion market. Frame inclusive design as product strategy, not compliance.",
+      "Brand perception among diverse consumers is measurable. If inclusion is not visible in your communications and workforce, you are already losing share to competitors who have noticed.",
+      "A 35% improvement in brand appeal among diverse consumers is not a marginal gain. Use this to make the case for representation in marketing and product development budgets.",
+      "78% of consumers factor a brand's inclusion record into purchasing decisions. This is not a niche preference; it is mainstream consumer behaviour and it belongs in your brand and revenue strategy.",
+      "Demographic change is not a future trend. In many sectors, the majority customer is already diverse. Ask your leadership team when your product, service or marketing last reflected that reality.",
+    ],
+    quotes: [
+      { text: "Inclusive design is not a cost. It is a market expansion strategy that most organisations have not yet discovered.", attr: "Accenture Inclusive Design Report, 2022" },
+      { text: "The disability market alone is larger than China's consumer economy. It is the most underserved market in the world.", attr: "AARP and Accenture, 2022" },
+    ],
+    related: ["mckinsey-diversity-wins", "bcg-diverse-leadership-innovation"],
+  },
 ];
-
 const CASE_STUDIES = [
   {
     org: "NHS Trust",
@@ -923,6 +1028,7 @@ export default function EvidencePage() {
   const [ebPitchTarget, setEbPitchTarget] = useState("");
   const [ebOutput, setEbOutput] = useState("");
   const [ebLoading, setEbLoading] = useState(false);
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   const currentBrief = RESEARCH_REPORTS.find((r) => r.id === activeBrief) ?? null;
   const relatedBriefs = currentBrief
@@ -931,15 +1037,19 @@ export default function EvidencePage() {
 
   const filteredResearch = useMemo(() => {
     const q = search.toLowerCase();
-    if (!q) return RESEARCH_REPORTS;
-    return RESEARCH_REPORTS.filter(
+    let results = RESEARCH_REPORTS;
+    if (activeCategory) {
+      results = results.filter((r) => r.categories?.includes(activeCategory));
+    }
+    if (!q) return results;
+    return results.filter(
       (r) =>
         r.title.toLowerCase().includes(q) ||
         r.desc.toLowerCase().includes(q) ||
         r.source.toLowerCase().includes(q) ||
         r.tags.some((t) => t.toLowerCase().includes(q))
     );
-  }, [search]);
+  }, [search, activeCategory]);
 
   const filteredCases = useMemo(() => {
     const q = search.toLowerCase();
@@ -1323,6 +1433,77 @@ export default function EvidencePage() {
             <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.9rem", marginBottom: "1.75rem" }}>
               Key findings from major reports, curated and contextualised for EDI practitioners and the stakeholders they need to influence.
             </p>
+
+            {/* Category tiles */}
+            {!search && (
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "0.875rem", marginBottom: "2rem" }}>
+                {CATEGORIES.map((cat) => {
+                  const count = RESEARCH_REPORTS.filter((r) => r.categories?.includes(cat.key)).length;
+                  const isActive = activeCategory === cat.key;
+                  return (
+                    <button
+                      key={cat.key}
+                      onClick={() => setActiveCategory(isActive ? null : cat.key)}
+                      style={{
+                        textAlign: "left",
+                        background: isActive ? "var(--sage-dark)" : "var(--white)",
+                        border: isActive ? "2px solid var(--sage-dark)" : "2px solid var(--gray-border)",
+                        borderRadius: "12px",
+                        padding: "1rem 1.125rem",
+                        cursor: "pointer",
+                        transition: "all 0.18s ease",
+                      }}
+                    >
+                      <div style={{ fontSize: "1.5rem", marginBottom: "0.4rem" }}>{cat.icon}</div>
+                      <div style={{
+                        fontFamily: "var(--font-heading)",
+                        fontWeight: 700,
+                        fontSize: "0.8125rem",
+                        color: isActive ? "var(--white)" : "var(--charcoal)",
+                        lineHeight: 1.35,
+                        marginBottom: "0.3rem",
+                      }}>{cat.label}</div>
+                      <div style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: "0.7rem",
+                        color: isActive ? "rgba(255,255,255,0.75)" : "var(--gray-soft)",
+                        lineHeight: 1.4,
+                        marginBottom: "0.5rem",
+                      }}>{cat.desc}</div>
+                      <div style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: "0.7rem",
+                        fontWeight: 600,
+                        color: isActive ? "rgba(255,255,255,0.85)" : "var(--sage-dark)",
+                      }}>{count} {count === 1 ? "report" : "reports"}</div>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* Active category header + clear */}
+            {activeCategory && (
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "1.25rem" }}>
+                <div>
+                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)" }}>
+                    {CATEGORIES.find((c) => c.key === activeCategory)?.icon}{" "}
+                    {CATEGORIES.find((c) => c.key === activeCategory)?.label}
+                  </span>
+                  <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", marginLeft: "0.5rem" }}>
+                    — {filteredResearch.length} {filteredResearch.length === 1 ? "report" : "reports"}
+                  </span>
+                </div>
+                <button
+                  className="btn-secondary"
+                  style={{ fontSize: "0.75rem", padding: "0.35rem 0.875rem" }}
+                  onClick={() => setActiveCategory(null)}
+                >
+                  View all
+                </button>
+              </div>
+            )}
+
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "1.25rem" }}>
               {filteredResearch.length === 0 && <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", gridColumn: "1/-1" }}>No research matches your search.</p>}
               {filteredResearch.map((r) => (
