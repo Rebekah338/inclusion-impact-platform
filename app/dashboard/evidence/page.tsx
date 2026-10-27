@@ -924,25 +924,244 @@ const RESEARCH_REPORTS = [
 ];
 const CASE_STUDIES = [
   {
-    org: "NHS Trust",
-    sector: "Healthcare",
-    title: "Building Psychological Safety Across Clinical Teams",
-    outcome: "37% reduction in staff turnover over 18 months following EDI strategy implementation.",
-    tags: ["psychological safety", "retention", "healthcare"],
+    id: "sodexo-gender-balance",
+    org: "Sodexo",
+    sector: "Facilities Management",
+    category: "profitability",
+    title: "Gender-Balanced Management Teams Deliver Stronger Business Results",
+    what: "Sodexo conducted an internal study across 50,000 managers in 70 entities globally, comparing gender-balanced teams (40:60 female to male) against non-balanced entities over several years, tracking client retention, employee engagement, safety, and financial performance.",
+    outcome: "Gender-balanced entities produced 8 percentage points higher employee retention, 9 percentage points higher client retention, 14 percentage points higher engagement, and significantly higher operating margins than non-balanced entities.",
+    source: "Sodexo Gender Balance Study, 2018",
+    sourceUrl: "https://www.sodexo.com/news/newsroom/2018/gender-balance-study-2018",
+    tags: ["gender balance", "retention", "operating margins", "engagement"],
   },
   {
-    org: "Tech company (anonymised)",
+    id: "mckinsey-diversity-wins",
+    org: "McKinsey (cross-sector research, 1,000+ companies)",
+    sector: "Cross-sector",
+    category: "profitability",
+    title: "Diverse Leadership Teams Are Significantly More Likely to Outperform on Profitability",
+    what: "McKinsey's Diversity Wins research analysed financial performance across 1,000 large companies in 15 countries, comparing top and bottom quartiles for gender and ethnic diversity in executive teams, controlling for industry and geography.",
+    outcome: "Companies in the top quartile for ethnic diversity were 36% more likely to achieve above-average profitability than those in the bottom quartile. The advantage for diverse leadership had widened since McKinsey's 2015 study.",
+    source: "McKinsey, Diversity Wins: How Inclusion Matters, 2020",
+    sourceUrl: "https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/why-diversity-matters",
+    tags: ["executive diversity", "profitability", "ethnic diversity", "gender diversity"],
+  },
+  {
+    id: "zurich-flexible-hiring",
+    org: "Zurich Insurance UK",
+    sector: "Insurance and Financial Services",
+    category: "retention",
+    title: "Advertising All Roles as Flexible Doubled Applications and Increased Senior Female Hires by a Third",
+    what: "In 2019, Zurich Insurance UK changed its recruitment approach by advertising all vacancies as flexible and using gender-neutral language across job listings, specifically to widen the female talent pipeline into senior roles.",
+    outcome: "Over 12 months, female applicants for senior roles rose 19.3%, women hired into senior roles increased 33%, and total applications more than doubled. Belonging scores among existing part-time staff improved by 8 percentage points.",
+    source: "Zurich Insurance UK press release, 2020",
+    sourceUrl: "https://www.zurich.co.uk/media-centre/zurich-sees-leap-in-women-applying-for-senior-roles-after-offering-all-jobs-as-flexible",
+    tags: ["flexible working", "female talent", "recruitment", "belonging"],
+  },
+  {
+    id: "jpmorgan-autism-at-work",
+    org: "JPMorgan Chase",
+    sector: "Financial Services",
+    category: "retention",
+    title: "Neurodiversity Programme Delivers 98% Two-Year Retention and 90% Faster Execution",
+    what: "JPMorgan Chase launched its Autism at Work programme in 2015, partnering with Specialisterne to create a skills-based evaluation process for autistic candidates in software engineering, data analysis, and testing roles, with ongoing coaching and support.",
+    outcome: "Programme participants showed execution speeds 90% faster than team averages, error rates 48% lower than internal benchmarks, and a two-year retention rate of 98%, compared with technology sector turnover that often exceeds 20% annually.",
+    source: "Dynseo, citing JPMorgan internal programme data, 2024",
+    sourceUrl: "https://www.dynseo.com/en/roi-of-neurodiversity-in-business-studies-from-jpmorgan-sap-microsoft-and-2026-figures/",
+    tags: ["neurodiversity", "autism", "retention", "productivity", "technology"],
+  },
+  {
+    id: "lloyds-race-inclusion",
+    org: "Lloyds Banking Group",
+    sector: "Banking and Financial Services",
+    category: "retention",
+    title: "Targeted Race Inclusion Programme Increases Black Senior Representation by 50% in One Year",
+    what: "Lloyds introduced diverse shortlisting requirements, a development programme for Black heritage managers, a sponsorship programme for ethnic minority colleagues, and a Women in Leadership programme. Lloyds also became the first FTSE 100 company to set a public target for ethnic minority representation in senior roles.",
+    outcome: "Black senior representation rose 50% within one year of launching targeted measures. Women in senior management grew from 28% to 38% over seven years. Moody's credit rating agency designated the ethnicity plan 'credit positive', an unusual recognition of an EDI initiative as a driver of creditworthiness.",
+    source: "CMI EDI in Action, Lloyds case study, 2022",
+    sourceUrl: "https://www.managers.org.uk/wp-content/uploads/2022/06/cmi-75th-report-edi-in-action-lloyds-case-study.pdf",
+    tags: ["race inclusion", "ethnic minority", "senior representation", "women in leadership"],
+  },
+  {
+    id: "sap-autism-at-work",
+    org: "SAP",
+    sector: "Enterprise Software",
+    category: "talent",
+    title: "Neurodiversity Programme Delivers 40% More Innovations and 20% Higher Retention",
+    what: "SAP launched Autism at Work in 2013 targeting 1% neurodivergent workforce representation, redesigning hiring processes to remove barriers for autistic candidates and training managers in neurodiversity inclusion. The programme was positioned explicitly as a business capability investment.",
+    outcome: "Recruitment success rates through the adapted process were 15% higher than standard hiring. Three-year retention among participants was 20% above company average. Neurodiverse teams generated 40% more innovations compared with standard teams.",
+    source: "Dynseo and Womentech Network, citing SAP programme data",
+    sourceUrl: "https://www.dynseo.com/en/roi-of-neurodiversity-in-business-studies-from-jpmorgan-sap-microsoft-and-2026-figures/",
+    tags: ["neurodiversity", "autism", "talent attraction", "innovation", "technology"],
+  },
+  {
+    id: "vodafone-maternity-policy",
+    org: "Vodafone",
+    sector: "Telecommunications",
+    category: "talent",
+    title: "Global Maternity Policy Projected to Save US$19 Billion Annually in Talent Costs",
+    what: "In 2015, Vodafone introduced a global maternity policy guaranteeing 16 weeks' fully paid maternity leave across 30 countries, followed by a six-month return period with a 30-hour full-pay working week, designed to retain experienced women through the period most likely to cause them to leave.",
+    outcome: "KPMG analysis projected that organisations adopting the policy would save approximately US$19 billion annually in reduced turnover, recruitment, and lost productivity costs globally. The policy was adopted across Vodafone's operations in 30 countries and cited by the ILO as a model for market-led talent retention.",
+    source: "Vodafone press release and CNBC, 2015",
+    sourceUrl: "https://www.cnbc.com/2015/03/10/vodafone-launches-new-policy-for-working-moms.html",
+    tags: ["maternity leave", "flexible working", "women in work", "talent retention"],
+  },
+  {
+    id: "nationwide-women-in-finance",
+    org: "Nationwide Building Society",
+    sector: "Mutual Financial Services",
+    category: "talent",
+    title: "Women in Finance Charter Commitment Drives Senior Female Representation to 39%",
+    what: "Nationwide signed the Women in Finance Charter and set a public 40% target for female senior leadership, introducing leadership development programmes for women, tracking gender data across the pipeline, and embedding diversity into succession planning.",
+    outcome: "Women now hold 39% of senior manager and director roles, up from a significantly lower baseline. Nationwide's gender pay gap has shown a consistent downward trend as female representation in senior roles has grown.",
+    source: "Nationwide Building Society, Women in Finance page",
+    sourceUrl: "https://www.nationwide.co.uk/about-us/inclusion-and-diversity/women-in-finance",
+    tags: ["women in finance", "senior leadership", "gender pay gap", "succession planning"],
+  },
+  {
+    id: "accenture-disability-inclusion",
+    org: "Accenture (cross-sector, 140 companies)",
+    sector: "Cross-sector",
+    category: "innovation",
+    title: "Disability Inclusion Leaders Deliver 28% Higher Revenue and Double the Net Income",
+    what: "Accenture, with Disability:IN and AAPD, conducted a four-year longitudinal study of 140 companies on the Disability Equality Index, comparing leaders in disability inclusion against all other participants across multiple financial performance indicators.",
+    outcome: "Disability inclusion leaders delivered, on average, 28% higher revenue, approximately double the net income, and 30% higher economic profit margins compared with peer companies. Companies that improved their disability inclusion approach were four times as likely to outperform peers on shareholder returns.",
+    source: "Accenture, Getting to Equal: The Disability Inclusion Advantage, 2018",
+    sourceUrl: "https://newsroom.accenture.com/news/2018/companies-leading-in-disability-inclusion-have-outperformed-peers-accenture-research-finds",
+    tags: ["disability inclusion", "revenue", "net income", "shareholder returns"],
+  },
+  {
+    id: "google-project-aristotle",
+    org: "Google",
     sector: "Technology",
-    title: "Closing the Gender Pay Gap Through Structural Change",
-    outcome: "Gap reduced from 18% to 9% in two years through targeted sponsorship and flexible working reform.",
-    tags: ["gender pay gap", "sponsorship", "flexible working"],
+    category: "innovation",
+    title: "Project Aristotle: Psychological Safety Is the Strongest Predictor of Team Innovation and Performance",
+    what: "Google's two-year internal research project studied 180 teams to identify what made them effective, analysing hundreds of variables. Psychological safety, defined as confidence that team members can take risks without being penalised, emerged as the strongest single predictor.",
+    outcome: "Teams high in psychological safety were significantly more likely to generate diverse ideas, test new approaches, and receive higher performance ratings from managers. Google redesigned manager training around inclusive behaviours as a direct business response to the findings.",
+    source: "Google re:Work, Project Aristotle",
+    sourceUrl: "https://www.leaderfactor.com/learn/project-aristotle-psychological-safety",
+    tags: ["psychological safety", "innovation", "team performance", "inclusive leadership"],
   },
   {
-    org: "Local Authority",
-    sector: "Public Sector",
-    title: "Disability Inclusion and Reasonable Adjustments at Scale",
-    outcome: "Disclosure rate increased from 12% to 31% following introduction of Disability Confident Champion programme.",
-    tags: ["disability", "disclosure", "reasonable adjustments"],
+    id: "coventry-supply-chain",
+    org: "Coventry Building Society",
+    sector: "Mutual Financial Services",
+    category: "innovation",
+    title: "Diverse Supply Chain Programme Expands Competition and Drives Supplier Innovation",
+    what: "Coventry Building Society, working with Business in the Community, implemented a diverse and inclusive supply chain programme, actively sourcing goods and services from businesses owned by or employing people from underrepresented groups.",
+    outcome: "The programme expanded Coventry's supplier base and was recognised by BITC as a leading example of how supply chain diversity drives supplier innovation, reduces commercial risk through broader competition, and opens relationships with new customer communities.",
+    source: "Business in the Community, Coventry Building Society case study",
+    sourceUrl: "https://www.bitc.org.uk/case-study/coventry-building-society-advancing-supply-chain-diversity/",
+    tags: ["supply chain", "procurement", "supplier diversity", "innovation"],
+  },
+  {
+    id: "nhs-cost-of-exclusion",
+    org: "NHS England",
+    sector: "Public Healthcare",
+    category: "productivity",
+    title: "Bullying and Harassment Costs the NHS £2.281 Billion Every Year",
+    what: "Researchers Kline and Lewis conducted a quantified financial analysis of the cost of bullying and harassment to the NHS in England, drawing on NHS Staff Survey data and workforce data. The study modelled seven distinct cost categories linked directly to workplace exclusion and discriminatory behaviour.",
+    outcome: "Total estimated annual cost to the NHS: £2.281 billion. This included £483 million in sickness absence, £302 million in cover costs, £231 million replacing staff who left, £575 million in lost productivity from turnover, and £604 million in presenteeism. The authors noted the figures were conservative. Investment in inclusive culture represents a direct and measurable cost-saving opportunity.",
+    source: "Kline and Lewis, The Price of Fear, University of Plymouth",
+    sourceUrl: "https://pearl.plymouth.ac.uk/bitstream/handle/10026.1/12411/Kline%20and%20Lewis%20(V2)%20Cost%20of%20Bullying%20to%20the%20NHS%20in%20England%20final%20version.pdf",
+    tags: ["bullying and harassment", "cost of exclusion", "sickness absence", "presenteeism"],
+  },
+  {
+    id: "deloitte-inclusive-leadership",
+    org: "Deloitte (cross-sector research)",
+    sector: "Cross-sector",
+    category: "productivity",
+    title: "Inclusive Leaders Produce Teams 17% More Likely to Be High-Performing and 29% More Collaborative",
+    what: "Deloitte Australia researched the relationship between inclusive leadership behaviours and team performance across six dimensions of inclusive leadership, comparing outcomes in highly inclusive versus average teams across multiple sectors.",
+    outcome: "Teams led by inclusive leaders were 17% more likely to report being high-performing, 20% more likely to make high-quality decisions, and 29% more likely to behave collaboratively. A 10% improvement in perceptions of inclusion increased work attendance by almost one day per employee per year.",
+    source: "Deloitte, The Diversity and Inclusion Revolution, 2018",
+    sourceUrl: "https://www.odenetwork.com/wp-content/uploads/2021/04/DI_Diversity-and-inclusion-revolution.pdf",
+    tags: ["inclusive leadership", "team performance", "decision-making", "attendance"],
+  },
+  {
+    id: "lloyds-credit-positive",
+    org: "Lloyds Banking Group",
+    sector: "Banking and Financial Services",
+    category: "reputation",
+    title: "Moody's Rates Lloyds' Ethnicity Action Plan 'Credit Positive', Influencing FTSE 350 Standards",
+    what: "In 2014, Lloyds became the first FTSE 100 company to set a public target for ethnic minority senior representation and voluntarily published its ethnicity pay gap before any legal obligation. These disclosures were part of a broader strategy to rebuild public and investor trust.",
+    outcome: "Moody's Investors Service designated the plan 'credit positive', directly linking EDI commitments to creditworthiness in recognition that diversity reduces governance risk, improves talent pipeline resilience, and signals leadership quality to institutional investors. Lloyds' approach subsequently influenced the Parker Review targets adopted across the FTSE 350.",
+    source: "Bloomberg and Moody's assessment of Lloyds, 2020",
+    sourceUrl: "https://www.bloombergquint.com/business/lloyds-ethnic-diversity-plan-is-credit-positive-moody-s-says",
+    tags: ["ethnicity", "credit rating", "investor confidence", "governance", "parker review"],
+  },
+  {
+    id: "barclays-stonewall",
+    org: "Barclays",
+    sector: "Banking and Financial Services",
+    category: "reputation",
+    title: "LGBT+ Inclusion Recognised as a Talent Differentiator and Market Opportunity",
+    what: "Barclays built one of the UK's largest LGBT+ employee networks and became a consistent Stonewall Star Performer over multiple years, investing in active allyship training, LGBT+ inclusive advertising, and external community partnerships positioned explicitly as business strategy.",
+    outcome: "Barclays cited its LGBT+ inclusion reputation as a talent differentiator that improved applications and reduced time to fill among values-led professionals. The bank also grew its market share in LGBT+ community banking, a segment where brand trust significantly drives account switching and loyalty.",
+    source: "Stonewall Star Performer recognition; British LGBT Awards",
+    sourceUrl: "https://britishlgbtawards.com/case-study-barclays/",
+    tags: ["LGBT+ inclusion", "employer brand", "talent attraction", "market share"],
+  },
+  {
+    id: "diageo-learning-for-life",
+    org: "Diageo",
+    sector: "Consumer Goods",
+    category: "reputation",
+    title: "200,000 Graduates Through Learning for Life Drives ESG Ratings and Social Licence to Operate",
+    what: "Diageo launched Learning for Life, an employability and skills programme targeting people from disadvantaged and marginalised communities globally, including veterans and ethnic minority groups. The programme was positioned as both community investment and commercial pipeline development.",
+    outcome: "By 2025, over 200,000 graduates had completed the programme across multiple markets. It has been consistently recognised as a reputational asset contributing to Diageo's ESG ratings, employer brand in competitive talent markets, and social licence to operate in communities where alcohol producers face public scrutiny.",
+    source: "HR Grapevine, October 2025",
+    sourceUrl: "https://www.hrgrapevine.com/content/article/2025-10-14-200000-graduates-diageos-learning-for-life-employability-scheme-keeps-changing-lives",
+    tags: ["social impact", "ESG", "employer brand", "community investment"],
+  },
+  {
+    id: "purple-pound",
+    org: "Purple (We Are Purple)",
+    sector: "Disability Inclusion Research",
+    category: "customer",
+    title: "£249 Billion Purple Pound: 75% of Disabled Customers Walk Away from Inaccessible Businesses",
+    what: "Purple conducted and published research into the UK spending power of disabled consumers and their households, building the evidence base for the 'Purple Pound' to make the commercial case for investing in accessible products, services, and customer experiences.",
+    outcome: "The UK's disabled consumer market represents £249 billion in annual spending power. Research found that 75% of disabled people and their families had walked away from a business due to poor accessibility or customer experience, representing direct and measurable lost revenue. This data has been adopted by UK government and cited in Disability Confident scheme guidance.",
+    source: "We Are Purple, Purple Pound research",
+    sourceUrl: "https://wearepurple.org.uk/?p=558",
+    tags: ["disability", "consumer spending", "accessibility", "purple pound", "lost revenue"],
+  },
+  {
+    id: "pg-like-a-girl",
+    org: "Procter and Gamble",
+    sector: "Consumer Goods",
+    category: "customer",
+    title: "Diverse Creative Teams Behind 'Like a Girl' Drive 1.5 Billion Impressions and Significant Sales Growth",
+    what: "P&G systematically diversified the creative teams behind its brand campaigns, increasing the proportion of female and diverse directors and creatives. The 'Like a Girl' campaign for Always was produced by a gender-diverse creative team, with P&G's Chief Brand Officer publicly linking internal diversity to stronger commercial campaigns.",
+    outcome: "The campaign achieved 1.5 billion global media impressions. The share of women aged 16 to 24 viewing 'like a girl' as a positive expression rose from 19% to 76%. The CEO attributed significant sales growth and increased market share for Always to the campaign.",
+    source: "Marketing Week; Bandt, 2015",
+    sourceUrl: "https://www.marketingweek.com/pg-diversity-is-how-we-get-great-campaigns-like-like-a-girl/",
+    tags: ["diverse creative teams", "brand equity", "consumer connection", "market share"],
+  },
+  {
+    id: "barclays-financial-inclusion",
+    org: "Barclays",
+    sector: "Banking and Financial Services",
+    category: "customer",
+    title: "Financial Inclusion Programme Opens New Account Relationships and Reduces Credit Risk",
+    what: "Barclays developed a long-standing community investment programme targeting financially excluded and underserved populations, bringing banking services and financial skills to communities with historically low financial inclusion and developing products for customers not reached by standard retail banking.",
+    outcome: "Reaching previously unbanked and underbanked customers opened new account relationships, reduced long-term credit risk by improving financial literacy among customers, and strengthened Barclays' operating licence in communities where regulatory scrutiny of financial exclusion was high.",
+    source: "Business in the Community, Barclays case study",
+    sourceUrl: "https://www.bitc.org.uk/wp-content/uploads/2022/06/BarclaysCaseStudy.pdf",
+    tags: ["financial inclusion", "underserved communities", "credit risk", "new markets"],
+  },
+  {
+    id: "mckinsey-delivering-diversity",
+    org: "McKinsey (cross-sector research, 1,007 companies)",
+    sector: "Cross-sector",
+    category: "customer",
+    title: "Diverse Executive Teams Better Placed to Serve Diverse Consumer Markets, 33% More Likely to Outperform",
+    what: "McKinsey's 2018 Delivering Through Diversity report analysed 1,007 companies across 12 countries, examining the relationship between executive and board diversity and financial performance, including the ability to serve diverse and growing consumer segments.",
+    outcome: "Companies in the top quartile for ethnic and cultural diversity were 33% more likely to outperform on profitability. The report found that diverse executive teams were better able to anticipate and serve the needs of increasingly diverse consumer populations, giving them a commercial advantage. Companies that had not progressed on diversity were 29% more likely to underperform.",
+    source: "McKinsey, Delivering Through Diversity, 2018",
+    sourceUrl: "https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/why-diversity-matters",
+    tags: ["diverse leadership", "consumer markets", "profitability", "ethnic diversity"],
   },
 ];
 
@@ -1066,17 +1285,34 @@ function EvidencePageInner() {
     );
   }, [search, activeCategory]);
 
+  const caseCategory = searchParams.get("caseCategory");
+
+  function setCaseCategory(key: string | null) {
+    const params = new URLSearchParams(searchParams.toString());
+    if (key) {
+      params.set("caseCategory", key);
+    } else {
+      params.delete("caseCategory");
+    }
+    router.push(`/dashboard/evidence?${params.toString()}`, { scroll: false });
+  }
+
   const filteredCases = useMemo(() => {
     const q = search.toLowerCase();
-    if (!q) return CASE_STUDIES;
-    return CASE_STUDIES.filter(
+    let results = CASE_STUDIES;
+    if (caseCategory) {
+      results = results.filter((c) => c.category === caseCategory);
+    }
+    if (!q) return results;
+    return results.filter(
       (c) =>
         c.title.toLowerCase().includes(q) ||
         c.outcome.toLowerCase().includes(q) ||
         c.sector.toLowerCase().includes(q) ||
+        c.org.toLowerCase().includes(q) ||
         c.tags.some((t) => t.toLowerCase().includes(q))
     );
-  }, [search]);
+  }, [search, caseCategory]);
 
   const filteredDownloads = useMemo(() => {
     const q = search.toLowerCase();
@@ -1729,32 +1965,129 @@ function EvidencePageInner() {
         {/* CASE STUDIES */}
         {activeTab === "cases" && (
           <>
-            <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.9rem", marginBottom: "1.75rem" }}>
-              Real examples of inclusion driving measurable change for sharing with leadership, informing strategy, or as inspiration.
-            </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-              {filteredCases.length === 0 && <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)" }}>No case studies match your search.</p>}
-              {filteredCases.map((c) => (
-                <div key={c.title} className="card">
-                  <div style={{ display: "flex", gap: "1.25rem", flexWrap: "wrap" }}>
-                    <div style={{ flex: 1, minWidth: "280px" }}>
-                      <div style={{ display: "flex", gap: "0.5rem", marginBottom: "0.625rem", flexWrap: "wrap" }}>
-                        <span className="badge badge-cream" style={{ fontSize: "0.65rem" }}>{c.sector}</span>
-                        <span style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--gray-soft)" }}>{c.org}</span>
-                      </div>
-                      <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.05rem", color: "var(--charcoal)", marginBottom: "0.75rem" }}>{c.title}</h3>
-                      <div style={{ display: "flex", gap: "0.375rem", flexWrap: "wrap" }}>
-                        {c.tags.map((t) => <span key={t} className="badge badge-sage" style={{ fontSize: "0.6rem" }}>{t}</span>)}
-                      </div>
-                    </div>
-                    <div style={{ background: "var(--sage-xlight)", borderRadius: "10px", padding: "1.25rem", minWidth: "240px", flex: "0 0 auto" }}>
-                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.5rem" }}>Key outcome</div>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.6, margin: 0 }}>{c.outcome}</p>
-                    </div>
+            {/* Landing: category tiles */}
+            {!caseCategory && !search && (
+              <>
+                <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.9rem", marginBottom: "2rem" }}>
+                  Real organisations, real numbers. Browse case studies by outcome category to find the evidence that fits your audience.
+                </p>
+                <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "2.25rem" }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem" }}>
+                    {CATEGORIES.slice(0, 4).map((cat) => {
+                      const count = CASE_STUDIES.filter((c) => c.category === cat.key).length;
+                      return (
+                        <button
+                          key={cat.key}
+                          onClick={() => setCaseCategory(cat.key)}
+                          style={{
+                            textAlign: "center",
+                            background: "linear-gradient(160deg, #f0f6f1 0%, #daeadc 60%, #c8deca 100%)",
+                            border: "2.5px solid #8faf93",
+                            borderRadius: "16px",
+                            padding: "3rem 1.75rem 2.75rem",
+                            cursor: "pointer",
+                            transition: "all 0.2s ease",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            boxShadow: "0 2px 8px rgba(74,99,71,0.10), inset 0 1px 0 rgba(255,255,255,0.7)",
+                          }}
+                        >
+                          <span style={{ fontSize: "2.75rem", marginBottom: "0.875rem", display: "block" }}>{cat.icon}</span>
+                          <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--sage-dark)", lineHeight: 1.3, marginBottom: "0.5rem" }}>{cat.label}</span>
+                          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)" }}>{count} {count === 1 ? "case study" : "case studies"}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem", width: "75%", margin: "0 auto" }}>
+                    {CATEGORIES.slice(4).map((cat) => {
+                      const count = CASE_STUDIES.filter((c) => c.category === cat.key).length;
+                      return (
+                        <button
+                          key={cat.key}
+                          onClick={() => setCaseCategory(cat.key)}
+                          style={{
+                            textAlign: "center",
+                            background: "linear-gradient(160deg, #f0f6f1 0%, #daeadc 60%, #c8deca 100%)",
+                            border: "2.5px solid #8faf93",
+                            borderRadius: "16px",
+                            padding: "3rem 1.75rem 2.75rem",
+                            cursor: "pointer",
+                            transition: "all 0.2s ease",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            boxShadow: "0 2px 8px rgba(74,99,71,0.10), inset 0 1px 0 rgba(255,255,255,0.7)",
+                          }}
+                        >
+                          <span style={{ fontSize: "2.75rem", marginBottom: "0.875rem", display: "block" }}>{cat.icon}</span>
+                          <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--sage-dark)", lineHeight: 1.3, marginBottom: "0.5rem" }}>{cat.label}</span>
+                          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)" }}>{count} {count === 1 ? "case study" : "case studies"}</span>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
-              ))}
-            </div>
+              </>
+            )}
+
+            {/* Category drill-down */}
+            {(caseCategory || search) && (
+              <>
+                {caseCategory && (
+                  <div style={{ marginBottom: "1.75rem" }}>
+                    <button
+                      onClick={() => setCaseCategory(null)}
+                      style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--sage-dark)", background: "none", border: "none", cursor: "pointer", padding: 0, marginBottom: "1.25rem", display: "flex", alignItems: "center", gap: "0.375rem" }}
+                    >
+                      ← All categories
+                    </button>
+                    <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.5rem", color: "var(--charcoal)", marginBottom: "0.375rem" }}>
+                      {CATEGORIES.find((c) => c.key === caseCategory)?.icon}{" "}
+                      {CATEGORIES.find((c) => c.key === caseCategory)?.label}
+                    </h2>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--gray-soft)", margin: 0 }}>
+                      {filteredCases.length} {filteredCases.length === 1 ? "case study" : "case studies"}
+                    </p>
+                  </div>
+                )}
+                <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+                  {filteredCases.length === 0 && (
+                    <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)" }}>No case studies match your search.</p>
+                  )}
+                  {filteredCases.map((c) => (
+                    <div key={c.id} className="card">
+                      <div style={{ display: "flex", gap: "1.25rem", flexWrap: "wrap" }}>
+                        <div style={{ flex: 1, minWidth: "280px" }}>
+                          <div style={{ display: "flex", gap: "0.5rem", marginBottom: "0.625rem", flexWrap: "wrap", alignItems: "center" }}>
+                            <span className="badge badge-cream" style={{ fontSize: "0.65rem" }}>{c.sector}</span>
+                            <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", fontWeight: 600, color: "var(--charcoal)" }}>{c.org}</span>
+                          </div>
+                          <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.05rem", color: "var(--charcoal)", marginBottom: "0.75rem", lineHeight: 1.4 }}>{c.title}</h3>
+                          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", lineHeight: 1.65, marginBottom: "0.875rem" }}>{c.what}</p>
+                          <div style={{ display: "flex", gap: "0.375rem", flexWrap: "wrap", marginBottom: "0.875rem" }}>
+                            {c.tags.map((t) => <span key={t} className="badge badge-sage" style={{ fontSize: "0.6rem" }}>{t}</span>)}
+                          </div>
+                          <a
+                            href={c.sourceUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--sage-dark)", textDecoration: "underline" }}
+                          >
+                            Source: {c.source} →
+                          </a>
+                        </div>
+                        <div style={{ background: "var(--sage-xlight)", borderRadius: "10px", padding: "1.25rem", minWidth: "240px", maxWidth: "320px", flex: "0 0 auto" }}>
+                          <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.5rem" }}>Key outcome</div>
+                          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.6, margin: 0 }}>{c.outcome}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </>
         )}
 
