@@ -1461,22 +1461,23 @@ function EvidencePageInner() {
                       onClick={() => setActiveCategory(cat.key)}
                       style={{
                         textAlign: "center",
-                        background: "var(--sage-light)",
-                        border: "2px solid var(--sage-dark)",
-                        borderRadius: "14px",
-                        padding: "1.75rem 1.25rem 1.5rem",
+                        background: "linear-gradient(160deg, #f0f6f1 0%, #daeadc 60%, #c8deca 100%)",
+                        border: "1.5px solid #8faf93",
+                        borderRadius: "16px",
+                        padding: "2rem 1.25rem 1.75rem",
                         cursor: "pointer",
-                        transition: "all 0.18s ease",
+                        transition: "all 0.2s ease",
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
+                        boxShadow: "0 2px 8px rgba(74,99,71,0.10), inset 0 1px 0 rgba(255,255,255,0.7)",
                       }}
                     >
-                      <div style={{ fontSize: "2rem", marginBottom: "0.625rem", lineHeight: 1 }}>{cat.icon}</div>
+                      <div style={{ fontSize: "2.25rem", marginBottom: "0.75rem", lineHeight: 1 }}>{cat.icon}</div>
                       <div style={{
                         fontFamily: "var(--font-heading)",
                         fontWeight: 700,
-                        fontSize: "0.875rem",
+                        fontSize: "0.9rem",
                         color: "var(--charcoal)",
                         lineHeight: 1.35,
                         marginBottom: "0.625rem",
@@ -1502,22 +1503,23 @@ function EvidencePageInner() {
                       onClick={() => setActiveCategory(cat.key)}
                       style={{
                         textAlign: "center",
-                        background: "var(--sage-light)",
-                        border: "2px solid var(--sage-dark)",
-                        borderRadius: "14px",
-                        padding: "1.75rem 1.25rem 1.5rem",
+                        background: "linear-gradient(160deg, #f0f6f1 0%, #daeadc 60%, #c8deca 100%)",
+                        border: "1.5px solid #8faf93",
+                        borderRadius: "16px",
+                        padding: "2rem 1.25rem 1.75rem",
                         cursor: "pointer",
-                        transition: "all 0.18s ease",
+                        transition: "all 0.2s ease",
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
+                        boxShadow: "0 2px 8px rgba(74,99,71,0.10), inset 0 1px 0 rgba(255,255,255,0.7)",
                       }}
                     >
-                      <div style={{ fontSize: "2rem", marginBottom: "0.625rem", lineHeight: 1 }}>{cat.icon}</div>
+                      <div style={{ fontSize: "2.25rem", marginBottom: "0.75rem", lineHeight: 1 }}>{cat.icon}</div>
                       <div style={{
                         fontFamily: "var(--font-heading)",
                         fontWeight: 700,
-                        fontSize: "0.875rem",
+                        fontSize: "0.9rem",
                         color: "var(--charcoal)",
                         lineHeight: 1.35,
                         marginBottom: "0.625rem",
