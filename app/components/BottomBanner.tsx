@@ -17,7 +17,7 @@ export default function BottomBanner({
 
   const boxStyle: React.CSSProperties = {
     borderRadius: "20px",
-    padding: "1.75rem",
+    padding: "1.25rem 1.5rem",
     background: "linear-gradient(135deg, #1E3624 0%, #2C4A31 100%)",
     boxShadow: "0 8px 40px rgba(30,54,36,0.25)",
     position: "relative",
@@ -40,7 +40,7 @@ export default function BottomBanner({
   const headingStyle: React.CSSProperties = {
     fontFamily: "var(--font-display)",
     fontWeight: 700,
-    fontSize: "clamp(1.1rem, 2vw, 1.4rem)",
+    fontSize: "clamp(1rem, 1.8vw, 1.2rem)",
     color: "var(--white)",
     marginBottom: "0.75rem",
   };
