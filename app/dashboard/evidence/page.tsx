@@ -66,6 +66,18 @@ const RESEARCH_REPORTS = [
     source: "McKinsey and Company",
     desc: "Companies in the top quartile for gender diversity are 25% more likely to have above-average profitability. The data on ethnic and cultural diversity is even stronger.",
     tags: ["data", "business case", "diversity", "profitability"],
+    context: "Most of the 1,000 companies studied had diversity programmes in place but lacked a clear link between those programmes and financial performance data available to boards and investors.",
+    timeline: "Cross-sectional analysis across 15 countries; findings published 2020 as part of a decade-long research series",
+    lessons: {
+      whatWorked: "Framing diversity as a predictor of above-average profitability rather than a compliance issue shifted the conversation from HR to the boardroom and investment community.",
+      watchOut: "Companies that treated this as proof of automatic causation without investing in the underlying inclusion culture often saw no improvement despite diverse hires.",
+      doDifferently: "Pairing the financial headline with data on which specific leadership behaviours drove performance would have given organisations a clearer starting point than the top-line statistics alone.",
+    },
+    replication: [
+      "Where does our organisation sit relative to sector peers on gender and ethnic diversity at executive level?",
+      "Have we communicated our diversity data to investors in a way that links it to business performance?",
+      "Do we track whether diverse leaders are given real decision-making authority, or are they present in title but not in influence?",
+    ],
     type: "Research Report",
     url: "https://www.mckinsey.com/featured-insights/diversity-and-inclusion/diversity-wins-how-inclusion-matters",
     about: "McKinsey's Diversity Wins report analysed data from more than 1,000 large companies across 15 countries. It set out to examine the relationship between leadership diversity and financial performance, moving beyond earlier correlation findings to look at what inclusion actually requires and what most organisations still get wrong.",
@@ -934,6 +946,18 @@ const CASE_STUDIES = [
     source: "Sodexo Gender Balance Study, 2018",
     sourceUrl: "https://www.sodexo.com/news/newsroom/2018/gender-balance-study-2018",
     tags: ["gender balance", "retention", "operating margins", "engagement"],
+    context: "Sodexo had gender data but no systematic way to act on it; leadership diversity was seen as an HR metric rather than a business driver.",
+    timeline: "Multi-year study collecting data over approximately 3 years before publishing in 2018",
+    lessons: {
+      whatWorked: "Using internal longitudinal data rather than external benchmarks made the case undeniable to senior leaders who might dismiss third-party research as irrelevant to their context.",
+      watchOut: "Setting the balanced threshold too high or too low can make it appear unachievable or too easy, reducing motivational force.",
+      doDifferently: "Publishing the methodology alongside the results increased credibility and enabled replication; doing this from the start would have accelerated adoption.",
+    },
+    replication: [
+      "Do we currently track team-level gender data in a way that allows us to compare performance between balanced and non-balanced units?",
+      "Which business metrics most valued by our senior leadership could we use to build an equivalent internal case?",
+      "What would a balanced leadership threshold look like in our context, and which teams are closest to it already?",
+    ],
   },
   {
     id: "mckinsey-diversity-wins",
@@ -958,6 +982,18 @@ const CASE_STUDIES = [
     source: "Zurich Insurance UK press release, 2020",
     sourceUrl: "https://www.zurich.co.uk/media-centre/zurich-sees-leap-in-women-applying-for-senior-roles-after-offering-all-jobs-as-flexible",
     tags: ["flexible working", "female talent", "recruitment", "belonging"],
+    context: "Zurich was losing female talent at the mid-career stage and recognised that job adverts were acting as a filter before candidates had even applied.",
+    timeline: "12 months from policy change to measurable results in hiring data",
+    lessons: {
+      whatWorked: "Making flexibility the default rather than something candidates had to ask for removed the stigma and psychological barrier that had been suppressing applications.",
+      watchOut: "Advertising roles as flexible without the infrastructure or cultural permission to support it creates false expectations and accelerates disillusionment.",
+      doDifferently: "Running the gender-neutral language audit at the same time as the flexibility change was a sensible pairing; these complementary signals work better together than separately.",
+    },
+    replication: [
+      "What proportion of our current job adverts explicitly state whether the role is open to flexible or part-time arrangements?",
+      "Do we track application rates by gender at role level, or only at aggregate level where patterns are invisible?",
+      "Have we audited our job descriptions for language that discourages applications from candidates outside the majority?",
+    ],
   },
   {
     id: "jpmorgan-autism-at-work",
@@ -970,6 +1006,18 @@ const CASE_STUDIES = [
     source: "Dynseo, citing JPMorgan internal programme data, 2024",
     sourceUrl: "https://www.dynseo.com/en/roi-of-neurodiversity-in-business-studies-from-jpmorgan-sap-microsoft-and-2026-figures/",
     tags: ["neurodiversity", "autism", "retention", "productivity", "technology"],
+    context: "JPMorgan's technology teams were experiencing persistent talent shortages; standard competency-based interviews were designed for neurotypical candidates and systematically screened out strong performers.",
+    timeline: "Programme launched 2015; performance data published after approximately 3 years of operation",
+    lessons: {
+      whatWorked: "Replacing abstract competency interviews with work-sample tasks removed bias from the entry point and identified talent the existing process was discarding.",
+      watchOut: "The programme required dedicated coaching and manager training as ongoing investment; without that infrastructure, performance gains did not materialise in pilot sites that cut support early.",
+      doDifferently: "Expanding to roles beyond software engineering sooner would have accelerated impact; the results from the first cohort were strong enough to justify broader implementation earlier.",
+    },
+    replication: [
+      "Which of our current recruitment stages rely on social performance rather than technical capability, and could those be redesigned around work samples instead?",
+      "Do our managers currently have the skills to support neurodivergent team members effectively, or would that require structured investment?",
+      "Have we quantified what our current turnover in specialist roles costs annually, and compared that to the cost of a supported neurodiversity programme?",
+    ],
   },
   {
     id: "lloyds-race-inclusion",
@@ -982,6 +1030,18 @@ const CASE_STUDIES = [
     source: "CMI EDI in Action, Lloyds case study, 2022",
     sourceUrl: "https://www.managers.org.uk/wp-content/uploads/2022/06/cmi-75th-report-edi-in-action-lloyds-case-study.pdf",
     tags: ["race inclusion", "ethnic minority", "senior representation", "women in leadership"],
+    context: "Lloyds had general diversity commitments but Black and ethnic minority colleagues remained significantly underrepresented at senior levels despite years of stated intent; no public targets had been set.",
+    timeline: "50% increase in Black senior representation achieved within 12 months of targeted programme launch",
+    lessons: {
+      whatWorked: "Setting a public, specific, time-bound target created accountability that voluntary aspiration had not; the public commitment changed internal behaviour because it created reputational risk for inaction.",
+      watchOut: "Sponsorship programmes without structural changes to promotion panels and diverse shortlisting can produce small cohorts of individually successful people while leaving the system unchanged.",
+      doDifferently: "Tracking ethnicity pay gap data alongside representation data from the outset would have revealed whether increased representation translated into equitable progression and pay.",
+    },
+    replication: [
+      "Do we have specific, public, time-bound targets for ethnic minority representation at senior levels, or only general statements of commitment?",
+      "Are diverse shortlisting requirements in place for all senior roles, including internal promotions and succession planning?",
+      "Do we track and publish our ethnicity pay gap, even where this is not yet a legal obligation?",
+    ],
   },
   {
     id: "sap-autism-at-work",
@@ -994,6 +1054,18 @@ const CASE_STUDIES = [
     source: "Dynseo and Womentech Network, citing SAP programme data",
     sourceUrl: "https://www.dynseo.com/en/roi-of-neurodiversity-in-business-studies-from-jpmorgan-sap-microsoft-and-2026-figures/",
     tags: ["neurodiversity", "autism", "talent attraction", "innovation", "technology"],
+    context: "SAP recognised that innovation capacity was a core competitive advantage and that its existing hiring processes were optimised for a narrow candidate profile, limiting the diversity of thinking in product and engineering teams.",
+    timeline: "Programme launched 2013; retention and innovation data measured over 3 years",
+    lessons: {
+      whatWorked: "Positioning the programme as a business capability investment rather than a CSR initiative secured executive sponsorship and protected funding during cost pressures that ended comparable programmes elsewhere.",
+      watchOut: "The 1% workforce target required sustained recruiting effort over years; organisations that set similar targets without a dedicated pipeline strategy consistently fell short.",
+      doDifferently: "Sharing programme methodology openly with other organisations accelerated sector-wide adoption, which ultimately benefited SAP's own talent pipeline by normalising neurodiversity across the market.",
+    },
+    replication: [
+      "Have we set a specific target for neurodivergent representation in our workforce, and do we currently track against it?",
+      "Which roles in our organisation most benefit from the pattern-recognition and specialist focus that neurodivergent employees often bring?",
+      "Do our managers know how to have a productive conversation about adjustments with a neurodivergent team member?",
+    ],
   },
   {
     id: "vodafone-maternity-policy",
@@ -1006,6 +1078,18 @@ const CASE_STUDIES = [
     source: "Vodafone press release and CNBC, 2015",
     sourceUrl: "https://www.cnbc.com/2015/03/10/vodafone-launches-new-policy-for-working-moms.html",
     tags: ["maternity leave", "flexible working", "women in work", "talent retention"],
+    context: "Vodafone was losing experienced female talent at the maternity transition point, and the financial cost of that turnover was treated as an HR operational issue rather than a strategic business problem.",
+    timeline: "Policy introduced globally in 2015; KPMG projection modelled over a full year of operation",
+    lessons: {
+      whatWorked: "Commissioning KPMG to model the financial case before announcing the policy meant the announcement led with business value rather than welfare, which secured board approval and changed how the media covered it.",
+      watchOut: "The 30-hour full-pay return phase is the element most organisations struggle to implement because it requires line managers to adjust workloads actively; without manager-level accountability, the policy exists on paper only.",
+      doDifferently: "Tracking which teams actually implemented the return phase versus which defaulted to pressure for full-time return would have revealed where culture and policy had diverged and enabled targeted intervention.",
+    },
+    replication: [
+      "What is our current cost of losing a woman at the point of maternity leave, modelled across recruitment, onboarding, and lost experience?",
+      "Do line managers have explicit guidance and accountability for supporting the return-to-work transition, or is it left entirely to HR?",
+      "Have we surveyed women who left around maternity to understand whether the policy environment was a factor in their decision?",
+    ],
   },
   {
     id: "nationwide-women-in-finance",
@@ -1018,6 +1102,18 @@ const CASE_STUDIES = [
     source: "Nationwide Building Society, Women in Finance page",
     sourceUrl: "https://www.nationwide.co.uk/about-us/inclusion-and-diversity/women-in-finance",
     tags: ["women in finance", "senior leadership", "gender pay gap", "succession planning"],
+    context: "Nationwide had signed diversity commitments but lacked a specific mechanism to drive accountability for gender representation in senior roles; progress was slow and inconsistent across business areas.",
+    timeline: "Women in Finance Charter signed 2016; 39% representation achieved over several years of tracked annual progress",
+    lessons: {
+      whatWorked: "External charter commitments with published annual reporting created accountability that internal targets alone had not, because they introduced public and peer comparison that internal metrics lacked.",
+      watchOut: "Headline representation figures can improve while pay and progression equity remain unchanged; charter compliance without tracking promotion rates and attrition by gender can mask whether real change is occurring.",
+      doDifferently: "Integrating succession planning targets with the charter commitment from the outset, rather than running them as separate tracks, would have accelerated senior pipeline development.",
+    },
+    replication: [
+      "Have we signed the Women in Finance Charter or an equivalent sector commitment that creates public accountability for gender representation targets?",
+      "Does our leadership development programme have explicit gender representation targets at entry, and do we track how cohorts progress to senior roles?",
+      "Do we publish our gender pay gap with a narrative that explains the structural drivers, rather than treating it as a compliance exercise?",
+    ],
   },
   {
     id: "accenture-disability-inclusion",
@@ -1030,6 +1126,18 @@ const CASE_STUDIES = [
     source: "Accenture, Getting to Equal: The Disability Inclusion Advantage, 2018",
     sourceUrl: "https://newsroom.accenture.com/news/2018/companies-leading-in-disability-inclusion-have-outperformed-peers-accenture-research-finds",
     tags: ["disability inclusion", "revenue", "net income", "shareholder returns"],
+    context: "Disability inclusion was treated by most of the 140 companies studied as a compliance obligation under equalities legislation rather than a business capability and revenue opportunity.",
+    timeline: "Four-year longitudinal study comparing leaders and laggards over time, published 2018",
+    lessons: {
+      whatWorked: "Measuring disability inclusion leaders against hard financial metrics over multiple years rather than a single point in time made the case much harder to dismiss than cross-sectional survey data.",
+      watchOut: "Organisations that score well on inclusion indices through policy documentation without embedding inclusion in practice will not replicate the financial outcomes the research identifies.",
+      doDifferently: "The study focused on formal disclosure; a significant proportion of disabled employees do not disclose, meaning the actual talent pool affected by inclusion quality is considerably larger than representation data suggests.",
+    },
+    replication: [
+      "Do we know what proportion of our workforce has a disability, including non-visible conditions, and do employees feel psychologically safe to disclose?",
+      "What is our current process for providing workplace adjustments, and how quickly and consistently are they implemented when requested?",
+      "Have we assessed whether our products and services are accessible to disabled customers, and what revenue opportunity that represents?",
+    ],
   },
   {
     id: "google-project-aristotle",
@@ -1042,6 +1150,18 @@ const CASE_STUDIES = [
     source: "Google re:Work, Project Aristotle",
     sourceUrl: "https://www.leaderfactor.com/learn/project-aristotle-psychological-safety",
     tags: ["psychological safety", "innovation", "team performance", "inclusive leadership"],
+    context: "Google had invested heavily in hiring highly capable individuals but found that team performance was unpredictable and not well explained by the individual credentials of team members.",
+    timeline: "Two-year research project; findings shaped manager training programme redesign beginning approximately 2016",
+    lessons: {
+      whatWorked: "Framing psychological safety as a measurable, manageable team condition rather than an abstract cultural value allowed Google to design specific manager behaviours and training that could be evaluated.",
+      watchOut: "Psychological safety without accountability can slide into conflict avoidance; the research showed it works best when combined with clarity of goals and high standards, not in their absence.",
+      doDifferently: "Sharing the findings publicly accelerated adoption across industries; doing this earlier and more actively would have amplified the reputational return to Google.",
+    },
+    replication: [
+      "Do our team leaders know which specific behaviours build and erode psychological safety, and have they received training on them?",
+      "How do we currently measure team climate, and does that measurement influence how managers are evaluated or developed?",
+      "Are there parts of our organisation where high-performing individuals are stuck in low-performing teams, and what might that be costing us?",
+    ],
   },
   {
     id: "coventry-supply-chain",
@@ -1054,6 +1174,18 @@ const CASE_STUDIES = [
     source: "Business in the Community, Coventry Building Society case study",
     sourceUrl: "https://www.bitc.org.uk/case-study/coventry-building-society-advancing-supply-chain-diversity/",
     tags: ["supply chain", "procurement", "supplier diversity", "innovation"],
+    context: "Coventry's supplier base had consolidated over time toward a small number of large incumbents; procurement decisions were driven by risk aversion and relationships rather than competitive quality or value.",
+    timeline: "Ongoing programme; BITC recognition indicates sustained operation over several years",
+    lessons: {
+      whatWorked: "Partnering with Business in the Community provided access to a pipeline of diverse suppliers that Coventry could not have built independently, reducing the procurement team effort to implement the programme.",
+      watchOut: "Tier-one supplier diversity without tracking through the supply chain can give a misleading picture; large prime contractors who subcontract to diverse businesses can make headline numbers look good while concentrating commercial benefit at the top.",
+      doDifferently: "Building diverse supplier development support into the programme earlier would have expanded the pipeline faster and reduced attrition of smaller suppliers who won contracts but lacked capacity to scale.",
+    },
+    replication: [
+      "Do we track the diversity of our supplier base, and do procurement decisions include any weighting for supplier diversity?",
+      "Are there goods or services we currently source from large incumbents where equally capable diverse-owned businesses could compete if we actively reached out?",
+      "Have we considered the signal that our supply chain sends to employees and communities about whose businesses we value?",
+    ],
   },
   {
     id: "nhs-cost-of-exclusion",
@@ -1066,6 +1198,18 @@ const CASE_STUDIES = [
     source: "Kline and Lewis, The Price of Fear, University of Plymouth",
     sourceUrl: "https://pearl.plymouth.ac.uk/bitstream/handle/10026.1/12411/Kline%20and%20Lewis%20(V2)%20Cost%20of%20Bullying%20to%20the%20NHS%20in%20England%20final%20version.pdf",
     tags: ["bullying and harassment", "cost of exclusion", "sickness absence", "presenteeism"],
+    context: "NHS trusts regularly acknowledged workforce wellbeing challenges in staff surveys but had no quantified financial model to translate the human cost of exclusion into the language needed to unlock investment.",
+    timeline: "Study published 2019; data drawn from NHS Staff Survey and workforce records over multiple years",
+    lessons: {
+      whatWorked: "Breaking the total cost into seven named categories made the figure actionable; leaders could identify which cost category was most significant in their own trust and prioritise accordingly.",
+      watchOut: "The figures are conservative by the authors own admission; organisations that use them as a ceiling rather than a floor will underestimate the return on investment for inclusion programmes.",
+      doDifferently: "Modelling the cost at trust level rather than nationally would make the case more directly actionable for individual trust boards and more compelling for local investment decisions.",
+    },
+    replication: [
+      "Have we modelled the cost of bullying, harassment, and exclusion in our own organisation, even approximately, using our sickness absence and turnover data?",
+      "Do our managers know that creating an inclusive team environment has a quantifiable financial impact, not just a people impact?",
+      "What would a 10% reduction in exclusion-related sickness absence save our organisation annually?",
+    ],
   },
   {
     id: "deloitte-inclusive-leadership",
@@ -1078,6 +1222,18 @@ const CASE_STUDIES = [
     source: "Deloitte, The Diversity and Inclusion Revolution, 2018",
     sourceUrl: "https://www.odenetwork.com/wp-content/uploads/2021/04/DI_Diversity-and-inclusion-revolution.pdf",
     tags: ["inclusive leadership", "team performance", "decision-making", "attendance"],
+    context: "Many organisations had diversity programmes focused on representation but had not invested in equipping leaders with the specific behaviours required to unlock the performance benefits of diverse teams.",
+    timeline: "Research published 2018; the attendance finding was modelled across a full working year",
+    lessons: {
+      whatWorked: "Identifying six specific, trainable inclusive leadership behaviours gave organisations something concrete to develop rather than an abstract aspiration to be more inclusive.",
+      watchOut: "Self-reported perceptions of inclusion can be inflated in cultures where people fear reprisal for negative feedback; validating inclusion metrics through anonymous channels gives a more accurate picture.",
+      doDifferently: "Linking inclusive leadership scores to manager performance evaluation from the outset, rather than treating them as development data only, would have accelerated behavioural change.",
+    },
+    replication: [
+      "Do our managers know what the six dimensions of inclusive leadership are, and have they received feedback on their own performance against them?",
+      "Is inclusive leadership behaviour measured in our performance management process, or only stated as a value?",
+      "Have we modelled what a one-day-per-year improvement in attendance would be worth across our workforce?",
+    ],
   },
   {
     id: "lloyds-credit-positive",
@@ -1090,6 +1246,18 @@ const CASE_STUDIES = [
     source: "Bloomberg and Moody's assessment of Lloyds, 2020",
     sourceUrl: "https://www.bloombergquint.com/business/lloyds-ethnic-diversity-plan-is-credit-positive-moody-s-says",
     tags: ["ethnicity", "credit rating", "investor confidence", "governance", "parker review"],
+    context: "Most FTSE organisations treated EDI reporting as a compliance obligation; the possibility that institutional investors and credit agencies would evaluate it as a governance signal had not been systematically explored.",
+    timeline: "Ethnic minority senior representation target set 2014; Moody's credit positive designation published 2020",
+    lessons: {
+      whatWorked: "Voluntary disclosure before legal obligation positioned Lloyds as setting the standard rather than meeting it, giving them first-mover reputational advantage with investors who value proactive governance.",
+      watchOut: "Credit positive recognition reflects policy commitment and targets, not outcomes; sustained rating advantage requires demonstrable progress year on year against published targets.",
+      doDifferently: "Proactively briefing institutional investors and ESG analysts on the strategic rationale, rather than waiting for them to find it, would have amplified the investor relations benefit.",
+    },
+    replication: [
+      "Do our investor relations communications include our EDI strategy and data, positioned as a governance and risk management signal rather than a social report?",
+      "Have we assessed how our EDI approach compares to sector peers on the dimensions that ESG rating agencies currently evaluate?",
+      "Are there voluntary disclosures we could make now that would differentiate us ahead of expected regulatory requirements?",
+    ],
   },
   {
     id: "barclays-stonewall",
@@ -1102,6 +1270,18 @@ const CASE_STUDIES = [
     source: "Stonewall Star Performer recognition; British LGBT Awards",
     sourceUrl: "https://britishlgbtawards.com/case-study-barclays/",
     tags: ["LGBT+ inclusion", "employer brand", "talent attraction", "market share"],
+    context: "Barclays recognised that LGBT+ talent was underrepresented at senior levels and that a significant consumer segment felt under-served by financial services brands that did not visibly reflect their lives.",
+    timeline: "Ongoing investment over more than a decade; Stonewall Star Performer status maintained across multiple annual cycles",
+    lessons: {
+      whatWorked: "Treating LGBT+ inclusion as a commercial brand strategy rather than solely an employee benefit connected the internal programme to revenue, market share, and customer acquisition in a way that secured sustained executive investment.",
+      watchOut: "Visible external commitment creates expectation from employees and customers alike; organisations that brand heavily externally while internal culture remains exclusive face significant trust damage when the gap becomes visible.",
+      doDifferently: "Quantifying the size of the LGBT+ consumer segment explicitly at the outset, rather than referencing it qualitatively, would have strengthened the initial business case for investment.",
+    },
+    replication: [
+      "Do we know what proportion of our current and potential customer base identifies as LGBT+, and are our products and communications designed to reflect that?",
+      "Is our internal LGBT+ inclusion environment strong enough to sustain the external brand commitment we make publicly?",
+      "Have we benchmarked our LGBT+ inclusion against the Stonewall Workplace Equality Index to identify specific gaps?",
+    ],
   },
   {
     id: "diageo-learning-for-life",
@@ -1114,6 +1294,18 @@ const CASE_STUDIES = [
     source: "HR Grapevine, October 2025",
     sourceUrl: "https://www.hrgrapevine.com/content/article/2025-10-14-200000-graduates-diageos-learning-for-life-employability-scheme-keeps-changing-lives",
     tags: ["social impact", "ESG", "employer brand", "community investment"],
+    context: "Diageo operated in markets where community trust was business-critical and faced consistent scrutiny as an alcohol producer; investment in community employability was both genuine social commitment and strategic reputation management.",
+    timeline: "Programme launched 2008; 200,000 graduates milestone reached by 2025",
+    lessons: {
+      whatWorked: "Positioning the programme at the intersection of community need and Diageo's commercial talent requirements gave it dual purpose; it was not charity disconnected from the business, which sustained long-term investment.",
+      watchOut: "ESG ratings and employer brand benefits depend on the credibility of the programme; a large headline number without verifiable impact methodology will attract scrutiny and potentially damage the credibility it was designed to build.",
+      doDifferently: "Developing clearer pathways from Learning for Life into verified industry employment from an earlier stage would have strengthened both the social impact case and the commercial talent pipeline rationale.",
+    },
+    replication: [
+      "Are there communities in our operating environment where investment in employability skills would build social licence while also developing a talent pipeline relevant to our sector?",
+      "How do we currently measure and report the social impact of our community investment, and would that methodology withstand ESG scrutiny?",
+      "Have we considered how our community investment strategy is positioned in our ESG reporting and employer brand communications?",
+    ],
   },
   {
     id: "purple-pound",
@@ -1126,6 +1318,18 @@ const CASE_STUDIES = [
     source: "We Are Purple, Purple Pound research",
     sourceUrl: "https://wearepurple.org.uk/?p=558",
     tags: ["disability", "consumer spending", "accessibility", "purple pound", "lost revenue"],
+    context: "Most organisations had limited awareness that disability-related inaccessibility was generating measurable lost revenue, not just a compliance gap; the conversation was framed around risk avoidance rather than market opportunity.",
+    timeline: "Purple Pound research ongoing; £249 billion figure reflects cumulative and updated research",
+    lessons: {
+      whatWorked: "Quantifying the lost revenue from poor accessibility in a single headline figure gave organisations a commercial frame that made the case to finance and commercial directors, not just compliance teams.",
+      watchOut: "Addressing physical accessibility without improving digital accessibility or staff attitude and training captures only part of the market; disabled customers who can physically enter a space can still be excluded by the experience.",
+      doDifferently: "Segmenting the figure by sector would have allowed organisations to model their own market-specific opportunity more precisely; a sector-level estimate is more actionable than a national aggregate.",
+    },
+    replication: [
+      "Have we estimated the value of the disabled consumer segment in our specific market, and what proportion of our revenue currently comes from disabled customers and their households?",
+      "What are the top three accessibility barriers our disabled customers encounter, and have we modelled the cost of addressing them?",
+      "Do our customer-facing teams receive disability awareness training, or is accessibility treated as a physical infrastructure question only?",
+    ],
   },
   {
     id: "pg-like-a-girl",
@@ -1138,6 +1342,18 @@ const CASE_STUDIES = [
     source: "Marketing Week; Bandt, 2015",
     sourceUrl: "https://www.marketingweek.com/pg-diversity-is-how-we-get-great-campaigns-like-like-a-girl/",
     tags: ["diverse creative teams", "brand equity", "consumer connection", "market share"],
+    context: "P&G had data suggesting diverse creative teams produced stronger commercial outcomes but had not yet systematically restructured its creative agency relationships or production processes to reflect this.",
+    timeline: "Like a Girl campaign launched 2014; sales and sentiment data measured over approximately 12 months post-launch",
+    lessons: {
+      whatWorked: "Changing the demographic composition of the creative team rather than briefing a homogeneous team to think more inclusively produced qualitatively different work; diversity of lived experience showed up directly in the creative output.",
+      watchOut: "Campaign-level success driven by diverse teams can be isolated and one-off if the creative team composition changes project by project; sustained commercial benefit requires structural changes to how agencies are selected and briefed.",
+      doDifferently: "Sharing the methodology with the advertising industry earlier would have accelerated sector-wide change and reinforced P&G's reputation as the organisation that industrialised inclusive creativity.",
+    },
+    replication: [
+      "Do we track the demographic diversity of the creative teams producing our external communications, including agency teams, not just our own employees?",
+      "Have we ever tested whether campaigns produced by diverse teams perform differently with target audiences compared with campaigns produced by less diverse teams?",
+      "Is diversity of creative input an explicit criterion in our agency selection or briefing process?",
+    ],
   },
   {
     id: "barclays-financial-inclusion",
@@ -1150,6 +1366,18 @@ const CASE_STUDIES = [
     source: "Business in the Community, Barclays case study",
     sourceUrl: "https://www.bitc.org.uk/wp-content/uploads/2022/06/BarclaysCaseStudy.pdf",
     tags: ["financial inclusion", "underserved communities", "credit risk", "new markets"],
+    context: "Barclays faced regulatory pressure to demonstrate community benefit and recognised that financially excluded populations represented an underserved commercial market with long-term growth potential.",
+    timeline: "Ongoing long-term programme; BITC case study reflects activity over several years",
+    lessons: {
+      whatWorked: "Treating financial inclusion as a market development strategy rather than a community relations exercise sustained commercial investment over the long term, where philanthropy-framed programmes typically lose funding in tighter cycles.",
+      watchOut: "Financial literacy programmes require follow-through into accessible product design; improving knowledge without providing suitable products creates expectation without opportunity.",
+      doDifferently: "Measuring customer lifetime value for individuals who joined through financial inclusion routes, compared with standard acquisition channels, would have demonstrated the commercial return more directly and informed investment scaling.",
+    },
+    replication: [
+      "Are there customer segments our current products and services systematically exclude, and have we modelled the revenue potential of serving them?",
+      "Do we track the long-term value of customers acquired through community or inclusion-focused channels separately from standard acquisition?",
+      "How does our regulator assess our performance on financial or service inclusion, and are we ahead of or behind sector peers?",
+    ],
   },
   {
     id: "mckinsey-delivering-diversity",
@@ -1162,6 +1390,18 @@ const CASE_STUDIES = [
     source: "McKinsey, Delivering Through Diversity, 2018",
     sourceUrl: "https://www.mckinsey.com/capabilities/people-and-organizational-performance/our-insights/why-diversity-matters",
     tags: ["diverse leadership", "consumer markets", "profitability", "ethnic diversity"],
+    context: "Most of the 1,007 companies studied had made minimal measurable progress on diversity at executive level in the three years since McKinsey's 2015 report, despite widespread stated commitment.",
+    timeline: "Cross-sectional study of 1,007 companies across 12 countries; published 2018",
+    lessons: {
+      whatWorked: "Disaggregating diversity data by level, function, and country revealed that aggregate figures masked significant underrepresentation at the most commercially influential decision-making levels.",
+      watchOut: "Diverse executive headcount without inclusion culture does not deliver the decision-making and consumer insight benefits the research identifies; hiring diversely without giving those voices real authority does not replicate the results.",
+      doDifferently: "Tracking progress year on year rather than taking a single snapshot would have revealed which companies were genuinely improving and which were static behind headline figures, making the analysis more actionable.",
+    },
+    replication: [
+      "Do we track diversity data at each level of our organisation separately, so we can see where the pipeline narrows rather than only measuring total representation?",
+      "Are our most diverse leaders in the roles with the most commercial and strategic influence, or concentrated in areas with lower business impact?",
+      "Have we assessed whether our consumer base is becoming more diverse over time, and whether our leadership composition reflects that trajectory?",
+    ],
   },
 ];
 
@@ -2057,7 +2297,8 @@ function EvidencePageInner() {
                     <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)" }}>No case studies match your search.</p>
                   )}
                   {filteredCases.map((c) => (
-                    <div key={c.id} className="card">
+                    <div key={c.id} className="card" style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+                      {/* Top row: main info + key outcome */}
                       <div style={{ display: "flex", gap: "1.25rem", flexWrap: "wrap" }}>
                         <div style={{ flex: 1, minWidth: "280px" }}>
                           <div style={{ display: "flex", gap: "0.5rem", marginBottom: "0.625rem", flexWrap: "wrap", alignItems: "center" }}>
@@ -2080,9 +2321,57 @@ function EvidencePageInner() {
                         </div>
                         <div style={{ background: "var(--sage-xlight)", borderRadius: "10px", padding: "1.25rem", minWidth: "240px", maxWidth: "320px", flex: "0 0 auto" }}>
                           <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.5rem" }}>Key outcome</div>
-                          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.6, margin: 0 }}>{c.outcome}</p>
+                          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.6, marginBottom: "1rem" }}>{c.outcome}</p>
+                          {c.context && (
+                            <>
+                              <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.4rem", marginTop: "0.75rem" }}>Starting point</div>
+                              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--charcoal)", lineHeight: 1.55, margin: 0, fontStyle: "italic" }}>{c.context}</p>
+                            </>
+                          )}
+                          {c.timeline && (
+                            <>
+                              <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.4rem", marginTop: "0.75rem" }}>Timeline</div>
+                              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--charcoal)", lineHeight: 1.55, margin: 0 }}>{c.timeline}</p>
+                            </>
+                          )}
                         </div>
                       </div>
+
+                      {/* Lessons extracted */}
+                      {c.lessons && (
+                        <div style={{ borderTop: "1px solid #e8e8e8", paddingTop: "1.125rem" }}>
+                          <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "var(--charcoal)", marginBottom: "0.875rem", letterSpacing: "0.01em" }}>Lessons extracted</div>
+                          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "0.875rem" }}>
+                            <div style={{ background: "#f0f8f1", borderRadius: "8px", padding: "0.875rem" }}>
+                              <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", color: "#2e7d44", textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: "0.4rem" }}>What worked</div>
+                              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--charcoal)", lineHeight: 1.6, margin: 0 }}>{c.lessons.whatWorked}</p>
+                            </div>
+                            <div style={{ background: "#fff8ed", borderRadius: "8px", padding: "0.875rem" }}>
+                              <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", color: "#a05c00", textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: "0.4rem" }}>Watch out for</div>
+                              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--charcoal)", lineHeight: 1.6, margin: 0 }}>{c.lessons.watchOut}</p>
+                            </div>
+                            <div style={{ background: "#f5f0fa", borderRadius: "8px", padding: "0.875rem" }}>
+                              <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", color: "#5b3a8a", textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: "0.4rem" }}>Do differently</div>
+                              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--charcoal)", lineHeight: 1.6, margin: 0 }}>{c.lessons.doDifferently}</p>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Replication prompts */}
+                      {c.replication && c.replication.length > 0 && (
+                        <div style={{ borderTop: "1px solid #e8e8e8", paddingTop: "1.125rem" }}>
+                          <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "var(--charcoal)", marginBottom: "0.75rem", letterSpacing: "0.01em" }}>Questions to ask in your organisation</div>
+                          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                            {c.replication.map((q, i) => (
+                              <div key={i} style={{ display: "flex", gap: "0.625rem", alignItems: "flex-start" }}>
+                                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", color: "var(--sage-dark)", minWidth: "1.25rem", paddingTop: "0.15rem" }}>{i + 1}.</span>
+                                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: 0 }}>{q}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
