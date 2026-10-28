@@ -2878,6 +2878,21 @@ function EvidencePageInner() {
                   </div>
                 ) : (
                   <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+                    {/* Q0: Case study selector — required in Evidence Builder; auto-set when opened from a case study card */}
+                    <div>
+                      <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.5rem", display: "block" }}>Which case study do you want to replicate?</label>
+                      {t2CaseStudy ? (
+                        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                          <div style={{ flex: 1, background: "var(--sage-xlight)", borderRadius: "8px", padding: "0.625rem 0.875rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.4 }}>{t2CaseStudy.title}</div>
+                          <button onClick={() => setT2CaseStudy(null)} style={{ background: "none", border: "1px solid var(--gray-border)", borderRadius: "6px", padding: "0.375rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.75rem", color: "var(--gray-soft)", cursor: "pointer", whiteSpace: "nowrap" }}>Change</button>
+                        </div>
+                      ) : (
+                        <select onChange={e => { const cs = CASE_STUDIES.find(c => c.id === e.target.value); if (cs) setT2CaseStudy({ title: cs.title, desc: cs.what }); }} defaultValue="" style={selectStyle}>
+                          <option value="">Select a case study</option>
+                          {CASE_STUDIES.map(c => <option key={c.id} value={c.id}>{c.title.length > 70 ? c.title.slice(0, 70) + "…" : c.title}</option>)}
+                        </select>
+                      )}
+                    </div>
                     <div>
                       <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.5rem", display: "block" }}>1. What sector is your organisation in?</label>
                       <select value={t2Sector} onChange={e => setT2Sector(e.target.value)} style={selectStyle}>
@@ -2924,9 +2939,9 @@ function EvidencePageInner() {
                     <div style={{ paddingTop: "0.5rem" }}>
                       <button
                         onClick={handleTool2Submit}
-                        disabled={!t2Sector || (t2Sector === "Other" && !t2SectorOther) || !t2Size || !t2Barrier.trim() || !t2Resources.trim() || !t2Approver || (t2Approver === "Other" && !t2ApproverOther)}
+                        disabled={!t2CaseStudy || !t2Sector || (t2Sector === "Other" && !t2SectorOther) || !t2Size || !t2Barrier.trim() || !t2Resources.trim() || !t2Approver || (t2Approver === "Other" && !t2ApproverOther)}
                         className="btn-primary"
-                        style={{ fontSize: "0.875rem", padding: "0.875rem 1.75rem", opacity: (!t2Sector || !t2Size || !t2Barrier.trim() || !t2Resources.trim() || !t2Approver) ? 0.5 : 1, cursor: (!t2Sector || !t2Size || !t2Barrier.trim() || !t2Resources.trim() || !t2Approver) ? "not-allowed" : "pointer" }}
+                        style={{ fontSize: "0.875rem", padding: "0.875rem 1.75rem", opacity: (!t2CaseStudy || !t2Sector || !t2Size || !t2Barrier.trim() || !t2Resources.trim() || !t2Approver) ? 0.5 : 1, cursor: (!t2CaseStudy || !t2Sector || !t2Size || !t2Barrier.trim() || !t2Resources.trim() || !t2Approver) ? "not-allowed" : "pointer" }}
                       >
                         Build my replication roadmap →
                       </button>
@@ -3211,6 +3226,22 @@ function EvidencePageInner() {
               ) : (
                 <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
 
+                  {/* Q0: Case study — shown as chip (pre-selected) with option to change */}
+                  <div>
+                    <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.5rem", display: "block" }}>Which case study do you want to replicate?</label>
+                    {t2CaseStudy ? (
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                        <div style={{ flex: 1, background: "var(--sage-xlight)", borderRadius: "8px", padding: "0.625rem 0.875rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.4 }}>{t2CaseStudy.title}</div>
+                        <button onClick={() => setT2CaseStudy(null)} style={{ background: "none", border: "1px solid var(--gray-border)", borderRadius: "6px", padding: "0.375rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.75rem", color: "var(--gray-soft)", cursor: "pointer", whiteSpace: "nowrap" }}>Change</button>
+                      </div>
+                    ) : (
+                      <select onChange={e => { const cs = CASE_STUDIES.find(c => c.id === e.target.value); if (cs) setT2CaseStudy({ title: cs.title, desc: cs.what }); }} defaultValue="" style={selectStyle}>
+                        <option value="">Select a case study</option>
+                        {CASE_STUDIES.map(c => <option key={c.id} value={c.id}>{c.title.length > 70 ? c.title.slice(0, 70) + "…" : c.title}</option>)}
+                      </select>
+                    )}
+                  </div>
+
                   {/* Q1: Sector */}
                   <div>
                     <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.5rem", display: "block" }}>1. What sector is your organisation in?</label>
@@ -3268,9 +3299,9 @@ function EvidencePageInner() {
                   <div style={{ paddingTop: "0.5rem" }}>
                     <button
                       onClick={handleTool2Submit}
-                      disabled={!t2Sector || (t2Sector === "Other" && !t2SectorOther) || !t2Size || !t2Barrier.trim() || !t2Resources.trim() || !t2Approver || (t2Approver === "Other" && !t2ApproverOther)}
+                      disabled={!t2CaseStudy || !t2Sector || (t2Sector === "Other" && !t2SectorOther) || !t2Size || !t2Barrier.trim() || !t2Resources.trim() || !t2Approver || (t2Approver === "Other" && !t2ApproverOther)}
                       className="btn-primary"
-                      style={{ fontSize: "0.875rem", padding: "0.875rem 1.75rem", opacity: (!t2Sector || !t2Size || !t2Barrier.trim() || !t2Resources.trim() || !t2Approver) ? 0.5 : 1, cursor: (!t2Sector || !t2Size || !t2Barrier.trim() || !t2Resources.trim() || !t2Approver) ? "not-allowed" : "pointer" }}
+                      style={{ fontSize: "0.875rem", padding: "0.875rem 1.75rem", opacity: (!t2CaseStudy || !t2Sector || !t2Size || !t2Barrier.trim() || !t2Resources.trim() || !t2Approver) ? 0.5 : 1, cursor: (!t2CaseStudy || !t2Sector || !t2Size || !t2Barrier.trim() || !t2Resources.trim() || !t2Approver) ? "not-allowed" : "pointer" }}
                     >
                       Build my replication roadmap →
                     </button>
