@@ -1474,20 +1474,76 @@ function EvidencePageInner() {
   // Research brief state
   const [activeBrief, setActiveBrief] = useState<string | null>(null);
   const [showTailorModal, setShowTailorModal] = useState(false);
-  const [tailorSector, setTailorSector] = useState("");
-  const [tailorSize, setTailorSize] = useState("");
-  const [tailorChallenge, setTailorChallenge] = useState("");
-  const [tailoredOutput, setTailoredOutput] = useState("");
-  const [tailorLoading, setTailorLoading] = useState(false);
   const [showRelated, setShowRelated] = useState(false);
 
+  // Tool 1 state
+  const [t1Step, setT1Step] = useState(1);
+  const [t1Sector, setT1Sector] = useState("");
+  const [t1SectorOther, setT1SectorOther] = useState("");
+  const [t1Size, setT1Size] = useState("");
+  const [t1Progress, setT1Progress] = useState("");
+  const [t1Challenge, setT1Challenge] = useState("");
+  const [t1Outcomes, setT1Outcomes] = useState("");
+  const [t1Audience, setT1Audience] = useState("");
+  const [t1AudienceOther, setT1AudienceOther] = useState("");
+  const [t1Loading, setT1Loading] = useState(false);
+  const [t1VoiceField, setT1VoiceField] = useState<string | null>(null);
+
+  // Tool 2 state
+  const [showTool2Modal, setShowTool2Modal] = useState(false);
+  const [t2Sector, setT2Sector] = useState("");
+  const [t2SectorOther, setT2SectorOther] = useState("");
+  const [t2Size, setT2Size] = useState("");
+  const [t2Barrier, setT2Barrier] = useState("");
+  const [t2Resources, setT2Resources] = useState("");
+  const [t2Approver, setT2Approver] = useState("");
+  const [t2ApproverOther, setT2ApproverOther] = useState("");
+  const [t2Loading, setT2Loading] = useState(false);
+  const [t2Result, setT2Result] = useState<{ section1: string; section2: string; section3: string } | null>(null);
+  const [t2Copied, setT2Copied] = useState<string | null>(null);
+  const [t2VoiceField, setT2VoiceField] = useState<string | null>(null);
+  const [t2CaseStudy, setT2CaseStudy] = useState<{ title: string; desc: string } | null>(null);
+  const [t1Result, setT1Result] = useState<{ section1: string; section2: string; section3: string } | null>(null);
+  const [t1Copied, setT1Copied] = useState<string | null>(null);
+
   // Evidence builder state
-  const [ebArgument, setEbArgument] = useState("");
+  const [ebTopic, setEbTopic] = useState("");
   const [ebSector, setEbSector] = useState("");
   const [ebSize, setEbSize] = useState("");
-  const [ebPitchTarget, setEbPitchTarget] = useState("");
-  const [ebOutput, setEbOutput] = useState("");
+  const [ebAudience, setEbAudience] = useState("");
+  const [ebResistance, setEbResistance] = useState("");
+  const [ebOutcome, setEbOutcome] = useState("");
   const [ebLoading, setEbLoading] = useState(false);
+  const [ebResult, setEbResult] = useState<{ section1: string; section2: string; section3: string; section4: string } | null>(null);
+  const [ebCopied, setEbCopied] = useState<string | null>(null);
+  const [ebVoiceTopic, setEbVoiceTopic] = useState(false);
+
+  // Evidence Builder active tool ("argument" | "research" | "objections" | null)
+  const [ebActiveTool, setEbActiveTool] = useState<string | null>(null);
+  const [ebVoiceField, setEbVoiceField] = useState<string | null>(null);
+
+  // Research Interpreter (Tool 1 embedded in Evidence Builder)
+  const [ebResearchTitle, setEbResearchTitle] = useState("");
+  const [ebResearchSummary, setEbResearchSummary] = useState("");
+  const [ebRSector, setEbRSector] = useState("");
+  const [ebRSize, setEbRSize] = useState("");
+  const [ebRProgress, setEbRProgress] = useState("");
+  const [ebRChallenge, setEbRChallenge] = useState("");
+  const [ebROutcomes, setEbROutcomes] = useState("");
+  const [ebRAudience, setEbRAudience] = useState("");
+  const [ebRLoading, setEbRLoading] = useState(false);
+  const [ebRResult, setEbRResult] = useState<{ s1: string; s2: string; s3: string } | null>(null);
+  const [ebRCopied, setEbRCopied] = useState<string | null>(null);
+
+  // Tool 3: Anticipate the Objections
+  const [t3Sector, setT3Sector] = useState("");
+  const [t3Size, setT3Size] = useState("");
+  const [t3Argument, setT3Argument] = useState("");
+  const [t3Audience, setT3Audience] = useState("");
+  const [t3Loading, setT3Loading] = useState(false);
+  const [t3Result, setT3Result] = useState<{ s1: string; s2: string; s3: string } | null>(null);
+  const [t3Copied, setT3Copied] = useState<string | null>(null);
+  const [t3VoiceField, setT3VoiceField] = useState<string | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -1565,41 +1621,181 @@ function EvidencePageInner() {
     );
   }, [search]);
 
-  function handleTailor() {
-    if (!tailorSector || !tailorSize) return;
-    setTailorLoading(true);
-    setTailoredOutput("");
-    setTimeout(() => {
-      const brief = currentBrief!;
-      const challengeText = tailorChallenge ? ` Your stated challenge is: ${tailorChallenge.toLowerCase()}.` : "";
-      const output = `For a ${tailorSize.toLowerCase()} organisation in the ${tailorSector} sector, the ${brief.title} offers particularly relevant evidence.${challengeText} The finding that ${brief.findings[0].toLowerCase()} translates directly into your context: in ${tailorSector}, where talent competition and retention pressures are significant, this data provides a quantified argument for investment in inclusion. Specifically, you can point to the ${brief.findings[1].toLowerCase()} as evidence that the financial case is not theoretical. We recommend opening your board presentation with the headline statistic, contextualising it to your sector, and following with the three actions most relevant to your current priorities from the "Take this to your leadership" section of this brief.`;
-      setTailoredOutput(output);
-      setTailorLoading(false);
-    }, 1800);
+  async function handleTool1Submit() {
+    const brief = currentBrief!;
+    setT1Loading(true);
+    setT1Result(null);
+    try {
+      const res = await fetch("/api/tool1", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sector: t1Sector === "Other" ? t1SectorOther : t1Sector,
+          size: t1Size,
+          progress: t1Progress,
+          challenge: t1Challenge,
+          outcomes: t1Outcomes,
+          audience: t1Audience === "Other" ? t1AudienceOther : t1Audience,
+          researchTitle: brief.title,
+          researchSummary: brief.about || brief.desc,
+        }),
+      });
+      const data = await res.json();
+      setT1Result(data);
+    } catch {
+      setT1Result({ section1: "Something went wrong. Please try again.", section2: "", section3: "" });
+    } finally {
+      setT1Loading(false);
+    }
   }
 
-  function handleEvidenceBuilder() {
-    if (!ebArgument || !ebSector || !ebPitchTarget) return;
+  function copyT1Section(key: string, text: string) {
+    navigator.clipboard.writeText(text);
+    setT1Copied(key);
+    setTimeout(() => setT1Copied(null), 2000);
+  }
+
+  async function handleTool2Submit() {
+    setT2Loading(true);
+    setT2Result(null);
+    try {
+      const res = await fetch("/api/tool2", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sector: t2Sector === "Other" ? t2SectorOther : t2Sector,
+          size: t2Size,
+          barrier: t2Barrier,
+          resources: t2Resources,
+          approver: t2Approver === "Other" ? t2ApproverOther : t2Approver,
+          caseStudyTitle: t2CaseStudy?.title ?? "",
+          caseStudySummary: t2CaseStudy?.desc ?? "",
+        }),
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      setT2Result(data);
+    } catch {
+      setT2Result({ section1: "Something went wrong. Please try again.", section2: "", section3: "" });
+    } finally {
+      setT2Loading(false);
+    }
+  }
+
+  function copyT2Section(key: string, text: string) {
+    navigator.clipboard.writeText(text);
+    setT2Copied(key);
+    setTimeout(() => setT2Copied(null), 2000);
+  }
+
+  function resetTool2() {
+    setT2Sector(""); setT2SectorOther(""); setT2Size("");
+    setT2Barrier(""); setT2Resources("");
+    setT2Approver(""); setT2ApproverOther("");
+    setT2Result(null); setT2Copied(null); setT2VoiceField(null); setT2CaseStudy(null);
+  }
+
+  function resetTool1() {
+    setT1Step(1);
+    setT1Sector(""); setT1SectorOther(""); setT1Size(""); setT1Progress("");
+    setT1Challenge(""); setT1Outcomes(""); setT1Audience(""); setT1AudienceOther("");
+    setT1Loading(false); setT1Result(null); setT1Copied(null);
+  }
+
+  async function handleEvidenceBuilder() {
+    if (!ebTopic || !ebSector || !ebSize || !ebAudience || !ebResistance || !ebOutcome) return;
     setEbLoading(true);
-    setEbOutput("");
-    setTimeout(() => {
-      const relevant = RESEARCH_REPORTS.filter(
-        (r) =>
-          r.tags.some((t) =>
-            ebArgument.toLowerCase().includes(t.toLowerCase())
-          ) || Math.random() > 0.4
-      ).slice(0, 3);
-      const output = `Business Case Argument: ${ebArgument}\n\nFor a ${ebSector} organisation presenting to ${ebPitchTarget}, the evidence below supports your argument:\n\n${relevant
-        .map(
-          (r, i) =>
-            `${i + 1}. ${r.title} (${r.source}, ${r.year})\n   "${r.findings[0]}"\n   Recommended framing: ${r.leadership[0]}`
-        )
-        .join(
-          "\n\n"
-        )}\n\nSuggested opening line for your presentation:\n"The evidence base for inclusion as a business performance driver is now substantial. ${relevant[0].findings[0]} This is not a question of values alone — it is a question of competitive performance."`;
-      setEbOutput(output);
+    setEbResult(null);
+    try {
+      const res = await fetch("/api/tool-eb", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ topic: ebTopic, sector: ebSector, size: ebSize, audience: ebAudience, resistance: ebResistance, outcome: ebOutcome }),
+      });
+      const data = await res.json();
+      setEbResult({ section1: data.section1 || "", section2: data.section2 || "", section3: data.section3 || "", section4: data.section4 || "" });
+    } catch (err) {
+      console.error(err);
+    } finally {
       setEbLoading(false);
-    }, 2200);
+    }
+  }
+
+  function copyEbSection(key: string, text: string) {
+    navigator.clipboard.writeText(text).then(() => {
+      setEbCopied(key);
+      setTimeout(() => setEbCopied(null), 2000);
+    });
+  }
+
+  function resetEb() {
+    setEbTopic(""); setEbSector(""); setEbSize(""); setEbAudience(""); setEbResistance(""); setEbOutcome(""); setEbResult(null); setEbCopied(null);
+  }
+
+  // Research Interpreter handler (Tool 1 embedded in Evidence Builder)
+  async function handleResearchInterpreter() {
+    if (!ebResearchTitle || !ebResearchSummary || !ebRSector || !ebRProgress || !ebRChallenge.trim() || !ebROutcomes.trim() || !ebRAudience) return;
+    setEbRLoading(true);
+    setEbRResult(null);
+    try {
+      const res = await fetch("/api/tool1", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sector: ebRSector, size: ebRSize, progress: ebRProgress, challenge: ebRChallenge, outcomes: ebROutcomes, audience: ebRAudience, researchTitle: ebResearchTitle, researchSummary: ebResearchSummary }),
+      });
+      const data = await res.json();
+      if (data.section1 || data.section2 || data.section3) {
+        setEbRResult({ s1: data.section1 || "", s2: data.section2 || "", s3: data.section3 || "" });
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setEbRLoading(false);
+    }
+  }
+
+  function copyEbRSection(key: string, text: string) {
+    navigator.clipboard.writeText(text).then(() => {
+      setEbRCopied(key);
+      setTimeout(() => setEbRCopied(null), 2000);
+    });
+  }
+
+  function resetEbR() {
+    setEbResearchTitle(""); setEbResearchSummary(""); setEbRSector(""); setEbRSize(""); setEbRProgress(""); setEbRChallenge(""); setEbROutcomes(""); setEbRAudience(""); setEbRResult(null); setEbRCopied(null);
+  }
+
+  // Tool 3: Anticipate the Objections
+  async function handleTool3Submit() {
+    if (!t3Argument.trim() || !t3Sector || !t3Size || !t3Audience) return;
+    setT3Loading(true);
+    setT3Result(null);
+    try {
+      const res = await fetch("/api/tool3", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sector: t3Sector, size: t3Size, argument: t3Argument, audience: t3Audience }),
+      });
+      const data = await res.json();
+      if (data.section1 || data.section2 || data.section3) {
+        setT3Result({ s1: data.section1 || "", s2: data.section2 || "", s3: data.section3 || "" });
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setT3Loading(false);
+    }
+  }
+
+  function copyT3Section(key: string, text: string) {
+    navigator.clipboard.writeText(text).then(() => {
+      setT3Copied(key);
+      setTimeout(() => setT3Copied(null), 2000);
+    });
+  }
+
+  function resetTool3() {
+    setT3Argument(""); setT3Sector(""); setT3Size(""); setT3Audience(""); setT3Result(null); setT3Copied(null);
   }
 
   const inputStyle: React.CSSProperties = {
@@ -1643,7 +1839,7 @@ function EvidencePageInner() {
             ← Make the Case
           </Link>
           <span style={{ color: "var(--gray-border)" }}>|</span>
-          <button onClick={() => { setActiveBrief(null); setShowRelated(false); setShowTailorModal(false); setTailoredOutput(""); }} style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--charcoal)", background: "none", border: "none", cursor: "pointer" }}>
+          <button onClick={() => { setActiveBrief(null); setShowRelated(false); setShowTailorModal(false); resetTool1(); }} style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--charcoal)", background: "none", border: "none", cursor: "pointer" }}>
             ← Research and Data
           </button>
           <span style={{ color: "var(--gray-border)" }}>|</span>
@@ -1761,7 +1957,7 @@ function EvidencePageInner() {
               className="btn-primary"
               style={{ fontSize: "0.9rem", padding: "0.875rem 1.75rem" }}
             >
-              ✨ Tailor this for my organisation
+              ✨ Personalise this research for my organisation
             </button>
             <button
               onClick={() => { setShowRelated(!showRelated); setShowTailorModal(false); }}
@@ -1775,60 +1971,212 @@ function EvidencePageInner() {
           {/* Tailor modal panel */}
           {showTailorModal && (
             <section style={{ background: "var(--white)", borderRadius: "16px", padding: "2rem", marginBottom: "1.5rem", border: "2px solid var(--sage-dark)" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1.25rem" }}>
+              {/* Header */}
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1.5rem" }}>
                 <div>
                   <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.05rem", color: "var(--charcoal)", marginBottom: "0.25rem" }}>
-                    Tailor this for my organisation
+                    Personalised Research Interpreter
                   </h2>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)" }}>
-                    Tell us about your organisation and we will reframe this research in your context.
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", margin: 0 }}>
+                    Answer six quick questions and we will personalise this research for your organisation.
                   </p>
                 </div>
-                <button onClick={() => { setShowTailorModal(false); setTailoredOutput(""); }} style={{ background: "none", border: "none", cursor: "pointer", fontSize: "1.2rem", color: "var(--gray-soft)", padding: "0.25rem" }}>✕</button>
+                <button onClick={() => { setShowTailorModal(false); resetTool1(); }} style={{ background: "none", border: "none", cursor: "pointer", fontSize: "1.2rem", color: "var(--gray-soft)", padding: "0.25rem" }}>✕</button>
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1.25rem", marginBottom: "1.25rem" }}>
+
+              {/* Results view */}
+              {t1Result ? (
                 <div>
-                  <label style={labelStyle}>Your sector</label>
-                  <select value={tailorSector} onChange={(e) => setTailorSector(e.target.value)} style={selectStyle}>
-                    <option value="">Select sector</option>
-                    {SECTORS.map((s) => <option key={s} value={s}>{s}</option>)}
-                  </select>
-                </div>
-                <div>
-                  <label style={labelStyle}>Organisation size</label>
-                  <select value={tailorSize} onChange={(e) => setTailorSize(e.target.value)} style={selectStyle}>
-                    <option value="">Select size</option>
-                    {ORG_SIZES.map((s) => <option key={s} value={s}>{s}</option>)}
-                  </select>
-                </div>
-                <div>
-                  <label style={labelStyle}>Main challenge (optional)</label>
-                  <select value={tailorChallenge} onChange={(e) => setTailorChallenge(e.target.value)} style={selectStyle}>
-                    <option value="">Select a challenge</option>
-                    {MAIN_CHALLENGES.map((c) => <option key={c} value={c}>{c}</option>)}
-                  </select>
-                </div>
-              </div>
-              <button
-                onClick={handleTailor}
-                disabled={!tailorSector || !tailorSize || tailorLoading}
-                className="btn-primary"
-                style={{ fontSize: "0.875rem", padding: "0.75rem 1.5rem", opacity: (!tailorSector || !tailorSize) ? 0.5 : 1, cursor: (!tailorSector || !tailorSize) ? "not-allowed" : "pointer" }}
-              >
-                {tailorLoading ? "Building your summary…" : "Generate my tailored summary →"}
-              </button>
-              {tailoredOutput && (
-                <div style={{ marginTop: "1.5rem", background: "var(--sage-xlight)", borderRadius: "12px", padding: "1.5rem" }}>
-                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.875rem" }}>
-                    Your tailored summary
+                  {/* Box 1 */}
+                  <div style={{ background: "var(--sage-xlight)", borderRadius: "12px", padding: "1.5rem", marginBottom: "1rem", position: "relative" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.875rem" }}>
+                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                        What this research means for your organisation
+                      </div>
+                      <button onClick={() => copyT1Section("s1", t1Result.section1)} style={{ background: "none", border: "1px solid var(--sage-dark)", borderRadius: "6px", padding: "0.25rem 0.625rem", cursor: "pointer", fontFamily: "var(--font-heading)", fontSize: "0.7rem", color: "var(--sage-dark)", fontWeight: 600 }}>
+                        {t1Copied === "s1" ? "Copied!" : "Copy"}
+                      </button>
+                    </div>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.8, margin: 0, whiteSpace: "pre-wrap" }}>{t1Result.section1}</p>
                   </div>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.925rem", color: "var(--charcoal)", lineHeight: 1.8, margin: 0 }}>
-                    {tailoredOutput}
-                  </p>
+
+                  {/* Box 2 */}
+                  <div style={{ background: "var(--white)", border: "1px solid var(--sage-xlight)", borderRadius: "12px", padding: "1.5rem", marginBottom: "1rem" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.875rem" }}>
+                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                        What you could do next
+                      </div>
+                      <button onClick={() => copyT1Section("s2", t1Result.section2)} style={{ background: "none", border: "1px solid var(--sage-dark)", borderRadius: "6px", padding: "0.25rem 0.625rem", cursor: "pointer", fontFamily: "var(--font-heading)", fontSize: "0.7rem", color: "var(--sage-dark)", fontWeight: 600 }}>
+                        {t1Copied === "s2" ? "Copied!" : "Copy"}
+                      </button>
+                    </div>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.8, margin: 0, whiteSpace: "pre-wrap" }}>{t1Result.section2}</p>
+                  </div>
+
+                  {/* Box 3 */}
+                  <div style={{ background: "var(--white)", border: "1px solid var(--sage-xlight)", borderRadius: "12px", padding: "1.5rem", marginBottom: "1.5rem" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.875rem" }}>
+                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                        How to get it signed off and communicate the value
+                      </div>
+                      <button onClick={() => copyT1Section("s3", t1Result.section3)} style={{ background: "none", border: "1px solid var(--sage-dark)", borderRadius: "6px", padding: "0.25rem 0.625rem", cursor: "pointer", fontFamily: "var(--font-heading)", fontSize: "0.7rem", color: "var(--sage-dark)", fontWeight: 600 }}>
+                        {t1Copied === "s3" ? "Copied!" : "Copy"}
+                      </button>
+                    </div>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.8, margin: 0, fontStyle: "italic" }}>{t1Result.section3}</p>
+                  </div>
+
+                  {/* Link to Tool 2 */}
+                  <div style={{ background: "var(--sage-xlight)", borderRadius: "12px", padding: "1.25rem", marginBottom: "1.5rem", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+                    <div>
+                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "var(--sage-dark)", marginBottom: "0.25rem" }}>Ready to take action?</div>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--charcoal)", margin: 0, lineHeight: 1.6 }}>Once your leadership is on board, find a relevant case study and use <strong>Tool 2: Replicate a case study</strong> to build your step-by-step action plan.</p>
+                    </div>
+                    <button onClick={() => { setShowTailorModal(false); resetTool1(); }} style={{ background: "var(--sage-dark)", color: "var(--white)", border: "none", borderRadius: "8px", padding: "0.625rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", cursor: "pointer", whiteSpace: "nowrap" }}>
+                      Go to case studies →
+                    </button>
+                  </div>
+
+                  {/* Start again */}
+                  <button onClick={resetTool1} style={{ background: "none", border: "1px solid var(--gray-soft)", borderRadius: "8px", padding: "0.625rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--gray-soft)", cursor: "pointer" }}>
+                    Start again
+                  </button>
+                </div>
+              ) : t1Loading ? (
+                <div style={{ textAlign: "center", padding: "2.5rem 0" }}>
+                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.925rem", color: "var(--sage-dark)" }}>Building your tailored output…</div>
+                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", marginTop: "0.5rem" }}>This usually takes around 15 seconds</div>
+                </div>
+              ) : (
+                <div>
+                  {/* All questions at once */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+
+                    {/* Q1: Sector */}
+                    <div>
+                      <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.5rem", display: "block" }}>1. What sector is your organisation in?</label>
+                      <select value={t1Sector} onChange={(e) => setT1Sector(e.target.value)} style={selectStyle}>
+                        <option value="">Select your sector</option>
+                        {["Professional services","Financial services","Housing","Public sector","Health and social care","Education","Charity and third sector","Other"].map(s => <option key={s} value={s}>{s}</option>)}
+                      </select>
+                      {t1Sector === "Other" && (
+                        <input type="text" value={t1SectorOther} onChange={e => setT1SectorOther(e.target.value)} placeholder="Please specify your sector" style={{ ...selectStyle, marginTop: "0.5rem" }} />
+                      )}
+                    </div>
+
+                    {/* Q2: Size */}
+                    <div>
+                      <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.5rem", display: "block" }}>2. How many people work in your organisation?</label>
+                      <select value={t1Size} onChange={(e) => setT1Size(e.target.value)} style={selectStyle}>
+                        <option value="">Select organisation size</option>
+                        {["Under 50","50 to 250","250 to 1,000","1,000 and above"].map(s => <option key={s} value={s}>{s}</option>)}
+                      </select>
+                    </div>
+
+                    {/* Q3: Progress — horizontal stepped scale */}
+                    <div>
+                      <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.875rem", display: "block" }}>3. Where are you currently with this area of work?</label>
+                      {(() => {
+                        const opts = ["This is new territory for us","We have made a start but have not gone far","We are actively working on this","This is established work for us"];
+                        return (
+                          <div style={{ position: "relative" }}>
+                            {/* Track line */}
+                            <div style={{ position: "absolute", top: "9px", left: "10px", right: "10px", height: "2px", background: "var(--sage-xlight)", zIndex: 0 }} />
+                            {/* Dots row */}
+                            <div style={{ display: "flex", justifyContent: "space-between", position: "relative", zIndex: 1 }}>
+                              {opts.map(opt => (
+                                <button
+                                  key={opt}
+                                  type="button"
+                                  onClick={() => setT1Progress(opt)}
+                                  style={{
+                                    width: "20px", height: "20px", borderRadius: "50%",
+                                    border: `2px solid ${t1Progress === opt ? "var(--sage-dark)" : "var(--sage-light)"}`,
+                                    background: t1Progress === opt ? "var(--sage-dark)" : "var(--white)",
+                                    cursor: "pointer", padding: 0, flexShrink: 0,
+                                    transition: "all 0.15s"
+                                  }}
+                                />
+                              ))}
+                            </div>
+                            {/* Labels row — alternating above/below */}
+                            <div style={{ display: "flex", justifyContent: "space-between", marginTop: "6px" }}>
+                              {opts.map((opt, i) => (
+                                <div
+                                  key={opt}
+                                  onClick={() => setT1Progress(opt)}
+                                  style={{ width: "22%", cursor: "pointer", textAlign: "center" }}
+                                >
+                                  <span style={{
+                                    fontFamily: "var(--font-body)", fontSize: "0.72rem", lineHeight: "1.3",
+                                    color: t1Progress === opt ? "var(--sage-dark)" : "var(--gray-soft)",
+                                    fontWeight: t1Progress === opt ? 600 : 400,
+                                    transition: "all 0.15s", display: "block"
+                                  }}>{opt}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        );
+                      })()}
+                    </div>
+
+                    {/* Q4: Challenge */}
+                    <div>
+                      <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.25rem", display: "block" }}>4. What is your biggest inclusion challenge right now?</label>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", margin: "0 0 0.5rem 0" }}>Write in your own words. Be as specific as you like.</p>
+                      <div style={{ position: "relative" }}>
+                        <textarea value={t1Challenge} onChange={e => setT1Challenge(e.target.value)} placeholder="e.g. we struggle to retain diverse talent after hiring" rows={2} style={{ width: "100%", border: `1px solid ${t1VoiceField === "challenge" ? "var(--sage-dark)" : "var(--sage-xlight)"}`, borderRadius: "8px", padding: "0.75rem 2.75rem 0.75rem 0.75rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", resize: "vertical", boxSizing: "border-box" }} />
+                        <VoiceButton
+                          isRecording={t1VoiceField === "challenge"}
+                          onToggle={() => handleVoiceToggle("challenge", t1Challenge, setT1Challenge, t1VoiceField, setT1VoiceField)}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Q5: Outcomes */}
+                    <div>
+                      <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.25rem", display: "block" }}>5. What outcomes would you like to see?</label>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", margin: "0 0 0.5rem 0" }}>Think about what success looks like for your organisation.</p>
+                      <div style={{ position: "relative" }}>
+                        <textarea value={t1Outcomes} onChange={e => setT1Outcomes(e.target.value)} placeholder="e.g. I want to show the board measurable progress within six months" rows={2} style={{ width: "100%", border: `1px solid ${t1VoiceField === "outcomes" ? "var(--sage-dark)" : "var(--sage-xlight)"}`, borderRadius: "8px", padding: "0.75rem 2.75rem 0.75rem 0.75rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", resize: "vertical", boxSizing: "border-box" }} />
+                        <VoiceButton
+                          isRecording={t1VoiceField === "outcomes"}
+                          onToggle={() => handleVoiceToggle("outcomes", t1Outcomes, setT1Outcomes, t1VoiceField, setT1VoiceField)}
+                        />
+                      </div>
+                    </div>
+
+                    {/* Q6: Audience */}
+                    <div>
+                      <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.5rem", display: "block" }}>6. Who does this need to land with?</label>
+                      <select value={t1Audience} onChange={e => setT1Audience(e.target.value)} style={selectStyle}>
+                        <option value="">Select your audience</option>
+                        {["My CEO or MD","My board","My leadership team","My line manager","My HR team","Myself","Other"].map(a => <option key={a} value={a}>{a}</option>)}
+                      </select>
+                      {t1Audience === "Other" && (
+                        <input type="text" value={t1AudienceOther} onChange={e => setT1AudienceOther(e.target.value)} placeholder="Please specify" style={{ ...selectStyle, marginTop: "0.5rem" }} />
+                      )}
+                    </div>
+
+                    {/* Submit */}
+                    <div style={{ paddingTop: "0.5rem" }}>
+                      <button
+                        onClick={handleTool1Submit}
+                        disabled={!t1Sector || (t1Sector === "Other" && !t1SectorOther) || !t1Size || !t1Progress || !t1Challenge.trim() || !t1Outcomes.trim() || !t1Audience || (t1Audience === "Other" && !t1AudienceOther)}
+                        className="btn-primary"
+                        style={{ fontSize: "0.875rem", padding: "0.875rem 1.75rem", opacity: (!t1Sector || !t1Size || !t1Progress || !t1Challenge.trim() || !t1Outcomes.trim() || !t1Audience) ? 0.5 : 1, cursor: (!t1Sector || !t1Size || !t1Progress || !t1Challenge.trim() || !t1Outcomes.trim() || !t1Audience) ? "not-allowed" : "pointer" }}
+                      >
+                        Generate my tailored output →
+                      </button>
+                    </div>
+
+                  </div>
                 </div>
               )}
             </section>
           )}
+
 
           {/* Related research */}
           {showRelated && relatedBriefs.length > 0 && (
@@ -1838,7 +2186,7 @@ function EvidencePageInner() {
               </h2>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem" }}>
                 {relatedBriefs.map((r) => r && (
-                  <div key={r.id} className="card" style={{ cursor: "pointer" }} onClick={() => { setActiveBrief(r.id); setShowRelated(false); setShowTailorModal(false); setTailoredOutput(""); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
+                  <div key={r.id} className="card" style={{ cursor: "pointer" }} onClick={() => { setActiveBrief(r.id); setShowRelated(false); setShowTailorModal(false); resetTool1(); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
                     <div style={{ display: "flex", gap: "0.5rem", marginBottom: "0.75rem" }}>
                       <span style={{ fontSize: "1.5rem" }}>{r.icon}</span>
                       <div style={{ display: "flex", gap: "0.375rem", flexWrap: "wrap" }}>
@@ -1904,7 +2252,7 @@ function EvidencePageInner() {
           </div>
 
           {/* Tabs */}
-          <div style={{ display: "flex", gap: "0", borderBottom: "2px solid var(--gray-border)", overflowX: "auto" }}>
+          <div style={{ display: "flex", gap: "0.375rem", borderBottom: "1px solid var(--gray-border)", padding: "0.5rem 0", overflowX: "auto" }}>
             {([
               { key: "research", label: "📊 Research and Data" },
               { key: "evidence-builder", label: "🧩 Evidence Builder" },
@@ -1912,7 +2260,7 @@ function EvidencePageInner() {
               { key: "downloads", label: "📁 Templates and Resources" },
             ] as { key: Tab; label: string }[]).map((tab) => (
               <button key={tab.key} onClick={() => setActiveTab(tab.key)}
-                style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", padding: "0.75rem 1.5rem", background: "none", border: "none", cursor: "pointer", color: activeTab === tab.key ? "var(--sage-dark)" : "var(--gray-soft)", borderBottom: activeTab === tab.key ? "2px solid var(--sage-dark)" : "2px solid transparent", marginBottom: "-2px", whiteSpace: "nowrap" }}>
+                style={{ fontFamily: "var(--font-heading)", fontWeight: activeTab === tab.key ? 700 : 600, fontSize: "0.875rem", padding: "0.5rem 1.1rem", background: activeTab === tab.key ? "var(--sage-xlight)" : "none", border: "none", borderRadius: "20px", cursor: "pointer", color: activeTab === tab.key ? "var(--sage-dark)" : "var(--gray-soft)", outline: activeTab === tab.key ? "2px solid var(--sage-light)" : "none", outlineOffset: "-1px", whiteSpace: "nowrap" }}>
                 {tab.label}
               </button>
             ))}
@@ -2068,7 +2416,7 @@ function EvidencePageInner() {
                       <button
                         className="btn-secondary"
                         style={{ fontSize: "0.8rem", padding: "0.5rem 1rem" }}
-                        onClick={() => { setActiveBrief(r.id); setShowRelated(false); setShowTailorModal(false); setTailoredOutput(""); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                        onClick={() => { setActiveBrief(r.id); setShowRelated(false); setShowTailorModal(false); resetTool1(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                       >
                         Read summary →
                       </button>
@@ -2102,7 +2450,7 @@ function EvidencePageInner() {
                       <button
                         className="btn-secondary"
                         style={{ fontSize: "0.8rem", padding: "0.5rem 1rem" }}
-                        onClick={() => { setActiveBrief(r.id); setShowRelated(false); setShowTailorModal(false); setTailoredOutput(""); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                        onClick={() => { setActiveBrief(r.id); setShowRelated(false); setShowTailorModal(false); resetTool1(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                       >
                         Read summary →
                       </button>
@@ -2117,88 +2465,439 @@ function EvidencePageInner() {
                 {/* EVIDENCE BUILDER */}
         {activeTab === "evidence-builder" && (
           <>
-            <div style={{ maxWidth: "700px" }}>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.35rem", color: "var(--charcoal)", marginBottom: "0.5rem" }}>
-                Evidence Builder
-              </h2>
-              <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.925rem", lineHeight: 1.7, marginBottom: "2rem" }}>
-                Tell us about the argument you are trying to make and who you are making it to. We will surface the most relevant evidence from our research library and give you a structured argument you can take straight into a presentation or document.
-              </p>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.35rem", color: "var(--charcoal)", marginBottom: "0.5rem" }}>Evidence Builder</h2>
+            <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.925rem", lineHeight: 1.7, marginBottom: "2rem", maxWidth: "640px" }}>
+              Three AI tools to help you make the case for EDI internally. Choose the one that fits what you need right now.
+            </p>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem", marginBottom: "2rem" }}>
+            {/* Three tool cards */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem", marginBottom: "2.5rem" }}>
+
+              {/* Card 1: Evidence Argument Builder */}
+              <div className="card" style={{ display: "flex", flexDirection: "column", gap: "1rem", border: ebActiveTool === "argument" ? "2px solid var(--sage-dark)" : undefined }}>
+                <div style={{ fontSize: "2rem" }}>🧠</div>
                 <div>
-                  <label style={labelStyle}>What argument are you trying to make?</label>
-                  <textarea
-                    value={ebArgument}
-                    onChange={(e) => setEbArgument(e.target.value)}
-                    placeholder="For example: I need to justify our EDI strategy to the board, or I want to make the case for a pay equity audit to our CFO."
-                    rows={3}
-                    style={{ ...inputStyle, resize: "vertical" }}
-                  />
+                  <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", margin: "0 0 0.4rem 0" }}>Evidence Argument Builder</h3>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: 0 }}>
+                    Tell us what you are trying to argue and who you are presenting to. We will surface the most relevant evidence from our research library and build you a structured argument.
+                  </p>
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1.25rem" }}>
-                  <div>
-                    <label style={labelStyle}>What sector are you in?</label>
-                    <select value={ebSector} onChange={(e) => setEbSector(e.target.value)} style={selectStyle}>
-                      <option value="">Select sector</option>
-                      {SECTORS.map((s) => <option key={s} value={s}>{s}</option>)}
-                    </select>
-                  </div>
-                  <div>
-                    <label style={labelStyle}>Organisation size</label>
-                    <select value={ebSize} onChange={(e) => setEbSize(e.target.value)} style={selectStyle}>
-                      <option value="">Select size</option>
-                      {ORG_SIZES.map((s) => <option key={s} value={s}>{s}</option>)}
-                    </select>
-                  </div>
-                </div>
-                <div>
-                  <label style={labelStyle}>Who are you presenting to?</label>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.625rem" }}>
-                    {PITCH_TARGETS.map((t) => (
-                      <button
-                        key={t}
-                        onClick={() => setEbPitchTarget(t)}
-                        style={{
-                          fontFamily: "var(--font-heading)",
-                          fontWeight: 600,
-                          fontSize: "0.8rem",
-                          padding: "0.5rem 1rem",
-                          borderRadius: "8px",
-                          border: "1.5px solid",
-                          borderColor: ebPitchTarget === t ? "var(--sage-dark)" : "var(--gray-border)",
-                          background: ebPitchTarget === t ? "var(--sage-dark)" : "var(--white)",
-                          color: ebPitchTarget === t ? "var(--white)" : "var(--charcoal)",
-                          cursor: "pointer",
-                        }}
-                      >
-                        {t}
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                <button
+                  onClick={() => setEbActiveTool(ebActiveTool === "argument" ? null : "argument")}
+                  className="btn-primary"
+                  style={{ fontSize: "0.825rem", padding: "0.625rem 1.25rem", marginTop: "auto" }}
+                >
+                  {ebActiveTool === "argument" ? "Close ✕" : "Build my argument →"}
+                </button>
               </div>
 
-              <button
-                onClick={handleEvidenceBuilder}
-                disabled={!ebArgument || !ebSector || !ebPitchTarget || ebLoading}
-                className="btn-primary"
-                style={{ fontSize: "0.925rem", padding: "0.875rem 2rem", opacity: (!ebArgument || !ebSector || !ebPitchTarget) ? 0.5 : 1, cursor: (!ebArgument || !ebSector || !ebPitchTarget) ? "not-allowed" : "pointer" }}
-              >
-                {ebLoading ? "Building your argument…" : "Build my evidence argument →"}
-              </button>
-
-              {ebOutput && (
-                <div style={{ marginTop: "2rem", background: "var(--white)", borderRadius: "16px", padding: "2rem", border: "2px solid var(--sage-dark)" }}>
-                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "1.25rem" }}>
-                    Your evidence argument
-                  </div>
-                  <pre style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.8, whiteSpace: "pre-wrap", margin: 0 }}>
-                    {ebOutput}
-                  </pre>
+              {/* Card 2: Personalised Research Interpreter (Tool 1) */}
+              <div className="card" style={{ display: "flex", flexDirection: "column", gap: "1rem", border: ebActiveTool === "research" ? "2px solid var(--sage-dark)" : undefined }}>
+                <div style={{ fontSize: "2rem" }}>🔬</div>
+                <div>
+                  <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", margin: "0 0 0.4rem 0" }}>Personalised Research Interpreter</h3>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: 0 }}>
+                    Already found a piece of research you want to use? Paste the title and summary and we will personalise the interpretation for your organisation, sector and audience.
+                  </p>
                 </div>
-              )}
+                <button
+                  onClick={() => setEbActiveTool(ebActiveTool === "research" ? null : "research")}
+                  className="btn-primary"
+                  style={{ fontSize: "0.825rem", padding: "0.625rem 1.25rem", marginTop: "auto" }}
+                >
+                  {ebActiveTool === "research" ? "Close ✕" : "Personalise this research →"}
+                </button>
+              </div>
+
+              {/* Card 3: Objection Handler */}
+              <div className="card" style={{ display: "flex", flexDirection: "column", gap: "1rem", border: ebActiveTool === "objections" ? "2px solid var(--sage-dark)" : undefined }}>
+                <div style={{ fontSize: "2rem" }}>🛡️</div>
+                <div>
+                  <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", margin: "0 0 0.4rem 0" }}>Anticipate the Objections</h3>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: 0 }}>
+                    Tell us the argument you are making and who you are making it to. We will predict the pushback you will get and give you sharp, prepared responses for each objection.
+                  </p>
+                </div>
+                <button
+                  onClick={() => setEbActiveTool(ebActiveTool === "objections" ? null : "objections")}
+                  className="btn-primary"
+                  style={{ fontSize: "0.825rem", padding: "0.625rem 1.25rem", marginTop: "auto" }}
+                >
+                  {ebActiveTool === "objections" ? "Close ✕" : "Prepare my responses →"}
+                </button>
+              </div>
             </div>
+
+            {/* Tool 1 panel: Evidence Argument Builder */}
+            {ebActiveTool === "argument" && (
+              <section style={{ background: "var(--white)", borderRadius: "16px", padding: "2rem", marginBottom: "2rem", border: "2px solid var(--sage-dark)" }}>
+                <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.05rem", color: "var(--charcoal)", marginBottom: "0.375rem" }}>Evidence Argument Builder</h3>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", marginBottom: "1.75rem", lineHeight: 1.7 }}>
+                  Tell us what you are trying to argue, who you are presenting to, and what you are up against. We will build the case for you.
+                </p>
+
+                {!ebResult ? (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+
+                    {/* Q1: Topic */}
+                    <div>
+                      <label style={labelStyle}>What topic are you trying to make the case for?</label>
+                      <div style={{ position: "relative" }}>
+                        <textarea
+                          value={ebTopic}
+                          onChange={e => setEbTopic(e.target.value)}
+                          placeholder="e.g. closing our gender pay gap, or introducing mandatory inclusion training"
+                          rows={3}
+                          style={{ ...inputStyle, resize: "vertical" }}
+                        />
+                        <VoiceButton isRecording={ebVoiceTopic} onToggle={() => {
+                          if (ebVoiceTopic) { setEbVoiceTopic(false); return; }
+                          setEbVoiceTopic(true);
+                          handleVoiceToggle("ebtopic", ebTopic, setEbTopic, ebVoiceTopic ? "ebtopic" : null, (v) => { if (!v) setEbVoiceTopic(false); });
+                        }} />
+                      </div>
+                    </div>
+
+                    {/* Q2 + Q3: Sector and size */}
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem" }}>
+                      <div>
+                        <label style={labelStyle}>What sector is your organisation in?</label>
+                        <select value={ebSector} onChange={e => setEbSector(e.target.value)} style={selectStyle}>
+                          <option value="">Select sector</option>
+                          {SECTORS.map(s => <option key={s} value={s}>{s}</option>)}
+                        </select>
+                      </div>
+                      <div>
+                        <label style={labelStyle}>How many people work in your organisation?</label>
+                        <select value={ebSize} onChange={e => setEbSize(e.target.value)} style={selectStyle}>
+                          <option value="">Select size</option>
+                          {ORG_SIZES.map(s => <option key={s} value={s}>{s}</option>)}
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Q4: Audience */}
+                    <div>
+                      <label style={labelStyle}>Who are you presenting this to?</label>
+                      <select value={ebAudience} onChange={e => setEbAudience(e.target.value)} style={selectStyle}>
+                        <option value="">Select your audience</option>
+                        {["My line manager", "Senior leadership team", "The board", "HR team", "A working group", "A colleague", "Other"].map(a => (
+                          <option key={a} value={a}>{a}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {/* Q5: Resistance */}
+                    <div>
+                      <label style={labelStyle}>What is the main resistance you are facing?</label>
+                      <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                        {[
+                          "They do not think it is a priority",
+                          "They think it costs too much",
+                          "They do not think it applies to us",
+                          "They want more evidence before acting",
+                          "There is no resistance yet; I am being proactive",
+                          "Other",
+                        ].map(opt => (
+                          <label key={opt} style={{ display: "flex", alignItems: "center", gap: "0.75rem", cursor: "pointer", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: ebResistance === opt ? "var(--charcoal)" : "var(--gray-soft)", fontWeight: ebResistance === opt ? 600 : 400 }}>
+                            <div onClick={() => setEbResistance(opt)} style={{ width: "18px", height: "18px", borderRadius: "50%", border: `2px solid ${ebResistance === opt ? "var(--sage-dark)" : "var(--gray-border)"}`, background: ebResistance === opt ? "var(--sage-dark)" : "var(--white)", flexShrink: 0, cursor: "pointer" }} />
+                            {opt}
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Q6: Outcome */}
+                    <div>
+                      <label style={labelStyle}>What outcome are you hoping for from this conversation?</label>
+                      <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                        {[
+                          "I want them to approve a budget",
+                          "I want them to agree to an initiative or policy",
+                          "I want to get this on the agenda for a future meeting",
+                          "I just want them to understand why this matters",
+                          "Other",
+                        ].map(opt => (
+                          <label key={opt} style={{ display: "flex", alignItems: "center", gap: "0.75rem", cursor: "pointer", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: ebOutcome === opt ? "var(--charcoal)" : "var(--gray-soft)", fontWeight: ebOutcome === opt ? 600 : 400 }}>
+                            <div onClick={() => setEbOutcome(opt)} style={{ width: "18px", height: "18px", borderRadius: "50%", border: `2px solid ${ebOutcome === opt ? "var(--sage-dark)" : "var(--gray-border)"}`, background: ebOutcome === opt ? "var(--sage-dark)" : "var(--white)", flexShrink: 0, cursor: "pointer" }} />
+                            {opt}
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <button
+                        onClick={handleEvidenceBuilder}
+                        disabled={!ebTopic.trim() || !ebSector || !ebSize || !ebAudience || !ebResistance || !ebOutcome || ebLoading}
+                        className="btn-primary"
+                        style={{ fontSize: "0.925rem", padding: "0.875rem 2rem", opacity: (!ebTopic.trim() || !ebSector || !ebSize || !ebAudience || !ebResistance || !ebOutcome) ? 0.5 : 1, cursor: (!ebTopic.trim() || !ebSector || !ebSize || !ebAudience || !ebResistance || !ebOutcome) ? "not-allowed" : "pointer" }}
+                      >
+                        {ebLoading ? "Building your case…" : "Build my argument →"}
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                    {/* Box 1: Your argument */}
+                    <div style={{ position: "relative", background: "var(--sage-xlight)", borderRadius: "12px", padding: "1.5rem" }}>
+                      <button onClick={() => copyEbSection("s1", ebResult!.section1)} style={{ position: "absolute", top: "0.75rem", right: "0.75rem", background: "var(--white)", border: "1px solid var(--sage-light)", borderRadius: "6px", padding: "0.25rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "var(--sage-dark)", cursor: "pointer" }}>
+                        {ebCopied === "s1" ? "Copied!" : "Copy"}
+                      </button>
+                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.75rem" }}>Your argument</div>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.8, margin: 0, whiteSpace: "pre-wrap" }}>{ebResult.section1}</p>
+                    </div>
+
+                    {/* Box 2: Talking points */}
+                    <div style={{ position: "relative", background: "var(--white)", borderRadius: "12px", padding: "1.5rem", border: "1.5px solid var(--gray-border)" }}>
+                      <button onClick={() => copyEbSection("s2", ebResult!.section2)} style={{ position: "absolute", top: "0.75rem", right: "0.75rem", background: "var(--white)", border: "1px solid var(--sage-light)", borderRadius: "6px", padding: "0.25rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "var(--sage-dark)", cursor: "pointer" }}>
+                        {ebCopied === "s2" ? "Copied!" : "Copy"}
+                      </button>
+                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.75rem" }}>Talking points and things to remember</div>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.8, margin: 0, whiteSpace: "pre-wrap" }}>{ebResult.section2}</p>
+                    </div>
+
+                    {/* Box 3: Relevant resources from the platform library */}
+                    <div style={{ background: "var(--white)", borderRadius: "12px", padding: "1.5rem", border: "1.5px solid var(--gray-border)" }}>
+                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1rem" }}>Relevant resources from the platform</div>
+                      <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
+                        {(() => {
+                          const topicLower = ebTopic.toLowerCase();
+                          const matchedReports = RESEARCH_REPORTS.filter(r =>
+                            r.tags.some(t => topicLower.includes(t.toLowerCase()) || t.toLowerCase().split(" ").some(w => topicLower.includes(w)))
+                          ).slice(0, 2);
+                          const fallbackReports = matchedReports.length < 2
+                            ? RESEARCH_REPORTS.filter(r => !matchedReports.includes(r)).slice(0, 2 - matchedReports.length)
+                            : [];
+                          const reports = [...matchedReports, ...fallbackReports].slice(0, 2);
+
+                          const matchedCases = CASE_STUDIES.filter(c =>
+                            c.tags && c.tags.some((t: string) => topicLower.includes(t.toLowerCase()) || t.toLowerCase().split(" ").some((w: string) => topicLower.includes(w)))
+                          ).slice(0, 2);
+                          const fallbackCases = matchedCases.length < 2
+                            ? CASE_STUDIES.filter(c => !matchedCases.includes(c)).slice(0, 2 - matchedCases.length)
+                            : [];
+                          const cases = [...matchedCases, ...fallbackCases].slice(0, 2);
+
+                          return (
+                            <>
+                              {reports.map(r => (
+                                <div key={r.id} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
+                                  <span style={{ fontSize: "1.1rem", flexShrink: 0 }}>{r.icon || "📄"}</span>
+                                  <div>
+                                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.85rem", color: "var(--charcoal)", marginBottom: "0.15rem" }}>{r.title}</div>
+                                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", lineHeight: 1.5 }}>{r.desc}</div>
+                                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.72rem", color: "var(--sage-dark)", marginTop: "0.25rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>Research Report · {r.source}, {r.year}</div>
+                                  </div>
+                                </div>
+                              ))}
+                              {cases.map(c => (
+                                <div key={c.id} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
+                                  <span style={{ fontSize: "1.1rem", flexShrink: 0 }}>🏢</span>
+                                  <div>
+                                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.85rem", color: "var(--charcoal)", marginBottom: "0.15rem" }}>{c.title}</div>
+                                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", lineHeight: 1.5 }}>{c.what?.slice(0, 120)}{c.what?.length > 120 ? "…" : ""}</div>
+                                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.72rem", color: "var(--sage-dark)", marginTop: "0.25rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>Case Study · {c.org}</div>
+                                  </div>
+                                </div>
+                              ))}
+                            </>
+                          );
+                        })()}
+                      </div>
+                    </div>
+
+                    {/* Box 4: How to have the conversation */}
+                    <div style={{ position: "relative", background: "var(--white)", borderRadius: "12px", padding: "1.5rem", border: "1.5px solid var(--gray-border)" }}>
+                      <button onClick={() => copyEbSection("s3", ebResult!.section3)} style={{ position: "absolute", top: "0.75rem", right: "0.75rem", background: "var(--white)", border: "1px solid var(--sage-light)", borderRadius: "6px", padding: "0.25rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "var(--sage-dark)", cursor: "pointer" }}>
+                        {ebCopied === "s3" ? "Copied!" : "Copy"}
+                      </button>
+                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.75rem" }}>How to have the conversation</div>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.8, margin: 0, whiteSpace: "pre-wrap" }}>{ebResult.section3}</p>
+                    </div>
+
+                    {/* Encouragement note */}
+                    {ebResult.section4 && (
+                      <div style={{ background: "var(--sage-xlight)", borderRadius: "12px", padding: "1.25rem 1.5rem", borderLeft: "3px solid var(--sage-dark)" }}>
+                        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.75, margin: 0, fontStyle: "italic", whiteSpace: "pre-wrap" }}>{ebResult.section4}</p>
+                      </div>
+                    )}
+
+                    <button onClick={resetEb} style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--gray-soft)", padding: "0.5rem 0" }}>Start again</button>
+                  </div>
+                )}
+              </section>
+            )}
+
+            {/* Tool 2 panel: Personalised Research Interpreter (standalone embed of Tool 1) */}
+            {ebActiveTool === "research" && (
+              <section style={{ background: "var(--white)", borderRadius: "16px", padding: "2rem", marginBottom: "2rem", border: "2px solid var(--sage-dark)" }}>
+                <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.05rem", color: "var(--charcoal)", marginBottom: "0.375rem" }}>Personalised Research Interpreter</h3>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", marginBottom: "1.75rem" }}>Paste the title and a short summary of the research you have found. Answer six quick questions and we will interpret it specifically for your organisation.</p>
+                <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", marginBottom: "1.5rem" }}>
+                  <div>
+                    <label style={labelStyle}>Research title</label>
+                    <input type="text" value={ebResearchTitle} onChange={e => setEbResearchTitle(e.target.value)} placeholder="e.g. The Business Case for Diversity in UK Financial Services" style={inputStyle} />
+                  </div>
+                  <div>
+                    <label style={labelStyle}>Brief summary of the research</label>
+                    <textarea value={ebResearchSummary} onChange={e => setEbResearchSummary(e.target.value)} placeholder="Paste the abstract or a short summary of the key findings." rows={4} style={{ ...inputStyle, resize: "vertical" }} />
+                  </div>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem" }}>
+                    <div>
+                      <label style={labelStyle}>Your sector</label>
+                      <select value={ebRSector} onChange={e => setEbRSector(e.target.value)} style={selectStyle}>
+                        <option value="">Select sector</option>
+                        {SECTORS.map(s => <option key={s} value={s}>{s}</option>)}
+                      </select>
+                    </div>
+                    <div>
+                      <label style={labelStyle}>Organisation size</label>
+                      <select value={ebRSize} onChange={e => setEbRSize(e.target.value)} style={selectStyle}>
+                        <option value="">Select size</option>
+                        {ORG_SIZES.map(s => <option key={s} value={s}>{s}</option>)}
+                      </select>
+                    </div>
+                  </div>
+                  <div>
+                    <label style={labelStyle}>Where are you currently in this area of work?</label>
+                    <div style={{ position: "relative" }}>
+                      <div style={{ position: "absolute", top: "9px", left: "10px", right: "10px", height: "2px", background: "var(--sage-xlight)", zIndex: 0 }} />
+                      <div style={{ display: "flex", justifyContent: "space-between", position: "relative", zIndex: 1 }}>
+                        {["Just starting out","Some activity underway","Established programme","Sector leader"].map(opt => (
+                          <button key={opt} type="button" onClick={() => setEbRProgress(opt)}
+                            style={{ width: "20px", height: "20px", borderRadius: "50%", border: `2px solid ${ebRProgress === opt ? "var(--sage-dark)" : "var(--sage-light)"}`, background: ebRProgress === opt ? "var(--sage-dark)" : "var(--white)", cursor: "pointer", padding: 0 }} />
+                        ))}
+                      </div>
+                      <div style={{ display: "flex", justifyContent: "space-between", marginTop: "6px" }}>
+                        {["Just starting out","Some activity underway","Established programme","Sector leader"].map(opt => (
+                          <div key={opt} onClick={() => setEbRProgress(opt)} style={{ width: "22%", cursor: "pointer", textAlign: "center" }}>
+                            <span style={{ fontSize: "0.72rem", color: ebRProgress === opt ? "var(--sage-dark)" : "var(--gray-soft)", fontWeight: ebRProgress === opt ? 600 : 400 }}>{opt}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <label style={labelStyle}>Your biggest inclusion challenge right now</label>
+                    <div style={{ position: "relative" }}>
+                      <textarea value={ebRChallenge} onChange={e => setEbRChallenge(e.target.value)} placeholder="Describe the main barrier or challenge you are trying to address." rows={3} style={{ ...inputStyle, resize: "vertical" }} />
+                      <VoiceButton isRecording={ebVoiceField === "rchallenge"} onToggle={() => handleVoiceToggle("rchallenge", ebRChallenge, setEbRChallenge, ebVoiceField, setEbVoiceField)} />
+                    </div>
+                  </div>
+                  <div>
+                    <label style={labelStyle}>What outcome are you trying to achieve?</label>
+                    <div style={{ position: "relative" }}>
+                      <textarea value={ebROutcomes} onChange={e => setEbROutcomes(e.target.value)} placeholder="e.g. Board approval for a new EDI strategy, sign-off on a pay equity audit, leadership buy-in for a mentoring programme." rows={3} style={{ ...inputStyle, resize: "vertical" }} />
+                      <VoiceButton isRecording={ebVoiceField === "routcomes"} onToggle={() => handleVoiceToggle("routcomes", ebROutcomes, setEbROutcomes, ebVoiceField, setEbVoiceField)} />
+                    </div>
+                  </div>
+                  <div>
+                    <label style={labelStyle}>Who does this need to land with?</label>
+                    <select value={ebRAudience} onChange={e => setEbRAudience(e.target.value)} style={selectStyle}>
+                      <option value="">Select your audience</option>
+                      {["My CEO or MD","My board","My leadership team","My line manager","My HR team","Myself","Other"].map(a => <option key={a} value={a}>{a}</option>)}
+                    </select>
+                  </div>
+                </div>
+                <button
+                  onClick={handleResearchInterpreter}
+                  disabled={!ebResearchTitle || !ebResearchSummary || !ebRSector || !ebRSize || !ebRProgress || !ebRChallenge.trim() || !ebROutcomes.trim() || !ebRAudience || ebRLoading}
+                  className="btn-primary"
+                  style={{ fontSize: "0.925rem", padding: "0.875rem 2rem", opacity: (!ebResearchTitle || !ebResearchSummary || !ebRSector || !ebRProgress || !ebRChallenge.trim() || !ebROutcomes.trim() || !ebRAudience) ? 0.5 : 1, cursor: (!ebResearchTitle || !ebResearchSummary || !ebRSector || !ebRProgress || !ebRChallenge.trim() || !ebROutcomes.trim() || !ebRAudience) ? "not-allowed" : "pointer" }}
+                >
+                  {ebRLoading ? "Interpreting the research…" : "Generate my tailored output →"}
+                </button>
+                {ebRResult && (
+                  <div style={{ marginTop: "2rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
+                    {[
+                      { key: "s1" as const, label: "How this research applies to your organisation", bg: "var(--sage-xlight)" },
+                      { key: "s2" as const, label: "Key points to highlight for your audience", bg: "var(--white)", border: true },
+                      { key: "s3" as const, label: "How to use this research in your argument", bg: "var(--white)", border: true },
+                    ].map(({ key, label, bg, border }) => (
+                      <div key={key} style={{ position: "relative", background: bg, borderRadius: "12px", padding: "1.5rem", ...(border ? { border: "1.5px solid var(--gray-border)" } : {}) }}>
+                        <button onClick={() => copyEbRSection(key, ebRResult![key])} style={{ position: "absolute", top: "0.75rem", right: "0.75rem", background: "var(--white)", border: "1px solid var(--sage-light)", borderRadius: "6px", padding: "0.25rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "var(--sage-dark)", cursor: "pointer" }}>
+                          {ebRCopied === key ? "Copied!" : "Copy"}
+                        </button>
+                        <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.75rem" }}>{label}</div>
+                        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.75, margin: 0, whiteSpace: "pre-wrap" }}>{ebRResult[key]}</p>
+                      </div>
+                    ))}
+                    <button onClick={resetEbR} style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--gray-soft)", padding: "0.5rem 0" }}>Start again</button>
+                  </div>
+                )}
+              </section>
+            )}
+
+            {/* Tool 3 panel: Anticipate the Objections */}
+            {ebActiveTool === "objections" && (
+              <section style={{ background: "var(--white)", borderRadius: "16px", padding: "2rem", marginBottom: "2rem", border: "2px solid var(--sage-dark)" }}>
+                <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.05rem", color: "var(--charcoal)", marginBottom: "0.375rem" }}>Anticipate the Objections</h3>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", marginBottom: "1.75rem" }}>Tell us what argument you are making and who you are making it to. We will predict the objections you will face and give you sharp, prepared responses for each one.</p>
+                {!t3Result ? (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", marginBottom: "1.5rem" }}>
+                    <div>
+                      <label style={labelStyle}>What argument are you making?</label>
+                      <div style={{ position: "relative" }}>
+                        <textarea value={t3Argument} onChange={e => setT3Argument(e.target.value)} placeholder="e.g. I want to make the case for a pay equity audit, or I am proposing a new inclusive recruitment policy." rows={3} style={{ ...inputStyle, resize: "vertical" }} />
+                        <VoiceButton isRecording={t3VoiceField === "argument"} onToggle={() => handleVoiceToggle("argument", t3Argument, setT3Argument, t3VoiceField, setT3VoiceField)} />
+                      </div>
+                    </div>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem" }}>
+                      <div>
+                        <label style={labelStyle}>Your sector</label>
+                        <select value={t3Sector} onChange={e => setT3Sector(e.target.value)} style={selectStyle}>
+                          <option value="">Select sector</option>
+                          {SECTORS.map(s => <option key={s} value={s}>{s}</option>)}
+                        </select>
+                      </div>
+                      <div>
+                        <label style={labelStyle}>Organisation size</label>
+                        <select value={t3Size} onChange={e => setT3Size(e.target.value)} style={selectStyle}>
+                          <option value="">Select size</option>
+                          {ORG_SIZES.map(s => <option key={s} value={s}>{s}</option>)}
+                        </select>
+                      </div>
+                    </div>
+                    <div>
+                      <label style={labelStyle}>Who are you presenting to?</label>
+                      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.625rem" }}>
+                        {PITCH_TARGETS.map(t => (
+                          <button key={t} onClick={() => setT3Audience(t)} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", padding: "0.5rem 1rem", borderRadius: "8px", border: "1.5px solid", borderColor: t3Audience === t ? "var(--sage-dark)" : "var(--gray-border)", background: t3Audience === t ? "var(--sage-dark)" : "var(--white)", color: t3Audience === t ? "var(--white)" : "var(--charcoal)", cursor: "pointer" }}>{t}</button>
+                        ))}
+                      </div>
+                    </div>
+                    <div style={{ paddingTop: "0.5rem" }}>
+                      <button
+                        onClick={handleTool3Submit}
+                        disabled={!t3Argument.trim() || !t3Sector || !t3Size || !t3Audience || t3Loading}
+                        className="btn-primary"
+                        style={{ fontSize: "0.925rem", padding: "0.875rem 2rem", opacity: (!t3Argument.trim() || !t3Sector || !t3Size || !t3Audience) ? 0.5 : 1, cursor: (!t3Argument.trim() || !t3Sector || !t3Size || !t3Audience) ? "not-allowed" : "pointer" }}
+                      >
+                        {t3Loading ? "Preparing your responses…" : "Prepare my responses →"}
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+                    {[
+                      { key: "s1" as const, label: "Objections to expect", bg: "var(--sage-xlight)", border: false },
+                      { key: "s2" as const, label: "Your prepared responses", bg: "var(--white)", border: true },
+                      { key: "s3" as const, label: "How to open the conversation", bg: "var(--white)", border: true, italic: true },
+                    ].map(({ key, label, bg, border, italic }) => (
+                      <div key={key} style={{ position: "relative", background: bg, borderRadius: "12px", padding: "1.5rem", ...(border ? { border: "1.5px solid var(--gray-border)" } : {}) }}>
+                        <button onClick={() => copyT3Section(key, t3Result![key])} style={{ position: "absolute", top: "0.75rem", right: "0.75rem", background: "var(--white)", border: "1px solid var(--sage-light)", borderRadius: "6px", padding: "0.25rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "var(--sage-dark)", cursor: "pointer" }}>
+                          {t3Copied === key ? "Copied!" : "Copy"}
+                        </button>
+                        <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.75rem" }}>{label}</div>
+                        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.75, margin: 0, whiteSpace: "pre-wrap", ...(italic ? { fontStyle: "italic" } : {}) }}>{t3Result[key]}</p>
+                      </div>
+                    ))}
+                    <button onClick={resetTool3} style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--gray-soft)", padding: "0.5rem 0" }}>Start again</button>
+                  </div>
+                )}
+              </section>
+            )}
           </>
         )}
 
@@ -2372,6 +3071,16 @@ function EvidencePageInner() {
                           </div>
                         </div>
                       )}
+                      {/* Tool 2 CTA */}
+                      <div style={{ borderTop: "1px solid #e8e8e8", paddingTop: "1rem" }}>
+                        <button
+                          onClick={() => { setT2CaseStudy({ title: c.title, desc: c.what }); setShowTool2Modal(true); }}
+                          className="btn-secondary"
+                          style={{ fontSize: "0.8rem", padding: "0.625rem 1.25rem" }}
+                        >
+                          🗺️ Get results like this for my organisation
+                        </button>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -2412,8 +3121,224 @@ function EvidencePageInner() {
           resourceBody="Is there a topic where you need stronger evidence to make the case? Tell us what you are working on and we will source and add the most relevant research to the library."
           resourcePlaceholder="What topic do you need evidence for? Include any context about your sector or audience if it helps."
         />
+      {/* Tool 2 overlay modal — outside all tab conditionals */}
+      {showTool2Modal && (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.45)", zIndex: 1000, display: "flex", alignItems: "flex-start", justifyContent: "center", padding: "2rem 1rem", overflowY: "auto" }}>
+          <div style={{ width: "100%", maxWidth: "680px", marginTop: "1rem" }}>
+            <section style={{ background: "var(--white)", borderRadius: "16px", padding: "2rem", marginBottom: "1.5rem", border: "2px solid var(--sage-dark)" }}>
+          {/* Header */}
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1.25rem" }}>
+                <div>
+                  <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.1rem", color: "var(--charcoal)", margin: "0 0 0.375rem 0" }}>Case Study Replication Roadmap</h2>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", margin: 0 }}>Answer five quick questions and we will build you a personalised action plan.</p>
+                </div>
+                <button onClick={() => { setShowTool2Modal(false); resetTool2(); }} style={{ background: "none", border: "none", cursor: "pointer", fontSize: "1.2rem", color: "var(--gray-soft)", padding: "0.25rem" }}>✕</button>
+              </div>
+
+              {/* Results view */}
+              {t2Result ? (
+                <div>
+                  {/* Box 1: Replication plan */}
+                  <div style={{ position: "relative", background: "var(--sage-xlight)", borderRadius: "12px", padding: "1.25rem", marginBottom: "1rem" }}>
+                    <button onClick={() => copyT2Section("s1", t2Result.section1)} style={{ position: "absolute", top: "0.75rem", right: "0.75rem", background: "var(--white)", border: "1px solid var(--sage-light)", borderRadius: "6px", padding: "0.25rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "var(--sage-dark)", cursor: "pointer" }}>
+                      {t2Copied === "s1" ? "Copied!" : "Copy"}
+                    </button>
+                    <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--sage-dark)", margin: "0 0 0.625rem 0" }}>Your replication roadmap</p>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", margin: 0, whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{t2Result.section1}</p>
+                  </div>
+                  {/* Box 2: What to adapt */}
+                  <div style={{ position: "relative", background: "var(--white)", border: "1px solid var(--sage-xlight)", borderRadius: "12px", padding: "1.25rem", marginBottom: "1rem" }}>
+                    <button onClick={() => copyT2Section("s2", t2Result.section2)} style={{ position: "absolute", top: "0.75rem", right: "0.75rem", background: "var(--white)", border: "1px solid var(--sage-light)", borderRadius: "6px", padding: "0.25rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "var(--sage-dark)", cursor: "pointer" }}>
+                      {t2Copied === "s2" ? "Copied!" : "Copy"}
+                    </button>
+                    <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--charcoal)", margin: "0 0 0.625rem 0" }}>What you will need to adapt</p>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", margin: 0, whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{t2Result.section2}</p>
+                  </div>
+                  {/* Box 3: Pitch */}
+                  <div style={{ position: "relative", background: "var(--white)", border: "1px solid var(--sage-xlight)", borderRadius: "12px", padding: "1.25rem", marginBottom: "1.5rem" }}>
+                    <button onClick={() => copyT2Section("s3", t2Result.section3)} style={{ position: "absolute", top: "0.75rem", right: "0.75rem", background: "var(--white)", border: "1px solid var(--sage-light)", borderRadius: "6px", padding: "0.25rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "var(--sage-dark)", cursor: "pointer" }}>
+                      {t2Copied === "s3" ? "Copied!" : "Copy"}
+                    </button>
+                    <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--charcoal)", margin: "0 0 0.625rem 0" }}>How to pitch this for sign-off</p>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", margin: 0, whiteSpace: "pre-wrap", lineHeight: 1.6, fontStyle: "italic" }}>{t2Result.section3}</p>
+                  </div>
+                  <button onClick={() => { setShowTool2Modal(false); resetTool2(); }} style={{ background: "none", border: "1px solid var(--sage-light)", borderRadius: "8px", padding: "0.625rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", cursor: "pointer" }}>
+                    Start again
+                  </button>
+                </div>
+              ) : t2Loading ? (
+                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "1.5rem 0" }}>
+                  <div style={{ width: "20px", height: "20px", border: "2px solid var(--sage-xlight)", borderTop: "2px solid var(--sage-dark)", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} />
+                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.925rem", color: "var(--sage-dark)" }}>Building your replication roadmap…</div>
+                </div>
+              ) : (
+                <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+
+                  {/* Q1: Sector */}
+                  <div>
+                    <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.5rem", display: "block" }}>1. What sector is your organisation in?</label>
+                    <select value={t2Sector} onChange={e => setT2Sector(e.target.value)} style={selectStyle}>
+                      <option value="">Select your sector</option>
+                      {["Professional services","Financial services","Housing","Public sector","Health and social care","Education","Charity and third sector","Other"].map(s => <option key={s} value={s}>{s}</option>)}
+                    </select>
+                    {t2Sector === "Other" && (
+                      <input type="text" value={t2SectorOther} onChange={e => setT2SectorOther(e.target.value)} placeholder="Please specify your sector" style={{ ...selectStyle, marginTop: "0.5rem" }} />
+                    )}
+                  </div>
+
+                  {/* Q2: Size */}
+                  <div>
+                    <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.5rem", display: "block" }}>2. How many people work in your organisation?</label>
+                    <select value={t2Size} onChange={e => setT2Size(e.target.value)} style={selectStyle}>
+                      <option value="">Select organisation size</option>
+                      {["Under 50","50 to 250","250 to 1,000","1,000 and above"].map(s => <option key={s} value={s}>{s}</option>)}
+                    </select>
+                  </div>
+
+                  {/* Q3: Barrier */}
+                  <div>
+                    <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.25rem", display: "block" }}>3. What is your biggest barrier to making this happen?</label>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", margin: "0 0 0.5rem 0" }}>Think about budget, buy-in, capacity, or anything else standing in the way.</p>
+                    <div style={{ position: "relative" }}>
+                      <textarea value={t2Barrier} onChange={e => setT2Barrier(e.target.value)} placeholder="e.g. we do not have a dedicated EDI budget and senior buy-in is limited" rows={2} style={{ width: "100%", border: `1px solid ${t2VoiceField === "barrier" ? "var(--sage-dark)" : "var(--sage-xlight)"}`, borderRadius: "8px", padding: "0.75rem 2.75rem 0.75rem 0.75rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", resize: "vertical", boxSizing: "border-box" }} />
+                      <VoiceButton isRecording={t2VoiceField === "barrier"} onToggle={() => handleVoiceToggle("barrier", t2Barrier, setT2Barrier, t2VoiceField, setT2VoiceField)} />
+                    </div>
+                  </div>
+
+                  {/* Q4: Resources */}
+                  <div>
+                    <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.25rem", display: "block" }}>4. What resources do you have available?</label>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", margin: "0 0 0.5rem 0" }}>Tell us about your budget, team capacity and time. Even limited resources count.</p>
+                    <div style={{ position: "relative" }}>
+                      <textarea value={t2Resources} onChange={e => setT2Resources(e.target.value)} placeholder="e.g. small HR team of three; no dedicated budget but could make a case for up to £5k" rows={2} style={{ width: "100%", border: `1px solid ${t2VoiceField === "resources" ? "var(--sage-dark)" : "var(--sage-xlight)"}`, borderRadius: "8px", padding: "0.75rem 2.75rem 0.75rem 0.75rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", resize: "vertical", boxSizing: "border-box" }} />
+                      <VoiceButton isRecording={t2VoiceField === "resources"} onToggle={() => handleVoiceToggle("resources", t2Resources, setT2Resources, t2VoiceField, setT2VoiceField)} />
+                    </div>
+                  </div>
+
+                  {/* Q5: Approver */}
+                  <div>
+                    <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.5rem", display: "block" }}>5. Who needs to approve or sign off on this?</label>
+                    <select value={t2Approver} onChange={e => setT2Approver(e.target.value)} style={selectStyle}>
+                      <option value="">Select your approver</option>
+                      {["My CEO or MD","My board","My leadership team","My line manager","My HR team","Myself","Other"].map(a => <option key={a} value={a}>{a}</option>)}
+                    </select>
+                    {t2Approver === "Other" && (
+                      <input type="text" value={t2ApproverOther} onChange={e => setT2ApproverOther(e.target.value)} placeholder="Please specify" style={{ ...selectStyle, marginTop: "0.5rem" }} />
+                    )}
+                  </div>
+
+                  {/* Submit */}
+                  <div style={{ paddingTop: "0.5rem" }}>
+                    <button
+                      onClick={handleTool2Submit}
+                      disabled={!t2Sector || (t2Sector === "Other" && !t2SectorOther) || !t2Size || !t2Barrier.trim() || !t2Resources.trim() || !t2Approver || (t2Approver === "Other" && !t2ApproverOther)}
+                      className="btn-primary"
+                      style={{ fontSize: "0.875rem", padding: "0.875rem 1.75rem", opacity: (!t2Sector || !t2Size || !t2Barrier.trim() || !t2Resources.trim() || !t2Approver) ? 0.5 : 1, cursor: (!t2Sector || !t2Size || !t2Barrier.trim() || !t2Resources.trim() || !t2Approver) ? "not-allowed" : "pointer" }}
+                    >
+                      Build my replication roadmap →
+                    </button>
+                  </div>
+
+                </div>
+              )}
+
+            </section>
+          </div>
+        </div>
+      )}
+
     </div>
   );
+}
+
+// Voice input helpers
+interface VoiceButtonProps {
+  isRecording: boolean;
+  onToggle: () => void;
+}
+
+function VoiceButton({ isRecording, onToggle }: VoiceButtonProps) {
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      title={isRecording ? "Stop recording" : "Record your answer"}
+      style={{
+        position: "absolute", top: "0.5rem", right: "0.5rem",
+        width: "28px", height: "28px", borderRadius: "50%",
+        border: "none",
+        background: isRecording ? "var(--sage-dark)" : "var(--sage-xlight)",
+        color: isRecording ? "var(--white)" : "var(--sage-dark)",
+        cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
+        flexShrink: 0, transition: "all 0.15s",
+        boxShadow: isRecording ? "0 0 0 3px rgba(var(--sage-dark-rgb, 74,107,91), 0.2)" : "none"
+      }}
+    >
+      {isRecording ? (
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+          <rect x="2" y="2" width="8" height="8" rx="1"/>
+        </svg>
+      ) : (
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor">
+          <rect x="4" y="1" width="4" height="7" rx="2"/>
+          <path d="M2 6.5C2 9 3.8 10.5 6 10.5S10 9 10 6.5" stroke="currentColor" strokeWidth="1.2" fill="none" strokeLinecap="round"/>
+          <line x1="6" y1="10.5" x2="6" y2="12" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
+        </svg>
+      )}
+    </button>
+  );
+}
+
+let activeRecognition: { stop: () => void } | null = null;
+
+function handleVoiceToggle(
+  field: string,
+  currentValue: string,
+  setValue: (v: string) => void,
+  activeField: string | null,
+  setActiveField: (f: string | null) => void
+) {
+  if (activeField === field) {
+    // Stop recording
+    if (activeRecognition) { activeRecognition.stop(); activeRecognition = null; }
+    setActiveField(null);
+    return;
+  }
+  // Stop any existing recording
+  if (activeRecognition) { activeRecognition.stop(); activeRecognition = null; }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const win = window as any;
+  const SR = win.SpeechRecognition || win.webkitSpeechRecognition;
+  if (!SR) {
+    alert("Voice input is not supported in this browser. Please try Chrome or Edge.");
+    return;
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const recognition: any = new SR();
+  recognition.lang = "en-GB";
+  recognition.continuous = true;
+  recognition.interimResults = true;
+  let committed = currentValue;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  recognition.onresult = (e: any) => {
+    let interim = "";
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      const text = e.results[i][0].transcript;
+      if (e.results[i].isFinal) {
+        committed = committed ? committed + " " + text.trim() : text.trim();
+      } else {
+        interim += text;
+      }
+    }
+    setValue(committed + (interim ? " " + interim : ""));
+  };
+  recognition.onfinalresult = () => { setValue(committed); };
+  recognition.onend = () => { setActiveField(null); activeRecognition = null; };
+  recognition.onerror = () => { setActiveField(null); activeRecognition = null; };
+  recognition.start();
+  activeRecognition = recognition;
+  setActiveField(field);
 }
 
 export default function EvidencePage() {
