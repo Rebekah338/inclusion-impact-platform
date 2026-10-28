@@ -49,7 +49,7 @@ const CATEGORIES = [
   {
     key: "customer",
     label: "Customer and market growth",
-    icon: "🛍️",
+    icon: "🏪",
     desc: "Reaching broader audiences and the revenue opportunity in inclusive design.",
   },
 ];
@@ -892,7 +892,7 @@ const RESEARCH_REPORTS = [
   {
     id: "adobe-diverse-audiences",
     categories: ["customer", "innovation"],
-    icon: "🛍️",
+    icon: "🏪",
     title: "Inclusive Design and Diverse Audiences: The Revenue Opportunity",
     year: "2022",
     source: "Accenture and AARP",
