@@ -2523,7 +2523,7 @@ function EvidencePageInner() {
                   className="btn-primary"
                   style={{ fontSize: "0.825rem", padding: "0.625rem 1.25rem", marginTop: "auto" }}
                 >
-                  {ebActiveTool === "objections" ? "Close ✕" : "Prepare my responses →"}
+                  {ebActiveTool === "objections" ? "Close ✕" : "Build my replication roadmap →"}
                 </button>
               </div>
             </div>
@@ -2839,71 +2839,98 @@ function EvidencePageInner() {
               </section>
             )}
 
-            {/* Tool 3 panel: Case Study Replication Roadmap */}
+            {/* Tool 3 panel: Case Study Replication Roadmap — reuses Tool 2 state/handlers */}
             {ebActiveTool === "objections" && (
               <section style={{ background: "var(--white)", borderRadius: "16px", padding: "2rem", marginBottom: "2rem", border: "2px solid var(--sage-dark)" }}>
                 <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.05rem", color: "var(--charcoal)", marginBottom: "0.375rem" }}>Case Study Replication Roadmap</h3>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", marginBottom: "1.75rem" }}>Tell us what argument you are making and who you are making it to. We will predict the objections you will face and give you sharp, prepared responses for each one.</p>
-                {!t3Result ? (
-                  <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", marginBottom: "1.5rem" }}>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", marginBottom: "1.75rem" }}>Answer five quick questions and we will build you a personalised action plan for replicating a case study result in your own organisation.</p>
+                {t2Result ? (
+                  <div>
+                    <div style={{ position: "relative", background: "var(--sage-xlight)", borderRadius: "12px", padding: "1.25rem", marginBottom: "1rem" }}>
+                      <button onClick={() => copyT2Section("s1", t2Result.section1)} style={{ position: "absolute", top: "0.75rem", right: "0.75rem", background: "var(--white)", border: "1px solid var(--sage-light)", borderRadius: "6px", padding: "0.25rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "var(--sage-dark)", cursor: "pointer" }}>
+                        {t2Copied === "s1" ? "Copied!" : "Copy"}
+                      </button>
+                      <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--sage-dark)", margin: "0 0 0.625rem 0" }}>Your replication roadmap</p>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", margin: 0, whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{t2Result.section1}</p>
+                    </div>
+                    <div style={{ position: "relative", background: "var(--white)", border: "1px solid var(--sage-xlight)", borderRadius: "12px", padding: "1.25rem", marginBottom: "1rem" }}>
+                      <button onClick={() => copyT2Section("s2", t2Result.section2)} style={{ position: "absolute", top: "0.75rem", right: "0.75rem", background: "var(--white)", border: "1px solid var(--sage-light)", borderRadius: "6px", padding: "0.25rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "var(--sage-dark)", cursor: "pointer" }}>
+                        {t2Copied === "s2" ? "Copied!" : "Copy"}
+                      </button>
+                      <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--charcoal)", margin: "0 0 0.625rem 0" }}>What you will need to adapt</p>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", margin: 0, whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{t2Result.section2}</p>
+                    </div>
+                    <div style={{ position: "relative", background: "var(--white)", border: "1px solid var(--sage-xlight)", borderRadius: "12px", padding: "1.25rem", marginBottom: "1.5rem" }}>
+                      <button onClick={() => copyT2Section("s3", t2Result.section3)} style={{ position: "absolute", top: "0.75rem", right: "0.75rem", background: "var(--white)", border: "1px solid var(--sage-light)", borderRadius: "6px", padding: "0.25rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "var(--sage-dark)", cursor: "pointer" }}>
+                        {t2Copied === "s3" ? "Copied!" : "Copy"}
+                      </button>
+                      <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--charcoal)", margin: "0 0 0.625rem 0" }}>How to pitch this for sign-off</p>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", margin: 0, whiteSpace: "pre-wrap", lineHeight: 1.6, fontStyle: "italic" }}>{t2Result.section3}</p>
+                    </div>
+                    <button onClick={resetTool2} style={{ background: "none", border: "1px solid var(--sage-light)", borderRadius: "8px", padding: "0.625rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", cursor: "pointer" }}>
+                      Start again
+                    </button>
+                  </div>
+                ) : t2Loading ? (
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "1.5rem 0" }}>
+                    <div style={{ width: "20px", height: "20px", border: "2px solid var(--sage-xlight)", borderTop: "2px solid var(--sage-dark)", borderRadius: "50%", animation: "spin 0.8s linear infinite" }} />
+                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.925rem", color: "var(--sage-dark)" }}>Building your replication roadmap…</div>
+                  </div>
+                ) : (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
                     <div>
-                      <label style={labelStyle}>What argument are you making?</label>
+                      <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.5rem", display: "block" }}>1. What sector is your organisation in?</label>
+                      <select value={t2Sector} onChange={e => setT2Sector(e.target.value)} style={selectStyle}>
+                        <option value="">Select your sector</option>
+                        {["Professional services","Financial services","Housing","Public sector","Health and social care","Education","Charity and third sector","Other"].map(s => <option key={s} value={s}>{s}</option>)}
+                      </select>
+                      {t2Sector === "Other" && (
+                        <input type="text" value={t2SectorOther} onChange={e => setT2SectorOther(e.target.value)} placeholder="Please specify your sector" style={{ ...selectStyle, marginTop: "0.5rem" }} />
+                      )}
+                    </div>
+                    <div>
+                      <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.5rem", display: "block" }}>2. How many people work in your organisation?</label>
+                      <select value={t2Size} onChange={e => setT2Size(e.target.value)} style={selectStyle}>
+                        <option value="">Select organisation size</option>
+                        {["Under 50","50 to 250","250 to 1,000","1,000 and above"].map(s => <option key={s} value={s}>{s}</option>)}
+                      </select>
+                    </div>
+                    <div>
+                      <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.25rem", display: "block" }}>3. What is your biggest barrier to making this happen?</label>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", margin: "0 0 0.5rem 0" }}>Think about budget, buy-in, capacity, or anything else standing in the way.</p>
                       <div style={{ position: "relative" }}>
-                        <textarea value={t3Argument} onChange={e => setT3Argument(e.target.value)} placeholder="e.g. I want to make the case for a pay equity audit, or I am proposing a new inclusive recruitment policy." rows={3} style={{ ...inputStyle, resize: "vertical" }} />
-                        <VoiceButton isRecording={t3VoiceField === "argument"} onToggle={() => handleVoiceToggle("argument", t3Argument, setT3Argument, t3VoiceField, setT3VoiceField)} />
-                      </div>
-                    </div>
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem" }}>
-                      <div>
-                        <label style={labelStyle}>Your sector</label>
-                        <select value={t3Sector} onChange={e => setT3Sector(e.target.value)} style={selectStyle}>
-                          <option value="">Select sector</option>
-                          {SECTORS.map(s => <option key={s} value={s}>{s}</option>)}
-                        </select>
-                      </div>
-                      <div>
-                        <label style={labelStyle}>Organisation size</label>
-                        <select value={t3Size} onChange={e => setT3Size(e.target.value)} style={selectStyle}>
-                          <option value="">Select size</option>
-                          {ORG_SIZES.map(s => <option key={s} value={s}>{s}</option>)}
-                        </select>
+                        <textarea value={t2Barrier} onChange={e => setT2Barrier(e.target.value)} placeholder="e.g. we do not have a dedicated EDI budget and senior buy-in is limited" rows={2} style={{ width: "100%", border: `1px solid ${t2VoiceField === "barrier" ? "var(--sage-dark)" : "var(--sage-xlight)"}`, borderRadius: "8px", padding: "0.75rem 2.75rem 0.75rem 0.75rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", resize: "vertical", boxSizing: "border-box" }} />
+                        <VoiceButton isRecording={t2VoiceField === "barrier"} onToggle={() => handleVoiceToggle("barrier", t2Barrier, setT2Barrier, t2VoiceField, setT2VoiceField)} />
                       </div>
                     </div>
                     <div>
-                      <label style={labelStyle}>Who are you presenting to?</label>
-                      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.625rem" }}>
-                        {PITCH_TARGETS.map(t => (
-                          <button key={t} onClick={() => setT3Audience(t)} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", padding: "0.5rem 1rem", borderRadius: "8px", border: "1.5px solid", borderColor: t3Audience === t ? "var(--sage-dark)" : "var(--gray-border)", background: t3Audience === t ? "var(--sage-dark)" : "var(--white)", color: t3Audience === t ? "var(--white)" : "var(--charcoal)", cursor: "pointer" }}>{t}</button>
-                        ))}
+                      <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.25rem", display: "block" }}>4. What resources do you have available?</label>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", margin: "0 0 0.5rem 0" }}>Tell us about your budget, team capacity and time. Even limited resources count.</p>
+                      <div style={{ position: "relative" }}>
+                        <textarea value={t2Resources} onChange={e => setT2Resources(e.target.value)} placeholder="e.g. small HR team of three; no dedicated budget but could make a case for up to £5k" rows={2} style={{ width: "100%", border: `1px solid ${t2VoiceField === "resources" ? "var(--sage-dark)" : "var(--sage-xlight)"}`, borderRadius: "8px", padding: "0.75rem 2.75rem 0.75rem 0.75rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", resize: "vertical", boxSizing: "border-box" }} />
+                        <VoiceButton isRecording={t2VoiceField === "resources"} onToggle={() => handleVoiceToggle("resources", t2Resources, setT2Resources, t2VoiceField, setT2VoiceField)} />
                       </div>
+                    </div>
+                    <div>
+                      <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.5rem", display: "block" }}>5. Who needs to approve or sign off on this?</label>
+                      <select value={t2Approver} onChange={e => setT2Approver(e.target.value)} style={selectStyle}>
+                        <option value="">Select your approver</option>
+                        {["My CEO or MD","My board","My leadership team","My line manager","My HR team","Myself","Other"].map(a => <option key={a} value={a}>{a}</option>)}
+                      </select>
+                      {t2Approver === "Other" && (
+                        <input type="text" value={t2ApproverOther} onChange={e => setT2ApproverOther(e.target.value)} placeholder="Please specify" style={{ ...selectStyle, marginTop: "0.5rem" }} />
+                      )}
                     </div>
                     <div style={{ paddingTop: "0.5rem" }}>
                       <button
-                        onClick={handleTool3Submit}
-                        disabled={!t3Argument.trim() || !t3Sector || !t3Size || !t3Audience || t3Loading}
+                        onClick={handleTool2Submit}
+                        disabled={!t2Sector || (t2Sector === "Other" && !t2SectorOther) || !t2Size || !t2Barrier.trim() || !t2Resources.trim() || !t2Approver || (t2Approver === "Other" && !t2ApproverOther)}
                         className="btn-primary"
-                        style={{ fontSize: "0.925rem", padding: "0.875rem 2rem", opacity: (!t3Argument.trim() || !t3Sector || !t3Size || !t3Audience) ? 0.5 : 1, cursor: (!t3Argument.trim() || !t3Sector || !t3Size || !t3Audience) ? "not-allowed" : "pointer" }}
+                        style={{ fontSize: "0.875rem", padding: "0.875rem 1.75rem", opacity: (!t2Sector || !t2Size || !t2Barrier.trim() || !t2Resources.trim() || !t2Approver) ? 0.5 : 1, cursor: (!t2Sector || !t2Size || !t2Barrier.trim() || !t2Resources.trim() || !t2Approver) ? "not-allowed" : "pointer" }}
                       >
-                        {t3Loading ? "Preparing your responses…" : "Prepare my responses →"}
+                        Build my replication roadmap →
                       </button>
                     </div>
-                  </div>
-                ) : (
-                  <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-                    {[
-                      { key: "s1" as const, label: "Objections to expect", bg: "var(--sage-xlight)", border: false },
-                      { key: "s2" as const, label: "Your prepared responses", bg: "var(--white)", border: true },
-                      { key: "s3" as const, label: "How to open the conversation", bg: "var(--white)", border: true, italic: true },
-                    ].map(({ key, label, bg, border, italic }) => (
-                      <div key={key} style={{ position: "relative", background: bg, borderRadius: "12px", padding: "1.5rem", ...(border ? { border: "1.5px solid var(--gray-border)" } : {}) }}>
-                        <button onClick={() => copyT3Section(key, t3Result![key])} style={{ position: "absolute", top: "0.75rem", right: "0.75rem", background: "var(--white)", border: "1px solid var(--sage-light)", borderRadius: "6px", padding: "0.25rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "var(--sage-dark)", cursor: "pointer" }}>
-                          {t3Copied === key ? "Copied!" : "Copy"}
-                        </button>
-                        <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.75rem" }}>{label}</div>
-                        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.75, margin: 0, whiteSpace: "pre-wrap", ...(italic ? { fontStyle: "italic" } : {}) }}>{t3Result[key]}</p>
-                      </div>
-                    ))}
-                    <button onClick={resetTool3} style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--gray-soft)", padding: "0.5rem 0" }}>Start again</button>
                   </div>
                 )}
               </section>
