@@ -2474,7 +2474,19 @@ function EvidencePageInner() {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem", marginBottom: "2.5rem" }}>
 
               {/* Card 1: Evidence Argument Builder */}
-              <div className="card" style={{ display: "flex", flexDirection: "column", gap: "1rem", border: ebActiveTool === "argument" ? "2px solid var(--sage-dark)" : undefined }}>
+              <div style={{
+                display: "flex", flexDirection: "column", gap: "1rem",
+                background: ebActiveTool === "argument"
+                  ? "linear-gradient(145deg, #daeadc 0%, #c2d9c5 50%, #b0ccb4 100%)"
+                  : "linear-gradient(145deg, #f4f9f5 0%, #e6f1e8 50%, #d8eadb 100%)",
+                border: ebActiveTool === "argument" ? "1.5px solid var(--sage-dark)" : "1.5px solid rgba(143,175,147,0.45)",
+                borderRadius: "16px",
+                padding: "1.75rem",
+                boxShadow: "0 8px 32px rgba(74,99,71,0.16), 0 2px 8px rgba(74,99,71,0.10), inset 0 1px 0 rgba(255,255,255,0.75)",
+                position: "relative",
+                overflow: "hidden",
+              }}>
+                <div style={{ position: "absolute", top: "0.875rem", right: "0.875rem", background: "var(--sage-dark)", color: "var(--white)", fontSize: "0.65rem", fontFamily: "var(--font-body)", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", padding: "0.2rem 0.55rem", borderRadius: "20px" }}>Inclusion AI</div>
                 <div style={{ fontSize: "2rem" }}>🧠</div>
                 <div>
                   <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", margin: "0 0 0.4rem 0" }}>Evidence Argument Builder</h3>
@@ -2492,7 +2504,19 @@ function EvidencePageInner() {
               </div>
 
               {/* Card 2: Personalised Research Interpreter (Tool 1) */}
-              <div className="card" style={{ display: "flex", flexDirection: "column", gap: "1rem", border: ebActiveTool === "research" ? "2px solid var(--sage-dark)" : undefined }}>
+              <div style={{
+                display: "flex", flexDirection: "column", gap: "1rem",
+                background: ebActiveTool === "research"
+                  ? "linear-gradient(145deg, #daeadc 0%, #c2d9c5 50%, #b0ccb4 100%)"
+                  : "linear-gradient(145deg, #f4f9f5 0%, #e6f1e8 50%, #d8eadb 100%)",
+                border: ebActiveTool === "research" ? "1.5px solid var(--sage-dark)" : "1.5px solid rgba(143,175,147,0.45)",
+                borderRadius: "16px",
+                padding: "1.75rem",
+                boxShadow: "0 8px 32px rgba(74,99,71,0.16), 0 2px 8px rgba(74,99,71,0.10), inset 0 1px 0 rgba(255,255,255,0.75)",
+                position: "relative",
+                overflow: "hidden",
+              }}>
+                <div style={{ position: "absolute", top: "0.875rem", right: "0.875rem", background: "var(--sage-dark)", color: "var(--white)", fontSize: "0.65rem", fontFamily: "var(--font-body)", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", padding: "0.2rem 0.55rem", borderRadius: "20px" }}>Inclusion AI</div>
                 <div style={{ fontSize: "2rem" }}>🔬</div>
                 <div>
                   <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", margin: "0 0 0.4rem 0" }}>Personalised Research Interpreter</h3>
@@ -2510,12 +2534,24 @@ function EvidencePageInner() {
               </div>
 
               {/* Card 3: Case Study Replication Roadmap */}
-              <div className="card" style={{ display: "flex", flexDirection: "column", gap: "1rem", border: ebActiveTool === "objections" ? "2px solid var(--sage-dark)" : undefined }}>
-                <div style={{ fontSize: "2rem" }}>🛡️</div>
+              <div style={{
+                display: "flex", flexDirection: "column", gap: "1rem",
+                background: ebActiveTool === "objections"
+                  ? "linear-gradient(145deg, #daeadc 0%, #c2d9c5 50%, #b0ccb4 100%)"
+                  : "linear-gradient(145deg, #f4f9f5 0%, #e6f1e8 50%, #d8eadb 100%)",
+                border: ebActiveTool === "objections" ? "1.5px solid var(--sage-dark)" : "1.5px solid rgba(143,175,147,0.45)",
+                borderRadius: "16px",
+                padding: "1.75rem",
+                boxShadow: "0 8px 32px rgba(74,99,71,0.16), 0 2px 8px rgba(74,99,71,0.10), inset 0 1px 0 rgba(255,255,255,0.75)",
+                position: "relative",
+                overflow: "hidden",
+              }}>
+                <div style={{ position: "absolute", top: "0.875rem", right: "0.875rem", background: "var(--sage-dark)", color: "var(--white)", fontSize: "0.65rem", fontFamily: "var(--font-body)", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", padding: "0.2rem 0.55rem", borderRadius: "20px" }}>Inclusion AI</div>
+                <div style={{ fontSize: "2rem" }}>🗺️</div>
                 <div>
                   <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", margin: "0 0 0.4rem 0" }}>Case Study Replication Roadmap</h3>
                   <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: 0 }}>
-                    Tell us the argument you are making and who you are making it to. We will predict the pushback you will get and give you sharp, prepared responses for each objection.
+                    Choose a case study and answer five quick questions. We will build you a personalised action plan for replicating that result in your own organisation.
                   </p>
                 </div>
                 <button
