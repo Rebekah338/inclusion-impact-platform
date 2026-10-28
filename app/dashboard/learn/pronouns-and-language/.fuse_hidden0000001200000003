@@ -1,0 +1,748 @@
+"use client";
+import { useState } from "react";
+import Link from "next/link";
+import PlatformNav from "@/app/components/PlatformNav";
+import { markCompleted } from "@/lib/completionStore";
+
+type QuizAnswers = Record<number, string>;
+
+function ImagePlaceholder({ description, src }: { description: string; src?: string }) {
+  if (src) {
+    return (
+      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={src} alt={description} style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+      </div>
+    );
+  }
+  return (
+    <div style={{
+      background: "var(--sage-xlight)", border: "1px dashed var(--sage-light)",
+      borderRadius: "0.75rem", padding: "1.5rem", textAlign: "center" as const,
+      color: "var(--sage-dark)", fontSize: "0.85rem", fontStyle: "italic",
+      fontFamily: "var(--font-body)", marginBottom: "1.5rem",
+    }}>
+      {description}
+    </div>
+  );
+}
+
+function SlideShell({ children }: { children: React.ReactNode }) {
+  return (
+    <div style={{ maxWidth: "680px", margin: "0 auto", padding: "0 1rem" }}>
+      {children}
+    </div>
+  );
+}
+
+function SlideHeading({ title, subtitle }: { title: string; subtitle?: string }) {
+  return (
+    <div style={{ marginBottom: "1.5rem" }}>
+      <h1 style={{ fontFamily: "var(--font-display)", color: "var(--sage-dark)", fontSize: "clamp(1.6rem,4vw,2.2rem)", fontWeight: 700, margin: 0 }}>
+        {title}
+      </h1>
+      {subtitle && (
+        <p style={{ fontFamily: "var(--font-body)", color: "var(--charcoal)", opacity: 0.6, fontSize: "1rem", marginTop: "0.35rem" }}>
+          {subtitle}
+        </p>
+      )}
+    </div>
+  );
+}
+
+function BulletList({ items }: { items: string[] }) {
+  return (
+    <ul style={{ paddingLeft: "1.25rem", margin: "0.75rem 0" }}>
+      {items.map((item, i) => (
+        <li key={i} style={{ fontFamily: "var(--font-body)", color: "var(--charcoal)", fontSize: "1rem", lineHeight: 1.7, marginBottom: "0.4rem" }}>
+          {item}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function ReflectionBox({ subPrompts }: { subPrompts: string[] }) {
+  return (
+    <div style={{
+      background: "var(--sage-xlight)", borderLeft: "4px solid var(--sage-dark)",
+      borderRadius: "0 0.5rem 0.5rem 0", padding: "1rem 1.25rem", margin: "1.5rem 0",
+    }}>
+      <p style={{ fontFamily: "var(--font-heading)", color: "var(--sage-dark)", fontWeight: 600, fontSize: "0.9rem", margin: "0 0 0.5rem 0" }}>
+        ❓ Reflect (write down on your paper):
+      </p>
+      {subPrompts.map((sp, i) => (
+        <p key={i} style={{ fontFamily: "var(--font-body)", color: "var(--charcoal)", fontSize: "0.95rem", margin: "0.4rem 0" }}>
+          {sp}
+        </p>
+      ))}
+    </div>
+  );
+}
+
+function KeyReminder({ text }: { text: string }) {
+  return (
+    <div style={{
+      background: "var(--sage-xlight)", border: "1px solid var(--sage-light)",
+      borderRadius: "0.5rem", padding: "0.9rem 1.1rem", margin: "1.25rem 0",
+    }}>
+      <p style={{ fontFamily: "var(--font-body)", color: "var(--charcoal)", fontSize: "0.95rem", margin: 0 }}>
+        {text}
+      </p>
+    </div>
+  );
+}
+
+function SectionLabel({ text }: { text: string }) {
+  return (
+    <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, color: "var(--sage-dark)", fontSize: "1rem", margin: "1.25rem 0 0.4rem 0" }}>
+      {text}
+    </p>
+  );
+}
+
+function BodyText({ children, italic }: { children: React.ReactNode; italic?: boolean }) {
+  return (
+    <p style={{
+      fontFamily: "var(--font-body)", color: "var(--charcoal)",
+      fontSize: "1rem", lineHeight: 1.75,
+      fontStyle: italic ? "italic" : "normal", margin: "0.6rem 0",
+    }}>
+      {children}
+    </p>
+  );
+}
+
+function MoveOnNote() {
+  return (
+    <p style={{ fontFamily: "var(--font-body)", color: "var(--charcoal)", opacity: 0.55, fontSize: "0.85rem", fontStyle: "italic", marginTop: "0.75rem" }}>
+      Once you have written down your answers, you can move to the next slide.
+    </p>
+  );
+}
+
+function ExampleBox({ rows }: { rows: { gendered: string; neutral: string }[] }) {
+  return (
+    <div style={{ border: "1px solid var(--gray-border)", borderRadius: "0.5rem", overflow: "hidden", margin: "1.25rem 0" }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", background: "var(--sage-dark)" }}>
+        <div style={{ padding: "0.6rem 1rem", fontFamily: "var(--font-heading)", fontWeight: 700, color: "var(--white)", fontSize: "0.875rem" }}>
+          Instead of...
+        </div>
+        <div style={{ padding: "0.6rem 1rem", fontFamily: "var(--font-heading)", fontWeight: 700, color: "var(--white)", fontSize: "0.875rem", borderLeft: "1px solid rgba(255,255,255,0.2)" }}>
+          Try...
+        </div>
+      </div>
+      {rows.map((row, i) => (
+        <div key={i} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", background: i % 2 === 0 ? "var(--white)" : "var(--sage-xlight)", borderTop: "1px solid var(--gray-border)" }}>
+          <div style={{ padding: "0.55rem 1rem", fontFamily: "var(--font-body)", color: "var(--charcoal)", fontSize: "0.9rem" }}>
+            {row.gendered}
+          </div>
+          <div style={{ padding: "0.55rem 1rem", fontFamily: "var(--font-body)", color: "var(--charcoal)", fontSize: "0.9rem", borderLeft: "1px solid var(--gray-border)" }}>
+            {row.neutral}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function Slide1() {
+  return (
+    <SlideShell>
+      <SlideHeading title="Pronouns and Language: A Practical Workplace Guide" subtitle="Using Language That Includes Everyone" />
+      <div style={{
+        background: "var(--sage-xlight)", border: "1px solid var(--sage-light)",
+        borderRadius: "0.75rem", padding: "1.25rem 1.5rem", margin: "0 0 1.5rem 0",
+      }}>
+        <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, color: "var(--sage-dark)", fontSize: "0.9rem", margin: "0 0 0.4rem 0" }}>
+          💭 Opening thought:
+        </p>
+        <BodyText italic>
+          Language is not just communication: it is recognition. When you use the right language for someone, you are telling them they belong here. When you do not, you are telling them the opposite, even if that was never your intention.
+        </BodyText>
+      </div>
+
+      <SectionLabel text="🎯 Learning Objective:" />
+      <BodyText>
+        This lesson will give you the practical knowledge and confidence to use inclusive language and correct pronouns in the workplace, handle mistakes well, and build habits that make everyone around you feel recognised and respected.
+      </BodyText>
+
+      <SectionLabel text="📖 Learning Outcomes: by the end of this lesson you will be able to:" />
+      <BulletList items={[
+        "Understand what pronouns are and why they matter in a professional context",
+        "Ask about and share pronouns in a natural and respectful way",
+        "Correct your own mistakes and support others when mistakes happen",
+        "Use gender-neutral language across common workplace situations",
+        "Identify the most common language pitfalls and how to avoid them",
+      ]} />
+
+      <SectionLabel text="📋 Guidelines:" />
+      <BulletList items={[
+        "Find a quiet space and give yourself around 10 minutes",
+        "Use headphones if you would like the lesson read aloud",
+        "Have a pen and paper ready: there are reflection prompts throughout",
+        "There is a short quiz at the end. Complete it to mark this lesson as done and add it to your learning record on your dashboard.",
+      ]} />
+    </SlideShell>
+  );
+}
+
+function Slide2() {
+  return (
+    <SlideShell>
+      <SlideHeading title="Why Language Matters" />
+      <ImagePlaceholder description="Two colleagues having a warm, natural conversation in a modern office" />
+
+      <BodyText>
+        The words we use every day shape whether people feel included or invisible. This is not about political correctness or getting things perfectly right every time: it is about making a genuine effort to see and respect the people you work with.
+      </BodyText>
+
+      <SectionLabel text="The impact of language at work:" />
+      <BulletList items={[
+        "Research by McKinsey found that employees who feel seen and included are five times more likely to report high performance",
+        "Being misgendered, even accidentally and repeatedly, is associated with significantly higher rates of anxiety, depression, and feelings of alienation",
+        "Inclusive language signals psychological safety: when people hear language that includes them, they are more likely to contribute, take risks, and stay",
+        "Exclusive language is often invisible to those it does not affect: the people most harmed by it are often least able to speak up about it",
+      ]} />
+
+      <SectionLabel text="What this lesson is not:" />
+      <BulletList items={[
+        "It is not about policing language or calling people out for honest mistakes",
+        "It is not about requiring perfection: everyone makes mistakes, including trans and non-binary people themselves",
+        "It is about building awareness and developing habits that make your workplace more welcoming for everyone",
+      ]} />
+
+      <KeyReminder text="Inclusive language is not a favour to marginalised people. It is a professional skill that makes you better at working with everyone." />
+    </SlideShell>
+  );
+}
+
+function Slide3() {
+  return (
+    <SlideShell>
+      <SlideHeading title="Understanding Pronouns" />
+      <ImagePlaceholder description="Illustrated pronoun options displayed on a clean, modern graphic" />
+
+      <SectionLabel text="What are pronouns?" />
+      <BodyText>
+        Pronouns are the words we use to refer to someone when we are not using their name. In English: he, she, they, and others. For most of us, our pronouns feel obvious and assumed. For many people, particularly trans, non-binary, and gender non-conforming people, the pronouns others use for them are a significant part of how they are recognised or dismissed.
+      </BodyText>
+
+      <SectionLabel text="Common pronoun sets:" />
+      <BulletList items={[
+        "She/her: she went to the meeting; I spoke to her",
+        "He/him: he is leading the project; I emailed him",
+        "They/them: they are joining us next week; I forwarded it to them",
+        "She/they or he/they: some people use more than one set and are comfortable with either",
+        "Neopronouns such as xe/xem or ze/zir: less common but used by some people; treat them with the same respect",
+      ]} />
+
+      <SectionLabel text="Common misconceptions:" />
+      <BulletList items={[
+        "They/them for a single person is not grammatically incorrect: it has been used this way in English for centuries. We say 'someone left their umbrella' without a second thought.",
+        "Using the right pronoun is not about agreeing with a political position: it is simply about referring to a colleague correctly",
+        "You do not need to understand someone's gender identity to use their pronoun correctly: you just need to know what they have asked to be called",
+      ]} />
+    </SlideShell>
+  );
+}
+
+function Slide4() {
+  return (
+    <SlideShell>
+      <SlideHeading title="How to Ask and Share Pronouns" />
+      <ImagePlaceholder description="A team introduction meeting where people are sharing their names and pronouns" />
+
+      <BodyText>
+        The best way to know someone's pronouns is to create an environment where sharing them feels normal rather than strange or pointed. This means normalising the practice for everyone, not just asking the people you are unsure about.
+      </BodyText>
+
+      <SectionLabel text="Ways to share your own pronouns:" />
+      <BulletList items={[
+        "Include them in your email signature: Rebekah (she/her)",
+        "Add them to your video call display name or profile",
+        "Mention them when introducing yourself: Hi, I am Alex, and I use they/them pronouns",
+        "Include a pronouns field on internal profiles or team pages where this is available",
+      ]} />
+
+      <SectionLabel text="How to ask about someone's pronouns:" />
+      <BulletList items={[
+        "During introductions, invite rather than demand: feel free to share your pronouns if you would like",
+        "Ask privately if possible: avoid putting someone on the spot in front of others",
+        "Use neutral language: what pronouns do you use? rather than what are your preferred pronouns? (they are not just a preference: they are the person's pronouns)",
+        "If you are unsure and cannot ask, use they/them until you know",
+      ]} />
+
+      <SectionLabel text="What not to do:" />
+      <BulletList items={[
+        "Do not ask someone's pronouns and then immediately use the wrong ones",
+        "Do not ask someone to explain or justify their pronouns",
+        "Do not announce someone's pronouns to others without their permission",
+        "Do not single out trans or non-binary people to ask: normalise the practice for everyone",
+      ]} />
+
+      <ReflectionBox subPrompts={[
+        "Do you currently share your pronouns anywhere at work? If not, is there one place you could add them?",
+        "How does your team or organisation currently handle introductions? Is there an opportunity to normalise pronoun sharing?",
+      ]} />
+      <MoveOnNote />
+    </SlideShell>
+  );
+}
+
+function Slide5() {
+  return (
+    <SlideShell>
+      <SlideHeading title="Correcting Mistakes: Yours and Others" />
+      <ImagePlaceholder description="A person pausing mid-conversation and gently correcting themselves" />
+
+      <BodyText>
+        Everyone makes mistakes with pronouns, especially when learning new habits. What matters is not that you never get it wrong, but how you respond when you do.
+      </BodyText>
+
+      <SectionLabel text="When you make a mistake:" />
+      <BulletList items={[
+        "Correct yourself briefly and move on: I spoke to him about it. Sorry, to them.",
+        "Do not over-apologise or make a big scene: a long apology centres your feelings, not the person you misgendered",
+        "Practise in private if you find it hard: repeat the correct pronoun to yourself after the conversation",
+        "Do not wait to be corrected: if you notice a mistake, fix it yourself",
+      ]} />
+
+      <SectionLabel text="When someone else makes a mistake:" />
+      <BulletList items={[
+        "If you are a bystander, you can gently correct it: I think you mean they, yes?",
+        "Keep your tone warm, not accusatory: most mistakes are not intentional",
+        "Check with the person who was misgendered about how they would like mistakes to be handled: some prefer correction in the moment, others prefer a quieter approach",
+        "Do not put the burden of correction entirely on the person who has been misgendered: bystanders and colleagues have a role to play",
+      ]} />
+
+      <SectionLabel text="When mistakes are repeated or persistent:" />
+      <BulletList items={[
+        "Persistent misgendering, even if framed as accidental, is harmful and may constitute harassment under the Equality Act 2010",
+        "If someone continues to use the wrong pronouns after being corrected, this should be addressed through the same channels as other forms of workplace discrimination",
+        "Managers have a specific responsibility to model correct pronoun use and to address persistent mistakes in their teams",
+      ]} />
+
+      <KeyReminder text="A brief correction followed by moving on is a mark of professionalism. A long apology is a burden on the person who was already harmed." />
+    </SlideShell>
+  );
+}
+
+function Slide6() {
+  return (
+    <SlideShell>
+      <SlideHeading title="Gender-Neutral Language in Practice" />
+      <ImagePlaceholder description="A team working together, representing diverse people collaborating professionally" />
+
+      <BodyText>
+        Gender-neutral language is not just about pronouns. It extends to the words and phrases we use every day in professional communication. Shifting to more neutral language benefits everyone: it is clearer, more precise, and more inclusive.
+      </BodyText>
+
+      <SectionLabel text="Common swaps:" />
+      <ExampleBox rows={[
+        { gendered: "Hey guys", neutral: "Hey everyone, Hi team, Hello all" },
+        { gendered: "Manpower", neutral: "Workforce, staffing, capacity" },
+        { gendered: "Mankind", neutral: "Humanity, people, humankind" },
+        { gendered: "Chairman", neutral: "Chair, chairperson" },
+        { gendered: "Businessman", neutral: "Business person, executive, professional" },
+        { gendered: "Stewardess / steward", neutral: "Flight attendant, cabin crew" },
+        { gendered: "Ladies and gentlemen", neutral: "Everyone, colleagues, guests" },
+        { gendered: "Maternity / paternity leave", neutral: "Parental leave" },
+        { gendered: "Male nurse / female doctor", neutral: "Nurse / doctor (drop the gender qualifier)" },
+      ]} />
+
+      <SectionLabel text="In written communication:" />
+      <BulletList items={[
+        "Use they/them for unknown individuals rather than he/she or the artificial he or she",
+        "Avoid gendered job titles unless required by the role: actor not actress, firefighter not fireman",
+        "Use first names rather than gendered titles where possible: not all people use Mr, Mrs, Miss or Ms",
+      ]} />
+    </SlideShell>
+  );
+}
+
+function Slide7() {
+  return (
+    <SlideShell>
+      <SlideHeading title="Real World Scenario" />
+      <ImagePlaceholder description="Two colleagues discussing something quietly before a team meeting" />
+
+      <SectionLabel text="The Scenario:" />
+      <BodyText>
+        A new team member, Jordan, joins the organisation. Jordan uses they/them pronouns and has added this to their email signature. In the first team meeting, the manager refers to Jordan as she several times. A colleague notices but says nothing. After the meeting, Jordan mentions to the colleague that being misgendered makes them feel invisible, but they do not want to raise it with the manager themselves.
+      </BodyText>
+
+      <ReflectionBox subPrompts={[
+        "What should the colleague do in this situation? What are the options available to them?",
+        "What responsibility does the manager have, and what could they do differently going forward?",
+        "How could the team create an environment where this situation is less likely to occur?",
+        "Is there anything about how Jordan's pronouns were shared that the organisation could learn from?",
+      ]} />
+      <MoveOnNote />
+    </SlideShell>
+  );
+}
+
+function Slide8() {
+  return (
+    <SlideShell>
+      <SlideHeading title="Your Turn" subtitle="Activity Slide" />
+      <ImagePlaceholder description="A person writing in a notebook at a desk with natural light" />
+
+      <BodyText>
+        Take 5 minutes to write down your honest answers to these questions:
+      </BodyText>
+
+      <BulletList items={[
+        "In the last month, have you used language at work that assumed everyone in the room was the same gender? What was it, and what could you use instead?",
+        "Do you know the pronouns of everyone in your immediate team? If not, what would make it easier to find out?",
+        "If a colleague corrected your pronoun use, how would you respond? What is the most helpful response you could give?",
+        "Is there one habit you could change in the next week based on what you have learned in this lesson?",
+      ]} />
+
+      <KeyReminder text="The goal is not perfection: it is progress. One changed habit, consistently applied, has a real impact on the people around you." />
+    </SlideShell>
+  );
+}
+
+function Slide9() {
+  return (
+    <SlideShell>
+      <SlideHeading title="Common Mistakes and How to Avoid Them" />
+      <ImagePlaceholder description="A clean, minimal graphic representing learning and correction" />
+
+      <SectionLabel text="Mistake 1: Only asking trans or non-binary people for their pronouns" />
+      <BodyText>
+        This singles people out and makes pronoun-sharing feel unusual or pointed. Instead, normalise the practice for everyone. When everyone shares pronouns, no one is singled out.
+      </BodyText>
+
+      <SectionLabel text="Mistake 2: Using preferred pronouns" />
+      <BodyText>
+        The word preferred implies that using someone's pronouns is optional, like a preference for tea over coffee. They are not a preference: they are the person's pronouns. Just say pronouns.
+      </BodyText>
+
+      <SectionLabel text="Mistake 3: Deadnaming" />
+      <BodyText>
+        A deadname is the name a trans person was given at birth and no longer uses. Using it, even accidentally, is harmful. If you learn someone's deadname, do not share it or use it. If you make this mistake, correct yourself briefly and move on.
+      </BodyText>
+
+      <SectionLabel text="Mistake 4: Asking intrusive questions" />
+      <BodyText>
+        Questions about someone's surgery, body, identity history, or birth name are not appropriate in a professional context. You do not need to understand someone's full gender history to use their pronouns correctly.
+      </BodyText>
+
+      <SectionLabel text="Mistake 5: Treating inclusive language as a one-off task" />
+      <BodyText>
+        Language habits are built over time. A single lesson is a starting point, not an endpoint. Regularly reflect on the language you use and look for opportunities to improve.
+      </BodyText>
+    </SlideShell>
+  );
+}
+
+function Slide10() {
+  return (
+    <SlideShell>
+      <SlideHeading title="What You Can Do From Tomorrow" />
+      <ImagePlaceholder description="A clear morning commute, representing a fresh start and new habits" />
+
+      <SectionLabel text="Immediate actions:" />
+      <BulletList items={[
+        "Add your pronouns to your email signature today",
+        "Check whether you have a pronoun field in your internal profile or video call settings and fill it in",
+        "Notice when you use gendered language such as guys or mankind and swap it for a neutral alternative",
+        "If you do not know the pronouns of everyone in your team, think about how to find out naturally",
+      ]} />
+
+      <SectionLabel text="This week:" />
+      <BulletList items={[
+        "In your next introduction or new-team situation, model sharing your own pronouns",
+        "If you use a shared team greeting or email template that contains gendered language, update it",
+        "If you manage or lead a team, raise the topic of pronoun-sharing at the next appropriate moment",
+      ]} />
+
+      <SectionLabel text="Ongoing:" />
+      <BulletList items={[
+        "When you make a mistake, correct it briefly and carry on: do not avoid the topic out of embarrassment",
+        "Support colleagues who are corrected or misgendered: you do not need to make a scene to show you noticed",
+        "Treat inclusive language as a professional skill, not a political position: continue to develop it the same way you develop any other skill",
+      ]} />
+
+      <KeyReminder text="One person who models inclusive language in a team gives everyone around them permission to do the same." />
+    </SlideShell>
+  );
+}
+
+function Slide11() {
+  return (
+    <SlideShell>
+      <SlideHeading title="Lesson Roundup" />
+
+      <SectionLabel text="Key points from this lesson:" />
+      <BulletList items={[
+        "Pronouns are not a preference: they are how someone is correctly referred to, and using the right ones is a professional baseline",
+        "They/them for a single person is grammatically correct and has been used in English for centuries",
+        "Normalise pronoun-sharing for everyone: it removes the burden from trans and non-binary people to stand out",
+        "When you make a mistake, correct it briefly and move on: a long apology is a burden, not a repair",
+        "Persistent misgendering, even when framed as accidental, can constitute harassment and should be addressed accordingly",
+        "Gender-neutral language goes beyond pronouns: it includes how we address groups, refer to roles, and write professional communications",
+      ]} />
+
+      <SectionLabel text="Key Terms:" />
+      <BulletList items={[
+        "Pronouns: words used to refer to a person when not using their name, such as he, she, or they",
+        "Misgendering: referring to someone using a pronoun or gendered term that does not reflect their gender identity",
+        "Deadnaming: using a trans person's former name, which they no longer use",
+        "Gender-neutral language: language that does not assume a particular gender for an individual or group",
+        "Neopronouns: pronouns other than he, she, and they, such as xe/xem, used by some people to describe their gender",
+      ]} />
+
+      <KeyReminder text="Inclusive language is not about being flawless. It is about being willing to learn, correct, and keep going." />
+    </SlideShell>
+  );
+}
+
+function Slide12Quiz({ onComplete }: { onComplete: (score: number) => void }) {
+  const [answers, setAnswers] = useState<QuizAnswers>({});
+  const [submitted, setSubmitted] = useState(false);
+
+  const questions = [
+    {
+      q: "Why is the phrase 'preferred pronouns' considered inaccurate?",
+      options: [
+        { id: "a", text: "Because it is too formal for everyday workplace use" },
+        { id: "b", text: "Because the word 'preferred' implies pronouns are optional, like a personal taste, when they are simply how the person is correctly referred to" },
+        { id: "c", text: "Because it focuses too much on gender when people should just use names" },
+        { id: "d", text: "Because it is grammatically incorrect in standard English" },
+      ],
+      correct: "b",
+      explanation: "The word 'preferred' suggests that using someone's pronouns is a preference you can accommodate or decline. Pronouns are not a preference: they are simply the correct way to refer to that person. The phrase 'pronouns' or 'someone's pronouns' is more accurate.",
+    },
+    {
+      q: "What is the best way to respond when you realise you have used the wrong pronoun for a colleague?",
+      options: [
+        { id: "a", text: "Apologise extensively to show you understand how serious it is" },
+        { id: "b", text: "Ignore it and hope no one noticed" },
+        { id: "c", text: "Correct yourself briefly and move on: 'sorry, I mean they'" },
+        { id: "d", text: "Ask the person to explain their pronouns again so you can be sure" },
+      ],
+      correct: "c",
+      explanation: "A brief self-correction followed by moving on is the most helpful response. Over-apologising centres your discomfort rather than the person you misgendered. Ignoring it lets a mistake stand. Asking for an explanation puts additional burden on the person who has already been affected.",
+    },
+    {
+      q: "Which of the following is the best replacement for 'hey guys' when addressing a mixed or unknown group at work?",
+      options: [
+        { id: "a", text: "Hey people" },
+        { id: "b", text: "Hey everyone / hi team / hello all" },
+        { id: "c", text: "Hey ladies and gentlemen" },
+        { id: "d", text: "There is no need to change this phrase: it is gender-neutral already" },
+      ],
+      correct: "b",
+      explanation: "'Guys' is a gendered term that, despite common use, can exclude people who do not identify as men. 'Everyone', 'team', 'all', or 'folks' are neutral and work naturally in professional settings. 'Ladies and gentlemen' is also gendered. Some people consider 'guys' neutral, but clearer options exist.",
+    },
+    {
+      q: "According to this lesson, what should you do if a colleague is repeatedly misgendered by someone in the team?",
+      options: [
+        { id: "a", text: "Wait for the affected person to raise it themselves, as it is their responsibility" },
+        { id: "b", text: "Mention it to HR immediately without speaking to the affected person first" },
+        { id: "c", text: "Do nothing: correcting someone would create an awkward atmosphere" },
+        { id: "d", text: "Offer a gentle correction in the moment and check with the affected person about how they would like it handled" },
+      ],
+      correct: "d",
+      explanation: "Bystanders and colleagues have a role to play. Putting all responsibility on the person who has been misgendered is unfair. A gentle correction from a colleague, delivered warmly, can help without creating confrontation. Checking in privately with the affected person ensures you are supporting them in the way they actually need.",
+    },
+  ];
+
+  const handleSubmit = () => {
+    const finalScore = questions.filter((q, i) => answers[i] === q.correct).length;
+    setSubmitted(true);
+    markCompleted("pronouns-and-language");
+    onComplete(finalScore);
+  };
+
+  const score = submitted ? questions.filter((q, i) => answers[i] === q.correct).length : 0;
+
+  return (
+    <SlideShell>
+      <SlideHeading title="Quiz" subtitle="Test what you have learned" />
+      {questions.map((q, qi) => (
+        <div key={qi} style={{ marginBottom: "1.75rem", padding: "1.25rem", background: "var(--sage-xlight)", borderRadius: "0.75rem", border: "1px solid var(--sage-light)" }}>
+          <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, color: "var(--charcoal)", fontSize: "1rem", margin: "0 0 0.75rem 0" }}>
+            {qi + 1}. {q.q}
+          </p>
+          {q.options.map((opt) => {
+            const chosen = answers[qi] === opt.id;
+            const isCorrect = opt.id === q.correct;
+            let bg = "var(--white)";
+            let border = "1px solid var(--gray-border)";
+            if (submitted && chosen && isCorrect) { bg = "#d4edda"; border = "1px solid #28a745"; }
+            else if (submitted && chosen && !isCorrect) { bg = "#f8d7da"; border = "1px solid #dc3545"; }
+            else if (submitted && isCorrect) { bg = "#d4edda"; border = "1px solid #28a745"; }
+            return (
+              <label key={opt.id} style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem", cursor: submitted ? "default" : "pointer", background: bg, border, borderRadius: "0.4rem", padding: "0.6rem 0.75rem", marginBottom: "0.5rem" }}>
+                <input
+                  type="radio"
+                  name={`q${qi}`}
+                  value={opt.id}
+                  checked={chosen}
+                  disabled={submitted}
+                  onChange={() => setAnswers({ ...answers, [qi]: opt.id })}
+                  style={{ marginTop: "0.15rem", flexShrink: 0 }}
+                />
+                <span style={{ fontFamily: "var(--font-body)", color: "var(--charcoal)", fontSize: "0.95rem" }}>{opt.text}</span>
+              </label>
+            );
+          })}
+          {submitted && (
+            <p style={{ fontFamily: "var(--font-body)", color: "var(--charcoal)", fontSize: "0.875rem", margin: "0.5rem 0 0 0", fontStyle: "italic" }}>
+              {q.explanation}
+            </p>
+          )}
+        </div>
+      ))}
+      {!submitted && (
+        <button
+          onClick={handleSubmit}
+          disabled={Object.keys(answers).length < questions.length}
+          style={{
+            background: Object.keys(answers).length < questions.length ? "var(--sage-light)" : "var(--sage-dark)",
+            color: "var(--white)", border: "none", borderRadius: "0.5rem",
+            padding: "0.75rem 2rem", fontFamily: "var(--font-heading)", fontWeight: 700,
+            fontSize: "1rem", cursor: Object.keys(answers).length < questions.length ? "not-allowed" : "pointer",
+          }}
+        >
+          Submit answers
+        </button>
+      )}
+      {submitted && (
+        <div style={{ background: "var(--sage-xlight)", border: "1px solid var(--sage-light)", borderRadius: "0.75rem", padding: "1.25rem", marginTop: "0.5rem", textAlign: "center" as const }}>
+          <p style={{ fontFamily: "var(--font-display)", color: "var(--sage-dark)", fontSize: "1.5rem", fontWeight: 700, margin: "0 0 0.25rem 0" }}>
+            You scored {score} out of {questions.length}
+          </p>
+          <p style={{ fontFamily: "var(--font-body)", color: "var(--charcoal)", fontSize: "0.95rem", margin: 0 }}>
+            Your result has been saved to your learning record.
+          </p>
+        </div>
+      )}
+    </SlideShell>
+  );
+}
+
+function Slide13({ score }: { score: number }) {
+  return (
+    <SlideShell>
+      <SlideHeading title="How You Did and Your Takeaways" />
+      <ImagePlaceholder description="A sealed envelope with The Inclusion Edit stamp on the back" />
+
+      <div style={{ background: "var(--sage-xlight)", border: "1px solid var(--sage-light)", borderRadius: "0.75rem", padding: "1.25rem", marginBottom: "1.5rem", textAlign: "center" as const }}>
+        <p style={{ fontFamily: "var(--font-display)", color: "var(--sage-dark)", fontSize: "2rem", fontWeight: 700, margin: 0 }}>
+          {score} / 4
+        </p>
+      </div>
+
+      <SectionLabel text="Your takeaways from this lesson:" />
+      <BulletList items={[
+        "Pronouns are a professional baseline, not an optional courtesy: using them correctly is part of how you treat colleagues with respect",
+        "Normalise pronoun-sharing for everyone: this removes the burden from the people most likely to be harmed by its absence",
+        "When you make a mistake, correct it briefly and move on: repair matters more than regret",
+        "Gender-neutral language is not difficult: most swaps are simple and make your communication clearer for everyone",
+        "You do not need to understand someone's full gender identity to use their pronouns correctly: you just need to know what they have asked to be called",
+      ]} />
+    </SlideShell>
+  );
+}
+
+const SLIDE_TITLES = [
+  "Welcome and Guidelines",
+  "Why Language Matters",
+  "Understanding Pronouns",
+  "How to Ask and Share Pronouns",
+  "Correcting Mistakes: Yours and Others",
+  "Gender-Neutral Language in Practice",
+  "Real World Scenario",
+  "Your Turn",
+  "Common Mistakes and How to Avoid Them",
+  "What You Can Do From Tomorrow",
+  "Lesson Roundup",
+  "Quiz",
+  "How You Did and Your Takeaways",
+];
+
+export default function PronounsAndLanguagePage() {
+  const [slide, setSlide] = useState(0);
+  const [quizScore, setQuizScore] = useState(0);
+  const totalSlides = SLIDE_TITLES.length;
+
+  const handleQuizComplete = (score: number) => {
+    setQuizScore(score);
+  };
+
+  const goNext = () => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+    setSlide((s) => Math.min(s + 1, totalSlides - 1));
+  };
+  const goPrev = () => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+    setSlide((s) => Math.max(s - 1, 0));
+  };
+
+  const slides = [
+    <Slide1 key={0} />,
+    <Slide2 key={1} />,
+    <Slide3 key={2} />,
+    <Slide4 key={3} />,
+    <Slide5 key={4} />,
+    <Slide6 key={5} />,
+    <Slide7 key={6} />,
+    <Slide8 key={7} />,
+    <Slide9 key={8} />,
+    <Slide10 key={9} />,
+    <Slide11 key={10} />,
+    <Slide12Quiz key={11} onComplete={handleQuizComplete} />,
+    <Slide13 key={12} score={quizScore} />,
+  ];
+
+  return (
+    <div style={{ minHeight: "100vh", background: "var(--white)" }}>
+      <PlatformNav />
+      <div style={{ maxWidth: "780px", margin: "0 auto", padding: "2rem 1rem 6rem" }}>
+
+        <Link href="/dashboard/learn" style={{ fontFamily: "var(--font-body)", color: "var(--sage-dark)", fontSize: "0.9rem", textDecoration: "none", display: "inline-block", marginBottom: "1.5rem" }}>
+          Back to Learn
+        </Link>
+
+        <div style={{ marginBottom: "1.75rem" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.4rem" }}>
+            <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--charcoal)", opacity: 0.55 }}>
+              Slide {slide + 1} of {totalSlides}
+            </span>
+            <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--charcoal)", opacity: 0.55 }}>
+              {SLIDE_TITLES[slide]}
+            </span>
+          </div>
+          <div style={{ height: "4px", background: "var(--gray-border)", borderRadius: "999px", overflow: "hidden" }}>
+            <div style={{ height: "100%", background: "var(--sage-dark)", borderRadius: "999px", width: `${((slide + 1) / totalSlides) * 100}%`, transition: "width 0.3s ease" }} />
+          </div>
+        </div>
+
+        {slides[slide]}
+
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "2.5rem", paddingTop: "1.5rem", borderTop: "1px solid var(--gray-border)" }}>
+          {slide > 0 ? (
+            <button onClick={goPrev} style={{ background: "none", border: "1px solid var(--gray-border)", borderRadius: "0.5rem", padding: "0.55rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.9rem", color: "var(--charcoal)", cursor: "pointer" }}>
+              Previous
+            </button>
+          ) : <div />}
+          {slide < totalSlides - 1 ? (
+            <button onClick={goNext} style={{ background: "var(--sage-dark)", border: "none", borderRadius: "0.5rem", padding: "0.55rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.9rem", color: "var(--white)", cursor: "pointer" }}>
+              Next
+            </button>
+          ) : (
+            <Link href="/dashboard/learn" style={{ background: "var(--sage-dark)", border: "none", borderRadius: "0.5rem", padding: "0.55rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.9rem", color: "var(--white)", textDecoration: "none" }}>
+              Finish lesson
+            </Link>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

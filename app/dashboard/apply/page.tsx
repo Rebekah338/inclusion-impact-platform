@@ -92,7 +92,7 @@ export default function ApplyPage() {
             )}
           </div>
 
-          <div style={{ display: "flex", gap: "0", borderBottom: "2px solid var(--gray-border)" }}>
+          <div style={{ display: "flex", gap: "0.375rem", borderBottom: "1px solid var(--gray-border)", padding: "0.5rem 0" }}>
             {([
               { key: "tools", label: "🛠️ Tools & Frameworks" },
               { key: "guides", label: "📖 Guides" },
@@ -102,7 +102,7 @@ export default function ApplyPage() {
               { key: "surveys", label: "📝 Surveys" },
             ] as { key: Tab; label: string }[]).map((tab) => (
               <button key={tab.key} onClick={() => setActiveTab(tab.key)}
-                style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", padding: "0.75rem 1.5rem", background: "none", border: "none", cursor: "pointer", color: activeTab === tab.key ? "var(--sage-dark)" : "var(--gray-soft)", borderBottom: activeTab === tab.key ? "2px solid var(--sage-dark)" : "2px solid transparent", marginBottom: "-2px" }}>
+                style={{ fontFamily: "var(--font-heading)", fontWeight: activeTab === tab.key ? 700 : 600, fontSize: "0.875rem", padding: "0.5rem 1.1rem", background: activeTab === tab.key ? "var(--sage-xlight)" : "none", border: "none", borderRadius: "20px", cursor: "pointer", color: activeTab === tab.key ? "var(--sage-dark)" : "var(--gray-soft)", outline: activeTab === tab.key ? "2px solid var(--sage-light)" : "none", outlineOffset: "-1px", whiteSpace: "nowrap" }}>
                 {tab.label}
               </button>
             ))}

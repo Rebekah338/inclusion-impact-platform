@@ -7,11 +7,7 @@ import { markCompleted } from "@/lib/completionStore";
 type QuizAnswers = Record<number, string>;
 
 function SlideShell({ children }: { children: React.ReactNode }) {
-  return (
-    <div style={{ maxWidth: "680px", margin: "0 auto", padding: "0 1rem" }}>
-      {children}
-    </div>
-  );
+  return <>{children}</>;
 }
 
 function SlideHeading({ title, subtitle }: { title: string; subtitle?: string }) {
@@ -108,7 +104,7 @@ function MoveOnNote() {
 function Slide1() {
   return (
     <SlideShell>
-      <SlideHeading title="Active Allyship in the Workplace" subtitle="Moving from Awareness to Action" />
+      <SlideHeading title="Active Allyship: Moving from Intention to Impact" subtitle="From good intentions to real change" />
       <div style={{
         background: "var(--sage-xlight)", border: "1px solid var(--sage-light)",
         borderRadius: "0.75rem", padding: "1.25rem 1.5rem", margin: "0 0 1.5rem 0",
@@ -117,21 +113,21 @@ function Slide1() {
           💭 Opening thought:
         </p>
         <BodyText italic>
-          Allyship is not a label you give yourself. It is something you practise, repeatedly, in the moments that matter; particularly the ones where it would be easier to say nothing.
+          Most people want to be good allies. But wanting to support others and actually doing it are two different things. This lesson is about closing that gap.
         </BodyText>
       </div>
 
       <SectionLabel text="🎯 Learning Objective:" />
       <BodyText>
-        This lesson will help you understand what active allyship means in practice, why passive awareness is not enough, and how to respond effectively when you witness exclusion, bias, or harm in the workplace.
+        This lesson will help you understand what allyship really means, how to practise it in everyday workplace situations, and how to stay committed even when it feels uncomfortable.
       </BodyText>
 
       <SectionLabel text="📖 Learning Outcomes: by the end of this lesson you will be able to:" />
       <BulletList items={[
-        "Explain what active allyship means and how it differs from passive support or performative gestures",
-        "Identify common situations in the workplace that call for an ally to respond",
-        "Apply practical techniques for speaking up, intervening, and supporting colleagues from marginalised groups",
-        "Reflect on your own allyship practice and identify where you can be more consistent",
+        "Define allyship and explain how it differs from passive sympathy",
+        "Identify at least four practical ways to act as an ally at work",
+        "Describe how to respond constructively when you get it wrong",
+        "Recognise allyship as a continuous practice rather than a fixed identity",
       ]} />
 
       <SectionLabel text="📋 Guidelines:" />
@@ -151,24 +147,26 @@ function Slide2() {
       <SlideHeading title="What Allyship Actually Means" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/allyship/slide2-solidarity.jpg" alt="Two colleagues standing together in a shared moment of support and understanding" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+        <img src="/images/active-allyship/slide2-colleagues-listening.jpg" alt="Two colleagues in a thoughtful conversation, one listening attentively to the other" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
       </div>
 
       <BodyText>
-        Allyship means using your position, privilege, or influence to support and advocate for people from groups that face marginalisation or discrimination. It is not a fixed identity or a badge to be earned: it is a practice, a series of choices made over time.
+        Allyship is an active, ongoing commitment to support and advocate for people from marginalised groups. It is not a badge you earn or a label you give yourself. It is something you demonstrate through your behaviour, day after day.
       </BodyText>
 
       <BodyText>
-        The word &ldquo;ally&rdquo; is sometimes used loosely to mean anyone who broadly agrees with the idea of equality. But agreeing in principle is not the same as acting in practice. Active allyship requires visibility; it happens in meetings, in corridors, in conversations, in decisions, and in moments of discomfort.
+        The word "ally" is often treated as an identity: "I am an ally." But the people best placed to judge whether someone is an ally are those they are trying to support. Allyship is not self-declared; it is earned.
       </BodyText>
 
-      <SectionLabel text="The difference between passive and active allyship:" />
+      <SectionLabel text="What allyship is not:" />
       <BulletList items={[
-        "Passive allyship: privately agreeing that discrimination is wrong; attending a diversity event; using inclusive language when it feels comfortable",
-        "Active allyship: speaking up when you witness exclusion, even when it is awkward; amplifying marginalised voices in rooms where they are not heard; using your access to advocate for systemic change",
+        "It is not speaking on behalf of others or drowning out their voices with your own",
+        "It is not performing support publicly while doing nothing privately",
+        "It is not treating one training session as enough",
+        "It is not expecting praise or gratitude for doing what is simply the right thing",
       ]} />
 
-      <KeyReminder text="The impact of allyship is felt not in how you describe yourself but in what you do when no one is watching; and what you do when everyone is." />
+      <KeyReminder text="Allyship is a verb, not a noun. You do not become an ally; you practise allyship." />
     </SlideShell>
   );
 }
@@ -176,29 +174,30 @@ function Slide2() {
 function Slide3() {
   return (
     <SlideShell>
-      <SlideHeading title="Why Allies Matter" />
+      <SlideHeading title="Educate Yourself; Listen to Understand" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/allyship/slide3-group-meeting.jpg" alt="A diverse team in a workplace meeting, with one person clearly being listened to and supported" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+        <img src="/images/active-allyship/slide3-reading-learning.jpg" alt="A person reading thoughtfully, representing self-directed learning" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
       </div>
 
+      <SectionLabel text="Take responsibility for your own learning:" />
       <BodyText>
-        People from marginalised groups in the workplace often carry a significant emotional and cognitive load: managing their own work, navigating bias and exclusion, and deciding whether to speak up when something happens. Speaking up alone carries real risk. Allies share that load and reduce that risk.
+        Read books, articles, and research written by people from marginalised communities. Listen to podcasts and follow social media accounts that offer perspectives different from your own. Do not put the burden of educating you on the people you want to support. They are not obligated to explain their experiences to you.
       </BodyText>
 
+      <SectionLabel text="Listen to understand; not to respond:" />
       <BodyText>
-        Research consistently shows that people from underrepresented groups are more likely to be interrupted, talked over, have their ideas attributed to someone else, or be excluded from informal networks where decisions are made. In many cases, having a visible ally in the room changes the dynamic immediately.
+        When someone shares their experience of exclusion or discrimination, resist the urge to interrupt, explain, or offer solutions. Your role in that moment is not to fix or justify; it is to understand. Ask questions only to deepen your understanding, not to challenge or qualify what they are sharing.
       </BodyText>
 
-      <SectionLabel text="Why allyship from people with privilege matters:" />
       <BulletList items={[
-        "People with social or organisational power are often listened to differently; their intervention carries weight",
-        "Allies signal to others that the behaviour is not acceptable, reducing the social permission for it to continue",
-        "Visible allyship tells marginalised colleagues that they are not alone and that others see what is happening",
-        "Consistent allyship over time shifts team culture; one person&rsquo;s behaviour can shift group norms",
+        "Put your phone away and give them your full attention",
+        "Resist the urge to say things like 'I know how you feel' or 'That happened to me too'",
+        "If you do not understand, say so clearly: 'Thank you for sharing this. I want to understand better. Can you tell me more?'",
+        "After the conversation, reflect on what you heard rather than immediately moving on",
       ]} />
 
-      <KeyReminder text="You do not need to be a senior leader or a diversity professional to be an effective ally. You need to be present, paying attention, and willing to act." />
+      <KeyReminder text="You will not always agree with what you hear. But before you can be a useful ally, you have to truly understand the experiences you are responding to." />
     </SlideShell>
   );
 }
@@ -206,28 +205,30 @@ function Slide3() {
 function Slide4() {
   return (
     <SlideShell>
-      <SlideHeading title="Common Situations That Call for an Ally" />
+      <SlideHeading title="Use Inclusive Language; Speak Up and Step Up" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/allyship/slide4-workplace-moment.jpg" alt="A workplace moment where one person appears overlooked while another looks on" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+        <img src="/images/active-allyship/slide4-speaking-up.jpg" alt="A person speaking up in a team meeting, others listening" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
       </div>
 
+      <SectionLabel text="Language matters:" />
       <BodyText>
-        Allyship is not only needed in extreme situations. Many of the moments that matter most are subtle, everyday occurrences that are easy to miss or to rationalise away. Learning to recognise them is the first step.
+        The words we use shape the culture we create. Use people-first language unless someone has told you their preference. Use correct names and pronouns. Avoid gendered defaults, slurs, stereotypes, and terms rooted in racism, ableism, or other forms of discrimination, even if they have become colloquial.
       </BodyText>
 
-      <SectionLabel text="Situations where allies are needed:" />
+      <SectionLabel text="Speak up when it matters:" />
+      <BodyText>
+        When you witness exclusion, bias, or discrimination, silence is not neutral. It signals that the behaviour is acceptable. Speaking up does not need to be confrontational. It can be calm, direct, and brief.
+      </BodyText>
+
       <BulletList items={[
-        "A colleague&rsquo;s idea is ignored in a meeting and then repeated and credited to someone else",
-        "A microaggression is made: a comment that is dismissive of someone&rsquo;s identity, experience, or background",
-        "Someone is interrupted or talked over, repeatedly and disproportionately",
-        "A colleague is excluded from social events or informal networks that influence career opportunities",
-        "Assumptions are made about someone&rsquo;s role, capability, or seniority based on their identity",
-        "Someone faces pushback for raising a concern about discrimination or harassment",
-        "A joke, comment, or image is shared that is demeaning to a particular group",
+        "In the moment: 'I do not think that was meant the way it came across, but I want to flag it.'",
+        "After the fact: 'I wanted to come back to what was said earlier. I was not comfortable with it and I wanted to say so.'",
+        "Privately with the person affected: 'I saw what happened. I want you to know I did not think that was okay.'",
+        "With a manager or HR if the behaviour continues or is serious",
       ]} />
 
-      <KeyReminder text="If you notice something and think &ldquo;should I say something?&rdquo;, that question itself is often the signal that something should be said." />
+      <KeyReminder text="You do not have to be perfect to speak up. You just have to be willing." />
     </SlideShell>
   );
 }
@@ -235,27 +236,28 @@ function Slide4() {
 function Slide5() {
   return (
     <SlideShell>
-      <SlideHeading title="How to Respond: Speaking Up in the Moment" />
+      <SlideHeading title="Share Power; Amplify Voices" />
 
       <BodyText>
-        One of the most common barriers to allyship is not knowing what to say. Many people see something and want to act, but freeze because they are unsure of the right words or worry about making things worse. Here are practical techniques that work.
+        One of the most powerful things an ally can do is use their own privilege and platform to open doors for others. This is not charity; it is equity in action.
       </BodyText>
 
-      <SectionLabel text="Techniques for in-the-moment responses:" />
+      <SectionLabel text="Sharing power looks like this:" />
       <BulletList items={[
-        "Name what happened clearly and calmly: &ldquo;I want to go back to what was just said&rdquo; or &ldquo;I noticed Priya&rsquo;s point wasn&rsquo;t picked up; I think it is worth revisiting.&rdquo;",
-        "Ask a question that invites reflection without escalating: &ldquo;What did you mean by that?&rdquo; or &ldquo;Can you say more about why you put it that way?&rdquo;",
-        "Create a pause that disrupts the moment without confrontation: &ldquo;Let&rsquo;s hold on a second&rdquo; or &ldquo;Before we move on, I want to make sure we heard from everyone.&rdquo;",
-        "Amplify and attribute: actively repeat and credit a marginalised colleague&rsquo;s contribution; &ldquo;Building on what Marcus said earlier...&rdquo;",
-        "Use &lsquo;I&rsquo; statements to describe impact without attacking intent: &ldquo;I found that comment uncomfortable&rdquo; keeps the focus on the effect rather than the motive.",
+        "Recommending a colleague from an underrepresented group for a high-profile project, speaking opportunity, or promotion",
+        "Inviting a colleague to a senior meeting they would not normally attend",
+        "Crediting people for their ideas and contributions when others might overlook or absorb them",
+        "Stepping back in conversations to create space for others to speak, rather than always taking the floor yourself",
       ]} />
 
-      <SectionLabel text="When you miss the moment:" />
-      <BodyText>
-        You will not always respond in real time; and that is normal. Following up afterwards still matters. A private word with the affected colleague, or a later conversation with the person whose behaviour concerned you, can still be impactful and is often easier to do well.
-      </BodyText>
+      <SectionLabel text="Amplifying voices looks like this:" />
+      <BulletList items={[
+        "When a colleague from a marginalised group raises an idea in a meeting and it is overlooked, say: 'I thought what [name] said earlier was really important. Can we go back to that?'",
+        "When someone's contribution is credited to someone else, name it clearly: 'I think that was actually [name]'s idea. [Name], do you want to speak to it?'",
+        "When you share someone's work externally, attribute it clearly and fully",
+      ]} />
 
-      <KeyReminder text="Imperfect action is almost always better than perfect inaction. The goal is not a flawless intervention; it is showing up." />
+      <KeyReminder text="Amplifying is not about taking over. It is about making sure the right voice is heard, clearly and correctly attributed." />
     </SlideShell>
   );
 }
@@ -263,27 +265,36 @@ function Slide5() {
 function Slide6() {
   return (
     <SlideShell>
-      <SlideHeading title="Supporting Colleagues After an Incident" />
+      <SlideHeading title="Micro-affirmations and Supporting Accessibility" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/allyship/slide6-one-to-one.jpg" alt="Two colleagues in a quiet one-to-one conversation, one listening attentively" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+        <img src="/images/active-allyship/slide6-inclusive-workspace.jpg" alt="A welcoming, inclusive workspace with people collaborating in an accessible environment" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
       </div>
 
+      <SectionLabel text="Micro-affirmations:" />
       <BodyText>
-        When a colleague has experienced discrimination, a microaggression, or exclusion, your response after the fact matters as much as what you do in the moment. How you show up for someone privately can be the difference between them feeling isolated and feeling supported.
+        Micro-affirmations are small, everyday acts of inclusion that signal to someone: you belong here, your work is valued, you are seen. They are the opposite of micro-aggressions, and they matter just as much.
       </BodyText>
 
-      <SectionLabel text="How to support a colleague after an incident:" />
       <BulletList items={[
-        "Check in without assumption: &ldquo;I noticed what happened earlier and wanted to see how you are doing. You don&rsquo;t have to talk about it if you&rsquo;d rather not.&rdquo;",
-        "Listen more than you speak. Resist the urge to reassure, explain the other person&rsquo;s intent, or minimise the experience.",
-        "Validate without projecting: &ldquo;That sounds really frustrating&rdquo; rather than &ldquo;I would have been furious.&rdquo;",
-        "Ask what they need from you: &ldquo;Is there anything I can do to help, whether now or if it happens again?&rdquo;",
-        "Respect their agency. Do not escalate, report, or confront on their behalf without their knowledge and agreement.",
-        "Follow up. A brief check-in the next day shows that your support was genuine and not just a reaction.",
+        "Greeting a colleague warmly and using their name",
+        "Acknowledging their expertise publicly: 'I know [name] has real insight on this'",
+        "Checking in genuinely after a difficult meeting or event",
+        "Making space for someone in a conversation where they might otherwise be talked over",
+        "Noticing and naming good work: 'The report you wrote was really clear and well argued'",
       ]} />
 
-      <KeyReminder text="Your job as an ally is not to fix the situation or decide how they should feel about it. It is to be present, to listen, and to follow their lead." />
+      <SectionLabel text="Supporting accessibility:" />
+      <BodyText>
+        Allies think about whether meetings, events, and workspaces are accessible to everyone. They do not wait to be asked; they build accessibility in from the start and remain open to feedback when they have missed something.
+      </BodyText>
+
+      <BulletList items={[
+        "Ask; do not assume: 'Is there anything I should know about the format of this meeting to make it work for everyone?'",
+        "Consider physical accessibility, sensory needs, and cognitive load when planning events",
+        "Share agendas and materials in advance so people can prepare",
+        "Offer captions, note-takers, or recordings where possible",
+      ]} />
     </SlideShell>
   );
 }
@@ -291,30 +302,34 @@ function Slide6() {
 function Slide7() {
   return (
     <SlideShell>
-      <SlideHeading title="Allyship and Accountability" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/allyship/slide7-accountability.jpg" alt="A person pausing thoughtfully in a workplace setting, reflecting on their own behaviour" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
-      </div>
+      <SlideHeading title="Reflect, Be Accountable, and Create Safe Spaces" />
 
+      <SectionLabel text="Reflect and be accountable:" />
       <BodyText>
-        Active allyship also requires accountability: the willingness to examine your own behaviour honestly, to acknowledge when you have caused harm, and to change course without becoming defensive. No one practises perfect allyship. The question is how you respond when you fall short.
+        You will get things wrong. Every ally does. The question is not whether you will make mistakes; it is how you respond when you do.
       </BodyText>
 
-      <SectionLabel text="What accountability looks like in practice:" />
       <BulletList items={[
-        "When someone tells you that something you said or did caused harm, listen without defending or explaining away your intent",
-        "Acknowledge the impact: &ldquo;Thank you for telling me. I can see why that landed that way and I&rsquo;m sorry.&rdquo;",
-        "Do not make the other person responsible for managing your emotional response to the feedback",
-        "Commit to doing differently; not just once but as a pattern",
-        "Seek out your own learning rather than waiting to be educated by the people most affected",
+        "When someone tells you something you said or did caused harm, resist the urge to defend yourself immediately",
+        "A brief, genuine apology followed by a change in behaviour is far more meaningful than a lengthy defence of your intentions",
+        "Do not make the other person manage your guilt or reassure you that you are still a good person",
+        "Reflect privately on what happened and what you will do differently",
+        "Return to the person if appropriate to acknowledge it again once you have had time to process",
       ]} />
 
+      <SectionLabel text="Create safe spaces for others:" />
       <BodyText>
-        Being called in or called out is an opportunity, not an attack. The way you handle it sends a signal to everyone watching about whether your stated commitment to inclusion is real.
+        Allies model the psychological safety they want others to experience. They shut down gossip, challenge put-downs, and make it normal to raise concerns.
       </BodyText>
 
-      <KeyReminder text="Your intent does not determine the impact. Both things can be true: you did not mean to cause harm, and you did. Accepting both is what accountability looks like." />
+      <BulletList items={[
+        "Address exclusionary behaviour in team meetings and one-to-one conversations, not just in formal processes",
+        "Respond calmly and without defensiveness when concerns are raised about culture or behaviour",
+        "Check in with colleagues who seem to be struggling or being left out",
+        "Be consistent: do not challenge behaviour only when it is directed at groups you personally identify with",
+      ]} />
+
+      <KeyReminder text="Safe spaces are not spaces where nothing difficult is said. They are spaces where people trust that what they say will be heard and taken seriously." />
     </SlideShell>
   );
 }
@@ -322,41 +337,34 @@ function Slide7() {
 function Slide8() {
   return (
     <SlideShell>
-      <SlideHeading title="Performative vs Meaningful Allyship" />
-
-      <BodyText>
-        Not all allyship has equal impact. There is a meaningful difference between gestures that signal support and actions that create change. Understanding this distinction helps you direct your effort where it will matter most.
-      </BodyText>
+      <SlideHeading title="Commit to Continuous Action" />
 
       <div style={{
         background: "var(--sage-xlight)", border: "1px solid var(--sage-light)",
         borderRadius: "0.75rem", padding: "1.25rem 1.5rem", margin: "0 0 1.5rem 0",
       }}>
         <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, color: "var(--sage-dark)", fontSize: "0.9rem", margin: "0 0 0.5rem 0" }}>
-          📋 Consider the difference:
+          📋 A common pattern:
         </p>
         <BodyText>
-          A manager shares a post on LinkedIn for Pride Month but does not challenge the homophobic comment made by a team member in a meeting that same week. A team lead announces they support neurodiversity but never adjusts their communication style, meeting formats, or deadlines when a team member asks for reasonable adjustments.
+          An organisation runs a diversity training session. People leave feeling motivated and committed to change. Six weeks later, things look much the same. This pattern is not inevitable; but it is common, and it happens because allyship was treated as an event rather than a practice.
         </BodyText>
       </div>
 
-      <SectionLabel text="Signals of performative allyship:" />
+      <BodyText>
+        Allyship is not a one-off training event or a statement you post on social media. It is a lifelong practice of attention, learning, and action. It requires ongoing effort, especially when the stakes feel low or the issue does not affect you directly.
+      </BodyText>
+
+      <SectionLabel text="What continuous commitment looks like in practice:" />
       <BulletList items={[
-        "Support is expressed publicly but not backed by private or organisational action",
-        "Gestures happen during visible awareness events but not in ordinary daily interactions",
-        "The focus is on how the ally is perceived rather than on the needs of the people being supported",
-        "Speaking up is contingent on whether it feels safe or comfortable to do so",
+        "Scheduling time each month to read or listen to something that challenges your existing perspective",
+        "Regularly checking in with colleagues from marginalised groups (not to ask them to educate you, but to genuinely ask how they are experiencing the workplace)",
+        "Tracking your own behaviour over time: are you actually speaking up? Recommending people? Crediting contributions?",
+        "Holding yourself accountable by sharing your commitments with a trusted colleague or mentor",
+        "Revisiting this lesson and others in your learning record to refresh your thinking",
       ]} />
 
-      <SectionLabel text="Markers of meaningful allyship:" />
-      <BulletList items={[
-        "Consistent behaviour across contexts; not just when it is visible or rewarded",
-        "Willingness to accept discomfort; including the discomfort of challenging peers, managers, or team culture",
-        "Centering the needs and agency of marginalised colleagues; not the ally&rsquo;s own sense of virtue",
-        "Using systemic levers: recruitment decisions, promotion processes, resource allocation, policy input",
-      ]} />
-
-      <KeyReminder text="Performative allyship can actively harm people by creating the appearance of inclusion without the substance of it. Meaningful allyship requires skin in the game." />
+      <KeyReminder text="The discomfort of consistent allyship is far smaller than the harm of consistent inaction." />
     </SlideShell>
   );
 }
@@ -367,15 +375,15 @@ function Slide9() {
       <SlideHeading title="Time to Reflect" />
 
       <BodyText>
-        Take a few minutes to think honestly about your own allyship practice. There are no right or wrong answers here; the value is in sitting with the questions.
+        Take a few minutes to think honestly about where you are in your allyship practice.
       </BodyText>
 
       <ReflectionBox
-        prompt="Think about the last few weeks at work."
+        prompt="Think about the last month at work."
         subPrompts={[
-          "Can you think of a moment when you witnessed something that made you uncomfortable but you did not speak up? What held you back?",
-          "Is there a colleague from a marginalised group whose contributions you could do more to amplify or support?",
-          "What is one specific thing you could do differently this week to be a more active ally?",
+          "When did you have an opportunity to speak up or act as an ally? Did you take it? If not, what held you back?",
+          "Whose voice have you amplified recently? Whose contributions have you made sure were seen and credited?",
+          "What is one specific thing you can commit to doing differently in the next two weeks?",
         ]}
       />
       <MoveOnNote />
@@ -386,60 +394,34 @@ function Slide9() {
 function Slide10() {
   return (
     <SlideShell>
-      <SlideHeading title="Allyship Across Different Identities" />
+      <SlideHeading title="What the Evidence Says" />
 
       <BodyText>
-        Allyship is not a single, uniform practice. What it looks like; and what is needed; varies depending on the specific context, the identities involved, and the kind of harm or exclusion that is occurring. Effective allies pay attention to this variation rather than applying a one-size-fits-all approach.
+        Allyship is not just a moral argument; it is backed by a growing body of research on inclusion, belonging, and organisational performance.
       </BodyText>
 
-      <SectionLabel text="Considerations across different dimensions of identity:" />
+      <SectionLabel text="Key findings from research and practice:" />
       <BulletList items={[
-        "Race and ethnicity: be aware of the specific dynamics of racism in your organisation; do not conflate different groups or treat &ldquo;diversity&rdquo; as a single monolithic issue",
-        "Gender: allyship for women, non-binary people, and trans colleagues may look different; listen to what people from each group say they need rather than assuming",
-        "Disability and neurodiversity: allyship here often involves advocating for structural adjustments; reasonable accommodations, accessible formats, and flexible working arrangements",
-        "LGBTQ+: visible solidarity matters, but so does challenging everyday homophobia and transphobia, which are often subtle and easy to overlook",
-        "Socioeconomic background: this is an underacknowledged dimension; be aware of assumptions built into workplace culture about what is &ldquo;professional&rdquo; or &ldquo;normal&rdquo;",
+        "Employees who feel they have allies at work report significantly higher levels of psychological safety, engagement, and intention to stay",
+        "Research by Catalyst (2019) found that 45% of employees regularly experience exclusion at work, and that inclusive leaders make a direct difference to that experience",
+        "McKinsey's 'Diversity Wins' report (2020) found that companies in the top quartile for gender diversity are 25% more likely to achieve above-average profitability",
+        "Studies consistently show that bystander intervention; speaking up when you witness bias or exclusion; is one of the most effective tools for changing workplace culture",
+        "Allyship that is informal, everyday, and peer-led is often more effective than formal top-down diversity programmes alone",
       ]} />
 
-      <BodyText>
-        Intersectionality also matters. A Black woman, a disabled LGBTQ+ person, or a working-class person of colour may face compounding and overlapping forms of discrimination that are not captured by thinking about one identity at a time.
-      </BodyText>
+      <SectionLabel text="Relevant frameworks:" />
+      <BulletList items={[
+        "Catalyst: Inclusive Leadership research and practitioner resources on allyship",
+        "CIPD: Evidence-based guidance on inclusion, psychological safety, and leadership behaviour",
+        "Project Include: Research and resources on building cultures of inclusion in teams and organisations",
+      ]} />
 
-      <KeyReminder text="The most effective allies listen across contexts, learn from the people most affected, and adapt their approach accordingly; rather than assuming they already know what is needed." />
+      <KeyReminder text="The evidence is clear. Allyship is not a soft extra. It is a fundamental driver of the psychological safety and belonging that high-performing, inclusive teams are built on." />
     </SlideShell>
   );
 }
 
 function Slide11() {
-  return (
-    <SlideShell>
-      <SlideHeading title="What the Evidence Says" />
-
-      <BodyText>
-        Allyship is not just an ethical commitment; it has measurable impact on the experience and outcomes of people from marginalised groups. Here is a summary of what the evidence tells us.
-      </BodyText>
-
-      <SectionLabel text="Key findings from research and practice:" />
-      <BulletList items={[
-        "McKinsey research on inclusion consistently finds that employees who feel supported by allies report higher engagement, lower intention to leave, and greater psychological safety at work",
-        "Studies on bystander intervention show that third-party witnesses who intervene in discriminatory incidents significantly reduce the negative psychological impact on targets",
-        "Research on amplification; the practice of repeating and attributing marginalised colleagues&rsquo; contributions; shows it directly increases the visibility and influence of those colleagues in group settings",
-        "CIPD data on workplace inclusion show that line managers are the single biggest influence on whether an employee experiences their workplace as inclusive or not; making manager-level allyship particularly impactful",
-      ]} />
-
-      <SectionLabel text="Relevant frameworks and guidance:" />
-      <BulletList items={[
-        "CIPD Inclusion at Work report: practical guidance on the conditions that support inclusion, including allyship behaviours from managers",
-        "Equality Act 2010: the legal framework within which allyship behaviours operate, including protections against harassment and victimisation",
-        "organisational frameworks such as the National Equality Standard (NES) provide benchmarks for inclusive leadership and culture that allyship supports",
-      ]} />
-
-      <KeyReminder text="Allyship is both the right thing to do and an evidence-based driver of inclusion, retention, and psychological safety in the workplace." />
-    </SlideShell>
-  );
-}
-
-function Slide12() {
   return (
     <SlideShell>
       <SlideHeading title="Lesson Roundup" />
@@ -450,12 +432,12 @@ function Slide12() {
 
       <SectionLabel text="What you have learned:" />
       <BulletList items={[
-        "Allyship is a practice, not a label: it is defined by what you do, not what you believe or how you identify",
-        "Active allyship requires speaking up in the moment, supporting colleagues after incidents, and using systemic levers to drive change",
-        "Common situations that call for allyship include being talked over, having ideas misattributed, microaggressions, and exclusion from informal networks",
-        "Meaningful allyship is consistent, context-sensitive, and centred on the needs of marginalised colleagues; not on the ally&rsquo;s own comfort or reputation",
-        "Accountability is part of allyship: being willing to hear feedback, acknowledge impact, and change course without defensiveness",
-        "Allyship has measurable impact on inclusion, retention, and psychological safety in the workplace",
+        "Allyship is an ongoing, active practice; not a label, not a badge, and not a one-time act",
+        "It requires self-education, listening to understand, and speaking up even when it is uncomfortable",
+        "Sharing power and amplifying voices are two of the most tangible things an ally can do",
+        "Micro-affirmations and everyday acts of inclusion matter as much as big gestures",
+        "When you get it wrong, the right response is to apologise, reflect, and do better; not to defend yourself",
+        "Commitment to allyship is continuous; it must be maintained over time, not just in moments of visibility",
       ]} />
 
       <div style={{
@@ -473,54 +455,54 @@ function Slide12() {
   );
 }
 
-function Slide13Quiz({ onComplete }: { onComplete: (score: number) => void }) {
+function Slide12Quiz({ onComplete }: { onComplete: (score: number) => void }) {
   const [answers, setAnswers] = useState<QuizAnswers>({});
   const [submitted, setSubmitted] = useState(false);
 
   const questions = [
     {
-      q: "Which of the following best describes active allyship?",
+      q: "Allyship is best described as...",
       options: [
-        { id: "a", text: "Agreeing with the principles of equality and diversity" },
-        { id: "b", text: "Attending diversity events and using inclusive language when it feels comfortable" },
-        { id: "c", text: "Speaking up when you witness exclusion, amplifying marginalised voices, and using your access to advocate for change" },
-        { id: "d", text: "Identifying as an ally and making this known to your team" },
-      ],
-      correct: "c",
-      explanation: "Active allyship requires visible, consistent action in the moments that matter; not just private agreement or performative gestures. It means speaking up, amplifying others, and using whatever access or influence you have to create change.",
-    },
-    {
-      q: "A colleague whose idea was ignored in a meeting comes to you afterwards. What is the most appropriate response as an ally?",
-      options: [
-        { id: "a", text: "Tell them they should raise it again themselves next time" },
-        { id: "b", text: "Reassure them that the other person probably did not mean anything by it" },
-        { id: "c", text: "Listen, validate their experience, ask what they need, and respect their agency about next steps" },
-        { id: "d", text: "Report the incident to HR on their behalf immediately" },
-      ],
-      correct: "c",
-      explanation: "Supporting a colleague after an incident means listening, validating, and following their lead. Minimising the experience, acting without their consent, or redirecting responsibility back to them are not forms of allyship.",
-    },
-    {
-      q: "What distinguishes performative allyship from meaningful allyship?",
-      options: [
-        { id: "a", text: "Performative allies do not attend diversity events; meaningful allies do" },
-        { id: "b", text: "Meaningful allyship is consistent, context-sensitive, and centres the needs of marginalised people; performative allyship is visible but does not back actions with substance" },
-        { id: "c", text: "Performative allyship is practised by managers; meaningful allyship is practised by everyone" },
-        { id: "d", text: "Meaningful allyship only applies to protected characteristics under the Equality Act" },
+        { id: "a", text: "A badge or identity that you earn through attending diversity training" },
+        { id: "b", text: "An ongoing, active practice of advocacy and support for people from marginalised groups" },
+        { id: "c", text: "Speaking on behalf of marginalised people so they do not have to" },
+        { id: "d", text: "Agreeing with everything people from marginalised groups say" },
       ],
       correct: "b",
-      explanation: "Performative allyship signals support publicly without the substance of private or systemic action. Meaningful allyship is consistent across contexts, accepts discomfort, and centres the people it aims to support rather than the ally's own reputation.",
+      explanation: "Allyship is a verb, not a noun. It is demonstrated through consistent behaviour over time, not claimed through a single training session or public statement. The people best placed to judge whether someone is an ally are those they are trying to support.",
     },
     {
-      q: "A colleague tells you that something you said caused them harm. As an ally, what is the most appropriate response?",
+      q: "When someone shares a difficult experience of exclusion, the most helpful response is...",
       options: [
-        { id: "a", text: "Explain your intention clearly so they understand you meant no harm" },
-        { id: "b", text: "Thank them for telling you, acknowledge the impact, and commit to doing differently" },
-        { id: "c", text: "Apologise briefly and move on so as not to make it a bigger issue" },
-        { id: "d", text: "Ask them to discuss it with HR so it is handled formally" },
+        { id: "a", text: "Quickly reassure them that it was probably unintentional" },
+        { id: "b", text: "Share a similar experience you have had to show empathy" },
+        { id: "c", text: "Listen without interrupting or defending, and seek to understand" },
+        { id: "d", text: "Offer practical solutions to prevent it happening again" },
       ],
-      correct: "b",
-      explanation: "Accountability means accepting feedback without defending your intent, acknowledging the impact, and committing to change. Intent does not determine impact, and explaining your intention when someone raises a concern often makes them feel worse, not better.",
+      correct: "c",
+      explanation: "When someone shares an experience of exclusion, the first thing they need is to be heard and believed. Quickly reassuring them, sharing your own experience, or jumping to solutions can all minimise what they are sharing. Listening to understand is the foundation of effective allyship.",
+    },
+    {
+      q: "Which of the following is an example of amplifying a colleague's voice?",
+      options: [
+        { id: "a", text: "Agreeing with their idea privately after the meeting" },
+        { id: "b", text: "Forwarding their email to your manager without asking" },
+        { id: "c", text: "Repeating their idea in a meeting and crediting it to them by name" },
+        { id: "d", text: "Writing a glowing performance review for them at year end" },
+      ],
+      correct: "c",
+      explanation: "Amplifying means making sure someone's contribution is heard and properly attributed in the moment. Repeating an idea and crediting it clearly is one of the simplest and most effective forms of allyship in a meeting setting.",
+    },
+    {
+      q: "When you make a mistake as an ally, the right response is...",
+      options: [
+        { id: "a", text: "Defend your intentions at length so people know you meant well" },
+        { id: "b", text: "Avoid the person until things feel normal again" },
+        { id: "c", text: "Make a big public apology to show others you are committed to inclusion" },
+        { id: "d", text: "Apologise, learn from it, and commit to doing better without making the other person manage your guilt" },
+      ],
+      correct: "d",
+      explanation: "A genuine apology followed by changed behaviour is what matters. Lengthy defences of your intentions, avoiding the person, or making the moment about your own feelings all shift the burden back to the person who was affected. Accountability means owning the impact, not just the intention.",
     },
   ];
 
@@ -599,7 +581,7 @@ function Slide13Quiz({ onComplete }: { onComplete: (score: number) => void }) {
   );
 }
 
-function Slide14({ score }: { score: number }) {
+function Slide13({ score }: { score: number }) {
   return (
     <SlideShell>
       <SlideHeading title="How You Did and Your Takeaways" />
@@ -612,11 +594,12 @@ function Slide14({ score }: { score: number }) {
 
       <SectionLabel text="Your takeaways from this lesson:" />
       <BulletList items={[
-        "Allyship is a practice defined by action, not by identity or intent",
-        "The most impactful allyship happens in everyday moments; not just in formal settings or visibility events",
-        "Supporting a colleague means listening and following their lead, not taking over or minimising their experience",
-        "Meaningful allyship requires consistency, accountability, and a willingness to act even when it is uncomfortable",
-        "The impact of allyship is measurable: it reduces harm, increases psychological safety, and improves outcomes for marginalised colleagues",
+        "Allyship is an active, continuous practice; not a badge, a label, or a one-time commitment",
+        "Educate yourself; do not rely on marginalised colleagues to teach you",
+        "Listen to understand rather than to respond or fix",
+        "Use your platform, power, and influence to open doors and amplify voices",
+        "When you make a mistake, own it, apologise genuinely, and do better; without making it about yourself",
+        "Consistent, everyday allyship; in meetings, in decisions, in language; matters more than grand gestures",
       ]} />
     </SlideShell>
   );
@@ -625,21 +608,20 @@ function Slide14({ score }: { score: number }) {
 const SLIDE_TITLES = [
   "Welcome and Guidelines",
   "What Allyship Actually Means",
-  "Why Allies Matter",
-  "Common Situations That Call for an Ally",
-  "How to Respond: Speaking Up in the Moment",
-  "Supporting Colleagues After an Incident",
-  "Allyship and Accountability",
-  "Performative vs Meaningful Allyship",
+  "Educate Yourself; Listen to Understand",
+  "Use Inclusive Language; Speak Up and Step Up",
+  "Share Power; Amplify Voices",
+  "Micro-affirmations and Supporting Accessibility",
+  "Reflect, Be Accountable, and Create Safe Spaces",
+  "Commit to Continuous Action",
   "Time to Reflect",
-  "Allyship Across Different Identities",
   "What the Evidence Says",
   "Lesson Roundup",
   "Quiz",
   "How You Did and Your Takeaways",
 ];
 
-export default function AllyshipPage() {
+export default function ActiveAllyshipPage() {
   const [slide, setSlide] = useState(0);
   const [ttsActive, setTtsActive] = React.useState(false);
 
@@ -691,9 +673,8 @@ export default function AllyshipPage() {
     <Slide9 key={8} />,
     <Slide10 key={9} />,
     <Slide11 key={10} />,
-    <Slide12 key={11} />,
-    <Slide13Quiz key={12} onComplete={handleQuizComplete} />,
-    <Slide14 key={13} score={quizScore} />,
+    <Slide12Quiz key={11} onComplete={handleQuizComplete} />,
+    <Slide13 key={12} score={quizScore} />,
   ];
 
   const total = SLIDE_TITLES.length;
@@ -727,33 +708,35 @@ export default function AllyshipPage() {
 
         {/* Slide area */}
         <div style={{ paddingTop: "2rem", paddingBottom: "2rem" }}>
-          <div style={{ maxWidth: "680px", margin: "0 auto", padding: "0 1rem" }}>
-            {/* TTS button */}
-            <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "0.75rem" }}>
-              <button
-                onClick={readSlide}
-                title={ttsActive ? "Stop reading" : "Read slide aloud"}
-                style={{
-                  background: ttsActive ? "var(--sage-dark)" : "none",
-                  border: "1.5px solid var(--sage-dark)",
-                  borderRadius: "99px",
-                  padding: "0.35rem 0.85rem",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.4rem",
-                  fontFamily: "var(--font-heading)",
-                  fontWeight: 600,
-                  fontSize: "0.8rem",
-                  color: ttsActive ? "var(--white)" : "var(--sage-dark)",
-                  transition: "all 0.2s",
-                }}
-              >
-                {ttsActive ? "⏹ Stop" : "🔊 Listen"}
-              </button>
-            </div>
-            <div id="slide-content-area">
-              {slides[slide]}
+          <div style={{ maxWidth: "760px", margin: "0 auto", padding: "2rem 1rem" }}>
+            <div style={{ background: "var(--white)", border: "1.5px solid var(--gray-border)", borderRadius: "1.25rem", padding: "2.5rem 2rem", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
+              {/* TTS button */}
+              <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "0.75rem" }}>
+                <button
+                  onClick={readSlide}
+                  title={ttsActive ? "Stop reading" : "Read slide aloud"}
+                  style={{
+                    background: ttsActive ? "var(--sage-dark)" : "none",
+                    border: "1.5px solid var(--sage-dark)",
+                    borderRadius: "99px",
+                    padding: "0.35rem 0.85rem",
+                    cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.4rem",
+                    fontFamily: "var(--font-heading)",
+                    fontWeight: 600,
+                    fontSize: "0.8rem",
+                    color: ttsActive ? "var(--white)" : "var(--sage-dark)",
+                    transition: "all 0.2s",
+                  }}
+                >
+                  {ttsActive ? "⏹ Stop" : "🔊 Listen"}
+                </button>
+              </div>
+              <div id="slide-content-area">
+                {slides[slide]}
+              </div>
             </div>
           </div>
         </div>
@@ -816,7 +799,7 @@ export default function AllyshipPage() {
               <Link href="/dashboard/learn" style={{
                 background: "var(--sage-dark)", border: "none",
                 borderRadius: "0.5rem", padding: "0.55rem 1.25rem",
-                fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.9rem",
+                fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem",
                 color: "var(--white)", textDecoration: "none",
               }}>
                 Finish lesson

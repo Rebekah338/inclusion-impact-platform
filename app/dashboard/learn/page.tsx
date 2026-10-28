@@ -1,5 +1,7 @@
 "use client";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import { getCompleted } from "@/lib/completionStore";
 import Link from "next/link";
 import PlatformNav from "@/app/components/PlatformNav";
 import BottomBanner from "@/app/components/BottomBanner";
@@ -32,7 +34,7 @@ const pathways = [
             title: "Language & Communication",
             lessons: [
               { id: "communicating-inclusively", title: "Communicating Inclusively: Language, Tone and Boundaries" },
-              { id: "pronouns-language", title: "Pronouns and Language: A Practical Workplace Guide" },
+              { id: "pronouns-and-language", title: "Pronouns and Language: A Practical Workplace Guide" },
               { id: "speaking-up", title: "Speaking Up: Challenging Exclusionary Behaviour at Work" },
             ],
           },
@@ -41,7 +43,7 @@ const pathways = [
             title: "Allyship in Action",
             lessons: [
               { id: "active-allyship", title: "Active Allyship: Moving from Intention to Impact" },
-              { id: "what-is-intersectionality", title: "What Is Intersectionality? A Practical Introduction", proposed: true },
+              { id: "what-is-intersectionality", title: "What Is Intersectionality? A Practical Introduction" },
             ],
           },
         ],
@@ -57,7 +59,7 @@ const pathways = [
             title: "Culture & Belonging",
             lessons: [
               { id: "building-inclusive-workplace", title: "Building an Inclusive Workplace Culture" },
-              { id: "run-meetings", title: "Run Meetings That Work for Everyone" },
+              { id: "run-meetings-that-work", title: "Run Meetings That Work for Everyone" },
               { id: "hybrid-remote", title: "Inclusion Across Distance: Hybrid and Remote Working" },
             ],
           },
@@ -74,8 +76,8 @@ const pathways = [
             id: "identity-at-work",
             title: "Identity at Work",
             lessons: [
-              { id: "ageism", title: "Age-Inclusive Workplaces: Recognising and Addressing Ageism" },
-              { id: "gender-equitable", title: "Creating Gender-Equitable Workplaces" },
+              { id: "age-inclusive-workplaces", title: "Age-Inclusive Workplaces: Recognising and Addressing Ageism" },
+              { id: "gender-equitable-workplaces", title: "Creating Gender-Equitable Workplaces" },
               { id: "anti-racist-practice", title: "Anti-Racist Practice: A Practical Framework" },
             ],
           },
@@ -101,7 +103,7 @@ const pathways = [
             id: "attracting-diverse-talent",
             title: "Attracting Diverse Talent",
             lessons: [
-              { id: "job-descriptions", title: "Write Job Descriptions That Include Everyone" },
+              { id: "inclusive-job-descriptions", title: "Write Job Descriptions That Include Everyone" },
               { id: "recruit-inclusively", title: "Recruit Inclusively: Your Quick-Start Checklist" },
               { id: "bias-free-interviewing", title: "Bias-Free Interviewing: Ask Better Questions" },
             ],
@@ -111,7 +113,7 @@ const pathways = [
             title: "Joining & Staying",
             lessons: [
               { id: "onboard-inclusively", title: "Onboard Inclusively From Day One" },
-              { id: "exit-interviews", title: "Exit Interviews That Surface Inclusion Data" },
+              { id: "exit-interviews-inclusion", title: "Exit Interviews That Surface Inclusion Data" },
               { id: "retention", title: "Retention That Works: Keeping an Inclusive Workforce" },
             ],
           },
@@ -129,7 +131,7 @@ const pathways = [
             lessons: [
               { id: "policy-audit", title: "Inclusion-Ready Policies: A Practical Audit" },
               { id: "positive-action", title: "Positive Action vs Positive Discrimination: Know the Difference" },
-              { id: "equality-act", title: "Understanding the Equality Act: What Practitioners Need to Know", proposed: true },
+              { id: "equality-act", title: "Understanding the Equality Act: What Practitioners Need to Know" },
             ],
           },
           {
@@ -146,7 +148,7 @@ const pathways = [
             lessons: [
               { id: "disability-inclusion", title: "Disability Inclusion: Best Practice for Leaders" },
               { id: "neuroinclusion", title: "Neuroinclusion at Work: What Leaders Need to Know" },
-              { id: "reasonable-adjustments", title: "Reasonable Adjustments in Practice", proposed: true },
+              { id: "reasonable-adjustments", title: "Reasonable Adjustments in Practice" },
             ],
           },
         ],
@@ -173,7 +175,7 @@ const pathways = [
             lessons: [
               { id: "leadership-reflection", title: "Inclusive Leadership: A Structured Reflection Programme" },
               { id: "decide-inclusively", title: "Decide Inclusively: A Framework for Leaders" },
-              { id: "psychological-safety", title: "Psychological Safety: What Leaders Need to Create It", proposed: true },
+              { id: "psychological-safety", title: "Psychological Safety: What Leaders Need to Create It" },
             ],
           },
           {
@@ -196,15 +198,15 @@ const pathways = [
             id: "building-business-case",
             title: "Building the Business Case",
             lessons: [
-              { id: "business-case-inclusion", title: "Making the Business Case for Inclusion", proposed: true },
-              { id: "measuring-inclusion", title: "Measuring Inclusion: Metrics That Matter", proposed: true },
+              { id: "business-case-inclusion", title: "Making the Business Case for Inclusion" },
+              { id: "measuring-inclusion", title: "Measuring Inclusion: Metrics That Matter" },
             ],
           },
           {
             id: "embedding-systemically",
             title: "Embedding Inclusion Systemically",
             lessons: [
-              { id: "edi-strategy", title: "Developing an EDI Strategy from Scratch", proposed: true },
+              { id: "edi-strategy", title: "Developing an EDI Strategy from Scratch" },
             ],
           },
         ],
@@ -213,12 +215,12 @@ const pathways = [
   },
 ];
 
-const QUICK_LESSONS = [
+const FOUNDATION_LESSONS = [
   {
     id: "understanding-your-bias",
     title: "Understanding Your Bias: A Self-Reflection Starter",
     blurb: "Walk away with a clear picture of your own biases and a simple framework to keep them in check.",
-    duration: "10 min",
+    duration: "20 min",
     color: "#2A6B3A",
     thumbnailBg: "linear-gradient(135deg, #2A6B3A 0%, #4A8F5A 100%)",
     tag: "Bias",
@@ -233,7 +235,7 @@ const QUICK_LESSONS = [
     tag: "Recruitment",
   },
   {
-    id: "run-meetings",
+    id: "run-meetings-that-work",
     title: "Run Meetings That Work for Everyone",
     blurb: "Simple, actionable changes to make every meeting more inclusive from your next one.",
     duration: "12 min",
@@ -242,7 +244,7 @@ const QUICK_LESSONS = [
     tag: "Culture",
   },
   {
-    id: "pronouns-language",
+    id: "pronouns-and-language",
     title: "Pronouns and Language: A Practical Workplace Guide",
     blurb: "Get confident with inclusive language and pronouns — with real workplace examples.",
     duration: "10 min",
@@ -294,10 +296,30 @@ const ALL_TAGS = [
   "Race", "Recruitment", "Strategy",
 ];
 
-export default function LearnPage() {
+function LearnPageInner() {
   const [search, setSearch] = useState("");
   const [activeTag, setActiveTag] = useState<string | null>(null);
   const [expandedCourses, setExpandedCourses] = useState<Set<string>>(new Set());
+  const [completedLessons, setCompletedLessons] = useState<Set<string>>(new Set());
+  const searchParams = useSearchParams();
+  const courseRefs = useRef<Record<string, HTMLDivElement | null>>({});
+
+  useEffect(() => {
+    setCompletedLessons(getCompleted());
+    const handler = () => setCompletedLessons(getCompleted());
+    window.addEventListener("tie_completion_changed", handler);
+    return () => window.removeEventListener("tie_completion_changed", handler);
+  }, []);
+
+  useEffect(() => {
+    const from = searchParams.get("from");
+    if (!from) return;
+    setExpandedCourses((prev) => { const next = new Set(prev); next.add(from); return next; });
+    setTimeout(() => {
+      const el = courseRefs.current[from];
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  }, [searchParams]);
 
   const toggleCourse = (courseId: string) => {
     setExpandedCourses((prev) => {
@@ -333,6 +355,25 @@ export default function LearnPage() {
     })).filter((p) => p.courses.length > 0);
   }, [search, activeTag]);
 
+  const filteredFoundationLessons = useMemo(() => {
+    const q = search.toLowerCase();
+    return FOUNDATION_LESSONS.filter((lesson) => {
+      const matchesSearch = !q || lesson.title.toLowerCase().includes(q) || lesson.tag.toLowerCase().includes(q) || lesson.blurb.toLowerCase().includes(q);
+      const matchesTag = !activeTag || lesson.tag === activeTag;
+      return matchesSearch && matchesTag;
+    });
+  }, [search, activeTag]);
+
+  // Auto-expand course modules when a filter or search is active
+  useEffect(() => {
+    if (activeTag || search) {
+      const ids = new Set(filteredPathways.flatMap((p) => p.courses.map((c) => c.id)));
+      setExpandedCourses(ids);
+    } else {
+      setExpandedCourses(new Set());
+    }
+  }, [activeTag, search, filteredPathways]);
+
   const totalLessons = pathways.reduce((sum, p) => sum + p.courses.reduce((s, c) => s + c.modules.reduce((ms, m) => ms + m.lessons.length, 0), 0), 0);
   const totalCourses = pathways.reduce((sum, p) => sum + p.courses.length, 0);
   const totalModules = pathways.reduce((sum, p) => sum + p.courses.reduce((s, c) => s + c.modules.length, 0), 0);
@@ -353,7 +394,7 @@ export default function LearnPage() {
                 Explore Courses
               </h1>
               <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.95rem" }}>
-                {totalCourses} CPD-accredited courses · {totalModules} modules · {totalLessons} lessons · Certificate after every module
+                {totalCourses} expert developed courses · {totalModules} modules · {totalLessons} lessons · Certificate after every module
               </p>
             </div>
             <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
@@ -399,21 +440,23 @@ export default function LearnPage() {
       <main id="main-content" style={{ maxWidth: "1100px", margin: "0 auto", padding: "2.5rem 1.5rem 5rem" }}>
 
         {/* SHORT ON TIME SECTION */}
+        {filteredFoundationLessons.length > 0 && (
         <section style={{ marginBottom: "3.5rem" }}>
           <div style={{ marginBottom: "1.25rem" }}>
             <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.15rem", color: "var(--charcoal)", margin: "0 0 0.35rem 0" }}>
-              ⚡ Short on time? Start here.
+              📖 Foundation Lessons
             </h2>
             <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", margin: 0 }}>
-              No time for a full module? These standalone lessons deliver practical tools in under 15 minutes.
+              No time to complete a full module today? Take a foundation lesson.
             </p>
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1rem" }}>
-            {QUICK_LESSONS.map((lesson) => (
-              <div
+            {filteredFoundationLessons.map((lesson) => (
+              <Link
                 key={lesson.id}
-                style={{ display: "flex", flexDirection: "column", background: "var(--white)", borderRadius: "14px", overflow: "hidden", border: "1px solid var(--gray-border)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)", cursor: "pointer", transition: "box-shadow 0.18s, transform 0.18s" }}
+                href={`/dashboard/learn/${lesson.id}`}
+                style={{ display: "flex", flexDirection: "column", background: "var(--white)", borderRadius: "14px", overflow: "hidden", border: "1px solid var(--gray-border)", boxShadow: "0 1px 4px rgba(0,0,0,0.06)", cursor: "pointer", transition: "box-shadow 0.18s, transform 0.18s", textDecoration: "none" }}
                 onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 6px 24px rgba(0,0,0,0.11)"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
                 onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 1px 4px rgba(0,0,0,0.06)"; (e.currentTarget as HTMLElement).style.transform = "translateY(0)"; }}
               >
@@ -421,8 +464,13 @@ export default function LearnPage() {
                 <div style={{ background: lesson.thumbnailBg, height: "80px", position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <span style={{ fontSize: "2rem" }} aria-hidden="true">📖</span>
                   <span style={{ position: "absolute", top: "0.6rem", right: "0.75rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.6rem", textTransform: "uppercase", letterSpacing: "0.08em", background: "rgba(255,255,255,0.25)", color: "var(--white)", padding: "0.2rem 0.5rem", borderRadius: "999px" }}>
-                    ⚡ Quick lesson
+                    📖 Foundation lesson
                   </span>
+                  {completedLessons.has(lesson.id) && (
+                    <span style={{ position: "absolute", bottom: "0.6rem", right: "0.75rem", background: "var(--sage-dark)", color: "var(--white)", borderRadius: "999px", width: "1.4rem", height: "1.4rem", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.75rem", fontWeight: 700 }} title="Completed">
+                      ✓
+                    </span>
+                  )}
                   <span style={{ position: "absolute", bottom: "0.6rem", left: "0.75rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", color: "rgba(255,255,255,0.85)", background: "rgba(0,0,0,0.2)", padding: "0.15rem 0.5rem", borderRadius: "999px" }}>
                     ⏱ {lesson.duration}
                   </span>
@@ -442,10 +490,11 @@ export default function LearnPage() {
                     </span>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </section>
+        )}
 
         {/* DIVIDER */}
         <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "2.5rem" }}>
@@ -486,7 +535,7 @@ export default function LearnPage() {
                 const isExpanded = expandedCourses.has(course.id);
                 const lessonCount = course.modules.reduce((s, m) => s + m.lessons.length, 0);
                 return (
-                  <div key={course.id} style={{ background: "var(--white)", borderRadius: "16px", border: "1px solid var(--gray-border)", overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
+                  <div key={course.id} ref={(el) => { courseRefs.current[course.id] = el; }} style={{ background: "var(--white)", borderRadius: "16px", border: "1px solid var(--gray-border)", overflow: "hidden", boxShadow: "0 1px 4px rgba(0,0,0,0.06)" }}>
 
                     {/* Course header band */}
                     <div style={{ background: pathway.thumbnailBg, padding: "1.25rem 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem" }}>
@@ -551,7 +600,7 @@ export default function LearnPage() {
                               {/* Lessons list */}
                               <div style={{ padding: "0.5rem 0" }}>
                                 {mod.lessons.map((lesson, lessonIdx) => (
-                                  <div key={lesson.id} style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.6rem 1rem", borderBottom: lessonIdx < mod.lessons.length - 1 ? "1px solid var(--gray-border)" : "none" }}>
+                                  <Link key={lesson.id} href={(lesson as any).proposed ? "#" : `/dashboard/learn/${lesson.id}?from=${course.id}`} style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.6rem 1rem", borderBottom: lessonIdx < mod.lessons.length - 1 ? "1px solid var(--gray-border)" : "none", textDecoration: "none", color: "inherit", pointerEvents: (lesson as any).proposed ? "none" : "auto" }}>
                                     <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", color: "var(--gray-soft)", minWidth: "1.5rem" }}>
                                       {String(lessonIdx + 1).padStart(2, "0")}
                                     </span>
@@ -563,8 +612,12 @@ export default function LearnPage() {
                                         Coming soon
                                       </span>
                                     )}
-                                    <span style={{ fontSize: "0.7rem", color: "var(--gray-soft)" }}>🔒</span>
-                                  </div>
+                                    {completedLessons.has(lesson.id) && (
+                                      <span style={{ background: "var(--sage-dark)", color: "var(--white)", borderRadius: "999px", width: "1.25rem", height: "1.25rem", display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: "0.65rem", fontWeight: 700, flexShrink: 0 }} title="Completed">
+                                        ✓
+                                      </span>
+                                    )}
+                                  </Link>
                                 ))}
                               </div>
                             </div>
@@ -579,7 +632,19 @@ export default function LearnPage() {
           </section>
         ))}
       </main>
-      <BottomBanner />
+      <BottomBanner
+        resourceTitle="Request a new lesson"
+        resourceBody="Is there a topic or area you wish existed as a lesson or module on the platform? Let us know and we'll build it."
+        resourcePlaceholder="Describe the lesson you need…"
+      />
     </div>
+  );
+}
+
+export default function LearnPage() {
+  return (
+    <Suspense>
+      <LearnPageInner />
+    </Suspense>
   );
 }

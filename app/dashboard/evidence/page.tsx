@@ -1511,8 +1511,8 @@ function EvidencePageInner() {
   const [ebSector, setEbSector] = useState("");
   const [ebSize, setEbSize] = useState("");
   const [ebAudience, setEbAudience] = useState("");
-  const [ebResistance, setEbResistance] = useState("");
-  const [ebOutcome, setEbOutcome] = useState("");
+  const [ebResistance, setEbResistance] = useState<string[]>([]);
+  const [ebOutcome, setEbOutcome] = useState<string[]>([]);
   const [ebLoading, setEbLoading] = useState(false);
   const [ebResult, setEbResult] = useState<{ section1: string; section2: string; section3: string; section4: string } | null>(null);
   const [ebCopied, setEbCopied] = useState<string | null>(null);
@@ -1535,7 +1535,7 @@ function EvidencePageInner() {
   const [ebRResult, setEbRResult] = useState<{ s1: string; s2: string; s3: string } | null>(null);
   const [ebRCopied, setEbRCopied] = useState<string | null>(null);
 
-  // Tool 3: Anticipate the Objections
+  // Tool 3: Case Study Replication Roadmap
   const [t3Sector, setT3Sector] = useState("");
   const [t3Size, setT3Size] = useState("");
   const [t3Argument, setT3Argument] = useState("");
@@ -1710,7 +1710,7 @@ function EvidencePageInner() {
       const res = await fetch("/api/tool-eb", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ topic: ebTopic, sector: ebSector, size: ebSize, audience: ebAudience, resistance: ebResistance, outcome: ebOutcome }),
+        body: JSON.stringify({ topic: ebTopic, sector: ebSector, size: ebSize, audience: ebAudience, resistance: ebResistance.join("; "), outcome: ebOutcome.join("; ") }),
       });
       const data = await res.json();
       setEbResult({ section1: data.section1 || "", section2: data.section2 || "", section3: data.section3 || "", section4: data.section4 || "" });
@@ -1729,7 +1729,7 @@ function EvidencePageInner() {
   }
 
   function resetEb() {
-    setEbTopic(""); setEbSector(""); setEbSize(""); setEbAudience(""); setEbResistance(""); setEbOutcome(""); setEbResult(null); setEbCopied(null);
+    setEbTopic(""); setEbSector(""); setEbSize(""); setEbAudience(""); setEbResistance([]); setEbOutcome([]); setEbResult(null); setEbCopied(null);
   }
 
   // Research Interpreter handler (Tool 1 embedded in Evidence Builder)
@@ -1765,7 +1765,7 @@ function EvidencePageInner() {
     setEbResearchTitle(""); setEbResearchSummary(""); setEbRSector(""); setEbRSize(""); setEbRProgress(""); setEbRChallenge(""); setEbROutcomes(""); setEbRAudience(""); setEbRResult(null); setEbRCopied(null);
   }
 
-  // Tool 3: Anticipate the Objections
+  // Tool 3: Case Study Replication Roadmap
   async function handleTool3Submit() {
     if (!t3Argument.trim() || !t3Sector || !t3Size || !t3Audience) return;
     setT3Loading(true);
@@ -2509,11 +2509,11 @@ function EvidencePageInner() {
                 </button>
               </div>
 
-              {/* Card 3: Objection Handler */}
+              {/* Card 3: Case Study Replication Roadmap */}
               <div className="card" style={{ display: "flex", flexDirection: "column", gap: "1rem", border: ebActiveTool === "objections" ? "2px solid var(--sage-dark)" : undefined }}>
                 <div style={{ fontSize: "2rem" }}>🛡️</div>
                 <div>
-                  <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", margin: "0 0 0.4rem 0" }}>Anticipate the Objections</h3>
+                  <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", margin: "0 0 0.4rem 0" }}>Case Study Replication Roadmap</h3>
                   <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: 0 }}>
                     Tell us the argument you are making and who you are making it to. We will predict the pushback you will get and give you sharp, prepared responses for each objection.
                   </p>
@@ -2587,9 +2587,9 @@ function EvidencePageInner() {
                       </select>
                     </div>
 
-                    {/* Q5: Resistance */}
+                    {/* Q5: Resistance — multi-select */}
                     <div>
-                      <label style={labelStyle}>What is the main resistance you are facing?</label>
+                      <label style={labelStyle}>What is the main resistance you are facing? <span style={{ fontWeight: 400, color: "var(--gray-soft)" }}>(select all that apply)</span></label>
                       <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                         {[
                           "They do not think it is a priority",
@@ -2598,18 +2598,23 @@ function EvidencePageInner() {
                           "They want more evidence before acting",
                           "There is no resistance yet; I am being proactive",
                           "Other",
-                        ].map(opt => (
-                          <label key={opt} style={{ display: "flex", alignItems: "center", gap: "0.75rem", cursor: "pointer", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: ebResistance === opt ? "var(--charcoal)" : "var(--gray-soft)", fontWeight: ebResistance === opt ? 600 : 400 }}>
-                            <div onClick={() => setEbResistance(opt)} style={{ width: "18px", height: "18px", borderRadius: "50%", border: `2px solid ${ebResistance === opt ? "var(--sage-dark)" : "var(--gray-border)"}`, background: ebResistance === opt ? "var(--sage-dark)" : "var(--white)", flexShrink: 0, cursor: "pointer" }} />
-                            {opt}
-                          </label>
-                        ))}
+                        ].map(opt => {
+                          const selected = ebResistance.includes(opt);
+                          return (
+                            <label key={opt} onClick={() => setEbResistance(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} style={{ display: "flex", alignItems: "center", gap: "0.75rem", cursor: "pointer", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: selected ? "var(--charcoal)" : "var(--gray-soft)", fontWeight: selected ? 600 : 400 }}>
+                              <div style={{ width: "18px", height: "18px", borderRadius: "4px", border: `2px solid ${selected ? "var(--sage-dark)" : "var(--gray-border)"}`, background: selected ? "var(--sage-dark)" : "var(--white)", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                {selected && <span style={{ color: "var(--white)", fontSize: "0.7rem", lineHeight: 1 }}>✓</span>}
+                              </div>
+                              {opt}
+                            </label>
+                          );
+                        })}
                       </div>
                     </div>
 
-                    {/* Q6: Outcome */}
+                    {/* Q6: Outcome — multi-select */}
                     <div>
-                      <label style={labelStyle}>What outcome are you hoping for from this conversation?</label>
+                      <label style={labelStyle}>What outcome are you hoping for from this conversation? <span style={{ fontWeight: 400, color: "var(--gray-soft)" }}>(select all that apply)</span></label>
                       <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                         {[
                           "I want them to approve a budget",
@@ -2617,21 +2622,26 @@ function EvidencePageInner() {
                           "I want to get this on the agenda for a future meeting",
                           "I just want them to understand why this matters",
                           "Other",
-                        ].map(opt => (
-                          <label key={opt} style={{ display: "flex", alignItems: "center", gap: "0.75rem", cursor: "pointer", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: ebOutcome === opt ? "var(--charcoal)" : "var(--gray-soft)", fontWeight: ebOutcome === opt ? 600 : 400 }}>
-                            <div onClick={() => setEbOutcome(opt)} style={{ width: "18px", height: "18px", borderRadius: "50%", border: `2px solid ${ebOutcome === opt ? "var(--sage-dark)" : "var(--gray-border)"}`, background: ebOutcome === opt ? "var(--sage-dark)" : "var(--white)", flexShrink: 0, cursor: "pointer" }} />
-                            {opt}
-                          </label>
-                        ))}
+                        ].map(opt => {
+                          const selected = ebOutcome.includes(opt);
+                          return (
+                            <label key={opt} onClick={() => setEbOutcome(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} style={{ display: "flex", alignItems: "center", gap: "0.75rem", cursor: "pointer", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: selected ? "var(--charcoal)" : "var(--gray-soft)", fontWeight: selected ? 600 : 400 }}>
+                              <div style={{ width: "18px", height: "18px", borderRadius: "4px", border: `2px solid ${selected ? "var(--sage-dark)" : "var(--gray-border)"}`, background: selected ? "var(--sage-dark)" : "var(--white)", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                {selected && <span style={{ color: "var(--white)", fontSize: "0.7rem", lineHeight: 1 }}>✓</span>}
+                              </div>
+                              {opt}
+                            </label>
+                          );
+                        })}
                       </div>
                     </div>
 
                     <div>
                       <button
                         onClick={handleEvidenceBuilder}
-                        disabled={!ebTopic.trim() || !ebSector || !ebSize || !ebAudience || !ebResistance || !ebOutcome || ebLoading}
+                        disabled={!ebTopic.trim() || !ebSector || !ebSize || !ebAudience || ebResistance.length === 0 || ebOutcome.length === 0 || ebLoading}
                         className="btn-primary"
-                        style={{ fontSize: "0.925rem", padding: "0.875rem 2rem", opacity: (!ebTopic.trim() || !ebSector || !ebSize || !ebAudience || !ebResistance || !ebOutcome) ? 0.5 : 1, cursor: (!ebTopic.trim() || !ebSector || !ebSize || !ebAudience || !ebResistance || !ebOutcome) ? "not-allowed" : "pointer" }}
+                        style={{ fontSize: "0.925rem", padding: "0.875rem 2rem", opacity: (!ebTopic.trim() || !ebSector || !ebSize || !ebAudience || ebResistance.length === 0 || ebOutcome.length === 0) ? 0.5 : 1, cursor: (!ebTopic.trim() || !ebSector || !ebSize || !ebAudience || ebResistance.length === 0 || ebOutcome.length === 0) ? "not-allowed" : "pointer" }}
                       >
                         {ebLoading ? "Building your case…" : "Build my argument →"}
                       </button>
@@ -2829,10 +2839,10 @@ function EvidencePageInner() {
               </section>
             )}
 
-            {/* Tool 3 panel: Anticipate the Objections */}
+            {/* Tool 3 panel: Case Study Replication Roadmap */}
             {ebActiveTool === "objections" && (
               <section style={{ background: "var(--white)", borderRadius: "16px", padding: "2rem", marginBottom: "2rem", border: "2px solid var(--sage-dark)" }}>
-                <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.05rem", color: "var(--charcoal)", marginBottom: "0.375rem" }}>Anticipate the Objections</h3>
+                <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.05rem", color: "var(--charcoal)", marginBottom: "0.375rem" }}>Case Study Replication Roadmap</h3>
                 <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", marginBottom: "1.75rem" }}>Tell us what argument you are making and who you are making it to. We will predict the objections you will face and give you sharp, prepared responses for each one.</p>
                 {!t3Result ? (
                   <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", marginBottom: "1.5rem" }}>

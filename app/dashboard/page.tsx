@@ -41,9 +41,26 @@ export default function DashboardPage() {
       setLargeText(prefs.largeText || false);
     }
     const comp = localStorage.getItem("completedModules");
-    if (comp) setCompletedModules(JSON.parse(comp));
+    const compLessons = localStorage.getItem("tie_completed_lessons");
+    const legacyIds: string[] = comp ? JSON.parse(comp) : [];
+    const lessonIds: string[] = compLessons ? JSON.parse(compLessons) : [];
+    const merged = Array.from(new Set([...legacyIds, ...lessonIds]));
+    if (merged.length > 0) setCompletedModules(merged);
     const pins = localStorage.getItem("pinnedSummaries");
     if (pins) setPinnedSummaries(JSON.parse(pins));
+  }, []);
+
+  // Keep progress bar in sync when a lesson is completed on this page visit
+  useEffect(() => {
+    const handler = () => {
+      const comp2 = localStorage.getItem("completedModules");
+      const compLessons2 = localStorage.getItem("tie_completed_lessons");
+      const legacy2: string[] = comp2 ? JSON.parse(comp2) : [];
+      const lessons2: string[] = compLessons2 ? JSON.parse(compLessons2) : [];
+      setCompletedModules(Array.from(new Set([...legacy2, ...lessons2])));
+    };
+    window.addEventListener("tie_completion_changed", handler);
+    return () => window.removeEventListener("tie_completion_changed", handler);
   }, []);
 
   useEffect(() => {
