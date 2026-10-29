@@ -36,26 +36,28 @@ type Resource = {
 };
 
 const ALL_RESOURCES: Resource[] = [
-  { id: "r1", icon: "🔍", title: "EDI Audit Tool", desc: "A structured self-assessment to identify gaps in your current EDI practice across recruitment, leadership, culture, and systems.", format: "Tool", topics: ["Inclusion Practices"], time: "30–45 min" },
-  { id: "r2", icon: "⚖️", title: "Equality Impact Assessment Template", desc: "A ready-to-use EIA template for policy, project, or service changes with step-by-step guidance and example completions.", format: "Tool", topics: ["Inclusion Practices"], time: "20–60 min" },
-  { id: "r3", icon: "📊", title: "EDI Data Collection Framework", desc: "How to collect, store, and use EDI data responsibly with sample questions, comms templates, and GDPR considerations.", format: "Framework", topics: ["Inclusion Practices"], time: "Reference" },
-  { id: "r4", icon: "📣", title: "Business Case Builder", desc: "Structure your internal business case for EDI investment using evidence, ROI data, and narrative frameworks that resonate with decision-makers.", format: "Tool", topics: ["Inclusion Practices"], time: "45–60 min" },
-  { id: "r5", icon: "🗓️", title: "30/60/90 Day EDI Action Planner", desc: "A practical planning tool for those new to an EDI role or kicking off a new strategy. Break your first quarter into focused, achievable steps.", format: "Tool", topics: ["Inclusion Practices"], time: "60 min" },
-  { id: "r6", icon: "📐", title: "Inclusion Maturity Framework", desc: "Assess where your organisation sits on the inclusion maturity spectrum and identify the most impactful next steps.", format: "Framework", topics: ["Inclusion Practices"], time: "45 min" },
-  { id: "r7", icon: "🎯", title: "Getting Started with EDI Strategy", desc: "A step-by-step guide to scoping, designing, and launching your first organisation-wide EDI strategy from baseline audit to board sign-off.", format: "Guide", topics: ["Inclusion Practices"], time: "20 min read" },
-  { id: "r8", icon: "🗣️", title: "Talking to Sceptical Stakeholders", desc: "How to navigate resistance from senior leaders and budget holders with evidence-based arguments and conversation frameworks.", format: "Guide", topics: ["Inclusion Practices"], time: "10 min read" },
-  { id: "r9", icon: "🌱", title: "Building an Inclusion Culture", desc: "Moving beyond policy to embed inclusion in everyday practice covering psychological safety, belonging, and manager behaviour.", format: "Guide", topics: ["Inclusion Practices"], time: "15 min read" },
-  { id: "r10", icon: "🧩", title: "Intersectionality in Practice", desc: "How to apply an intersectional lens to your EDI work in research, policy, and practice without tokenism or oversimplification.", format: "Guide", topics: ["Inclusion Practices"], time: "15 min read" },
-  { id: "r11", icon: "🤝", title: "Allyship: From Awareness to Action", desc: "A practical guide to building a culture of active allyship across your organisation: not just declarations, but sustainable behaviour change.", format: "Guide", topics: ["Inclusion Practices"], time: "12 min read" },
-  { id: "r12", icon: "📋", title: "Inclusive Recruitment Checklist", desc: "Step-by-step guidance for each stage of your recruitment process from job design to onboarding. 47 checkpoints across 8 stages.", format: "Checklist", topics: ["Race and Ethnicity", "Gender", "Disability"], time: "15 min" },
-  { id: "r13", icon: "✅", title: "Inclusive Meetings Checklist", desc: "Before, during, and after checks to ensure your meetings and workshops are accessible and inclusive to all participants.", format: "Checklist", topics: ["Disability", "Neurodiversity"], time: "5 min" },
-  { id: "r14", icon: "🌐", title: "Accessible Communications Checklist", desc: "Ensure your internal and external comms, documents, emails, events, and social media are accessible to people with disabilities.", format: "Checklist", topics: ["Disability"], time: "10 min" },
-  { id: "r15", icon: "📝", title: "Inclusive Job Description Checklist", desc: "Review any job description against 25 inclusion criteria: language, requirements, and structure.", format: "Checklist", topics: ["Gender", "Disability", "Race and Ethnicity"], time: "10 min" },
-  { id: "r16", icon: "🎤", title: "Inclusive Event Planning Checklist", desc: "For conferences, training days, and team events: from venue access to dietary requirements and speaker diversity.", format: "Checklist", topics: ["Disability", "Religion and Belief"], time: "15 min" },
-  { id: "r17", icon: "🔒", title: "EDI Policy Audit Checklist", desc: "A checklist to review your existing HR and people policies through an inclusion lens: identifying gaps, exclusionary language, and missed opportunities.", format: "Checklist", topics: ["Inclusion Practices"], time: "30 min" },
-  { id: "r18", icon: "📖", title: "EDI Glossary", desc: "A comprehensive glossary of EDI terms, concepts, and definitions: from allyship to intersectionality, psychological safety to systemic racism.", format: "Glossary", topics: ["Inclusion Practices"], time: "Reference" },
-  { id: "r19", icon: "🪞", title: "Guided Reflection Tool", desc: "A structured reflection tool to help you consolidate your learning, identify your next steps, and track your professional development journey.", format: "Reflection", topics: ["Inclusion Practices"], time: "20 min" },
-  { id: "r20", icon: "📊", title: "Inclusion Culture Survey", desc: "Ready-to-use survey template for an inclusion pulse check: deploy internally, collect anonymised data, and receive analysis guidance.", format: "Survey", topics: ["Inclusion Practices"], time: "30 min" },
+  // --- LIVE: pages built and routed ---
+  { id: "r1",  icon: "🔍", title: "Recognising Bias",                         desc: "Identify the 10 most common cognitive biases that shape workplace decisions — from affinity bias to the halo effect — with examples and practical strategies.", format: "Tool",       topics: ["Inclusion Practices"],                         time: "20 min"      },
+  { id: "r2",  icon: "🤝", title: "How to Be an Ally: A Practical Guide",     desc: "Move from awareness to action with seven practical commitments: listening, speaking up, amplifying marginalised voices, using privilege, and staying consistent.", format: "Guide",      topics: ["Inclusion Practices"],                         time: "12 min read"  },
+  { id: "r3",  icon: "📋", title: "Diverse Recruitment Checklist",             desc: "22 checkpoints across three phases of recruitment — before you advertise, during the process, and after the decision — to reduce bias and widen your talent pool.", format: "Checklist",  topics: ["Inclusion Practices", "Race and Ethnicity", "Gender", "Disability"], time: "15 min" },
+  { id: "r4",  icon: "🪞", title: "Cultural Competence Reflection",            desc: "Score yourself across 16 questions in four dimensions: self-awareness, cultural knowledge, communication and relationships, and taking action.", format: "Reflection", topics: ["Inclusion Practices"],                         time: "15 min"      },
+  { id: "r5",  icon: "🌿", title: "Inclusive Leadership Reflection",           desc: "16 questions across visibility, fairness, belonging and psychological safety, and development — with a focus area highlighted based on your lowest-scoring section.", format: "Reflection", topics: ["Inclusion Practices"],                         time: "15 min"      },
+  { id: "r6",  icon: "✊", title: "Anti-Racist Practice Guide",                desc: "Six practical sections covering what anti-racism means, self-education, workplace application, interrupting microaggressions, structural racism, and accountability.", format: "Guide",      topics: ["Race and Ethnicity", "Inclusion Practices"],   time: "20 min read"  },
+  { id: "r7",  icon: "🏷️", title: "A Guide to Pronouns in the Workplace",     desc: "What pronouns are, common pronoun sets with examples, how to create a sharing culture, and an FAQ covering mistakes, name badges, and email signatures.", format: "Guide",      topics: ["Gender"],                                      time: "10 min read"  },
+  { id: "r8",  icon: "🧠", title: "Supporting Neurodivergent Colleagues",      desc: "Five sections: what neurodivergence is, common workplace barriers, reasonable adjustments, supporting disclosure, and inclusive language and communication.", format: "Guide",      topics: ["Neurodiversity", "Disability"],                 time: "15 min read"  },
+  { id: "r9",  icon: "✅", title: "Inclusive Meeting Checklist",               desc: "19 checkpoints across three stages — before, during, and after the meeting — to ensure every meeting is accessible, equitable, and productive.", format: "Checklist",  topics: ["Disability", "Neurodiversity", "Inclusion Practices"], time: "5 min"   },
+  { id: "r10", icon: "💬", title: "Challenging Non-Inclusive Behaviour",       desc: "Real language for real situations: six common scenarios — interruptions, idea theft, discriminatory jokes, exclusion, name mispronunciation, and stereotyping assumptions — with in-the-moment and follow-up responses.", format: "Guide", topics: ["Inclusion Practices"], time: "15 min read" },
+  { id: "r18", icon: "📖", title: "EDI Glossary",                              desc: "A comprehensive glossary of EDI terms, concepts, and definitions: from allyship to intersectionality, psychological safety to systemic racism.", format: "Glossary",   topics: ["Inclusion Practices"],                         time: "Reference"   },
+  // --- COMING SOON: placeholder resources ---
+  { id: "r11", icon: "📐", title: "Inclusion Maturity Framework",              desc: "Assess where your organisation sits on the inclusion maturity spectrum and identify the most impactful next steps.", format: "Framework",  topics: ["Inclusion Practices"],                         time: "45 min"      },
+  { id: "r12", icon: "📣", title: "Business Case Builder",                     desc: "Structure your internal business case for EDI investment using evidence, ROI data, and narrative frameworks that resonate with decision-makers.", format: "Tool",       topics: ["Inclusion Practices"],                         time: "45–60 min"   },
+  { id: "r13", icon: "🗓️", title: "30/60/90 Day EDI Action Planner",           desc: "A practical planning tool for those new to an EDI role or kicking off a new strategy. Break your first quarter into focused, achievable steps.", format: "Tool",       topics: ["Inclusion Practices"],                         time: "60 min"      },
+  { id: "r14", icon: "🎯", title: "Getting Started with EDI Strategy",         desc: "A step-by-step guide to scoping, designing, and launching your first organisation-wide EDI strategy from baseline audit to board sign-off.", format: "Guide",      topics: ["Inclusion Practices"],                         time: "20 min read"  },
+  { id: "r15", icon: "🗣️", title: "Talking to Sceptical Stakeholders",         desc: "How to navigate resistance from senior leaders and budget holders with evidence-based arguments and conversation frameworks.", format: "Guide",      topics: ["Inclusion Practices"],                         time: "10 min read"  },
+  { id: "r16", icon: "🌐", title: "Accessible Communications Checklist",       desc: "Ensure your internal and external comms, documents, emails, events, and social media are accessible to people with disabilities.", format: "Checklist",  topics: ["Disability"],                                  time: "10 min"      },
+  { id: "r17", icon: "🔒", title: "EDI Policy Audit Checklist",                desc: "A checklist to review your existing HR and people policies through an inclusion lens: identifying gaps, exclusionary language, and missed opportunities.", format: "Checklist",  topics: ["Inclusion Practices"],                         time: "30 min"      },
+  { id: "r19", icon: "🌱", title: "Building an Inclusion Culture",             desc: "Moving beyond policy to embed inclusion in everyday practice covering psychological safety, belonging, and manager behaviour.", format: "Guide",      topics: ["Inclusion Practices"],                         time: "15 min read"  },
+  { id: "r20", icon: "🧩", title: "Intersectionality in Practice",             desc: "How to apply an intersectional lens to your EDI work in research, policy, and practice without tokenism or oversimplification.", format: "Guide",      topics: ["Inclusion Practices"],                         time: "15 min read"  },
 ];
 
 const FORMAT_ICONS: Record<string, string> = {
@@ -101,8 +103,17 @@ export default function ApplyPage() {
 
 
   const RESOURCE_SLUGS: Record<string, string> = {
+    r1:  "recognising-bias",
+    r2:  "how-to-be-an-ally",
+    r3:  "diverse-recruitment-checklist",
+    r4:  "cultural-competence-reflection",
+    r5:  "inclusive-leadership-reflection",
+    r6:  "anti-racist-practice-guide",
+    r7:  "pronouns-guide",
+    r8:  "neurodivergent-support-guide",
+    r9:  "inclusive-meeting-checklist",
+    r10: "challenging-non-inclusive-behaviour",
     r18: "edi-glossary",
-    r1: "recognising-bias",
   };
 
   const openResource = (id: string) => {
