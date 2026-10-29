@@ -72,6 +72,7 @@ export default function ChallengingNonInclusiveBehaviourPage() {
   const [copied, setCopied] = useState(false);
   const [recording, setRecording] = useState(false);
   const [transcript, setTranscript] = useState("");
+  const [interimText, setInterimText] = useState("");
   const recognitionRef = useRef<{ stop: () => void } | null>(null);
 
   const toggleCheck = (id: string) => setChecked((prev) => ({ ...prev, [id]: !prev[id] }));
@@ -104,12 +105,15 @@ export default function ChallengingNonInclusiveBehaviourPage() {
     rec.lang = "en-GB";
     rec.onresult = (e) => {
       let final = "";
+      let interim = "";
       for (let i = 0; i < e.results.length; i++) {
         if (e.results[i].isFinal) final += e.results[i][0].transcript + " ";
+        else interim += e.results[i][0].transcript;
       }
-      if (final) setTranscript((prev) => prev + final);
+      if (final) { setTranscript((prev) => prev + final); setInterimText(""); }
+      else if (interim) setInterimText(interim);
     };
-    rec.onend = () => setRecording(false);
+    rec.onend = () => { setRecording(false); setInterimText(""); };
     rec.start();
     recognitionRef.current = rec;
     setRecording(true);
@@ -252,8 +256,10 @@ export default function ChallengingNonInclusiveBehaviourPage() {
           <p style={{ fontFamily: "Raleway, sans-serif", fontWeight: 800, fontSize: 15, color: "#fff", margin: "0 0 10px" }}>My commitment</p>
           <p style={{ fontSize: 13, color: "rgba(255,255,255,0.65)", margin: "0 0 14px", lineHeight: 1.6 }}>Name one specific action you will take after reading this guide.</p>
 
+          <style>{".commitment-box::placeholder { color: rgba(255,255,255,0.65); }"}</style>
           <textarea
-            value={commitment || transcript}
+            className="commitment-box"
+            value={commitment || transcript + (recording && interimText ? interimText : "")}
             onChange={(e) => { setCommitment(e.target.value); setTranscript(""); }}
             placeholder="e.g. Next time I witness someone being talked over in a meeting, I will say their name and ask them to continue."
             rows={3}
