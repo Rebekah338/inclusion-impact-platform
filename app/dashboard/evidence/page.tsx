@@ -3218,7 +3218,7 @@ function EvidencePageInner() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "1rem" }}>
 
             {/* 1 — McKinsey (Research) */}
-            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("research"); setActiveBrief("mckinsey-diversity-wins"); setShowRelated(false); setShowTailorModal(false); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
               <span style={{ fontSize: 28 }}>📊</span>
               <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Research and Data</span>
               <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>McKinsey Diversity Wins</p>
@@ -3227,7 +3227,7 @@ function EvidencePageInner() {
             </div>
 
             {/* 2 — SAP (Case Study) */}
-            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("research"); setActiveBrief("sap-autism-at-work"); setShowRelated(false); setShowTailorModal(false); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
               <span style={{ fontSize: 28 }}>🔬</span>
               <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Case Study</span>
               <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>SAP: Neurodiversity as a Business Strategy</p>
@@ -3236,7 +3236,7 @@ function EvidencePageInner() {
             </div>
 
             {/* 3 — Evidence Builder (Tool) */}
-            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("evidence-builder"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
               <span style={{ fontSize: 28 }}>⚙️</span>
               <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Evidence Builder</span>
               <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>Build Your Business Case</p>
@@ -3245,7 +3245,7 @@ function EvidencePageInner() {
             </div>
 
             {/* 4 — Business Case Template (Template) */}
-            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("downloads"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
               <span style={{ fontSize: 28 }}>📋</span>
               <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Template</span>
               <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>Business Case Presentation Template</p>
@@ -3254,7 +3254,7 @@ function EvidencePageInner() {
             </div>
 
             {/* 5 — Deloitte (Research) */}
-            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("research"); setActiveBrief("deloitte-inclusion-revolution"); setShowRelated(false); setShowTailorModal(false); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
               <span style={{ fontSize: 28 }}>🧠</span>
               <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Research and Data</span>
               <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>The Diversity and Inclusion Revolution</p>
@@ -3263,7 +3263,7 @@ function EvidencePageInner() {
             </div>
 
             {/* 6 — EDI Dashboard Template (Template) */}
-            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("downloads"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
               <span style={{ fontSize: 28 }}>📈</span>
               <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Template</span>
               <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>EDI Data Dashboard Template</p>
@@ -3272,7 +3272,7 @@ function EvidencePageInner() {
             </div>
 
             {/* 7 — NHS cost of exclusion (Research) */}
-            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("research"); setActiveBrief("nhs-cost-of-exclusion"); setShowRelated(false); setShowTailorModal(false); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
               <span style={{ fontSize: 28 }}>💷</span>
               <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Research and Data</span>
               <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>The Cost of Exclusion</p>
@@ -3281,7 +3281,7 @@ function EvidencePageInner() {
             </div>
 
             {/* 8 — NHS case study (Case Study) */}
-            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("research"); setActiveBrief("nhs-cost-of-exclusion"); setShowRelated(false); setShowTailorModal(false); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
               <span style={{ fontSize: 28 }}>🏥</span>
               <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Case Study</span>
               <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>NHS: Quantifying the Price of Fear</p>
