@@ -85,6 +85,61 @@ const SECTIONS = [
       "doing-this": "Consistency is your strength. Think about how you sustain it: what keeps you going, and are you building a culture where others can be consistently ally-like too?",
     },
   },
+  {
+    id: "s8",
+    number: "08",
+    title: "Use micro-affirmations",
+    content: "Micro-affirmations are small, often subtle acts or words that acknowledge, validate, and support someone's contributions or identity. They are the positive flipside of microaggressions: tiny moments of recognition that build inclusion, belonging, and confidence over time. Practising them consistently is a key part of allyship.",
+    nudges: {
+      "not-yet": "Start by noticing one colleague this week and acknowledging something they contributed that might have gone unrecognised. Small and specific is more powerful than grand and vague.",
+      "getting-there": "You are building this habit. Now make it deliberate: at the end of each week, think about who you affirmed and who you missed.",
+      "doing-this": "You do this naturally. Think about whether you are also teaching others what micro-affirmations look like; naming the practice helps it spread.",
+    },
+  },
+  {
+    id: "s9",
+    number: "09",
+    title: "Support accessibility",
+    content: "Ensure meetings, materials, and spaces are physically, digitally, and cognitively accessible. Allyship means proactively removing barriers, asking what adjustments are needed, and creating environments where everyone can fully participate and contribute. Accessibility is an ongoing commitment to equity and inclusion in every aspect of the workplace.",
+    nudges: {
+      "not-yet": "Start by asking: is there anything we could do to make this meeting more accessible? You do not need to know all the answers; asking is the first step.",
+      "getting-there": "You are thinking about this more. The next step is building accessibility into your planning from the start, not as an afterthought when someone raises it.",
+      "doing-this": "You lead on this well. Think about whether you are also sharing what you know; modelling accessible practice quietly is good, but naming it helps others learn.",
+    },
+  },
+  {
+    id: "s10",
+    number: "10",
+    title: "Reflect and be accountable",
+    content: "Expect to make mistakes, then apologise, learn, and adjust. Ask for feedback on your allyship, and act on it. Regularly check: who is included, who is missing, and why? Allyship is a journey of continuous growth; staying open to learning and holding yourself accountable strengthens trust and fosters lasting change.",
+    nudges: {
+      "not-yet": "Think about a recent moment where you could have responded better. What would you do differently? Honest reflection without self-punishment is the foundation of growth.",
+      "getting-there": "You are learning to reflect well. The next level is actively seeking feedback rather than waiting for it; ask someone you trust how your allyship lands.",
+      "doing-this": "Accountability is a real strength here. Now think about whether you are creating conditions where others around you can also reflect and be accountable, without fear.",
+    },
+  },
+  {
+    id: "s11",
+    number: "11",
+    title: "Create safe spaces",
+    content: "Encourage psychological safety so people can speak up without fear. Allyship means actively listening, validating experiences, and responding with empathy, ensuring everyone feels respected, valued, and able to contribute fully. Consistently model respect, address harmful behaviours, and reinforce that every voice matters in shaping an inclusive culture.",
+    nudges: {
+      "not-yet": "Think about one space you have influence over: a meeting, a team chat, a one-to-one. What one thing could you do this week to make it feel safer for others?",
+      "getting-there": "You are working on this. The next step is checking whether the safety you have created is felt by everyone, not just by those who are most comfortable speaking up.",
+      "doing-this": "You build genuine safety for others. Think about sustainability: are you doing the emotional work alone, or are you building a culture where safety is a shared responsibility?",
+    },
+  },
+  {
+    id: "s12",
+    number: "12",
+    title: "Commit to continuous action",
+    content: "Embed inclusion in everyday choices: from who you follow online to whose ideas you champion at work. Join or support employee resource groups and EDI initiatives. Recognise allyship as a lifelong journey; making inclusion a consistent part of daily actions helps normalise equity, challenge systemic barriers, and inspire others to do the same.",
+    nudges: {
+      "not-yet": "Identify one small, specific, repeatable action you can commit to every week; not a declaration, just a habit. That is where sustained allyship begins.",
+      "getting-there": "You are showing up regularly. Now think about whether your commitment is growing as you learn more, or whether you have settled into a comfortable routine.",
+      "doing-this": "You are in this for the long term. Think about the legacy you are building: are the people around you more equipped to be allies because of how you show up every day?",
+    },
+  },
 ];
 
 const RATING_OPTIONS: { value: Rating; label: string; color: string; bg: string; border: string }[] = [
@@ -115,7 +170,7 @@ export default function HowToBeAnAllyPage() {
       <div style={{ maxWidth: 960, margin: "0 auto", padding: "32px 24px 40px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
           <span style={{ background: "var(--sage-dark, #2D5A3C)", color: "#fff", fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", padding: "4px 12px", borderRadius: 20 }}>Guide</span>
-          <span style={{ color: "#6b7280", fontSize: 13 }}>Self-assessment · 7 commitments</span>
+          <span style={{ color: "#6b7280", fontSize: 13 }}>Self-assessment · 12 commitments</span>
         </div>
         <h1 style={{ fontFamily: "Raleway, sans-serif", fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 800, color: "var(--charcoal, #2C2C2C)", margin: "0 0 14px", lineHeight: 1.15 }}>
           How to Be an Ally
@@ -129,11 +184,11 @@ export default function HowToBeAnAllyPage() {
           <div data-noprint="true" style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 12, padding: "16px 20px", display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
             <div style={{ flex: 1, minWidth: 180 }}>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
-                <span style={{ fontSize: 12, fontWeight: 700, color: "#374151" }}>{rated} of 7 rated</span>
+                <span style={{ fontSize: 12, fontWeight: 700, color: "#374151" }}>{rated} of 12 rated</span>
                 {doingWell > 0 && <span style={{ fontSize: 12, color: "#166534", fontWeight: 700 }}>{doingWell} doing well</span>}
               </div>
               <div style={{ background: "#f3f4f6", borderRadius: 6, height: 8, overflow: "hidden" }}>
-                <div style={{ background: "var(--sage-dark, #2D5A3C)", height: "100%", width: `${(rated / 7) * 100}%`, borderRadius: 6, transition: "width 0.4s ease" }} />
+                <div style={{ background: "var(--sage-dark, #2D5A3C)", height: "100%", width: `${(rated / 12) * 100}%`, borderRadius: 6, transition: "width 0.4s ease" }} />
               </div>
             </div>
             {notYet > 0 && (
@@ -225,12 +280,12 @@ export default function HowToBeAnAllyPage() {
         </div>
 
         {/* Completion message */}
-        {rated === 7 && (
+        {rated === 12 && (
           <div style={{ background: "var(--sage-dark, #2D5A3C)", color: "#fff", borderRadius: 16, padding: "32px 36px", marginTop: 32, textAlign: "center" }}>
             <div style={{ fontSize: 32, marginBottom: 12 }}>🌿</div>
             <h3 style={{ fontFamily: "Raleway, sans-serif", fontWeight: 800, fontSize: 20, margin: "0 0 10px" }}>You have rated all seven commitments</h3>
             <p style={{ fontSize: 15, color: "rgba(255,255,255,0.82)", margin: "0 0 20px", lineHeight: 1.7 }}>
-              {doingWell === 7
+              {doingWell === 12
                 ? "You are doing all of this well. Think about how you support others to do the same."
                 : notYet > 0
                 ? `You have identified ${notYet} area${notYet > 1 ? "s" : ""} to develop. Pick one and focus on the nudge for a month before revisiting.`
