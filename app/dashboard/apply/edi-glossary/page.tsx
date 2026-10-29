@@ -332,7 +332,7 @@ export default function EDIGlossaryPage() {
             {LETTERS.map((l) => (
               <button
                 key={l}
-                onClick={() => { setActiveLetter(activeLetter === l ? null : l); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                onClick={() => { setActiveLetter(activeLetter === l ? null : l); document.getElementById("terms-list")?.scrollIntoView({ behavior: "smooth", block: "start" }); }}
                 disabled={!usedLetters.has(l)}
                 style={{
                   width: 30,
@@ -362,7 +362,7 @@ export default function EDIGlossaryPage() {
             ))}
             {activeLetter && (
               <button
-                onClick={() => { setActiveLetter(null); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                onClick={() => { setActiveLetter(null); document.getElementById("terms-list")?.scrollIntoView({ behavior: "smooth", block: "start" }); }}
                 style={{
                   padding: "0 12px",
                   height: 30,
@@ -383,7 +383,7 @@ export default function EDIGlossaryPage() {
       </div>
 
       {/* Terms */}
-      <div style={{ maxWidth: 900, margin: "0 auto", padding: "40px 24px" }}>
+      <div id="terms-list" style={{ maxWidth: 900, margin: "0 auto", padding: "40px 24px" }}>
         {filtered.length === 0 ? (
           <p style={{ color: "#6b7280", fontSize: 15 }}>No terms match your search. Try different keywords.</p>
         ) : (
