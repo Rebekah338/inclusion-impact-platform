@@ -3227,7 +3227,7 @@ function EvidencePageInner() {
             </div>
 
             {/* 2 — SAP (Case Study) */}
-            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("research"); setActiveBrief("sap-autism-at-work"); setShowRelated(false); setShowTailorModal(false); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
+            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("cases"); setSearch("SAP"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
               <span style={{ fontSize: 28 }}>🔬</span>
               <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Case Study</span>
               <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>SAP: Neurodiversity as a Business Strategy</p>
@@ -3272,7 +3272,7 @@ function EvidencePageInner() {
             </div>
 
             {/* 7 — NHS cost of exclusion (Research) */}
-            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("research"); setActiveBrief("nhs-cost-of-exclusion"); setShowRelated(false); setShowTailorModal(false); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
+            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("cases"); setSearch("NHS"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
               <span style={{ fontSize: 28 }}>💷</span>
               <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Research and Data</span>
               <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>The Cost of Exclusion</p>
@@ -3281,7 +3281,7 @@ function EvidencePageInner() {
             </div>
 
             {/* 8 — NHS case study (Case Study) */}
-            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("research"); setActiveBrief("nhs-cost-of-exclusion"); setShowRelated(false); setShowTailorModal(false); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
+            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("cases"); setSearch("NHS"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
               <span style={{ fontSize: 28 }}>🏥</span>
               <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Case Study</span>
               <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>NHS: Quantifying the Price of Fear</p>
