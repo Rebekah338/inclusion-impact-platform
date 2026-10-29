@@ -167,7 +167,7 @@ export default function RecognisingBiasPage() {
           Bias can be conscious or unconscious, and both shape how we interpret situations, relate to colleagues, and make decisions at work. This tool walks through ten of the most common types of workplace bias: what each one is, how it shows up in practice, and what you can do about it.
         </p>
 
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
+        <div data-noprint="true" style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
           {["Bias", "Inclusion Practices"].map((tag) => (
             <span key={tag} style={{ background: "var(--sage-xlight, #EFF5F0)", color: "var(--sage-dark, #2D5A3C)", border: "1px solid #c6dbc9", borderRadius: 20, fontSize: 12, fontWeight: 600, padding: "4px 12px" }}>
               {tag}

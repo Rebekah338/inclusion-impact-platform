@@ -275,7 +275,7 @@ export default function EDIGlossaryPage() {
         </p>
 
         {/* Topic tags */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
+        <div data-noprint="true" style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
           {["Inclusion Practices"].map((tag) => (
             <span
               key={tag}

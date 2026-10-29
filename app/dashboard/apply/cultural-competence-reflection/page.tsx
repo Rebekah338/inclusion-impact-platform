@@ -104,7 +104,7 @@ export default function CulturalCompetenceReflectionPage() {
         <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
           Use this tool to reflect honestly on where your cultural competence is strong and where there is room to develop. There are no right or wrong answers; the value is in honest reflection, not in scoring well. Rate each statement from 0 (Never) to 4 (Always).
         </p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
+        <div data-noprint="true" style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
           {["Cultural Competence", "Self-Reflection", "Leadership Development"].map((tag) => (
             <span key={tag} style={{ background: "#EFF5F0", color: "var(--sage-dark, #2D5A3C)", border: "1px solid #c6dbc9", borderRadius: 20, fontSize: 12, fontWeight: 600, padding: "4px 12px" }}>{tag}</span>
           ))}

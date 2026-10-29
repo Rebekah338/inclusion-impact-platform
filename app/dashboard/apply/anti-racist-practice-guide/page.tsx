@@ -91,7 +91,7 @@ export default function AntiRacistPracticeGuidePage() {
         <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
           Being anti-racist requires more than good intentions. This guide covers what anti-racism actually means, how racial bias and microaggressions show up in practice, and what you can do at the individual and structural level to challenge racism at work and beyond.
         </p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
+        <div data-noprint="true" style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
           {["Anti-Racism", "Racial Equity", "Inclusion Practices"].map((tag) => (
             <span key={tag} style={{ background: "#EFF5F0", color: "var(--sage-dark, #2D5A3C)", border: "1px solid #c6dbc9", borderRadius: 20, fontSize: 12, fontWeight: 600, padding: "4px 12px" }}>{tag}</span>
           ))}

@@ -85,7 +85,7 @@ export default function NeurodivergentSupportGuidePage() {
         <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
           Around one in seven people is neurodivergent; yet most workplaces are designed in ways that create unnecessary barriers for them. This guide covers what neurodivergence is, common workplace barriers, practical adjustments, and how to build a culture where neurodivergent people can thrive.
         </p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
+        <div data-noprint="true" style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
           {["Neurodivergence", "Disability Inclusion", "Accessibility"].map((tag) => (
             <span key={tag} style={{ background: "#EFF5F0", color: "var(--sage-dark, #2D5A3C)", border: "1px solid #c6dbc9", borderRadius: 20, fontSize: 12, fontWeight: 600, padding: "4px 12px" }}>{tag}</span>
           ))}

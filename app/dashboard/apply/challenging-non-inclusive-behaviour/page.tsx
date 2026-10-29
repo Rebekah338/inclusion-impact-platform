@@ -90,7 +90,7 @@ export default function ChallengingNonInclusiveBehaviourPage() {
         <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
           Knowing that something is wrong and knowing what to say in the moment are two different things. This guide provides real language for real situations; common non-inclusive behaviours and practical responses for bystanders, managers, and colleagues.
         </p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
+        <div data-noprint="true" style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
           {["Allyship", "Bystander Intervention", "Inclusion Practices"].map((tag) => (
             <span key={tag} style={{ background: "#EFF5F0", color: "var(--sage-dark, #2D5A3C)", border: "1px solid #c6dbc9", borderRadius: 20, fontSize: 12, fontWeight: 600, padding: "4px 12px" }}>{tag}</span>
           ))}

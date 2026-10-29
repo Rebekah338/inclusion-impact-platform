@@ -74,7 +74,7 @@ export default function InclusiveMeetingChecklistPage() {
         <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
           Meetings are one of the most common sites of exclusion at work: who gets heard, whose ideas are credited, who is interrupted, and who is not in the room at all. Use this checklist before, during, and after every meeting to make your meeting practice more equitable and inclusive.
         </p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 32 }}>
+        <div data-noprint="true" style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 32 }}>
           {["Meetings", "Inclusion Practices", "Accessibility"].map((tag) => (
             <span key={tag} style={{ background: "#EFF5F0", color: "var(--sage-dark, #2D5A3C)", border: "1px solid #c6dbc9", borderRadius: 20, fontSize: 12, fontWeight: 600, padding: "4px 12px" }}>{tag}</span>
           ))}

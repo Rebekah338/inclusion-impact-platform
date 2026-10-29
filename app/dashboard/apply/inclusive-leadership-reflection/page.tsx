@@ -108,7 +108,7 @@ export default function InclusiveLeadershipReflectionPage() {
         <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
           This tool helps leaders and managers reflect on how inclusive their practice is across four key areas: voice and visibility, fair decision-making, psychological safety, and equitable development. Rate each statement honestly from 0 (Never) to 4 (Always).
         </p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
+        <div data-noprint="true" style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
           {["Leadership", "Inclusion Practices", "Management"].map((tag) => (
             <span key={tag} style={{ background: "#EFF5F0", color: "var(--sage-dark, #2D5A3C)", border: "1px solid #c6dbc9", borderRadius: 20, fontSize: 12, fontWeight: 600, padding: "4px 12px" }}>{tag}</span>
           ))}
