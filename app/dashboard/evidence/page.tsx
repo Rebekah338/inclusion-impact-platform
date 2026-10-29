@@ -3236,7 +3236,7 @@ function EvidencePageInner() {
             </div>
 
             {/* 3 — Evidence Builder (Tool) */}
-            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("evidence-builder"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
+            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("evidence-builder"); setEbActiveTool("argument"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
               <span style={{ fontSize: 28 }}>⚙️</span>
               <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Evidence Builder</span>
               <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>Build Your Business Case</p>
