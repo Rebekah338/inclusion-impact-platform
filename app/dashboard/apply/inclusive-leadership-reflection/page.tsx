@@ -230,7 +230,7 @@ export default function InclusiveLeadershipReflectionPage() {
                   🔗 Copy link
                 </button>
                 <button
-                  onClick={() => { window.open(window.location.href, "_blank"); setShowShareMenu(false); }}
+                  onClick={() => { setShowShareMenu(false); window.print(); }}
                   style={{ display: "block", width: "100%", textAlign: "left", padding: "14px 18px", fontSize: 14, color: "#374151", background: "none", border: "none", cursor: "pointer" }}
                 >
                   🖨️ Print or save as PDF
