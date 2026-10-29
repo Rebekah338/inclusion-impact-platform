@@ -129,7 +129,7 @@ export default function DiverseRecruitmentChecklistPage() {
         <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
           Use this checklist at each stage of your recruitment process to reduce the impact of bias and improve outcomes for candidates from all backgrounds. Tick items off as you go; your progress is saved in this session.
         </p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 32 }}>
+        <div data-noprint="true" style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 32 }}>
           {["Recruitment", "Bias Reduction", "Inclusion Practices"].map((tag) => (
             <span key={tag} style={{ background: "#EFF5F0", color: "var(--sage-dark, #2D5A3C)", border: "1px solid #c6dbc9", borderRadius: 20, fontSize: 12, fontWeight: 600, padding: "4px 12px" }}>{tag}</span>
           ))}
