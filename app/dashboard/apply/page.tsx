@@ -78,6 +78,7 @@ export default function ApplyPage() {
   const [myToolkit, setMyToolkit] = useState<string[]>([]);
   const [visited, setVisited] = useState<string[]>([]);
   const [toolkitView, setToolkitView] = useState(false);
+  const [shareMenuId, setShareMenuId] = useState<string | null>(null);
 
   /* ── Filter logic ── */
   const visibleResources = useMemo(() => {
@@ -295,14 +296,57 @@ export default function ApplyPage() {
                     >
                       🔖
                     </button>
-                    <button
-                      onClick={(e) => { e.stopPropagation(); /* share logic to be wired */ }}
-                      aria-label="Share this resource"
-                      title="Share this resource"
-                      style={{ background: "var(--sage-xlight)", border: "1px solid var(--sage-light)", borderRadius: "999px", padding: "0.3rem 0.55rem", cursor: "pointer", fontSize: "0.8rem", color: "var(--sage-dark)", lineHeight: 1 }}
-                    >
-                      ↗
-                    </button>
+                    <div style={{ position: "relative" }}>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setShareMenuId(shareMenuId === r.id ? null : r.id); }}
+                        aria-label="Share or download this resource"
+                        title="Share / Download"
+                        style={{ background: "var(--sage-xlight)", border: "1px solid var(--sage-light)", borderRadius: "999px", padding: "0.3rem 0.55rem", cursor: "pointer", fontSize: "0.8rem", color: "var(--sage-dark)", lineHeight: 1 }}
+                      >
+                        ↗
+                      </button>
+                      {shareMenuId === r.id && (
+                        <div
+                          onClick={(e) => e.stopPropagation()}
+                          style={{ position: "absolute", top: "calc(100% + 6px)", right: 0, background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, boxShadow: "0 4px 16px rgba(0,0,0,0.1)", padding: "6px", zIndex: 50, minWidth: 180 }}
+                        >
+                          {(() => {
+                            const slug = RESOURCE_SLUGS[r.id];
+                            const url = slug ? `${typeof window !== "undefined" ? window.location.origin : ""}/dashboard/apply/${slug}` : null;
+                            return (
+                              <>
+                                {url && (
+                                  <button
+                                    onClick={() => { navigator.clipboard.writeText(url); setShareMenuId(null); }}
+                                    style={{ display: "flex", alignItems: "center", gap: 8, width: "100%", padding: "8px 12px", background: "none", border: "none", borderRadius: 7, cursor: "pointer", fontSize: 13, color: "#374151", fontFamily: "Lato, sans-serif", textAlign: "left" }}
+                                    onMouseEnter={(e) => (e.currentTarget.style.background = "var(--sage-xlight)")}
+                                    onMouseLeave={(e) => (e.currentTarget.style.background = "none")}
+                                  >
+                                    <span>🔗</span> Copy link
+                                  </button>
+                                )}
+                                {url && (
+                                  <a
+                                    href={url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={() => setShareMenuId(null)}
+                                    style={{ display: "flex", alignItems: "center", gap: 8, width: "100%", padding: "8px 12px", background: "none", border: "none", borderRadius: 7, cursor: "pointer", fontSize: 13, color: "#374151", fontFamily: "Lato, sans-serif", textDecoration: "none" }}
+                                    onMouseEnter={(e) => (e.currentTarget.style.background = "var(--sage-xlight)")}
+                                    onMouseLeave={(e) => (e.currentTarget.style.background = "none")}
+                                  >
+                                    <span>🖨️</span> Print / Save as PDF
+                                  </a>
+                                )}
+                                {!url && (
+                                  <p style={{ fontSize: 12, color: "#9ca3af", padding: "8px 12px", margin: 0 }}>Coming soon</p>
+                                )}
+                              </>
+                            );
+                          })()}
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   {/* Icon */}
