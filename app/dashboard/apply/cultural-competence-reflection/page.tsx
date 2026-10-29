@@ -54,6 +54,7 @@ export default function CulturalCompetenceReflectionPage() {
   type Answers = Record<string, number>;
   const [answers, setAnswers] = useState<Answers>({});
   const [submitted, setSubmitted] = useState(false);
+  const [showShareMenu, setShowShareMenu] = useState(false);
 
   const allQuestions = SECTIONS.flatMap((s) => s.questions.map((q, qi) => `${s.id}-${qi}`));
   const answered = allQuestions.filter((k) => answers[k] !== undefined).length;
@@ -205,6 +206,40 @@ export default function CulturalCompetenceReflectionPage() {
           </div>
         </div>
       </div>
+            {/* Share / Download bar */}
+      <div style={{ background: "#fff", borderTop: "1px solid #e5e7eb", padding: "32px 24px" }}>
+        <div style={{ maxWidth: 720, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
+          <div>
+            <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 16, fontWeight: 700, color: "var(--charcoal, #2C2C2C)", margin: "0 0 4px" }}>Found this useful?</p>
+            <p style={{ fontSize: 14, color: "#6b7280", margin: 0 }}>Share it with a colleague or save it for later.</p>
+          </div>
+          <div style={{ position: "relative" }}>
+            <button
+              onClick={() => setShowShareMenu(!showShareMenu)}
+              style={{ display: "flex", alignItems: "center", gap: 8, background: "var(--sage-dark, #2D5A3C)", color: "#fff", border: "none", borderRadius: 8, padding: "12px 20px", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "Raleway, sans-serif" }}
+            >
+              <span>↗</span> Share or download
+            </button>
+            {showShareMenu && (
+              <div style={{ position: "absolute", right: 0, bottom: "calc(100% + 8px)", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, boxShadow: "0 4px 16px rgba(0,0,0,0.10)", minWidth: 220, zIndex: 50, overflow: "hidden" }}>
+                <button
+                  onClick={() => { navigator.clipboard.writeText(window.location.href); setShowShareMenu(false); }}
+                  style={{ display: "block", width: "100%", textAlign: "left", padding: "14px 18px", fontSize: 14, color: "#374151", background: "none", border: "none", cursor: "pointer", borderBottom: "1px solid #f3f4f6" }}
+                >
+                  🔗 Copy link
+                </button>
+                <button
+                  onClick={() => { window.open(window.location.href, "_blank"); setShowShareMenu(false); }}
+                  style={{ display: "block", width: "100%", textAlign: "left", padding: "14px 18px", fontSize: 14, color: "#374151", background: "none", border: "none", cursor: "pointer" }}
+                >
+                  🖨️ Print or save as PDF
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
       <BottomBanner />
     </div>
   );

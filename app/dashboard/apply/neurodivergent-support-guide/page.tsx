@@ -55,13 +55,14 @@ const SECTIONS = [
       "Language around neurodivergence varies and continues to evolve. Some people prefer identity-first language ('I am autistic') while others prefer person-first language ('I have autism'). Follow the preference of the individual you are speaking with, and when in doubt, ask.",
       "Avoid language that frames neurodivergence as a deficit, problem, or tragedy. Terms like 'suffers from', 'afflicted by', or 'a disability like autism' carry assumptions that many neurodivergent people strongly reject.",
       "Do not assume that a diagnosis tells you everything about how someone experiences their neurodivergence. Two autistic people, or two people with ADHD, may have entirely different support needs and entirely different experiences of their own neurodivergence.",
-      "Casual and stigmatising uses of neurodivergence-related terms (such as "I'm so OCD about tidiness", "that's a bit autistic", or "she's so ADHD") cause harm. Challenge these uses when you hear them, as you would any other stigmatising language.",
+      "Casual and stigmatising uses of neurodivergence-related terms (such as 'I\'m so OCD about tidiness', 'that\'s a bit autistic', or 'she\'s so ADHD') cause harm. Challenge these uses when you hear them, as you would any other stigmatising language.",
     ],
   },
 ];
 
 export default function NeurodivergentSupportGuidePage() {
   const [openSection, setOpenSection] = useState<string | null>(null);
+  const [showShareMenu, setShowShareMenu] = useState(false);
 
   return (
     <div style={{ minHeight: "100vh", background: "var(--sage-xlight, #f4f8f5)", fontFamily: "Lato, sans-serif" }}>
@@ -147,6 +148,40 @@ export default function NeurodivergentSupportGuidePage() {
           </div>
         </div>
       </div>
+            {/* Share / Download bar */}
+      <div style={{ background: "#fff", borderTop: "1px solid #e5e7eb", padding: "32px 24px" }}>
+        <div style={{ maxWidth: 720, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
+          <div>
+            <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 16, fontWeight: 700, color: "var(--charcoal, #2C2C2C)", margin: "0 0 4px" }}>Found this useful?</p>
+            <p style={{ fontSize: 14, color: "#6b7280", margin: 0 }}>Share it with a colleague or save it for later.</p>
+          </div>
+          <div style={{ position: "relative" }}>
+            <button
+              onClick={() => setShowShareMenu(!showShareMenu)}
+              style={{ display: "flex", alignItems: "center", gap: 8, background: "var(--sage-dark, #2D5A3C)", color: "#fff", border: "none", borderRadius: 8, padding: "12px 20px", fontSize: 14, fontWeight: 700, cursor: "pointer", fontFamily: "Raleway, sans-serif" }}
+            >
+              <span>↗</span> Share or download
+            </button>
+            {showShareMenu && (
+              <div style={{ position: "absolute", right: 0, bottom: "calc(100% + 8px)", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, boxShadow: "0 4px 16px rgba(0,0,0,0.10)", minWidth: 220, zIndex: 50, overflow: "hidden" }}>
+                <button
+                  onClick={() => { navigator.clipboard.writeText(window.location.href); setShowShareMenu(false); }}
+                  style={{ display: "block", width: "100%", textAlign: "left", padding: "14px 18px", fontSize: 14, color: "#374151", background: "none", border: "none", cursor: "pointer", borderBottom: "1px solid #f3f4f6" }}
+                >
+                  🔗 Copy link
+                </button>
+                <button
+                  onClick={() => { window.open(window.location.href, "_blank"); setShowShareMenu(false); }}
+                  style={{ display: "block", width: "100%", textAlign: "left", padding: "14px 18px", fontSize: 14, color: "#374151", background: "none", border: "none", cursor: "pointer" }}
+                >
+                  🖨️ Print or save as PDF
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
       <BottomBanner />
     </div>
   );
