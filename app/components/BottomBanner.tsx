@@ -88,7 +88,7 @@ export default function BottomBanner({
   };
 
   return (
-    <section aria-label="Community" style={{ padding: "4rem 1.5rem", background: "var(--white)" }}>
+    <section aria-label="Community" data-noprint="true" style={{ padding: "4rem 1.5rem", background: "var(--white)" }}>
       <style>{`
         .bottom-banner-textarea::placeholder { color: rgba(255,255,255,0.5); }
       `}</style>

@@ -208,3 +208,88 @@ html {
   background: var(--sage-light);
   color: var(--charcoal);
 }
+
+/* ============================================================
+   PRINT STYLES — resource pages
+   ============================================================ */
+@media print {
+  /* Hide interactive/navigational elements */
+  [data-noprint="true"],
+  [data-noprint="true"] * {
+    display: none !important;
+  }
+
+  /* Hide the back-link wrapper (first padded div below the nav) */
+  div:has(> a[href="/dashboard/apply"]:first-child) {
+    display: none !important;
+  }
+
+  /* Reset page background and colours for ink */
+  body {
+    background: #fff !important;
+    color: #1a1a1a !important;
+    font-size: 10pt;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Page margins */
+  @page {
+    margin: 1.8cm 2cm;
+  }
+
+  /* Tighten the outer page wrapper */
+  div[style*="minHeight: \"100vh\""],
+  div[style*="min-height: 100vh"] {
+    background: #fff !important;
+  }
+
+  /* Content containers: remove excess padding */
+  div[style*="maxWidth: 900"],
+  div[style*="maxWidth: 720"],
+  div[style*="max-width: 900"],
+  div[style*="max-width: 720"] {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Headings */
+  h1 { font-size: 18pt !important; margin: 0 0 4pt !important; }
+  h2 { font-size: 13pt !important; margin: 12pt 0 4pt !important; page-break-after: avoid; }
+  h3 { font-size: 11pt !important; margin: 8pt 0 3pt !important; }
+  p  { margin: 3pt 0 !important; }
+
+  /* Reduce section padding */
+  div[style*="padding: \"48px 24px\""],
+  div[style*="padding: \"32px 24px\""],
+  div[style*="padding: \"40px 24px\""] {
+    padding: 8pt 0 !important;
+  }
+
+  /* Cards and borders render cleanly */
+  div[style*="borderRadius"],
+  div[style*="border-radius"] {
+    box-shadow: none !important;
+  }
+
+  /* Keep list items together where possible */
+  li { page-break-inside: avoid; }
+
+  /* Don't print links as underlined URLs */
+  a { text-decoration: none !important; color: inherit !important; }
+  a::after { content: none !important; }
+
+  /* Branding strip at bottom */
+  body::after {
+    content: "The Inclusion Edit — theinclusionedit.com";
+    display: block;
+    font-family: Calibri, Arial, sans-serif;
+    font-size: 8pt;
+    color: #6b7280;
+    border-top: 1pt solid #e5e7eb;
+    padding-top: 6pt;
+    margin-top: 16pt;
+  }
+}

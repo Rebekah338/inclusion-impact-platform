@@ -15,7 +15,7 @@ export default function PlatformNav() {
   const pathname = usePathname();
 
   return (
-    <nav role="navigation" aria-label="Platform navigation" style={{
+    <nav role="navigation" aria-label="Platform navigation" data-noprint="true" style={{
       background: "var(--white)",
       borderBottom: "1px solid var(--gray-border)",
       padding: "0 1.5rem",
