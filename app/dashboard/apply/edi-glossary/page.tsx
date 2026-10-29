@@ -332,7 +332,7 @@ export default function EDIGlossaryPage() {
             {LETTERS.map((l) => (
               <button
                 key={l}
-                onClick={() => setActiveLetter(activeLetter === l ? null : l)}
+                onClick={() => { setActiveLetter(activeLetter === l ? null : l); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                 disabled={!usedLetters.has(l)}
                 style={{
                   width: 30,
@@ -362,7 +362,7 @@ export default function EDIGlossaryPage() {
             ))}
             {activeLetter && (
               <button
-                onClick={() => setActiveLetter(null)}
+                onClick={() => { setActiveLetter(null); window.scrollTo({ top: 0, behavior: "smooth" }); }}
                 style={{
                   padding: "0 12px",
                   height: 30,
