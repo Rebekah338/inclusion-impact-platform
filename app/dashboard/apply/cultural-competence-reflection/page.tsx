@@ -7,6 +7,88 @@ import { useState } from "react";
 
 const RATINGS = ["Never", "Rarely", "Sometimes", "Often", "Always"];
 
+const MICRO_FEEDBACK: Record<number, string> = {
+  0: "This is a real growth opportunity. Even small steps toward awareness here can shift your practice meaningfully.",
+  1: "You are beginning to notice this area. Building on these moments will strengthen your competence over time.",
+  2: "You are developing here. Consistency and intentionality will help you move from sometimes to often.",
+  3: "You are doing this well. Staying curious and seeking feedback will help you embed it further.",
+  4: "You are modelling this consistently. Consider how you might support others to develop here too.",
+};
+
+const SECTION_FEEDBACK: Record<string, {
+  developing: string;
+  building: string;
+  practising: string;
+  leading: string;
+  nextSteps: string[];
+}> = {
+  awareness: {
+    developing: "Developing self-awareness is the foundation of cultural competence. You are at the start of this journey, and recognising that is itself an important step.",
+    building: "You are beginning to examine your own assumptions and privilege. This foundational work will shape every other area of your practice.",
+    practising: "You have a solid level of self-awareness. The challenge now is to deepen this reflection, particularly in high-pressure or unfamiliar situations.",
+    leading: "Your self-awareness is strong. You understand how your background shapes your decisions and relationships, and you reflect on this regularly.",
+    nextSteps: [
+      "Keep a brief reflective journal after cross-cultural interactions: what assumptions did you notice yourself making?",
+      "Ask a trusted colleague from a different background for honest feedback on your blind spots.",
+      "Read one book or article written by someone with a very different cultural lens to your own.",
+    ],
+  },
+  knowledge: {
+    developing: "Building cultural knowledge takes time and intentional effort. Start with the communities and identities most relevant to your work.",
+    building: "You are developing your understanding of different cultures and systemic inequalities. Continue seeking out perspectives beyond your own experience.",
+    practising: "You have a good working knowledge of cultural and structural contexts. Deepening your understanding of intersectionality will strengthen this further.",
+    leading: "You have strong cultural knowledge and understand systemic barriers in depth. The next step is using this to educate and influence others.",
+    nextSteps: [
+      "Identify one cultural or identity group you work with and seek out writing, podcasts, or research created by people from that group.",
+      "Review your team or organisation's policies through the lens of one underrepresented group: what barriers might exist?",
+      "Attend a training session, webinar, or community event outside your usual professional circle.",
+    ],
+  },
+  skills: {
+    developing: "Communication across difference is a skill that improves with practice. Begin by focusing on listening and checking your assumptions before responding.",
+    building: "You are developing the communication skills needed to work effectively across cultures. Focus on creating space for others to define their own experience.",
+    practising: "Your cross-cultural communication skills are growing. Practising repair and accountability when things go wrong will strengthen your relationships further.",
+    leading: "You communicate effectively and thoughtfully across cultural difference. You adapt your style without making assumptions, and you repair harm when it occurs.",
+    nextSteps: [
+      "In your next cross-cultural conversation, focus entirely on listening: resist the urge to relate, compare, or respond too quickly.",
+      "Practise using open, identity-affirming language: ask people how they prefer to be referred to rather than assuming.",
+      "If you have caused a misunderstanding recently, revisit it: acknowledge it and ask how you can do better.",
+    ],
+  },
+  action: {
+    developing: "Taking inclusive action is where intent becomes impact. Start by identifying one concrete change you can make in your everyday practice.",
+    building: "You are beginning to take action on inclusion. Focusing on consistency, especially when it is uncomfortable, will accelerate your growth.",
+    practising: "You are actively working to create more inclusive environments. Seeking feedback and reviewing your processes regularly will help you go further.",
+    leading: "You are taking consistent, meaningful action to challenge exclusion and create equity. Your leadership in this area is visible and valuable.",
+    nextSteps: [
+      "Review one meeting, process, or decision from the past month: who was missing from the room, and why?",
+      "Identify one instance of bias or exclusion you witnessed but did not address: what would you do differently next time?",
+      "Invite feedback from someone with a different background on a process or product you own.",
+    ],
+  },
+};
+
+function getSectionTier(score: number): "developing" | "building" | "practising" | "leading" {
+  if (score < 1) return "developing";
+  if (score < 2.5) return "building";
+  if (score < 3.5) return "practising";
+  return "leading";
+}
+
+const TIER_LABELS: Record<string, string> = {
+  developing: "Developing",
+  building: "Building",
+  practising: "Practising",
+  leading: "Leading",
+};
+
+const TIER_COLORS: Record<string, { bg: string; text: string; border: string }> = {
+  developing: { bg: "#FFF7ED", text: "#92400E", border: "#FCD34D" },
+  building: { bg: "#EFF6FF", text: "#1E40AF", border: "#93C5FD" },
+  practising: { bg: "#F0FDF4", text: "#166534", border: "#86EFAC" },
+  leading: { bg: "#EFF5F0", text: "#2D5A3C", border: "#2D5A3C" },
+};
+
 const SECTIONS = [
   {
     id: "awareness",
@@ -55,21 +137,22 @@ export default function CulturalCompetenceReflectionPage() {
   const [answers, setAnswers] = useState<Answers>({});
   const [submitted, setSubmitted] = useState(false);
   const [showShareMenu, setShowShareMenu] = useState(false);
+
   const downloadAsWord = () => {
     const css = 'body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#2C2C2C;margin:2cm}h1{font-family:Calibri,Arial,sans-serif;font-size:20pt;color:#2D5A3C;margin-bottom:4pt}h2{font-family:Calibri,Arial,sans-serif;font-size:13pt;color:#2D5A3C;margin-top:18pt;margin-bottom:6pt;border-bottom:1pt solid #e5e7eb;padding-bottom:4pt}h3{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#2D5A3C;margin-top:12pt;margin-bottom:4pt}p{font-size:11pt;line-height:1.5;margin:4pt 0}ul{margin:6pt 0 12pt 20pt}li{margin-bottom:6pt;line-height:1.5}.meta{color:#6b7280;font-size:10pt;margin-bottom:16pt}.footer{font-size:9pt;color:#6b7280;margin-top:24pt;border-top:1pt solid #e5e7eb;padding-top:8pt}.reflection{background:#f4f8f5;border-left:3pt solid #2D5A3C;padding:8pt 12pt;margin:12pt 0}';
     const body = SECTIONS.map((s) => "<h2>" + s.title + "</h2><ul>" + s.questions.map((q: string) => "<li>" + q + "</li>").join("") + "</ul>").join("");
     const html =
-      "<html xmlns:o=\'urn:schemas-microsoft-com:office:office\'" +
-      " xmlns:w=\'urn:schemas-microsoft-com:office:word\'" +
-      " xmlns=\'http://www.w3.org/TR/REC-html40\'>" +
-      "<head><meta charset=\'utf-8\'><title>Cultural Competence Reflection Tool</title><style>" + css + "</style></head>" +
+      "<html xmlns:o='urn:schemas-microsoft-com:office:office'" +
+      " xmlns:w='urn:schemas-microsoft-com:office:word'" +
+      " xmlns='http://www.w3.org/TR/REC-html40'>" +
+      "<head><meta charset='utf-8'><title>Cultural Competence Reflection Tool</title><style>" + css + "</style></head>" +
       "<body>" +
       "<h1>Cultural Competence Reflection Tool</h1>" +
-      "<p class=\'meta\'>The Inclusion Edit &middot; theinclusionedit.com</p>" +
+      "<p class='meta'>The Inclusion Edit &middot; theinclusionedit.com</p>" +
       body +
-      "<p class=\'footer\'>This resource was created by The Inclusion Edit. theinclusionedit.com</p>" +
+      "<p class='footer'>This resource was created by The Inclusion Edit. theinclusionedit.com</p>" +
       "</body></html>";
-    const blob = new Blob(["\uFEFF", html], { type: "application/msword" });
+    const blob = new Blob(["﻿", html], { type: "application/msword" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -79,7 +162,7 @@ export default function CulturalCompetenceReflectionPage() {
     setShowShareMenu(false);
   };
 
-  const allQuestions = SECTIONS.flatMap((s) => s.questions.map((q, qi) => `${s.id}-${qi}`));
+  const allQuestions = SECTIONS.flatMap((s) => s.questions.map((_, qi) => `${s.id}-${qi}`));
   const answered = allQuestions.filter((k) => answers[k] !== undefined).length;
   const complete = answered === allQuestions.length;
 
@@ -96,12 +179,39 @@ export default function CulturalCompetenceReflectionPage() {
     return Math.round((vals.reduce((a, b) => a + b, 0) / vals.length) * 10) / 10;
   };
 
-  const label = (score: number) => {
+  const overallLabel = (score: number) => {
     if (score < 1) return "Developing awareness";
     if (score < 2) return "Building foundations";
     if (score < 3) return "Actively developing";
     if (score < 3.5) return "Practising consistently";
     return "Embedding and leading";
+  };
+
+  // Find strengths and growth areas from section scores
+  const getSectionInsights = () => {
+    const scored = SECTIONS.map((s) => ({ section: s, score: sectionScore(s) ?? 0 }));
+    const sorted = [...scored].sort((a, b) => b.score - a.score);
+    const strength = sorted[0];
+    const growth = sorted[sorted.length - 1];
+    return { strength, growth };
+  };
+
+  // Collect next steps from lowest-scoring sections (bottom 2)
+  const getPriorityNextSteps = () => {
+    const scored = SECTIONS.map((s) => ({ section: s, score: sectionScore(s) ?? 0 }));
+    const sorted = [...scored].sort((a, b) => a.score - b.score);
+    const bottom2 = sorted.slice(0, 2);
+    const steps: string[] = [];
+    bottom2.forEach(({ section }) => {
+      const fb = SECTION_FEEDBACK[section.id];
+      if (fb) steps.push(fb.nextSteps[0]);
+    });
+    // Add one step from the top section for momentum
+    if (sorted[sorted.length - 1]) {
+      const topFb = SECTION_FEEDBACK[sorted[sorted.length - 1].section.id];
+      if (topFb) steps.push(topFb.nextSteps[2]);
+    }
+    return steps;
   };
 
   return (
@@ -140,29 +250,74 @@ export default function CulturalCompetenceReflectionPage() {
             <div style={{ padding: "20px 24px 0", borderBottom: "1px solid #f3f4f6" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingBottom: 16 }}>
                 <h2 style={{ fontFamily: "Raleway, sans-serif", fontSize: 17, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", margin: 0 }}>{section.title}</h2>
-                {submitted && sectionScore(section) !== null && (
-                  <span style={{ background: "var(--sage-xlight, #EFF5F0)", color: "var(--sage-dark, #2D5A3C)", fontWeight: 700, fontSize: 13, padding: "4px 12px", borderRadius: 20 }}>
-                    {sectionScore(section)}/4
-                  </span>
-                )}
+                {submitted && sectionScore(section) !== null && (() => {
+                  const score = sectionScore(section)!;
+                  const tier = getSectionTier(score);
+                  const colors = TIER_COLORS[tier];
+                  return (
+                    <span style={{ background: colors.bg, color: colors.text, border: `1.5px solid ${colors.border}`, fontWeight: 700, fontSize: 12, padding: "4px 12px", borderRadius: 20 }}>
+                      {TIER_LABELS[tier]} &middot; {score}/4
+                    </span>
+                  );
+                })()}
               </div>
             </div>
             <div style={{ padding: "20px 24px 24px" }}>
               {section.questions.map((q, qi) => {
                 const key = `${section.id}-${qi}`;
+                const selectedVal = answers[key];
                 return (
-                  <div key={key} style={{ marginBottom: qi < section.questions.length - 1 ? 24 : 0 }}>
+                  <div key={key} style={{ marginBottom: qi < section.questions.length - 1 ? 28 : 0 }}>
                     <p style={{ fontSize: 14, color: "#374151", lineHeight: 1.7, margin: "0 0 10px" }}>{q}</p>
                     <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
                       {RATINGS.map((r, ri) => {
-                        const selected = answers[key] === ri;
+                        const selected = selectedVal === ri;
                         return (
-                          <button key={r} onClick={() => setAnswers((prev) => ({ ...prev, [key]: ri }))} style={{ padding: "6px 14px", borderRadius: 20, border: "1.5px solid", borderColor: selected ? "var(--sage-dark, #2D5A3C)" : "#d1d5db", background: selected ? "var(--sage-dark, #2D5A3C)" : "#fff", color: selected ? "#fff" : "#6b7280", fontSize: 12, fontWeight: 600, cursor: "pointer" }}>
+                          <button
+                            key={r}
+                            onClick={() => setAnswers((prev) => ({ ...prev, [key]: ri }))}
+                            style={{
+                              padding: "6px 14px",
+                              borderRadius: 20,
+                              border: "1.5px solid",
+                              borderColor: selected ? "var(--sage-dark, #2D5A3C)" : "#d1d5db",
+                              background: selected ? "var(--sage-dark, #2D5A3C)" : "#fff",
+                              color: selected ? "#fff" : "#6b7280",
+                              fontSize: 12,
+                              fontWeight: 600,
+                              cursor: "pointer",
+                            }}
+                          >
                             {r}
                           </button>
                         );
                       })}
                     </div>
+                    {/* Micro-feedback: appears immediately after selection */}
+                    {selectedVal !== undefined && (
+                      <div style={{
+                        marginTop: 10,
+                        padding: "10px 14px",
+                        borderRadius: 8,
+                        background: selectedVal <= 1 ? "#FFF7ED" : selectedVal === 2 ? "#EFF6FF" : "#EFF5F0",
+                        borderLeft: `3px solid ${selectedVal <= 1 ? "#F59E0B" : selectedVal === 2 ? "#60A5FA" : "#2D5A3C"}`,
+                        display: "flex",
+                        gap: 8,
+                        alignItems: "flex-start",
+                      }}>
+                        <span style={{ fontSize: 13 }}>
+                          {selectedVal <= 1 ? "💡" : selectedVal === 2 ? "📈" : "✓"}
+                        </span>
+                        <p style={{
+                          fontSize: 13,
+                          color: selectedVal <= 1 ? "#92400E" : selectedVal === 2 ? "#1E40AF" : "#166534",
+                          lineHeight: 1.6,
+                          margin: 0,
+                        }}>
+                          {MICRO_FEEDBACK[selectedVal]}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 );
               })}
@@ -173,30 +328,99 @@ export default function CulturalCompetenceReflectionPage() {
         <div style={{ textAlign: "center", marginTop: 8 }}>
           <button
             onClick={() => complete && setSubmitted(true)}
-            style={{ background: complete ? "var(--sage-dark, #2D5A3C)" : "#d1d5db", color: "#fff", fontFamily: "Raleway, sans-serif", fontWeight: 800, fontSize: 15, padding: "14px 36px", borderRadius: 10, border: "none", cursor: complete ? "pointer" : "not-allowed" }}
+            style={{
+              background: complete ? "var(--sage-dark, #2D5A3C)" : "#d1d5db",
+              color: "#fff",
+              fontFamily: "Raleway, sans-serif",
+              fontWeight: 800,
+              fontSize: 15,
+              padding: "14px 36px",
+              borderRadius: 10,
+              border: "none",
+              cursor: complete ? "pointer" : "not-allowed",
+            }}
           >
             {complete ? "See my results" : `Answer all questions to see results (${answered}/${allQuestions.length} answered)`}
           </button>
         </div>
 
-        {submitted && overallScore() !== null && (
-          <div style={{ background: "#fff", border: "2px solid var(--sage-dark, #2D5A3C)", borderRadius: 16, padding: "32px", marginTop: 32, textAlign: "center" }}>
-            <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)", margin: "0 0 8px" }}>Your overall score</p>
-            <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 48, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", margin: "0 0 4px" }}>{overallScore()}<span style={{ fontSize: 20, color: "#9ca3af" }}>/4</span></p>
-            <p style={{ fontSize: 17, fontWeight: 700, color: "var(--sage-dark, #2D5A3C)", margin: "0 0 20px" }}>{label(overallScore()!)}</p>
-            <p style={{ fontSize: 14, color: "#6b7280", maxWidth: 520, margin: "0 auto 24px", lineHeight: 1.7 }}>
-              Look at the sections where your score is lowest; these are the areas with the most development potential. Cultural competence is not a destination; it is an ongoing practice.
-            </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "center" }}>
-              {SECTIONS.map((s) => (
-                <div key={s.id} style={{ background: "var(--sage-xlight, #f4f8f5)", borderRadius: 10, padding: "12px 20px", textAlign: "center" }}>
-                  <p style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, color: "#9ca3af", margin: "0 0 4px" }}>{s.title}</p>
-                  <p style={{ fontSize: 22, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", margin: 0 }}>{sectionScore(s)}/4</p>
+        {submitted && overallScore() !== null && (() => {
+          const overall = overallScore()!;
+          const { strength, growth } = getSectionInsights();
+          const nextSteps = getPriorityNextSteps();
+          return (
+            <div style={{ marginTop: 40 }}>
+              {/* Overall score banner */}
+              <div style={{ background: "var(--sage-dark, #2D5A3C)", borderRadius: 16, padding: "36px 32px", textAlign: "center", marginBottom: 20 }}>
+                <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.7)", margin: "0 0 8px" }}>Your overall result</p>
+                <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 56, fontWeight: 800, color: "#fff", margin: "0 0 4px", lineHeight: 1 }}>{overall}<span style={{ fontSize: 22, color: "rgba(255,255,255,0.5)", fontWeight: 600 }}>/4</span></p>
+                <p style={{ fontSize: 18, fontWeight: 700, color: "#A8D5B5", margin: "0 0 16px" }}>{overallLabel(overall)}</p>
+                <p style={{ fontSize: 14, color: "rgba(255,255,255,0.8)", maxWidth: 500, margin: "0 auto", lineHeight: 1.7 }}>
+                  Cultural competence is not a destination; it is an ongoing practice. Your results below show where you are strong and where your greatest development opportunity lies.
+                </p>
+              </div>
+
+              {/* Per-section breakdown */}
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 12, marginBottom: 20 }}>
+                {SECTIONS.map((s) => {
+                  const score = sectionScore(s)!;
+                  const tier = getSectionTier(score);
+                  const colors = TIER_COLORS[tier];
+                  const fb = SECTION_FEEDBACK[s.id];
+                  const feedbackText = fb[tier];
+                  return (
+                    <div key={s.id} style={{ background: "#fff", border: `1.5px solid ${colors.border}`, borderRadius: 12, padding: "20px 20px 24px", display: "flex", flexDirection: "column", gap: 10 }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                        <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 13, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", margin: 0, lineHeight: 1.3 }}>{s.title}</p>
+                        <span style={{ background: colors.bg, color: colors.text, fontWeight: 700, fontSize: 11, padding: "3px 10px", borderRadius: 20, whiteSpace: "nowrap", marginLeft: 8 }}>{TIER_LABELS[tier]}</span>
+                      </div>
+                      {/* Score bar */}
+                      <div style={{ height: 6, background: "#f3f4f6", borderRadius: 4, overflow: "hidden" }}>
+                        <div style={{ height: "100%", width: `${(score / 4) * 100}%`, background: colors.border, borderRadius: 4, transition: "width 0.6s ease" }} />
+                      </div>
+                      <p style={{ fontSize: 22, fontWeight: 800, color: colors.text, margin: 0 }}>{score}<span style={{ fontSize: 13, color: "#9ca3af", fontWeight: 400 }}>/4</span></p>
+                      <p style={{ fontSize: 12, color: "#6b7280", lineHeight: 1.6, margin: 0 }}>{feedbackText}</p>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Strengths and growth */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 20 }}>
+                <div style={{ background: "#EFF5F0", border: "1.5px solid #2D5A3C", borderRadius: 12, padding: "20px 22px" }}>
+                  <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 11, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase", color: "#2D5A3C", margin: "0 0 8px" }}>✓ Your greatest strength</p>
+                  <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 16, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", margin: "0 0 6px" }}>{strength.section.title}</p>
+                  <p style={{ fontSize: 13, color: "#374151", lineHeight: 1.6, margin: 0 }}>
+                    {SECTION_FEEDBACK[strength.section.id].leading}
+                  </p>
                 </div>
-              ))}
+                <div style={{ background: "#FFF7ED", border: "1.5px solid #FCD34D", borderRadius: 12, padding: "20px 22px" }}>
+                  <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 11, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase", color: "#92400E", margin: "0 0 8px" }}>💡 Greatest growth opportunity</p>
+                  <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 16, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", margin: "0 0 6px" }}>{growth.section.title}</p>
+                  <p style={{ fontSize: 13, color: "#374151", lineHeight: 1.6, margin: 0 }}>
+                    {SECTION_FEEDBACK[growth.section.id][getSectionTier(growth.score)]}
+                  </p>
+                </div>
+              </div>
+
+              {/* Next steps */}
+              <div style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 12, padding: "28px 28px 32px" }}>
+                <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 11, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)", margin: "0 0 8px" }}>Your next steps</p>
+                <p style={{ fontSize: 14, color: "#6b7280", margin: "0 0 20px", lineHeight: 1.6 }}>
+                  Based on your results, these are the three actions most likely to move your practice forward:
+                </p>
+                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                  {nextSteps.map((step, i) => (
+                    <div key={i} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
+                      <span style={{ background: "var(--sage-dark, #2D5A3C)", color: "#fff", fontWeight: 800, fontSize: 12, borderRadius: "50%", width: 24, height: 24, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: 1 }}>{i + 1}</span>
+                      <p style={{ fontSize: 14, color: "#374151", lineHeight: 1.7, margin: 0 }}>{step}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
       </div>
 
       <div style={{ background: "#fff", borderTop: "1px solid #e5e7eb", padding: "56px 24px" }}>
@@ -229,7 +453,8 @@ export default function CulturalCompetenceReflectionPage() {
           </div>
         </div>
       </div>
-            {/* Share / Download bar */}
+
+      {/* Share / Download bar */}
       <div data-noprint="true" style={{ background: "#fff", borderTop: "1px solid #e5e7eb", padding: "32px 24px" }}>
         <div style={{ maxWidth: 720, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
           <div>
@@ -253,7 +478,7 @@ export default function CulturalCompetenceReflectionPage() {
                 </button>
                 <button
                   onClick={() => { setShowShareMenu(false); window.print(); }}
-                  style={{ display: "block", width: "100%", textAlign: "left", padding: "14px 18px", fontSize: 14, color: "#374151", background: "none", border: "none", cursor: "pointer" }}
+                  style={{ display: "block", width: "100%", textAlign: "left", padding: "14px 18px", fontSize: 14, color: "#374151", background: "none", border: "none", cursor: "pointer", borderBottom: "1px solid #f3f4f6" }}
                 >
                   🖨️ Print or save as PDF
                 </button>
