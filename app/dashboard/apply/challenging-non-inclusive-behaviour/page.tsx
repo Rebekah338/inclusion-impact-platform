@@ -66,11 +66,10 @@ const SCENARIOS = [
 ];
 
 export default function ChallengingNonInclusiveBehaviourPage() {
-  const [openScenario, setOpenScenario] = useState<string | null>(null);
   const [showShareMenu, setShowShareMenu] = useState(false);
   const downloadAsWord = () => {
     const css = 'body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#2C2C2C;margin:2cm}h1{font-family:Calibri,Arial,sans-serif;font-size:20pt;color:#2D5A3C;margin-bottom:4pt}h2{font-family:Calibri,Arial,sans-serif;font-size:13pt;color:#2D5A3C;margin-top:18pt;margin-bottom:6pt;border-bottom:1pt solid #e5e7eb;padding-bottom:4pt}h3{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#2D5A3C;margin-top:12pt;margin-bottom:4pt}p{font-size:11pt;line-height:1.5;margin:4pt 0}ul{margin:6pt 0 12pt 20pt}li{margin-bottom:6pt;line-height:1.5}.meta{color:#6b7280;font-size:10pt;margin-bottom:16pt}.footer{font-size:9pt;color:#6b7280;margin-top:24pt;border-top:1pt solid #e5e7eb;padding-top:8pt}.reflection{background:#f4f8f5;border-left:3pt solid #2D5A3C;padding:8pt 12pt;margin:12pt 0}';
-    const body = SCENARIOS.map((s) => "<h2>" + s.title + "</h2><p>" + (Array.isArray(s.content) ? (s.content as string[]).join(" ") : (s.content as string)) + "</p>").join("");
+    const body = SCENARIOS.map((s) => "<h2>" + s.title + "</h2><p style='color:#6b7280'>" + s.context + "</p>" + s.responses.map((r: {label: string; text: string}) => "<h3>" + r.label + "</h3><p style='font-style:italic'>" + r.text + "</p>").join("")).join("");
     const html =
       "<html xmlns:o=\'urn:schemas-microsoft-com:office:office\'" +
       " xmlns:w=\'urn:schemas-microsoft-com:office:word\'" +
@@ -146,33 +145,25 @@ export default function ChallengingNonInclusiveBehaviourPage() {
       {/* Scenarios */}
       <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px 40px" }}>
         <h2 style={{ fontFamily: "Raleway, sans-serif", fontSize: 20, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", marginBottom: 16 }}>Common scenarios and what to say</h2>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          {SCENARIOS.map((scenario) => {
-            const isOpen = openScenario === scenario.id;
-            return (
-              <div key={scenario.id} style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 12, overflow: "hidden" }}>
-                <button onClick={() => setOpenScenario(isOpen ? null : scenario.id)} style={{ width: "100%", textAlign: "left", padding: "20px 24px", background: "none", border: "none", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16 }}>
-                  <div>
-                    <p style={{ fontFamily: "Raleway, sans-serif", fontWeight: 700, fontSize: 16, color: "var(--charcoal, #2C2C2C)", margin: "0 0 6px" }}>{scenario.title}</p>
-                    <p style={{ fontSize: 13, color: "#6b7280", margin: 0, lineHeight: 1.6 }}>{scenario.context}</p>
-                  </div>
-                  <span style={{ color: "var(--sage-dark, #2D5A3C)", fontSize: 20, fontWeight: 300, flexShrink: 0, transform: isOpen ? "rotate(45deg)" : "rotate(0deg)", transition: "transform 0.2s", marginTop: 2 }}>+</span>
-                </button>
-                {isOpen && (
-                  <div style={{ borderTop: "1px solid #f3f4f6", padding: "20px 24px 24px" }}>
-                    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                      {scenario.responses.map((r) => (
-                        <div key={r.label} style={{ background: "var(--sage-xlight, #EFF5F0)", borderRadius: 10, padding: "16px 18px", borderLeft: "3px solid var(--sage-dark, #2D5A3C)" }}>
-                          <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 11, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)", margin: "0 0 8px" }}>{r.label}</p>
-                          <p style={{ fontSize: 14, color: "#374151", lineHeight: 1.7, margin: 0, fontStyle: "italic" }}>{r.text}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
+        <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+          {SCENARIOS.map((scenario) => (
+            <div key={scenario.id} style={{ background: "#fff", border: "2px solid #e5e7eb", borderRadius: 16, overflow: "hidden" }}>
+              {/* Card header */}
+              <div style={{ padding: "22px 24px 16px", borderBottom: "1px solid #f3f4f6" }}>
+                <p style={{ fontFamily: "Raleway, sans-serif", fontWeight: 800, fontSize: 17, color: "var(--charcoal, #2C2C2C)", margin: "0 0 8px" }}>{scenario.title}</p>
+                <p style={{ fontSize: 14, color: "#6b7280", margin: 0, lineHeight: 1.65 }}>{scenario.context}</p>
               </div>
-            );
-          })}
+              {/* Responses — always visible */}
+              <div style={{ padding: "20px 24px 24px", display: "flex", flexDirection: "column", gap: 12 }}>
+                {scenario.responses.map((r) => (
+                  <div key={r.label} style={{ background: "var(--sage-xlight, #EFF5F0)", borderRadius: 10, padding: "16px 18px", borderLeft: "3px solid var(--sage-dark, #2D5A3C)" }}>
+                    <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 11, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)", margin: "0 0 8px" }}>{r.label}</p>
+                    <p style={{ fontSize: 14, color: "#374151", lineHeight: 1.7, margin: 0, fontStyle: "italic" }}>{r.text}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
