@@ -47,6 +47,50 @@ export default function DiverseRecruitmentChecklistPage() {
   const [activePhase, setActivePhase] = useState<Phase>("all");
   const [checked, setChecked] = useState<Set<string>>(new Set());
   const [showShareMenu, setShowShareMenu] = useState(false);
+  const downloadAsWord = () => {
+    const phases: Array<{ label: string; phase: Phase }> = [
+      { label: "Before you advertise", phase: "before" },
+      { label: "During the process", phase: "during" },
+      { label: "After the decision", phase: "after" },
+    ];
+    const sections = phases
+      .map(({ label, phase }) => {
+        const items = CHECKLIST_ITEMS.filter((i) => i.phase === phase);
+        const lis = items.map((i) => "<li>" + i.text + "</li>").join("");
+        return "<h2>" + label + "</h2><ul>" + lis + "</ul>";
+      })
+      .join("");
+    const css =
+      "body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#2C2C2C;margin:2cm}" +
+      "h1{font-family:Calibri,Arial,sans-serif;font-size:20pt;color:#2D5A3C;margin-bottom:4pt}" +
+      "h2{font-family:Calibri,Arial,sans-serif;font-size:13pt;color:#2D5A3C;margin-top:18pt;margin-bottom:6pt;border-bottom:1pt solid #e5e7eb;padding-bottom:4pt}" +
+      "p{font-size:11pt;line-height:1.5;margin:4pt 0}" +
+      "ul{margin:6pt 0 12pt 20pt}" +
+      "li{margin-bottom:8pt;line-height:1.5}" +
+      ".meta{color:#6b7280;font-size:10pt;margin-bottom:16pt}" +
+      ".footer{font-size:9pt;color:#6b7280;margin-top:24pt;border-top:1pt solid #e5e7eb;padding-top:8pt}";
+    const html =
+      "<html xmlns:o='urn:schemas-microsoft-com:office:office'" +
+      " xmlns:w='urn:schemas-microsoft-com:office:word'" +
+      " xmlns='http://www.w3.org/TR/REC-html40'>" +
+      "<head><meta charset='utf-8'><title>Diverse Recruitment Checklist</title>" +
+      "<style>" + css + "</style></head>" +
+      "<body>" +
+      "<h1>Diverse Recruitment Checklist</h1>" +
+      "<p class='meta'>The Inclusion Edit &middot; Updated October 2026</p>" +
+      sections +
+      "<p class='footer'>This resource was created by The Inclusion Edit. theinclusionedit.com</p>" +
+      "</body></html>";
+    const blob = new Blob(["﻿", html], { type: "application/msword" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "diverse-recruitment-checklist.doc";
+    a.click();
+    URL.revokeObjectURL(url);
+    setShowShareMenu(false);
+  };
+
 
   const filtered = activePhase === "all" ? CHECKLIST_ITEMS : CHECKLIST_ITEMS.filter((i) => i.phase === activePhase);
   const phaseItems = (phase: Phase) => CHECKLIST_ITEMS.filter((i) => i.phase === phase);
@@ -178,9 +222,15 @@ export default function DiverseRecruitmentChecklistPage() {
                 </button>
                 <button
                   onClick={() => { window.open(window.location.href, "_blank"); setShowShareMenu(false); }}
-                  style={{ display: "block", width: "100%", textAlign: "left", padding: "14px 18px", fontSize: 14, color: "#374151", background: "none", border: "none", cursor: "pointer" }}
+                  style={{ display: "block", width: "100%", textAlign: "left", padding: "14px 18px", fontSize: 14, color: "#374151", background: "none", border: "none", cursor: "pointer", borderBottom: "1px solid #f3f4f6" }}
                 >
                   🖨️ Print or save as PDF
+                </button>
+                <button
+                  onClick={downloadAsWord}
+                  style={{ display: "block", width: "100%", textAlign: "left", padding: "14px 18px", fontSize: 14, color: "#374151", background: "none", border: "none", cursor: "pointer" }}
+                >
+                  📄 Download as Word (.doc)
                 </button>
               </div>
             )}
