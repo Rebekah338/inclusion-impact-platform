@@ -3205,14 +3205,14 @@ function EvidencePageInner() {
 
       </main>
       {/* ── Business Case Essentials strip ─────────────────────────────── */}
-      <section style={{ background: "linear-gradient(120deg, #22503a 0%, #3d7a55 50%, #2d6b45 100%)", padding: "4rem 2rem", position: "relative", overflow: "hidden", width: "100vw", marginLeft: "calc(-50vw + 50%)" }}>
-        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.10) 0%, transparent 60%)", pointerEvents: "none" }} />
-        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 20% 80%, rgba(0,0,0,0.12) 0%, transparent 50%)", pointerEvents: "none" }} />
+      <section style={{ background: "linear-gradient(120deg, #c8ddd0 0%, #daeae0 50%, #d0e4d8 100%)", padding: "4rem 2rem", position: "relative", overflow: "hidden", width: "100vw", marginLeft: "calc(-50vw + 50%)" }}>
+        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.40) 0%, transparent 60%)", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 20% 80%, rgba(0,0,0,0.04) 0%, transparent 50%)", pointerEvents: "none" }} />
         <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative" }}>
-          <h2 style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontSize: "1.5rem", fontWeight: 800, color: "#fff", margin: "0 0 0.375rem" }}>
+          <h2 style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontSize: "1.5rem", fontWeight: 800, color: "var(--sage-dark, #2D5A3C)", margin: "0 0 0.375rem" }}>
             Business Case Essentials
           </h2>
-          <p style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.95rem", color: "rgba(255,255,255,0.8)", margin: "0 0 2rem" }}>
+          <p style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.95rem", color: "var(--sage-dark, #2D5A3C)", margin: "0 0 2rem" }}>
             Eight resources to get you started: the data that convinces, the tools that build, the stories that show it works, and the templates that present it.
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "1rem" }}>
