@@ -3203,11 +3203,11 @@ function EvidencePageInner() {
           </>
         )}
 
-
       {/* ── Business Case Essentials strip ─────────────────────────────── */}
-      <section style={{ background: "linear-gradient(135deg, #1a3d2b 0%, #2D5A3C 40%, #3a7a52 70%, #2a6644 100%)", padding: "3.5rem 1.5rem", position: "relative", overflow: "hidden" }}>
-        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 70% 50%, rgba(255,255,255,0.07) 0%, transparent 65%)", pointerEvents: "none" }} />
-        <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative" }}>
+      <section style={{ background: "linear-gradient(120deg, #22503a 0%, #3d7a55 50%, #2d6b45 100%)", padding: "4rem 2rem", position: "relative", overflow: "hidden", width: "100vw", marginLeft: "calc(-50vw + 50%)" }}>
+        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.10) 0%, transparent 60%)", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 20% 80%, rgba(0,0,0,0.12) 0%, transparent 50%)", pointerEvents: "none" }} />
+        <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative" }}>
           <h2 style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontSize: "1.5rem", fontWeight: 800, color: "#fff", margin: "0 0 0.375rem" }}>
             Business Case Essentials
           </h2>
@@ -3292,8 +3292,6 @@ function EvidencePageInner() {
         </div>
       </section>
       {/* ── end Business Case Essentials ────────────────────────────────── */}
-
-      </main>
       <BottomBanner
           resourceTitle="Request evidence on a topic"
           resourceBody="Is there a topic where you need stronger evidence to make the case? Tell us what you are working on and we will source and add the most relevant research to the library."
