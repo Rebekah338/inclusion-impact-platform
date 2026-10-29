@@ -3205,15 +3205,16 @@ function EvidencePageInner() {
 
 
       {/* ── Business Case Essentials strip ─────────────────────────────── */}
-      <section style={{ background: "var(--sage-dark, #2D5A3C)", padding: "3rem 1.5rem" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+      <section style={{ background: "linear-gradient(135deg, #1a3d2b 0%, #2D5A3C 40%, #3a7a52 70%, #2a6644 100%)", padding: "3.5rem 1.5rem", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 70% 50%, rgba(255,255,255,0.07) 0%, transparent 65%)", pointerEvents: "none" }} />
+        <div style={{ maxWidth: 1100, margin: "0 auto", position: "relative" }}>
           <h2 style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontSize: "1.5rem", fontWeight: 800, color: "#fff", margin: "0 0 0.375rem" }}>
             Business Case Essentials
           </h2>
           <p style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.95rem", color: "rgba(255,255,255,0.8)", margin: "0 0 2rem" }}>
             Eight resources to get you started: the data that convinces, the tools that build, the stories that show it works, and the templates that present it.
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "1rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "1rem" }}>
 
             {/* 1 — McKinsey (Research) */}
             <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
