@@ -240,15 +240,22 @@ html {
     display: none !important;
   }
 
-  /* Collapse tag/badge rows (Recruitment, Bias Reduction etc.) — they just waste vertical space in print */
+  /* Collapse tag/badge rows and their container — hide any flex row of small rounded spans */
+  div[style*="marginBottom: 32"],
+  div[style*="margin-bottom: 32px"],
   span[style*="borderRadius: 20"],
   span[style*="border-radius: 20px"] {
     display: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
-  /* Tighten header block padding */
-  div[style*="padding: \"32px 24px 0\""] {
-    padding: 0 !important;
+  /* Tighten header block top padding */
+  div[style*="padding: \"32px 24px 0\""],
+  div[style*="padding: 32px 24px 0"] {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
   }
 
   /* Reset page background and colours for ink */
