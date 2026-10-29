@@ -3203,6 +3203,95 @@ function EvidencePageInner() {
           </>
         )}
 
+
+      {/* ── Business Case Essentials strip ─────────────────────────────── */}
+      <section style={{ background: "var(--sage-dark, #2D5A3C)", padding: "3rem 1.5rem" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <h2 style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontSize: "1.5rem", fontWeight: 800, color: "#fff", margin: "0 0 0.375rem" }}>
+            Business Case Essentials
+          </h2>
+          <p style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.95rem", color: "rgba(255,255,255,0.8)", margin: "0 0 2rem" }}>
+            Eight resources to get you started: the data that convinces, the tools that build, the stories that show it works, and the templates that present it.
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "1rem" }}>
+
+            {/* 1 — McKinsey Diversity Wins */}
+            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+              <span style={{ fontSize: 28 }}>📊</span>
+              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Research and Data</span>
+              <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>McKinsey Diversity Wins</p>
+              <p style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.8rem", color: "#4b5563", margin: 0, lineHeight: 1.5, flexGrow: 1 }}>Companies in the top quartile for gender diversity are 25% more likely to outperform financially.</p>
+              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.72rem", color: "#6b7280" }}>McKinsey and Company · 2023</span>
+            </div>
+
+            {/* 2 — Deloitte Belonging */}
+            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+              <span style={{ fontSize: 28 }}>🧠</span>
+              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Research and Data</span>
+              <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>The Diversity and Inclusion Revolution</p>
+              <p style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.8rem", color: "#4b5563", margin: 0, lineHeight: 1.5, flexGrow: 1 }}>When employees feel they belong, team performance increases by 17% and turnover risk drops by 50%.</p>
+              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.72rem", color: "#6b7280" }}>Deloitte · 2018</span>
+            </div>
+
+            {/* 3 — Evidence Builder tool */}
+            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+              <span style={{ fontSize: 28 }}>⚙️</span>
+              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Evidence Builder</span>
+              <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>Build Your Business Case</p>
+              <p style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.8rem", color: "#4b5563", margin: 0, lineHeight: 1.5, flexGrow: 1 }}>Answer three questions and get a tailored, evidence-backed business case ready to present in minutes.</p>
+              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.72rem", color: "#6b7280" }}>Interactive tool</span>
+            </div>
+
+            {/* 4 — NHS cost of exclusion */}
+            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+              <span style={{ fontSize: 28 }}>💷</span>
+              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Research and Data</span>
+              <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>The Cost of Exclusion</p>
+              <p style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.8rem", color: "#4b5563", margin: 0, lineHeight: 1.5, flexGrow: 1 }}>Bullying and harassment costs the NHS £2.281 billion every year. What is non-inclusion costing your organisation?</p>
+              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.72rem", color: "#6b7280" }}>Kline and Lewis · University of Plymouth</span>
+            </div>
+
+            {/* 5 — SAP case study */}
+            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+              <span style={{ fontSize: 28 }}>🔬</span>
+              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Case Study</span>
+              <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>SAP: Neurodiversity as a Business Strategy</p>
+              <p style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.8rem", color: "#4b5563", margin: 0, lineHeight: 1.5, flexGrow: 1 }}>SAP's Autism at Work programme delivered 40% more innovations and 20% higher retention. Inclusion as capability, not charity.</p>
+              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.72rem", color: "#6b7280" }}>SAP · Autism at Work</span>
+            </div>
+
+            {/* 6 — NHS case study */}
+            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+              <span style={{ fontSize: 28 }}>🏥</span>
+              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Case Study</span>
+              <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>NHS: Quantifying the Price of Fear</p>
+              <p style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.8rem", color: "#4b5563", margin: 0, lineHeight: 1.5, flexGrow: 1 }}>A forensic cost analysis of what workplace exclusion actually costs across seven financial categories. The numbers are undeniable.</p>
+              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.72rem", color: "#6b7280" }}>Kline and Lewis · 2019</span>
+            </div>
+
+            {/* 7 — Business case template */}
+            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+              <span style={{ fontSize: 28 }}>📋</span>
+              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Template</span>
+              <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>Business Case Presentation Template</p>
+              <p style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.8rem", color: "#4b5563", margin: 0, lineHeight: 1.5, flexGrow: 1 }}>A board-ready structure with prompts, data placeholders and example language. Use it in a meeting next week.</p>
+              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.72rem", color: "#6b7280" }}>Template · Instant download</span>
+            </div>
+
+            {/* 8 — EDI data dashboard template */}
+            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+              <span style={{ fontSize: 28 }}>📈</span>
+              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Template</span>
+              <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>EDI Data Dashboard Template</p>
+              <p style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.8rem", color: "#4b5563", margin: 0, lineHeight: 1.5, flexGrow: 1 }}>Track and visualise your key EDI metrics across recruitment, retention, pay, progression and engagement in one place.</p>
+              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.72rem", color: "#6b7280" }}>Template · Instant download</span>
+            </div>
+
+          </div>
+        </div>
+      </section>
+      {/* ── end Business Case Essentials ────────────────────────────────── */}
+
       </main>
       <BottomBanner
           resourceTitle="Request evidence on a topic"
