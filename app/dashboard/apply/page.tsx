@@ -350,7 +350,7 @@ export default function ApplyPage() {
                   </div>
 
                   {/* Icon */}
-                  <div style={{ fontSize: "1.75rem", marginTop: isVisited ? "1.25rem" : "0" }} aria-hidden="true">{r.icon}</div>
+                  <div style={{ fontSize: "1.75rem", marginTop: isVisited ? "1.25rem" : "0", filter: ["🤝","✊","👊","👋","🙌","👏","✋","🖐️","☝️","👆","👇","👈","👉","💪","🤲","🫱","🫲","🫳","🫴","🤜","🤛","🤞","🤟","🤘","🤙","👌","🤌","🤏","✌️","🫰","🫵","🫶"].includes(r.icon) ? "sepia(1) saturate(3) hue-rotate(330deg) brightness(0.6)" : undefined }} aria-hidden="true">{r.icon}</div>
 
                   {/* Format badge */}
                   <span style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem", background: "var(--sage-xlight)", border: "1px solid var(--sage-light)", color: "var(--sage-dark)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", padding: "0.2rem 0.6rem", borderRadius: "999px", width: "fit-content" }}>
