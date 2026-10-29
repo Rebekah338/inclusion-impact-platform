@@ -10,16 +10,16 @@ const SECTIONS = [
     id: "understand",
     title: "Understand what anti-racism means",
     content: [
-      "Anti-racism is not the same as not being racist. Not being racist is a passive position — a refusal to act in explicitly discriminatory ways. Anti-racism is an active commitment to understanding and dismantling the systems, structures, and behaviours that produce and sustain racial inequality.",
+      "Anti-racism is not the same as not being racist. Not being racist is a passive position; a refusal to act in explicitly discriminatory ways. Anti-racism is an active commitment to understanding and dismantling the systems, structures, and behaviours that produce and sustain racial inequality.",
       "Author and scholar Ibram X. Kendi defines anti-racism clearly: there is no neutral position on racism. Policies, practices, and behaviours are either producing more racial equity or less. Choosing not to engage is a choice in favour of the status quo.",
       "Anti-racism requires ongoing learning and action, not a single gesture or declaration. It is a practice, not an identity.",
     ],
   },
   {
     id: "educate",
-    title: "Educate yourself — and do not outsource that labour",
+    title: "Educate yourself; and do not outsource that labour",
     content: [
-      "The most important first step is taking responsibility for your own learning. Read books, listen to podcasts, follow researchers and practitioners, and engage with the lived experiences of people who face racial discrimination — not as a tourism exercise, but as a serious commitment to understanding.",
+      "The most important first step is taking responsibility for your own learning. Read books, listen to podcasts, follow researchers and practitioners, and engage with the lived experiences of people who face racial discrimination; not as a tourism exercise, but as a serious commitment to understanding.",
       "Do not rely on colleagues, friends, or employees from racially marginalised groups to educate you. That labour is unpaid, emotionally demanding, and not their responsibility. Use the extensive resources available from Black, Asian, and other racially marginalised writers, researchers, and organisations.",
       "Resist the urge to rush to action before building understanding. Well-intentioned but poorly informed anti-racist gestures can cause harm. Slow down, read, and listen before you act.",
     ],
@@ -29,38 +29,38 @@ const SECTIONS = [
     title: "Apply anti-racism in workplace practices",
     content: [
       "Review your recruitment processes for racial bias: examine where candidates of colour are lost in your pipeline, what language your job adverts use, who is on your hiring panels, and how decisions are made.",
-      "Audit promotion and pay data by ethnicity. If people from racially marginalised groups are concentrated in lower pay bands or roles, ask why — and act on the answer.",
+      "Audit promotion and pay data by ethnicity. If people from racially marginalised groups are concentrated in lower pay bands or roles, ask why; and act on the answer.",
       "Address racist incidents directly and consistently. A culture that ignores or minimises racist comments, jokes, or microaggressions tells people of colour that they are not safe at work. Address every incident, however 'minor' it may seem to others.",
-      "Ensure your training, development, and mentoring programmes actively reach employees from racially marginalised groups — and that they are not required to prove themselves further than their white peers to access the same opportunities.",
+      "Ensure your training, development, and mentoring programmes actively reach employees from racially marginalised groups; and that they are not required to prove themselves further than their white peers to access the same opportunities.",
     ],
   },
   {
     id: "microaggressions",
     title: "Understand and interrupt racial microaggressions",
     content: [
-      "Racial microaggressions are everyday verbal, behavioural, or environmental slights — often unintentional — that communicate hostile, derogatory, or negative messages to people of colour. Examples include asking someone 'where are you really from?', commenting on someone's hair in ways that would not happen with white colleagues, or mispronouncing a name repeatedly without effort to correct it.",
+      "Racial microaggressions are everyday verbal, behavioural, or environmental slights (often unintentional) that communicate hostile, derogatory, or negative messages to people of colour. Examples include asking someone 'where are you really from?', commenting on someone's hair in ways that would not happen with white colleagues, or mispronouncing a name repeatedly without effort to correct it.",
       "The impact of microaggressions is cumulative. Each individual instance may seem small; over time, they communicate that a person does not fully belong. Research links repeated exposure to microaggressions with significant negative effects on mental health, job satisfaction, and performance.",
-      "When you witness a microaggression, you can interrupt it in the moment: 'I want to check — was that intended to be a comment about [name]'s background?' Or follow up privately: 'I noticed what happened earlier and I wanted to check in with you.'",
-      "When you have caused a microaggression — and you will — the appropriate response is a brief, genuine apology and a commitment to do better. Do not ask the affected person to reassure you.",
+      "When you witness a microaggression, you can interrupt it in the moment: 'I want to check; was that intended to be a comment about [name]'s background?' Or follow up privately: 'I noticed what happened earlier and I wanted to check in with you.'",
+      "When you have caused a microaggression (and you will) the appropriate response is a brief, genuine apology and a commitment to do better. Do not ask the affected person to reassure you.",
     ],
   },
   {
     id: "structural",
     title: "Address structural racism, not just individual behaviour",
     content: [
-      "Individual attitudes matter — but individual attitudes alone do not produce or sustain racial inequality. Structural racism describes the way that systems, policies, and institutions produce unequal outcomes for people based on race, regardless of the intentions of the individuals within them.",
+      "Individual attitudes matter; but individual attitudes alone do not produce or sustain racial inequality. Structural racism describes the way that systems, policies, and institutions produce unequal outcomes for people based on race, regardless of the intentions of the individuals within them.",
       "In workplaces, structural racism can appear in pay and promotion gaps, in who is informally mentored and sponsored, in whose names are remembered and whose are mispronounced, in whose work is praised and whose is scrutinised, and in the unwritten cultural norms that define who 'fits'.",
-      "Anti-racist practice at the structural level means auditing and redesigning processes — not just educating individuals. It means asking who benefits from the status quo and who does not, and changing systems accordingly.",
-      "Track outcomes, not just intentions. If your equality data shows persistent gaps in representation or progression, that is structural information — and it calls for structural change.",
+      "Anti-racist practice at the structural level means auditing and redesigning processes; not just educating individuals. It means asking who benefits from the status quo and who does not, and changing systems accordingly.",
+      "Track outcomes, not just intentions. If your equality data shows persistent gaps in representation or progression, that is structural information; and it calls for structural change.",
     ],
   },
   {
     id: "accountability",
-    title: "Be accountable — to people, not just principles",
+    title: "Be accountable; to people, not just principles",
     content: [
-      "Anti-racism that stays at the level of statements, pledges, and good intentions, without behavioural and structural change, is not anti-racism — it is reputation management.",
+      "Anti-racism that stays at the level of statements, pledges, and good intentions, without behavioural and structural change, is not anti-racism; it is reputation management.",
       "Accountability means setting specific, measurable goals for racial equity in your team or organisation and reporting on them. It means naming the outcomes you are responsible for and being honest about where you are falling short.",
-      "It also means welcoming challenge. When people from racially marginalised groups tell you that your practice is not matching your stated commitments, the response is listening and change — not defensiveness.",
+      "It also means welcoming challenge. When people from racially marginalised groups tell you that your practice is not matching your stated commitments, the response is listening and change; not defensiveness.",
       "Anti-racist practice is also relevant to your supply chain, your partnerships, your event lineups, and your communications. Where you spend money, and whose work you amplify, are also anti-racist choices.",
     ],
   },
@@ -128,10 +128,10 @@ export default function AntiRacistPracticeGuidePage() {
           <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)", marginBottom: 16 }}>About this topic</p>
           <h2 style={{ fontFamily: "Raleway, sans-serif", fontSize: 24, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", marginBottom: 20 }}>Why this matters</h2>
           <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8, marginBottom: 20 }}>
-            Racial inequality is not a natural or neutral state of affairs — it is the result of historical systems and ongoing practices that continue to shape who gets access to opportunity, resources, and power. Anti-racism is the commitment to understanding those systems and actively working to change them.
+            Racial inequality is not a natural or neutral state of affairs; it is the result of historical systems and ongoing practices that continue to shape who gets access to opportunity, resources, and power. Anti-racism is the commitment to understanding those systems and actively working to change them.
           </p>
           <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8 }}>
-            It is also work that never ends. The standard is not perfection; it is consistent, honest, and evolving commitment — with the humility to recognise when you have caused harm and the courage to keep going anyway.
+            It is also work that never ends. The standard is not perfection; it is consistent, honest, and evolving commitment; with the humility to recognise when you have caused harm and the courage to keep going anyway.
           </p>
         </div>
       </div>

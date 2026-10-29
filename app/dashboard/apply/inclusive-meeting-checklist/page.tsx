@@ -10,23 +10,23 @@ type Stage = "before" | "during" | "after";
 const ITEMS = [
   // Before
   { stage: "before" as Stage, id: "b1", text: "Send a clear agenda in advance, including the purpose of the meeting and what input is expected from participants." },
-  { stage: "before" as Stage, id: "b2", text: "Share any relevant documents or pre-reading at least 24 hours ahead — do not assume people can review materials in the meeting itself." },
+  { stage: "before" as Stage, id: "b2", text: "Share any relevant documents or pre-reading at least 24 hours ahead; do not assume people can review materials in the meeting itself." },
   { stage: "before" as Stage, id: "b3", text: "Consider whether the meeting is necessary, or whether the same outcome could be achieved asynchronously." },
   { stage: "before" as Stage, id: "b4", text: "Schedule meetings at times that work across time zones, caring responsibilities, and religious observances where relevant." },
   { stage: "before" as Stage, id: "b5", text: "Provide access and joining information in advance, including dial-in options and captioning if available." },
-  { stage: "before" as Stage, id: "b6", text: "Consider who is and is not in the meeting — are all relevant perspectives represented?" },
+  { stage: "before" as Stage, id: "b6", text: "Consider who is and is not in the meeting; are all relevant perspectives represented?" },
   // During
   { stage: "during" as Stage, id: "d1", text: "Begin with a brief check-in or context-setting so that latecomers can orient without the meeting being restarted." },
   { stage: "during" as Stage, id: "d2", text: "State the meeting norms explicitly at the start: how to signal you want to speak, whether cameras are on or off, how questions will be taken." },
-  { stage: "during" as Stage, id: "d3", text: "Actively invite quieter participants to contribute — do not let the same voices dominate." },
+  { stage: "during" as Stage, id: "d3", text: "Actively invite quieter participants to contribute; do not let the same voices dominate." },
   { stage: "during" as Stage, id: "d4", text: "Attribute ideas clearly and specifically to the people who raised them." },
-  { stage: "during" as Stage, id: "d5", text: "Interrupt interruptions: if someone is cut off, bring them back — 'I think [name] was making a point — [name], please go ahead.'" },
-  { stage: "during" as Stage, id: "d6", text: "Do not require cameras to be on — allow people to participate in whatever format is accessible to them." },
+  { stage: "during" as Stage, id: "d5", text: "Interrupt interruptions: if someone is cut off, bring them back: 'I think [name] was making a point. [Name], please go ahead.'" },
+  { stage: "during" as Stage, id: "d6", text: "Do not require cameras to be on; allow people to participate in whatever format is accessible to them." },
   { stage: "during" as Stage, id: "d7", text: "Use inclusive language throughout: avoid gendered collective terms, jargon, and cultural references that may exclude." },
   { stage: "during" as Stage, id: "d8", text: "Summarise key points and decisions verbally before moving on, and check understanding before closing an agenda item." },
   { stage: "during" as Stage, id: "d9", text: "If anything arises that could be discussed asynchronously, park it and share it afterwards rather than extending the meeting." },
   // After
-  { stage: "after" as Stage, id: "a1", text: "Share clear, written notes or a summary within 24 hours — including decisions made, actions agreed, and who is responsible for each." },
+  { stage: "after" as Stage, id: "a1", text: "Share clear, written notes or a summary within 24 hours; including decisions made, actions agreed, and who is responsible for each." },
   { stage: "after" as Stage, id: "a2", text: "Record and share the meeting where appropriate, so that those who could not attend can access what they need." },
   { stage: "after" as Stage, id: "a3", text: "Follow up individually with anyone who was talked over, whose contribution was missed, or who may have found the meeting difficult." },
   { stage: "after" as Stage, id: "a4", text: "Reflect on the meeting: who spoke, who did not, whose ideas were picked up, and what you would do differently." },
@@ -133,7 +133,7 @@ export default function InclusiveMeetingChecklistPage() {
           <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)", marginBottom: 16 }}>About this topic</p>
           <h2 style={{ fontFamily: "Raleway, sans-serif", fontSize: 24, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", marginBottom: 20 }}>Why meetings matter for inclusion</h2>
           <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8, marginBottom: 20 }}>
-            Research consistently shows that who gets heard in meetings, whose contributions are credited, and who is interrupted shapes perceptions of competence, commitment, and leadership potential. These patterns are not random — they track with gender, race, disability, and other characteristics.
+            Research consistently shows that who gets heard in meetings, whose contributions are credited, and who is interrupted shapes perceptions of competence, commitment, and leadership potential. These patterns are not random; they track with gender, race, disability, and other characteristics.
           </p>
           <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8 }}>
             Changing meeting culture is one of the highest-impact, lowest-cost interventions available to leaders and managers who are serious about inclusion.

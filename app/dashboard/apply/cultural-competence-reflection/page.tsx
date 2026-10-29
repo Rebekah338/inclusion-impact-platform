@@ -23,7 +23,7 @@ const SECTIONS = [
     title: "Cultural knowledge",
     questions: [
       "I seek out information about cultures, identities, and experiences different from my own.",
-      "I understand that within any cultural or identity group, individuals vary enormously — I do not generalise.",
+      "I understand that within any cultural or identity group, individuals vary enormously: I do not generalise.",
       "I am familiar with the history and context behind inequalities that affect the groups I work with.",
       "I can name specific ways that systemic barriers affect the people I work alongside or serve.",
     ],
@@ -43,7 +43,7 @@ const SECTIONS = [
     title: "Taking action",
     questions: [
       "I actively include people from different backgrounds in decisions, projects, and conversations.",
-      "I speak up when I witness exclusion, bias, or discrimination — even when it is uncomfortable.",
+      "I speak up when I witness exclusion, bias, or discrimination; even when it is uncomfortable.",
       "I regularly review my processes and practices to identify and remove cultural barriers.",
       "I use feedback from people with different experiences to improve how I lead or operate.",
     ],
@@ -101,7 +101,7 @@ export default function CulturalCompetenceReflectionPage() {
           Cultural Competence Reflection Tool
         </h1>
         <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
-          Use this tool to reflect honestly on where your cultural competence is strong and where there is room to develop. There are no right or wrong answers — the value is in honest reflection, not in scoring well. Rate each statement from 0 (Never) to 4 (Always).
+          Use this tool to reflect honestly on where your cultural competence is strong and where there is room to develop. There are no right or wrong answers; the value is in honest reflection, not in scoring well. Rate each statement from 0 (Never) to 4 (Always).
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
           {["Cultural Competence", "Self-Reflection", "Leadership Development"].map((tag) => (
@@ -161,7 +161,7 @@ export default function CulturalCompetenceReflectionPage() {
             <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 48, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", margin: "0 0 4px" }}>{overallScore()}<span style={{ fontSize: 20, color: "#9ca3af" }}>/4</span></p>
             <p style={{ fontSize: 17, fontWeight: 700, color: "var(--sage-dark, #2D5A3C)", margin: "0 0 20px" }}>{label(overallScore()!)}</p>
             <p style={{ fontSize: 14, color: "#6b7280", maxWidth: 520, margin: "0 auto 24px", lineHeight: 1.7 }}>
-              Look at the sections where your score is lowest — these are the areas with the most development potential. Cultural competence is not a destination; it is an ongoing practice.
+              Look at the sections where your score is lowest; these are the areas with the most development potential. Cultural competence is not a destination; it is an ongoing practice.
             </p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "center" }}>
               {SECTIONS.map((s) => (
@@ -180,10 +180,10 @@ export default function CulturalCompetenceReflectionPage() {
           <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)", marginBottom: 16 }}>About this topic</p>
           <h2 style={{ fontFamily: "Raleway, sans-serif", fontSize: 24, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", marginBottom: 20 }}>What is cultural competence?</h2>
           <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8, marginBottom: 20 }}>
-            Cultural competence is the ability to work effectively across cultural, social, and identity differences. It is not about mastering a checklist of cultural facts — it is about developing awareness, knowledge, and skills that help you relate to others more fairly and effectively.
+            Cultural competence is the ability to work effectively across cultural, social, and identity differences. It is not about mastering a checklist of cultural facts; it is about developing awareness, knowledge, and skills that help you relate to others more fairly and effectively.
           </p>
           <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8 }}>
-            It develops over time, through deliberate reflection and practice. The goal of a tool like this is not a perfect score — it is an honest starting point for a development journey.
+            It develops over time, through deliberate reflection and practice. The goal of a tool like this is not a perfect score; it is an honest starting point for a development journey.
           </p>
         </div>
       </div>

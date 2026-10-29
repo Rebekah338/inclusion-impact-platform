@@ -37,16 +37,16 @@ type Resource = {
 
 const ALL_RESOURCES: Resource[] = [
   // --- LIVE: pages built and routed ---
-  { id: "r1",  icon: "🔍", title: "Recognising Bias",                         desc: "Identify the 10 most common cognitive biases that shape workplace decisions — from affinity bias to the halo effect — with examples and practical strategies.", format: "Tool",       topics: ["Inclusion Practices"],                         time: "20 min"      },
-  { id: "r2",  icon: "🤝", title: "How to Be an Ally: A Practical Guide",     desc: "Move from awareness to action with seven practical commitments: listening, speaking up, amplifying marginalised voices, using privilege, and staying consistent.", format: "Guide",      topics: ["Inclusion Practices"],                         time: "12 min read"  },
-  { id: "r3",  icon: "📋", title: "Diverse Recruitment Checklist",             desc: "22 checkpoints across three phases of recruitment — before you advertise, during the process, and after the decision — to reduce bias and widen your talent pool.", format: "Checklist",  topics: ["Inclusion Practices", "Race and Ethnicity", "Gender", "Disability"], time: "15 min" },
+  { id: "r1",  icon: "🔍", title: "Recognising Bias",                         desc: "Identify the 10 most common cognitive biases that shape workplace decisions, from affinity bias to the halo effect, with examples and practical strategies.", format: "Tool",       topics: ["Inclusion Practices"],                         time: "20 min"      },
+  { id: "r2",  icon: "🤝🏾", title: "How to Be an Ally: A Practical Guide",     desc: "Move from awareness to action with seven practical commitments: listening, speaking up, amplifying marginalised voices, using privilege, and staying consistent.", format: "Guide",      topics: ["Inclusion Practices"],                         time: "12 min read"  },
+  { id: "r3",  icon: "📋", title: "Diverse Recruitment Checklist",             desc: "22 checkpoints across three phases of recruitment (before you advertise, during the process, and after the decision) to reduce bias and widen your talent pool.", format: "Checklist",  topics: ["Inclusion Practices", "Race and Ethnicity", "Gender", "Disability"], time: "15 min" },
   { id: "r4",  icon: "🪞", title: "Cultural Competence Reflection",            desc: "Score yourself across 16 questions in four dimensions: self-awareness, cultural knowledge, communication and relationships, and taking action.", format: "Reflection", topics: ["Inclusion Practices"],                         time: "15 min"      },
-  { id: "r5",  icon: "🌿", title: "Inclusive Leadership Reflection",           desc: "16 questions across visibility, fairness, belonging and psychological safety, and development — with a focus area highlighted based on your lowest-scoring section.", format: "Reflection", topics: ["Inclusion Practices"],                         time: "15 min"      },
-  { id: "r6",  icon: "✊", title: "Anti-Racist Practice Guide",                desc: "Six practical sections covering what anti-racism means, self-education, workplace application, interrupting microaggressions, structural racism, and accountability.", format: "Guide",      topics: ["Race and Ethnicity", "Inclusion Practices"],   time: "20 min read"  },
+  { id: "r5",  icon: "🌿", title: "Inclusive Leadership Reflection",           desc: "16 questions across visibility, fairness, belonging and psychological safety, and development; with a focus area highlighted based on your lowest-scoring section.", format: "Reflection", topics: ["Inclusion Practices"],                         time: "15 min"      },
+  { id: "r6",  icon: "✊🏾", title: "Anti-Racist Practice Guide",                desc: "Six practical sections covering what anti-racism means, self-education, workplace application, interrupting microaggressions, structural racism, and accountability.", format: "Guide",      topics: ["Race and Ethnicity", "Inclusion Practices"],   time: "20 min read"  },
   { id: "r7",  icon: "🏷️", title: "A Guide to Pronouns in the Workplace",     desc: "What pronouns are, common pronoun sets with examples, how to create a sharing culture, and an FAQ covering mistakes, name badges, and email signatures.", format: "Guide",      topics: ["Gender"],                                      time: "10 min read"  },
   { id: "r8",  icon: "🧠", title: "Supporting Neurodivergent Colleagues",      desc: "Five sections: what neurodivergence is, common workplace barriers, reasonable adjustments, supporting disclosure, and inclusive language and communication.", format: "Guide",      topics: ["Neurodiversity", "Disability"],                 time: "15 min read"  },
-  { id: "r9",  icon: "✅", title: "Inclusive Meeting Checklist",               desc: "19 checkpoints across three stages — before, during, and after the meeting — to ensure every meeting is accessible, equitable, and productive.", format: "Checklist",  topics: ["Disability", "Neurodiversity", "Inclusion Practices"], time: "5 min"   },
-  { id: "r10", icon: "💬", title: "Challenging Non-Inclusive Behaviour",       desc: "Real language for real situations: six common scenarios — interruptions, idea theft, discriminatory jokes, exclusion, name mispronunciation, and stereotyping assumptions — with in-the-moment and follow-up responses.", format: "Guide", topics: ["Inclusion Practices"], time: "15 min read" },
+  { id: "r9",  icon: "✅", title: "Inclusive Meeting Checklist",               desc: "19 checkpoints across three stages (before, during, and after the meeting) to ensure every meeting is accessible, equitable, and productive.", format: "Checklist",  topics: ["Disability", "Neurodiversity", "Inclusion Practices"], time: "5 min"   },
+  { id: "r10", icon: "💬", title: "Challenging Non-Inclusive Behaviour",       desc: "Real language for real situations: six common scenarios (interruptions, idea theft, discriminatory jokes, exclusion, name mispronunciation, and stereotyping assumptions) with in-the-moment and follow-up responses.", format: "Guide", topics: ["Inclusion Practices"], time: "15 min read" },
   { id: "r18", icon: "📖", title: "EDI Glossary",                              desc: "A comprehensive glossary of EDI terms, concepts, and definitions: from allyship to intersectionality, psychological safety to systemic racism.", format: "Glossary",   topics: ["Inclusion Practices"],                         time: "Reference"   },
   // --- COMING SOON: placeholder resources ---
   { id: "r11", icon: "📐", title: "Inclusion Maturity Framework",              desc: "Assess where your organisation sits on the inclusion maturity spectrum and identify the most impactful next steps.", format: "Framework",  topics: ["Inclusion Practices"],                         time: "45 min"      },
@@ -180,7 +180,7 @@ export default function ApplyPage() {
             )}
           </div>
 
-          {/* Topic chips — primary filter row */}
+          {/* Topic chips; primary filter row */}
           <div style={{ marginBottom: "0.75rem" }}>
             <div style={{ fontSize: "0.7rem", fontFamily: "var(--font-heading)", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--gray-soft)", marginBottom: "0.5rem" }}>Filter by topic</div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
@@ -193,7 +193,7 @@ export default function ApplyPage() {
             </div>
           </div>
 
-          {/* Format chips + My Toolkit — secondary filter row */}
+          {/* Format chips + My Toolkit; secondary filter row */}
           <div style={{ display: "flex", alignItems: "flex-start", flexWrap: "wrap", gap: "0.4rem", paddingBottom: "1.25rem", borderBottom: "1px solid var(--gray-border)" }}>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", alignItems: "center" }}>
               <span style={{ fontSize: "0.7rem", fontFamily: "var(--font-heading)", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--gray-soft)", marginRight: "0.25rem", alignSelf: "center" }}>Format:</span>
@@ -350,7 +350,7 @@ export default function ApplyPage() {
                   </div>
 
                   {/* Icon */}
-                  <div style={{ fontSize: "1.75rem", marginTop: isVisited ? "1.25rem" : "0", filter: ["🤝","✊","👊","👋","🙌","👏","✋","🖐️","☝️","👆","👇","👈","👉","💪","🤲","🫱","🫲","🫳","🫴","🤜","🤛","🤞","🤟","🤘","🤙","👌","🤌","🤏","✌️","🫰","🫵","🫶"].includes(r.icon) ? "sepia(1) saturate(3) hue-rotate(330deg) brightness(0.6)" : undefined }} aria-hidden="true">{r.icon}</div>
+                  <div style={{ fontSize: "1.75rem", marginTop: isVisited ? "1.25rem" : "0" }} aria-hidden="true">{r.icon}</div>
 
                   {/* Format badge */}
                   <span style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem", background: "var(--sage-xlight)", border: "1px solid var(--sage-light)", color: "var(--sage-dark)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", padding: "0.2rem 0.6rem", borderRadius: "999px", width: "fit-content" }}>

@@ -12,7 +12,7 @@ const SECTIONS = [
     id: "visibility",
     title: "Visibility and voice",
     questions: [
-      "I actively notice who speaks in meetings and who does not — and create space for quieter voices.",
+      "I actively notice who speaks in meetings and who does not; and create space for quieter voices.",
       "I attribute ideas to the people who generated them, especially when they are not in the room.",
       "I ensure that people from underrepresented groups are included in high-profile projects and decisions.",
       "I challenge the tendency to hear the same voices repeatedly, including my own.",
@@ -25,7 +25,7 @@ const SECTIONS = [
       "I use structured, criteria-based processes for performance reviews, promotions, and pay decisions.",
       "I actively look for evidence that counters my first impressions before making judgements about people.",
       "I apply the same standards and expectations to all team members, regardless of identity or background.",
-      "I regularly audit outcomes in my team — who gets promoted, developed, stretched, or exited — for patterns.",
+      "I regularly audit outcomes in my team (who gets promoted, developed, stretched, or exited) for patterns.",
     ],
   },
   {
@@ -43,7 +43,7 @@ const SECTIONS = [
     title: "Development and growth",
     questions: [
       "I invest equally in the development of all team members, not just those most like me or most visible.",
-      "I sponsor people from underrepresented groups — advocating for them in rooms where they are not present.",
+      "I sponsor people from underrepresented groups; advocating for them in rooms where they are not present.",
       "I seek out mentoring or coaching from people whose backgrounds differ from my own.",
       "I hold myself accountable to inclusion goals with the same rigour I apply to business goals.",
     ],
@@ -181,10 +181,10 @@ export default function InclusiveLeadershipReflectionPage() {
           <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)", marginBottom: 16 }}>About this topic</p>
           <h2 style={{ fontFamily: "Raleway, sans-serif", fontSize: 24, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", marginBottom: 20 }}>Inclusive leadership</h2>
           <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8, marginBottom: 20 }}>
-            Inclusive leadership is not a personality type — it is a set of behaviours that can be developed and practised. Research shows that how a leader behaves has a greater impact on whether people feel included than any other single factor, including organisational policy.
+            Inclusive leadership is not a personality type; it is a set of behaviours that can be developed and practised. Research shows that how a leader behaves has a greater impact on whether people feel included than any other single factor, including organisational policy.
           </p>
           <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8 }}>
-            The most effective inclusive leaders combine self-awareness with deliberate action: they notice who is missing from conversations, who is overlooked in decisions, and who is not getting the development they deserve — and they do something about it.
+            The most effective inclusive leaders combine self-awareness with deliberate action: they notice who is missing from conversations, who is overlooked in decisions, and who is not getting the development they deserve; and they do something about it.
           </p>
         </div>
       </div>

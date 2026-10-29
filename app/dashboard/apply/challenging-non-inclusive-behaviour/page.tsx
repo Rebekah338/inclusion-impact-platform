@@ -9,7 +9,7 @@ const SCENARIOS = [
   {
     id: "interrupt",
     title: "Someone is repeatedly interrupted",
-    context: "In a meeting, a colleague — particularly one from an underrepresented group — is cut off or talked over before they finish their point.",
+    context: "In a meeting, a colleague (particularly one from an underrepresented group) is cut off or talked over before they finish their point.",
     responses: [
       { label: "In the moment", text: "'I want to make sure we hear what [name] was saying. [Name], please go ahead.'" },
       { label: "After the meeting", text: "'I noticed you were cut off a few times in there. I'm sorry I didn't step in sooner. Is there anything I can do to support you?'" },
@@ -19,19 +19,19 @@ const SCENARIOS = [
   {
     id: "credit",
     title: "An idea is credited to the wrong person",
-    context: "Someone shares an idea that was clearly first raised by someone else — often by a person with less power or visibility in the room.",
+    context: "Someone shares an idea that was clearly first raised by someone else; often by a person with less power or visibility in the room.",
     responses: [
-      { label: "In the moment", text: "'I think [original person] raised that point earlier — it's great that it's getting traction. [Name], do you want to add anything to it?'" },
+      { label: "In the moment", text: "'I think [original person] raised that point earlier; it's great that it's getting traction. [Name], do you want to add anything to it?'" },
       { label: "If you missed it", text: "'I just want to flag that [name] raised a similar idea earlier in the meeting. I don't want it to get lost.'" },
     ],
   },
   {
     id: "joke",
     title: "A discriminatory joke or comment",
-    context: "A colleague makes a comment or joke that relies on a stereotype or denigrates a particular group — perhaps framed as banter or harmless fun.",
+    context: "A colleague makes a comment or joke that relies on a stereotype or denigrates a particular group; perhaps framed as banter or harmless fun.",
     responses: [
       { label: "In the moment (direct)", text: "'I'm not comfortable with that. Can we move on?'" },
-      { label: "In the moment (questioning)", text: "'I'm not sure I understood that — what did you mean?' (This invites the person to reconsider without direct confrontation.)" },
+      { label: "In the moment (questioning)", text: "'I'm not sure I understood that; what did you mean?' (This invites the person to reconsider without direct confrontation.)" },
       { label: "Afterwards (one-to-one)", text: "'I wanted to follow up on what was said earlier. I don't think it was intended to cause harm, but that kind of comment can have a real impact on people. I'd find it helpful if we could avoid that kind of humour in future.'" },
     ],
   },
@@ -40,7 +40,7 @@ const SCENARIOS = [
     title: "Someone is excluded from an event or activity",
     context: "A team social activity, networking event, or informal meeting is organised in a way that excludes people based on disability, religion, caring responsibilities, or other characteristics.",
     responses: [
-      { label: "To the organiser (privately)", text: "'I wanted to raise something about the plan for [event]. I don't think it will work for everyone in the team — for example, [barrier]. Could we look at alternatives that would include more people?'" },
+      { label: "To the organiser (privately)", text: "'I wanted to raise something about the plan for [event]. I don't think it will work for everyone in the team; for example, [barrier]. Could we look at alternatives that would include more people?'" },
       { label: "If the event has already happened", text: "'I noticed [name] wasn't able to join [event]. I think it's worth us thinking about how we plan these so everyone can participate. Can we build that into how we do it next time?'" },
     ],
   },
@@ -49,17 +49,17 @@ const SCENARIOS = [
     title: "Someone's name is mispronounced or altered",
     context: "A colleague's name is repeatedly mispronounced, shortened without consent, or replaced with a nickname, and they appear uncomfortable but do not challenge it themselves.",
     responses: [
-      { label: "In the moment (on behalf of the person)", text: "'I think it's actually pronounced [correct pronunciation] — is that right, [name]?'" },
+      { label: "In the moment (on behalf of the person)", text: "'I think it's actually pronounced [correct pronunciation]; is that right, [name]?'" },
       { label: "Privately to the person", text: "'I noticed your name was being mispronounced. Would it be helpful if I said something next time, or would you prefer to handle it yourself?'" },
-      { label: "To the person mispronouncing", text: "'Can I help you with [name]'s name? It's [pronunciation]. It's worth getting right — names matter.'" },
+      { label: "To the person mispronouncing", text: "'Can I help you with [name]'s name? It's [pronunciation]. It's worth getting right; names matter.'" },
     ],
   },
   {
     id: "assumption",
     title: "An assumption is made about someone's identity or role",
-    context: "Someone is assumed to be in a particular role, or to have particular views or experiences, based on their apparent identity — for example, assuming the only woman in a meeting will take notes, or asking a person of colour to speak on behalf of their community.",
+    context: "Someone is assumed to be in a particular role, or to have particular views or experiences, based on their apparent identity; for example, assuming the only woman in a meeting will take notes, or asking a person of colour to speak on behalf of their community.",
     responses: [
-      { label: "In the moment", text: "'I want to check that assumption — [name], what do you actually do here? / Do you want to answer for the group, or would you prefer we asked more broadly?'" },
+      { label: "In the moment", text: "'I want to check that assumption: [name], what do you actually do here? / Do you want to answer for the group, or would you prefer we asked more broadly?'" },
       { label: "After the fact", text: "'I wanted to flag something I noticed in the meeting earlier. [Name] seemed to be being asked to represent [group] rather than being seen as an individual. That's something I think is worth us being careful about.'" },
     ],
   },
@@ -87,7 +87,7 @@ export default function ChallengingNonInclusiveBehaviourPage() {
           Challenging Non-Inclusive Behaviour
         </h1>
         <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
-          Knowing that something is wrong and knowing what to say in the moment are two different things. This guide provides real language for real situations — common non-inclusive behaviours and practical responses for bystanders, managers, and colleagues.
+          Knowing that something is wrong and knowing what to say in the moment are two different things. This guide provides real language for real situations; common non-inclusive behaviours and practical responses for bystanders, managers, and colleagues.
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
           {["Allyship", "Bystander Intervention", "Inclusion Practices"].map((tag) => (
@@ -157,10 +157,10 @@ export default function ChallengingNonInclusiveBehaviourPage() {
           <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)", marginBottom: 16 }}>About this topic</p>
           <h2 style={{ fontFamily: "Raleway, sans-serif", fontSize: 24, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", marginBottom: 20 }}>Why bystander action matters</h2>
           <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8, marginBottom: 20 }}>
-            Research consistently shows that bystander intervention — someone other than the person directly affected speaking up — is one of the most effective ways to change exclusionary behaviour. It signals that the behaviour is not acceptable to the broader group, and it reduces the burden on the person who has been harmed.
+            Research consistently shows that bystander intervention (someone other than the person directly affected speaking up) is one of the most effective ways to change exclusionary behaviour. It signals that the behaviour is not acceptable to the broader group, and it reduces the burden on the person who has been harmed.
           </p>
           <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8 }}>
-            The most common reason people do not intervene is not that they do not care — it is that they do not know what to say. This guide is built on the premise that having the words ready makes intervention much more likely.
+            The most common reason people do not intervene is not that they do not care; it is that they do not know what to say. This guide is built on the premise that having the words ready makes intervention much more likely.
           </p>
         </div>
       </div>

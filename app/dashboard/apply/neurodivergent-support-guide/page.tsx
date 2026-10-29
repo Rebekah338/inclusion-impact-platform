@@ -10,9 +10,9 @@ const SECTIONS = [
     id: "what",
     title: "What is neurodivergence?",
     content: [
-      "Neurodivergence refers to neurological development that differs from what is considered typical. This includes — but is not limited to — autism, ADHD, dyslexia, dyspraxia, dyscalculia, Tourette syndrome, and sensory processing differences.",
-      "The term 'neurodivergent' was coined to challenge the assumption that one way of thinking, processing, and experiencing the world is the standard against which everyone else is measured. Around 15 to 20 per cent of the global population is neurodivergent — which means neurodivergence is common, and workplaces that are not designed with this in mind are routinely excluding a significant proportion of their workforce.",
-      "It is important to note that neurodivergence is not a medical deficit or a disorder to be fixed. Many neurodivergent people bring distinctive strengths to their work — including pattern recognition, hyper-focus, creative thinking, and attention to detail. The challenge is rarely the person; it is the environment.",
+      "Neurodivergence refers to neurological development that differs from what is considered typical. This includes autism, ADHD, dyslexia, dyspraxia, dyscalculia, Tourette syndrome, and sensory processing differences, among others.",
+      "The term 'neurodivergent' was coined to challenge the assumption that one way of thinking, processing, and experiencing the world is the standard against which everyone else is measured. Around 15 to 20 per cent of the global population is neurodivergent; which means neurodivergence is common, and workplaces that are not designed with this in mind are routinely excluding a significant proportion of their workforce.",
+      "It is important to note that neurodivergence is not a medical deficit or a disorder to be fixed. Many neurodivergent people bring distinctive strengths to their work; including pattern recognition, hyper-focus, creative thinking, and attention to detail. The challenge is rarely the person; it is the environment.",
     ],
   },
   {
@@ -22,7 +22,7 @@ const SECTIONS = [
       "Open-plan offices and hot-desking environments can create significant sensory overload for people with autism, ADHD, or sensory processing differences. Noise, bright lighting, unpredictable movement, and the absence of a consistent, quiet workspace can make sustained focus extremely difficult.",
       "Unclear or ambiguous communication creates particular challenges for many autistic people, who may prefer direct, explicit instructions over implied meanings, social cues, or unwritten rules.",
       "Rigid working hours, frequent interruptions, and meetings without agendas or advance materials can be barriers for people with ADHD, who may work most effectively with structured time blocks and advance notice of what to expect.",
-      "Unstructured social expectations — networking events, after-work drinks, team-building exercises that rely on improvisation — can be exhausting and exclusionary for people with social communication differences.",
+      "Unstructured social expectations (networking events, after-work drinks, team-building exercises that rely on improvisation) can be exhausting and exclusionary for people with social communication differences.",
       "Stigma and lack of awareness are among the most consistent barriers. Many neurodivergent people choose not to disclose because they have experienced disbelief, dismissal, or unwanted changes to how they are treated.",
     ],
   },
@@ -31,10 +31,10 @@ const SECTIONS = [
     title: "Reasonable adjustments that make a real difference",
     content: [
       "Quiet working spaces or the option to work from home, away from sensory distractions, can be transformative for neurodivergent employees.",
-      "Clear, written communication for all tasks, projects, and expectations — rather than relying on verbal briefings or implicit norms — helps many neurodivergent people work more effectively.",
+      "Clear, written communication for all tasks, projects, and expectations (rather than relying on verbal briefings or implicit norms) helps many neurodivergent people work more effectively.",
       "Flexible working arrangements, including asynchronous communication and the ability to structure the working day around periods of high focus, can significantly reduce barriers for people with ADHD and autism.",
-      "Advance notice of changes, meetings, and social events gives neurodivergent people the time to prepare — which can make the difference between engaging effectively and being unable to participate.",
-      "Adjusted interview and assessment processes — such as providing questions in advance, offering written alternatives to verbal tasks, or allowing extra time — enable neurodivergent candidates to demonstrate their actual abilities.",
+      "Advance notice of changes, meetings, and social events gives neurodivergent people the time to prepare; which can make the difference between engaging effectively and being unable to participate.",
+      "Adjusted interview and assessment processes (such as providing questions in advance, offering written alternatives to verbal tasks, or allowing extra time) enable neurodivergent candidates to demonstrate their actual abilities.",
       "Noise-cancelling headphones, individual desks, and controlled lighting are low-cost physical adjustments that make a significant difference for many neurodivergent people.",
     ],
   },
@@ -42,7 +42,7 @@ const SECTIONS = [
     id: "disclosure",
     title: "Supporting disclosure and reducing stigma",
     content: [
-      "Many neurodivergent people have had negative experiences of disclosure: being disbelieved, being treated differently, having their competence questioned, or having their support needs dismissed. Creating a culture in which disclosure is safe requires sustained, visible commitment from leadership — not just a policy.",
+      "Many neurodivergent people have had negative experiences of disclosure: being disbelieved, being treated differently, having their competence questioned, or having their support needs dismissed. Creating a culture in which disclosure is safe requires sustained, visible commitment from leadership; not just a policy.",
       "Leaders and managers who are open about their own neurodivergence or about their commitment to neurodivergent inclusion send a powerful signal. Employee resource groups and peer networks for neurodivergent employees also create community and reduce isolation.",
       "Adjust your approach to performance management for neurodivergent employees. Clear expectations, written feedback, and consistent check-ins are generally more effective than informal feedback delivered on the assumption that people will infer meaning from tone or body language.",
       "Avoid policing behaviours that look unusual but cause no harm: stimming, avoiding eye contact, wearing headphones, sitting differently, or needing to move. If a behaviour is not disrupting anyone else, it does not need to be managed.",
@@ -55,7 +55,7 @@ const SECTIONS = [
       "Language around neurodivergence varies and continues to evolve. Some people prefer identity-first language ('I am autistic') while others prefer person-first language ('I have autism'). Follow the preference of the individual you are speaking with, and when in doubt, ask.",
       "Avoid language that frames neurodivergence as a deficit, problem, or tragedy. Terms like 'suffers from', 'afflicted by', or 'a disability like autism' carry assumptions that many neurodivergent people strongly reject.",
       "Do not assume that a diagnosis tells you everything about how someone experiences their neurodivergence. Two autistic people, or two people with ADHD, may have entirely different support needs and entirely different experiences of their own neurodivergence.",
-      "Casual and stigmatising uses of neurodivergence-related terms — 'I'm so OCD about tidiness', 'that's a bit autistic', 'she's so ADHD' — cause harm. Challenge these uses when you hear them, as you would any other stigmatising language.",
+      "Casual and stigmatising uses of neurodivergence-related terms (such as "I'm so OCD about tidiness", "that's a bit autistic", or "she's so ADHD") cause harm. Challenge these uses when you hear them, as you would any other stigmatising language.",
     ],
   },
 ];
@@ -82,7 +82,7 @@ export default function NeurodivergentSupportGuidePage() {
           Supporting Neurodivergent People at Work
         </h1>
         <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
-          Around one in seven people is neurodivergent — yet most workplaces are designed in ways that create unnecessary barriers for them. This guide covers what neurodivergence is, common workplace barriers, practical adjustments, and how to build a culture where neurodivergent people can thrive.
+          Around one in seven people is neurodivergent; yet most workplaces are designed in ways that create unnecessary barriers for them. This guide covers what neurodivergence is, common workplace barriers, practical adjustments, and how to build a culture where neurodivergent people can thrive.
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
           {["Neurodivergence", "Disability Inclusion", "Accessibility"].map((tag) => (
@@ -125,7 +125,7 @@ export default function NeurodivergentSupportGuidePage() {
             The barriers that neurodivergent people face at work are rarely about capability. They are about workplace design: environments, communication norms, and processes built around a narrow model of how people work that does not reflect the full range of human cognition.
           </p>
           <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8 }}>
-            When organisations genuinely support neurodivergent people, they do not just help those individuals — they often improve conditions for everyone. Clearer communication, flexible working, structured processes, and quieter environments benefit the whole workforce.
+            When organisations genuinely support neurodivergent people, they do not just help those individuals; they often improve conditions for everyone. Clearer communication, flexible working, structured processes, and quieter environments benefit the whole workforce.
           </p>
         </div>
       </div>

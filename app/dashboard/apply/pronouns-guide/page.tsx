@@ -17,27 +17,27 @@ const COMMON_PRONOUNS = [
 const FAQS = [
   {
     q: "Isn't 'they/them' grammatically incorrect for a single person?",
-    a: "No. Singular 'they' has been used in English for centuries — Shakespeare used it, Jane Austen used it, and we use it naturally all the time when someone's gender is unknown: 'Someone left their umbrella — I hope they come back for it.' The singular 'they' for a known person is a straightforward extension of a well-established usage. Major style guides, including the Oxford English Dictionary, the AP Stylebook, and the Chicago Manual of Style, all accept it.",
+    a: "No. Singular 'they' has been used in English for centuries: Shakespeare used it, Jane Austen used it, and we use it naturally all the time when someone's gender is unknown: 'Someone left their umbrella: I hope they come back for it.' The singular 'they' for a known person is a straightforward extension of a well-established usage. Major style guides, including the Oxford English Dictionary, the AP Stylebook, and the Chicago Manual of Style, all accept it.",
   },
   {
     q: "What if I find it difficult or uncomfortable to use someone's pronouns?",
-    a: "Discomfort is understandable, especially if using non-binary or unfamiliar pronouns is new. But discomfort with change does not outweigh another person's right to be referred to correctly. The solution to discomfort is practice — say the pronouns out loud, use them in sentences when you are not with the person, and commit to getting it right. The discomfort reduces over time; the harm of being misgendered does not.",
+    a: "Discomfort is understandable, especially if using non-binary or unfamiliar pronouns is new. But discomfort with change does not outweigh another person's right to be referred to correctly. The solution to discomfort is practice; say the pronouns out loud, use them in sentences when you are not with the person, and commit to getting it right. The discomfort reduces over time; the harm of being misgendered does not.",
   },
   {
     q: "What should I do if I make a mistake?",
-    a: "Correct yourself briefly: 'she — sorry, they said...' and continue. Do not make a lengthy apology that requires the other person to reassure you. Do not make the same mistake again, because repeated misgendering after correction communicates that you do not consider the effort worthwhile.",
+    a: "Correct yourself briefly: 'she; sorry, they said...' and continue. Do not make a lengthy apology that requires the other person to reassure you. Do not make the same mistake again, because repeated misgendering after correction communicates that you do not consider the effort worthwhile.",
   },
   {
     q: "Should I ask everyone their pronouns?",
-    a: "In a workplace context, normalising the sharing of pronouns — in introductions, on name badges, in email signatures, in team profile fields — is more effective than asking individuals one by one, which can single people out. Make it easy for everyone to share their pronouns if they choose to, and make it clear that not sharing is also fine.",
+    a: "In a workplace context, normalising the sharing of pronouns (in introductions, on name badges, in email signatures, in team profile fields) is more effective than asking individuals one by one, which can single people out. Make it easy for everyone to share their pronouns if they choose to, and make it clear that not sharing is also fine.",
   },
   {
     q: "What if someone's pronouns change?",
-    a: "Use the pronouns someone currently uses. If someone tells you their pronouns have changed, update your practice. It is not necessary to understand the reason — simply respect the request.",
+    a: "Use the pronouns someone currently uses. If someone tells you their pronouns have changed, update your practice. It is not necessary to understand the reason; simply respect the request.",
   },
   {
     q: "Can I correct others if they use the wrong pronouns?",
-    a: "Yes — and this is one of the most important things allies can do. A gentle, low-key correction in the moment normalises the use of correct pronouns and removes the burden from the person who has been misgendered. You do not need to make it a big issue; a brief 'actually they prefer they/them' is enough.",
+    a: "Yes; and this is one of the most important things allies can do. A gentle, low-key correction in the moment normalises the use of correct pronouns and removes the burden from the person who has been misgendered. You do not need to make it a big issue; a brief 'actually they prefer they/them' is enough.",
   },
 ];
 
@@ -81,7 +81,7 @@ export default function PronounsGuidePage() {
             Pronouns are the words we use to refer to someone when we are not using their name: he, she, they, and others. Most people have pronouns they are referred to by, and most people rarely have to think about this because their pronouns are assumed correctly by others.
           </p>
           <p style={{ fontSize: 15, color: "#374151", lineHeight: 1.8, marginBottom: 14 }}>
-            For trans, non-binary, and gender non-conforming people, their pronouns may not match what others assume based on their appearance. Being consistently referred to with the wrong pronouns — being misgendered — is harmful: it signals that a person is not seen or respected as they are, and research links repeated misgendering with significant impacts on mental health and wellbeing.
+            For trans, non-binary, and gender non-conforming people, their pronouns may not match what others assume based on their appearance. Being consistently referred to with the wrong pronouns (being misgendered) is harmful: it signals that a person is not seen or respected as they are, and research links repeated misgendering with significant impacts on mental health and wellbeing.
           </p>
           <p style={{ fontSize: 15, color: "#374151", lineHeight: 1.8 }}>
             Using someone's correct pronouns is not a political statement. It is a basic act of respect, equivalent to spelling someone's name correctly or using the name they have told you they prefer.
@@ -91,7 +91,7 @@ export default function PronounsGuidePage() {
         {/* Common pronouns table */}
         <div style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 12, padding: "28px", marginBottom: 16 }}>
           <h2 style={{ fontFamily: "Raleway, sans-serif", fontSize: 18, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", marginBottom: 6 }}>Pronouns in use</h2>
-          <p style={{ fontSize: 14, color: "#6b7280", lineHeight: 1.6, marginBottom: 20 }}>The same sentence — 'They/she/he presented the report' — shown with each pronoun set.</p>
+          <p style={{ fontSize: 14, color: "#6b7280", lineHeight: 1.6, marginBottom: 20 }}>The same sentence: 'They/she/he presented the report', shown with each pronoun set.</p>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             {COMMON_PRONOUNS.map((item) => (
               <div key={item.pronouns} style={{ display: "flex", gap: 16, alignItems: "flex-start", padding: "14px 16px", background: "var(--sage-xlight, #f4f8f5)", borderRadius: 8 }}>
@@ -108,10 +108,10 @@ export default function PronounsGuidePage() {
           <h2 style={{ fontFamily: "Raleway, sans-serif", fontSize: 18, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", marginBottom: 16 }}>Creating a culture where people share pronouns</h2>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {[
-              { title: "In introductions", body: "When you introduce yourself — in a meeting, a workshop, or a new team setting — share your own pronouns: 'I'm Alex, I use she/her.' This normalises the practice and signals that sharing is welcome, without putting anyone on the spot." },
+              { title: "In introductions", body: "When you introduce yourself (in a meeting, a workshop, or a new team setting) share your own pronouns: 'I'm Alex, I use she/her.' This normalises the practice and signals that sharing is welcome, without putting anyone on the spot." },
               { title: "In email signatures", body: "Adding your pronouns to your email signature is a simple, visible signal that you take this seriously. Many organisations now include a field for this in their standard signature template." },
-              { title: "In team profiles and systems", body: "Where your HR or intranet systems allow, enable a pronouns field and encourage people to complete it. Make clear that it is optional — the goal is to make it easy for those who want to share, not to compel disclosure." },
-              { title: "In event and meeting facilitation", body: "Build pronouns into name badges, online profile names, and introductions for events. A simple 'feel free to share your pronouns as you introduce yourself' is enough — do not require it." },
+              { title: "In team profiles and systems", body: "Where your HR or intranet systems allow, enable a pronouns field and encourage people to complete it. Make clear that it is optional; the goal is to make it easy for those who want to share, not to compel disclosure." },
+              { title: "In event and meeting facilitation", body: "Build pronouns into name badges, online profile names, and introductions for events. A simple 'feel free to share your pronouns as you introduce yourself' is enough; do not require it." },
             ].map((item) => (
               <div key={item.title} style={{ display: "flex", gap: 16, alignItems: "flex-start", padding: "16px", background: "#f9fafb", borderRadius: 8 }}>
                 <div>
@@ -152,10 +152,10 @@ export default function PronounsGuidePage() {
           <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)", marginBottom: 16 }}>About this topic</p>
           <h2 style={{ fontFamily: "Raleway, sans-serif", fontSize: 24, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", marginBottom: 20 }}>Gender identity at work</h2>
           <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8, marginBottom: 20 }}>
-            Creating a workplace where trans, non-binary, and gender non-conforming people can be themselves requires both cultural and structural change. Pronouns are one visible, practical element of that — but they sit alongside policies on gender recognition, changing facilities, dress codes, and harassment, as well as the everyday culture shaped by leadership and team norms.
+            Creating a workplace where trans, non-binary, and gender non-conforming people can be themselves requires both cultural and structural change. Pronouns are one visible, practical element of that; but they sit alongside policies on gender recognition, changing facilities, dress codes, and harassment, as well as the everyday culture shaped by leadership and team norms.
           </p>
           <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8 }}>
-            Getting pronouns right is not the finish line. It is a starting point for broader work on gender inclusion — and it signals clearly that your organisation intends to do that work.
+            Getting pronouns right is not the finish line. It is a starting point for broader work on gender inclusion; and it signals clearly that your organisation intends to do that work.
           </p>
         </div>
       </div>

@@ -15,7 +15,7 @@ const SECTIONS = [
     content: "Allyship is not a badge or a one-time declaration. It is an ongoing, active practice of using your position, privilege, and influence to support people who face barriers you do not. It requires listening more than speaking, and acting even when it is uncomfortable.",
     nudges: {
       "not-yet": "Start by reading one personal account from someone with a different background to yours. Listening before acting is the foundation of allyship.",
-      "getting-there": "You have the awareness. Now look for one concrete action you can take this week — not a grand gesture, just a small, consistent step.",
+      "getting-there": "You have the awareness. Now look for one concrete action you can take this week; not a grand gesture, just a small, consistent step.",
       "doing-this": "You understand this deeply. Think about how you model it: are the people around you learning what allyship means by watching you?",
     },
   },
@@ -27,16 +27,16 @@ const SECTIONS = [
     nudges: {
       "not-yet": "Try this: in your next meeting or conversation, count how often you speak before the other person has finished. Just noticing is the first step.",
       "getting-there": "You are getting better at this. The next level is asking 'what would be most helpful right now?' rather than assuming you know what someone needs.",
-      "doing-this": "Great listening is rare. Think about how you pass this skill on — do you name it in your team, or model it in how you run meetings?",
+      "doing-this": "Great listening is rare. Think about how you pass this skill on; do you name it in your team, or model it in how you run meetings?",
     },
   },
   {
     id: "s3",
     number: "03",
     title: "Speak up in the moment",
-    content: "When you witness exclusionary behaviour — a joke, an interruption, an assumption — say something. You do not need the perfect words. A quiet 'I am not sure that landed well' or 'I want to make sure we hear from everyone' is enough. Silence reads as agreement.",
+    content: "When you witness exclusionary behaviour (a joke, an interruption, an assumption) say something. You do not need the perfect words. A quiet 'I am not sure that landed well' or 'I want to make sure we hear from everyone' is enough. Silence reads as agreement.",
     nudges: {
-      "not-yet": "Start by simply noticing when exclusionary moments happen. Identifying them is harder than it sounds — and it is the first skill to build.",
+      "not-yet": "Start by simply noticing when exclusionary moments happen. Identifying them is harder than it sounds; and it is the first skill to build.",
       "getting-there": "You are aware of these moments. Try preparing one or two go-to phrases so you have words ready when the moment comes.",
       "doing-this": "You speak up consistently. Now consider: are you doing this only when it feels safe, or also when it costs you something?",
     },
@@ -47,19 +47,19 @@ const SECTIONS = [
     title: "Amplify and credit marginalised voices",
     content: "If a colleague's idea was talked over, say: 'I want to come back to what [name] said.' If someone is not in the room when their work is being discussed, make sure they get the credit. Amplification is one of the simplest and most impactful forms of allyship.",
     nudges: {
-      "not-yet": "This week, notice once when someone's contribution goes uncredited or gets taken over. You do not have to act immediately — just build the habit of noticing.",
+      "not-yet": "This week, notice once when someone's contribution goes uncredited or gets taken over. You do not have to act immediately; just build the habit of noticing.",
       "getting-there": "You credit people when you remember. Now make it a habit: at the end of each meeting, ask yourself whether everyone who contributed was acknowledged.",
-      "doing-this": "You do this well. Think about whether you are also doing it in emails, reports, and conversations outside the room — not just in real time.",
+      "doing-this": "You do this well. Think about whether you are also doing it in emails, reports, and conversations outside the room; not just in real time.",
     },
   },
   {
     id: "s5",
     number: "05",
     title: "Use your privilege actively",
-    content: "Privilege is not about guilt — it is about recognising that some doors open more easily for you, and using that to hold them open for others. This might mean recommending a colleague for an opportunity, sharing your platform, or using your access to raise issues on behalf of people who cannot raise them safely.",
+    content: "Privilege is not about guilt; it is about recognising that some doors open more easily for you, and using that to hold them open for others. This might mean recommending a colleague for an opportunity, sharing your platform, or using your access to raise issues on behalf of people who cannot raise them safely.",
     nudges: {
-      "not-yet": "Think about one door that has opened more easily for you. Who could you hold it open for? You do not need to have it all figured out — just start with one person, one moment.",
-      "getting-there": "You are starting to see the opportunities. The next step is acting on them without waiting for the perfect moment — small, consistent uses of privilege add up.",
+      "not-yet": "Think about one door that has opened more easily for you. Who could you hold it open for? You do not need to have it all figured out; just start with one person, one moment.",
+      "getting-there": "You are starting to see the opportunities. The next step is acting on them without waiting for the perfect moment; small, consistent uses of privilege add up.",
       "doing-this": "You use your position actively. Now think about sustainability: are you burning yourself out by taking on too much, or sharing the load with other allies?",
     },
   },
@@ -67,21 +67,21 @@ const SECTIONS = [
     id: "s6",
     number: "06",
     title: "Handle mistakes well",
-    content: "You will get things wrong. When you do — mispronounce a name, make an assumption, say the wrong thing — the response matters more than the mistake. Apologise briefly and sincerely. Do not over-explain or make it about your feelings. Then do better. Do not let fear of getting it wrong stop you from showing up.",
+    content: "You will get things wrong. When you do (mispronounce a name, make an assumption, say the wrong thing) the response matters more than the mistake. Apologise briefly and sincerely. Do not over-explain or make it about your feelings. Then do better. Do not let fear of getting it wrong stop you from showing up.",
     nudges: {
       "not-yet": "Think about a recent moment where you could have responded better. What would you do differently? Reflection without self-punishment is a skill worth practising.",
       "getting-there": "You are learning to recover well. The next step is speed: the quicker and more naturally you correct course, the lower the cost for the other person.",
-      "doing-this": "You handle this with real skill. Consider whether you are also helping others around you learn to recover well — modelling accountability is powerful.",
+      "doing-this": "You handle this with real skill. Consider whether you are also helping others around you learn to recover well; modelling accountability is powerful.",
     },
   },
   {
     id: "s7",
     number: "07",
     title: "Commit to consistency",
-    content: "Allyship that only shows up when it is convenient or publicly visible is not allyship — it is performance. The most meaningful ally behaviours happen in small, private moments: defending someone who is not in the room, questioning a process that disadvantages others, or simply showing up repeatedly over time.",
+    content: "Allyship that only shows up when it is convenient or publicly visible is not allyship; it is performance. The most meaningful ally behaviours happen in small, private moments: defending someone who is not in the room, questioning a process that disadvantages others, or simply showing up repeatedly over time.",
     nudges: {
-      "not-yet": "Consistency is built in small moments. Identify one specific, repeatable action you could take every week — and treat it like any other professional commitment.",
-      "getting-there": "You show up a lot of the time. Now examine the moments you do not — what tends to get in the way? Is it risk, energy, or habit?",
+      "not-yet": "Consistency is built in small moments. Identify one specific, repeatable action you could take every week; and treat it like any other professional commitment.",
+      "getting-there": "You show up a lot of the time. Now examine the moments you do not; what tends to get in the way? Is it risk, energy, or habit?",
       "doing-this": "Consistency is your strength. Think about how you sustain it: what keeps you going, and are you building a culture where others can be consistently ally-like too?",
     },
   },
@@ -123,7 +123,7 @@ export default function HowToBeAnAllyPage() {
           Allyship is a practice, not a status. Work through the seven commitments below and rate yourself honestly on each one. Your ratings will surface a personalised nudge to help you take the next step.
         </p>
 
-        {/* Progress bar — shows once any rating given */}
+        {/* Progress bar; shows once any rating given */}
         {rated > 0 && (
           <div style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 12, padding: "16px 20px", display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
             <div style={{ flex: 1, minWidth: 180 }}>
@@ -233,7 +233,7 @@ export default function HowToBeAnAllyPage() {
                 ? "You are doing all of this well. Think about how you support others to do the same."
                 : notYet > 0
                 ? `You have identified ${notYet} area${notYet > 1 ? "s" : ""} to develop. Pick one and focus on the nudge for a month before revisiting.`
-                : "You are getting there across the board. Consistency is the next step — keep returning to the areas where you want to grow."}
+                : "You are getting there across the board. Consistency is the next step; keep returning to the areas where you want to grow."}
             </p>
             <Link href="/dashboard/apply/challenging-non-inclusive-behaviour" style={{ display: "inline-block", background: "#fff", color: "var(--sage-dark, #2D5A3C)", padding: "12px 24px", borderRadius: 8, fontFamily: "Raleway, sans-serif", fontWeight: 700, fontSize: 14, textDecoration: "none" }}>
               Next: Challenging Non-Inclusive Behaviour →

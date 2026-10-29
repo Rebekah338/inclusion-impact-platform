@@ -10,29 +10,29 @@ type Phase = "all" | "before" | "during" | "after";
 const CHECKLIST_ITEMS = [
   // Before you advertise
   { phase: "before" as Phase, id: "b1", text: "Review the job description and person specification for language that may deter underrepresented candidates (e.g. gendered language, jargon, an excessive list of 'essential' criteria)." },
-  { phase: "before" as Phase, id: "b2", text: "Ensure criteria marked 'essential' are genuinely essential for doing the job — not historical assumptions or cultural preferences." },
+  { phase: "before" as Phase, id: "b2", text: "Ensure criteria marked 'essential' are genuinely essential for doing the job; not historical assumptions or cultural preferences." },
   { phase: "before" as Phase, id: "b3", text: "Include a diversity and inclusion statement in the job advert, and ensure it reflects genuine practice, not aspiration only." },
   { phase: "before" as Phase, id: "b4", text: "Advertise beyond default channels: post with organisations, networks, and publications that reach underrepresented candidates." },
-  { phase: "before" as Phase, id: "b5", text: "Confirm the salary range is included and transparent — salary ambiguity disproportionately disadvantages women and candidates from lower socioeconomic backgrounds." },
-  { phase: "before" as Phase, id: "b6", text: "State the flexibility available for the role (remote, hybrid, part-time, flexible hours) — do not wait to be asked." },
+  { phase: "before" as Phase, id: "b5", text: "Confirm the salary range is included and transparent; salary ambiguity disproportionately disadvantages women and candidates from lower socioeconomic backgrounds." },
+  { phase: "before" as Phase, id: "b6", text: "State the flexibility available for the role (remote, hybrid, part-time, flexible hours); do not wait to be asked." },
   { phase: "before" as Phase, id: "b7", text: "Confirm that anonymous shortlisting is in place (names, addresses, graduation years removed before scoring)." },
   { phase: "before" as Phase, id: "b8", text: "Brief the hiring panel on bias in recruitment, including affinity bias, halo effect, and confirmation bias." },
   { phase: "before" as Phase, id: "b9", text: "Ensure the panel itself includes people with different backgrounds, perspectives, and identities where possible." },
   // During the process
-  { phase: "during" as Phase, id: "d1", text: "Score CVs and applications against the agreed criteria before discussing candidates — do not share first impressions before scoring." },
+  { phase: "during" as Phase, id: "d1", text: "Score CVs and applications against the agreed criteria before discussing candidates; do not share first impressions before scoring." },
   { phase: "during" as Phase, id: "d2", text: "Use a structured interview format: the same questions, in the same order, for every candidate." },
-  { phase: "during" as Phase, id: "d3", text: "Score each competency independently before moving to the next — do not let one strong or weak answer colour everything else." },
+  { phase: "during" as Phase, id: "d3", text: "Score each competency independently before moving to the next; do not let one strong or weak answer colour everything else." },
   { phase: "during" as Phase, id: "d4", text: "Offer adjustments proactively: tell all candidates that reasonable adjustments are available and invite them to request what they need." },
   { phase: "during" as Phase, id: "d5", text: "Ensure interview panels have received the same questions and scoring criteria in advance and have confirmed they understand them." },
   { phase: "during" as Phase, id: "d6", text: "Avoid small talk before interviews that may build affinity bias towards candidates who share panellists' backgrounds or interests." },
-  { phase: "during" as Phase, id: "d7", text: "If a task or assessment is used, make sure it directly tests a skill required for the role — not general intelligence or polish." },
+  { phase: "during" as Phase, id: "d7", text: "If a task or assessment is used, make sure it directly tests a skill required for the role; not general intelligence or polish." },
   { phase: "during" as Phase, id: "d8", text: "Record scores immediately after each interview, before the next one." },
   // After the decision
-  { phase: "after" as Phase, id: "a1", text: "Make the hiring decision based on scores against the criteria — do not revisit general impressions after scoring is complete." },
-  { phase: "after" as Phase, id: "a2", text: "If the panel disagrees, discuss specific evidence for each criterion — not overall gut feeling." },
+  { phase: "after" as Phase, id: "a1", text: "Make the hiring decision based on scores against the criteria; do not revisit general impressions after scoring is complete." },
+  { phase: "after" as Phase, id: "a2", text: "If the panel disagrees, discuss specific evidence for each criterion; not overall gut feeling." },
   { phase: "after" as Phase, id: "a3", text: "Offer timely, constructive feedback to unsuccessful candidates who request it." },
-  { phase: "after" as Phase, id: "a4", text: "Record diversity data for applicants, those shortlisted, and those appointed — and review it after each round." },
-  { phase: "after" as Phase, id: "a5", text: "If the shortlist or appointment lacks diversity, review at which stage candidates were lost and why — then adjust." },
+  { phase: "after" as Phase, id: "a4", text: "Record diversity data for applicants, those shortlisted, and those appointed; and review it after each round." },
+  { phase: "after" as Phase, id: "a5", text: "If the shortlist or appointment lacks diversity, review at which stage candidates were lost and why; then adjust." },
   { phase: "after" as Phase, id: "a6", text: "Review your onboarding process: does it set new joiners up to succeed, or does it assume a particular background or working style?" },
 ];
 
@@ -82,7 +82,7 @@ export default function DiverseRecruitmentChecklistPage() {
           Diverse Recruitment Checklist
         </h1>
         <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
-          Use this checklist at each stage of your recruitment process to reduce the impact of bias and improve outcomes for candidates from all backgrounds. Tick items off as you go — your progress is saved in this session.
+          Use this checklist at each stage of your recruitment process to reduce the impact of bias and improve outcomes for candidates from all backgrounds. Tick items off as you go; your progress is saved in this session.
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 32 }}>
           {["Recruitment", "Bias Reduction", "Inclusion Practices"].map((tag) => (
@@ -145,7 +145,7 @@ export default function DiverseRecruitmentChecklistPage() {
           <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)", marginBottom: 16 }}>About this topic</p>
           <h2 style={{ fontFamily: "Raleway, sans-serif", fontSize: 24, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", marginBottom: 20 }}>Why recruitment is where inclusion starts</h2>
           <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8, marginBottom: 20 }}>
-            Biased recruitment processes are one of the primary drivers of workplace inequality. Without structured processes and intentional design, recruitment naturally favours candidates who resemble those already in the organisation — replicating existing gaps in representation rather than closing them.
+            Biased recruitment processes are one of the primary drivers of workplace inequality. Without structured processes and intentional design, recruitment naturally favours candidates who resemble those already in the organisation; replicating existing gaps in representation rather than closing them.
           </p>
           <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8 }}>
             Diverse recruitment is not about lowering standards or introducing special treatment. It is about removing the barriers and biases that prevent talented candidates from being seen and selected fairly.
