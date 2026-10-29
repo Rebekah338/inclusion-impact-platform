@@ -3,7 +3,7 @@
 import Link from "next/link";
 import PlatformNav from "@/app/components/PlatformNav";
 import BottomBanner from "@/app/components/BottomBanner";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const SCENARIOS = [
   {
@@ -67,6 +67,61 @@ const SCENARIOS = [
 
 export default function ChallengingNonInclusiveBehaviourPage() {
   const [showShareMenu, setShowShareMenu] = useState(false);
+  const [checked, setChecked] = useState<Record<string, boolean>>({});
+  const [commitment, setCommitment] = useState("");
+  const [copied, setCopied] = useState(false);
+  const [recording, setRecording] = useState(false);
+  const [transcript, setTranscript] = useState("");
+  const recognitionRef = useRef<{ stop: () => void } | null>(null);
+
+  const toggleCheck = (id: string) => setChecked((prev) => ({ ...prev, [id]: !prev[id] }));
+
+  const copyCommitment = () => {
+    const text = commitment.trim() || transcript.trim();
+    if (!text) return;
+    navigator.clipboard.writeText("My commitment: " + text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const toggleRecording = () => {
+    if (recording) {
+      recognitionRef.current?.stop();
+      setRecording(false);
+      return;
+    }
+    const w = window as unknown as Record<string, unknown>;
+    const SR = (w["SpeechRecognition"] || w["webkitSpeechRecognition"]) as (new () => {
+      continuous: boolean; interimResults: boolean; lang: string;
+      onresult: ((e: { results: { isFinal: boolean; [0]: { transcript: string } }[] }) => void) | null;
+      onend: (() => void) | null;
+      start: () => void; stop: () => void;
+    }) | undefined;
+    if (!SR) return;
+    const rec = new SR();
+    rec.continuous = true;
+    rec.interimResults = true;
+    rec.lang = "en-GB";
+    rec.onresult = (e) => {
+      let final = "";
+      for (let i = 0; i < e.results.length; i++) {
+        if (e.results[i].isFinal) final += e.results[i][0].transcript + " ";
+      }
+      if (final) setTranscript((prev) => prev + final);
+    };
+    rec.onend = () => setRecording(false);
+    rec.start();
+    recognitionRef.current = rec;
+    setRecording(true);
+  };
+
+  const CHECKLIST = [
+    { id: "c1", text: "I know what I’ll say if I witness someone being interrupted or talked over." },
+    { id: "c2", text: "I’ve thought about how I’d respond to a discriminatory comment or joke." },
+    { id: "c3", text: "I’ve identified at least one person I could check in with after a difficult moment." },
+    { id: "c4", text: "I understand I don’t have to be perfect to step in; an imperfect response is better than silence." },
+    { id: "c5", text: "I know I can act in the moment or follow up privately afterwards." },
+  ];
   const downloadAsWord = () => {
     const css = 'body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#2C2C2C;margin:2cm}h1{font-family:Calibri,Arial,sans-serif;font-size:20pt;color:#2D5A3C;margin-bottom:4pt}h2{font-family:Calibri,Arial,sans-serif;font-size:13pt;color:#2D5A3C;margin-top:18pt;margin-bottom:6pt;border-bottom:1pt solid #e5e7eb;padding-bottom:4pt}h3{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#2D5A3C;margin-top:12pt;margin-bottom:4pt}p{font-size:11pt;line-height:1.5;margin:4pt 0}ul{margin:6pt 0 12pt 20pt}li{margin-bottom:6pt;line-height:1.5}.meta{color:#6b7280;font-size:10pt;margin-bottom:16pt}.footer{font-size:9pt;color:#6b7280;margin-top:24pt;border-top:1pt solid #e5e7eb;padding-top:8pt}.reflection{background:#f4f8f5;border-left:3pt solid #2D5A3C;padding:8pt 12pt;margin:12pt 0}';
     const body = SCENARIOS.map((s) => "<h2>" + s.title + "</h2><p style='color:#6b7280'>" + s.context + "</p>" + s.responses.map((r: {label: string; text: string}) => "<h3>" + r.label + "</h3><p style='font-style:italic'>" + r.text + "</p>").join("")).join("");
@@ -164,6 +219,67 @@ export default function ChallengingNonInclusiveBehaviourPage() {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+
+      {/* Closing commitment card */}
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px 48px" }}>
+        <div style={{ background: "var(--sage-dark, #2D5A3C)", borderRadius: 16, padding: "36px 36px 32px", color: "#fff" }}>
+          <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.6)", margin: "0 0 6px" }}>Before you step away</p>
+          <h3 style={{ fontFamily: "Raleway, sans-serif", fontWeight: 800, fontSize: 20, color: "#fff", margin: "0 0 24px", lineHeight: 1.3 }}>Check in with yourself</h3>
+
+          {/* Checklist */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 32 }}>
+            {CHECKLIST.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => toggleCheck(item.id)}
+                style={{ display: "flex", alignItems: "flex-start", gap: 14, background: checked[item.id] ? "rgba(255,255,255,0.18)" : "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 10, padding: "14px 16px", cursor: "pointer", textAlign: "left", transition: "background 0.15s" }}
+              >
+                <span style={{ width: 20, height: 20, borderRadius: 5, border: "2px solid rgba(255,255,255,0.6)", background: checked[item.id] ? "#fff" : "transparent", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", marginTop: 1, transition: "background 0.15s" }}>
+                  {checked[item.id] && <span style={{ color: "var(--sage-dark, #2D5A3C)", fontSize: 13, fontWeight: 900, lineHeight: 1 }}>✓</span>}
+                </span>
+                <span style={{ fontSize: 14, color: "rgba(255,255,255,0.9)", lineHeight: 1.65 }}>{item.text}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Divider */}
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.15)", marginBottom: 28 }} />
+
+          {/* Commitment box */}
+          <p style={{ fontFamily: "Raleway, sans-serif", fontWeight: 800, fontSize: 15, color: "#fff", margin: "0 0 10px" }}>My commitment</p>
+          <p style={{ fontSize: 13, color: "rgba(255,255,255,0.65)", margin: "0 0 14px", lineHeight: 1.6 }}>Name one specific action you will take after reading this guide.</p>
+
+          <textarea
+            value={commitment || transcript}
+            onChange={(e) => { setCommitment(e.target.value); setTranscript(""); }}
+            placeholder="e.g. Next time I witness someone being talked over in a meeting, I will say their name and ask them to continue."
+            rows={3}
+            style={{ width: "100%", boxSizing: "border-box", background: "rgba(255,255,255,0.10)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: 10, padding: "14px 16px", fontSize: 14, color: "#fff", lineHeight: 1.65, resize: "vertical", fontFamily: "Lato, sans-serif", outline: "none" }}
+          />
+
+          <div style={{ display: "flex", gap: 10, marginTop: 12, flexWrap: "wrap" }}>
+            <button
+              onClick={toggleRecording}
+              style={{ display: "flex", alignItems: "center", gap: 8, background: recording ? "rgba(239,68,68,0.25)" : "rgba(255,255,255,0.12)", border: "1px solid " + (recording ? "rgba(239,68,68,0.6)" : "rgba(255,255,255,0.25)"), borderRadius: 8, padding: "10px 18px", fontSize: 13, fontWeight: 700, color: recording ? "#fca5a5" : "rgba(255,255,255,0.9)", cursor: "pointer", fontFamily: "Raleway, sans-serif" }}
+            >
+              <span style={{ fontSize: 16 }}>{recording ? "⏹" : "🎙️"}</span>
+              {recording ? "Stop recording" : "Voice note"}
+            </button>
+            <button
+              onClick={copyCommitment}
+              disabled={!commitment.trim() && !transcript.trim()}
+              style={{ display: "flex", alignItems: "center", gap: 8, background: copied ? "rgba(255,255,255,0.25)" : "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: 8, padding: "10px 18px", fontSize: 13, fontWeight: 700, color: "rgba(255,255,255,0.9)", cursor: commitment.trim() || transcript.trim() ? "pointer" : "not-allowed", fontFamily: "Raleway, sans-serif", opacity: commitment.trim() || transcript.trim() ? 1 : 0.5 }}
+            >
+              <span>{copied ? "✓" : "📋"}</span>
+              {copied ? "Copied" : "Copy my commitment"}
+            </button>
+          </div>
+          {recording && (
+            <p style={{ fontSize: 12, color: "rgba(255,255,255,0.55)", margin: "10px 0 0", fontStyle: "italic" }}>Listening&hellip; speak your commitment and press stop when done.</p>
+          )}
         </div>
       </div>
 

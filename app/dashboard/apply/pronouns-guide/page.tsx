@@ -46,7 +46,7 @@ export default function PronounsGuidePage() {
   const [showShareMenu, setShowShareMenu] = useState(false);
   const downloadAsWord = () => {
     const css = 'body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#2C2C2C;margin:2cm}h1{font-family:Calibri,Arial,sans-serif;font-size:20pt;color:#2D5A3C;margin-bottom:4pt}h2{font-family:Calibri,Arial,sans-serif;font-size:13pt;color:#2D5A3C;margin-top:18pt;margin-bottom:6pt;border-bottom:1pt solid #e5e7eb;padding-bottom:4pt}h3{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#2D5A3C;margin-top:12pt;margin-bottom:4pt}p{font-size:11pt;line-height:1.5;margin:4pt 0}ul{margin:6pt 0 12pt 20pt}li{margin-bottom:6pt;line-height:1.5}.meta{color:#6b7280;font-size:10pt;margin-bottom:16pt}.footer{font-size:9pt;color:#6b7280;margin-top:24pt;border-top:1pt solid #e5e7eb;padding-top:8pt}.reflection{background:#f4f8f5;border-left:3pt solid #2D5A3C;padding:8pt 12pt;margin:12pt 0}';
-    const body = FAQS.map((f) => "<h2>" + f.question + "</h2><p>" + f.answer + "</p>").join("");
+    const body = FAQS.map((f) => "<h2>" + f.q + "</h2><p>" + f.a + "</p>").join("");
     const html =
       "<html xmlns:o=\'urn:schemas-microsoft-com:office:office\'" +
       " xmlns:w=\'urn:schemas-microsoft-com:office:word\'" +
