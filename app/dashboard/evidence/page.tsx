@@ -3203,6 +3203,7 @@ function EvidencePageInner() {
           </>
         )}
 
+      </main>
       {/* ── Business Case Essentials strip ─────────────────────────────── */}
       <section style={{ background: "linear-gradient(120deg, #22503a 0%, #3d7a55 50%, #2d6b45 100%)", padding: "4rem 2rem", position: "relative", overflow: "hidden", width: "100vw", marginLeft: "calc(-50vw + 50%)" }}>
         <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.10) 0%, transparent 60%)", pointerEvents: "none" }} />
