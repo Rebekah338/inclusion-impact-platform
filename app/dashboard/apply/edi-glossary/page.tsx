@@ -3,7 +3,7 @@
 import Link from "next/link";
 import PlatformNav from "@/app/components/PlatformNav";
 import BottomBanner from "@/app/components/BottomBanner";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const TERMS = [
   {
@@ -191,6 +191,7 @@ const TERMS = [
 const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 export default function EDIGlossaryPage() {
+  const termsRef = useRef<HTMLDivElement>(null);
   const [search, setSearch] = useState("");
   const [activeLetter, setActiveLetter] = useState<string | null>(null);
 
@@ -332,7 +333,7 @@ export default function EDIGlossaryPage() {
             {LETTERS.map((l) => (
               <button
                 key={l}
-                onClick={() => { setActiveLetter(activeLetter === l ? null : l); document.getElementById("terms-list")?.scrollIntoView({ behavior: "smooth", block: "start" }); }}
+                onClick={() => { setActiveLetter(activeLetter === l ? null : l); (() => { const el = termsRef.current; if (el) { const top = el.getBoundingClientRect().top + window.scrollY - 120; window.scrollTo({ top, behavior: "smooth" }); } })(); }}
                 disabled={!usedLetters.has(l)}
                 style={{
                   width: 30,
@@ -362,7 +363,7 @@ export default function EDIGlossaryPage() {
             ))}
             {activeLetter && (
               <button
-                onClick={() => { setActiveLetter(null); document.getElementById("terms-list")?.scrollIntoView({ behavior: "smooth", block: "start" }); }}
+                onClick={() => { setActiveLetter(null); (() => { const el = termsRef.current; if (el) { const top = el.getBoundingClientRect().top + window.scrollY - 120; window.scrollTo({ top, behavior: "smooth" }); } })(); }}
                 style={{
                   padding: "0 12px",
                   height: 30,
@@ -383,7 +384,7 @@ export default function EDIGlossaryPage() {
       </div>
 
       {/* Terms */}
-      <div id="terms-list" style={{ maxWidth: 900, margin: "0 auto", padding: "40px 24px" }}>
+      <div id="terms-list" ref={termsRef} style={{ maxWidth: 900, margin: "0 auto", padding: "40px 24px" }}>
         {filtered.length === 0 ? (
           <p style={{ color: "#6b7280", fontSize: 15 }}>No terms match your search. Try different keywords.</p>
         ) : (
