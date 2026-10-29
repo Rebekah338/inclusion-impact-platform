@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import PlatformNav from "@/app/components/PlatformNav";
 import BottomBanner from "@/app/components/BottomBanner";
 import { useState, useMemo } from "react";
@@ -68,6 +69,7 @@ const FORMAT_ICONS: Record<string, string> = {
 };
 
 export default function ApplyPage() {
+  const router = useRouter();
   const [search, setSearch] = useState("");
   const [activeTopics, setActiveTopics] = useState<string[]>([]);
   const [activeFormats, setActiveFormats] = useState<string[]>([]);
@@ -97,9 +99,15 @@ export default function ApplyPage() {
   const toggleToolkit = (id: string) =>
     setMyToolkit((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
 
+
+  const RESOURCE_SLUGS: Record<string, string> = {
+    r18: "edi-glossary",
+  };
+
   const openResource = (id: string) => {
     if (!visited.includes(id)) setVisited((prev) => [...prev, id]);
-    /* navigation will be added when individual resource pages are built */
+    const slug = RESOURCE_SLUGS[id];
+    if (slug) router.push(`/dashboard/apply/${slug}`);
   };
 
   const clearFilters = activeTopics.length > 0 || activeFormats.length > 0 || search;
