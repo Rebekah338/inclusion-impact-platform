@@ -102,6 +102,7 @@ export default function ApplyPage() {
 
   const RESOURCE_SLUGS: Record<string, string> = {
     r18: "edi-glossary",
+    r1: "recognising-bias",
   };
 
   const openResource = (id: string) => {
