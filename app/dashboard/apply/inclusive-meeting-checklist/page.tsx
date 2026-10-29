@@ -41,6 +41,29 @@ const STAGE_LABELS: Record<Stage, string> = {
 export default function InclusiveMeetingChecklistPage() {
   const [checked, setChecked] = useState<Set<string>>(new Set());
   const [showShareMenu, setShowShareMenu] = useState(false);
+  const downloadAsWord = () => {
+    const css = 'body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#2C2C2C;margin:2cm}h1{font-family:Calibri,Arial,sans-serif;font-size:20pt;color:#2D5A3C;margin-bottom:4pt}h2{font-family:Calibri,Arial,sans-serif;font-size:13pt;color:#2D5A3C;margin-top:18pt;margin-bottom:6pt;border-bottom:1pt solid #e5e7eb;padding-bottom:4pt}h3{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#2D5A3C;margin-top:12pt;margin-bottom:4pt}p{font-size:11pt;line-height:1.5;margin:4pt 0}ul{margin:6pt 0 12pt 20pt}li{margin-bottom:6pt;line-height:1.5}.meta{color:#6b7280;font-size:10pt;margin-bottom:16pt}.footer{font-size:9pt;color:#6b7280;margin-top:24pt;border-top:1pt solid #e5e7eb;padding-top:8pt}.reflection{background:#f4f8f5;border-left:3pt solid #2D5A3C;padding:8pt 12pt;margin:12pt 0}';
+    const body = (["before","during","after"] as Stage[]).map((stage) => "<h2>" + STAGE_LABELS[stage] + "</h2><ul>" + ITEMS.filter((i) => i.stage === stage).map((i) => "<li>" + i.text + "</li>").join("") + "</ul>").join("");
+    const html =
+      "<html xmlns:o=\'urn:schemas-microsoft-com:office:office\'" +
+      " xmlns:w=\'urn:schemas-microsoft-com:office:word\'" +
+      " xmlns=\'http://www.w3.org/TR/REC-html40\'>" +
+      "<head><meta charset=\'utf-8\'><title>Inclusive Meeting Guidelines</title><style>" + css + "</style></head>" +
+      "<body>" +
+      "<h1>Inclusive Meeting Guidelines</h1>" +
+      "<p class=\'meta\'>The Inclusion Edit &middot; theinclusionedit.com</p>" +
+      body +
+      "<p class=\'footer\'>This resource was created by The Inclusion Edit. theinclusionedit.com</p>" +
+      "</body></html>";
+    const blob = new Blob(["\uFEFF", html], { type: "application/msword" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "inclusive-meeting-checklist.doc";
+    a.click();
+    URL.revokeObjectURL(url);
+    setShowShareMenu(false);
+  };
   const [activeStage, setActiveStage] = useState<Stage | "all">("all");
 
   const toggle = (id: string) =>
@@ -186,6 +209,12 @@ export default function InclusiveMeetingChecklistPage() {
                   style={{ display: "block", width: "100%", textAlign: "left", padding: "14px 18px", fontSize: 14, color: "#374151", background: "none", border: "none", cursor: "pointer" }}
                 >
                   🖨️ Print or save as PDF
+                </button>
+                <button
+                  onClick={downloadAsWord}
+                  style={{ display: "block", width: "100%", textAlign: "left", padding: "14px 18px", fontSize: 14, color: "#374151", background: "none", border: "none", cursor: "pointer" }}
+                >
+                  📄 Download as Word doc
                 </button>
               </div>
             )}

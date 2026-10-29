@@ -280,8 +280,10 @@ html {
   }
 
   /* Content containers: remove excess padding */
+  div[style*="maxWidth: 960"],
   div[style*="maxWidth: 900"],
   div[style*="maxWidth: 720"],
+  div[style*="max-width: 960"],
   div[style*="max-width: 900"],
   div[style*="max-width: 720"] {
     max-width: 100% !important;

@@ -137,6 +137,29 @@ const REFLECTION_QUESTIONS = [
 
 export default function AntiRacistPracticeGuidePage() {
   const [showShareMenu, setShowShareMenu] = useState(false);
+  const downloadAsWord = () => {
+    const css = 'body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#2C2C2C;margin:2cm}h1{font-family:Calibri,Arial,sans-serif;font-size:20pt;color:#2D5A3C;margin-bottom:4pt}h2{font-family:Calibri,Arial,sans-serif;font-size:13pt;color:#2D5A3C;margin-top:18pt;margin-bottom:6pt;border-bottom:1pt solid #e5e7eb;padding-bottom:4pt}h3{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#2D5A3C;margin-top:12pt;margin-bottom:4pt}p{font-size:11pt;line-height:1.5;margin:4pt 0}ul{margin:6pt 0 12pt 20pt}li{margin-bottom:6pt;line-height:1.5}.meta{color:#6b7280;font-size:10pt;margin-bottom:16pt}.footer{font-size:9pt;color:#6b7280;margin-top:24pt;border-top:1pt solid #e5e7eb;padding-top:8pt}.reflection{background:#f4f8f5;border-left:3pt solid #2D5A3C;padding:8pt 12pt;margin:12pt 0}';
+    const body = SECTIONS.map((s) => "<h2>" + s.number + ". " + s.title + "</h2>" + (s.isList ? "<ul>" + (s.content as string[]).map((c) => "<li>" + c + "</li>").join("") + "</ul>" : "<p>" + (s.content as string) + "</p>")).join("") + "<h2>Tools and Reflection Questions</h2><ul>" + REFLECTION_QUESTIONS.map((q) => "<li>" + q + "</li>").join("") + "</ul>";
+    const html =
+      "<html xmlns:o=\'urn:schemas-microsoft-com:office:office\'" +
+      " xmlns:w=\'urn:schemas-microsoft-com:office:word\'" +
+      " xmlns=\'http://www.w3.org/TR/REC-html40\'>" +
+      "<head><meta charset=\'utf-8\'><title>A Practical Guide to Anti-Racist Practice</title><style>" + css + "</style></head>" +
+      "<body>" +
+      "<h1>A Practical Guide to Anti-Racist Practice</h1>" +
+      "<p class=\'meta\'>The Inclusion Edit &middot; theinclusionedit.com</p>" +
+      body +
+      "<p class=\'footer\'>This resource was created by The Inclusion Edit. theinclusionedit.com</p>" +
+      "</body></html>";
+    const blob = new Blob(["\uFEFF", html], { type: "application/msword" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "anti-racist-practice-guide.doc";
+    a.click();
+    URL.revokeObjectURL(url);
+    setShowShareMenu(false);
+  };
 
   return (
     <div style={{ minHeight: "100vh", background: "var(--sage-xlight, #f4f8f5)", fontFamily: "Lato, sans-serif" }}>
@@ -270,6 +293,12 @@ export default function AntiRacistPracticeGuidePage() {
                   style={{ display: "block", width: "100%", textAlign: "left", padding: "14px 18px", fontSize: 14, color: "#374151", background: "none", border: "none", cursor: "pointer" }}
                 >
                   🖨️ Print or save as PDF
+                </button>
+                <button
+                  onClick={downloadAsWord}
+                  style={{ display: "block", width: "100%", textAlign: "left", padding: "14px 18px", fontSize: 14, color: "#374151", background: "none", border: "none", cursor: "pointer" }}
+                >
+                  📄 Download as Word doc
                 </button>
               </div>
             )}
