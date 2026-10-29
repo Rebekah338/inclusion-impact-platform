@@ -126,7 +126,7 @@ export default function HowToBeAnAllyPage() {
 
         {/* Progress bar; shows once any rating given */}
         {rated > 0 && (
-          <div style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 12, padding: "16px 20px", display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
+          <div data-noprint="true" style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 12, padding: "16px 20px", display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap" }}>
             <div style={{ flex: 1, minWidth: 180 }}>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
                 <span style={{ fontSize: 12, fontWeight: 700, color: "#374151" }}>{rated} of 7 rated</span>

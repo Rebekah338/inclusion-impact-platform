@@ -214,14 +214,41 @@ html {
    ============================================================ */
 @media print {
   /* Hide interactive/navigational elements */
-  [data-noprint="true"],
-  [data-noprint="true"] * {
+  [data-noprint="true"] {
     display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+  }
+
+  /* Collapse sticky bars (progress, filters) so they leave no gap */
+  [style*="position: sticky"],
+  [style*="position:sticky"] {
+    display: none !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   /* Hide the back-link wrapper (first padded div below the nav) */
   div:has(> a[href="/dashboard/apply"]:first-child) {
     display: none !important;
+  }
+
+  /* Collapse tag/badge rows (Recruitment, Bias Reduction etc.) — they just waste vertical space in print */
+  span[style*="borderRadius: 20"],
+  span[style*="border-radius: 20px"] {
+    display: none !important;
+  }
+
+  /* Tighten header block padding */
+  div[style*="padding: \"32px 24px 0\""] {
+    padding: 0 !important;
   }
 
   /* Reset page background and colours for ink */

@@ -177,7 +177,7 @@ export default function RecognisingBiasPage() {
       </div>
 
       {/* Category filter bar */}
-      <div style={{ background: "#fff", borderTop: "1px solid #e5e7eb", borderBottom: "1px solid #e5e7eb", padding: "16px 24px", position: "sticky", top: 0, zIndex: 10 }}>
+      <div data-noprint="true" style={{ background: "#fff", borderTop: "1px solid #e5e7eb", borderBottom: "1px solid #e5e7eb", padding: "16px 24px", position: "sticky", top: 0, zIndex: 10 }}>
         <div style={{ maxWidth: 900, margin: "0 auto", display: "flex", gap: 8, flexWrap: "wrap" }}>
           {(["all", "individual", "interpersonal", "systemic"] as BiasCategory[]).map((cat) => (
             <button

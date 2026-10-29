@@ -296,7 +296,7 @@ export default function EDIGlossaryPage() {
       </div>
 
       {/* Search + A to Z filter */}
-      <div
+      <div data-noprint="true"
         style={{
           background: "#fff",
           borderTop: "1px solid #e5e7eb",
