@@ -7,142 +7,230 @@ import { useState } from "react";
 
 const SECTIONS = [
   {
-    id: "understand",
-    title: "Understand what anti-racism means",
-    content: [
-      "Anti-racism is not the same as not being racist. Not being racist is a passive position; a refusal to act in explicitly discriminatory ways. Anti-racism is an active commitment to understanding and dismantling the systems, structures, and behaviours that produce and sustain racial inequality.",
-      "Author and scholar Ibram X. Kendi defines anti-racism clearly: there is no neutral position on racism. Policies, practices, and behaviours are either producing more racial equity or less. Choosing not to engage is a choice in favour of the status quo.",
-      "Anti-racism requires ongoing learning and action, not a single gesture or declaration. It is a practice, not an identity.",
-    ],
+    id: "s1",
+    number: "01",
+    title: "Understanding anti-racist practice",
+    content: "Anti-racist practice means actively identifying, challenging, and dismantling racism at interpersonal, organisational, and systemic levels. It goes beyond being \"not racist\" by intentionally creating policies, cultures, and behaviours that promote equity and justice. This includes recognising power imbalances, understanding lived experiences of racism, and committing to continuous learning, unlearning, and accountability.",
+    isList: false,
   },
   {
-    id: "educate",
-    title: "Educate yourself; and do not outsource that labour",
+    id: "s2",
+    number: "02",
+    title: "Recognising racism: overt, covert, structural and systemic",
     content: [
-      "The most important first step is taking responsibility for your own learning. Read books, listen to podcasts, follow researchers and practitioners, and engage with the lived experiences of people who face racial discrimination; not as a tourism exercise, but as a serious commitment to understanding.",
-      "Do not rely on colleagues, friends, or employees from racially marginalised groups to educate you. That labour is unpaid, emotionally demanding, and not their responsibility. Use the extensive resources available from Black, Asian, and other racially marginalised writers, researchers, and organisations.",
-      "Resist the urge to rush to action before building understanding. Well-intentioned but poorly informed anti-racist gestures can cause harm. Slow down, read, and listen before you act.",
+      "Overt racism: slurs, exclusion, discriminatory policies.",
+      "Covert racism: microaggressions, assumptions, stereotyping, tone-policing, coded language.",
+      "Structural racism: refers to how different institutions, systems, and parts of society interconnect to produce and reproduce racial inequality. It is the combined effect of norms, culture, and historical inequity.",
+      "Systemic racism: refers to racism that is built into the policies, practices, and procedures of a particular system or institution.",
     ],
+    isList: true,
   },
   {
-    id: "workplace",
-    title: "Apply anti-racism in workplace practices",
+    id: "s3",
+    number: "03",
+    title: "Building anti-racist awareness",
     content: [
-      "Review your recruitment processes for racial bias: examine where candidates of colour are lost in your pipeline, what language your job adverts use, who is on your hiring panels, and how decisions are made.",
-      "Audit promotion and pay data by ethnicity. If people from racially marginalised groups are concentrated in lower pay bands or roles, ask why; and act on the answer.",
-      "Address racist incidents directly and consistently. A culture that ignores or minimises racist comments, jokes, or microaggressions tells people of colour that they are not safe at work. Address every incident, however 'minor' it may seem to others.",
-      "Ensure your training, development, and mentoring programmes actively reach employees from racially marginalised groups; and that they are not required to prove themselves further than their white peers to access the same opportunities.",
+      "Understand your own identity, privilege, and biases.",
+      "Learn about racial inequity and its historical and global context.",
+      "Reflect on how racism impacts people differently depending on their intersectional identities (for example: gender, disability, class, religion).",
+      "Engage with stories and lived experiences without placing emotional labour on colleagues of colour.",
     ],
+    isList: true,
   },
   {
-    id: "microaggressions",
-    title: "Understand and interrupt racial microaggressions",
+    id: "s4",
+    number: "04",
+    title: "Inclusive and anti-racist communication",
     content: [
-      "Racial microaggressions are everyday verbal, behavioural, or environmental slights (often unintentional) that communicate hostile, derogatory, or negative messages to people of colour. Examples include asking someone 'where are you really from?', commenting on someone's hair in ways that would not happen with white colleagues, or mispronouncing a name repeatedly without effort to correct it.",
-      "The impact of microaggressions is cumulative. Each individual instance may seem small; over time, they communicate that a person does not fully belong. Research links repeated exposure to microaggressions with significant negative effects on mental health, job satisfaction, and performance.",
-      "When you witness a microaggression, you can interrupt it in the moment: 'I want to check; was that intended to be a comment about [name]'s background?' Or follow up privately: 'I noticed what happened earlier and I wanted to check in with you.'",
-      "When you have caused a microaggression (and you will) the appropriate response is a brief, genuine apology and a commitment to do better. Do not ask the affected person to reassure you.",
+      "Use accurate, respectful language and avoid stereotypes or generalisations.",
+      "Challenge biased narratives in conversations, emails, reports, and policies.",
+      "Avoid tone-policing, defensiveness, or dismissing lived experiences.",
+      "Ensure images and stories represent people authentically and avoid tokenism.",
     ],
+    isList: true,
   },
   {
-    id: "structural",
-    title: "Address structural racism, not just individual behaviour",
+    id: "s5",
+    number: "05",
+    title: "Responding to racism and microaggressions",
     content: [
-      "Individual attitudes matter; but individual attitudes alone do not produce or sustain racial inequality. Structural racism describes the way that systems, policies, and institutions produce unequal outcomes for people based on race, regardless of the intentions of the individuals within them.",
-      "In workplaces, structural racism can appear in pay and promotion gaps, in who is informally mentored and sponsored, in whose names are remembered and whose are mispronounced, in whose work is praised and whose is scrutinised, and in the unwritten cultural norms that define who 'fits'.",
-      "Anti-racist practice at the structural level means auditing and redesigning processes; not just educating individuals. It means asking who benefits from the status quo and who does not, and changing systems accordingly.",
-      "Track outcomes, not just intentions. If your equality data shows persistent gaps in representation or progression, that is structural information; and it calls for structural change.",
+      "Challenge comments and behaviours immediately; use phrases like: \"That comment is harmful, let's reframe it.\" or \"That comment doesn't align with our organisational values of respect and inclusion.\"",
+      "Support the person affected by checking in privately, validating their experience, and asking what they need to move forward; escalate the actions of the perpetrator through the appropriate channels.",
+      "Encourage bystander intervention, reinforce learning, and follow up with action to ensure accountability and long-term change.",
     ],
+    isList: true,
   },
   {
-    id: "accountability",
-    title: "Be accountable; to people, not just principles",
+    id: "s6",
+    number: "06",
+    title: "Making anti-racist decisions",
     content: [
-      "Anti-racism that stays at the level of statements, pledges, and good intentions, without behavioural and structural change, is not anti-racism; it is reputation management.",
-      "Accountability means setting specific, measurable goals for racial equity in your team or organisation and reporting on them. It means naming the outcomes you are responsible for and being honest about where you are falling short.",
-      "It also means welcoming challenge. When people from racially marginalised groups tell you that your practice is not matching your stated commitments, the response is listening and change; not defensiveness.",
-      "Anti-racist practice is also relevant to your supply chain, your partnerships, your event lineups, and your communications. Where you spend money, and whose work you amplify, are also anti-racist choices.",
+      "Before making a decision ask yourself: Who benefits? Who is disadvantaged?",
+      "Have we considered the impact on staff of colour?",
+      "Do we have diverse voices informing this decision?",
+      "Are we reproducing inequity, even unintentionally?",
+      "This ensures policies, hiring decisions, curriculum choices, and disciplinary procedures are equitable.",
     ],
+    isList: true,
+  },
+  {
+    id: "s7",
+    number: "07",
+    title: "Equitable policies and systems",
+    content: [
+      "Review hiring, pay, and progression processes for bias.",
+      "Ensure diverse panels and transparent criteria.",
+      "Use data to identify inequities in recruitment, retention, and staff experience.",
+      "Create clear reporting mechanisms and offer safe, confidential routes to raise racial concerns.",
+      "Build accountability into systems, not just individual behaviour.",
+    ],
+    isList: true,
+  },
+  {
+    id: "s8",
+    number: "08",
+    title: "Everyday anti-racist actions for staff",
+    content: [
+      "Call in or call out bias when you see it.",
+      "Amplify the voices of colleagues of colour in meetings and projects.",
+      "Share credit, opportunities, and visibility fairly.",
+      "Avoid placing diversity labour solely on staff of colour.",
+      "Challenge stereotypes in conversations, policies, and decision-making.",
+      "Learn how different cultures communicate, collaborate, and express themselves.",
+    ],
+    isList: true,
+  },
+  {
+    id: "s9",
+    number: "09",
+    title: "Supporting staff of colour",
+    content: [
+      "Create psychologically safe environments for feedback.",
+      "Provide mentorship and sponsorship opportunities.",
+      "Protect staff of colour from disproportionate workloads or emotional labour.",
+      "Validate racialised experiences instead of minimising or questioning them.",
+      "Offer wellbeing support that recognises racial trauma and workplace inequity.",
+    ],
+    isList: true,
+  },
+  {
+    id: "s10",
+    number: "10",
+    title: "Learning, unlearning and accountability",
+    content: [
+      "Anti-racist practice is a continuous journey. Leaders and staff should engage in regular training and use reflective practice tools.",
+      "Review your own behaviours and assumptions, and accept feedback without defensiveness.",
+      "Commit to measurable action and track progress.",
+      "Celebrate improvements while staying honest about areas needing change.",
+    ],
+    isList: true,
   },
 ];
 
+const REFLECTION_QUESTIONS = [
+  "How do I challenge bias in my daily interactions?",
+  "Do my decisions reinforce or reduce inequity?",
+  "Whose voices are missing from this conversation or policy?",
+  "How am I using my privilege to support colleagues of colour?",
+  "How do I respond when someone raises a racial concern?",
+];
+
 export default function AntiRacistPracticeGuidePage() {
-  const [openSection, setOpenSection] = useState<string | null>(null);
   const [showShareMenu, setShowShareMenu] = useState(false);
 
   return (
     <div style={{ minHeight: "100vh", background: "var(--sage-xlight, #f4f8f5)", fontFamily: "Lato, sans-serif" }}>
       <PlatformNav />
 
-      <div data-noprint="true" style={{ maxWidth: 900, margin: "0 auto", padding: "24px 24px 0" }}>
+      <div data-noprint="true" style={{ maxWidth: 960, margin: "0 auto", padding: "24px 24px 0" }}>
         <Link href="/dashboard/apply" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--sage-dark, #2D5A3C)", fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
           &larr; Back to Resources
         </Link>
       </div>
 
-      <div style={{ maxWidth: 900, margin: "0 auto", padding: "32px 24px 0" }}>
+      {/* Header */}
+      <div style={{ maxWidth: 960, margin: "0 auto", padding: "32px 24px 40px" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
           <span style={{ background: "var(--sage-dark, #2D5A3C)", color: "#fff", fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", padding: "4px 12px", borderRadius: 20 }}>Guide</span>
-          <span style={{ color: "#6b7280", fontSize: 13 }}>Practical guide &middot; Updated October 2026</span>
+          <span style={{ color: "#6b7280", fontSize: 13 }}>Practical guide · 10 areas · Reflection tool</span>
         </div>
-        <h1 style={{ fontFamily: "Raleway, sans-serif", fontSize: "clamp(26px, 4vw, 38px)", fontWeight: 800, color: "var(--charcoal, #2C2C2C)", margin: "0 0 16px", lineHeight: 1.2 }}>
-          Anti-Racist Practice Guide
+        <h1 style={{ fontFamily: "Raleway, sans-serif", fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 800, color: "var(--charcoal, #2C2C2C)", margin: "0 0 14px", lineHeight: 1.15 }}>
+          A Practical Guide to Anti-Racist Practice
         </h1>
-        <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
-          Being anti-racist requires more than good intentions. This guide covers what anti-racism actually means, how racial bias and microaggressions show up in practice, and what you can do at the individual and structural level to challenge racism at work and beyond.
+        <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.75, maxWidth: 700, margin: "0 0 20px" }}>
+          This resource offers clear, actionable strategies to help organisations and individuals recognise, challenge, and reduce racism in everyday practice. It provides practical tools for addressing bias, creating equitable systems, responding confidently to racism, and uplifting the voices and experiences of people of colour.
         </p>
-        <div data-noprint="true" style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
+        <div data-noprint="true" style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
           {["Anti-Racism", "Racial Equity", "Inclusion Practices"].map((tag) => (
             <span key={tag} style={{ background: "#EFF5F0", color: "var(--sage-dark, #2D5A3C)", border: "1px solid #c6dbc9", borderRadius: 20, fontSize: 12, fontWeight: 600, padding: "4px 12px" }}>{tag}</span>
           ))}
         </div>
       </div>
 
-      <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px 40px" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          {SECTIONS.map((section, i) => {
-            const isOpen = openSection === section.id;
-            return (
-              <div key={section.id} style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 12, overflow: "hidden" }}>
-                <button onClick={() => setOpenSection(isOpen ? null : section.id)} style={{ width: "100%", textAlign: "left", padding: "20px 24px", background: "none", border: "none", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 16 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                    <span style={{ width: 28, height: 28, borderRadius: "50%", background: "var(--sage-dark, #2D5A3C)", color: "#fff", fontFamily: "Raleway, sans-serif", fontWeight: 800, fontSize: 13, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{i + 1}</span>
-                    <span style={{ fontFamily: "Raleway, sans-serif", fontWeight: 700, fontSize: 16, color: "var(--charcoal, #2C2C2C)" }}>{section.title}</span>
-                  </div>
-                  <span style={{ color: "var(--sage-dark, #2D5A3C)", fontSize: 20, fontWeight: 300, flexShrink: 0, transform: isOpen ? "rotate(45deg)" : "rotate(0deg)", transition: "transform 0.2s" }}>+</span>
-                </button>
-                {isOpen && (
-                  <div style={{ borderTop: "1px solid #f3f4f6", padding: "24px 24px 28px" }}>
-                    {section.content.map((para, j) => (
-                      <p key={j} style={{ fontSize: 15, color: "#374151", lineHeight: 1.8, margin: j < section.content.length - 1 ? "0 0 16px" : "0" }}>{para}</p>
+      {/* Card grid */}
+      <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 24px 56px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(420px, 1fr))", gap: 20 }}>
+          {SECTIONS.map((section) => (
+            <div
+              key={section.id}
+              style={{
+                background: "#fff",
+                border: "2px solid #e5e7eb",
+                borderRadius: 16,
+                overflow: "hidden",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              {/* Card header */}
+              <div style={{ padding: "24px 24px 16px", borderBottom: "1px solid #f3f4f6" }}>
+                <div style={{ display: "flex", alignItems: "flex-start", gap: 14 }}>
+                  <span style={{ fontFamily: "Raleway, sans-serif", fontSize: 28, fontWeight: 800, color: "#7aab89", lineHeight: 1, flexShrink: 0, marginTop: 2 }}>{section.number}</span>
+                  <h2 style={{ fontFamily: "Raleway, sans-serif", fontSize: 17, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", margin: 0, lineHeight: 1.3 }}>{section.title}</h2>
+                </div>
+              </div>
+
+              {/* Card body */}
+              <div style={{ padding: "16px 24px 24px", flex: 1 }}>
+                {section.isList ? (
+                  <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+                    {(section.content as string[]).map((item, i) => (
+                      <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 14, color: "#374151", lineHeight: 1.7 }}>
+                        <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--sage-dark, #2D5A3C)", flexShrink: 0, marginTop: 8 }} />
+                        <span>{item}</span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
+                ) : (
+                  <p style={{ fontSize: 14, color: "#374151", lineHeight: 1.75, margin: 0 }}>{section.content as string}</p>
                 )}
               </div>
-            );
-          })}
+            </div>
+          ))}
+        </div>
+
+        {/* Reflection questions block */}
+        <div style={{ marginTop: 32, background: "var(--sage-dark, #2D5A3C)", borderRadius: 16, padding: "32px 36px" }}>
+          <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "rgba(255,255,255,0.65)", margin: "0 0 8px" }}>Section 11</p>
+          <h3 style={{ fontFamily: "Raleway, sans-serif", fontWeight: 800, fontSize: 20, color: "#fff", margin: "0 0 20px", lineHeight: 1.3 }}>Tools and reflection questions</h3>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {REFLECTION_QUESTIONS.map((q, i) => (
+              <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 12, background: "rgba(255,255,255,0.10)", borderRadius: 10, padding: "14px 18px" }}>
+                <span style={{ fontFamily: "Raleway, sans-serif", fontWeight: 800, fontSize: 15, color: "rgba(255,255,255,0.5)", flexShrink: 0, lineHeight: 1.6 }}>{String(i + 1).padStart(2, "0")}</span>
+                <p style={{ fontSize: 15, color: "rgba(255,255,255,0.9)", lineHeight: 1.6, margin: 0 }}>{q}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      <div style={{ background: "#fff", borderTop: "1px solid #e5e7eb", padding: "56px 24px" }}>
-        <div style={{ maxWidth: 720, margin: "0 auto" }}>
-          <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)", marginBottom: 16 }}>About this topic</p>
-          <h2 style={{ fontFamily: "Raleway, sans-serif", fontSize: 24, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", marginBottom: 20 }}>Why this matters</h2>
-          <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8, marginBottom: 20 }}>
-            Racial inequality is not a natural or neutral state of affairs; it is the result of historical systems and ongoing practices that continue to shape who gets access to opportunity, resources, and power. Anti-racism is the commitment to understanding those systems and actively working to change them.
-          </p>
-          <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8 }}>
-            It is also work that never ends. The standard is not perfection; it is consistent, honest, and evolving commitment; with the humility to recognise when you have caused harm and the courage to keep going anyway.
-          </p>
-        </div>
-      </div>
-
+      {/* Related resources */}
       <div data-noprint="true" style={{ background: "var(--sage-xlight, #f4f8f5)", borderTop: "1px solid #e5e7eb", padding: "48px 24px" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+        <div style={{ maxWidth: 960, margin: "0 auto" }}>
           <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)", marginBottom: 20 }}>Related resources</p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
             {[
-              { title: "How to Be an Ally: A Practical Guide", slug: "how-to-be-an-ally", format: "Guide" },
+              { title: "How to Be an Ally: A Step-by-Step Guide", slug: "how-to-be-an-ally", format: "Guide" },
               { title: "Recognising Bias: Common Types in the Workplace", slug: "recognising-bias", format: "Tool" },
               { title: "Challenging Non-Inclusive Behaviour", slug: "challenging-non-inclusive-behaviour", format: "Guide" },
             ].map((r) => (
@@ -154,7 +242,8 @@ export default function AntiRacistPracticeGuidePage() {
           </div>
         </div>
       </div>
-            {/* Share / Download bar */}
+
+      {/* Share / Download bar */}
       <div data-noprint="true" style={{ background: "#fff", borderTop: "1px solid #e5e7eb", padding: "32px 24px" }}>
         <div style={{ maxWidth: 720, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
           <div>
