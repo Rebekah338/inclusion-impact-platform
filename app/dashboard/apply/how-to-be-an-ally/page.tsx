@@ -165,7 +165,7 @@ export default function HowToBeAnAllyPage() {
                 {/* Card header */}
                 <div style={{ padding: "24px 24px 16px", borderBottom: "1px solid #f3f4f6" }}>
                   <div style={{ display: "flex", alignItems: "flex-start", gap: 14 }}>
-                    <span style={{ fontFamily: "Raleway, sans-serif", fontSize: 28, fontWeight: 800, color: "var(--sage-dark, #2D5A3C)", opacity: 0.35, lineHeight: 1, flexShrink: 0, marginTop: 2 }}>{section.number}</span>
+                    <span style={{ fontFamily: "Raleway, sans-serif", fontSize: 28, fontWeight: 800, color: "#7aab89", lineHeight: 1, flexShrink: 0, marginTop: 2 }}>{section.number}</span>
                     <h2 style={{ fontFamily: "Raleway, sans-serif", fontSize: 17, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", margin: 0, lineHeight: 1.3 }}>{section.title}</h2>
                   </div>
                 </div>
