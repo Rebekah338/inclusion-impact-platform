@@ -175,7 +175,7 @@ export default function HowToBeAnAllyPage() {
                   <p style={{ fontSize: 14, color: "#374151", lineHeight: 1.75, margin: "0 0 20px" }}>{section.content}</p>
 
                   {/* Rating buttons */}
-                  <div style={{ marginBottom: 10 }}><p style={{ fontSize: 12, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)", margin: "0 0 3px", display: "flex", alignItems: "center", gap: 6 }}><span style={{ filter: "sepia(1) saturate(0.8) hue-rotate(340deg) brightness(0.7)" }}>👆</span> How are you doing with this?</p><p style={{ fontSize: 11, color: "#9ca3af", margin: 0 }}>Tap a button to get your personalised nudge</p></div>
+                  <div style={{ marginBottom: 10 }}><p style={{ fontSize: 12, fontWeight: 800, letterSpacing: 1.5, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)", margin: "0 0 3px", display: "flex", alignItems: "center", gap: 6 }}><span style={{ filter: "sepia(1) saturate(3) hue-rotate(330deg) brightness(0.6)" }}>👆</span> How are you doing with this?</p><p style={{ fontSize: 11, color: "#9ca3af", margin: 0 }}>Tap a button to get your personalised nudge</p></div>
                   <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                     {RATING_OPTIONS.map((opt) => {
                       const selected = rating === opt.value;
