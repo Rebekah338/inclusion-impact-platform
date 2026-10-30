@@ -376,7 +376,7 @@ function CategorySection({ category, examples }: { category: typeof CATEGORIES[0
                 color: "#15803d",
               }}
             >
-              ✓ After (click to reveal)
+              ✓ After (click the ▼ arrow to reveal)
             </span>
           </div>
         </div>
