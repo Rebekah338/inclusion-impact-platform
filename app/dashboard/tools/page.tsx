@@ -66,7 +66,10 @@ export default function ToolsPage() {
       {/* Header */}
       <div style={{ background: "var(--sage-dark, #2D5A3C)", color: "#fff", padding: "56px 24px 48px" }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
-          <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 11, fontWeight: 800, letterSpacing: 2.5, textTransform: "uppercase", color: "rgba(255,255,255,0.6)", margin: "0 0 14px" }}>Evidence Builder</p>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "14px" }}>
+            <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 11, fontWeight: 800, letterSpacing: 2.5, textTransform: "uppercase", color: "rgba(255,255,255,0.6)", margin: 0 }}>Evidence Builder</p>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem", background: "#D4A017", border: "1px solid #B8860B", color: "#fff", fontFamily: "Raleway, sans-serif", fontWeight: 800, fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", padding: "0.2rem 0.6rem", borderRadius: "999px" }}>✨ AI Inclusion Tool</span>
+          </div>
           <h1 style={{ fontFamily: "Raleway, sans-serif", fontSize: "clamp(28px, 4vw, 42px)", fontWeight: 800, margin: "0 0 16px", lineHeight: 1.15 }}>
             Three AI tools to help you<br />make the case for inclusion
           </h1>

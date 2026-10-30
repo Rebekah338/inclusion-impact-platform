@@ -22,7 +22,7 @@ const TOPIC_CHIPS = [
 ];
 
 /* ── Format chips ── */
-const FORMAT_CHIPS = ["Guide", "Checklist", "Tool", "Reflection", "Survey", "Framework", "Glossary"];
+const FORMAT_CHIPS = ["Guide", "Checklist", "Tool", "Reflection", "Survey", "Framework", "Glossary", "AI Inclusion Tool"];
 
 /* ── Resource data ── */
 type Resource = {
@@ -48,6 +48,10 @@ const ALL_RESOURCES: Resource[] = [
   { id: "r9",  icon: "✅", title: "Inclusive Meeting Checklist",               desc: "19 checkpoints across three stages (before, during, and after the meeting) to ensure every meeting is accessible, equitable, and productive.", format: "Checklist",  topics: ["Disability", "Neurodiversity", "Inclusion Practices"], time: "5 min"   },
   { id: "r10", icon: "💬", title: "Challenging Non-Inclusive Behaviour",       desc: "Real language for real situations: six common scenarios (interruptions, idea theft, discriminatory jokes, exclusion, name mispronunciation, and stereotyping assumptions) with in-the-moment and follow-up responses.", format: "Guide", topics: ["Inclusion Practices"], time: "15 min read" },
   { id: "r18", icon: "📖", title: "EDI Glossary",                              desc: "A comprehensive glossary of EDI terms, concepts, and definitions: from allyship to intersectionality, psychological safety to systemic racism.", format: "Glossary",   topics: ["Inclusion Practices"],                         time: "Reference"   },
+  // --- AI INCLUSION TOOLS ---
+  { id: "ai1", icon: "✨", title: "Job Description Equity Checker",            desc: "Paste your job description and get an equity audit in seconds: non-inclusive language flagged, a rationale for each suggestion, and a rewritten version ready to use.", format: "AI Inclusion Tool", topics: ["Gender", "Disability", "Inclusion Practices"], time: "5 min" },
+  { id: "ai2", icon: "✨", title: "Interview Question Generator",              desc: "Tell us the role, sector, and any equity focus areas: this tool generates a bank of bias-free, competency-based interview questions tailored to your context.", format: "AI Inclusion Tool", topics: ["Inclusion Practices", "Gender", "Disability", "Neurodiversity"], time: "5 min" },
+  { id: "ai3", icon: "✨", title: "Gender Pay Gap Analysis Tool",              desc: "Input your pay data and workforce breakdown: this tool identifies pay gaps across intersecting dimensions, highlights the key drivers, and recommends evidence-based actions.", format: "AI Inclusion Tool", topics: ["Gender", "Race and Ethnicity", "Socioeconomic Background"], time: "10 min" },
   // --- COMING SOON: placeholder resources ---
   { id: "r11", icon: "📐", title: "Inclusion Maturity Framework",              desc: "Assess where your organisation sits on the inclusion maturity spectrum and identify the most impactful next steps.", format: "Framework",  topics: ["Inclusion Practices"],                         time: "45 min"      },
   { id: "r12", icon: "📣", title: "Business Case Builder",                     desc: "Structure your internal business case for EDI investment using evidence, ROI data, and narrative frameworks that resonate with decision-makers.", format: "Tool",       topics: ["Inclusion Practices"],                         time: "45–60 min"   },
@@ -68,6 +72,7 @@ const FORMAT_ICONS: Record<string, string> = {
   Survey: "📊",
   Framework: "📐",
   Glossary: "📖",
+  "AI Inclusion Tool": "✨",
 };
 
 export default function ApplyPage() {
@@ -115,6 +120,9 @@ export default function ApplyPage() {
     r9:  "inclusive-meeting-checklist",
     r10: "challenging-non-inclusive-behaviour",
     r18: "edi-glossary",
+    ai1: "job-description-equity-checker",
+    ai2: "interview-question-generator",
+    ai3: "gender-pay-gap-analysis",
   };
 
   const openResource = (id: string) => {
@@ -125,15 +133,21 @@ export default function ApplyPage() {
 
   const clearFilters = activeTopics.length > 0 || activeFormats.length > 0 || search;
 
-  const chipStyle = (active: boolean): React.CSSProperties => ({
+  const chipStyle = (active: boolean, gold?: boolean): React.CSSProperties => ({
     display: "inline-flex",
     alignItems: "center",
     gap: "0.3rem",
     padding: "0.4rem 0.9rem",
     borderRadius: "999px",
-    border: active ? "1.5px solid var(--sage-dark)" : "1.5px solid var(--gray-border)",
-    background: active ? "var(--sage-dark)" : "var(--white)",
-    color: active ? "var(--white)" : "var(--charcoal)",
+    border: active
+      ? gold ? "1.5px solid #B8860B" : "1.5px solid var(--sage-dark)"
+      : gold ? "1.5px solid #D4A017" : "1.5px solid var(--gray-border)",
+    background: active
+      ? gold ? "#D4A017" : "var(--sage-dark)"
+      : gold ? "#FBF5E0" : "var(--white)",
+    color: active
+      ? gold ? "#fff" : "var(--white)"
+      : gold ? "#7A5C00" : "var(--charcoal)",
     fontFamily: "var(--font-heading)",
     fontWeight: 600,
     fontSize: "0.8rem",
@@ -198,7 +212,7 @@ export default function ApplyPage() {
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", alignItems: "center" }}>
               <span style={{ fontSize: "0.7rem", fontFamily: "var(--font-heading)", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--gray-soft)", marginRight: "0.25rem", alignSelf: "center" }}>Format:</span>
               {FORMAT_CHIPS.map((f) => (
-                <button key={f} onClick={() => toggleFormat(f)} style={chipStyle(activeFormats.includes(f))} aria-pressed={activeFormats.includes(f)}>
+                <button key={f} onClick={() => toggleFormat(f)} style={chipStyle(activeFormats.includes(f), f === "AI Inclusion Tool")} aria-pressed={activeFormats.includes(f)}>
                   {FORMAT_ICONS[f]} {f}
                 </button>
               ))}
@@ -273,11 +287,12 @@ export default function ApplyPage() {
             {visibleResources.map((r) => {
               const isVisited = visited.includes(r.id);
               const isBookmarked = myToolkit.includes(r.id);
+              const isAiTool = r.format === "AI Inclusion Tool";
               return (
                 <div
                   key={r.id}
                   className="card"
-                  style={{ position: "relative", display: "flex", flexDirection: "column", gap: "0.75rem", opacity: isVisited ? 0.85 : 1 }}
+                  style={{ position: "relative", display: "flex", flexDirection: "column", gap: "0.75rem", opacity: isVisited ? 0.85 : 1, border: isAiTool ? "2px solid #D4A017" : undefined, boxShadow: isAiTool ? "0 0 0 1px #F5E6A0" : undefined }}
                 >
                   {/* Visited badge */}
                   {isVisited && (
@@ -353,7 +368,7 @@ export default function ApplyPage() {
                   <div style={{ fontSize: "1.75rem", marginTop: isVisited ? "1.25rem" : "0" }} aria-hidden="true">{r.icon}</div>
 
                   {/* Format badge */}
-                  <span style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem", background: "var(--sage-xlight)", border: "1px solid var(--sage-light)", color: "var(--sage-dark)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", padding: "0.2rem 0.6rem", borderRadius: "999px", width: "fit-content" }}>
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem", background: isAiTool ? "#FBF5E0" : "var(--sage-xlight)", border: isAiTool ? "1px solid #D4A017" : "1px solid var(--sage-light)", color: isAiTool ? "#7A5C00" : "var(--sage-dark)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", padding: "0.2rem 0.6rem", borderRadius: "999px", width: "fit-content" }}>
                     {FORMAT_ICONS[r.format]} {r.format}
                   </span>
 
