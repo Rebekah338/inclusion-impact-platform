@@ -19,6 +19,7 @@ const SECTIONS = [
       "Does the ERG purpose align with the organisation's current EDI priorities?",
       "Has the founding purpose shifted over time; is it time to refresh?",
     ],
+    redFlag: { label: "Mission drift", desc: "An ERG that started with a clear purpose but has become a social committee or a box-ticking exercise for the organisation. Members disengage; the community it was meant to serve stops trusting it." },
   },
   {
     id: "membership",
@@ -34,13 +35,14 @@ const SECTIONS = [
       "Are attendees representative of the group the ERG is meant to serve?",
       "Are allies engaged appropriately without dominating the space?",
     ],
+    redFlag: null,
   },
   {
     id: "leadership",
     title: "Leadership and Governance",
     setup: [
       "Appoint co-chairs or leads: ideally from the community served",
-      "Define clear roles: Chair, Secretary, Events Lead, Comms Lead, etc.",
+      "Define clear roles: Chair, Secretary, Events Lead, Comms Lead",
       "Establish a senior sponsor or executive ally with genuine influence",
       "Create a handover and succession plan from the start",
     ],
@@ -49,6 +51,7 @@ const SECTIONS = [
       "Does the executive sponsor actively champion the ERG and attend events?",
       "Is there a clear process for selecting new leaders?",
     ],
+    redFlag: { label: "Sponsor in name only", desc: "An executive who agreed to be sponsor but has never attended an event, never mentioned the ERG to the board, and has no idea what it does. Their name on the page signals nothing to members and nothing to senior leadership." },
   },
   {
     id: "meetings",
@@ -60,10 +63,11 @@ const SECTIONS = [
       "Document an annual calendar with key awareness dates",
     ],
     audit: [
-      "Are meetings accessible (timing, format, location)?",
+      "Are meetings accessible in timing, format, and location?",
       "Is there a good mix of event types to suit different member needs?",
       "Are events well attended? If not, what is the barrier?",
     ],
+    redFlag: null,
   },
   {
     id: "comms",
@@ -79,6 +83,7 @@ const SECTIONS = [
       "Are communications regular, clear, and inclusive in tone?",
       "Is there a feedback mechanism so members can shape the ERG direction?",
     ],
+    redFlag: null,
   },
   {
     id: "support",
@@ -94,6 +99,7 @@ const SECTIONS = [
       "Are ERG leaders burning out due to lack of time or recognition?",
       "Is senior leadership visibly investing in the ERG?",
     ],
+    redFlag: { label: "Invisible labour trap", desc: "ERG leads running everything in their lunch break and evenings, on top of their full workload, with no time protected and no recognition in performance reviews. This is the most common reason ERGs collapse and the most avoidable." },
   },
   {
     id: "equity",
@@ -109,6 +115,7 @@ const SECTIONS = [
       "Are any voices being marginalised within the group itself?",
       "Does the ERG actively challenge tokenism and performative inclusion?",
     ],
+    redFlag: null,
   },
   {
     id: "impact",
@@ -124,6 +131,7 @@ const SECTIONS = [
       "How is impact being measured beyond event attendance?",
       "Is leadership using ERG insights to drive real organisational change?",
     ],
+    redFlag: { label: "Consultation without influence", desc: "The organisation asks the ERG for input on policies, initiatives, or decisions — then ignores what they say. Members quickly learn their voice changes nothing. This destroys trust faster than not asking at all." },
   },
   {
     id: "sustainability",
@@ -139,12 +147,13 @@ const SECTIONS = [
       "Is there a risk of ERG fatigue among core members?",
       "Does the ERG have a sense of momentum and community beyond events?",
     ],
+    redFlag: null,
   },
   {
     id: "remember",
-    title: "Things to Remember",
+    title: "Accountability and Boundaries",
     setup: [
-      "ERG labour is often invisible; recognise and resource it explicitly",
+      "ERG labour is often invisible: recognise and resource it explicitly",
       "ERGs exist to support their communities, not to educate the whole organisation alone",
       "Psychological safety in the ERG space is non-negotiable",
       "ERGs are not a substitute for organisational accountability on EDI",
@@ -154,147 +163,216 @@ const SECTIONS = [
       "Is the organisation using the ERG as a substitute for structural change?",
       "Do ERG members feel proud to be part of this group?",
     ],
+    redFlag: { label: "ERG as EDI substitute", desc: "Leadership points to the ERG when asked about inclusion strategy, rather than to policies, pay gap data, or structural change. The ERG becomes a shield against accountability rather than a force for it." },
   },
 ];
 
+const HEALTH_OPTIONS = [
+  { label: "Needs work", bg: "#fee2e2", text: "#991b1b", border: "#fca5a5" },
+  { label: "Developing", bg: "#fef3c7", text: "#92400e", border: "#fcd34d" },
+  { label: "Strong", bg: "#dcfce7", text: "#166534", border: "#86efac" },
+];
+
 export default function ErgChecklist() {
-  const [mode, setMode] = useState<"setup" | "audit">("setup");
-  const [checked, setChecked] = useState<Record<string, boolean>>({});
-  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const [setupChecked, setSetupChecked] = useState<Record<string, boolean>>({});
+  const [auditChecked, setAuditChecked] = useState<Record<string, boolean>>({});
   const [health, setHealth] = useState<Record<string, number>>({});
+  const [showSponsor, setShowSponsor] = useState(false);
+  const [copied, setCopied] = useState(false);
 
-  const toggle = (key: string) => setChecked((p) => ({ ...p, [key]: !p[key] }));
-  const toggleSection = (id: string) => setExpanded((p) => ({ ...p, [id]: !p[id] }));
+  const toggleSetup = (key: string) => setSetupChecked(p => ({ ...p, [key]: !p[key] }));
+  const toggleAudit = (key: string) => setAuditChecked(p => ({ ...p, [key]: !p[key] }));
 
-  const getItems = (s: typeof SECTIONS[0]) => mode === "setup" ? s.setup : s.audit;
-  const totalItems = SECTIONS.reduce((sum, s) => sum + getItems(s).length, 0);
-  const checkedCount = Object.values(checked).filter(Boolean).length;
+  const totalSetup = SECTIONS.reduce((s, sec) => s + sec.setup.length, 0);
+  const totalAudit = SECTIONS.reduce((s, sec) => s + sec.audit.length, 0);
+  const doneSetup = Object.values(setupChecked).filter(Boolean).length;
+  const doneAudit = Object.values(auditChecked).filter(Boolean).length;
 
-  const healthColors = [
-    { label: "Needs work", bg: "#FEE2E2", text: "#991B1B", border: "#FCA5A5" },
-    { label: "Developing", bg: "#FEF3C7", text: "#92400E", border: "#FCD34D" },
-    { label: "Good", bg: "#DCFCE7", text: "#166534", border: "#86EFAC" },
-  ];
+  // Sponsor briefing generator
+  const weakSections = SECTIONS.filter(s => health[s.id] === 0);
+  const developingSections = SECTIONS.filter(s => health[s.id] === 1);
+  const strongSections = SECTIONS.filter(s => health[s.id] === 2);
+  const redFlagsHit = SECTIONS.filter(s => s.redFlag && health[s.id] === 0);
+  const hasHealthData = Object.keys(health).length > 0;
+
+  const sponsorBriefing = hasHealthData ? [
+    `This ERG has completed a structured audit across ${SECTIONS.length} areas of effective practice.`,
+    strongSections.length > 0
+      ? `We are performing strongly in: ${strongSections.map(s => s.title).join(", ")}.`
+      : null,
+    developingSections.length > 0
+      ? `Areas that are developing and need continued attention: ${developingSections.map(s => s.title).join(", ")}.`
+      : null,
+    weakSections.length > 0
+      ? `Areas that need immediate investment or structural support: ${weakSections.map(s => s.title).join(", ")}.`
+      : null,
+    redFlagsHit.length > 0
+      ? `We have identified ${redFlagsHit.length} critical risk${redFlagsHit.length > 1 ? "s" : ""} that require organisational action: ${redFlagsHit.map(s => s.redFlag!.label).join("; ")}.`
+      : null,
+    `We are asking for your visible support in addressing these gaps. ERGs are most effective when they have genuine executive sponsorship, protected time for leads, and a clear mandate to influence decisions. We would welcome a conversation about how you can help us take this forward.`,
+  ].filter(Boolean).join("\n\n") : "";
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(sponsorBriefing).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
 
   return (
-    <div className="min-h-screen" style={{ background: "var(--sage-xlight)" }}>
+    <div style={{ minHeight: "100vh", background: "var(--sage-xlight)", fontFamily: "var(--font-body)" }}>
       <PlatformNav />
+
       {/* Back nav */}
-      <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 24px 0" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "24px 24px 0" }}>
         <Link href="/dashboard/apply" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--sage-dark)", fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
           &larr; Back to Resources
         </Link>
       </div>
+
       {/* Header */}
-      <div style={{ maxWidth: 900, margin: "0 auto", padding: "32px 24px 0" }}>
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "32px 24px 0" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
-          <span style={{ background: "var(--sage-dark)", color: "#fff", fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", padding: "4px 12px", borderRadius: 20 }}>
-            Checklist
-          </span>
+          <span style={{ background: "var(--sage-dark)", color: "#fff", fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", padding: "4px 12px", borderRadius: 20 }}>Checklist</span>
           <span style={{ color: "#6b7280", fontSize: 13 }}>Checklist &middot; Updated October 2026</span>
         </div>
         <h1 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(26px, 4vw, 38px)", fontWeight: 800, color: "var(--charcoal)", margin: "0 0 16px", lineHeight: 1.2 }}>
           ERG Checklist: Setting Up and Auditing Employee Resource Groups
         </h1>
-        <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
-          Use this checklist to set up a new ERG or audit an existing one across ten areas of effective practice.
+        <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 780, margin: "0 0 24px" }}>
+          Use this tool to set up a new ERG or audit an existing one. Each section shows what good practice looks like and the questions to ask when reviewing. Work through both columns together for the clearest picture.
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
-          {["ERGs", "Employee Voice", "Inclusion Practices"].map((tag) => (
-            <span key={tag} style={{ background: "var(--sage-xlight)", color: "var(--sage-dark)", border: "1px solid #c6dbc9", borderRadius: 20, fontSize: 12, fontWeight: 600, padding: "4px 12px" }}>
-              {tag}
-            </span>
+          {["ERGs", "Employee Voice", "Inclusion Practices"].map(tag => (
+            <span key={tag} style={{ background: "var(--sage-xlight)", color: "var(--sage-dark)", border: "1px solid #c6dbc9", borderRadius: 20, fontSize: 12, fontWeight: 600, padding: "4px 12px" }}>{tag}</span>
           ))}
         </div>
       </div>
-      <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px 80px" }}>
 
-        {/* Mode toggle */}
-        <div className="flex gap-3 mb-6">
-          {(["setup", "audit"] as const).map((m) => (
-            <button
-              key={m}
-              onClick={() => { setMode(m); setChecked({}); }}
-              className="px-5 py-2 rounded-full text-sm font-semibold border transition-all"
-              style={
-                mode === m
-                  ? { background: "var(--sage-dark)", color: "var(--white)", borderColor: "var(--sage-dark)" }
-                  : { background: "var(--white)", color: "var(--charcoal)", borderColor: "var(--gray-border)" }
-              }
-            >
-              {m === "setup" ? "Setting up an ERG" : "Auditing an existing ERG"}
-            </button>
-          ))}
-        </div>
+      <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 24px 80px" }}>
 
-        {/* Progress bar */}
-        <div className="rounded-xl p-4 mb-6 border" style={{ background: "var(--white)", borderColor: "var(--gray-border)" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14, marginBottom: 8, color: "var(--charcoal)" }}>
-            <span>{checkedCount} of {totalItems} items checked</span>
-            <span>{Math.round((checkedCount / totalItems) * 100)}% complete</span>
+        {/* Progress bars — two columns */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 32 }}>
+          {/* Setup progress */}
+          <div style={{ borderRadius: 12, padding: 16, background: "var(--white)", border: "1px solid var(--gray-border)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, marginBottom: 8, color: "var(--charcoal)", fontWeight: 600 }}>
+              <span>Setting up</span>
+              <span style={{ color: "var(--sage-dark)" }}>{doneSetup}/{totalSetup}</span>
+            </div>
+            <div style={{ height: 6, borderRadius: 3, background: "var(--gray-border)" }}>
+              <div style={{ height: 6, borderRadius: 3, transition: "width 0.3s", width: `${(doneSetup / totalSetup) * 100}%`, background: "var(--sage-dark)" }} />
+            </div>
           </div>
-          <div style={{ height: 8, borderRadius: 4, background: "var(--gray-border)" }}>
-            <div style={{ height: 8, borderRadius: 4, transition: "width 0.3s", width: `${(checkedCount / totalItems) * 100}%`, background: "var(--sage-dark)" }} />
+          {/* Audit progress */}
+          <div style={{ borderRadius: 12, padding: 16, background: "var(--white)", border: "1px solid var(--gray-border)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: 13, marginBottom: 8, color: "var(--charcoal)", fontWeight: 600 }}>
+              <span>Auditing</span>
+              <span style={{ color: "var(--sage-dark)" }}>{doneAudit}/{totalAudit}</span>
+            </div>
+            <div style={{ height: 6, borderRadius: 3, background: "var(--gray-border)" }}>
+              <div style={{ height: 6, borderRadius: 3, transition: "width 0.3s", width: `${(doneAudit / totalAudit) * 100}%`, background: "#6366f1" }} />
+            </div>
           </div>
         </div>
 
-        {/* Sections */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        {/* Column headers */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 8 }}>
+          <div style={{ padding: "10px 16px", borderRadius: 8, background: "var(--sage-dark)", color: "#fff", fontWeight: 700, fontSize: 13, letterSpacing: 0.3 }}>
+            Setting up your ERG
+          </div>
+          <div style={{ padding: "10px 16px", borderRadius: 8, background: "#4f46e5", color: "#fff", fontWeight: 700, fontSize: 13, letterSpacing: 0.3 }}>
+            Auditing your existing ERG
+          </div>
+        </div>
+
+        {/* Section cards */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           {SECTIONS.map((section, idx) => {
-            const items = getItems(section);
-            const sectionChecked = items.filter((_, i) => checked[`${mode}-${section.id}-${i}`]).length;
-            const isOpen = expanded[`${mode}-${section.id}`];
+            const setupDone = section.setup.filter((_, i) => setupChecked[`setup-${section.id}-${i}`]).length;
+            const auditDone = section.audit.filter((_, i) => auditChecked[`audit-${section.id}-${i}`]).length;
             const sectionHealth = health[section.id];
 
             return (
-              <div key={section.id} className="rounded-xl border overflow-hidden" style={{ background: "var(--white)", borderColor: "var(--gray-border)" }}>
-                <button onClick={() => toggleSection(`${mode}-${section.id}`)} style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 20px", textAlign: "left", background: "none", border: "none", cursor: "pointer" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                    <span style={{ width: 28, height: 28, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, flexShrink: 0 }}
-                      style={{ background: sectionChecked === items.length ? "var(--sage-dark)" : "var(--sage-xlight)", color: sectionChecked === items.length ? "var(--white)" : "var(--sage-dark)" }}>
-                      {idx + 1}
+              <div key={section.id} style={{ borderRadius: 16, overflow: "hidden", border: "1px solid var(--gray-border)", background: "var(--white)" }}>
+                {/* Section title bar */}
+                <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "14px 20px", background: "var(--sage-xlight)", borderBottom: "1px solid var(--gray-border)" }}>
+                  <span style={{ width: 28, height: 28, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, flexShrink: 0, background: "var(--sage-dark)", color: "#fff" }}>
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+                  <span style={{ fontWeight: 700, fontSize: 16, color: "var(--charcoal)", fontFamily: "var(--font-heading)", flex: 1 }}>{section.title}</span>
+                  {section.redFlag && (
+                    <span style={{ fontSize: 11, fontWeight: 700, color: "#b45309", background: "#fef3c7", border: "1px solid #fcd34d", borderRadius: 20, padding: "3px 10px", flexShrink: 0 }}>
+                      ⚠ Red flag risk
                     </span>
-                    <span className="font-semibold" style={{ color: "var(--charcoal)", fontFamily: "var(--font-heading)" }}>{section.title}</span>
-                  </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    {mode === "audit" && sectionHealth !== undefined && (
-                      <span className="text-xs px-2 py-1 rounded-full font-medium" style={{ background: healthColors[sectionHealth].bg, color: healthColors[sectionHealth].text, border: `1px solid ${healthColors[sectionHealth].border}` }}>
-                        {healthColors[sectionHealth].label}
-                      </span>
-                    )}
-                    <span className="text-xs" style={{ color: "var(--sage-dark)" }}>{sectionChecked}/{items.length}</span>
-                    <span style={{ color: "var(--sage-dark)" }}>{isOpen ? "▲" : "▼"}</span>
-                  </div>
-                </button>
+                  )}
+                </div>
 
-                {isOpen && (
-                  <div className="px-5 pb-5">
-                    <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 16 }}>
-                      {items.map((item, i) => {
-                        const key = `${mode}-${section.id}-${i}`;
+                {/* Two-column body */}
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+                  {/* Setup column */}
+                  <div style={{ padding: "20px", borderRight: "1px solid var(--gray-border)" }}>
+                    <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 14 }}>
+                      Setting up · {setupDone}/{section.setup.length}
+                    </p>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                      {section.setup.map((item, i) => {
+                        const key = `setup-${section.id}-${i}`;
                         return (
-                          <label key={key} className="flex items-start gap-3 cursor-pointer">
-                            <input type="checkbox" checked={!!checked[key]} onChange={() => toggle(key)}
-                              className="mt-0.5 shrink-0 w-4 h-4" style={{ accentColor: "var(--sage-dark)" }} />
-                            <span className="text-sm" style={{ color: "var(--charcoal)", opacity: checked[key] ? 0.5 : 1, textDecoration: checked[key] ? "line-through" : "none" }}>{item}</span>
+                          <label key={key} style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer" }}>
+                            <input type="checkbox" checked={!!setupChecked[key]} onChange={() => toggleSetup(key)}
+                              style={{ marginTop: 3, flexShrink: 0, width: 16, height: 16, accentColor: "var(--sage-dark)" }} />
+                            <span style={{ fontSize: 14, color: "var(--charcoal)", lineHeight: 1.5, textDecoration: setupChecked[key] ? "line-through" : "none", opacity: setupChecked[key] ? 0.45 : 1 }}>
+                              {item}
+                            </span>
                           </label>
                         );
                       })}
                     </div>
-                    {mode === "audit" && (
-                      <div className="mt-3">
-                        <p className="text-xs font-medium mb-2" style={{ color: "var(--charcoal)", opacity: 0.7 }}>Section health rating:</p>
-                        <div className="flex gap-2">
-                          {healthColors.map((hc, hi) => (
-                            <button key={hi} onClick={() => setHealth((p) => ({ ...p, [section.id]: hi }))}
-                              className="px-3 py-1 rounded-full text-xs font-medium border transition-all"
-                              style={{ background: sectionHealth === hi ? hc.bg : "transparent", color: sectionHealth === hi ? hc.text : "var(--charcoal)", borderColor: sectionHealth === hi ? hc.border : "var(--gray-border)" }}>
-                              {hc.label}
-                            </button>
-                          ))}
-                        </div>
+                  </div>
+
+                  {/* Audit column */}
+                  <div style={{ padding: "20px", display: "flex", flexDirection: "column", gap: 14 }}>
+                    <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase", color: "#4f46e5", marginBottom: 0 }}>
+                      Auditing · {auditDone}/{section.audit.length}
+                    </p>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                      {section.audit.map((item, i) => {
+                        const key = `audit-${section.id}-${i}`;
+                        return (
+                          <label key={key} style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer" }}>
+                            <input type="checkbox" checked={!!auditChecked[key]} onChange={() => toggleAudit(key)}
+                              style={{ marginTop: 3, flexShrink: 0, width: 16, height: 16, accentColor: "#4f46e5" }} />
+                            <span style={{ fontSize: 14, color: "var(--charcoal)", lineHeight: 1.5, textDecoration: auditChecked[key] ? "line-through" : "none", opacity: auditChecked[key] ? 0.45 : 1 }}>
+                              {item}
+                            </span>
+                          </label>
+                        );
+                      })}
+                    </div>
+
+                    {/* Health rating */}
+                    <div style={{ marginTop: "auto", paddingTop: 12, borderTop: "1px solid var(--gray-border)" }}>
+                      <p style={{ fontSize: 11, fontWeight: 700, color: "#6b7280", marginBottom: 8, textTransform: "uppercase", letterSpacing: 0.5 }}>Section health</p>
+                      <div style={{ display: "flex", gap: 6 }}>
+                        {HEALTH_OPTIONS.map((h, hi) => (
+                          <button key={hi} onClick={() => setHealth(p => ({ ...p, [section.id]: hi }))}
+                            style={{ padding: "5px 12px", borderRadius: 99, fontSize: 12, fontWeight: 600, border: "2px solid", cursor: "pointer", transition: "all 0.15s", background: sectionHealth === hi ? h.bg : "#fff", color: sectionHealth === hi ? h.text : "#6b7280", borderColor: sectionHealth === hi ? h.border : "#e5e7eb" }}>
+                            {h.label}
+                          </button>
+                        ))}
                       </div>
-                    )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Red flag callout */}
+                {section.redFlag && (
+                  <div style={{ margin: "0 20px 20px", borderRadius: 10, padding: "12px 16px", background: "#fffbeb", border: "1px solid #fcd34d", display: "flex", gap: 12, alignItems: "flex-start" }}>
+                    <span style={{ fontSize: 18, flexShrink: 0, lineHeight: 1 }}>⚠</span>
+                    <div>
+                      <p style={{ fontSize: 13, fontWeight: 700, color: "#92400e", margin: "0 0 4px" }}>{section.redFlag.label}</p>
+                      <p style={{ fontSize: 13, color: "#78350f", margin: 0, lineHeight: 1.55 }}>{section.redFlag.desc}</p>
+                    </div>
                   </div>
                 )}
               </div>
@@ -302,20 +380,71 @@ export default function ErgChecklist() {
           })}
         </div>
 
-        <div className="mt-8 text-center">
-          <button onClick={() => window.print()} className="px-6 py-2 rounded-full text-sm font-medium"
-            style={{ background: "var(--sage-dark)", color: "var(--white)" }}>
-            Print Summary
+        {/* Take this to your sponsor */}
+        <div style={{ marginTop: 40, borderRadius: 20, border: "2px solid var(--sage-dark)", background: "var(--white)", overflow: "hidden" }}>
+          <button
+            onClick={() => setShowSponsor(p => !p)}
+            style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 24px", background: "none", border: "none", cursor: "pointer", textAlign: "left" }}
+          >
+            <div>
+              <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark)", margin: "0 0 4px" }}>Tool</p>
+              <p style={{ fontSize: 18, fontWeight: 700, color: "var(--charcoal)", fontFamily: "var(--font-heading)", margin: 0 }}>Take this to your sponsor</p>
+              <p style={{ fontSize: 14, color: "#6b7280", margin: "4px 0 0" }}>
+                {hasHealthData ? "Generate a briefing based on your audit results to share with your executive sponsor." : "Rate at least one section's health above to generate your briefing."}
+              </p>
+            </div>
+            <span style={{ fontSize: 22, color: "var(--sage-dark)", flexShrink: 0, marginLeft: 16 }}>{showSponsor ? "▲" : "▼"}</span>
           </button>
+
+          {showSponsor && (
+            <div style={{ padding: "0 24px 28px", borderTop: "1px solid var(--gray-border)" }}>
+              {!hasHealthData ? (
+                <p style={{ fontSize: 14, color: "#6b7280", marginTop: 20, fontStyle: "italic" }}>
+                  Complete the health ratings for each section above, then come back here to generate your sponsor briefing.
+                </p>
+              ) : (
+                <>
+                  <p style={{ fontSize: 13, color: "#6b7280", margin: "20px 0 12px" }}>
+                    Copy this briefing and adapt it for your context. It is based on the health ratings you selected above.
+                  </p>
+                  <div style={{ background: "var(--sage-xlight)", borderRadius: 12, padding: "20px 24px", fontSize: 14, color: "var(--charcoal)", lineHeight: 1.8, whiteSpace: "pre-wrap", border: "1px solid #c6dbc9" }}>
+                    {sponsorBriefing}
+                  </div>
+                  <div style={{ display: "flex", gap: 10, marginTop: 16 }}>
+                    <button onClick={handleCopy}
+                      style={{ padding: "10px 22px", borderRadius: 99, fontSize: 14, fontWeight: 600, border: "2px solid", cursor: "pointer", background: copied ? "#dcfce7" : "var(--sage-dark)", color: copied ? "#166534" : "#fff", borderColor: copied ? "#86efac" : "var(--sage-dark)", transition: "all 0.2s" }}>
+                      {copied ? "✓ Copied" : "Copy briefing"}
+                    </button>
+                    <button onClick={() => window.print()}
+                      style={{ padding: "10px 22px", borderRadius: 99, fontSize: 14, fontWeight: 600, border: "2px solid var(--gray-border)", cursor: "pointer", background: "#fff", color: "var(--charcoal)" }}>
+                      Print full summary
+                    </button>
+                  </div>
+
+                  {/* Health summary chips */}
+                  {Object.keys(health).length > 0 && (
+                    <div style={{ marginTop: 20, display: "flex", flexWrap: "wrap", gap: 8 }}>
+                      {SECTIONS.filter(s => health[s.id] !== undefined).map(s => {
+                        const h = HEALTH_OPTIONS[health[s.id]];
+                        return (
+                          <span key={s.id} style={{ fontSize: 12, fontWeight: 600, padding: "4px 12px", borderRadius: 99, background: h.bg, color: h.text, border: `1px solid ${h.border}` }}>
+                            {s.title}: {h.label}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          )}
         </div>
       </div>
 
       {/* About this topic */}
       <div style={{ background: "#fff", borderTop: "1px solid #e5e7eb", padding: "56px 24px" }}>
         <div style={{ maxWidth: 720, margin: "0 auto" }}>
-          <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 16 }}>
-            About this topic
-          </p>
+          <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 16 }}>About this topic</p>
           <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 24, fontWeight: 800, color: "var(--charcoal)", marginBottom: 20 }}>
             The role of employee resource groups in inclusion
           </h2>
@@ -333,39 +462,24 @@ export default function ErgChecklist() {
 
       {/* Related resources */}
       <div style={{ background: "var(--sage-xlight)", borderTop: "1px solid #e5e7eb", padding: "48px 24px" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto" }}>
-          <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 20 }}>
-            Related resources
-          </p>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 20 }}>Related resources</p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
-              <Link key="supporting-diversity-guide" href={`/dashboard/apply/supporting-diversity-guide`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
-                  Guide
-                </span>
-                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
-                  Supporting Diversity in Your Team
-                </span>
+            {[
+              { href: "/dashboard/apply/supporting-diversity-guide", label: "Guide", title: "Supporting Diversity in Your Team" },
+              { href: "/dashboard/apply/inclusive-event-planning", label: "Planning Tool", title: "Inclusive Event Planning" },
+              { href: "/dashboard/apply/making-policies-inclusive", label: "Guide", title: "Making Policies More Inclusive" },
+            ].map(r => (
+              <Link key={r.href} href={r.href} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>{r.label}</span>
+                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>{r.title}</span>
               </Link>
-              <Link key="inclusive-event-planning" href={`/dashboard/apply/inclusive-event-planning`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
-                  Planning Tool
-                </span>
-                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
-                  Inclusive Event Planning
-                </span>
-              </Link>
-              <Link key="making-policies-inclusive" href={`/dashboard/apply/making-policies-inclusive`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
-                  Guide
-                </span>
-                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
-                  Making Policies More Inclusive
-                </span>
-              </Link>
+            ))}
           </div>
         </div>
       </div>
-            <BottomBanner />
+
+      <BottomBanner />
     </div>
   );
 }
