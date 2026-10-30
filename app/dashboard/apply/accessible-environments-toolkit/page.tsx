@@ -224,6 +224,12 @@ const ASSESSMENT_OPTIONS: { value: AssessmentRating; label: string; color: strin
   { value: "in place",    label: "In place",    color: "#16a34a" },
 ];
 
+const GreenBox = ({ children }: { children: React.ReactNode }) => (
+  <div style={{ background: "#f0fdf4", border: "1.5px solid #86efac", borderRadius: "12px", padding: "1rem 1.25rem", marginBottom: "1.25rem" }}>
+    {children}
+  </div>
+);
+
 // ── Main component ─────────────────────────────────────────────────────────────
 export default function AccessibleEnvironmentsToolkitPage() {
   const [tab, setTab] = useState<Tab>("browse");
@@ -479,6 +485,12 @@ export default function AccessibleEnvironmentsToolkitPage() {
             <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--gray-soft)", lineHeight: 1.7, marginBottom: "1.5rem", maxWidth: "600px" }}>
               Rate your organisation's current state across all seven areas. Your ratings generate a prioritised action plan tailored to your gaps.
             </p>
+          <GreenBox>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "#15803d", margin: "0 0 0.3rem" }}>How to use the self-assessment</p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "#166534", lineHeight: 1.7, margin: 0 }}>
+                Rate your organisation across all seven areas of accessible practice: not started, partial, or in place. Be honest rather than aspirational: rating something as in place when it is partial makes the action plan less useful. Once you have rated all seven areas, a prioritised action plan will appear below, focused on your biggest gaps first. Identifying where you are starting from is the first step to meaningful, evidenced progress.
+              </p>
+            </GreenBox>
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "2rem" }}>
               {CATEGORIES.map((cat) => {
                 const rating = assessment[cat.key];
@@ -559,6 +571,12 @@ export default function AccessibleEnvironmentsToolkitPage() {
         {/* ── BROWSE TAB ── */}
         {tab === "browse" && (
           <div>
+          <GreenBox>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "#15803d", margin: "0 0 0.3rem" }}>How to use this library</p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "#166534", lineHeight: 1.7, margin: 0 }}>
+                This library contains 23 practical actions across seven areas of accessible workplace practice. Each action includes what to do, why it matters, and how to start. Use the filters to focus on a specific area, priority level, or team owner. Quick wins are actions you can begin this week with no significant budget or lead time: a good place to start if you are new to this work. Building accessibility into your environment reduces barriers for disabled and neurodiverse colleagues before they have to ask.
+              </p>
+            </GreenBox>
             <div style={{ background: showQuickWinsOnly ? "var(--sage-dark)" : "var(--white)", border: showQuickWinsOnly ? "none" : "1px solid var(--gray-border)", borderRadius: "12px", padding: "0.875rem 1.125rem", marginBottom: "1.25rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap" as const }}>
               <div>
                 <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: showQuickWinsOnly ? "var(--white)" : "var(--charcoal)", margin: "0 0 0.2rem" }}>⚡ {ITEMS.filter(i => i.priority === "quick win").length} quick wins available</p>
@@ -621,6 +639,12 @@ export default function AccessibleEnvironmentsToolkitPage() {
         {/* ── TRACKER TAB ── */}
         {tab === "tracker" && (
           <div>
+          <GreenBox>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "#15803d", margin: "0 0 0.3rem" }}>How to use the progress tracker</p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "#166534", lineHeight: 1.7, margin: 0 }}>
+                Use the status button on any action to mark it as in progress or done. Your progress is tracked here across all seven areas so you can see where work is underway, what has been completed, and where gaps remain. The export button generates a printable action plan showing your current status: useful for reporting to leadership, evidencing progress in an EDI audit, or briefing a new team member on where things stand.
+              </p>
+            </GreenBox>
             <div style={{ background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: "14px", padding: "1.25rem", marginBottom: "1.5rem" }}>
               <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: "0.875rem", flexWrap: "wrap", gap: "0.5rem" }}>
                 <div>
