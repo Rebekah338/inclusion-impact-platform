@@ -3,7 +3,7 @@
 import Link from "next/link";
 import PlatformNav from "@/app/components/PlatformNav";
 import BottomBanner from "@/app/components/BottomBanner";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 
 type Tab = "audit" | "frameworks";
 type Rating = "not_in_place" | "partially" | "fully" | null;
@@ -121,24 +121,23 @@ const FRAMEWORK_GROUPS: FrameworkGroup[] = [
   },
 ];
 
-const RATING_CONFIG: Record<NonNullable<Rating>, { short: string; color: string; bg: string; border: string; score: number }> = {
-  not_in_place: { short: "Not in place",   color: "#b91c1c", bg: "#fef2f2", border: "#fca5a5", score: 0 },
-  partially:    { short: "Partial",         color: "#92400e", bg: "#fffbeb", border: "#fcd34d", score: 1 },
-  fully:        { short: "Fully embedded",  color: "#166534", bg: "#f0fdf4", border: "#86efac", score: 2 },
+const RATING_CONFIG: Record<NonNullable<Rating>, { short: string; label: string; color: string; bg: string; border: string; score: number }> = {
+  not_in_place: { short: "Not in place",   label: "Not in place",   color: "#b91c1c", bg: "#fef2f2", border: "#fca5a5", score: 0 },
+  partially:    { short: "Partial",         label: "Partially embedded", color: "#92400e", bg: "#fffbeb", border: "#fcd34d", score: 1 },
+  fully:        { short: "Fully embedded",  label: "Fully embedded", color: "#166534", bg: "#f0fdf4", border: "#86efac", score: 2 },
 };
 
-// Radar chart rendered as inline SVG
-function RadarChart({ sections, ratings }: { sections: Section[]; ratings: Record<string, Rating> }) {
-  const cx = 160; const cy = 160; const r = 120;
+// ── Radar chart (inline SVG) ──────────────────────────────────────────────────
+function RadarChart({ sections, ratings, size = 320 }: { sections: Section[]; ratings: Record<string, Rating>; size?: number }) {
+  const cx = size / 2; const cy = size / 2; const r = size * 0.375;
   const n = sections.length;
   const levels = [0.25, 0.5, 0.75, 1];
 
   const sectionScore = (s: Section) => {
-    const items = s.items;
-    const rated = items.filter((i) => ratings[i.id]);
+    const rated = s.items.filter((i) => ratings[i.id]);
     if (rated.length === 0) return 0;
     const total = rated.reduce((sum, i) => sum + (ratings[i.id] ? RATING_CONFIG[ratings[i.id] as NonNullable<Rating>].score : 0), 0);
-    return total / (items.length * 2); // 0..1
+    return total / (s.items.length * 2);
   };
 
   const angle = (i: number) => (Math.PI * 2 * i) / n - Math.PI / 2;
@@ -157,55 +156,46 @@ function RadarChart({ sections, ratings }: { sections: Section[]; ratings: Recor
     })
     .join(" ") + " Z";
 
+  const shortLabels: Record<string, string> = {
+    pathways: "Pathways", data: "Data", performance: "Performance",
+    development: "Development", allocation: "Allocation", leadership: "Leadership",
+    intersectionality: "Intersectionality", voice: "Voice", accountability: "Accountability",
+  };
+
+  const labelR = r + (size * 0.068);
+
   return (
-    <svg viewBox="0 0 320 320" style={{ width: "100%", maxWidth: 320, display: "block", margin: "0 auto" }}>
-      {/* Grid rings */}
+    <svg viewBox={`0 0 ${size} ${size}`} style={{ width: "100%", maxWidth: size, display: "block", margin: "0 auto" }}>
       {levels.map((lv) => (
-        <polygon
-          key={lv}
+        <polygon key={lv}
           points={sections.map((_, i) => { const p = pt(i, lv); return `${p.x.toFixed(1)},${p.y.toFixed(1)}`; }).join(" ")}
-          fill="none"
-          stroke="#e5e7eb"
-          strokeWidth="1"
-        />
+          fill="none" stroke="#e5e7eb" strokeWidth="1" />
       ))}
-      {/* Spokes */}
       {sections.map((_, i) => {
         const p = pt(i, 1);
         return <line key={i} x1={cx} y1={cy} x2={p.x.toFixed(1)} y2={p.y.toFixed(1)} stroke="#e5e7eb" strokeWidth="1" />;
       })}
-      {/* Filled area */}
       {filled && (
         <path d={dataPath} fill="rgba(45,90,60,0.18)" stroke="#2D5A3C" strokeWidth="2" strokeLinejoin="round" />
       )}
-      {/* Dots */}
       {scores.map((s, i) => {
         if (s === 0) return null;
         const p = pt(i, Math.max(s, 0.04));
         return <circle key={i} cx={p.x} cy={p.y} r="4" fill="#2D5A3C" />;
       })}
-      {/* Labels */}
       {sections.map((sec, i) => {
-        const labelR = r + 22;
         const p = { x: cx + Math.cos(angle(i)) * labelR, y: cy + Math.sin(angle(i)) * labelR };
         const anchor = Math.cos(angle(i)) > 0.1 ? "start" : Math.cos(angle(i)) < -0.1 ? "end" : "middle";
-        // Shorten label to icon + short name
-        const shortLabels: Record<string, string> = {
-          pathways: "Pathways", data: "Data", performance: "Performance",
-          development: "Development", allocation: "Allocation", leadership: "Leadership",
-          intersectionality: "Intersectionality", voice: "Voice", accountability: "Accountability",
-        };
         return (
           <text key={i} x={p.x.toFixed(1)} y={p.y.toFixed(1)} textAnchor={anchor} dominantBaseline="middle"
-            style={{ fontSize: "9px", fontFamily: "sans-serif", fill: "#4b5563", fontWeight: 600 }}>
+            style={{ fontSize: `${size * 0.028}px`, fontFamily: "sans-serif", fill: "#4b5563", fontWeight: 600 }}>
             {sec.icon} {shortLabels[sec.key]}
           </text>
         );
       })}
-      {/* Centre label */}
       {!filled && (
         <text x={cx} y={cy} textAnchor="middle" dominantBaseline="middle"
-          style={{ fontSize: "10px", fontFamily: "sans-serif", fill: "#9ca3af" }}>
+          style={{ fontSize: `${size * 0.031}px`, fontFamily: "sans-serif", fill: "#9ca3af" }}>
           Rate sections to build your profile
         </text>
       )}
@@ -213,12 +203,206 @@ function RadarChart({ sections, ratings }: { sections: Section[]; ratings: Recor
   );
 }
 
+// ── Print report generator ────────────────────────────────────────────────────
+function buildPrintHTML(
+  sections: Section[],
+  ratings: Record<string, Rating>,
+  notes: Record<string, string>,
+  orgName: string,
+): string {
+  const totalItems = sections.reduce((s, sec) => s + sec.items.length, 0);
+  const totalRated = sections.reduce((s, sec) => s + sec.items.filter((i) => ratings[i.id]).length, 0);
+  const date = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+
+  const sectionScore = (sec: Section) => {
+    const rated = sec.items.filter((i) => ratings[i.id]);
+    if (rated.length === 0) return 0;
+    return rated.reduce((sum, i) => sum + (ratings[i.id] ? RATING_CONFIG[ratings[i.id] as NonNullable<Rating>].score : 0), 0) / (sec.items.length * 2);
+  };
+
+  // Build inline SVG for the radar (larger for print)
+  const size = 440; const cx = size / 2; const cy = size / 2; const r = size * 0.33;
+  const n = sections.length;
+  const levels = [0.25, 0.5, 0.75, 1];
+  const angle = (i: number) => (Math.PI * 2 * i) / n - Math.PI / 2;
+  const pt = (i: number, frac: number) => ({
+    x: cx + Math.cos(angle(i)) * r * frac,
+    y: cy + Math.sin(angle(i)) * r * frac,
+  });
+  const scores = sections.map(sectionScore);
+  const filled = scores.some((s) => s > 0);
+  const dataPath = scores.map((s, i) => {
+    const p = pt(i, Math.max(s, 0.04));
+    return `${i === 0 ? "M" : "L"}${p.x.toFixed(1)},${p.y.toFixed(1)}`;
+  }).join(" ") + " Z";
+  const shortLabels: Record<string, string> = {
+    pathways: "Pathways", data: "Data", performance: "Performance",
+    development: "Development", allocation: "Allocation", leadership: "Leadership",
+    intersectionality: "Intersectionality", voice: "Voice", accountability: "Accountability",
+  };
+  const labelR = r + size * 0.09;
+
+  const radarSvg = `<svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}" xmlns="http://www.w3.org/2000/svg">
+    ${levels.map((lv) => `<polygon points="${sections.map((_, i) => { const p = pt(i, lv); return `${p.x.toFixed(1)},${p.y.toFixed(1)}`; }).join(" ")}" fill="none" stroke="#e5e7eb" stroke-width="1"/>`).join("")}
+    ${sections.map((_, i) => { const p = pt(i, 1); return `<line x1="${cx}" y1="${cy}" x2="${p.x.toFixed(1)}" y2="${p.y.toFixed(1)}" stroke="#e5e7eb" stroke-width="1"/>`; }).join("")}
+    ${filled ? `<path d="${dataPath}" fill="rgba(45,90,60,0.18)" stroke="#2D5A3C" stroke-width="2.5" stroke-linejoin="round"/>` : ""}
+    ${scores.map((s, i) => { if (s === 0) return ""; const p = pt(i, Math.max(s, 0.04)); return `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="5" fill="#2D5A3C"/>`; }).join("")}
+    ${sections.map((sec, i) => {
+      const p = { x: cx + Math.cos(angle(i)) * labelR, y: cy + Math.sin(angle(i)) * labelR };
+      const anchor = Math.cos(angle(i)) > 0.1 ? "start" : Math.cos(angle(i)) < -0.1 ? "end" : "middle";
+      return `<text x="${p.x.toFixed(1)}" y="${p.y.toFixed(1)}" text-anchor="${anchor}" dominant-baseline="middle" style="font-size:12px;font-family:sans-serif;fill:#374151;font-weight:600">${sec.icon} ${shortLabels[sec.key]}</text>`;
+    }).join("")}
+  </svg>`;
+
+  const sectionRows = sections.map((sec) => {
+    const sc = sectionScore(sec);
+    const ratedCount = sec.items.filter((i) => ratings[i.id]).length;
+    const pct = Math.round(sc * 100);
+    let ratingLabel = "Not started";
+    let ratingColor = "#6b7280";
+    let ratingBg = "#f9fafb";
+    let ratingBorder = "#e5e7eb";
+    if (ratedCount > 0) {
+      if (sc >= 0.75) { ratingLabel = "Strong"; ratingColor = "#166534"; ratingBg = "#f0fdf4"; ratingBorder = "#86efac"; }
+      else if (sc >= 0.4) { ratingLabel = "Developing"; ratingColor = "#92400e"; ratingBg = "#fffbeb"; ratingBorder = "#fcd34d"; }
+      else { ratingLabel = "Needs attention"; ratingColor = "#b91c1c"; ratingBg = "#fef2f2"; ratingBorder = "#fca5a5"; }
+    }
+
+    const itemRows = sec.items.map((item) => {
+      const r = ratings[item.id];
+      const cfg = r ? RATING_CONFIG[r] : null;
+      const note = notes[item.id];
+      return `
+        <tr style="border-bottom:1px solid #f3f4f6">
+          <td style="padding:8px 10px;font-size:12px;line-height:1.55;color:#374151;vertical-align:top">${item.text}</td>
+          <td style="padding:8px 10px;vertical-align:top;white-space:nowrap">
+            ${cfg
+              ? `<span style="display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;color:${cfg.color};background:${cfg.bg};border:1px solid ${cfg.border}">${cfg.label}</span>`
+              : `<span style="color:#9ca3af;font-size:11px">Not rated</span>`}
+          </td>
+          ${note ? `<td style="padding:8px 10px;font-size:11px;color:#6b7280;line-height:1.5;font-style:italic;vertical-align:top">${note}</td>` : `<td></td>`}
+        </tr>`;
+    }).join("");
+
+    return `
+      <div style="margin-bottom:24px;page-break-inside:avoid">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <span style="font-size:18px">${sec.icon}</span>
+          <h3 style="margin:0;font-size:13px;font-weight:700;color:#1f2937;flex:1">${sec.heading}</h3>
+          <span style="padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700;color:${ratingColor};background:${ratingBg};border:1px solid ${ratingBorder}">${ratingLabel} — ${pct}%</span>
+        </div>
+        <div style="background:#f9fafb;border-radius:8px;overflow:hidden;border:1px solid #e5e7eb">
+          <table style="width:100%;border-collapse:collapse">
+            <thead>
+              <tr style="background:#f3f4f6">
+                <th style="padding:6px 10px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:#6b7280;font-weight:700;width:55%">Practice</th>
+                <th style="padding:6px 10px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:#6b7280;font-weight:700;width:20%">Rating</th>
+                <th style="padding:6px 10px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:#6b7280;font-weight:700;width:25%">Notes</th>
+              </tr>
+            </thead>
+            <tbody>${itemRows}</tbody>
+          </table>
+        </div>
+      </div>`;
+  }).join("");
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Fair Progression Audit — ${orgName || "Maturity Report"}</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #1f2937; background: #fff; padding: 40px; font-size: 13px; }
+    @media print {
+      body { padding: 0; }
+      .no-print { display: none !important; }
+      .page-break { page-break-before: always; }
+    }
+    .cover { padding-bottom: 32px; border-bottom: 3px solid #2D5A3C; margin-bottom: 32px; }
+    .cover h1 { font-size: 22px; font-weight: 800; color: #2D5A3C; margin-bottom: 4px; }
+    .cover p { font-size: 13px; color: #6b7280; }
+    .meta { display: flex; gap: 32px; margin-top: 16px; }
+    .meta-item { font-size: 12px; }
+    .meta-item strong { display: block; color: #1f2937; font-size: 13px; }
+    .meta-item span { color: #6b7280; }
+    .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; align-items: start; }
+    .legend { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+    h2 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #6b7280; margin-bottom: 16px; }
+    .print-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; background: #2D5A3C; color: #fff; border: none; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; margin-bottom: 24px; }
+    .footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid #e5e7eb; font-size: 11px; color: #9ca3af; text-align: center; }
+  </style>
+</head>
+<body>
+  <button class="no-print print-btn" onclick="window.print()">🖨️ Print or save as PDF</button>
+
+  <div class="cover">
+    <h1>Fair Progression Audit</h1>
+    <p>An equity-focused maturity profile — produced by The Inclusion Edit</p>
+    <div class="meta">
+      <div class="meta-item"><span>Organisation</span><strong>${orgName || "Not specified"}</strong></div>
+      <div class="meta-item"><span>Date completed</span><strong>${date}</strong></div>
+      <div class="meta-item"><span>Items rated</span><strong>${totalRated} of ${totalItems}</strong></div>
+    </div>
+  </div>
+
+  <div class="summary-grid">
+    <div>
+      <h2>Maturity profile</h2>
+      ${radarSvg}
+    </div>
+    <div>
+      <h2>Section scores</h2>
+      ${sections.map((sec) => {
+        const sc = sectionScore(sec);
+        const ratedCount = sec.items.filter((i) => ratings[i.id]).length;
+        const pct = Math.round(sc * 100);
+        let barColor = "#e5e7eb";
+        if (ratedCount > 0) {
+          if (sc >= 0.75) barColor = "#16a34a";
+          else if (sc >= 0.4) barColor = "#d97706";
+          else barColor = "#dc2626";
+        }
+        return `
+          <div style="margin-bottom:10px">
+            <div style="display:flex;justify-content:space-between;margin-bottom:3px">
+              <span style="font-size:11px;font-weight:600;color:#374151">${sec.icon} ${sec.heading}</span>
+              <span style="font-size:11px;font-weight:700;color:${barColor}">${ratedCount > 0 ? pct + "%" : "—"}</span>
+            </div>
+            <div style="height:5px;background:#f3f4f6;border-radius:999px;overflow:hidden">
+              <div style="height:100%;width:${ratedCount > 0 ? pct : 0}%;background:${barColor};border-radius:999px"></div>
+            </div>
+          </div>`;
+      }).join("")}
+      <div class="legend">
+        <div class="legend-item"><span style="width:12px;height:12px;border-radius:3px;background:#f0fdf4;border:1.5px solid #86efac;flex-shrink:0"></span><span style="color:#166534">Fully embedded (75 – 100%)</span></div>
+        <div class="legend-item"><span style="width:12px;height:12px;border-radius:3px;background:#fffbeb;border:1.5px solid #fcd34d;flex-shrink:0"></span><span style="color:#92400e">Developing (40 – 74%)</span></div>
+        <div class="legend-item"><span style="width:12px;height:12px;border-radius:3px;background:#fef2f2;border:1.5px solid #fca5a5;flex-shrink:0"></span><span style="color:#b91c1c">Needs attention (0 – 39%)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+  <h2 style="margin-bottom:20px">Detailed findings</h2>
+  ${sectionRows}
+
+  <div class="footer">
+    Fair Progression Audit Tool — The Inclusion Edit · theinclusionedit.com · Generated ${date}
+  </div>
+</body>
+</html>`;
+}
+
+// ── Main page ─────────────────────────────────────────────────────────────────
 export default function FairProgressionAuditToolPage() {
   const [tab, setTab] = useState<Tab>("audit");
   const [ratings, setRatings] = useState<Record<string, Rating>>({});
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
   const [notes, setNotes] = useState<Record<string, string>>({});
   const [openSection, setOpenSection] = useState<string | null>(null);
+  const [orgName, setOrgName] = useState("");
+  const [showOrgInput, setShowOrgInput] = useState(false);
 
   const setRating = (id: string, rating: Rating) => {
     setRatings((prev) => ({ ...prev, [id]: rating }));
@@ -235,6 +419,13 @@ export default function FairProgressionAuditToolPage() {
 
   const totalRated = SECTIONS.reduce((sum, s) => sum + s.items.filter((i) => ratings[i.id]).length, 0);
   const totalItems = SECTIONS.reduce((sum, s) => sum + s.items.length, 0);
+
+  const handlePrint = () => {
+    if (!orgName) { setShowOrgInput(true); return; }
+    const html = buildPrintHTML(SECTIONS, ratings, notes, orgName);
+    const win = window.open("", "_blank");
+    if (win) { win.document.write(html); win.document.close(); }
+  };
 
   const chipStyle = (active: boolean): React.CSSProperties => ({
     display: "inline-flex", alignItems: "center", gap: "0.3rem",
@@ -300,29 +491,67 @@ export default function FairProgressionAuditToolPage() {
 
         {tab === "audit" && (
           <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "2rem" }}>
-
-            {/* Two-column on wider screens: chart left, sections right */}
             <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr) minmax(0,1.5fr)", gap: "2rem", alignItems: "start" }}>
 
-              {/* Radar chart panel */}
-              <div style={{ background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: "14px", padding: "1.25rem", boxShadow: "0 1px 4px rgba(0,0,0,0.05)", position: "sticky", top: "80px" }}>
-                <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "var(--charcoal)", margin: "0 0 0.5rem", textAlign: "center" }}>Maturity profile</p>
-                <RadarChart sections={SECTIONS} ratings={ratings} />
-                <div style={{ marginTop: "0.875rem", borderTop: "1px solid var(--gray-border)", paddingTop: "0.875rem" }}>
-                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", color: "var(--charcoal)", margin: "0 0 0.4rem" }}>Progress</p>
-                  <div style={{ height: "6px", background: "var(--gray-border)", borderRadius: "999px", overflow: "hidden" }}>
-                    <div style={{ height: "100%", width: `${totalItems > 0 ? (totalRated / totalItems) * 100 : 0}%`, background: "var(--sage-dark)", borderRadius: "999px", transition: "width 0.3s ease" }} />
-                  </div>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--gray-soft)", margin: "0.35rem 0 0", textAlign: "right" }}>{totalRated} of {totalItems} rated</p>
-                </div>
-                {/* Legend */}
-                <div style={{ marginTop: "0.75rem", display: "flex", flexDirection: "column", gap: "0.25rem" }}>
-                  {(["not_in_place", "partially", "fully"] as NonNullable<Rating>[]).map((rv) => (
-                    <div key={rv} style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-                      <span style={{ width: 10, height: 10, borderRadius: 2, background: RATING_CONFIG[rv].bg, border: `1.5px solid ${RATING_CONFIG[rv].border}`, flexShrink: 0 }} />
-                      <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", color: RATING_CONFIG[rv].color }}>{RATING_CONFIG[rv].short}</span>
+              {/* Radar + export panel — sticky */}
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", position: "sticky", top: "80px" }}>
+                <div style={{ background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: "14px", padding: "1.25rem", boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}>
+                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "var(--charcoal)", margin: "0 0 0.5rem", textAlign: "center" }}>Maturity profile</p>
+                  <RadarChart sections={SECTIONS} ratings={ratings} />
+                  <div style={{ marginTop: "0.875rem", borderTop: "1px solid var(--gray-border)", paddingTop: "0.875rem" }}>
+                    <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", color: "var(--charcoal)", margin: "0 0 0.4rem" }}>Progress</p>
+                    <div style={{ height: "6px", background: "var(--gray-border)", borderRadius: "999px", overflow: "hidden" }}>
+                      <div style={{ height: "100%", width: `${totalItems > 0 ? (totalRated / totalItems) * 100 : 0}%`, background: "var(--sage-dark)", borderRadius: "999px", transition: "width 0.3s ease" }} />
                     </div>
-                  ))}
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--gray-soft)", margin: "0.35rem 0 0", textAlign: "right" }}>{totalRated} of {totalItems} rated</p>
+                  </div>
+                  <div style={{ marginTop: "0.75rem", display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+                    {(["not_in_place", "partially", "fully"] as NonNullable<Rating>[]).map((rv) => (
+                      <div key={rv} style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                        <span style={{ width: 10, height: 10, borderRadius: 2, background: RATING_CONFIG[rv].bg, border: `1.5px solid ${RATING_CONFIG[rv].border}`, flexShrink: 0 }} />
+                        <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", color: RATING_CONFIG[rv].color }}>{RATING_CONFIG[rv].short}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Export panel */}
+                <div style={{ background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: "14px", padding: "1.125rem", boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}>
+                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "var(--charcoal)", margin: "0 0 0.5rem" }}>📄 Save or share your report</p>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", color: "var(--gray-soft)", lineHeight: 1.55, margin: "0 0 0.75rem" }}>
+                    Download a print-ready PDF of your maturity profile, section scores, and notes — ready for a board presentation or team review.
+                  </p>
+                  {showOrgInput && (
+                    <div style={{ marginBottom: "0.625rem" }}>
+                      <label style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", color: "var(--charcoal)", display: "block", marginBottom: "0.3rem" }}>Organisation name</label>
+                      <input
+                        type="text"
+                        value={orgName}
+                        onChange={(e) => setOrgName(e.target.value)}
+                        placeholder="e.g. Acme Ltd"
+                        autoFocus
+                        style={{ width: "100%", boxSizing: "border-box", fontFamily: "var(--font-body)", fontSize: "0.8rem", padding: "0.4rem 0.625rem", border: "1.5px solid var(--gray-border)", borderRadius: "7px", outline: "none", color: "var(--charcoal)" }}
+                      />
+                    </div>
+                  )}
+                  <button
+                    onClick={handlePrint}
+                    style={{
+                      width: "100%", padding: "0.6rem 1rem", borderRadius: "8px", border: "none", cursor: "pointer",
+                      background: totalRated === 0 ? "var(--gray-border)" : "var(--sage-dark)",
+                      color: totalRated === 0 ? "var(--gray-soft)" : "var(--white)",
+                      fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem",
+                      transition: "all 0.15s",
+                    }}
+                    disabled={totalRated === 0}
+                  >
+                    {totalRated === 0 ? "Rate at least one item to export" : "🖨️ Open print report"}
+                  </button>
+                  {totalRated > 0 && !showOrgInput && !orgName && (
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", color: "var(--gray-soft)", margin: "0.4rem 0 0", textAlign: "center" }}>
+                      You will be asked for your organisation name first.
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -335,7 +564,6 @@ export default function FairProgressionAuditToolPage() {
                   const allDone = ratedInSection === section.items.length;
                   const anyRated = ratedInSection > 0;
 
-                  // Section colour based on average score
                   let sectionColor = "#6b7280";
                   let sectionBg = "var(--white)";
                   let sectionBorder = "var(--gray-border)";
@@ -347,15 +575,10 @@ export default function FairProgressionAuditToolPage() {
 
                   return (
                     <div key={section.key} style={{ background: allDone ? sectionBg : "var(--white)", border: `1.5px solid ${allDone ? sectionBorder : "var(--gray-border)"}`, borderRadius: "12px", overflow: "hidden", transition: "all 0.2s", boxShadow: "0 1px 3px rgba(0,0,0,0.04)" }}>
-                      {/* Section header — always visible */}
-                      <button
-                        onClick={() => toggleSection(section.key)}
-                        style={{ width: "100%", background: "none", border: "none", cursor: "pointer", padding: "0.875rem 1rem", display: "flex", alignItems: "center", gap: "0.65rem", textAlign: "left" as const }}
-                      >
+                      <button onClick={() => toggleSection(section.key)}
+                        style={{ width: "100%", background: "none", border: "none", cursor: "pointer", padding: "0.875rem 1rem", display: "flex", alignItems: "center", gap: "0.65rem", textAlign: "left" as const }}>
                         <span style={{ fontSize: "1.1rem", flexShrink: 0 }}>{section.icon}</span>
-                        <span style={{ flex: 1, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: allDone ? sectionColor : "var(--charcoal)", lineHeight: 1.4 }}>
-                          {section.heading}
-                        </span>
+                        <span style={{ flex: 1, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: allDone ? sectionColor : "var(--charcoal)", lineHeight: 1.4 }}>{section.heading}</span>
                         {allDone ? (
                           <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", color: sectionColor, background: sectionBg, border: `1px solid ${sectionBorder}`, padding: "0.15rem 0.5rem", borderRadius: "999px", flexShrink: 0 }}>✓ Done</span>
                         ) : anyRated ? (
@@ -366,7 +589,6 @@ export default function FairProgressionAuditToolPage() {
                         <span style={{ fontSize: "0.7rem", color: "#9ca3af", transform: isOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s", flexShrink: 0 }}>▼</span>
                       </button>
 
-                      {/* Expanded items */}
                       {isOpen && (
                         <div style={{ borderTop: "1px solid var(--gray-border)", padding: "0.875rem 1rem", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                           {section.items.map((item) => {
@@ -412,7 +634,6 @@ export default function FairProgressionAuditToolPage() {
               </div>
             </div>
 
-            {/* About */}
             <div className="card" style={{ background: "var(--sage-xlight)", border: "1px solid var(--sage-light)" }}>
               <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--charcoal)", marginBottom: "0.75rem", marginTop: 0 }}>About this tool</h2>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", lineHeight: 1.7, margin: 0 }}>
@@ -439,7 +660,6 @@ export default function FairProgressionAuditToolPage() {
             ))}
           </div>
         )}
-
       </main>
 
       <BottomBanner />
