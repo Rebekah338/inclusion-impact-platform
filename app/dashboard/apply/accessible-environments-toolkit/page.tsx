@@ -594,9 +594,14 @@ export default function AccessibleEnvironmentsToolkitPage() {
               {search && <button onClick={() => setSearch("")} style={{ position: "absolute", right: "0.75rem", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "var(--gray-soft)" }}>✕</button>}
             </div>
 
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--gray-soft)", marginBottom: "0.875rem" }}>
-              {visible.length} action{visible.length !== 1 ? "s" : ""}{showQuickWinsOnly ? " (quick wins only)" : ""}
-            </p>
+            <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", marginBottom: "0.875rem", flexWrap: "wrap" }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--gray-soft)", margin: 0 }}>
+                {visible.length} action{visible.length !== 1 ? "s" : ""}{showQuickWinsOnly ? " (quick wins only)" : ""}
+              </p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--gray-soft)", margin: 0, opacity: 0.75 }}>
+                Click ▼ on any action for what to do, why it matters, and how to start.
+              </p>
+            </div>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
               {visible.map((item) => <ItemCard key={item.id} item={item} showCat={activeCategory === "all"} />)}
