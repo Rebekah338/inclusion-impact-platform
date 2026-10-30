@@ -207,7 +207,7 @@ export default function ErgChecklist() {
           ))}
         </div>
       </div>
-      <main className="max-w-3xl mx-auto px-4 py-10">
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px 80px" }}>
 
         {/* Mode toggle */}
         <div className="flex gap-3 mb-6">
@@ -308,7 +308,7 @@ export default function ErgChecklist() {
             Print Summary
           </button>
         </div>
-      </main>
+      </div>
 
       {/* About this topic */}
       <div style={{ background: "#fff", borderTop: "1px solid #e5e7eb", padding: "56px 24px" }}>
