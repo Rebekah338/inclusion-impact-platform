@@ -20,24 +20,48 @@ const FAQS = [
     a: "No. Singular 'they' has been used in English for centuries: Shakespeare used it, Jane Austen used it, and we use it naturally all the time when someone's gender is unknown: 'Someone left their umbrella: I hope they come back for it.' The singular 'they' for a known person is a straightforward extension of a well-established usage. Major style guides, including the Oxford English Dictionary, the AP Stylebook, and the Chicago Manual of Style, all accept it.",
   },
   {
-    q: "What if I find it difficult or uncomfortable to use someone's pronouns?",
-    a: "Discomfort is understandable, especially if using non-binary or unfamiliar pronouns is new. But discomfort with change does not outweigh another person's right to be referred to correctly. The solution to discomfort is practice; say the pronouns out loud, use them in sentences when you are not with the person, and commit to getting it right. The discomfort reduces over time; the harm of being misgendered does not.",
+    q: "What does it mean to misgender someone?",
+    a: "Misgendering means referring to someone using a pronoun, title, or gendered language that does not match their gender identity. This can happen when someone uses 'he' for a person who uses 'she', or 'she' for a person who uses 'they'. Misgendering is harmful whether it is intentional or not: for trans and non-binary people, being consistently referred to incorrectly signals that they are not seen or respected as they are.",
   },
   {
     q: "What should I do if I make a mistake?",
-    a: "Correct yourself briefly: 'she; sorry, they said...' and continue. Do not make a lengthy apology that requires the other person to reassure you. Do not make the same mistake again, because repeated misgendering after correction communicates that you do not consider the effort worthwhile.",
+    a: "Correct yourself briefly: 'she; sorry, they said...' and continue. Do not make a lengthy apology that requires the other person to reassure you. Do not make the same mistake repeatedly, because repeated misgendering after correction communicates that you do not consider the effort worthwhile. A brief, sincere correction followed by moving on is the right response.",
+  },
+  {
+    q: "What if I find it difficult or uncomfortable to use someone's pronouns?",
+    a: "Discomfort is understandable, especially if using non-binary or unfamiliar pronouns is new. But discomfort with change does not outweigh another person's right to be referred to correctly. The solution to discomfort is practice: say the pronouns out loud, use them in sentences when you are not with the person, and commit to getting it right. The discomfort reduces over time; the harm of being misgendered does not.",
+  },
+  {
+    q: "Is it rude to ask someone their pronouns?",
+    a: "It is generally fine to ask, and usually better than assuming. A natural way to do it is to share your own pronouns first: 'I use she/her; what about you?' This makes it a reciprocal exchange rather than singling someone out. Avoid asking in a way that implies you are questioning someone's identity or expressing doubt: the goal is simply to get it right.",
   },
   {
     q: "Should I ask everyone their pronouns?",
     a: "In a workplace context, normalising the sharing of pronouns (in introductions, on name badges, in email signatures, in team profile fields) is more effective than asking individuals one by one, which can single people out. Make it easy for everyone to share their pronouns if they choose to, and make it clear that not sharing is also fine.",
   },
   {
+    q: "What if someone does not want to share their pronouns?",
+    a: "That is entirely their choice. Not everyone feels safe disclosing their pronouns, particularly in workplaces where they are not confident they will be respected. If someone has not shared their pronouns, use their name instead of a pronoun, or use they/them as a respectful default. Do not pressure anyone to disclose.",
+  },
+  {
     q: "What if someone's pronouns change?",
-    a: "Use the pronouns someone currently uses. If someone tells you their pronouns have changed, update your practice. It is not necessary to understand the reason; simply respect the request.",
+    a: "Use the pronouns someone currently uses. If someone tells you their pronouns have changed, update your practice. It is not necessary to understand the reason; simply respect the request and adjust accordingly.",
+  },
+  {
+    q: "What if someone uses multiple pronoun sets?",
+    a: "Some people use more than one pronoun set: for example, she/they or he/him and they/them. This might mean they are comfortable with either, or that they use different pronouns in different contexts. If someone shares multiple pronoun sets with you, it is usually fine to use either. If you are unsure which they prefer in a given situation, it is always fine to ask.",
   },
   {
     q: "Can I correct others if they use the wrong pronouns?",
-    a: "Yes; and this is one of the most important things allies can do. A gentle, low-key correction in the moment normalises the use of correct pronouns and removes the burden from the person who has been misgendered. You do not need to make it a big issue; a brief 'actually they prefer they/them' is enough.",
+    a: "Yes: and this is one of the most important things allies can do. A gentle, low-key correction in the moment normalises the use of correct pronouns and removes the burden from the person who has been misgendered. You do not need to make it a big issue; a brief 'actually they prefer they/them' is enough.",
+  },
+  {
+    q: "Do I need to understand someone's gender identity to use their pronouns correctly?",
+    a: "No. You do not need to understand, or agree with, someone's gender identity in order to use their correct pronouns. Using someone's correct pronouns is a professional courtesy, in the same way that using someone's preferred name is, regardless of whether you personally understand their reasons for preferring it.",
+  },
+  {
+    q: "How do I handle pronouns in written communication?",
+    a: "Use the same care in writing as you would in speech. In emails, documents, and reports, use the pronouns the person uses. In cases where you are writing about someone and are unsure of their pronouns, use their name or use they/them. If you are writing a policy or guidance document and referring to a hypothetical person, they/them is the most inclusive default.",
   },
 ];
 
@@ -58,7 +82,7 @@ export default function PronounsGuidePage() {
       body +
       "<p class=\'footer\'>This resource was created by The Inclusion Edit. theinclusionedit.com</p>" +
       "</body></html>";
-    const blob = new Blob(["\uFEFF", html], { type: "application/msword" });
+    const blob = new Blob(["﻿", html], { type: "application/msword" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -149,18 +173,61 @@ export default function PronounsGuidePage() {
 
         {/* FAQs */}
         <div style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 12, padding: "28px", marginBottom: 40 }}>
-          <h2 style={{ fontFamily: "Raleway, sans-serif", fontSize: 18, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", marginBottom: 20 }}>Common questions</h2>
+          <h2 style={{ fontFamily: "Raleway, sans-serif", fontSize: 18, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", marginBottom: 8 }}>Common questions</h2>
+          <p style={{ fontSize: 14, color: "#6b7280", lineHeight: 1.6, marginBottom: 20 }}>Select a question to see the answer.</p>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
             {FAQS.map((faq, i) => {
               const isOpen = openFaq === i;
               return (
-                <div key={i} style={{ border: "1px solid #e5e7eb", borderRadius: 10, overflow: "hidden" }}>
-                  <button onClick={() => setOpenFaq(isOpen ? null : i)} style={{ width: "100%", textAlign: "left", padding: "16px 20px", background: "none", border: "none", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12 }}>
-                    <span style={{ fontWeight: 600, fontSize: 14, color: "var(--charcoal, #2C2C2C)", lineHeight: 1.5 }}>{faq.q}</span>
-                    <span style={{ color: "var(--sage-dark, #2D5A3C)", fontSize: 18, fontWeight: 300, flexShrink: 0, transform: isOpen ? "rotate(45deg)" : "rotate(0deg)", transition: "transform 0.2s" }}>+</span>
+                <div
+                  key={i}
+                  style={{
+                    border: `1px solid ${isOpen ? "#2D5A3C" : "#e5e7eb"}`,
+                    borderRadius: 10,
+                    overflow: "hidden",
+                    transition: "border-color 0.2s",
+                    background: isOpen ? "#f4f8f5" : "#fff",
+                  }}
+                >
+                  <button
+                    onClick={() => setOpenFaq(isOpen ? null : i)}
+                    style={{
+                      width: "100%",
+                      textAlign: "left",
+                      padding: "16px 20px",
+                      background: "none",
+                      border: "none",
+                      cursor: "pointer",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      gap: 12,
+                    }}
+                  >
+                    <span style={{ fontWeight: 600, fontSize: 14, color: isOpen ? "var(--sage-dark, #2D5A3C)" : "var(--charcoal, #2C2C2C)", lineHeight: 1.5 }}>{faq.q}</span>
+                    <span
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: 28,
+                        height: 28,
+                        borderRadius: "50%",
+                        background: isOpen ? "var(--sage-dark, #2D5A3C)" : "#f3f4f6",
+                        color: isOpen ? "#fff" : "var(--sage-dark, #2D5A3C)",
+                        fontSize: 18,
+                        fontWeight: 300,
+                        flexShrink: 0,
+                        transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
+                        transition: "transform 0.2s, background 0.2s, color 0.2s",
+                        lineHeight: 1,
+                      }}
+                    >
+                      +
+                    </span>
                   </button>
                   {isOpen && (
-                    <div style={{ borderTop: "1px solid #f3f4f6", padding: "16px 20px" }}>
+                    <div style={{ borderTop: "1px solid #d1e8d6", padding: "16px 20px 20px" }}>
                       <p style={{ fontSize: 14, color: "#374151", lineHeight: 1.8, margin: 0 }}>{faq.a}</p>
                     </div>
                   )}
