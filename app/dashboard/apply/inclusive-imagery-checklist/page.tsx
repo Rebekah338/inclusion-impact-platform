@@ -124,7 +124,6 @@ const SECTIONS = [
 
 export default function InclusiveImageryChecklist() {
   const [checked, setChecked] = useState<Record<string, boolean>>({});
-  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
   const [mode, setMode] = useState<"checklist" | "audit">("checklist");
   const [auditRating, setAuditRating] = useState<Record<string, number>>({});
 
@@ -136,9 +135,6 @@ export default function InclusiveImageryChecklist() {
 
   const toggle = (key: string) =>
     setChecked((prev) => ({ ...prev, [key]: !prev[key] }));
-  const toggleSection = (id: string) =>
-    setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
-
   const ratingLabels = ["Not done", "In progress", "Done"];
   const ratingColors = [
     "bg-red-100 text-red-700 border-red-200",
@@ -218,80 +214,73 @@ export default function InclusiveImageryChecklist() {
           )}
         </div>
 
-        {/* Sections */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        {/* Section cards — 2-column grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(380px, 1fr))", gap: 16 }}>
           {SECTIONS.map((section, idx) => {
             const sectionChecked = section.points.filter((_, i) => checked[`${section.id}-${i}`]).length;
             const isComplete = sectionChecked === section.points.length;
-            const isOpen = expanded[section.id];
 
             return (
-              <div key={section.id} style={{ borderRadius: 12, border: "1px solid", overflow: "hidden", background: "var(--white)", borderColor: isComplete ? "var(--sage-dark)" : "var(--gray-border)" }}>
-                <button
-                  onClick={() => toggleSection(section.id)}
-                  style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 20px", textAlign: "left", background: "none", border: "none", cursor: "pointer" }}
-                >
-                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                    <span style={{ width: 28, height: 28, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, flexShrink: 0 }}
-                      style={{ background: isComplete ? "var(--sage-dark)" : "var(--sage-xlight)", color: isComplete ? "var(--white)" : "var(--sage-dark)" }}>
-                      {String(idx + 1).padStart(2, "0")}
-                    </span>
-                    <span style={{ fontWeight: 600, color: "var(--charcoal)", fontFamily: "var(--font-heading)" }}>
-                      {section.title}
-                    </span>
+              <div key={section.id} style={{ borderRadius: 16, border: "2px solid", background: "var(--white)", borderColor: isComplete ? "var(--sage-dark)" : "var(--gray-border)", display: "flex", flexDirection: "column" }}>
+                {/* Card header */}
+                <div style={{ padding: "20px 20px 14px", borderBottom: "1px solid var(--gray-border)", display: "flex", alignItems: "flex-start", gap: 12 }}>
+                  <span style={{ width: 32, height: 32, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, flexShrink: 0, background: isComplete ? "var(--sage-dark)" : "var(--sage-xlight)", color: isComplete ? "var(--white)" : "var(--sage-dark)" }}>
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
+                      <span style={{ fontWeight: 700, fontSize: 15, color: "var(--charcoal)", fontFamily: "var(--font-heading)" }}>{section.title}</span>
+                      {mode === "checklist" && (
+                        <span style={{ fontSize: 12, fontWeight: 600, color: isComplete ? "var(--sage-dark)" : "#6b7280", flexShrink: 0 }}>
+                          {isComplete ? "✓ Done" : `${sectionChecked}/${section.points.length}`}
+                        </span>
+                      )}
+                    </div>
+                    <p style={{ fontSize: 13, color: "#6b7280", margin: "4px 0 0", lineHeight: 1.5 }}>{section.desc}</p>
                   </div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    {mode === "checklist" && (
-                      <span style={{ fontSize: 12, color: "var(--sage-dark)" }}>{sectionChecked}/{section.points.length}</span>
-                    )}
-                    <span style={{ color: "var(--sage-dark)" }}>{isOpen ? "▲" : "▼"}</span>
-                  </div>
-                </button>
+                </div>
 
-                {isOpen && (
-                  <div style={{ padding: "0 20px 20px" }}>
-                    <p style={{ fontSize: 13, marginBottom: 16, color: "var(--charcoal)", opacity: 0.8 }}>{section.desc}</p>
+                {/* Card body */}
+                <div style={{ padding: "16px 20px", flex: 1, display: "flex", flexDirection: "column", gap: 12 }}>
+                  {mode === "checklist" ? (
+                    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                      {section.points.map((point, i) => {
+                        const key = `${section.id}-${i}`;
+                        return (
+                          <label key={key} style={{ display: "flex", alignItems: "flex-start", gap: 10, cursor: "pointer" }}>
+                            <input
+                              type="checkbox"
+                              checked={!!checked[key]}
+                              onChange={() => toggle(key)}
+                              style={{ marginTop: 3, flexShrink: 0, width: 16, height: 16, accentColor: "var(--sage-dark)" }}
+                            />
+                            <span style={{ fontSize: 14, color: "var(--charcoal)", lineHeight: 1.5, textDecoration: checked[key] ? "line-through" : "none", opacity: checked[key] ? 0.45 : 1 }}>
+                              {point}
+                            </span>
+                          </label>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                      {ratingLabels.map((label, ri) => (
+                        <button
+                          key={ri}
+                          onClick={() => setAuditRating((prev) => ({ ...prev, [section.id]: ri }))}
+                          style={{ padding: "6px 14px", borderRadius: 99, fontSize: 12, fontWeight: 600, border: "2px solid", cursor: "pointer", ...(auditRating[section.id] === ri ? { background: "var(--sage-dark)", color: "#fff", borderColor: "var(--sage-dark)" } : { background: "#fff", color: "#6b7280", borderColor: "#e5e7eb" }) }}
+                        >
+                          {label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
 
-                    {mode === "checklist" ? (
-                      <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
-                        {section.points.map((point, i) => {
-                          const key = `${section.id}-${i}`;
-                          return (
-                            <label key={key} style={{ display: "flex", alignItems: "flex-start", gap: 12, cursor: "pointer" }}>
-                              <input
-                                type="checkbox"
-                                checked={!!checked[key]}
-                                onChange={() => toggle(key)}
-                                style={{ marginTop: 2, flexShrink: 0, width: 16, height: 16, accentColor: "var(--sage-dark)" }}
-                              />
-                              <span style={{ fontSize: 14, color: "var(--charcoal)", textDecoration: checked[key] ? "line-through" : "none", opacity: checked[key] ? 0.5 : 1 }}>
-                                {point}
-                              </span>
-                            </label>
-                          );
-                        })}
-                      </div>
-                    ) : (
-                      <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
-                        {ratingLabels.map((label, ri) => (
-                          <button
-                            key={ri}
-                            onClick={() => setAuditRating((prev) => ({ ...prev, [section.id]: ri }))}
-                            style={{ padding: "4px 12px", borderRadius: 99, fontSize: 12, fontWeight: 600, border: "2px solid", cursor: "pointer", ...(auditRating[section.id] === ri ? { background: "var(--sage-dark)", color: "#fff", borderColor: "var(--sage-dark)" } : { background: "#fff", color: "#6b7280", borderColor: "#e5e7eb" }) }}
-                          >
-                            {label}
-                          </button>
-                        ))}
-                      </div>
-                    )}
-
-                    {section.avoid && (
-                      <div style={{ marginTop: 12, borderRadius: 8, padding: 12, fontSize: 13, background: "#FFF3F3", borderLeft: "3px solid #F87171", color: "#7F1D1D" }}>
-                        <strong>Watch out:</strong> {section.avoid}
-                      </div>
-                    )}
-                  </div>
-                )}
+                  {section.avoid && (
+                    <div style={{ borderRadius: 8, padding: "10px 12px", fontSize: 13, background: "#fff7f7", border: "1px solid #fecaca", color: "#991b1b", marginTop: "auto" }}>
+                      <strong>Watch out:</strong> {section.avoid}
+                    </div>
+                  )}
+                </div>
               </div>
             );
           })}
