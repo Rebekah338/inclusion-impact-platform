@@ -28,7 +28,7 @@ const PRE_COLLECTION_QUESTIONS = [
   {
     id: "q5",
     question: "Have you considered who might not feel safe to disclose and why?",
-    placeholder: "e.g. We recognise that some staff may not feel comfortable disclosing gender identity, disability, or ethnicity. We will offer a \'prefer not to say\' option throughout.",
+    placeholder: "e.g. We recognise that some staff may not feel comfortable disclosing gender identity, disability, or ethnicity. We will offer a 'prefer not to say' option throughout.",
   },
 ];
 
@@ -44,6 +44,10 @@ const STEPS = [
       "Be honest with participants about what the data will and will not be used for",
       "Avoid collecting data out of habit or because others do it: every data point must serve a purpose",
     ],
+    mistake: {
+      label: "Common mistake: collecting without a question",
+      desc: "Many organisations collect diversity data because they feel they should, without a specific question to answer. This leads to low participation, unused data, and eroded trust. If you cannot name the decision this data will inform, delay the collection until you can.",
+    },
   },
   {
     id: "design",
@@ -58,6 +62,10 @@ const STEPS = [
       "Separate out nationality, ethnicity, and country of birth as distinct questions",
       "Use pilot testing to identify questions that feel confusing, invasive, or poorly worded",
     ],
+    mistake: {
+      label: "Common mistake: binary gender questions",
+      desc: "A question that offers only Male and Female excludes non-binary, gender-fluid, and intersex employees. This is not just a design flaw: it signals that the organisation does not recognise their existence. Always include at minimum: Male; Female; Non-binary; Prefer to self-describe; Prefer not to say.",
+    },
   },
   {
     id: "accessibility",
@@ -71,6 +79,10 @@ const STEPS = [
       "Consider the time commitment: keep surveys as short as possible while still meaningful",
       "Make the survey mobile-friendly",
     ],
+    mistake: {
+      label: "Common mistake: digital-only access",
+      desc: "An online survey with no paper alternative excludes employees with low digital literacy, those without work devices, or those who find screen-reader-incompatible formats unusable. Low response rates in specific teams or roles can indicate an access barrier rather than low willingness to disclose.",
+    },
   },
   {
     id: "privacy",
@@ -84,6 +96,10 @@ const STEPS = [
       "Tell people how long data will be retained",
       "Share what happened as a result of the data: close the feedback loop",
     ],
+    mistake: {
+      label: "Common mistake: misusing the word anonymous",
+      desc: "Saying data is anonymous when individual responses are viewable by a line manager, or when team sizes are small enough to identify people from aggregated data, is misleading. In teams of under 10, even aggregated results can effectively identify individuals. Be specific about what anonymity means in practice and only report data at a group size where re-identification is genuinely not possible.",
+    },
   },
   {
     id: "intersectional",
@@ -96,6 +112,10 @@ const STEPS = [
       "Ensure your sample sizes are large enough to allow disaggregation without identifying individuals",
       "Acknowledge the limits of your data: what is not captured and why",
     ],
+    mistake: {
+      label: "Common mistake: single-axis reporting",
+      desc: "Reporting gender data and ethnicity data separately can mask significant disparities. A pay gap analysis that shows women are paid equitably may obscure the fact that Black women are paid significantly less. Intersectional analysis requires larger sample sizes but reveals the reality that single-axis reporting hides.",
+    },
   },
   {
     id: "action",
@@ -109,6 +129,10 @@ const STEPS = [
       "Track change over time: collect data regularly enough to see trends",
       "Be honest when the data shows poor outcomes: transparency builds credibility",
     ],
+    mistake: {
+      label: "Common mistake: collecting without closing the loop",
+      desc: "If employees complete a diversity survey and never hear the results, or hear results but see no action, participation rates fall sharply in future rounds. Employees are not obliged to provide data: they do so when they trust it will be used. Publish results and name what you are changing as a result, even when the findings are uncomfortable.",
+    },
   },
   {
     id: "review",
@@ -121,6 +145,10 @@ const STEPS = [
       "Evaluate participation rates and investigate why people choose not to respond",
       "Seek feedback from staff networks and ERGs on the data collection process",
     ],
+    mistake: {
+      label: "Common mistake: treating data collection as a one-off",
+      desc: "A single diversity survey gives you a snapshot, not a trend. Organisations that collect data once, act on it once, and then move on lose the ability to measure whether their actions worked. Build in a regular cadence: annually at minimum, or biannually for large-scale exercises. Track participation rates as well as results: falling participation is itself an important data point.",
+    },
   },
 ];
 
@@ -131,16 +159,98 @@ const LEGAL_FRAMEWORKS = [
   { name: "Data Protection Impact Assessment (DPIA)", desc: "Required for processing that is likely to result in high risk to individuals. Collecting sensitive equality data may trigger a DPIA requirement." },
 ];
 
+const READINESS_QUESTIONS = [
+  {
+    id: "r1",
+    question: "Has your organisation collected equality data before?",
+    options: ["Yes, recently and regularly", "Yes, but not recently", "Once or twice, informally", "No, this would be a first"],
+  },
+  {
+    id: "r2",
+    question: "What is your primary reason for collecting now?",
+    options: ["To build or update an EDI strategy", "To meet a reporting requirement", "To investigate a specific equity concern", "To understand our baseline for the first time"],
+  },
+];
+
+type StepStatus = "yes" | "partially" | "not-yet" | null;
+
+const stepStatusConfig: Record<NonNullable<StepStatus>, { label: string; bg: string; text: string; border: string }> = {
+  yes: { label: "Done", bg: "#DCFCE7", text: "#166534", border: "#86EFAC" },
+  partially: { label: "In progress", bg: "#FEF3C7", text: "#92400E", border: "#FCD34D" },
+  "not-yet": { label: "Not yet", bg: "#FEE2E2", text: "#991B1B", border: "#FCA5A5" },
+};
+
 export default function InclusiveDataCollection() {
+  const [readinessAnswers, setReadinessAnswers] = useState<Record<string, string>>({});
+  const [canStartGuide, setCanStartGuide] = useState(false);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const [stepStatus, setStepStatus] = useState<Record<string, StepStatus>>({});
   const [legalOpen, setLegalOpen] = useState(false);
+  const [rationaleOpen, setRationaleOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const toggleSection = (id: string) => setExpanded((p) => ({ ...p, [id]: !p[id] }));
+  const setStep = (id: string, s: StepStatus) =>
+    setStepStatus((p) => ({ ...p, [id]: p[id] === s ? null : s }));
+
   const answeredCount = PRE_COLLECTION_QUESTIONS.filter((q) => (answers[q.id] || "").trim().length > 0).length;
+  const readinessComplete = READINESS_QUESTIONS.every((q) => readinessAnswers[q.id]);
+
+  const stepCounts = {
+    yes: STEPS.filter((s) => stepStatus[s.id] === "yes").length,
+    partially: STEPS.filter((s) => stepStatus[s.id] === "partially").length,
+    "not-yet": STEPS.filter((s) => stepStatus[s.id] === "not-yet").length,
+  };
+
+  const generateRationale = () => {
+    const a = answers;
+    const lines: string[] = [];
+    lines.push("DATA COLLECTION RATIONALE STATEMENT");
+    lines.push("=".repeat(40));
+    lines.push("");
+    lines.push(`Generated: ${new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}`);
+    lines.push("");
+    if (a.q1?.trim()) {
+      lines.push("PURPOSE");
+      lines.push(a.q1.trim());
+      lines.push("");
+    }
+    if (a.q2?.trim()) {
+      lines.push("DATA ACCESS AND STORAGE");
+      lines.push(a.q2.trim());
+      lines.push("");
+    }
+    if (a.q3?.trim()) {
+      lines.push("CONSENT AND VOLUNTARINESS");
+      lines.push(a.q3.trim());
+      lines.push("");
+    }
+    if (a.q4?.trim()) {
+      lines.push("HOW DATA WILL LEAD TO CHANGE");
+      lines.push(a.q4.trim());
+      lines.push("");
+    }
+    if (a.q5?.trim()) {
+      lines.push("DISCLOSURE CONSIDERATIONS");
+      lines.push(a.q5.trim());
+      lines.push("");
+    }
+    lines.push("---");
+    lines.push("This statement was generated using the Inclusion Edit Inclusive Data Collection tool.");
+    lines.push("It should be reviewed and adapted before use in internal communications, DPIAs, or board papers.");
+    return lines.join("\n");
+  };
+
+  const copyRationale = () => {
+    navigator.clipboard.writeText(generateRationale()).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
 
   return (
-    <div className="min-h-screen" style={{ background: "var(--sage-xlight)" }}>
+    <div style={{ minHeight: "100vh", background: "var(--sage-xlight)" }}>
       <PlatformNav />
       {/* Back nav */}
       <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 24px 0" }}>
@@ -170,35 +280,76 @@ export default function InclusiveDataCollection() {
           ))}
         </div>
       </div>
+
       <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px 80px" }}>
-        <div className="mb-8">
-          <Link href="/dashboard/apply" className="text-sm font-medium" style={{ color: "var(--sage-dark)" }}>
-            ← Back to Apply
-          </Link>
-          <h1 className="text-3xl font-bold mt-3 mb-2" style={{ fontFamily: "var(--font-heading)", color: "var(--charcoal)" }}>
-            Inclusive Data Collection
-          </h1>
-          <p className="text-base" style={{ color: "var(--charcoal)", opacity: 0.75 }}>
-            A guide to collecting equality data ethically, inclusively, and in a way that drives genuine change.
+
+        {/* Readiness check */}
+        <div style={{ background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: 14, padding: "24px", marginBottom: 24 }}>
+          <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 8 }}>Step 1</p>
+          <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 18, fontWeight: 800, color: "var(--charcoal)", marginBottom: 6 }}>Quick readiness check</h2>
+          <p style={{ fontSize: 14, color: "#374151", marginBottom: 20, lineHeight: 1.6 }}>
+            Two questions to help contextualise this guide for your situation.
           </p>
+          {READINESS_QUESTIONS.map((rq) => (
+            <div key={rq.id} style={{ marginBottom: 20 }}>
+              <p style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", marginBottom: 10 }}>{rq.question}</p>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {rq.options.map((opt) => (
+                  <button key={opt} onClick={() => setReadinessAnswers((p) => ({ ...p, [rq.id]: opt }))}
+                    style={{
+                      textAlign: "left", padding: "10px 14px", borderRadius: 8, fontSize: 13, fontWeight: 500, cursor: "pointer",
+                      border: readinessAnswers[rq.id] === opt ? "2px solid var(--sage-dark)" : "1px solid var(--gray-border)",
+                      background: readinessAnswers[rq.id] === opt ? "var(--sage-xlight)" : "var(--white)",
+                      color: readinessAnswers[rq.id] === opt ? "var(--sage-dark)" : "var(--charcoal)",
+                    }}>
+                    {opt}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+          {readinessComplete && !canStartGuide && (
+            <div style={{ background: "var(--sage-xlight)", border: "1px solid #c6dbc9", borderRadius: 10, padding: "14px 16px", marginTop: 8 }}>
+              {readinessAnswers.r2 === "To understand our baseline for the first time" || readinessAnswers.r1 === "No, this would be a first" ? (
+                <p style={{ fontSize: 14, color: "var(--sage-dark)", fontWeight: 600, margin: 0 }}>
+                  Starting from scratch: the "Before You Begin" questions below are especially important. Take time with them before designing your survey.
+                </p>
+              ) : (
+                <p style={{ fontSize: 14, color: "var(--sage-dark)", fontWeight: 600, margin: 0 }}>
+                  You have experience to build on. Use the steps below to audit and improve your existing approach, paying particular attention to steps 2 (question design) and 4 (privacy and trust).
+                </p>
+              )}
+              <button onClick={() => setCanStartGuide(true)}
+                style={{ marginTop: 12, padding: "8px 18px", borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: "pointer", background: "var(--sage-dark)", color: "var(--white)", border: "none" }}>
+                Continue to the guide
+              </button>
+            </div>
+          )}
+          {canStartGuide && (
+            <p style={{ fontSize: 13, color: "var(--sage-dark)", fontWeight: 600, marginTop: 4 }}>✓ Readiness check complete</p>
+          )}
         </div>
 
-        {/* Pre-collection questions */}
-        <div className="rounded-xl border overflow-hidden mb-6" style={{ background: "var(--white)", borderColor: "var(--gray-border)" }}>
-          <div className="px-5 py-4 border-b" style={{ borderColor: "var(--gray-border)", background: "var(--sage-xlight)" }}>
-            <h2 className="font-semibold text-lg" style={{ fontFamily: "var(--font-heading)", color: "var(--charcoal)" }}>
+        {/* Before You Begin */}
+        <div style={{ background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: 14, overflow: "hidden", marginBottom: 24 }}>
+          <div style={{ padding: "20px 20px 16px", background: "var(--sage-xlight)", borderBottom: "1px solid var(--gray-border)" }}>
+            <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 6 }}>Step 2</p>
+            <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 18, fontWeight: 700, color: "var(--charcoal)", margin: "0 0 4px" }}>
               Before You Begin: Five Questions to Answer
             </h2>
-            <p className="text-sm mt-1" style={{ color: "var(--charcoal)", opacity: 0.75 }}>
+            <p style={{ fontSize: 13, color: "var(--charcoal)", opacity: 0.75, margin: 0 }}>
               Answer these before designing your data collection. {answeredCount} of {PRE_COLLECTION_QUESTIONS.length} answered.
             </p>
           </div>
-          <div className="p-5 space-y-5">
+          <div style={{ padding: "20px" }}>
             {PRE_COLLECTION_QUESTIONS.map((q, i) => (
-              <div key={q.id}>
-                <label className="block text-sm font-medium mb-2" style={{ color: "var(--charcoal)" }}>
-                  <span className="inline-flex items-center justify-center w-5 h-5 rounded-full text-xs font-bold mr-2"
-                    style={{ background: (answers[q.id] || "").trim() ? "var(--sage-dark)" : "var(--sage-xlight)", color: (answers[q.id] || "").trim() ? "var(--white)" : "var(--sage-dark)" }}>
+              <div key={q.id} style={{ marginBottom: i < PRE_COLLECTION_QUESTIONS.length - 1 ? 20 : 0 }}>
+                <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--charcoal)", marginBottom: 8 }}>
+                  <span style={{
+                    display: "inline-flex", alignItems: "center", justifyContent: "center", width: 22, height: 22, borderRadius: "50%", fontSize: 12, fontWeight: 700, marginRight: 8,
+                    background: (answers[q.id] || "").trim() ? "var(--sage-dark)" : "var(--sage-xlight)",
+                    color: (answers[q.id] || "").trim() ? "var(--white)" : "var(--sage-dark)",
+                  }}>
                     {i + 1}
                   </span>
                   {q.question}
@@ -208,43 +359,122 @@ export default function InclusiveDataCollection() {
                   onChange={(e) => setAnswers((p) => ({ ...p, [q.id]: e.target.value }))}
                   placeholder={q.placeholder}
                   rows={3}
-                  className="w-full rounded-lg border text-sm p-3 resize-none focus:outline-none focus:ring-2"
-                  style={{ borderColor: "var(--gray-border)", color: "var(--charcoal)", background: "var(--gray-soft)", focusRingColor: "var(--sage-dark)" }}
+                  style={{ width: "100%", borderRadius: 8, border: "1px solid var(--gray-border)", fontSize: 13, padding: "10px 12px", resize: "none", color: "var(--charcoal)", background: "#fafafa", boxSizing: "border-box", lineHeight: 1.6, fontFamily: "var(--font-body)" }}
                 />
               </div>
             ))}
           </div>
+
+          {/* Rationale generator */}
+          <div style={{ borderTop: "1px solid var(--gray-border)" }}>
+            <button onClick={() => setRationaleOpen((p) => !p)}
+              style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 20px", background: "none", border: "none", cursor: "pointer" }}>
+              <div style={{ textAlign: "left" }}>
+                <p style={{ fontFamily: "var(--font-heading)", fontSize: 14, fontWeight: 700, color: "var(--charcoal)", margin: 0 }}>
+                  Generate your data collection rationale
+                </p>
+                <p style={{ fontSize: 12, color: "var(--charcoal)", opacity: 0.65, margin: "2px 0 0" }}>
+                  {answeredCount} of 5 questions answered &middot; produces a statement for DPIAs, board papers, and staff comms
+                </p>
+              </div>
+              <span style={{ color: "var(--sage-dark)", fontSize: 12 }}>{rationaleOpen ? "▲" : "▼"}</span>
+            </button>
+            {rationaleOpen && (
+              <div style={{ borderTop: "1px solid var(--gray-border)", padding: "20px" }}>
+                {answeredCount === 0 ? (
+                  <p style={{ fontSize: 14, color: "var(--charcoal)", opacity: 0.7, margin: 0 }}>
+                    Answer the questions above to generate your rationale statement.
+                  </p>
+                ) : (
+                  <>
+                    <pre style={{ whiteSpace: "pre-wrap", fontFamily: "var(--font-body)", fontSize: 13, color: "var(--charcoal)", background: "#fafafa", border: "1px solid var(--gray-border)", borderRadius: 8, padding: 16, marginBottom: 16, lineHeight: 1.7 }}>
+                      {generateRationale()}
+                    </pre>
+                    <div style={{ display: "flex", gap: 10 }}>
+                      <button onClick={copyRationale}
+                        style={{ padding: "8px 20px", borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: "pointer", background: "var(--sage-dark)", color: "var(--white)", border: "none" }}>
+                        {copied ? "Copied!" : "Copy to clipboard"}
+                      </button>
+                      <button onClick={() => window.print()}
+                        style={{ padding: "8px 20px", borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: "pointer", background: "var(--white)", color: "var(--charcoal)", border: "1px solid var(--gray-border)" }}>
+                        Print
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Step progress */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12, marginBottom: 16 }}>
+          {(["yes", "partially", "not-yet"] as const).map((s) => (
+            <div key={s} style={{ background: stepStatusConfig[s].bg, border: `1px solid ${stepStatusConfig[s].border}`, borderRadius: 12, padding: "12px", textAlign: "center" }}>
+              <div style={{ fontSize: 24, fontWeight: 800, color: stepStatusConfig[s].text }}>{stepCounts[s]}</div>
+              <div style={{ fontSize: 12, fontWeight: 600, color: stepStatusConfig[s].text }}>{stepStatusConfig[s].label}</div>
+            </div>
+          ))}
         </div>
 
         {/* Steps */}
-        <h2 className="text-xl font-bold mb-4" style={{ fontFamily: "var(--font-heading)", color: "var(--charcoal)" }}>
+        <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 12 }}>Step 3</p>
+        <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 18, fontWeight: 800, color: "var(--charcoal)", marginBottom: 16 }}>
           Seven Steps to Inclusive Data Collection
         </h2>
-        <div className="space-y-3 mb-8">
+        <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
           {STEPS.map((step, idx) => {
             const isOpen = expanded[step.id];
+            const currentStatus = stepStatus[step.id];
             return (
-              <div key={step.id} className="rounded-xl border overflow-hidden" style={{ background: "var(--white)", borderColor: "var(--gray-border)" }}>
-                <button onClick={() => toggleSection(step.id)} className="w-full flex items-center gap-3 px-5 py-4 text-left">
-                  <span className="text-xl shrink-0">{step.icon}</span>
-                  <div className="flex-1">
-                    <span className="font-semibold" style={{ fontFamily: "var(--font-heading)", color: "var(--charcoal)" }}>
+              <div key={step.id} style={{ background: "var(--white)", border: `1px solid ${currentStatus ? stepStatusConfig[currentStatus].border : "var(--gray-border)"}`, borderRadius: 14, overflow: "hidden" }}>
+                <button onClick={() => toggleSection(step.id)} style={{ width: "100%", display: "flex", alignItems: "center", gap: 14, padding: "18px 20px", textAlign: "left", background: "none", border: "none", cursor: "pointer" }}>
+                  <span style={{ fontSize: 20, flexShrink: 0 }}>{step.icon}</span>
+                  <div style={{ flex: 1 }}>
+                    <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 15, color: "var(--charcoal)" }}>
                       Step {idx + 1}: {step.title}
                     </span>
+                    {currentStatus && (
+                      <span style={{ marginLeft: 10, fontSize: 11, fontWeight: 700, padding: "2px 8px", borderRadius: 10, background: stepStatusConfig[currentStatus].bg, color: stepStatusConfig[currentStatus].text, border: `1px solid ${stepStatusConfig[currentStatus].border}` }}>
+                        {stepStatusConfig[currentStatus].label}
+                      </span>
+                    )}
                   </div>
-                  <span style={{ color: "var(--sage-dark)" }}>{isOpen ? "▲" : "▼"}</span>
+                  <span style={{ color: "var(--sage-dark)", fontSize: 12, flexShrink: 0 }}>{isOpen ? "▲" : "▼"}</span>
                 </button>
                 {isOpen && (
-                  <div className="px-5 pb-5">
-                    <p className="text-sm mb-4" style={{ color: "var(--charcoal)", opacity: 0.8 }}>{step.desc}</p>
-                    <ul className="space-y-2">
+                  <div style={{ borderTop: "1px solid var(--gray-border)", padding: "20px" }}>
+                    <p style={{ fontSize: 14, color: "var(--charcoal)", opacity: 0.8, marginBottom: 16, lineHeight: 1.6 }}>{step.desc}</p>
+                    <ul style={{ listStyle: "none", padding: 0, margin: "0 0 16px" }}>
                       {step.points.map((pt, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm" style={{ color: "var(--charcoal)" }}>
-                          <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full" style={{ background: "var(--sage-dark)" }} />
+                        <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 8, fontSize: 14, color: "var(--charcoal)", lineHeight: 1.6, marginBottom: 8 }}>
+                          <span style={{ marginTop: 8, flexShrink: 0, width: 6, height: 6, borderRadius: "50%", background: "var(--sage-dark)", display: "inline-block" }} />
                           {pt}
                         </li>
                       ))}
                     </ul>
+
+                    {/* Common mistake callout */}
+                    <div style={{ background: "#FEF3C7", border: "1px solid #FCD34D", borderLeft: "4px solid #D97706", borderRadius: "0 8px 8px 0", padding: "14px 16px", marginBottom: 16 }}>
+                      <p style={{ fontSize: 13, fontWeight: 700, color: "#92400E", margin: "0 0 6px" }}>⚠ {step.mistake.label}</p>
+                      <p style={{ fontSize: 13, color: "#92400E", margin: 0, lineHeight: 1.6 }}>{step.mistake.desc}</p>
+                    </div>
+
+                    {/* Status toggles */}
+                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                      <p style={{ fontSize: 13, fontWeight: 600, color: "var(--charcoal)", width: "100%", margin: "0 0 6px" }}>Have you done this step?</p>
+                      {(["yes", "partially", "not-yet"] as const).map((s) => (
+                        <button key={s} onClick={() => setStep(step.id, s)}
+                          style={{
+                            padding: "5px 14px", borderRadius: 20, fontSize: 12, fontWeight: 600, cursor: "pointer",
+                            background: currentStatus === s ? stepStatusConfig[s].bg : "transparent",
+                            color: currentStatus === s ? stepStatusConfig[s].text : "var(--charcoal)",
+                            border: `1px solid ${currentStatus === s ? stepStatusConfig[s].border : "var(--gray-border)"}`,
+                          }}>
+                          {stepStatusConfig[s].label}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
@@ -252,35 +482,32 @@ export default function InclusiveDataCollection() {
           })}
         </div>
 
-        {/* Legal framework callout */}
-        <div className="rounded-xl border overflow-hidden mb-8" style={{ borderColor: "#93C5FD", background: "#EFF6FF" }}>
-          <button onClick={() => setLegalOpen((p) => !p)} className="w-full flex items-center justify-between px-5 py-4 text-left">
-            <div className="flex items-center gap-2">
-              <span className="text-lg">⚖️</span>
-              <span className="font-semibold text-base" style={{ color: "#1E3A5F", fontFamily: "var(--font-heading)" }}>
-                UK Legal Framework
-              </span>
+        {/* Legal framework */}
+        <div style={{ background: "#EFF6FF", border: "1px solid #93C5FD", borderRadius: 14, overflow: "hidden", marginBottom: 24 }}>
+          <button onClick={() => setLegalOpen((p) => !p)} style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px", textAlign: "left", background: "none", border: "none", cursor: "pointer" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <span style={{ fontSize: 18 }}>⚖️</span>
+              <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 15, color: "#1E3A5F" }}>UK Legal Framework</span>
             </div>
-            <span style={{ color: "#1E3A5F" }}>{legalOpen ? "▲" : "▼"}</span>
+            <span style={{ color: "#1E3A5F", fontSize: 12 }}>{legalOpen ? "▲" : "▼"}</span>
           </button>
           {legalOpen && (
-            <div className="px-5 pb-5 space-y-4">
+            <div style={{ borderTop: "1px solid #93C5FD", padding: "20px", display: "flex", flexDirection: "column", gap: 16 }}>
               {LEGAL_FRAMEWORKS.map((lf) => (
                 <div key={lf.name}>
-                  <p className="font-semibold text-sm" style={{ color: "#1E3A5F" }}>{lf.name}</p>
-                  <p className="text-sm mt-0.5" style={{ color: "#1E3A5F", opacity: 0.85 }}>{lf.desc}</p>
+                  <p style={{ fontWeight: 700, fontSize: 14, color: "#1E3A5F", marginBottom: 4 }}>{lf.name}</p>
+                  <p style={{ fontSize: 13, color: "#1E3A5F", opacity: 0.85, margin: 0, lineHeight: 1.6 }}>{lf.desc}</p>
                 </div>
               ))}
-              <p className="text-xs mt-2" style={{ color: "#1E3A5F", opacity: 0.7 }}>
+              <p style={{ fontSize: 12, color: "#1E3A5F", opacity: 0.7, margin: 0 }}>
                 Always seek legal advice specific to your organisation when designing a data collection programme.
               </p>
             </div>
           )}
         </div>
 
-        <div className="text-center">
-          <button onClick={() => window.print()} className="px-6 py-2 rounded-full text-sm font-medium"
-            style={{ background: "var(--sage-dark)", color: "var(--white)" }}>
+        <div style={{ textAlign: "center" }}>
+          <button onClick={() => window.print()} style={{ padding: "10px 28px", borderRadius: 24, fontSize: 14, fontWeight: 700, cursor: "pointer", background: "var(--sage-dark)", color: "var(--white)", border: "none" }}>
             Print Guide
           </button>
         </div>
@@ -314,34 +541,22 @@ export default function InclusiveDataCollection() {
             Related resources
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
-              <Link key="making-policies-inclusive" href={`/dashboard/apply/making-policies-inclusive`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
-                  Guide
-                </span>
-                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
-                  Making Policies More Inclusive
-                </span>
-              </Link>
-              <Link key="inclusive-leadership-self-assessment" href={`/dashboard/apply/inclusive-leadership-self-assessment`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
-                  Self-Assessment
-                </span>
-                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
-                  Inclusive Leadership Self-Assessment
-                </span>
-              </Link>
-              <Link key="exit-interview-questions" href={`/dashboard/apply/exit-interview-questions`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
-                  Reference Tool
-                </span>
-                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
-                  Exit Interview Questions
-                </span>
-              </Link>
+            <Link href="/dashboard/apply/making-policies-inclusive" style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+              <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>Guide</span>
+              <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>Making Policies More Inclusive</span>
+            </Link>
+            <Link href="/dashboard/apply/inclusive-leadership-self-assessment" style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+              <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>Self-Assessment</span>
+              <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>Inclusive Leadership Self-Assessment</span>
+            </Link>
+            <Link href="/dashboard/apply/exit-interview-questions" style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+              <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>Reference Tool</span>
+              <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>Exit Interview Questions</span>
+            </Link>
           </div>
         </div>
       </div>
-            <BottomBanner />
+      <BottomBanner />
     </div>
   );
 }

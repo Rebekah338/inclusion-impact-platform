@@ -16,6 +16,11 @@ const AREAS = [
       "Not all workers experience ageism in the same way: seniority, role type, and sector all shape the experience",
     ],
     action: "Audit how your organisation talks about age: in job adverts, appraisal language, and informal culture.",
+    roleActions: {
+      individual: "Notice the assumptions you hold about colleagues at different career stages. Challenge them when they arise in conversation.",
+      manager: "In your next 1:1s, ask about development aspirations without making assumptions based on career stage or age.",
+      lead: "Commission a language audit of your recruitment materials and internal communications for age-coded terms.",
+    },
   },
   {
     id: "recruitment",
@@ -29,6 +34,11 @@ const AREAS = [
       "Ensure job design reflects realistic duties rather than assumptions about stamina or pace",
     ],
     action: "Review your last 5 job descriptions for age-coded language and remove or reframe it.",
+    roleActions: {
+      individual: "If you are involved in hiring, flag age-coded language in job descriptions before they are posted.",
+      manager: "Review your team's job descriptions and interview scoring criteria for age-based assumptions.",
+      lead: "Build age awareness into your hiring manager training and interview evaluation frameworks.",
+    },
   },
   {
     id: "progression",
@@ -42,6 +52,11 @@ const AREAS = [
       "Track promotion data by age to identify patterns of exclusion",
     ],
     action: "Review your promotion data by age cohort and look for gaps or clusters.",
+    roleActions: {
+      individual: "Ask for development opportunities and be clear about your ambitions, whatever your career stage.",
+      manager: "Initiate career conversations with every team member without assumptions about where they want to go.",
+      lead: "Pull promotion data by age band and review it alongside your EDI committee or HR partner.",
+    },
   },
   {
     id: "performance",
@@ -54,6 +69,11 @@ const AREAS = [
       "Ensure appraisal processes support workers returning from carer leave or health-related absence, which are more common in mid to later career",
     ],
     action: "Audit your performance management language for terms that could disadvantage workers at specific life stages.",
+    roleActions: {
+      individual: "If your appraisal feels weighted toward pace or style rather than outcomes, raise this with your manager.",
+      manager: "Review your performance ratings by age. If there are patterns, investigate the criteria rather than the people.",
+      lead: "Audit your performance framework with age equity in mind before the next appraisal cycle.",
+    },
   },
   {
     id: "leadership",
@@ -66,6 +86,11 @@ const AREAS = [
       "Challenge assumptions that younger leaders lack authority or older leaders lack vision",
     ],
     action: "Map your leadership team by age and set targets for broader representation if needed.",
+    roleActions: {
+      individual: "Seek out mentors or sponsors from different career stages to broaden your perspective and visibility.",
+      manager: "Actively identify and advocate for high-potential team members regardless of their age or career stage.",
+      lead: "Map your leadership pipeline by age band and set explicit targets for age diversity in senior roles.",
+    },
   },
   {
     id: "culture",
@@ -78,6 +103,11 @@ const AREAS = [
       "Promote multi-generational teamwork and shared learning",
     ],
     action: "Facilitate a team conversation about generational assumptions and how they show up in your workplace.",
+    roleActions: {
+      individual: "The next time you hear an age-based comment, name it. A simple \"I think that's a generalisation\" is enough.",
+      manager: "Run a brief team discussion on generational assumptions using a case study or scenario.",
+      lead: "Signal through your own communications that age diversity is valued, not just tolerated.",
+    },
   },
   {
     id: "flexible",
@@ -90,6 +120,11 @@ const AREAS = [
       "Review part-time and flexible roles to ensure they are not concentrated in lower grades",
     ],
     action: "Survey staff about whether they feel they can access flexible working without career penalty.",
+    roleActions: {
+      individual: "If you need flexibility, request it. Your experience of the process is data your organisation needs.",
+      manager: "Model flexible working visibly. If only junior staff appear to use it, the culture signal is wrong.",
+      lead: "Analyse your flexible working data by grade and age. Concentration in junior roles is a structural problem.",
+    },
   },
   {
     id: "intersectionality",
@@ -102,6 +137,11 @@ const AREAS = [
       "Avoid solutions that address age in isolation from other equity dimensions",
     ],
     action: "Analyse your data at the intersection of age and other protected characteristics.",
+    roleActions: {
+      individual: "When listening to colleagues' experiences of ageism, hold space for how it intersects with other aspects of their identity.",
+      manager: "Avoid designing team interventions around age alone. Ask who might be doubly disadvantaged.",
+      lead: "Ensure your EDI data analysis disaggregates by age alongside other protected characteristics.",
+    },
   },
   {
     id: "managers",
@@ -114,6 +154,11 @@ const AREAS = [
       "Ensure managers know how to respond if a worker raises a concern about ageism",
     ],
     action: "Include a question on ageism awareness in your next manager training evaluation.",
+    roleActions: {
+      individual: "If your manager makes age-based assumptions about your work, name the impact directly and calmly.",
+      manager: "Ask yourself: do I treat team members differently based on their career stage or age? Be honest.",
+      lead: "Include age as a protected characteristic in all management training and hold managers accountable.",
+    },
   },
   {
     id: "reporting",
@@ -126,6 +171,11 @@ const AREAS = [
       "Track and report on age-related complaints and their outcomes",
     ],
     action: "Test your grievance process: would an older or younger worker feel confident using it?",
+    roleActions: {
+      individual: "Know your rights. The Equality Act 2010 protects you from age discrimination at work.",
+      manager: "If a team member raises an age-related concern, take it seriously and follow your organisation's process.",
+      lead: "Publish data on age-related grievances and their outcomes alongside your other EDI transparency reporting.",
+    },
   },
   {
     id: "measuring",
@@ -138,18 +188,47 @@ const AREAS = [
       "Set goals and track progress against them year on year",
     ],
     action: "Schedule a quarterly data review that includes age as a key equality metric.",
+    roleActions: {
+      individual: "Complete your organisation's equality data collection. Your response helps build the evidence base.",
+      manager: "Ask your HR team what the age breakdown of your team looks like and whether it reflects the organisation.",
+      lead: "Set and publish annual targets for age equity across recruitment, promotion, and pay.",
+    },
   },
 ];
 
 type Status = "yes" | "partially" | "not-yet" | null;
+type Role = "individual" | "manager" | "lead" | null;
+
+const statusConfig: Record<NonNullable<Status>, { label: string; bg: string; text: string; border: string }> = {
+  yes: { label: "Yes", bg: "#DCFCE7", text: "#166534", border: "#86EFAC" },
+  partially: { label: "Partially", bg: "#FEF3C7", text: "#92400E", border: "#FCD34D" },
+  "not-yet": { label: "Not yet", bg: "#FEE2E2", text: "#991B1B", border: "#FCA5A5" },
+};
+
+const roleConfig: Record<NonNullable<Role>, { label: string; desc: string }> = {
+  individual: { label: "Individual contributor", desc: "Reflecting on your own practice and conversations" },
+  manager: { label: "Manager", desc: "Responsible for a team or direct reports" },
+  lead: { label: "Organisational lead", desc: "Setting policy, strategy, or culture at scale" },
+};
 
 export default function ChallengingAgeism() {
+  const [role, setRole] = useState<Role>(null);
   const [status, setStatus] = useState<Record<string, Status>>({});
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const [notes, setNotes] = useState<Record<string, string>>({});
+  const [commitments, setCommitments] = useState<Set<string>>(new Set());
+  const [planOpen, setPlanOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const toggleSection = (id: string) => setExpanded((p) => ({ ...p, [id]: !p[id] }));
   const setAreaStatus = (id: string, s: Status) =>
     setStatus((p) => ({ ...p, [id]: p[id] === s ? null : s }));
+  const toggleCommitment = (id: string) =>
+    setCommitments((p) => {
+      const n = new Set(p);
+      n.has(id) ? n.delete(id) : n.add(id);
+      return n;
+    });
 
   const counts = {
     yes: AREAS.filter((a) => status[a.id] === "yes").length,
@@ -157,14 +236,43 @@ export default function ChallengingAgeism() {
     "not-yet": AREAS.filter((a) => status[a.id] === "not-yet").length,
   };
 
-  const statusConfig: Record<NonNullable<Status>, { label: string; bg: string; text: string; border: string }> = {
-    yes: { label: "Yes", bg: "#DCFCE7", text: "#166534", border: "#86EFAC" },
-    partially: { label: "Partially", bg: "#FEF3C7", text: "#92400E", border: "#FCD34D" },
-    "not-yet": { label: "Not yet", bg: "#FEE2E2", text: "#991B1B", border: "#FCA5A5" },
+  const committedAreas = AREAS.filter((a) => commitments.has(a.id));
+
+  const generatePlan = () => {
+    const lines: string[] = [];
+    lines.push("AGEISM AUDIT: ACTION PLAN");
+    lines.push("=".repeat(40));
+    lines.push("");
+    if (role) lines.push(`Role: ${roleConfig[role].label}`);
+    lines.push(`Date: ${new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}`);
+    lines.push("");
+    lines.push("SUMMARY");
+    lines.push(`Yes: ${counts.yes} / Partially: ${counts.partially} / Not yet: ${counts["not-yet"]}`);
+    lines.push("");
+    if (committedAreas.length > 0) {
+      lines.push("COMMITTED ACTIONS");
+      lines.push("-".repeat(30));
+      committedAreas.forEach((a) => {
+        lines.push(`\n${a.title} [${status[a.id] ? statusConfig[status[a.id]!].label : "Not rated"}]`);
+        if (role) lines.push(`Action: ${a.roleActions[role]}`);
+        else lines.push(`Action: ${a.action}`);
+        if (notes[a.id]?.trim()) lines.push(`Notes: ${notes[a.id]}`);
+      });
+    } else {
+      lines.push("No commitments selected yet.");
+    }
+    return lines.join("\n");
+  };
+
+  const copyPlan = () => {
+    navigator.clipboard.writeText(generatePlan()).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
   };
 
   return (
-    <div className="min-h-screen" style={{ background: "var(--sage-xlight)" }}>
+    <div style={{ minHeight: "100vh", background: "var(--sage-xlight)" }}>
       <PlatformNav />
       {/* Back nav */}
       <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 24px 0" }}>
@@ -184,7 +292,7 @@ export default function ChallengingAgeism() {
           Challenging Ageism at Work
         </h1>
         <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
-          Reflect on your practice across 11 areas of age-inclusive behaviour. Track your progress and identify priority commitments.
+          Reflect on your practice across 11 areas of age-inclusive behaviour. Rate each area, commit to actions, and generate a personalised plan.
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
           {["Age Inclusion", "Inclusion Practices"].map((tag) => (
@@ -194,49 +302,79 @@ export default function ChallengingAgeism() {
           ))}
         </div>
       </div>
+
       <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px 80px" }}>
 
+        {/* Step 1: Role lens */}
+        <div style={{ background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: 14, padding: "24px", marginBottom: 24 }}>
+          <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 8 }}>Step 1</p>
+          <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 18, fontWeight: 800, color: "var(--charcoal)", marginBottom: 6 }}>Who is using this tool?</h2>
+          <p style={{ fontSize: 14, color: "#374151", marginBottom: 16, lineHeight: 1.6 }}>
+            Select your role to get actions tailored to your level of influence. You can skip this and use the general actions instead.
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+            {(Object.keys(roleConfig) as NonNullable<Role>[]).map((r) => (
+              <button key={r} onClick={() => setRole(role === r ? null : r)}
+                style={{
+                  padding: "10px 18px", borderRadius: 10, fontSize: 14, fontWeight: 600, cursor: "pointer", textAlign: "left",
+                  border: role === r ? "2px solid var(--sage-dark)" : "2px solid var(--gray-border)",
+                  background: role === r ? "var(--sage-xlight)" : "var(--white)",
+                  color: role === r ? "var(--sage-dark)" : "var(--charcoal)",
+                }}>
+                <div style={{ fontWeight: 700 }}>{roleConfig[r].label}</div>
+                <div style={{ fontSize: 12, fontWeight: 400, opacity: 0.75, marginTop: 2 }}>{roleConfig[r].desc}</div>
+              </button>
+            ))}
+          </div>
+          {role && (
+            <p style={{ fontSize: 13, color: "var(--sage-dark)", marginTop: 12, fontWeight: 600 }}>
+              ✓ Viewing actions for: {roleConfig[role].label}
+            </p>
+          )}
+        </div>
+
         {/* Summary dashboard */}
-        <div className="grid grid-cols-3 gap-3 mb-6">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12, marginBottom: 24 }}>
           {(["yes", "partially", "not-yet"] as const).map((s) => (
-            <div key={s} className="rounded-xl p-4 text-center border"
-              style={{ background: statusConfig[s].bg, borderColor: statusConfig[s].border }}>
-              <div className="text-3xl font-bold" style={{ color: statusConfig[s].text }}>{counts[s]}</div>
-              <div className="text-sm font-medium" style={{ color: statusConfig[s].text }}>{statusConfig[s].label}</div>
+            <div key={s} style={{ background: statusConfig[s].bg, border: `1px solid ${statusConfig[s].border}`, borderRadius: 12, padding: "16px", textAlign: "center" }}>
+              <div style={{ fontSize: 32, fontWeight: 800, color: statusConfig[s].text }}>{counts[s]}</div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: statusConfig[s].text }}>{statusConfig[s].label}</div>
             </div>
           ))}
         </div>
 
         {/* Areas */}
-        <div className="space-y-3">
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           {AREAS.map((area) => {
             const currentStatus = status[area.id];
             const isOpen = expanded[area.id];
+            const isCommitted = commitments.has(area.id);
 
             return (
-              <div key={area.id} className="rounded-xl border overflow-hidden"
-                style={{ background: "var(--white)", borderColor: currentStatus ? statusConfig[currentStatus].border : "var(--gray-border)" }}>
-                <div className="px-5 py-4">
-                  <div className="flex items-start justify-between gap-3 mb-3">
-                    <button onClick={() => toggleSection(area.id)} className="text-left flex-1">
-                      <h3 className="font-semibold text-base" style={{ fontFamily: "var(--font-heading)", color: "var(--charcoal)" }}>
+              <div key={area.id} style={{ background: "var(--white)", border: `1px solid ${currentStatus ? statusConfig[currentStatus].border : "var(--gray-border)"}`, borderRadius: 14, overflow: "hidden" }}>
+                <div style={{ padding: "20px 20px 16px" }}>
+                  <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 12, marginBottom: 12 }}>
+                    <button onClick={() => toggleSection(area.id)} style={{ textAlign: "left", flex: 1, background: "none", border: "none", cursor: "pointer", padding: 0 }}>
+                      <h3 style={{ fontFamily: "var(--font-heading)", fontSize: 16, fontWeight: 700, color: "var(--charcoal)", margin: "0 0 4px" }}>
                         {area.title}
                       </h3>
-                      <p className="text-sm mt-1" style={{ color: "var(--charcoal)", opacity: 0.75 }}>{area.desc}</p>
+                      <p style={{ fontSize: 14, color: "var(--charcoal)", opacity: 0.75, margin: 0, lineHeight: 1.5 }}>{area.desc}</p>
                     </button>
-                    <button onClick={() => toggleSection(area.id)} style={{ color: "var(--sage-dark)", fontSize: 12 }}>
+                    <button onClick={() => toggleSection(area.id)} style={{ color: "var(--sage-dark)", fontSize: 12, background: "none", border: "none", cursor: "pointer", flexShrink: 0, paddingTop: 2 }}>
                       {isOpen ? "▲" : "▼"}
                     </button>
                   </div>
 
                   {/* Status toggles */}
-                  <div className="flex gap-2">
+                  <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                     {(["yes", "partially", "not-yet"] as const).map((s) => (
                       <button key={s} onClick={() => setAreaStatus(area.id, s)}
-                        className="px-3 py-1 rounded-full text-xs font-medium border transition-all"
-                        style={currentStatus === s
-                          ? { background: statusConfig[s].bg, color: statusConfig[s].text, borderColor: statusConfig[s].border }
-                          : { background: "transparent", color: "var(--charcoal)", borderColor: "var(--gray-border)" }}>
+                        style={{
+                          padding: "5px 14px", borderRadius: 20, fontSize: 12, fontWeight: 600, cursor: "pointer",
+                          background: currentStatus === s ? statusConfig[s].bg : "transparent",
+                          color: currentStatus === s ? statusConfig[s].text : "var(--charcoal)",
+                          border: `1px solid ${currentStatus === s ? statusConfig[s].border : "var(--gray-border)"}`,
+                        }}>
                         {statusConfig[s].label}
                       </button>
                     ))}
@@ -244,18 +382,48 @@ export default function ChallengingAgeism() {
                 </div>
 
                 {isOpen && (
-                  <div className="px-5 pb-5 border-t" style={{ borderColor: "var(--gray-border)" }}>
-                    <ul className="space-y-2 mt-4 mb-4">
+                  <div style={{ borderTop: "1px solid var(--gray-border)", padding: "20px 20px 20px" }}>
+                    <ul style={{ listStyle: "none", padding: 0, margin: "0 0 16px" }}>
                       {area.items.map((item, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm" style={{ color: "var(--charcoal)" }}>
-                          <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full" style={{ background: "var(--sage-dark)" }} />
+                        <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 8, fontSize: 14, color: "var(--charcoal)", lineHeight: 1.6, marginBottom: 8 }}>
+                          <span style={{ marginTop: 8, flexShrink: 0, width: 6, height: 6, borderRadius: "50%", background: "var(--sage-dark)", display: "inline-block" }} />
                           {item}
                         </li>
                       ))}
                     </ul>
-                    <div className="rounded-lg p-3 text-sm" style={{ background: "var(--sage-xlight)", borderLeft: "3px solid var(--sage-dark)", color: "var(--charcoal)" }}>
-                      <strong>Action:</strong> {area.action}
+
+                    {/* Action callout */}
+                    <div style={{ background: "var(--sage-xlight)", borderLeft: "3px solid var(--sage-dark)", borderRadius: "0 6px 6px 0", padding: "12px 14px", marginBottom: 16 }}>
+                      <p style={{ fontSize: 13, fontWeight: 700, color: "var(--sage-dark)", margin: "0 0 4px" }}>
+                        {role ? `For ${roleConfig[role].label.toLowerCase()}s` : "Action"}
+                      </p>
+                      <p style={{ fontSize: 14, color: "var(--charcoal)", margin: 0, lineHeight: 1.6 }}>
+                        {role ? area.roleActions[role] : area.action}
+                      </p>
                     </div>
+
+                    {/* Notes */}
+                    <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--charcoal)", marginBottom: 6 }}>
+                      Your notes for this area
+                    </label>
+                    <textarea
+                      value={notes[area.id] || ""}
+                      onChange={(e) => setNotes((p) => ({ ...p, [area.id]: e.target.value }))}
+                      placeholder="What have you noticed? Who needs to be involved? What is your first step?"
+                      rows={3}
+                      style={{ width: "100%", borderRadius: 8, border: "1px solid var(--gray-border)", fontSize: 13, padding: "10px 12px", resize: "none", color: "var(--charcoal)", background: "#fafafa", boxSizing: "border-box", lineHeight: 1.6, fontFamily: "var(--font-body)" }}
+                    />
+
+                    {/* Commit button */}
+                    <button onClick={() => toggleCommitment(area.id)}
+                      style={{
+                        marginTop: 12, padding: "8px 18px", borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: "pointer",
+                        background: isCommitted ? "var(--sage-dark)" : "var(--white)",
+                        color: isCommitted ? "var(--white)" : "var(--sage-dark)",
+                        border: "2px solid var(--sage-dark)",
+                      }}>
+                      {isCommitted ? "✓ Committed to this area" : "I'll commit to this area"}
+                    </button>
                   </div>
                 )}
               </div>
@@ -263,23 +431,60 @@ export default function ChallengingAgeism() {
           })}
         </div>
 
+        {/* Not-yet callout */}
         {counts["not-yet"] > 0 && (
-          <div className="mt-6 rounded-xl p-4 border" style={{ background: "#FEF3C7", borderColor: "#FCD34D" }}>
-            <p className="text-sm font-semibold" style={{ color: "#92400E" }}>
+          <div style={{ marginTop: 24, background: "#FEF3C7", border: "1px solid #FCD34D", borderRadius: 12, padding: "16px 20px" }}>
+            <p style={{ fontSize: 14, fontWeight: 700, color: "#92400E", margin: "0 0 4px" }}>
               {counts["not-yet"]} area{counts["not-yet"] > 1 ? "s" : ""} marked as not yet addressed.
             </p>
-            <p className="text-sm mt-1" style={{ color: "#92400E" }}>
+            <p style={{ fontSize: 14, color: "#92400E", margin: 0 }}>
               Consider prioritising these for your next EDI action plan.
             </p>
           </div>
         )}
 
-        <div className="mt-8 text-center">
-          <button onClick={() => window.print()} className="px-6 py-2 rounded-full text-sm font-medium"
-            style={{ background: "var(--sage-dark)", color: "var(--white)" }}>
-            Print Audit Summary
+        {/* Action plan generator */}
+        <div style={{ marginTop: 24, border: "1px solid var(--gray-border)", borderRadius: 14, overflow: "hidden", background: "var(--white)" }}>
+          <button onClick={() => setPlanOpen((p) => !p)}
+            style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px", background: "none", border: "none", cursor: "pointer" }}>
+            <div style={{ textAlign: "left" }}>
+              <p style={{ fontFamily: "var(--font-heading)", fontSize: 16, fontWeight: 700, color: "var(--charcoal)", margin: 0 }}>
+                Generate your action plan
+              </p>
+              <p style={{ fontSize: 13, color: "var(--charcoal)", opacity: 0.7, margin: "2px 0 0" }}>
+                {commitments.size} commitment{commitments.size !== 1 ? "s" : ""} selected &middot; click to {planOpen ? "collapse" : "expand"}
+              </p>
+            </div>
+            <span style={{ color: "var(--sage-dark)", fontSize: 12 }}>{planOpen ? "▲" : "▼"}</span>
           </button>
+
+          {planOpen && (
+            <div style={{ borderTop: "1px solid var(--gray-border)", padding: "20px" }}>
+              {commitments.size === 0 ? (
+                <p style={{ fontSize: 14, color: "var(--charcoal)", opacity: 0.7, margin: 0 }}>
+                  Open any area and click "I'll commit to this area" to add it to your plan.
+                </p>
+              ) : (
+                <>
+                  <pre style={{ whiteSpace: "pre-wrap", fontFamily: "var(--font-body)", fontSize: 13, color: "var(--charcoal)", background: "#fafafa", border: "1px solid var(--gray-border)", borderRadius: 8, padding: 16, marginBottom: 16, lineHeight: 1.7 }}>
+                    {generatePlan()}
+                  </pre>
+                  <div style={{ display: "flex", gap: 10 }}>
+                    <button onClick={copyPlan}
+                      style={{ padding: "8px 20px", borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: "pointer", background: "var(--sage-dark)", color: "var(--white)", border: "none" }}>
+                      {copied ? "Copied!" : "Copy to clipboard"}
+                    </button>
+                    <button onClick={() => window.print()}
+                      style={{ padding: "8px 20px", borderRadius: 8, fontSize: 13, fontWeight: 700, cursor: "pointer", background: "var(--white)", color: "var(--charcoal)", border: "1px solid var(--gray-border)" }}>
+                      Print
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
         </div>
+
       </div>
 
       {/* About this topic */}
@@ -310,34 +515,22 @@ export default function ChallengingAgeism() {
             Related resources
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
-              <Link key="recognising-bias" href={`/dashboard/apply/recognising-bias`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
-                  Reference Tool
-                </span>
-                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
-                  Recognising Bias: Common Types in the Workplace
-                </span>
-              </Link>
-              <Link key="inclusive-leadership-self-assessment" href={`/dashboard/apply/inclusive-leadership-self-assessment`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
-                  Self-Assessment
-                </span>
-                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
-                  Inclusive Leadership Self-Assessment
-                </span>
-              </Link>
-              <Link key="acknowledging-personal-bias" href={`/dashboard/apply/acknowledging-personal-bias`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
-                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
-                  Top Tips
-                </span>
-                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
-                  Top 10 Tips to Acknowledge Your Own Personal Bias
-                </span>
-              </Link>
+            <Link href="/dashboard/apply/recognising-bias" style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+              <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>Reference Tool</span>
+              <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>Recognising Bias: Common Types in the Workplace</span>
+            </Link>
+            <Link href="/dashboard/apply/inclusive-leadership-self-assessment" style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+              <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>Self-Assessment</span>
+              <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>Inclusive Leadership Self-Assessment</span>
+            </Link>
+            <Link href="/dashboard/apply/acknowledging-personal-bias" style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+              <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>Top Tips</span>
+              <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>Top 10 Tips to Acknowledge Your Own Personal Bias</span>
+            </Link>
           </div>
         </div>
       </div>
-            <BottomBanner />
+      <BottomBanner />
     </div>
   );
 }
