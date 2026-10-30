@@ -287,7 +287,7 @@ export default function RecognisingBiasPage() {
       {/* Bias cards */}
       <div ref={resultsRef} style={{ maxWidth: 900, margin: "0 auto", padding: "40px 24px 0" }}>
         <p style={{ color: "#9ca3af", fontSize: 13, marginBottom: 24 }}>
-          {filtered.length} {filtered.length === 1 ? "type" : "types"} shown
+          {filtered.length} {filtered.length === 1 ? "type" : "types"} shown · click the drop down arrow to see an example, why it matters and what to do
         </p>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -322,8 +322,8 @@ export default function RecognisingBiasPage() {
                     </div>
                     <p style={{ fontSize: 14, color: "#6b7280", margin: 0, lineHeight: 1.6 }}>{bias.what}</p>
                   </div>
-                  <span style={{ color: "var(--sage-dark, #2D5A3C)", fontSize: 20, fontWeight: 300, flexShrink: 0, transform: isOpen ? "rotate(45deg)" : "rotate(0deg)", transition: "transform 0.2s", marginTop: 2 }}>
-                    +
+                  <span style={{ color: "var(--sage-dark, #2D5A3C)", fontSize: 16, flexShrink: 0, transform: isOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s", marginTop: 2 }}>
+                    ▼
                   </span>
                 </button>
 
@@ -362,24 +362,9 @@ export default function RecognisingBiasPage() {
               These biases influence how we interact with, perceive and treat other people. They often operate below conscious awareness and are reinforced by wider cultural norms. The list below gives a quick overview: some of these are explored in depth in the expandable cards above.
             </p>
           </div>
-          <div style={{ overflowX: "auto" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
-              <thead>
-                <tr style={{ borderBottom: "2px solid #e5e7eb" }}>
-                  <th style={{ fontFamily: "Raleway, sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: 0.5, textTransform: "uppercase", color: "#6b7280", textAlign: "left", padding: "10px 16px 10px 0", whiteSpace: "nowrap", width: "36%" }}>Type of bias</th>
-                  <th style={{ fontFamily: "Raleway, sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: 0.5, textTransform: "uppercase", color: "#6b7280", textAlign: "left", padding: "10px 0" }}>What it means</th>
-                </tr>
-              </thead>
-              <tbody>
-                {SOCIAL_BIASES.map((b, i) => (
-                  <tr key={b.name} style={{ borderBottom: "1px solid #f3f4f6", background: i % 2 === 0 ? "#fff" : "#fafafa" }}>
-                    <td style={{ fontWeight: 700, color: "var(--charcoal, #2C2C2C)", padding: "13px 16px 13px 0", verticalAlign: "top", lineHeight: 1.5 }}>{b.name}</td>
-                    <td style={{ color: "#374151", padding: "13px 0", lineHeight: 1.6, verticalAlign: "top" }}>{b.what}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <p style={{ fontSize: 14, color: "#374151", lineHeight: 1.8, margin: 0 }}>
+            This category covers the many ways our interactions with others are shaped by social and cultural factors. It can apply to culture, beauty standards, name, accent, language, class, education, age, gender, race, religion, disability, neurodiversity, body size, parenting status, pregnancy, and caregiving responsibilities: among others. These biases often operate below conscious awareness and are reinforced by wider cultural norms.
+          </p>
         </div>
       </div>
 
