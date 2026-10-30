@@ -490,7 +490,7 @@ export default function InclusionAndBelongingSurveyPage() {
               {search && <button onClick={() => setSearch("")} style={{ position: "absolute", right: "0.75rem", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "var(--gray-soft)" }}>✕</button>}
             </div>
 
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--gray-soft)", marginBottom: "0.875rem" }}>{visible.length === QUESTIONS.length ? `${QUESTIONS.length} questions across ${THEMES.length} themes` : `${visible.length} question${visible.length !== 1 ? "s" : ""} matching your filter`}{selected.size > 0 && ` · ${selected.size} added to your survey builder`}</p>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--gray-soft)", marginBottom: "0.875rem" }}>{visible.length === QUESTIONS.length ? `${QUESTIONS.length} questions across ${THEMES.length} themes: click the arrow on each question to view rationale, interpretation guidance, and what good looks like.` : `${visible.length} question${visible.length !== 1 ? "s" : ""} matching your filter`}{selected.size > 0 && ` · ${selected.size} added to your survey builder`}</p>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
               {visible.map((q) => {
