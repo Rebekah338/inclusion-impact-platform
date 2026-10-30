@@ -100,7 +100,7 @@ export default function AcknowledgingPersonalBias() {
   const toggleExpand = (id: number) => setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "var(--gray-soft)", fontFamily: "var(--font-body)" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "var(--sage-xlight)", fontFamily: "var(--font-body)" }}>
       <PlatformNav />
 
       {/* Hero */}
