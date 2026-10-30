@@ -3,18 +3,8 @@
 import Link from "next/link";
 import PlatformNav from "@/app/components/PlatformNav";
 import BottomBanner from "@/app/components/BottomBanner";
-import { useState, useMemo } from "react";
 
-type IssueType = "all" | "gendered" | "ableist" | "jargon" | "criteria" | "tone";
-
-const ISSUE_TYPES: { key: IssueType; label: string; icon: string; desc: string }[] = [
-  { key: "all",      label: "All examples",           icon: "📋", desc: "" },
-  { key: "gendered", label: "Gendered language",       icon: "⚖️", desc: "Words and phrases that lean masculine or feminine and deter applicants who do not identify with them." },
-  { key: "ableist",  label: "Ableist language",        icon: "♿", desc: "Phrases that assume a particular physical or cognitive capability and may exclude disabled or neurodivergent candidates." },
-  { key: "jargon",   label: "Jargon and gatekeeping",  icon: "🔐", desc: "Insider terms, acronyms, and credential-signalling that disadvantage candidates from outside particular networks." },
-  { key: "criteria", label: "Inflated requirements",   icon: "📐", desc: "Criteria that are asked for but not essential: experience thresholds, degree requirements, and expectation inflation." },
-  { key: "tone",     label: "Tone and culture fit",    icon: "🎯", desc: "Language that signals a narrow culture and signals to underrepresented candidates that this workplace is not for them." },
-];
+type IssueType = "gendered" | "ableist" | "jargon" | "criteria" | "tone";
 
 type Example = {
   id: string;
@@ -138,39 +128,72 @@ const EXAMPLES: Example[] = [
   },
 ];
 
-const CATEGORY_COLORS: Record<IssueType, { bg: string; border: string; text: string }> = {
-  all:      { bg: "var(--sage-xlight)", border: "var(--sage-light)", text: "var(--sage-dark)" },
-  gendered: { bg: "#faf0fb", border: "#e9d5f5", text: "#7c3aed" },
-  ableist:  { bg: "#eef6fa", border: "#bfdfee", text: "#1d6b8f" },
-  jargon:   { bg: "#fff7ed", border: "#fed7aa", text: "#c2410c" },
-  criteria: { bg: "#f0fdf4", border: "#bbf7d0", text: "#15803d" },
-  tone:     { bg: "#fefce8", border: "#fde68a", text: "#b45309" },
-};
+const CATEGORIES: { key: IssueType; label: string; icon: string; desc: string }[] = [
+  { key: "gendered", label: "Gendered language",      icon: "⚖️", desc: "Words and phrases that lean masculine or feminine and deter applicants who do not identify with them." },
+  { key: "ableist",  label: "Ableist language",       icon: "♿", desc: "Phrases that assume a particular physical or cognitive capability and may exclude disabled or neurodivergent candidates." },
+  { key: "jargon",   label: "Jargon and gatekeeping", icon: "🔐", desc: "Insider terms, acronyms, and credential-signalling that disadvantage candidates from outside particular networks." },
+  { key: "criteria", label: "Inflated requirements",  icon: "📐", desc: "Criteria that are asked for but not essential: experience thresholds, degree requirements, and expectation inflation." },
+  { key: "tone",     label: "Tone and culture fit",   icon: "🎯", desc: "Language that signals a narrow culture and signals to underrepresented candidates that this workplace is not for them." },
+];
+
+function CategoryTable({ category, examples }: { category: typeof CATEGORIES[0]; examples: Example[] }) {
+  return (
+    <div>
+      {/* Category heading */}
+      <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.875rem" }}>
+        <span style={{ fontSize: "1.2rem" }}>{category.icon}</span>
+        <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", margin: 0 }}>
+          {category.label}
+        </h2>
+      </div>
+      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", lineHeight: 1.65, margin: "0 0 1rem" }}>
+        {category.desc}
+      </p>
+
+      {/* Table */}
+      <div style={{ background: "var(--white)", borderRadius: "14px", border: "1px solid var(--gray-border)", overflow: "hidden" }}>
+        {/* Header row */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", borderBottom: "2px solid #2d6a4f" }}>
+          <div style={{ padding: "0.75rem 1.25rem", borderRight: "2px solid #2d6a4f", background: "#fef2f2" }}>
+            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#b91c1c" }}>❌ Before</span>
+          </div>
+          <div style={{ padding: "0.75rem 1.25rem", background: "#f0fdf4" }}>
+            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#15803d" }}>✓ After</span>
+          </div>
+        </div>
+
+        {/* Example rows */}
+        {examples.map((ex, idx) => (
+          <div key={ex.id} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", borderBottom: idx === examples.length - 1 ? "none" : "2px solid #2d6a4f" }}>
+            {/* Before + The problem */}
+            <div style={{ padding: "1.1rem 1.25rem", borderRight: "2px solid #2d6a4f", background: "#fef9f9", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "#7f1d1d", fontStyle: "italic", lineHeight: 1.65, margin: 0 }}>
+                &ldquo;{ex.before}&rdquo;
+              </p>
+              <div>
+                <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#b45309", margin: "0 0 0.3rem" }}>⚠️ The problem</p>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "#57534e", lineHeight: 1.6, margin: 0 }}>{ex.issue}</p>
+              </div>
+            </div>
+
+            {/* After + Why this works */}
+            <div style={{ padding: "1.1rem 1.25rem", background: "#f6fdf8", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "#14532d", lineHeight: 1.65, margin: 0 }}>
+                {ex.after}
+              </p>
+              <div>
+                <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--sage-dark)", margin: "0 0 0.3rem" }}>💡 Why this works</p>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "#57534e", lineHeight: 1.6, margin: 0 }}>{ex.why}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function InclusiveLanguageJobDescriptionExamplesPage() {
-  const [activeType, setActiveType] = useState<IssueType>("all");
-  const [search, setSearch] = useState("");
-
-  const visible = useMemo(() => {
-    let pool = activeType === "all" ? EXAMPLES : EXAMPLES.filter((e) => e.issueType === activeType);
-    const q = search.toLowerCase();
-    if (q) pool = pool.filter((e) => e.before.toLowerCase().includes(q) || e.after.toLowerCase().includes(q) || e.issue.toLowerCase().includes(q));
-    return pool;
-  }, [activeType, search]);
-
-  const chipStyle = (active: boolean): React.CSSProperties => ({
-    display: "inline-flex", alignItems: "center", gap: "0.3rem",
-    padding: "0.4rem 0.85rem", borderRadius: "999px",
-    border: active ? "1.5px solid var(--sage-dark)" : "1.5px solid var(--gray-border)",
-    background: active ? "var(--sage-dark)" : "var(--white)",
-    color: active ? "var(--white)" : "var(--charcoal)",
-    fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem",
-    cursor: "pointer", whiteSpace: "nowrap" as const, transition: "all 0.15s ease",
-    userSelect: "none" as const,
-  });
-
-  const activeTypeInfo = ISSUE_TYPES.find((t) => t.key === activeType);
-
   return (
     <div className="min-h-screen" style={{ background: "var(--sage-xlight)" }}>
       <PlatformNav />
@@ -185,8 +208,8 @@ export default function InclusiveLanguageJobDescriptionExamplesPage() {
       </nav>
 
       {/* Header */}
-      <div style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)", padding: "2rem 1.5rem 1.5rem" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+      <div style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)", padding: "2rem 1.5rem 2rem" }}>
+        <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
             <span style={{ fontSize: "1.75rem" }}>📝</span>
             <span style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem", background: "var(--sage-xlight)", border: "1px solid var(--sage-light)", color: "var(--sage-dark)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", padding: "0.2rem 0.6rem", borderRadius: "999px" }}>
@@ -196,106 +219,25 @@ export default function InclusiveLanguageJobDescriptionExamplesPage() {
           <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 3.5vw, 2rem)", color: "var(--charcoal)", margin: "0 0 0.5rem" }}>
             Inclusive Language: Job Description Examples
           </h1>
-          <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.95rem", lineHeight: 1.7, maxWidth: "640px", margin: "0 0 1.25rem" }}>
+          <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.95rem", lineHeight: 1.7, maxWidth: "640px", margin: 0 }}>
             Before-and-after examples of the language patterns most likely to deter underrepresented candidates: what the original says, why it is a problem, and how to rewrite it without losing what you actually need.
           </p>
-
-          {/* Search */}
-          <div style={{ position: "relative", maxWidth: "480px", marginBottom: "1.25rem" }}>
-            <span style={{ position: "absolute", left: "1rem", top: "50%", transform: "translateY(-50%)", color: "var(--gray-soft)", fontSize: "0.9rem" }}>🔍</span>
-            <input
-              type="search" placeholder="Search examples…"
-              value={search} onChange={(e) => setSearch(e.target.value)}
-              style={{ width: "100%", padding: "0.65rem 2.2rem 0.65rem 2.4rem", borderRadius: "10px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.875rem", background: "var(--sage-xlight)", color: "var(--charcoal)", outline: "none", boxSizing: "border-box" }}
-            />
-            {search && <button onClick={() => setSearch("")} style={{ position: "absolute", right: "0.75rem", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "var(--gray-soft)" }}>✕</button>}
-          </div>
-
-          {/* Type chips */}
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", paddingBottom: "1.25rem" }}>
-            {ISSUE_TYPES.map((t) => (
-              <button key={t.key} onClick={() => setActiveType(t.key)} style={chipStyle(activeType === t.key)}>
-                {t.icon} {t.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Active category description */}
-          {activeTypeInfo && activeTypeInfo.desc && (
-            <div style={{ background: "var(--sage-xlight)", border: "1px solid var(--sage-light)", borderRadius: "10px", padding: "0.75rem 1rem", marginBottom: "0.25rem" }}>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--sage-dark)", margin: 0, lineHeight: 1.6 }}>{activeTypeInfo.desc}</p>
-            </div>
-          )}
         </div>
       </div>
 
-      {/* Table */}
-      <main style={{ maxWidth: "1100px", margin: "0 auto", padding: "2rem 1.5rem 5rem" }}>
-        {visible.length === 0 ? (
-          <div style={{ textAlign: "center", padding: "3rem 1rem" }}>
-            <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)" }}>No examples match your current filters.</p>
-            <button onClick={() => { setSearch(""); setActiveType("all"); }} style={{ marginTop: "1rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", background: "var(--sage-xlight)", border: "1.5px solid var(--sage-light)", borderRadius: "999px", padding: "0.6rem 1.4rem", cursor: "pointer" }}>Clear filters</button>
-          </div>
-        ) : (
-          <div style={{ background: "var(--white)", borderRadius: "14px", border: "1px solid var(--gray-border)", overflow: "hidden" }}>
-            {/* Table header */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", borderBottom: "2px solid #2d6a4f" }}>
-              <div style={{ padding: "0.85rem 1.25rem", borderRight: "2px solid #2d6a4f", background: "#fef2f2" }}>
-                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#b91c1c" }}>❌ Before</span>
-              </div>
-              <div style={{ padding: "0.85rem 1.25rem", background: "#f0fdf4" }}>
-                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#15803d" }}>✓ After</span>
-              </div>
-            </div>
-
-            {/* Rows */}
-            {visible.map((ex, idx) => {
-              const typeInfo = ISSUE_TYPES.find((t) => t.key === ex.issueType);
-              const colors = CATEGORY_COLORS[ex.issueType] ?? CATEGORY_COLORS.all;
-              const isLast = idx === visible.length - 1;
-              return (
-                <div
-                  key={ex.id}
-                  style={{ display: "grid", gridTemplateColumns: "1fr 1fr", borderBottom: isLast ? "none" : "2px solid #2d6a4f" }}
-                >
-                  {/* Before + The problem */}
-                  <div style={{ padding: "1.1rem 1.25rem", borderRight: "2px solid #2d6a4f", background: "#fef9f9", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                    {typeInfo && (
-                      <span style={{ display: "inline-flex", alignItems: "center", gap: "0.2rem", background: colors.bg, border: `1px solid ${colors.border}`, color: colors.text, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.6rem", letterSpacing: "0.07em", textTransform: "uppercase", padding: "0.15rem 0.45rem", borderRadius: "999px", alignSelf: "flex-start" }}>
-                        {typeInfo.icon} {typeInfo.label}
-                      </span>
-                    )}
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "#7f1d1d", fontStyle: "italic", lineHeight: 1.65, margin: 0 }}>
-                      &ldquo;{ex.before}&rdquo;
-                    </p>
-                    <div>
-                      <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#b45309", margin: "0 0 0.3rem" }}>⚠️ The problem</p>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "#57534e", lineHeight: 1.6, margin: 0 }}>{ex.issue}</p>
-                    </div>
-                  </div>
-
-                  {/* After + Why this works */}
-                  <div style={{ padding: "1.1rem 1.25rem", background: "#f6fdf8", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                    <span style={{ display: "inline-flex", alignItems: "center", gap: "0.2rem", background: "#f0fdf4", border: "1px solid #bbf7d0", color: "#15803d", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.6rem", letterSpacing: "0.07em", textTransform: "uppercase", padding: "0.15rem 0.45rem", borderRadius: "999px", alignSelf: "flex-start" }}>
-                      ✓ Inclusive language
-                    </span>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "#14532d", lineHeight: 1.65, margin: 0 }}>
-                      {ex.after}
-                    </p>
-                    <div>
-                      <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--sage-dark)", margin: "0 0 0.3rem" }}>💡 Why this works</p>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "#57534e", lineHeight: 1.6, margin: 0 }}>{ex.why}</p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
+      {/* Category tables */}
+      <main style={{ maxWidth: "1000px", margin: "0 auto", padding: "2.5rem 1.5rem 5rem", display: "flex", flexDirection: "column", gap: "3rem" }}>
+        {CATEGORIES.map((cat) => (
+          <CategoryTable
+            key={cat.key}
+            category={cat}
+            examples={EXAMPLES.filter((e) => e.issueType === cat.key)}
+          />
+        ))}
 
         {/* About this resource */}
-        <div className="card" style={{ marginTop: "2.5rem", background: "var(--sage-xlight)", border: "1px solid var(--sage-light)" }}>
-          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--charcoal)", marginBottom: "0.75rem" }}>About this resource</h2>
+        <div className="card" style={{ background: "var(--sage-xlight)", border: "1px solid var(--sage-light)" }}>
+          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--charcoal)", marginBottom: "0.75rem", marginTop: 0 }}>About this resource</h2>
           <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", lineHeight: 1.7, margin: 0 }}>
             These examples are drawn from patterns in recruitment research and are not exhaustive. Language alone does not determine who applies or who gets hired: process, panel composition, scoring criteria, and organisational culture all matter. Use these examples as a starting point for reviewing your own job descriptions, and consider using the Job Description Equity Checker AI tool for a personalised audit of your own draft.
           </p>
