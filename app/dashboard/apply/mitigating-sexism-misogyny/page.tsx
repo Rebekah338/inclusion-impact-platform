@@ -159,6 +159,7 @@ const STATUS_OPTIONS: { value: ActionStatus; label: string; color: string }[] = 
 
 export default function MitigatingSexismMisogynyPage() {
   const [statuses, setStatuses] = useState<Record<string, ActionStatus>>({});
+  const [ticked, setTicked] = useState<Record<string, boolean>>({});
   const [filterCategory, setFilterCategory] = useState<Category | "all">("all");
 
   const actioned = useMemo(() => Object.values(statuses).filter(v => v === "yes").length, [statuses]);
@@ -166,6 +167,7 @@ export default function MitigatingSexismMisogynyPage() {
 
   const setStatus = (id: string, val: ActionStatus) =>
     setStatuses(prev => ({ ...prev, [id]: prev[id] === val ? null : val }));
+  const toggleTick = (key: string) => setTicked(prev => ({ ...prev, [key]: !prev[key] }));
 
   const filtered = filterCategory === "all" ? SECTIONS : SECTIONS.filter(s => s.category === filterCategory);
   const priorities = SECTIONS.filter(s => !statuses[s.id] || statuses[s.id] === "not-yet");
@@ -254,12 +256,18 @@ export default function MitigatingSexismMisogynyPage() {
                 </div>
                 <div style={{ padding: "0.875rem 1.25rem", flex: 1 }}>
                   <ul style={{ margin: "0 0 0.875rem", padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 6 }}>
-                    {section.points.map((pt, i) => (
-                      <li key={i} style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
-                        <span style={{ color: "var(--sage-dark)", marginTop: 2, flexShrink: 0, fontSize: 12 }}>✓</span>
-                        <span style={{ color: "#444", lineHeight: 1.55, fontSize: 13 }}>{pt}</span>
-                      </li>
-                    ))}
+                    {section.points.map((pt, i) => {
+                      const key = `${section.id}-${i}`;
+                      const isDone = ticked[key] || false;
+                      return (
+                        <li key={i} style={{ display: "flex", gap: 8, alignItems: "flex-start", cursor: "pointer" }} onClick={() => toggleTick(key)}>
+                          <span style={{ flexShrink: 0, marginTop: 1, width: 18, height: 18, borderRadius: "50%", border: `2px solid ${isDone ? colors.text : "#d1d5db"}`, background: isDone ? colors.bg : "#fff", display: "flex", alignItems: "center", justifyContent: "center", transition: "all 0.15s" }}>
+                            {isDone && <span style={{ color: colors.text, fontSize: 11, fontWeight: 800, lineHeight: 1 }}>✓</span>}
+                          </span>
+                          <span style={{ color: isDone ? "#9ca3af" : "#444", lineHeight: 1.55, fontSize: 13, textDecoration: isDone ? "line-through" : "none", transition: "all 0.15s" }}>{pt}</span>
+                        </li>
+                      );
+                    })}
                   </ul>
                   <div style={{ fontSize: 12, fontWeight: 700, color: "#666", marginBottom: 6 }}>Has your organisation taken action here?</div>
                   <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
