@@ -1,0 +1,304 @@
+"use client";
+
+import { useState, useMemo } from "react";
+import Link from "next/link";
+import PlatformNav from "@/app/components/PlatformNav";
+import BottomBanner from "@/app/components/BottomBanner";
+
+type ActionStatus = "yes" | "partially" | "not-yet" | null;
+type Category = "understanding" | "action" | "accountability";
+
+interface Section {
+  id: string;
+  number: string;
+  title: string;
+  points: string[];
+  category: Category;
+}
+
+const SECTIONS: Section[] = [
+  {
+    id: "s1", number: "01", category: "understanding",
+    title: "Understanding sexism and misogyny",
+    points: [
+      "Recognise sexism and misogyny as systemic issues, not isolated incidents",
+      "Understand how gendered power and stereotypes shape behaviour",
+      "Acknowledge that misogyny often shows up subtly through structures, policies, and decision-making",
+      "Recognise that experiences of sexism are shaped by race, disability, class, sexuality, age, and caring responsibilities"
+    ]
+  },
+  {
+    id: "s2", number: "02", category: "action",
+    title: "Set clear behavioural standards",
+    points: [
+      "Name misogyny and sexism explicitly in policy, values and codes of conduct",
+      "Be specific about unacceptable behaviours not just intent",
+      "Apply consequences consistently regardless of seniority",
+      "Make expectations visible through training and leadership modelling"
+    ]
+  },
+  {
+    id: "s3", number: "03", category: "action",
+    title: "Shift from intent to impact",
+    points: [
+      "Train managers to respond to harm without defensiveness",
+      "Use language that centres impact, not motivation",
+      "Avoid framing sexism as a misunderstanding by default",
+      "Validate experiences without requiring proof of intent"
+    ]
+  },
+  {
+    id: "s4", number: "04", category: "action",
+    title: "Disrupt gendered power dynamics",
+    points: [
+      "Rotate visibility, stretch opportunities, and meeting roles",
+      "Introduce structured decision-making to reduce bias",
+      "Create pathways for women to take on influential, career-advancing work",
+      "Monitor who gains influence, recognition, and informal power"
+    ]
+  },
+  {
+    id: "s5", number: "05", category: "action",
+    title: "Strengthen reporting and response",
+    points: [
+      "Offer multiple reporting routes including formal and informal",
+      "Communicate clearly the protocol after a report is made",
+      "Protect complainants from retaliation",
+      "Share what was learned from dealing with incidents and what changed"
+    ]
+  },
+  {
+    id: "s6", number: "06", category: "action",
+    title: "Resource the work properly",
+    points: [
+      "Avoid placing the burden on women to fix sexist cultures",
+      "Allocate time, budget, and authority to this work",
+      "Recognise emotional labour as labour",
+      "Build inclusion responsibilities into roles, not volunteer efforts"
+    ]
+  },
+  {
+    id: "s7", number: "07", category: "action",
+    title: "Address everyday sexism, not just extreme cases",
+    points: [
+      "Challenge interruptions, idea appropriation, and tone policing",
+      "Treat banter and stereotypes as harmful cultural risks",
+      "Always intervene early before patterns become normalised",
+      "Acknowledge cumulative harm, not just isolated incidents"
+    ]
+  },
+  {
+    id: "s8", number: "08", category: "action",
+    title: "Build manager capability for real-time intervention",
+    points: [
+      "Equip managers to challenge sexism in the moment",
+      "Provide scripts and frameworks for difficult conversations",
+      "Hold managers accountable for team culture",
+      "Support managers with coaching"
+    ]
+  },
+  {
+    id: "s9", number: "09", category: "accountability",
+    title: "Apply accountability across performance systems",
+    points: [
+      "Audit performance feedback for gendered language and stereotypes",
+      "Separate personality critiques from measurable outcomes",
+      "Ensure culture fit is not used to mask bias",
+      "Review how confidence, assertiveness, and leadership are defined"
+    ]
+  },
+  {
+    id: "s10", number: "10", category: "action",
+    title: "Embed intersectionality into gender equity work",
+    points: [
+      "Analyse how sexism intersects with race, disability, class, sexuality",
+      "Avoid centring only the experiences of the most privileged women",
+      "Involve those most impacted in shaping solutions",
+      "Use disaggregated data to inform targeted action"
+    ]
+  },
+  {
+    id: "s11", number: "11", category: "action",
+    title: "Protect psychological safety and voice",
+    points: [
+      "Make it safe to challenge power without career risk",
+      "Model humility and accountability from senior leaders",
+      "Respond to concerns with curiosity, not control",
+      "Address silence and withdrawal as potential indicators of harm"
+    ]
+  },
+  {
+    id: "s12", number: "12", category: "accountability",
+    title: "Measure what has changed over time",
+    points: [
+      "Track pay, progression, attrition, and feedback by gender",
+      "Review complaint handling timelines and outcomes",
+      "Use data to inform action, not to defend inaction",
+      "Share progress transparently to build trust and accountability"
+    ]
+  }
+];
+
+const CATEGORY_LABELS: Record<Category, string> = {
+  understanding: "Understanding",
+  action: "Taking Action",
+  accountability: "Accountability"
+};
+
+const CATEGORY_COLORS: Record<Category, { bg: string; text: string; border: string }> = {
+  understanding: { bg: "#FFF8F0", text: "#B45309", border: "#F59E0B" },
+  action: { bg: "var(--sage-xlight)", text: "var(--sage-dark)", border: "var(--sage-light)" },
+  accountability: { bg: "#EFF6FF", text: "#1D4ED8", border: "#93C5FD" }
+};
+
+const STATUS_OPTIONS: { value: ActionStatus; label: string; color: string }[] = [
+  { value: "yes", label: "Yes", color: "#16a34a" },
+  { value: "partially", label: "Partially", color: "#D97706" },
+  { value: "not-yet", label: "Not yet", color: "#DC2626" }
+];
+
+export default function MitigatingSexismMisogynyPage() {
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const [statuses, setStatuses] = useState<Record<string, ActionStatus>>({});
+  const [filterCategory, setFilterCategory] = useState<Category | "all">("all");
+
+  const actioned = useMemo(() => Object.values(statuses).filter(v => v === "yes").length, [statuses]);
+  const partial = useMemo(() => Object.values(statuses).filter(v => v === "partially").length, [statuses]);
+
+  const toggleExpand = (id: string) => setExpanded(prev => ({ ...prev, [id]: !prev[id] }));
+  const setStatus = (id: string, val: ActionStatus) =>
+    setStatuses(prev => ({ ...prev, [id]: prev[id] === val ? null : val }));
+
+  const filtered = filterCategory === "all" ? SECTIONS : SECTIONS.filter(s => s.category === filterCategory);
+  const priorities = SECTIONS.filter(s => !statuses[s.id] || statuses[s.id] === "not-yet");
+
+  return (
+    <div style={{ fontFamily: "var(--font-body)", background: "var(--gray-soft)", minHeight: "100vh" }}>
+      <PlatformNav />
+      <div style={{ maxWidth: 860, margin: "0 auto", padding: "2rem 1rem 6rem" }}>
+
+        {/* Header */}
+        <div style={{ background: "var(--white)", borderRadius: 16, padding: "2rem", marginBottom: "1.5rem", borderLeft: "5px solid var(--sage-dark)" }}>
+          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
+            <span style={{ background: "var(--sage-xlight)", color: "var(--sage-dark)", fontSize: 12, fontWeight: 700, padding: "4px 12px", borderRadius: 20, letterSpacing: "0.05em", textTransform: "uppercase" }}>Guide</span>
+            <span style={{ background: "#FFF0F0", color: "#DC2626", fontSize: 12, fontWeight: 700, padding: "4px 12px", borderRadius: 20, letterSpacing: "0.05em", textTransform: "uppercase" }}>Gender Equity</span>
+          </div>
+          <h1 style={{ fontFamily: "var(--font-heading)", color: "var(--charcoal)", fontSize: "clamp(1.5rem, 4vw, 2rem)", fontWeight: 800, margin: "0 0 0.75rem" }}>
+            Mitigating Sexism and Misogyny
+          </h1>
+          <p style={{ color: "#555", lineHeight: 1.7, margin: 0, maxWidth: 620 }}>
+            A practical guide to recognising, addressing, and systematically dismantling sexism and misogyny in the workplace. Work through each area and track where your organisation stands.
+          </p>
+        </div>
+
+        {/* Progress Summary */}
+        <div style={{ background: "var(--white)", borderRadius: 16, padding: "1.5rem", marginBottom: "1.5rem", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "1rem" }}>
+          {[
+            { label: "Actioned", value: actioned, color: "#16a34a", bg: "#F0FDF4" },
+            { label: "Partially", value: partial, color: "#D97706", bg: "#FFFBEB" },
+            { label: "Not yet", value: SECTIONS.length - actioned - partial, color: "#DC2626", bg: "#FFF5F5" },
+            { label: "Total areas", value: 12, color: "var(--sage-dark)", bg: "var(--sage-xlight)" }
+          ].map(({ label, value, color, bg }) => (
+            <div key={label} style={{ background: bg, borderRadius: 12, padding: "1rem", textAlign: "center" }}>
+              <div style={{ fontSize: "2rem", fontWeight: 800, color, fontFamily: "var(--font-heading)" }}>{value}</div>
+              <div style={{ fontSize: 13, color: "#666", fontWeight: 600 }}>{label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Filters */}
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: "1.5rem" }}>
+          {(["all", "understanding", "action", "accountability"] as const).map(cat => (
+            <button key={cat} onClick={() => setFilterCategory(cat)} style={{
+              padding: "8px 16px", borderRadius: 20, border: "2px solid",
+              borderColor: filterCategory === cat ? "var(--sage-dark)" : "var(--gray-border)",
+              background: filterCategory === cat ? "var(--sage-dark)" : "var(--white)",
+              color: filterCategory === cat ? "var(--white)" : "var(--charcoal)",
+              fontWeight: 600, fontSize: 13, cursor: "pointer", transition: "all 0.2s"
+            }}>
+              {cat === "all" ? "All areas" : CATEGORY_LABELS[cat]}
+            </button>
+          ))}
+        </div>
+
+        {/* Sections */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginBottom: "2rem" }}>
+          {filtered.map(section => {
+            const colors = CATEGORY_COLORS[section.category];
+            const status = statuses[section.id];
+            const isOpen = expanded[section.id];
+            return (
+              <div key={section.id} style={{ background: "var(--white)", borderRadius: 12, border: `1px solid ${status === "yes" ? "#BBF7D0" : "var(--gray-border)"}`, overflow: "hidden", transition: "border-color 0.2s" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "1rem 1.25rem", cursor: "pointer" }} onClick={() => toggleExpand(section.id)}>
+                  <span style={{ background: colors.bg, color: colors.text, borderRadius: 8, width: 36, height: 36, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 13, flexShrink: 0, border: `1px solid ${colors.border}` }}>{section.number}</span>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ fontWeight: 700, color: "var(--charcoal)", fontSize: 15 }}>{section.title}</div>
+                    <div style={{ fontSize: 11, color: colors.text, fontWeight: 600, marginTop: 2 }}>{CATEGORY_LABELS[section.category]}</div>
+                  </div>
+                  {status && (
+                    <span style={{ fontSize: 12, fontWeight: 700, color: status === "yes" ? "#16a34a" : status === "partially" ? "#D97706" : "#DC2626", background: status === "yes" ? "#F0FDF4" : status === "partially" ? "#FFFBEB" : "#FEF2F2", padding: "3px 10px", borderRadius: 12 }}>
+                      {STATUS_OPTIONS.find(o => o.value === status)?.label}
+                    </span>
+                  )}
+                  <span style={{ color: "var(--sage-dark)", fontSize: 18, transform: isOpen ? "rotate(180deg)" : "none", transition: "transform 0.2s" }}>▾</span>
+                </div>
+
+                {isOpen && (
+                  <div style={{ padding: "0 1.25rem 1.25rem", borderTop: "1px solid var(--gray-border)" }}>
+                    <ul style={{ margin: "1rem 0", padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
+                      {section.points.map((pt, i) => (
+                        <li key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
+                          <span style={{ color: "var(--sage-dark)", marginTop: 3, flexShrink: 0 }}>✓</span>
+                          <span style={{ color: "#444", lineHeight: 1.6, fontSize: 14 }}>{pt}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div>
+                      <div style={{ fontSize: 13, fontWeight: 700, color: "#666", marginBottom: 8 }}>Has your organisation taken action here?</div>
+                      <div style={{ display: "flex", gap: 8 }}>
+                        {STATUS_OPTIONS.map(opt => (
+                          <button key={opt.value} onClick={() => setStatus(section.id, opt.value)} style={{
+                            padding: "6px 14px", borderRadius: 20, border: "2px solid",
+                            borderColor: status === opt.value ? opt.color : "var(--gray-border)",
+                            background: status === opt.value ? opt.color : "var(--white)",
+                            color: status === opt.value ? "var(--white)" : "var(--charcoal)",
+                            fontWeight: 600, fontSize: 13, cursor: "pointer", transition: "all 0.15s"
+                          }}>{opt.label}</button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Priority Actions */}
+        {priorities.length > 0 && (
+          <div style={{ background: "#FFF8F0", border: "1px solid #F59E0B", borderRadius: 16, padding: "1.5rem" }}>
+            <h2 style={{ fontFamily: "var(--font-heading)", color: "#92400E", fontSize: "1.1rem", fontWeight: 800, margin: "0 0 1rem" }}>
+              Priority areas to address ({priorities.length})
+            </h2>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+              {priorities.map(s => (
+                <button key={s.id} onClick={() => { setExpanded(prev => ({ ...prev, [s.id]: true })); setFilterCategory("all"); }} style={{ background: "var(--white)", border: "1px solid #F59E0B", borderRadius: 8, padding: "6px 12px", fontSize: 13, fontWeight: 600, color: "#92400E", cursor: "pointer" }}>
+                  {s.number}. {s.title}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {priorities.length === 0 && Object.keys(statuses).length === 12 && (
+          <div style={{ background: "#F0FDF4", border: "1px solid #BBF7D0", borderRadius: 16, padding: "1.5rem", textAlign: "center" }}>
+            <div style={{ fontSize: 32, marginBottom: 8 }}>🎉</div>
+            <h2 style={{ fontFamily: "var(--font-heading)", color: "#14532D", margin: "0 0 0.5rem" }}>All 12 areas actioned!</h2>
+            <p style={{ color: "#166534", margin: 0 }}>Your organisation has taken action across every area of this guide. Keep monitoring and iterating.</p>
+          </div>
+        )}
+      </div>
+      <BottomBanner />
+    </div>
+  );
+}
