@@ -158,14 +158,12 @@ const STATUS_OPTIONS: { value: ActionStatus; label: string; color: string }[] = 
 ];
 
 export default function MitigatingSexismMisogynyPage() {
-  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
   const [statuses, setStatuses] = useState<Record<string, ActionStatus>>({});
   const [filterCategory, setFilterCategory] = useState<Category | "all">("all");
 
   const actioned = useMemo(() => Object.values(statuses).filter(v => v === "yes").length, [statuses]);
   const partial = useMemo(() => Object.values(statuses).filter(v => v === "partially").length, [statuses]);
 
-  const toggleExpand = (id: string) => setExpanded(prev => ({ ...prev, [id]: !prev[id] }));
   const setStatus = (id: string, val: ActionStatus) =>
     setStatuses(prev => ({ ...prev, [id]: prev[id] === val ? null : val }));
 
@@ -193,7 +191,7 @@ export default function MitigatingSexismMisogynyPage() {
           Mitigating Sexism and Misogyny at Work
         </h1>
         <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
-          A practical guide to identifying, naming, and interrupting sexist behaviour and systemic gender inequity in the workplace.
+          A practical guide to identifying, naming, and interrupting sexist behaviour and systemic gender inequity in the workplace. Work through each of the 12 areas below and track where your organisation stands.
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
           {["Gender Equity", "Inclusion Practices"].map((tag) => (
@@ -204,20 +202,6 @@ export default function MitigatingSexismMisogynyPage() {
         </div>
       </div>
       <div style={{ maxWidth: 860, margin: "0 auto", padding: "2rem 1rem 6rem" }}>
-
-        {/* Header */}
-        <div style={{ background: "var(--white)", borderRadius: 16, padding: "2rem", marginBottom: "1.5rem", borderLeft: "5px solid var(--sage-dark)" }}>
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginBottom: 8 }}>
-            <span style={{ background: "var(--sage-xlight)", color: "var(--sage-dark)", fontSize: 12, fontWeight: 700, padding: "4px 12px", borderRadius: 20, letterSpacing: "0.05em", textTransform: "uppercase" }}>Guide</span>
-            <span style={{ background: "#FFF0F0", color: "#DC2626", fontSize: 12, fontWeight: 700, padding: "4px 12px", borderRadius: 20, letterSpacing: "0.05em", textTransform: "uppercase" }}>Gender Equity</span>
-          </div>
-          <h1 style={{ fontFamily: "var(--font-heading)", color: "var(--charcoal)", fontSize: "clamp(1.5rem, 4vw, 2rem)", fontWeight: 800, margin: "0 0 0.75rem" }}>
-            Mitigating Sexism and Misogyny
-          </h1>
-          <p style={{ color: "#555", lineHeight: 1.7, margin: 0, maxWidth: 620 }}>
-            A practical guide to recognising, addressing, and systematically dismantling sexism and misogyny in the workplace. Work through each area and track where your organisation stands.
-          </p>
-        </div>
 
         {/* Progress Summary */}
         <div style={{ background: "var(--white)", borderRadius: 16, padding: "1.5rem", marginBottom: "1.5rem", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "1rem" }}>
@@ -249,54 +233,47 @@ export default function MitigatingSexismMisogynyPage() {
           ))}
         </div>
 
-        {/* Sections */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginBottom: "2rem" }}>
+        {/* Sections — 3-column card grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem", marginBottom: "2rem" }}>
           {filtered.map(section => {
             const colors = CATEGORY_COLORS[section.category];
             const status = statuses[section.id];
-            const isOpen = expanded[section.id];
             return (
-              <div key={section.id} style={{ background: "var(--white)", borderRadius: 12, border: `1px solid ${status === "yes" ? "#BBF7D0" : "var(--gray-border)"}`, overflow: "hidden", transition: "border-color 0.2s" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "1rem 1.25rem", cursor: "pointer" }} onClick={() => toggleExpand(section.id)}>
-                  <span style={{ background: colors.bg, color: colors.text, borderRadius: 8, width: 36, height: 36, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 13, flexShrink: 0, border: `1px solid ${colors.border}` }}>{section.number}</span>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontWeight: 700, color: "var(--charcoal)", fontSize: 15 }}>{section.title}</div>
-                    <div style={{ fontSize: 11, color: colors.text, fontWeight: 600, marginTop: 2 }}>{CATEGORY_LABELS[section.category]}</div>
+              <div key={section.id} style={{ background: "var(--white)", borderRadius: 12, border: `2px solid ${status === "yes" ? "#BBF7D0" : "var(--gray-border)"}`, overflow: "hidden", transition: "border-color 0.2s", display: "flex", flexDirection: "column" }}>
+                <div style={{ padding: "1rem 1.25rem", borderBottom: `1px solid ${colors.border}`, background: colors.bg }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+                    <span style={{ background: "#fff", color: colors.text, borderRadius: 6, width: 30, height: 30, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 12, flexShrink: 0, border: `1px solid ${colors.border}` }}>{section.number}</span>
+                    <span style={{ fontSize: 10, color: colors.text, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em" }}>{CATEGORY_LABELS[section.category]}</span>
+                    {status && (
+                      <span style={{ marginLeft: "auto", fontSize: 11, fontWeight: 700, color: status === "yes" ? "#16a34a" : status === "partially" ? "#D97706" : "#DC2626", background: status === "yes" ? "#F0FDF4" : status === "partially" ? "#FFFBEB" : "#FEF2F2", padding: "2px 8px", borderRadius: 10 }}>
+                        {STATUS_OPTIONS.find(o => o.value === status)?.label}
+                      </span>
+                    )}
                   </div>
-                  {status && (
-                    <span style={{ fontSize: 12, fontWeight: 700, color: status === "yes" ? "#16a34a" : status === "partially" ? "#D97706" : "#DC2626", background: status === "yes" ? "#F0FDF4" : status === "partially" ? "#FFFBEB" : "#FEF2F2", padding: "3px 10px", borderRadius: 12 }}>
-                      {STATUS_OPTIONS.find(o => o.value === status)?.label}
-                    </span>
-                  )}
-                  <span style={{ color: "var(--sage-dark)", fontSize: 18, transform: isOpen ? "rotate(180deg)" : "none", transition: "transform 0.2s" }}>▾</span>
+                  <div style={{ fontWeight: 700, color: "var(--charcoal)", fontSize: 14, lineHeight: 1.35 }}>{section.title}</div>
                 </div>
-
-                {isOpen && (
-                  <div style={{ padding: "0 1.25rem 1.25rem", borderTop: "1px solid var(--gray-border)" }}>
-                    <ul style={{ margin: "1rem 0", padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
-                      {section.points.map((pt, i) => (
-                        <li key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
-                          <span style={{ color: "var(--sage-dark)", marginTop: 3, flexShrink: 0 }}>✓</span>
-                          <span style={{ color: "#444", lineHeight: 1.6, fontSize: 14 }}>{pt}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <div>
-                      <div style={{ fontSize: 13, fontWeight: 700, color: "#666", marginBottom: 8 }}>Has your organisation taken action here?</div>
-                      <div style={{ display: "flex", gap: 8 }}>
-                        {STATUS_OPTIONS.map(opt => (
-                          <button key={opt.value} onClick={() => setStatus(section.id, opt.value)} style={{
-                            padding: "6px 14px", borderRadius: 20, border: "2px solid",
-                            borderColor: status === opt.value ? opt.color : "var(--gray-border)",
-                            background: status === opt.value ? opt.color : "var(--white)",
-                            color: status === opt.value ? "var(--white)" : "var(--charcoal)",
-                            fontWeight: 600, fontSize: 13, cursor: "pointer", transition: "all 0.15s"
-                          }}>{opt.label}</button>
-                        ))}
-                      </div>
-                    </div>
+                <div style={{ padding: "0.875rem 1.25rem", flex: 1 }}>
+                  <ul style={{ margin: "0 0 0.875rem", padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 6 }}>
+                    {section.points.map((pt, i) => (
+                      <li key={i} style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
+                        <span style={{ color: "var(--sage-dark)", marginTop: 2, flexShrink: 0, fontSize: 12 }}>✓</span>
+                        <span style={{ color: "#444", lineHeight: 1.55, fontSize: 13 }}>{pt}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: "#666", marginBottom: 6 }}>Has your organisation taken action here?</div>
+                  <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                    {STATUS_OPTIONS.map(opt => (
+                      <button key={opt.value} onClick={() => setStatus(section.id, opt.value)} style={{
+                        padding: "4px 10px", borderRadius: 16, border: "2px solid",
+                        borderColor: status === opt.value ? opt.color : "var(--gray-border)",
+                        background: status === opt.value ? opt.color : "var(--white)",
+                        color: status === opt.value ? "var(--white)" : "var(--charcoal)",
+                        fontWeight: 600, fontSize: 12, cursor: "pointer", transition: "all 0.15s"
+                      }}>{opt.label}</button>
+                    ))}
                   </div>
-                )}
+                </div>
               </div>
             );
           })}
@@ -310,7 +287,7 @@ export default function MitigatingSexismMisogynyPage() {
             </h2>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
               {priorities.map(s => (
-                <button key={s.id} onClick={() => { setExpanded(prev => ({ ...prev, [s.id]: true })); setFilterCategory("all"); }} style={{ background: "var(--white)", border: "1px solid #F59E0B", borderRadius: 8, padding: "6px 12px", fontSize: 13, fontWeight: 600, color: "#92400E", cursor: "pointer" }}>
+                <button key={s.id} onClick={() => setFilterCategory("all")} style={{ background: "var(--white)", border: "1px solid #F59E0B", borderRadius: 8, padding: "6px 12px", fontSize: 13, fontWeight: 600, color: "#92400E", cursor: "pointer" }}>
                   {s.number}. {s.title}
                 </button>
               ))}
