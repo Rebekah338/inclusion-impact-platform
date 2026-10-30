@@ -127,7 +127,7 @@ const PILLARS = [
 const RATING_LABELS = ["Not started", "Early stages", "Developing", "Established", "Leading"];
 
 export default function InclusiveRemoteHybrid() {
-  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const [expanded, setExpanded] = useState<Record<string, boolean>>(() => Object.fromEntries(PILLARS.map(p => [p.id, true])));
   const [ratings, setRatings] = useState<Record<string, number>>({});
   const [checked, setChecked] = useState<Record<string, boolean>>({});
 
@@ -194,13 +194,12 @@ export default function InclusiveRemoteHybrid() {
             const pillarChecked = pillar.actions.map((_, i) => checked[`${pillar.id}-${i}`] || false).filter(Boolean).length;
             return (
               <div key={pillar.id} style={{ background: "var(--white)", border: `2px solid ${isExpanded ? pillar.colorBorder : "var(--gray-border)"}`, borderRadius: "12px", overflow: "hidden", transition: "all 0.2s", boxShadow: isExpanded ? "0 4px 12px rgba(0,0,0,0.08)" : "0 1px 3px rgba(0,0,0,0.05)" }}>
-                <div onClick={() => setExpanded((p) => ({ ...p, [pillar.id]: !p[pillar.id] }))} style={{ cursor: "pointer", padding: "1.25rem", background: isExpanded ? pillar.colorLight : "var(--white)" }}>
+                <div style={{ cursor: "default", padding: "1.25rem", background: isExpanded ? pillar.colorLight : "var(--white)" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.5rem" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
                       <span style={{ fontSize: "1.5rem" }}>{pillar.icon}</span>
                       <span style={{ fontSize: "0.72rem", fontWeight: 700, color: pillar.color, background: pillar.colorLight, border: `1px solid ${pillar.colorBorder}`, borderRadius: "999px", padding: "0.15rem 0.55rem" }}>{pillar.num}</span>
                     </div>
-                    <span style={{ color: "#aaa", fontSize: "0.85rem" }}>{isExpanded ? "▲" : "▼"}</span>
                   </div>
                   <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "0.95rem", fontWeight: 700, color: "var(--charcoal)", margin: "0 0 0.25rem" }}>{pillar.title}</h3>
                   <p style={{ fontSize: "0.78rem", color: "#888", margin: 0, lineHeight: 1.4 }}>{pillar.summary}</p>
