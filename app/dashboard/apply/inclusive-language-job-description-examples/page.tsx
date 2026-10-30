@@ -138,10 +138,18 @@ const EXAMPLES: Example[] = [
   },
 ];
 
+const CATEGORY_COLORS: Record<IssueType, { bg: string; border: string; text: string }> = {
+  all:      { bg: "var(--sage-xlight)", border: "var(--sage-light)", text: "var(--sage-dark)" },
+  gendered: { bg: "#faf0fb", border: "#e9d5f5", text: "#7c3aed" },
+  ableist:  { bg: "#eef6fa", border: "#bfdfee", text: "#1d6b8f" },
+  jargon:   { bg: "#fff7ed", border: "#fed7aa", text: "#c2410c" },
+  criteria: { bg: "#f0fdf4", border: "#bbf7d0", text: "#15803d" },
+  tone:     { bg: "#fefce8", border: "#fde68a", text: "#b45309" },
+};
+
 export default function InclusiveLanguageJobDescriptionExamplesPage() {
   const [activeType, setActiveType] = useState<IssueType>("all");
   const [search, setSearch] = useState("");
-  const [expanded, setExpanded] = useState<string | null>(null);
 
   const visible = useMemo(() => {
     let pool = activeType === "all" ? EXAMPLES : EXAMPLES.filter((e) => e.issueType === activeType);
@@ -178,11 +186,11 @@ export default function InclusiveLanguageJobDescriptionExamplesPage() {
 
       {/* Header */}
       <div style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)", padding: "2rem 1.5rem 1.5rem" }}>
-        <div style={{ maxWidth: "900px", margin: "0 auto" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
             <span style={{ fontSize: "1.75rem" }}>📝</span>
             <span style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem", background: "var(--sage-xlight)", border: "1px solid var(--sage-light)", color: "var(--sage-dark)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", padding: "0.2rem 0.6rem", borderRadius: "999px" }}>
-              🛠️ Tool
+              🛠️ Toolkit
             </span>
           </div>
           <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 3.5vw, 2rem)", color: "var(--charcoal)", margin: "0 0 0.5rem" }}>
@@ -221,72 +229,82 @@ export default function InclusiveLanguageJobDescriptionExamplesPage() {
         </div>
       </div>
 
-      {/* Examples */}
-      <main style={{ maxWidth: "900px", margin: "0 auto", padding: "2rem 1.5rem 5rem" }}>
-        {visible.length === 0 && (
+      {/* Table */}
+      <main style={{ maxWidth: "1100px", margin: "0 auto", padding: "2rem 1.5rem 5rem" }}>
+        {visible.length === 0 ? (
           <div style={{ textAlign: "center", padding: "3rem 1rem" }}>
             <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)" }}>No examples match your current filters.</p>
             <button onClick={() => { setSearch(""); setActiveType("all"); }} style={{ marginTop: "1rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", background: "var(--sage-xlight)", border: "1.5px solid var(--sage-light)", borderRadius: "999px", padding: "0.6rem 1.4rem", cursor: "pointer" }}>Clear filters</button>
           </div>
-        )}
+        ) : (
+          <div style={{ background: "var(--white)", borderRadius: "14px", border: "1px solid var(--gray-border)", overflow: "hidden" }}>
+            {/* Table header */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", borderBottom: "2px solid var(--gray-border)", background: "var(--sage-xlight)" }}>
+              {[
+                { label: "❌ Before", color: "#b91c1c" },
+                { label: "⚠️ The problem", color: "#b45309" },
+                { label: "✓ After", color: "#15803d" },
+                { label: "💡 Why this works", color: "var(--sage-dark)" },
+              ].map((col, i) => (
+                <div key={i} style={{ padding: "0.85rem 1rem", borderRight: i < 3 ? "1px solid var(--gray-border)" : "none" }}>
+                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.08em", textTransform: "uppercase", color: col.color }}>
+                    {col.label}
+                  </span>
+                </div>
+              ))}
+            </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-          {visible.map((ex) => {
-            const isOpen = expanded === ex.id;
-            const typeInfo = ISSUE_TYPES.find((t) => t.key === ex.issueType);
-            return (
-              <div key={ex.id} className="card" style={{ padding: 0, overflow: "hidden" }}>
-                {/* Header row */}
-                <button
-                  onClick={() => setExpanded(isOpen ? null : ex.id)}
-                  style={{ width: "100%", textAlign: "left", background: "none", border: "none", cursor: "pointer", padding: "1.1rem 1.25rem", display: "flex", alignItems: "flex-start", gap: "0.875rem" }}
+            {/* Rows */}
+            {visible.map((ex, idx) => {
+              const typeInfo = ISSUE_TYPES.find((t) => t.key === ex.issueType);
+              const colors = CATEGORY_COLORS[ex.issueType] ?? CATEGORY_COLORS.all;
+              const isLast = idx === visible.length - 1;
+              return (
+                <div
+                  key={ex.id}
+                  style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", borderBottom: isLast ? "none" : "1px solid var(--gray-border)" }}
                 >
-                  <span style={{ marginTop: "0.1rem", fontSize: "1rem", transform: isOpen ? "rotate(45deg)" : "none", transition: "transform 0.2s ease", display: "block", color: "var(--sage-dark)", fontWeight: 700, lineHeight: 1, flexShrink: 0 }}>+</span>
-                  <div style={{ flex: 1 }}>
+                  {/* Before */}
+                  <div style={{ padding: "1rem", borderRight: "1px solid var(--gray-border)", background: "#fef9f9" }}>
                     {typeInfo && (
-                      <span style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem", background: "var(--sage-xlight)", border: "1px solid var(--sage-light)", color: "var(--sage-dark)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.6rem", letterSpacing: "0.08em", textTransform: "uppercase", padding: "0.15rem 0.5rem", borderRadius: "999px", marginBottom: "0.4rem" }}>
+                      <span style={{ display: "inline-flex", alignItems: "center", gap: "0.2rem", background: colors.bg, border: `1px solid ${colors.border}`, color: colors.text, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.6rem", letterSpacing: "0.07em", textTransform: "uppercase", padding: "0.15rem 0.45rem", borderRadius: "999px", marginBottom: "0.5rem" }}>
                         {typeInfo.icon} {typeInfo.label}
                       </span>
                     )}
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "#6b2a2a", fontStyle: "italic", lineHeight: 1.6, margin: 0 }}>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "#7f1d1d", fontStyle: "italic", lineHeight: 1.65, margin: 0 }}>
                       &ldquo;{ex.before}&rdquo;
                     </p>
                   </div>
-                </button>
 
-                {/* Expanded before/after */}
-                {isOpen && (
-                  <div style={{ padding: "0 1.25rem 1.25rem 1.25rem", display: "flex", flexDirection: "column", gap: "1rem", borderTop: "1px solid var(--gray-border)" }}>
-                    {/* Two-column before/after */}
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.875rem", marginTop: "1rem" }}>
-                      <div style={{ background: "#fef2f2", border: "1px solid #fecaca", borderRadius: "10px", padding: "0.875rem 1rem" }}>
-                        <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#b91c1c", marginBottom: "0.5rem" }}>❌ Before</p>
-                        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "#374151", lineHeight: 1.65, margin: 0, fontStyle: "italic" }}>{ex.before}</p>
-                      </div>
-                      <div style={{ background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: "10px", padding: "0.875rem 1rem" }}>
-                        <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#15803d", marginBottom: "0.5rem" }}>✓ After</p>
-                        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "#374151", lineHeight: 1.65, margin: 0 }}>{ex.after}</p>
-                      </div>
-                    </div>
-
-                    <div>
-                      <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#b45309", marginBottom: "0.3rem" }}>The problem</p>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.65, margin: 0 }}>{ex.issue}</p>
-                    </div>
-                    <div>
-                      <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.3rem" }}>Why this works</p>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.65, margin: 0 }}>{ex.why}</p>
-                    </div>
+                  {/* The problem */}
+                  <div style={{ padding: "1rem", borderRight: "1px solid var(--gray-border)" }}>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.65, margin: 0 }}>
+                      {ex.issue}
+                    </p>
                   </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
 
-        {/* About this tool */}
+                  {/* After */}
+                  <div style={{ padding: "1rem", borderRight: "1px solid var(--gray-border)", background: "#f6fdf8" }}>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "#14532d", lineHeight: 1.65, margin: 0 }}>
+                      {ex.after}
+                    </p>
+                  </div>
+
+                  {/* Why this works */}
+                  <div style={{ padding: "1rem" }}>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.65, margin: 0 }}>
+                      {ex.why}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* About this resource */}
         <div className="card" style={{ marginTop: "2.5rem", background: "var(--sage-xlight)", border: "1px solid var(--sage-light)" }}>
-          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--charcoal)", marginBottom: "0.75rem" }}>About this tool</h2>
+          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--charcoal)", marginBottom: "0.75rem" }}>About this resource</h2>
           <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", lineHeight: 1.7, margin: 0 }}>
             These examples are drawn from patterns in recruitment research and are not exhaustive. Language alone does not determine who applies or who gets hired: process, panel composition, scoring criteria, and organisational culture all matter. Use these examples as a starting point for reviewing your own job descriptions, and consider using the Job Description Equity Checker AI tool for a personalised audit of your own draft.
           </p>
