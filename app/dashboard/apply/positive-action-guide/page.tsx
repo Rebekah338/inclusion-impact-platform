@@ -122,11 +122,9 @@ const QUIZ = [
 ];
 
 export default function PositiveActionGuidePage() {
-  const [flipped, setFlipped] = useState<Record<number, boolean>>({});
   const [quizAnswers, setQuizAnswers] = useState<Record<number, number>>({});
   const [quizRevealed, setQuizRevealed] = useState<Record<number, boolean>>({});
 
-  const toggleFlip = (id: number) => setFlipped(p => ({ ...p, [id]: !p[id] }));
   const answer = (qi: number, ai: number) => {
     setQuizAnswers(p => ({ ...p, [qi]: ai }));
     setQuizRevealed(p => ({ ...p, [qi]: true }));
@@ -178,34 +176,27 @@ export default function PositiveActionGuidePage() {
 
         {/* Before and after examples */}
         <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 16 }}>10 Before-and-After Examples</p>
-        <p style={{ fontSize: 15, color: "#6b7280", marginBottom: 24 }}>Tap a card to flip it and see the positive action approach.</p>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 16, marginBottom: 48 }}>
-          {EXAMPLES.map(ex => {
-            const isFlipped = flipped[ex.id];
-            return (
-              <div key={ex.id} onClick={() => toggleFlip(ex.id)} style={{ cursor: "pointer", minHeight: 180, position: "relative" }}>
-                <div style={{
-                  background: isFlipped ? "var(--sage-dark)" : "#fff",
-                  border: `2px solid ${isFlipped ? "var(--sage-dark)" : "#e5e7eb"}`,
-                  borderRadius: 12, padding: "20px", minHeight: 180,
-                  display: "flex", flexDirection: "column", justifyContent: "space-between",
-                  transition: "all 0.2s"
-                }}>
-                  <div>
-                    <span style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, color: isFlipped ? "rgba(255,255,255,0.7)" : "var(--sage-dark)", display: "block", marginBottom: 6 }}>
-                      {isFlipped ? "✓ Positive action" : ex.topic}
-                    </span>
-                    <p style={{ fontSize: 14, color: isFlipped ? "#fff" : "#374151", lineHeight: 1.6, margin: 0 }}>
-                      {isFlipped ? ex.after : ex.before}
-                    </p>
-                  </div>
-                  <div style={{ marginTop: 12, fontSize: 12, color: isFlipped ? "rgba(255,255,255,0.6)" : "#9ca3af", fontWeight: 600 }}>
-                    {isFlipped ? ex.label : "Tap to see the positive action approach →"}
-                  </div>
+        <p style={{ fontSize: 15, color: "#6b7280", marginBottom: 24 }}>Each card shows the original approach on the left and the positive action alternative on the right.</p>
+        <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 48 }}>
+          {EXAMPLES.map(ex => (
+            <div key={ex.id} style={{ borderRadius: 12, border: "1px solid #e5e7eb", overflow: "hidden", background: "#fff" }}>
+              <div style={{ background: "#f9fafb", borderBottom: "1px solid #e5e7eb", padding: "10px 20px", display: "flex", alignItems: "center", gap: 10 }}>
+                <span style={{ fontSize: 11, fontWeight: 800, textTransform: "uppercase", letterSpacing: 1, color: "var(--sage-dark)" }}>{String(ex.id).padStart(2, "0")}</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: "var(--charcoal)" }}>{ex.topic}</span>
+                <span style={{ marginLeft: "auto", fontSize: 11, fontWeight: 700, background: "#F0FDF4", color: "#166534", border: "1px solid #86efac", borderRadius: 10, padding: "2px 10px" }}>{ex.label}</span>
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+                <div style={{ padding: "16px 20px", borderRight: "1px solid #e5e7eb" }}>
+                  <span style={{ fontSize: 11, fontWeight: 800, textTransform: "uppercase", letterSpacing: 1, color: "#DC2626", display: "block", marginBottom: 8 }}>Before</span>
+                  <p style={{ fontSize: 14, color: "#374151", lineHeight: 1.65, margin: 0 }}>{ex.before}</p>
+                </div>
+                <div style={{ padding: "16px 20px", background: "#F0FDF4" }}>
+                  <span style={{ fontSize: 11, fontWeight: 800, textTransform: "uppercase", letterSpacing: 1, color: "#166534", display: "block", marginBottom: 8 }}>Positive action approach</span>
+                  <p style={{ fontSize: 14, color: "#374151", lineHeight: 1.65, margin: 0 }}>{ex.after}</p>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
 
         {/* Quiz */}
