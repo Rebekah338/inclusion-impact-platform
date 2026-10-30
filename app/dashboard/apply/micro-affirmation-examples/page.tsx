@@ -27,9 +27,14 @@ const AFFIRMATIONS = [
   { id: 20, text: "Showing patience and understanding during learning moments or mistakes.", category: "Identity and Respect" },
   { id: 21, text: "Inviting someone to collaborate on a project where their skills shine.", category: "Collaboration" },
   { id: 22, text: "Publicly appreciating someone's commitment to inclusion or equity initiatives.", category: "Recognition" },
+  { id: 23, text: "Calmly naming what happened: That comment touched on race and I think it is worth us pausing on that.", category: "Responding to Microaggressions" },
+  { id: 24, text: "Gently redirecting after a gendered assumption: She is actually the lead engineer on this project, not the note-taker.", category: "Responding to Microaggressions" },
+  { id: 25, text: "Affirming someone after a dismissive comment about their age: Your perspective on this is really valuable and I want to make sure we hear it.", category: "Responding to Microaggressions" },
+  { id: 26, text: "Quietly checking in after a microaggression is directed at a colleague: Are you okay? I noticed what just happened and I am sorry you experienced that.", category: "Responding to Microaggressions" },
+  { id: 27, text: "Speaking up in the moment when an LGBTQ+ colleague is misgendered: Just so we are all on the same page, Alex uses they/them pronouns.", category: "Responding to Microaggressions" },
 ];
 
-const CATEGORIES = ["All", "Recognition", "Voice and Space", "Identity and Respect", "Validation", "Collaboration"];
+const CATEGORIES = ["All", "Recognition", "Voice and Space", "Identity and Respect", "Validation", "Collaboration", "Responding to Microaggressions"];
 
 const CATEGORY_COLORS: Record<string, { bg: string; text: string; border: string }> = {
   Recognition: { bg: "#fef3c7", text: "#92400e", border: "#fde68a" },
@@ -37,6 +42,7 @@ const CATEGORY_COLORS: Record<string, { bg: string; text: string; border: string
   "Identity and Respect": { bg: "#f5f3ff", text: "#5b21b6", border: "#ddd6fe" },
   Validation: { bg: "var(--sage-xlight)", text: "var(--sage-dark)", border: "var(--sage-light)" },
   Collaboration: { bg: "#fdf2f8", text: "#9d174d", border: "#fbcfe8" },
+  "Responding to Microaggressions": { bg: "#fff7ed", text: "#9a3412", border: "#fed7aa" },
 };
 
 export default function MicroAffirmationExamples() {
@@ -91,7 +97,7 @@ export default function MicroAffirmationExamples() {
           Micro-Affirmation Examples
         </h1>
         <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
-          Browse practical examples of micro-affirmations across six categories. Small, deliberate actions that signal belonging and respect.
+          Browse practical examples of micro-affirmations: small, deliberate actions that signal belonging and respect. Micro-affirmations are the positive flipside of microaggressions: tiny moments of recognition that build inclusion, belonging, and confidence over time. This resource also includes examples of how to respond when a microaggression occurs in the moment.
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
           {["Inclusion Practices", "Communication", "Culture"].map((tag) => (
@@ -102,22 +108,6 @@ export default function MicroAffirmationExamples() {
         </div>
       </div>
       <div style={{ maxWidth: 900, margin: "0 auto", padding: "2rem 1rem 4rem" }}>
-        <div style={{ marginBottom: "2rem" }}>
-          <Link href="/dashboard/apply" style={{ color: "var(--sage-dark)", fontSize: "0.875rem", textDecoration: "none" }}>
-            Back to Resources
-          </Link>
-          <div style={{ marginTop: "1rem", background: "var(--sage-dark)", borderRadius: 16, padding: "2rem", color: "var(--white)" }}>
-            <div style={{ fontSize: "0.75rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", opacity: 0.8, marginBottom: "0.5rem" }}>
-              Practical Resource
-            </div>
-            <h1 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(1.5rem, 4vw, 2rem)", fontWeight: 700, margin: "0 0 0.75rem" }}>
-              Micro-Affirmation Examples To Use At Work
-            </h1>
-            <p style={{ opacity: 0.9, lineHeight: 1.6, margin: 0 }}>
-              Micro-affirmations are small, often subtle acts or words that acknowledge, validate, and support someone's contributions or identity. They are the positive flipside of microaggressions: tiny moments of recognition that build inclusion, belonging, and confidence over time.
-            </p>
-          </div>
-        </div>
 
         <div style={{ background: "var(--white)", borderRadius: 16, padding: "1.25rem 1.5rem", marginBottom: "1.5rem", border: "1px solid var(--gray-border)", display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
           <div style={{ flex: 1 }}>
