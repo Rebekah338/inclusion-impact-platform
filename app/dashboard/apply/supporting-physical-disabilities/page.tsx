@@ -85,29 +85,32 @@ export default function SupportingPhysicalDisabilities() {
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "var(--sage-xlight)", fontFamily: "var(--font-body)" }}>
       <PlatformNav />
-      <div style={{ background: "linear-gradient(135deg, #1E40AF 0%, #1e3a8a 100%)", padding: "3rem 1.5rem 2.5rem", textAlign: "center" }}>
-        <div style={{ display: "inline-block", background: "rgba(255,255,255,0.15)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1rem" }}>
-          <span style={{ color: "rgba(255,255,255,0.9)", fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" }}>Reflection Tool</span>
+      {/* Back nav */}
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 24px 0" }}>
+        <Link href="/dashboard/apply" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--sage-dark)", fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
+          &larr; Back to Resources
+        </Link>
+      </div>
+      {/* Header */}
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "32px 24px 0" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+          <span style={{ background: "var(--sage-dark)", color: "#fff", fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", padding: "4px 12px", borderRadius: 20 }}>
+            Reflection Tool
+          </span>
+          <span style={{ color: "#6b7280", fontSize: 13 }}>Reflection tool &middot; Updated October 2026</span>
         </div>
-        <h1 style={{ fontFamily: "var(--font-heading)", color: "var(--white)", fontSize: "clamp(1.75rem, 4vw, 2.5rem)", fontWeight: 700, marginBottom: "0.75rem", lineHeight: 1.2 }}>
+        <h1 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(26px, 4vw, 38px)", fontWeight: 800, color: "var(--charcoal)", margin: "0 0 16px", lineHeight: 1.2 }}>
           Supporting Employees with Physical Disabilities
         </h1>
-        <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "1.05rem", maxWidth: "580px", margin: "0 auto 1.5rem" }}>
+        <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
           Rate yourself on 19 practice statements across four areas. Reveal your tier and identify priority areas for action.
         </p>
-        <div style={{ display: "flex", justifyContent: "center", gap: "2rem", flexWrap: "wrap" }}>
-          <div style={{ textAlign: "center" }}>
-            <div style={{ color: "var(--white)", fontSize: "1.8rem", fontWeight: 700 }}>{ratedCount}/{TOTAL}</div>
-            <div style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.8rem" }}>Statements rated</div>
-          </div>
-          {avgScore !== null && <div style={{ textAlign: "center" }}>
-            <div style={{ color: "var(--white)", fontSize: "1.8rem", fontWeight: 700 }}>{avgScore.toFixed(1)}</div>
-            <div style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.8rem" }}>Average score</div>
-          </div>}
-          {tierInfo && <div style={{ textAlign: "center" }}>
-            <div style={{ color: "var(--white)", fontSize: "1.8rem", fontWeight: 700 }}>{tierInfo.label}</div>
-            <div style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.8rem" }}>Your tier</div>
-          </div>}
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
+          {["Disability Inclusion", "Accessibility"].map((tag) => (
+            <span key={tag} style={{ background: "var(--sage-xlight)", color: "var(--sage-dark)", border: "1px solid #c6dbc9", borderRadius: 20, fontSize: 12, fontWeight: 600, padding: "4px 12px" }}>
+              {tag}
+            </span>
+          ))}
         </div>
       </div>
 
@@ -180,7 +183,63 @@ export default function SupportingPhysicalDisabilities() {
           <Link href="/dashboard/apply" style={{ fontSize: "0.85rem", color: "var(--sage-dark)", textDecoration: "none", fontWeight: 600 }}>← Back to resources</Link>
         </div>
       </div>
-      <BottomBanner />
+
+      {/* About this topic */}
+      <div style={{ background: "#fff", borderTop: "1px solid #e5e7eb", padding: "56px 24px" }}>
+        <div style={{ maxWidth: 720, margin: "0 auto" }}>
+          <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 16 }}>
+            About this topic
+          </p>
+          <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 24, fontWeight: 800, color: "var(--charcoal)", marginBottom: 20 }}>
+            Disability inclusion in the workplace
+          </h2>
+          <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8, marginBottom: 20 }}>
+            Physical disabilities are diverse and often invisible. An employee may have a condition that fluctuates day to day, that is not apparent from their appearance, or that they have chosen not to disclose. Effective disability inclusion requires organisations to move beyond the legal minimum of reasonable adjustments and towards a culture where disabled employees do not have to fight to be accommodated.
+          </p>
+          <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8, marginBottom: 20 }}>
+            Many disabled employees report that the barriers they face are not primarily about their condition: they are about how organisations respond to it. Slow adjustment processes, inaccessible environments, managers who are uncomfortable with the conversation, and cultures where asking for help feels risky all compound the experience of disability at work.
+          </p>
+          <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8 }}>
+            Inclusive practice in this area means auditing physical environments, training managers to have confident conversations about adjustments, reviewing recruitment and progression practices for hidden barriers, and building a culture in which disability is treated as a dimension of diversity rather than a problem to be managed.
+          </p>
+        </div>
+      </div>
+
+      {/* Related resources */}
+      <div style={{ background: "var(--sage-xlight)", borderTop: "1px solid #e5e7eb", padding: "48px 24px" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 20 }}>
+            Related resources
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+              <Link key="making-policies-inclusive" href={`/dashboard/apply/making-policies-inclusive`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
+                  Guide
+                </span>
+                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
+                  Making Policies More Inclusive
+                </span>
+              </Link>
+              <Link key="inclusive-onboarding-guide" href={`/dashboard/apply/inclusive-onboarding-guide`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
+                  Checklist
+                </span>
+                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
+                  Inclusive Onboarding Guide
+                </span>
+              </Link>
+              <Link key="inclusive-remote-hybrid" href={`/dashboard/apply/inclusive-remote-hybrid`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
+                  Audit Tool
+                </span>
+                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
+                  Inclusive Remote and Hybrid Working
+                </span>
+              </Link>
+          </div>
+        </div>
+      </div>
+            <BottomBanner />
     </div>
   );
 }

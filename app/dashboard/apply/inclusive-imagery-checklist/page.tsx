@@ -149,6 +149,34 @@ export default function InclusiveImageryChecklist() {
   return (
     <div className="min-h-screen" style={{ background: "var(--sage-xlight)" }}>
       <PlatformNav />
+      {/* Back nav */}
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 24px 0" }}>
+        <Link href="/dashboard/apply" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--sage-dark)", fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
+          &larr; Back to Resources
+        </Link>
+      </div>
+      {/* Header */}
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "32px 24px 0" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+          <span style={{ background: "var(--sage-dark)", color: "#fff", fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", padding: "4px 12px", borderRadius: 20 }}>
+            Checklist
+          </span>
+          <span style={{ color: "#6b7280", fontSize: 13 }}>Checklist &middot; Updated October 2026</span>
+        </div>
+        <h1 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(26px, 4vw, 38px)", fontWeight: 800, color: "var(--charcoal)", margin: "0 0 16px", lineHeight: 1.2 }}>
+          Inclusive Imagery Checklist
+        </h1>
+        <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
+          Audit your organisation's visual communications across ten sections. Ensure the imagery you use reflects and includes everyone you serve.
+        </p>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
+          {["Communications", "Representation", "Inclusion Practices"].map((tag) => (
+            <span key={tag} style={{ background: "var(--sage-xlight)", color: "var(--sage-dark)", border: "1px solid #c6dbc9", borderRadius: 20, fontSize: 12, fontWeight: 600, padding: "4px 12px" }}>
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
       <main className="max-w-3xl mx-auto px-4 py-10">
         <div className="mb-8">
           <Link href="/dashboard/apply" className="text-sm font-medium" style={{ color: "var(--sage-dark)" }}>
@@ -292,7 +320,63 @@ export default function InclusiveImageryChecklist() {
           </button>
         </div>
       </main>
-      <BottomBanner />
+
+      {/* About this topic */}
+      <div style={{ background: "#fff", borderTop: "1px solid #e5e7eb", padding: "56px 24px" }}>
+        <div style={{ maxWidth: 720, margin: "0 auto" }}>
+          <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 16 }}>
+            About this topic
+          </p>
+          <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 24, fontWeight: 800, color: "var(--charcoal)", marginBottom: 20 }}>
+            Why visual representation matters
+          </h2>
+          <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8, marginBottom: 20 }}>
+            The images an organisation uses communicate who belongs. When the same types of people appear repeatedly in leadership contexts, marketing materials, and internal communications, a message is sent to everyone else: this place was not made with you in mind. Diverse, authentic representation does the opposite: it signals that the organisation's commitment to inclusion extends to its visual identity.
+          </p>
+          <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8, marginBottom: 20 }}>
+            Inclusive imagery is not about tokenism or box-ticking. It is about ensuring that the full diversity of employees, clients, and communities is reflected across all visual touchpoints: not just in a dedicated diversity campaign, but in everyday stock photography choices, leadership team photos, event materials, and digital content. The standard to aim for is that no group is consistently absent or consistently stereotyped.
+          </p>
+          <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8 }}>
+            Reviewing imagery is a practical and visible step that any organisation can take. It does not require a large budget or a specialist team: it requires a commitment to looking critically at what you publish and asking honestly whether it reflects the values you claim to hold.
+          </p>
+        </div>
+      </div>
+
+      {/* Related resources */}
+      <div style={{ background: "var(--sage-xlight)", borderTop: "1px solid #e5e7eb", padding: "48px 24px" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 20 }}>
+            Related resources
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+              <Link key="inclusive-comms-boundaries" href={`/dashboard/apply/inclusive-comms-boundaries`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
+                  Guide
+                </span>
+                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
+                  Inclusive Communications and Boundaries
+                </span>
+              </Link>
+              <Link key="recognising-bias" href={`/dashboard/apply/recognising-bias`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
+                  Reference Tool
+                </span>
+                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
+                  Recognising Bias: Common Types in the Workplace
+                </span>
+              </Link>
+              <Link key="micro-affirmation-examples" href={`/dashboard/apply/micro-affirmation-examples`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
+                  Reference Tool
+                </span>
+                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
+                  Micro-Affirmation Examples
+                </span>
+              </Link>
+          </div>
+        </div>
+      </div>
+            <BottomBanner />
     </div>
   );
 }

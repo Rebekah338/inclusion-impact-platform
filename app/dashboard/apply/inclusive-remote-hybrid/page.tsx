@@ -142,32 +142,49 @@ export default function InclusiveRemoteHybrid() {
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "var(--sage-xlight)", fontFamily: "var(--font-body)" }}>
       <PlatformNav />
-
-      <div style={{ background: "linear-gradient(135deg, #0F766E 0%, #0c4a42 100%)", padding: "3rem 1.5rem 2.5rem", textAlign: "center" }}>
-        <div style={{ display: "inline-block", background: "rgba(255,255,255,0.15)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1rem" }}>
-          <span style={{ color: "rgba(255,255,255,0.9)", fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" }}>Framework</span>
+      {/* Back nav */}
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 24px 0" }}>
+        <Link href="/dashboard/apply" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--sage-dark)", fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
+          &larr; Back to Resources
+        </Link>
+      </div>
+      {/* Header */}
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "32px 24px 0" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+          <span style={{ background: "var(--sage-dark)", color: "#fff", fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", padding: "4px 12px", borderRadius: 20 }}>
+            Audit Tool
+          </span>
+          <span style={{ color: "#6b7280", fontSize: 13 }}>Audit tool &middot; Updated October 2026</span>
         </div>
-        <h1 style={{ fontFamily: "var(--font-heading)", color: "var(--white)", fontSize: "clamp(1.75rem, 4vw, 2.5rem)", fontWeight: 700, marginBottom: "0.75rem", lineHeight: 1.2 }}>
-          Inclusive Remote and Hybrid Working Guide
+        <h1 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(26px, 4vw, 38px)", fontWeight: 800, color: "var(--charcoal)", margin: "0 0 16px", lineHeight: 1.2 }}>
+          Inclusive Remote and Hybrid Working
         </h1>
-        <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "1.05rem", maxWidth: "600px", margin: "0 auto 1.5rem" }}>
-          Nine pillars of inclusive remote and hybrid practice. Rate your organisation on each pillar and build your action plan.
+        <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
+          Audit your remote and hybrid practices across nine pillars. Rate your organisation on each one and commit to priority actions that will make flexible working more equitable for everyone in your team.
         </p>
-        <div style={{ display: "flex", justifyContent: "center", gap: "2rem", flexWrap: "wrap" }}>
-          <div style={{ textAlign: "center" }}>
-            <div style={{ color: "var(--white)", fontSize: "1.8rem", fontWeight: 700 }}>{ratedCount}/9</div>
-            <div style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.8rem" }}>Pillars rated</div>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
+          {["Remote Working", "Hybrid Working", "Inclusion Practices", "Flexible Working"].map((tag) => (
+            <span key={tag} style={{ background: "var(--sage-xlight)", color: "var(--sage-dark)", border: "1px solid #c6dbc9", borderRadius: 20, fontSize: 12, fontWeight: 600, padding: "4px 12px" }}>
+              {tag}
+            </span>
+          ))}
+        </div>
+        <div style={{ display: "flex", gap: "2rem", flexWrap: "wrap", padding: "16px 0", borderTop: "1px solid #e5e7eb", marginBottom: 8 }}>
+          <div>
+            <div style={{ fontSize: "1.6rem", fontWeight: 700, color: "var(--charcoal)" }}>{ratedCount}/9</div>
+            <div style={{ color: "#6b7280", fontSize: "0.8rem" }}>Pillars rated</div>
           </div>
-          <div style={{ textAlign: "center" }}>
-            <div style={{ color: "var(--white)", fontSize: "1.8rem", fontWeight: 700 }}>{avgRating ?? "—"}</div>
-            <div style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.8rem" }}>Average score</div>
+          <div>
+            <div style={{ fontSize: "1.6rem", fontWeight: 700, color: "var(--charcoal)" }}>{avgRating ?? "—"}</div>
+            <div style={{ color: "#6b7280", fontSize: "0.8rem" }}>Average score</div>
           </div>
-          <div style={{ textAlign: "center" }}>
-            <div style={{ color: "var(--white)", fontSize: "1.8rem", fontWeight: 700 }}>{checkedCount}</div>
-            <div style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.8rem" }}>Actions committed</div>
+          <div>
+            <div style={{ fontSize: "1.6rem", fontWeight: 700, color: "var(--charcoal)" }}>{checkedCount}</div>
+            <div style={{ color: "#6b7280", fontSize: "0.8rem" }}>Actions committed</div>
           </div>
         </div>
       </div>
+
 
       <div style={{ maxWidth: "960px", margin: "0 auto", padding: "2rem 1.5rem" }}>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem", marginBottom: "2.5rem" }}>
@@ -238,11 +255,64 @@ export default function InclusiveRemoteHybrid() {
             Print or save your framework summary
           </button>
         </div>
-        <div style={{ textAlign: "center" }}>
-          <Link href="/dashboard/apply" style={{ fontSize: "0.85rem", color: "var(--sage-dark)", textDecoration: "none", fontWeight: 600 }}>← Back to resources</Link>
+        </div>
+
+      {/* About this topic */}
+      <div style={{ background: "#fff", borderTop: "1px solid #e5e7eb", padding: "56px 24px" }}>
+        <div style={{ maxWidth: 720, margin: "0 auto" }}>
+          <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 16 }}>
+            About this topic
+          </p>
+          <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 24, fontWeight: 800, color: "var(--charcoal)", marginBottom: 20 }}>
+            The inclusion dimension of remote and hybrid work
+          </h2>
+          <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8, marginBottom: 20 }}>
+            Remote and hybrid working transformed the landscape of employment, expanding access for many people who had previously been excluded by geography, disability, or caring responsibilities. But flexible working can also reinforce existing inequalities if it is not managed inclusively: visibility bias can disadvantage those who work remotely, digital tools can create access gaps, and informal culture can exclude those who are not physically present.
+          </p>
+          <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8, marginBottom: 20 }}>
+            Inclusive hybrid working requires more than good technology. It requires managers who are trained to lead distributed teams fairly, meeting practices that give remote participants genuine voice, communication norms that do not systematically advantage those in the office, and performance processes that evaluate outcomes rather than presence.
+          </p>
+          <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8 }}>
+            Organisations that get this right create real competitive advantage: they can access broader talent pools, support employees with diverse needs, and build cultures where results matter more than where you sit. Those that manage hybrid working poorly risk reproducing the inequities of the office environment in a new form.
+          </p>
         </div>
       </div>
-      <BottomBanner />
+
+      {/* Related resources */}
+      <div style={{ background: "var(--sage-xlight)", borderTop: "1px solid #e5e7eb", padding: "48px 24px" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 20 }}>
+            Related resources
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+              <Link key="inclusive-meeting-checklist" href={`/dashboard/apply/inclusive-meeting-checklist`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
+                  Checklist
+                </span>
+                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
+                  Inclusive Meeting Checklist
+                </span>
+              </Link>
+              <Link key="inclusive-onboarding-guide" href={`/dashboard/apply/inclusive-onboarding-guide`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
+                  Checklist
+                </span>
+                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
+                  Inclusive Onboarding Guide
+                </span>
+              </Link>
+              <Link key="supporting-physical-disabilities" href={`/dashboard/apply/supporting-physical-disabilities`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
+                  Reflection Tool
+                </span>
+                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
+                  Supporting Employees with Physical Disabilities
+                </span>
+              </Link>
+          </div>
+        </div>
+      </div>
+            <BottomBanner />
     </div>
   );
 }

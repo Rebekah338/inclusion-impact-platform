@@ -192,6 +192,34 @@ export default function InclusiveEventPlanning() {
   return (
     <div className="min-h-screen" style={{ background: "var(--sage-xlight)" }}>
       <PlatformNav />
+      {/* Back nav */}
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 24px 0" }}>
+        <Link href="/dashboard/apply" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--sage-dark)", fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
+          &larr; Back to Resources
+        </Link>
+      </div>
+      {/* Header */}
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "32px 24px 0" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+          <span style={{ background: "var(--sage-dark)", color: "#fff", fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", padding: "4px 12px", borderRadius: 20 }}>
+            Planning Tool
+          </span>
+          <span style={{ color: "#6b7280", fontSize: 13 }}>Planning tool &middot; Updated October 2026</span>
+        </div>
+        <h1 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(26px, 4vw, 38px)", fontWeight: 800, color: "var(--charcoal)", margin: "0 0 16px", lineHeight: 1.2 }}>
+          Inclusive Event Planning
+        </h1>
+        <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
+          Plan inclusive events from start to finish. Work through pre-event, during, and post-event checklists to ensure every participant can fully take part.
+        </p>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
+          {["Events", "Accessibility", "Inclusion Practices"].map((tag) => (
+            <span key={tag} style={{ background: "var(--sage-xlight)", color: "var(--sage-dark)", border: "1px solid #c6dbc9", borderRadius: 20, fontSize: 12, fontWeight: 600, padding: "4px 12px" }}>
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
       <main className="max-w-3xl mx-auto px-4 py-10">
         <div className="mb-8">
           <Link href="/dashboard/apply" className="text-sm font-medium" style={{ color: "var(--sage-dark)" }}>
@@ -276,7 +304,63 @@ export default function InclusiveEventPlanning() {
           </button>
         </div>
       </main>
-      <BottomBanner />
+
+      {/* About this topic */}
+      <div style={{ background: "#fff", borderTop: "1px solid #e5e7eb", padding: "56px 24px" }}>
+        <div style={{ maxWidth: 720, margin: "0 auto" }}>
+          <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 16 }}>
+            About this topic
+          </p>
+          <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 24, fontWeight: 800, color: "var(--charcoal)", marginBottom: 20 }}>
+            Inclusion in events: why it matters from the start
+          </h2>
+          <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8, marginBottom: 20 }}>
+            Events are one of the most visible expressions of an organisation's culture. Who is invited, who is on the panel, whether dietary and accessibility needs are anticipated, how networking is structured: all of these signal whose presence and participation is valued. When events are poorly planned from an inclusion perspective, people often quietly disengage rather than voice what did not work for them.
+          </p>
+          <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8, marginBottom: 20 }}>
+            The most common mistakes in event inclusion happen at the planning stage, not on the day itself. Last-minute access provision, food options that exclude rather than include, speakers who are overwhelmingly from the same demographic, or social formats that assume everyone drinks alcohol are all avoidable with early attention. Inclusion in events is largely a planning discipline.
+          </p>
+          <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8 }}>
+            Post-event reflection is equally important. Gathering feedback on the experience of attending; asking specifically about accessibility, representation, and belonging; and acting on what you hear closes the loop and builds a track record of continuous improvement. Events that feel genuinely inclusive do not happen by accident: they are the result of deliberate, structured planning and honest review.
+          </p>
+        </div>
+      </div>
+
+      {/* Related resources */}
+      <div style={{ background: "var(--sage-xlight)", borderTop: "1px solid #e5e7eb", padding: "48px 24px" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 20 }}>
+            Related resources
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+              <Link key="inclusive-onboarding-guide" href={`/dashboard/apply/inclusive-onboarding-guide`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
+                  Checklist
+                </span>
+                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
+                  Inclusive Onboarding Guide
+                </span>
+              </Link>
+              <Link key="erg-checklist" href={`/dashboard/apply/erg-checklist`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
+                  Checklist
+                </span>
+                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
+                  ERG Checklist
+                </span>
+              </Link>
+              <Link key="inclusive-remote-hybrid" href={`/dashboard/apply/inclusive-remote-hybrid`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
+                  Audit Tool
+                </span>
+                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
+                  Inclusive Remote and Hybrid Working
+                </span>
+              </Link>
+          </div>
+        </div>
+      </div>
+            <BottomBanner />
     </div>
   );
 }

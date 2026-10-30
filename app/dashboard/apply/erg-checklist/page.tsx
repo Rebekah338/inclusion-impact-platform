@@ -179,6 +179,34 @@ export default function ErgChecklist() {
   return (
     <div className="min-h-screen" style={{ background: "var(--sage-xlight)" }}>
       <PlatformNav />
+      {/* Back nav */}
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 24px 0" }}>
+        <Link href="/dashboard/apply" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--sage-dark)", fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
+          &larr; Back to Resources
+        </Link>
+      </div>
+      {/* Header */}
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "32px 24px 0" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+          <span style={{ background: "var(--sage-dark)", color: "#fff", fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", padding: "4px 12px", borderRadius: 20 }}>
+            Checklist
+          </span>
+          <span style={{ color: "#6b7280", fontSize: 13 }}>Checklist &middot; Updated October 2026</span>
+        </div>
+        <h1 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(26px, 4vw, 38px)", fontWeight: 800, color: "var(--charcoal)", margin: "0 0 16px", lineHeight: 1.2 }}>
+          ERG Checklist: Setting Up and Auditing Employee Resource Groups
+        </h1>
+        <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
+          Use this checklist to set up a new ERG or audit an existing one across ten areas of effective practice.
+        </p>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
+          {["ERGs", "Employee Voice", "Inclusion Practices"].map((tag) => (
+            <span key={tag} style={{ background: "var(--sage-xlight)", color: "var(--sage-dark)", border: "1px solid #c6dbc9", borderRadius: 20, fontSize: 12, fontWeight: 600, padding: "4px 12px" }}>
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
       <main className="max-w-3xl mx-auto px-4 py-10">
         <div className="mb-8">
           <Link href="/dashboard/apply" className="text-sm font-medium" style={{ color: "var(--sage-dark)" }}>
@@ -292,7 +320,63 @@ export default function ErgChecklist() {
           </button>
         </div>
       </main>
-      <BottomBanner />
+
+      {/* About this topic */}
+      <div style={{ background: "#fff", borderTop: "1px solid #e5e7eb", padding: "56px 24px" }}>
+        <div style={{ maxWidth: 720, margin: "0 auto" }}>
+          <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 16 }}>
+            About this topic
+          </p>
+          <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 24, fontWeight: 800, color: "var(--charcoal)", marginBottom: 20 }}>
+            The role of employee resource groups in inclusion
+          </h2>
+          <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8, marginBottom: 20 }}>
+            Employee resource groups (ERGs) are voluntary, employee-led communities that bring together people who share an identity or experience, and those who support them. They can play a valuable role in inclusion efforts: providing community and support for underrepresented employees, offering a channel for lived experience to inform organisational decision-making, and raising the visibility of inclusion as a priority.
+          </p>
+          <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8, marginBottom: 20 }}>
+            However, ERGs are only as effective as the infrastructure and support around them. Groups that are under-resourced, led by volunteers who receive no recognition for the additional work, or consulted without any real influence on outcomes quickly become a burden on the very people they are meant to support. The question is not just whether an organisation has ERGs, but whether those ERGs are set up to succeed.
+          </p>
+          <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8 }}>
+            Effective ERGs have clear mandates, genuine executive sponsorship, and a defined relationship to the organisation's wider EDI strategy. They measure their impact, share their learning, and are reviewed regularly to ensure they continue to meet the needs of their members. This checklist supports both the setup and the ongoing audit of that kind of effective group.
+          </p>
+        </div>
+      </div>
+
+      {/* Related resources */}
+      <div style={{ background: "var(--sage-xlight)", borderTop: "1px solid #e5e7eb", padding: "48px 24px" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 20 }}>
+            Related resources
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+              <Link key="supporting-diversity-guide" href={`/dashboard/apply/supporting-diversity-guide`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
+                  Guide
+                </span>
+                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
+                  Supporting Diversity in Your Team
+                </span>
+              </Link>
+              <Link key="inclusive-event-planning" href={`/dashboard/apply/inclusive-event-planning`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
+                  Planning Tool
+                </span>
+                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
+                  Inclusive Event Planning
+                </span>
+              </Link>
+              <Link key="making-policies-inclusive" href={`/dashboard/apply/making-policies-inclusive`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
+                  Guide
+                </span>
+                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
+                  Making Policies More Inclusive
+                </span>
+              </Link>
+          </div>
+        </div>
+      </div>
+            <BottomBanner />
     </div>
   );
 }

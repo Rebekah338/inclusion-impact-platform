@@ -102,33 +102,36 @@ export default function AcknowledgingPersonalBias() {
   return (
     <div style={{ minHeight: "100vh", backgroundColor: "var(--sage-xlight)", fontFamily: "var(--font-body)" }}>
       <PlatformNav />
-
-      {/* Hero */}
-      <div style={{ background: "linear-gradient(135deg, var(--sage-dark) 0%, #1a3d2b 100%)", padding: "3rem 1.5rem 2.5rem", textAlign: "center" }}>
-        <div style={{ display: "inline-block", background: "rgba(255,255,255,0.15)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1rem" }}>
-          <span style={{ color: "rgba(255,255,255,0.9)", fontSize: "0.8rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" }}>Self-Awareness</span>
+      {/* Back nav */}
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 24px 0" }}>
+        <Link href="/dashboard/apply" style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "var(--sage-dark)", fontWeight: 600, fontSize: 14, textDecoration: "none" }}>
+          &larr; Back to Resources
+        </Link>
+      </div>
+      {/* Header */}
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "32px 24px 0" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+          <span style={{ background: "var(--sage-dark)", color: "#fff", fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", padding: "4px 12px", borderRadius: 20 }}>
+            Top Tips
+          </span>
+          <span style={{ color: "#6b7280", fontSize: 13 }}>Top tips &middot; Updated October 2026</span>
         </div>
-        <h1 style={{ fontFamily: "var(--font-heading)", color: "var(--white)", fontSize: "clamp(1.75rem, 4vw, 2.5rem)", fontWeight: 700, marginBottom: "0.75rem", lineHeight: 1.2 }}>
-          Top 10 Tips: Acknowledging Personal Bias
+        <h1 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(26px, 4vw, 38px)", fontWeight: 800, color: "var(--charcoal)", margin: "0 0 16px", lineHeight: 1.2 }}>
+          Top 10 Tips to Acknowledge Your Own Personal Bias
         </h1>
-        <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "1.05rem", maxWidth: "560px", margin: "0 auto 1.5rem" }}>
-          Check the tips you are actively working on. Use the reflection prompts to go deeper and build your self-awareness practice.
+        <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
+          Awareness of bias begins with honest self-examination. These ten tips offer practical starting points for recognising how your own experiences, assumptions, and conditioning may shape your judgements and decisions at work.
         </p>
-        <div style={{ display: "flex", justifyContent: "center", gap: "2rem", flexWrap: "wrap" }}>
-          <div style={{ textAlign: "center" }}>
-            <div style={{ color: "var(--white)", fontSize: "2rem", fontWeight: 700 }}>{committedCount}</div>
-            <div style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.8rem" }}>Tips committed</div>
-          </div>
-          <div style={{ textAlign: "center" }}>
-            <div style={{ color: "var(--white)", fontSize: "2rem", fontWeight: 700 }}>{TIPS.length}</div>
-            <div style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.8rem" }}>Total tips</div>
-          </div>
-          <div style={{ textAlign: "center" }}>
-            <div style={{ color: "var(--white)", fontSize: "2rem", fontWeight: 700 }}>{progressPct}%</div>
-            <div style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.8rem" }}>Progress</div>
-          </div>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
+          {["Bias", "Personal Development"].map((tag) => (
+            <span key={tag} style={{ background: "var(--sage-xlight)", color: "var(--sage-dark)", border: "1px solid #c6dbc9", borderRadius: 20, fontSize: 12, fontWeight: 600, padding: "4px 12px" }}>
+              {tag}
+            </span>
+          ))}
         </div>
       </div>
+
+      {/* Hero */}
 
       {/* Progress bar */}
       <div style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)", padding: "1rem 1.5rem" }}>
@@ -264,7 +267,63 @@ export default function AcknowledgingPersonalBias() {
           </Link>
         </div>
       </div>
-      <BottomBanner />
+
+      {/* About this topic */}
+      <div style={{ background: "#fff", borderTop: "1px solid #e5e7eb", padding: "56px 24px" }}>
+        <div style={{ maxWidth: 720, margin: "0 auto" }}>
+          <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 16 }}>
+            About this topic
+          </p>
+          <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 24, fontWeight: 800, color: "var(--charcoal)", marginBottom: 20 }}>
+            What is personal bias and why does it matter?
+          </h2>
+          <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8, marginBottom: 20 }}>
+            Personal bias refers to the attitudes, assumptions, and judgements we hold about people and situations that are shaped by our own background, culture, and lived experiences. Unlike conscious prejudice, personal bias often operates without our awareness: it influences who we trust, who we listen to, whose ideas we take seriously, and how we assess performance.
+          </p>
+          <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8, marginBottom: 20 }}>
+            In professional settings, unchecked personal bias creates inequity. It shapes who gets opportunities, whose work is praised, and who is overlooked. Because bias is often experienced as instinct or common sense rather than as prejudice, it can be particularly resistant to challenge: people rarely recognise in the moment that bias is influencing them.
+          </p>
+          <p style={{ fontSize: 16, color: "#374151", lineHeight: 1.8 }}>
+            Acknowledging personal bias is not a one-time exercise. It requires ongoing reflection, honest self-examination, and a willingness to hear difficult feedback. The goal is not to eliminate bias entirely; that is not possible. The goal is to interrupt it more often, and to put processes in place that reduce its impact on the people around you.
+          </p>
+        </div>
+      </div>
+
+      {/* Related resources */}
+      <div style={{ background: "var(--sage-xlight)", borderTop: "1px solid #e5e7eb", padding: "48px 24px" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 20 }}>
+            Related resources
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+              <Link key="recognising-bias" href={`/dashboard/apply/recognising-bias`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
+                  Reference Tool
+                </span>
+                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
+                  Recognising Bias: Common Types in the Workplace
+                </span>
+              </Link>
+              <Link key="inclusive-leadership-self-assessment" href={`/dashboard/apply/inclusive-leadership-self-assessment`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
+                  Self-Assessment
+                </span>
+                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
+                  Inclusive Leadership Self-Assessment
+                </span>
+              </Link>
+              <Link key="micro-affirmation-examples" href={`/dashboard/apply/micro-affirmation-examples`} style={{ display: "block", background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, padding: "16px 20px", textDecoration: "none", flex: "1 1 220px", minWidth: 200 }}>
+                <span style={{ fontSize: 11, fontWeight: 700, color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: 1, display: "block", marginBottom: 6 }}>
+                  Reference Tool
+                </span>
+                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", lineHeight: 1.4 }}>
+                  Micro-Affirmation Examples
+                </span>
+              </Link>
+          </div>
+        </div>
+      </div>
+            <BottomBanner />
     </div>
   );
 }
