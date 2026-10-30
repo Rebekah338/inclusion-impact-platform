@@ -25,6 +25,22 @@ const BIASES = [
     whatToDo: "Before making a judgement, actively seek out evidence that contradicts your current view. Keep a record of specific, observed behaviours rather than relying on general impressions.",
   },
   {
+    name: "Availability Bias",
+    category: "individual" as BiasCategory,
+    what: "Assuming something is common or likely because examples of it readily come to mind, rather than because the evidence supports that conclusion.",
+    example: "A manager assumes that remote employees are less productive because they can easily recall a couple of times a remote team member missed a deadline, overlooking the many times they performed well.",
+    impact: "Skews risk perception and decision-making towards memorable or vivid examples rather than actual data. Can reinforce stereotypes about groups whose negative examples are more widely reported.",
+    whatToDo: "When assessing likelihood or risk, look for actual data rather than relying on examples that come to mind quickly. Ask: what is the evidence across the full picture, not just the examples I can recall easily?",
+  },
+  {
+    name: "Negativity Bias",
+    category: "individual" as BiasCategory,
+    what: "Giving negative experiences, interactions, or information more weight than positive ones of equal or greater significance.",
+    example: "A colleague receives glowing feedback from nine out of ten stakeholders in their 360 review, but one piece of critical feedback dominates the manager's overall impression of their performance.",
+    impact: "Distorts performance conversations and assessment outcomes. People from marginalised groups may find their errors are weighted more heavily than those of dominant-group colleagues, compounding other biases.",
+    whatToDo: "Consciously balance negative and positive data points when forming an assessment. Ask: would I weight this same negative experience as heavily if everything else about this person were different?",
+  },
+  {
     name: "Halo Effect",
     category: "individual" as BiasCategory,
     what: "Assuming someone is strong in many areas because they perform well in one particular area or have one positive characteristic.",
@@ -47,6 +63,22 @@ const BIASES = [
     example: "During a performance review, the first piece of feedback you hear about an employee shapes your overall impression, making it hard to weigh later evidence objectively.",
     impact: "First impressions, early rumours, or initial data points become disproportionately influential in how people are assessed and treated.",
     whatToDo: "Gather a range of evidence before forming a view. In panels and review processes, ask each person to record their assessment independently before sharing opinions.",
+  },
+  {
+    name: "Stereotyping",
+    category: "interpersonal" as BiasCategory,
+    what: "Applying generalised beliefs about a group to individual members of that group, regardless of the individual's actual characteristics, skills, or behaviour.",
+    example: "A hiring manager assumes that a candidate from a particular country will struggle with communication in English, without any evidence from the interview itself.",
+    impact: "Prevents people from being seen as individuals. Reinforces systemic inequalities by treating group membership as a predictor of individual ability or behaviour.",
+    whatToDo: "Challenge assumptions by asking: what specific evidence do I have about this individual, separate from any assumptions about the group they belong to? Use structured interviews with consistent questions for all candidates.",
+  },
+  {
+    name: "Projection Bias",
+    category: "individual" as BiasCategory,
+    what: "Assuming that other people think, feel, or want the same things we do, and using our own preferences and experience as the default measure.",
+    example: "A manager assumes their team will be motivated by public recognition because they personally find it rewarding, and does not consider that some team members may find it uncomfortable or ineffective.",
+    impact: "Leads to decisions that work well for people like the decision-maker but exclude or demotivate those with different needs, communication styles, or preferences.",
+    whatToDo: "Actively ask the people affected what they need or prefer, rather than assuming your own experience is universal. This is especially important in areas like flexible working, communication style, and performance feedback.",
   },
   {
     name: "Attribution Bias",
@@ -90,6 +122,27 @@ const BIASES = [
   },
 ];
 
+const SOCIAL_BIASES = [
+  { name: "Similarity bias", what: "Favouring people with similar backgrounds, interests or experiences." },
+  { name: "Cultural bias", what: "Interpreting people and situations through the norms of our own culture." },
+  { name: "Beauty bias", what: "Treating people more favourably because they meet dominant beauty standards." },
+  { name: "Name bias", what: "Making assumptions about someone's background, ethnicity or suitability based on their name." },
+  { name: "Accent bias", what: "Judging someone's intelligence, credibility or competence based on their accent." },
+  { name: "Language bias", what: "Making assumptions about someone's ability based on their language or communication style." },
+  { name: "Class bias", what: "Treating people differently based on perceived social or economic class." },
+  { name: "Educational bias", what: "Assuming someone is more capable or intelligent because of where or what they studied." },
+  { name: "Age bias", what: "Making assumptions or treating people differently because of their age." },
+  { name: "Gender bias", what: "Making assumptions or treating people differently based on gender." },
+  { name: "Racial bias", what: "Holding assumptions, stereotypes or prejudices based on race." },
+  { name: "Religious bias", what: "Treating people differently because of their religion or beliefs." },
+  { name: "Disability bias", what: "Making assumptions about someone's capabilities based on disability." },
+  { name: "Neurodiversity bias", what: "Favouring certain ways of thinking, communicating or behaving over others." },
+  { name: "Body-size bias", what: "Treating people differently because of their weight or body shape." },
+  { name: "Parenting bias", what: "Making assumptions about someone's commitment or capability because they are a parent." },
+  { name: "Pregnancy bias", what: "Disadvantaging someone because they are pregnant or may become pregnant." },
+  { name: "Caregiver bias", what: "Assuming people with caring responsibilities are less committed or available." },
+];
+
 const CATEGORY_LABELS: Record<string, string> = {
   all: "All types",
   individual: "Individual",
@@ -110,18 +163,20 @@ export default function RecognisingBiasPage() {
   const downloadAsWord = () => {
     const css = 'body{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#2C2C2C;margin:2cm}h1{font-family:Calibri,Arial,sans-serif;font-size:20pt;color:#2D5A3C;margin-bottom:4pt}h2{font-family:Calibri,Arial,sans-serif;font-size:13pt;color:#2D5A3C;margin-top:18pt;margin-bottom:6pt;border-bottom:1pt solid #e5e7eb;padding-bottom:4pt}h3{font-family:Calibri,Arial,sans-serif;font-size:11pt;color:#2D5A3C;margin-top:12pt;margin-bottom:4pt}p{font-size:11pt;line-height:1.5;margin:4pt 0}ul{margin:6pt 0 12pt 20pt}li{margin-bottom:6pt;line-height:1.5}.meta{color:#6b7280;font-size:10pt;margin-bottom:16pt}.footer{font-size:9pt;color:#6b7280;margin-top:24pt;border-top:1pt solid #e5e7eb;padding-top:8pt}.reflection{background:#f4f8f5;border-left:3pt solid #2D5A3C;padding:8pt 12pt;margin:12pt 0}';
     const body = BIASES.map((b) => "<h2>" + b.name + "</h2><p><strong>What it looks like:</strong> " + b.example + "</p><p><strong>What to do:</strong> " + b.whatToDo + "</p>").join("");
+    const socialBody = "<h2>Social and interpersonal biases</h2><table border='1' cellpadding='6' style='border-collapse:collapse;width:100%'><tr><th>Type of bias</th><th>What it means</th></tr>" + SOCIAL_BIASES.map((b) => "<tr><td><strong>" + b.name + "</strong></td><td>" + b.what + "</td></tr>").join("") + "</table>";
     const html =
-      "<html xmlns:o=\'urn:schemas-microsoft-com:office:office\'" +
-      " xmlns:w=\'urn:schemas-microsoft-com:office:word\'" +
-      " xmlns=\'http://www.w3.org/TR/REC-html40\'>" +
-      "<head><meta charset=\'utf-8\'><title>Recognising Bias: Common Types in the Workplace</title><style>" + css + "</style></head>" +
+      "<html xmlns:o='urn:schemas-microsoft-com:office:office'" +
+      " xmlns:w='urn:schemas-microsoft-com:office:word'" +
+      " xmlns='http://www.w3.org/TR/REC-html40'>" +
+      "<head><meta charset='utf-8'><title>Recognising Bias: Common Types in the Workplace</title><style>" + css + "</style></head>" +
       "<body>" +
       "<h1>Recognising Bias: Common Types in the Workplace</h1>" +
-      "<p class=\'meta\'>The Inclusion Edit &middot; theinclusionedit.com</p>" +
+      "<p class='meta'>The Inclusion Edit &middot; theinclusionedit.com</p>" +
       body +
-      "<p class=\'footer\'>This resource was created by The Inclusion Edit. theinclusionedit.com</p>" +
+      socialBody +
+      "<p class='footer'>This resource was created by The Inclusion Edit. theinclusionedit.com</p>" +
       "</body></html>";
-    const blob = new Blob(["\uFEFF", html], { type: "application/msword" });
+    const blob = new Blob(["﻿", html], { type: "application/msword" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
@@ -187,7 +242,7 @@ export default function RecognisingBiasPage() {
         </h1>
 
         <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
-          Bias can be conscious or unconscious, and both shape how we interpret situations, relate to colleagues, and make decisions at work. This tool walks through ten of the most common types of workplace bias: what each one is, how it shows up in practice, and what you can do about it.
+          Bias can be conscious or unconscious, and both shape how we interpret situations, relate to colleagues, and make decisions at work. This tool covers the most common types of workplace bias: what each one is, how it shows up in practice, and what you can do about it. Scroll down for a full overview of social and interpersonal biases.
         </p>
 
         <div data-noprint="true" style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
@@ -230,7 +285,7 @@ export default function RecognisingBiasPage() {
       </div>
 
       {/* Bias cards */}
-      <div ref={resultsRef} style={{ maxWidth: 900, margin: "0 auto", padding: "40px 24px" }}>
+      <div ref={resultsRef} style={{ maxWidth: 900, margin: "0 auto", padding: "40px 24px 0" }}>
         <p style={{ color: "#9ca3af", fontSize: 13, marginBottom: 24 }}>
           {filtered.length} {filtered.length === 1 ? "type" : "types"} shown
         </p>
@@ -297,6 +352,37 @@ export default function RecognisingBiasPage() {
         </div>
       </div>
 
+      {/* Social and interpersonal biases overview */}
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "48px 24px 40px" }}>
+        <div style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 12, padding: "32px 28px" }}>
+          <div style={{ marginBottom: 20 }}>
+            <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)", margin: "0 0 8px" }}>Reference</p>
+            <h2 style={{ fontFamily: "Raleway, sans-serif", fontSize: 20, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", margin: "0 0 10px" }}>Social and interpersonal biases</h2>
+            <p style={{ fontSize: 14, color: "#6b7280", lineHeight: 1.7, margin: 0 }}>
+              These biases influence how we interact with, perceive and treat other people. They often operate below conscious awareness and are reinforced by wider cultural norms. The list below gives a quick overview: some of these are explored in depth in the expandable cards above.
+            </p>
+          </div>
+          <div style={{ overflowX: "auto" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
+              <thead>
+                <tr style={{ borderBottom: "2px solid #e5e7eb" }}>
+                  <th style={{ fontFamily: "Raleway, sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: 0.5, textTransform: "uppercase", color: "#6b7280", textAlign: "left", padding: "10px 16px 10px 0", whiteSpace: "nowrap", width: "36%" }}>Type of bias</th>
+                  <th style={{ fontFamily: "Raleway, sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: 0.5, textTransform: "uppercase", color: "#6b7280", textAlign: "left", padding: "10px 0" }}>What it means</th>
+                </tr>
+              </thead>
+              <tbody>
+                {SOCIAL_BIASES.map((b, i) => (
+                  <tr key={b.name} style={{ borderBottom: "1px solid #f3f4f6", background: i % 2 === 0 ? "#fff" : "#fafafa" }}>
+                    <td style={{ fontWeight: 700, color: "var(--charcoal, #2C2C2C)", padding: "13px 16px 13px 0", verticalAlign: "top", lineHeight: 1.5 }}>{b.name}</td>
+                    <td style={{ color: "#374151", padding: "13px 0", lineHeight: 1.6, verticalAlign: "top" }}>{b.what}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
       {/* About this topic */}
       <div style={{ background: "#fff", borderTop: "1px solid #e5e7eb", padding: "56px 24px" }}>
         <div style={{ maxWidth: 720, margin: "0 auto" }}>
@@ -343,7 +429,7 @@ export default function RecognisingBiasPage() {
         </div>
       </div>
 
-            {/* Share / Download bar */}
+      {/* Share / Download bar */}
       <div data-noprint="true" style={{ background: "#fff", borderTop: "1px solid #e5e7eb", padding: "32px 24px" }}>
         <div style={{ maxWidth: 720, margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 16 }}>
           <div>
