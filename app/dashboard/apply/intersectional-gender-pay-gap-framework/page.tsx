@@ -206,9 +206,9 @@ const FRAMEWORK_GROUPS: FrameworkGroup[] = [
 
 function StepCard({ step }: { step: typeof STEPS[0] }) {
   return (
-    <div style={{ background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: "12px", padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.875rem" }}>
+    <div style={{ background: "var(--white)", border: "2px solid var(--gray-border)", borderRadius: "12px", padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.875rem", boxShadow: "0 2px 8px rgba(0,0,0,0.07)" }}>
       <div style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
-        <span style={{ flexShrink: 0, fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.6rem", color: "var(--sage-light)", lineHeight: 1 }}>
+        <span style={{ flexShrink: 0, fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.6rem", color: "var(--sage-dark)", lineHeight: 1 }}>
           {step.num}
         </span>
         <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.4, paddingTop: "0.15rem" }}>
@@ -276,8 +276,18 @@ export default function IntersectionalGenderPayGapFrameworkPage() {
       <main style={{ maxWidth: "900px", margin: "0 auto", padding: "2rem 1.5rem 5rem" }}>
 
         {tab === "steps" && (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "0.875rem" }}>
-            {STEPS.map((step) => <StepCard key={step.num} step={step} />)}
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.875rem", width: "100%" }}>
+              {STEPS.slice(0, 12).map((step) => <StepCard key={step.num} step={step} />)}
+            </div>
+            <style>{`@media(max-width:700px){.steps-last-row{grid-template-columns:1fr!important}}`}</style>
+          </div>
+        )}
+        {tab === "steps" && (
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.875rem", marginTop: "0.875rem" }}>
+            <div />
+            {STEPS.slice(12).map((step) => <StepCard key={step.num} step={step} />)}
+            <div />
           </div>
         )}
 
