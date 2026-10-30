@@ -96,30 +96,6 @@ const BIASES = [
     impact: "Makes assessments unreliable and unpredictable. Employees learn that visibility in the run-up to review periods matters more than sustained performance.",
     whatToDo: "Keep running notes on performance throughout the year, not just at review time. Build assessment processes that draw on evidence across the full review period.",
   },
-  {
-    name: "Beauty Bias",
-    category: "interpersonal" as BiasCategory,
-    what: "Associating physical attractiveness with positive traits such as intelligence, competence, or leadership potential.",
-    example: "In a panel interview, a candidate who is conventionally attractive receives higher scores on leadership potential despite giving comparable answers to other candidates.",
-    impact: "Introduces an entirely irrelevant factor into high-stakes decisions, compounding existing inequalities around gender, race, and disability.",
-    whatToDo: "Use structured scoring rubrics with predefined criteria and weight them before the interview begins. Debrief panels using recorded scores rather than opening with general impressions.",
-  },
-  {
-    name: "Gender Bias",
-    category: "systemic" as BiasCategory,
-    what: "Applying different standards, assumptions, or expectations to people based on their gender, often in ways that disadvantage women and non-binary people.",
-    example: "Assertiveness in a man is described as leadership; the same behaviour in a woman is described as aggressive or difficult.",
-    impact: "Shapes who is recruited, promoted, heard in meetings, and credited for ideas. Gender bias is compounded for women of colour, disabled women, and trans and non-binary people.",
-    whatToDo: "Audit the language used in job descriptions, performance reviews, and reference letters. Train managers to spot gendered language and introduce consistent criteria for all assessments.",
-  },
-  {
-    name: "Age Bias (Ageism)",
-    category: "systemic" as BiasCategory,
-    what: "Making assumptions about a person's capability, relevance, or value based on their age, whether they are perceived as too young or too old.",
-    example: "A highly experienced candidate over 55 is passed over for a leadership role because the hiring panel assumes they will resist change or retire soon.",
-    impact: "Excludes experienced talent and makes workplaces less intergenerationally diverse. Age bias can operate in both directions but disproportionately harms older workers in hiring and promotion.",
-    whatToDo: "Remove age-related information (including graduation years) from early-stage candidate assessments. Focus interview questions on demonstrated capability and specific, recent examples.",
-  },
 ];
 
 const SOCIAL_BIASES = [
