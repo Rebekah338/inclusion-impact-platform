@@ -26,7 +26,7 @@ const TIPS = [
   {
     id: 4,
     title: "Question what you consider 'normal'",
-    body: "Consider how your cultural background or upbringing may shape your ideas of what is "standard".",
+    body: "Consider how your cultural background or upbringing may shape your ideas of what is \"standard\".",
     prompt: "What do you consider 'normal' at work that might not feel normal to others?",
   },
   {
