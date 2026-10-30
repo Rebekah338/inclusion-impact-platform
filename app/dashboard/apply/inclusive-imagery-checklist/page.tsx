@@ -147,7 +147,7 @@ export default function InclusiveImageryChecklist() {
   ];
 
   return (
-    <div className="min-h-screen" style={{ background: "var(--sage-xlight)" }}>
+    <div style={{ minHeight: "100vh", background: "var(--sage-xlight)", fontFamily: "var(--font-body)" }}>
       <PlatformNav />
       {/* Back nav */}
       <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 24px 0" }}>
@@ -180,16 +180,16 @@ export default function InclusiveImageryChecklist() {
       <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px 80px" }}>
 
         {/* Mode toggle */}
-        <div className="flex gap-2 mb-6">
+        <div style={{ display: "flex", gap: 8, marginBottom: 24 }}>
           {["checklist", "audit"].map((m) => (
             <button
               key={m}
               onClick={() => setMode(m as "checklist" | "audit")}
-              className="px-4 py-2 rounded-full text-sm font-medium border transition-all"
+              
               style={
                 mode === m
-                  ? { background: "var(--sage-dark)", color: "var(--white)", borderColor: "var(--sage-dark)" }
-                  : { background: "var(--white)", color: "var(--charcoal)", borderColor: "var(--gray-border)" }
+                  ? { padding: "8px 16px", borderRadius: 99, fontSize: 14, fontWeight: 600, border: "2px solid", cursor: "pointer", background: "var(--sage-dark)", color: "var(--white)", borderColor: "var(--sage-dark)" }
+                  : { padding: "8px 16px", borderRadius: 99, fontSize: 14, fontWeight: 600, border: "2px solid", cursor: "pointer", background: "var(--white)", color: "var(--charcoal)", borderColor: "var(--gray-border)" }
               }
             >
               {m === "checklist" ? "Sub-point checklist" : "Quick audit mode"}
@@ -198,7 +198,7 @@ export default function InclusiveImageryChecklist() {
         </div>
 
         {/* Progress */}
-        <div className="rounded-xl p-4 mb-6 border" style={{ background: "var(--white)", borderColor: "var(--gray-border)" }}>
+        <div style={{ borderRadius: 12, padding: 16, marginBottom: 24, border: "1px solid", background: "var(--white)", borderColor: "var(--gray-border)" }}>
           {mode === "checklist" ? (
             <>
               <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14, marginBottom: 8, color: "var(--charcoal)" }}>
@@ -212,7 +212,7 @@ export default function InclusiveImageryChecklist() {
               </div>
             </>
           ) : (
-            <p className="text-sm" style={{ color: "var(--charcoal)" }}>
+            <p style={{ fontSize: 13, color: "var(--charcoal)" }}>
               Rate each section: <strong>Not done</strong> / <strong>In progress</strong> / <strong>Done</strong>. Use this for a quick imagery audit.
             </p>
           )}
@@ -226,7 +226,7 @@ export default function InclusiveImageryChecklist() {
             const isOpen = expanded[section.id];
 
             return (
-              <div key={section.id} className="rounded-xl border overflow-hidden" style={{ background: "var(--white)", borderColor: isComplete ? "var(--sage-dark)" : "var(--gray-border)" }}>
+              <div key={section.id} style={{ borderRadius: 12, border: "1px solid", overflow: "hidden", background: "var(--white)", borderColor: isComplete ? "var(--sage-dark)" : "var(--gray-border)" }}>
                 <button
                   onClick={() => toggleSection(section.id)}
                   style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 20px", textAlign: "left", background: "none", border: "none", cursor: "pointer" }}
@@ -236,36 +236,35 @@ export default function InclusiveImageryChecklist() {
                       style={{ background: isComplete ? "var(--sage-dark)" : "var(--sage-xlight)", color: isComplete ? "var(--white)" : "var(--sage-dark)" }}>
                       {String(idx + 1).padStart(2, "0")}
                     </span>
-                    <span className="font-semibold" style={{ color: "var(--charcoal)", fontFamily: "var(--font-heading)" }}>
+                    <span style={{ fontWeight: 600, color: "var(--charcoal)", fontFamily: "var(--font-heading)" }}>
                       {section.title}
                     </span>
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                     {mode === "checklist" && (
-                      <span className="text-xs" style={{ color: "var(--sage-dark)" }}>{sectionChecked}/{section.points.length}</span>
+                      <span style={{ fontSize: 12, color: "var(--sage-dark)" }}>{sectionChecked}/{section.points.length}</span>
                     )}
                     <span style={{ color: "var(--sage-dark)" }}>{isOpen ? "▲" : "▼"}</span>
                   </div>
                 </button>
 
                 {isOpen && (
-                  <div className="px-5 pb-5">
-                    <p className="text-sm mb-4" style={{ color: "var(--charcoal)", opacity: 0.8 }}>{section.desc}</p>
+                  <div style={{ padding: "0 20px 20px" }}>
+                    <p style={{ fontSize: 13, marginBottom: 16, color: "var(--charcoal)", opacity: 0.8 }}>{section.desc}</p>
 
                     {mode === "checklist" ? (
                       <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
                         {section.points.map((point, i) => {
                           const key = `${section.id}-${i}`;
                           return (
-                            <label key={key} className="flex items-start gap-3 cursor-pointer group">
+                            <label key={key} style={{ display: "flex", alignItems: "flex-start", gap: 12, cursor: "pointer" }}>
                               <input
                                 type="checkbox"
                                 checked={!!checked[key]}
                                 onChange={() => toggle(key)}
-                                className="mt-0.5 shrink-0 w-4 h-4 rounded"
-                                style={{ accentColor: "var(--sage-dark)" }}
+                                style={{ marginTop: 2, flexShrink: 0, width: 16, height: 16, accentColor: "var(--sage-dark)" }}
                               />
-                              <span className="text-sm" style={{ color: "var(--charcoal)", textDecoration: checked[key] ? "line-through" : "none", opacity: checked[key] ? 0.5 : 1 }}>
+                              <span style={{ fontSize: 14, color: "var(--charcoal)", textDecoration: checked[key] ? "line-through" : "none", opacity: checked[key] ? 0.5 : 1 }}>
                                 {point}
                               </span>
                             </label>
@@ -273,12 +272,12 @@ export default function InclusiveImageryChecklist() {
                         })}
                       </div>
                     ) : (
-                      <div className="flex gap-2 mb-3">
+                      <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
                         {ratingLabels.map((label, ri) => (
                           <button
                             key={ri}
                             onClick={() => setAuditRating((prev) => ({ ...prev, [section.id]: ri }))}
-                            className={`px-3 py-1 rounded-full text-xs font-medium border transition-all ${auditRating[section.id] === ri ? ratingColors[ri] : "border-gray-200 text-gray-500"}`}
+                            style={{ padding: "4px 12px", borderRadius: 99, fontSize: 12, fontWeight: 600, border: "2px solid", cursor: "pointer", ...(auditRating[section.id] === ri ? { background: "var(--sage-dark)", color: "#fff", borderColor: "var(--sage-dark)" } : { background: "#fff", color: "#6b7280", borderColor: "#e5e7eb" }) }}
                           >
                             {label}
                           </button>
@@ -287,7 +286,7 @@ export default function InclusiveImageryChecklist() {
                     )}
 
                     {section.avoid && (
-                      <div className="mt-3 rounded-lg p-3 text-sm" style={{ background: "#FFF3F3", borderLeft: "3px solid #F87171", color: "#7F1D1D" }}>
+                      <div style={{ marginTop: 12, borderRadius: 8, padding: 12, fontSize: 13, background: "#FFF3F3", borderLeft: "3px solid #F87171", color: "#7F1D1D" }}>
                         <strong>Watch out:</strong> {section.avoid}
                       </div>
                     )}
@@ -298,11 +297,10 @@ export default function InclusiveImageryChecklist() {
           })}
         </div>
 
-        <div className="mt-8 text-center">
+        <div style={{ marginTop: 32, textAlign: "center" }}>
           <button
             onClick={() => window.print()}
-            className="px-6 py-2 rounded-full text-sm font-medium border"
-            style={{ background: "var(--sage-dark)", color: "var(--white)", borderColor: "var(--sage-dark)" }}
+            style={{ padding: "8px 24px", borderRadius: 99, fontSize: 14, fontWeight: 600, border: "2px solid", cursor: "pointer", background: "var(--sage-dark)", color: "var(--white)", borderColor: "var(--sage-dark)" }}
           >
             Print Audit Summary
           </button>
