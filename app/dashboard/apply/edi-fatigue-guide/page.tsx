@@ -219,7 +219,7 @@ export default function EdiFatigueGuidePage() {
           EDI Fatigue: A Guide for Practitioners and Allies
         </h1>
         <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
-          Understand what EDI fatigue is, where it comes from, and how to sustain meaningful commitment to inclusion without burning out.
+          EDI fatigue is the gradual exhaustion, disengagement, or cynicism that can build when individuals or teams carry equity, diversity and inclusion work without adequate support, recognition, or rest. It is a normal response to sustained effort; not a sign of failure or lack of commitment. This guide helps you understand where it comes from and how to sustain meaningful inclusion practice without burning out.
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
           {["EDI Practice", "Wellbeing", "Sustainability"].map((tag) => (
@@ -230,14 +230,6 @@ export default function EdiFatigueGuidePage() {
         </div>
       </div>
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "2rem 1rem 6rem" }}>
-
-        <div style={{ background: "var(--white)", borderRadius: 16, padding: "2rem", marginBottom: "1.5rem", borderLeft: "5px solid var(--sage-dark)" }}>
-          <span style={{ background: "var(--sage-xlight)", color: "var(--sage-dark)", fontSize: 12, fontWeight: 700, padding: "4px 12px", borderRadius: 20, letterSpacing: "0.05em", textTransform: "uppercase", display: "inline-block", marginBottom: 10 }}>Practical Guide</span>
-          <h1 style={{ fontFamily: "var(--font-heading)", color: "var(--charcoal)", fontSize: "clamp(1.5rem, 4vw, 2rem)", fontWeight: 800, margin: "0 0 0.75rem" }}>EDI Fatigue: Practical Guide</h1>
-          <p style={{ color: "#555", lineHeight: 1.7, margin: 0 }}>
-            EDI fatigue is the gradual exhaustion, disengagement, or cynicism that can build when individuals or teams carry equity, diversity and inclusion work without adequate support, recognition, or rest. It is a normal response to sustained effort; not a sign of failure or lack of commitment.
-          </p>
-        </div>
 
         <div style={{ background: "var(--white)", borderRadius: 12, padding: "1rem 1.5rem", marginBottom: "1.5rem", display: "flex", gap: "1.5rem", flexWrap: "wrap", alignItems: "center" }}>
           <div style={{ textAlign: "center" }}>
