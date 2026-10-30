@@ -201,14 +201,13 @@ export default function InclusiveImageryChecklist() {
         <div className="rounded-xl p-4 mb-6 border" style={{ background: "var(--white)", borderColor: "var(--gray-border)" }}>
           {mode === "checklist" ? (
             <>
-              <div className="flex justify-between text-sm mb-2" style={{ color: "var(--charcoal)" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14, marginBottom: 8, color: "var(--charcoal)" }}>
                 <span>{checkedCount} of {totalPoints} points checked</span>
                 <span>{completedSections} of {SECTIONS.length} sections complete</span>
               </div>
-              <div className="h-2 rounded-full" style={{ background: "var(--gray-border)" }}>
+              <div style={{ height: 8, borderRadius: 4, background: "var(--gray-border)" }}>
                 <div
-                  className="h-2 rounded-full transition-all"
-                  style={{ width: `${(checkedCount / totalPoints) * 100}%`, background: "var(--sage-dark)" }}
+                  style={{ height: 8, borderRadius: 4, transition: "width 0.3s", width: `${(checkedCount / totalPoints) * 100}%`, background: "var(--sage-dark)" }}
                 />
               </div>
             </>
@@ -220,7 +219,7 @@ export default function InclusiveImageryChecklist() {
         </div>
 
         {/* Sections */}
-        <div className="space-y-3">
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           {SECTIONS.map((section, idx) => {
             const sectionChecked = section.points.filter((_, i) => checked[`${section.id}-${i}`]).length;
             const isComplete = sectionChecked === section.points.length;
@@ -230,10 +229,10 @@ export default function InclusiveImageryChecklist() {
               <div key={section.id} className="rounded-xl border overflow-hidden" style={{ background: "var(--white)", borderColor: isComplete ? "var(--sage-dark)" : "var(--gray-border)" }}>
                 <button
                   onClick={() => toggleSection(section.id)}
-                  className="w-full flex items-center justify-between px-5 py-4 text-left"
+                  style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 20px", textAlign: "left", background: "none", border: "none", cursor: "pointer" }}
                 >
-                  <div className="flex items-center gap-3">
-                    <span className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
+                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <span style={{ width: 28, height: 28, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, flexShrink: 0 }}
                       style={{ background: isComplete ? "var(--sage-dark)" : "var(--sage-xlight)", color: isComplete ? "var(--white)" : "var(--sage-dark)" }}>
                       {String(idx + 1).padStart(2, "0")}
                     </span>
@@ -241,7 +240,7 @@ export default function InclusiveImageryChecklist() {
                       {section.title}
                     </span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                     {mode === "checklist" && (
                       <span className="text-xs" style={{ color: "var(--sage-dark)" }}>{sectionChecked}/{section.points.length}</span>
                     )}
@@ -254,7 +253,7 @@ export default function InclusiveImageryChecklist() {
                     <p className="text-sm mb-4" style={{ color: "var(--charcoal)", opacity: 0.8 }}>{section.desc}</p>
 
                     {mode === "checklist" ? (
-                      <div className="space-y-2 mb-3">
+                      <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 12 }}>
                         {section.points.map((point, i) => {
                           const key = `${section.id}-${i}`;
                           return (

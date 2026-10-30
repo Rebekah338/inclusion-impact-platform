@@ -229,17 +229,17 @@ export default function ErgChecklist() {
 
         {/* Progress bar */}
         <div className="rounded-xl p-4 mb-6 border" style={{ background: "var(--white)", borderColor: "var(--gray-border)" }}>
-          <div className="flex justify-between text-sm mb-2" style={{ color: "var(--charcoal)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", fontSize: 14, marginBottom: 8, color: "var(--charcoal)" }}>
             <span>{checkedCount} of {totalItems} items checked</span>
             <span>{Math.round((checkedCount / totalItems) * 100)}% complete</span>
           </div>
-          <div className="h-2 rounded-full" style={{ background: "var(--gray-border)" }}>
-            <div className="h-2 rounded-full transition-all" style={{ width: `${(checkedCount / totalItems) * 100}%`, background: "var(--sage-dark)" }} />
+          <div style={{ height: 8, borderRadius: 4, background: "var(--gray-border)" }}>
+            <div style={{ height: 8, borderRadius: 4, transition: "width 0.3s", width: `${(checkedCount / totalItems) * 100}%`, background: "var(--sage-dark)" }} />
           </div>
         </div>
 
         {/* Sections */}
-        <div className="space-y-3">
+        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           {SECTIONS.map((section, idx) => {
             const items = getItems(section);
             const sectionChecked = items.filter((_, i) => checked[`${mode}-${section.id}-${i}`]).length;
@@ -248,15 +248,15 @@ export default function ErgChecklist() {
 
             return (
               <div key={section.id} className="rounded-xl border overflow-hidden" style={{ background: "var(--white)", borderColor: "var(--gray-border)" }}>
-                <button onClick={() => toggleSection(`${mode}-${section.id}`)} className="w-full flex items-center justify-between px-5 py-4 text-left">
-                  <div className="flex items-center gap-3">
-                    <span className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
+                <button onClick={() => toggleSection(`${mode}-${section.id}`)} style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 20px", textAlign: "left", background: "none", border: "none", cursor: "pointer" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <span style={{ width: 28, height: 28, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, flexShrink: 0 }}
                       style={{ background: sectionChecked === items.length ? "var(--sage-dark)" : "var(--sage-xlight)", color: sectionChecked === items.length ? "var(--white)" : "var(--sage-dark)" }}>
                       {idx + 1}
                     </span>
                     <span className="font-semibold" style={{ color: "var(--charcoal)", fontFamily: "var(--font-heading)" }}>{section.title}</span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                     {mode === "audit" && sectionHealth !== undefined && (
                       <span className="text-xs px-2 py-1 rounded-full font-medium" style={{ background: healthColors[sectionHealth].bg, color: healthColors[sectionHealth].text, border: `1px solid ${healthColors[sectionHealth].border}` }}>
                         {healthColors[sectionHealth].label}
@@ -269,7 +269,7 @@ export default function ErgChecklist() {
 
                 {isOpen && (
                   <div className="px-5 pb-5">
-                    <div className="space-y-2 mb-4">
+                    <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 16 }}>
                       {items.map((item, i) => {
                         const key = `${mode}-${section.id}-${i}`;
                         return (
