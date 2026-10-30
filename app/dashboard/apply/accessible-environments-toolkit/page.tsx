@@ -226,7 +226,7 @@ const ASSESSMENT_OPTIONS: { value: AssessmentRating; label: string; color: strin
 
 // ── Main component ─────────────────────────────────────────────────────────────
 export default function AccessibleEnvironmentsToolkitPage() {
-  const [tab, setTab] = useState<Tab>("assess");
+  const [tab, setTab] = useState<Tab>("browse");
   const [activeCategory, setActiveCategory] = useState<Category | "all">("all");
   const [activePriority, setActivePriority] = useState<Priority | "all">("all");
   const [activeOwner, setActiveOwner] = useState<Owner | "all">("all");
@@ -462,8 +462,8 @@ export default function AccessibleEnvironmentsToolkitPage() {
             Start with the self-assessment to identify your gaps, build your action plan, and track progress over time.
           </p>
           <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-            <button onClick={() => setTab("assess")} style={tabStyle(tab === "assess")}>🔍 Self-assessment</button>
             <button onClick={() => setTab("browse")} style={tabStyle(tab === "browse")}>📚 Action library</button>
+            <button onClick={() => setTab("assess")} style={tabStyle(tab === "assess")}>🔍 Self-assessment</button>
             <button onClick={() => setTab("tracker")} style={tabStyle(tab === "tracker")}>
               ✅ Progress tracker {doneCount > 0 && <span style={{ marginLeft: "0.35rem", background: "rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0 5px", fontSize: "0.7rem" }}>{doneCount}/{ITEMS.length}</span>}
             </button>
