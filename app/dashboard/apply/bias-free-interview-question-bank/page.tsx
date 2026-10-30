@@ -360,7 +360,7 @@ export default function InclusiveHiringQuestionsPage() {
                             onClick={() => setExpanded(isOpen ? null : q.id)}
                             style={{ width: "100%", textAlign: "left", background: "none", border: "none", cursor: "pointer", padding: "0.5rem 1.5rem 1rem", display: "flex", alignItems: "flex-start", gap: "1rem" }}
                           >
-                            <span style={{ marginTop: "0.15rem", fontSize: "1rem", transform: isOpen ? "rotate(45deg)" : "none", transition: "transform 0.2s ease", display: "block", color: stage.stageColor, fontWeight: 700, lineHeight: 1, flexShrink: 0 }}>+</span>
+                            <span style={{ marginTop: "0.15rem", fontSize: "0.75rem", transform: isOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s ease", display: "block", color: stage.stageColor, flexShrink: 0 }}>▼</span>
                             <p style={{ fontFamily: "var(--font-body)", fontSize: "0.925rem", color: "var(--charcoal)", lineHeight: 1.6, margin: 0, fontWeight: 500, flex: 1 }}>
                               {q.question}
                             </p>
