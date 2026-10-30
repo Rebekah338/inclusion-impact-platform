@@ -199,9 +199,7 @@ export default function InclusiveCommsBoundaries() {
                     </div>
                   </div>
                 ))}
-                <button onClick={() => handleCopy(saved.join("
-
-"))} style={{ marginTop: "0.75rem", background: "var(--sage-dark)", color: "var(--white)", border: "none", borderRadius: 10, padding: "0.75rem 1.5rem", fontSize: "0.9rem", fontWeight: 700, cursor: "pointer" }}>
+                <button onClick={() => handleCopy(saved.join("\n\n"))} style={{ marginTop: "0.75rem", background: "var(--sage-dark)", color: "var(--white)", border: "none", borderRadius: 10, padding: "0.75rem 1.5rem", fontSize: "0.9rem", fontWeight: 700, cursor: "pointer" }}>
                   Copy All Saved Phrases
                 </button>
               </>
