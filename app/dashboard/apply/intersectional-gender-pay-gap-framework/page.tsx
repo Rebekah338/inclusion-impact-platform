@@ -284,9 +284,12 @@ export default function IntersectionalGenderPayGapFrameworkPage() {
           </div>
         )}
         {tab === "steps" && (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.875rem", marginTop: "0.875rem" }}>
-            <div style={{ gridColumn: "1 / 2" }} />
-            {STEPS.slice(12).map((step) => <StepCard key={step.num} step={step} />)}
+          <div style={{ display: "flex", gap: "0.875rem", marginTop: "0.875rem", justifyContent: "center" }}>
+            {STEPS.slice(12).map((step) => (
+              <div key={step.num} style={{ width: "calc(33.333% - 0.584rem)" }}>
+                <StepCard step={step} />
+              </div>
+            ))}
           </div>
         )}
 
