@@ -28,18 +28,6 @@ const FAQS = [
     a: "Correct yourself briefly: 'she; sorry, they said...' and continue. Do not make a lengthy apology that requires the other person to reassure you. Do not make the same mistake repeatedly, because repeated misgendering after correction communicates that you do not consider the effort worthwhile. A brief, sincere correction followed by moving on is the right response.",
   },
   {
-    q: "What if I find it difficult or uncomfortable to use someone's pronouns?",
-    a: "Discomfort is understandable, especially if using non-binary or unfamiliar pronouns is new. But discomfort with change does not outweigh another person's right to be referred to correctly. The solution to discomfort is practice: say the pronouns out loud, use them in sentences when you are not with the person, and commit to getting it right. The discomfort reduces over time; the harm of being misgendered does not.",
-  },
-  {
-    q: "Is it rude to ask someone their pronouns?",
-    a: "It is generally fine to ask, and usually better than assuming. A natural way to do it is to share your own pronouns first: 'I use she/her; what about you?' This makes it a reciprocal exchange rather than singling someone out. Avoid asking in a way that implies you are questioning someone's identity or expressing doubt: the goal is simply to get it right.",
-  },
-  {
-    q: "Should I ask everyone their pronouns?",
-    a: "In a workplace context, normalising the sharing of pronouns (in introductions, on name badges, in email signatures, in team profile fields) is more effective than asking individuals one by one, which can single people out. Make it easy for everyone to share their pronouns if they choose to, and make it clear that not sharing is also fine.",
-  },
-  {
     q: "What if someone does not want to share their pronouns?",
     a: "That is entirely their choice. Not everyone feels safe disclosing their pronouns, particularly in workplaces where they are not confident they will be respected. If someone has not shared their pronouns, use their name instead of a pronoun, or use they/them as a respectful default. Do not pressure anyone to disclose.",
   },
@@ -54,10 +42,6 @@ const FAQS = [
   {
     q: "Can I correct others if they use the wrong pronouns?",
     a: "Yes: and this is one of the most important things allies can do. A gentle, low-key correction in the moment normalises the use of correct pronouns and removes the burden from the person who has been misgendered. You do not need to make it a big issue; a brief 'actually they prefer they/them' is enough.",
-  },
-  {
-    q: "Do I need to understand someone's gender identity to use their pronouns correctly?",
-    a: "No. You do not need to understand, or agree with, someone's gender identity in order to use their correct pronouns. Using someone's correct pronouns is a professional courtesy, in the same way that using someone's preferred name is, regardless of whether you personally understand their reasons for preferring it.",
   },
   {
     q: "How do I handle pronouns in written communication?",
