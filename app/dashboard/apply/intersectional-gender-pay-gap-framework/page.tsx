@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
 import PlatformNav from "@/app/components/PlatformNav";
 import BottomBanner from "@/app/components/BottomBanner";
@@ -204,21 +204,50 @@ const FRAMEWORK_GROUPS: FrameworkGroup[] = [
   },
 ];
 
-function StepCard({ step }: { step: typeof STEPS[0] }) {
+function StepCard({ step, checked, onToggle }: {
+  step: typeof STEPS[0];
+  checked: boolean[];
+  onToggle: (i: number) => void;
+}) {
+  const allDone = checked.length > 0 && checked.every(Boolean);
   return (
-    <div style={{ background: "var(--white)", border: "2px solid var(--gray-border)", borderRadius: "12px", padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.875rem", boxShadow: "0 2px 8px rgba(0,0,0,0.07)" }}>
+    <div style={{
+      background: allDone ? "#f0faf4" : "var(--white)",
+      border: allDone ? "2px solid var(--sage-dark)" : "2px solid var(--gray-border)",
+      borderRadius: "12px", padding: "1.25rem", display: "flex", flexDirection: "column",
+      gap: "0.875rem", boxShadow: "0 2px 8px rgba(0,0,0,0.07)", transition: "background 0.2s, border-color 0.2s"
+    }}>
       <div style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
-        <span style={{ flexShrink: 0, fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.6rem", color: "var(--sage-dark)", lineHeight: 1 }}>
-          {step.num}
+        <span style={{ flexShrink: 0, fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.6rem", color: allDone ? "var(--sage-dark)" : "var(--sage-dark)", lineHeight: 1 }}>
+          {allDone ? "✓" : step.num}
         </span>
         <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.4, paddingTop: "0.15rem" }}>
           {step.title}
         </span>
       </div>
-      <ul style={{ margin: 0, paddingLeft: "1.1rem", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+      <ul style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
         {step.bullets.map((b, i) => (
-          <li key={i} style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", lineHeight: 1.65 }}>
-            {b}
+          <li key={i}
+            onClick={() => onToggle(i)}
+            style={{ display: "flex", alignItems: "flex-start", gap: "0.5rem", cursor: "pointer" }}
+          >
+            <span style={{
+              flexShrink: 0, width: "16px", height: "16px", marginTop: "0.1rem",
+              borderRadius: "4px", border: checked[i] ? "2px solid var(--sage-dark)" : "2px solid #cbd5e1",
+              background: checked[i] ? "var(--sage-dark)" : "transparent",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              transition: "all 0.15s ease",
+            }}>
+              {checked[i] && <span style={{ color: "white", fontSize: "10px", lineHeight: 1, fontWeight: 700 }}>✓</span>}
+            </span>
+            <span style={{
+              fontFamily: "var(--font-body)", fontSize: "0.8rem", lineHeight: 1.65,
+              color: checked[i] ? "#9ca3af" : "var(--gray-soft)",
+              textDecoration: checked[i] ? "line-through" : "none",
+              transition: "color 0.15s, text-decoration 0.15s",
+            }}>
+              {b}
+            </span>
           </li>
         ))}
       </ul>
@@ -228,6 +257,22 @@ function StepCard({ step }: { step: typeof STEPS[0] }) {
 
 export default function IntersectionalGenderPayGapFrameworkPage() {
   const [tab, setTab] = useState<Tab>("steps");
+
+  // checklist state: map of "stepNum-bulletIndex" -> boolean
+  const [ticked, setTicked] = useState<Record<string, boolean>>({});
+
+  const allBullets = useMemo(() => STEPS.flatMap(s => s.bullets), []);
+  const totalBullets = allBullets.length;
+  const tickedCount = Object.values(ticked).filter(Boolean).length;
+  const progressPct = Math.round((tickedCount / totalBullets) * 100);
+
+  function getChecked(step: typeof STEPS[0]) {
+    return step.bullets.map((_, i) => !!ticked[`${step.num}-${i}`]);
+  }
+  function handleToggle(step: typeof STEPS[0], i: number) {
+    const key = `${step.num}-${i}`;
+    setTicked(prev => ({ ...prev, [key]: !prev[key] }));
+  }
 
   const chipStyle = (active: boolean): React.CSSProperties => ({
     display: "inline-flex", alignItems: "center", gap: "0.3rem",
@@ -276,20 +321,50 @@ export default function IntersectionalGenderPayGapFrameworkPage() {
       <main style={{ maxWidth: "900px", margin: "0 auto", padding: "2rem 1.5rem 5rem" }}>
 
         {tab === "steps" && (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.875rem" }}>
-            {STEPS.map((step) => <StepCard key={step.num} step={step} />)}
-            <StepCard step={{
-              num: "→",
-              title: "Your next steps",
-              bullets: [
-                "Share this framework with your leadership team and HR leads.",
-                "Identify which of the 14 steps your organisation has already taken.",
-                "Choose two or three priority actions to commit to this financial year.",
-                "Set a date to review progress and repeat your intersectional pay audit.",
-                "Contact The Inclusion Edit to discuss bespoke support, training, or consultancy.",
-              ],
-            }} />
-          </div>
+          <>
+            <div style={{ marginBottom: "1.25rem" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.4rem" }}>
+                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "var(--charcoal)" }}>
+                  Your progress
+                </span>
+                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "var(--sage-dark)" }}>
+                  {tickedCount} of {totalBullets} actions completed
+                </span>
+              </div>
+              <div style={{ height: "8px", background: "#e5e7eb", borderRadius: "999px", overflow: "hidden" }}>
+                <div style={{
+                  height: "100%", width: `${progressPct}%`,
+                  background: "var(--sage-dark)", borderRadius: "999px",
+                  transition: "width 0.3s ease",
+                }} />
+              </div>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "0.875rem" }}>
+              {STEPS.map((step) => (
+                <StepCard
+                  key={step.num}
+                  step={step}
+                  checked={getChecked(step)}
+                  onToggle={(i) => handleToggle(step, i)}
+                />
+              ))}
+              <StepCard
+                step={{
+                  num: "→",
+                  title: "Your next steps",
+                  bullets: [
+                    "Share this framework with your leadership team and HR leads.",
+                    "Identify which of the 14 steps your organisation has already taken.",
+                    "Choose two or three priority actions to commit to this financial year.",
+                    "Set a date to review progress and repeat your intersectional pay audit.",
+                    "Contact The Inclusion Edit to discuss bespoke support, training, or consultancy.",
+                  ],
+                }}
+                checked={["share","identify","choose","set","contact"].map((_, i) => !!ticked[`→-${i}`])}
+                onToggle={(i) => setTicked(prev => ({ ...prev, [`→-${i}`]: !prev[`→-${i}`] }))}
+              />
+            </div>
+          </>
         )}
 
         {tab === "frameworks" && (
