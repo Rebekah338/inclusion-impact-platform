@@ -318,6 +318,9 @@ export default function InclusiveHiringQuestionsPage() {
             <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--gray-soft)", lineHeight: 1.65, margin: "0 0 1.25rem", paddingLeft: "0.25rem" }}>
               {stage.stageLabel}
             </p>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: "0.5rem 0 0", paddingLeft: "0.25rem", fontStyle: "italic" }}>
+              Use the ▼ arrow on each question to see what to listen for and what to watch out for.
+            </p>
 
             {/* Sections */}
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
