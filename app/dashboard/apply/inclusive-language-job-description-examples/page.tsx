@@ -239,19 +239,13 @@ export default function InclusiveLanguageJobDescriptionExamplesPage() {
         ) : (
           <div style={{ background: "var(--white)", borderRadius: "14px", border: "1px solid var(--gray-border)", overflow: "hidden" }}>
             {/* Table header */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", borderBottom: "2px solid var(--gray-border)", background: "var(--sage-xlight)" }}>
-              {[
-                { label: "❌ Before", color: "#b91c1c" },
-                { label: "⚠️ The problem", color: "#b45309" },
-                { label: "✓ After", color: "#15803d" },
-                { label: "💡 Why this works", color: "var(--sage-dark)" },
-              ].map((col, i) => (
-                <div key={i} style={{ padding: "0.85rem 1rem", borderRight: i < 3 ? "1px solid var(--gray-border)" : "none" }}>
-                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.08em", textTransform: "uppercase", color: col.color }}>
-                    {col.label}
-                  </span>
-                </div>
-              ))}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", borderBottom: "2px solid #2d6a4f" }}>
+              <div style={{ padding: "0.85rem 1.25rem", borderRight: "2px solid #2d6a4f", background: "#fef2f2" }}>
+                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#b91c1c" }}>❌ Before</span>
+              </div>
+              <div style={{ padding: "0.85rem 1.25rem", background: "#f0fdf4" }}>
+                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#15803d" }}>✓ After</span>
+              </div>
             </div>
 
             {/* Rows */}
@@ -262,39 +256,33 @@ export default function InclusiveLanguageJobDescriptionExamplesPage() {
               return (
                 <div
                   key={ex.id}
-                  style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", borderBottom: isLast ? "none" : "1px solid var(--gray-border)" }}
+                  style={{ display: "grid", gridTemplateColumns: "1fr 1fr", borderBottom: isLast ? "none" : "2px solid #2d6a4f" }}
                 >
-                  {/* Before */}
-                  <div style={{ padding: "1rem", borderRight: "1px solid var(--gray-border)", background: "#fef9f9" }}>
+                  {/* Before + The problem */}
+                  <div style={{ padding: "1.1rem 1.25rem", borderRight: "2px solid #2d6a4f", background: "#fef9f9", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                     {typeInfo && (
-                      <span style={{ display: "inline-flex", alignItems: "center", gap: "0.2rem", background: colors.bg, border: `1px solid ${colors.border}`, color: colors.text, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.6rem", letterSpacing: "0.07em", textTransform: "uppercase", padding: "0.15rem 0.45rem", borderRadius: "999px", marginBottom: "0.5rem" }}>
+                      <span style={{ display: "inline-flex", alignItems: "center", gap: "0.2rem", background: colors.bg, border: `1px solid ${colors.border}`, color: colors.text, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.6rem", letterSpacing: "0.07em", textTransform: "uppercase", padding: "0.15rem 0.45rem", borderRadius: "999px", alignSelf: "flex-start" }}>
                         {typeInfo.icon} {typeInfo.label}
                       </span>
                     )}
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "#7f1d1d", fontStyle: "italic", lineHeight: 1.65, margin: 0 }}>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "#7f1d1d", fontStyle: "italic", lineHeight: 1.65, margin: 0 }}>
                       &ldquo;{ex.before}&rdquo;
                     </p>
+                    <div>
+                      <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#b45309", margin: "0 0 0.3rem" }}>⚠️ The problem</p>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "#57534e", lineHeight: 1.6, margin: 0 }}>{ex.issue}</p>
+                    </div>
                   </div>
 
-                  {/* The problem */}
-                  <div style={{ padding: "1rem", borderRight: "1px solid var(--gray-border)" }}>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.65, margin: 0 }}>
-                      {ex.issue}
-                    </p>
-                  </div>
-
-                  {/* After */}
-                  <div style={{ padding: "1rem", borderRight: "1px solid var(--gray-border)", background: "#f6fdf8" }}>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "#14532d", lineHeight: 1.65, margin: 0 }}>
+                  {/* After + Why this works */}
+                  <div style={{ padding: "1.1rem 1.25rem", background: "#f6fdf8", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "#14532d", lineHeight: 1.65, margin: 0 }}>
                       {ex.after}
                     </p>
-                  </div>
-
-                  {/* Why this works */}
-                  <div style={{ padding: "1rem" }}>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.65, margin: 0 }}>
-                      {ex.why}
-                    </p>
+                    <div>
+                      <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--sage-dark)", margin: "0 0 0.3rem" }}>💡 Why this works</p>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "#57534e", lineHeight: 1.6, margin: 0 }}>{ex.why}</p>
+                    </div>
                   </div>
                 </div>
               );
