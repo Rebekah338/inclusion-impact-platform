@@ -172,7 +172,7 @@ export default function ReligiousCulturalObservance() {
   const checkedCount = Object.values(orgChecked).filter(Boolean).length;
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "var(--gray-soft)", fontFamily: "var(--font-body)" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "var(--sage-xlight)", fontFamily: "var(--font-body)" }}>
       <PlatformNav />
 
       {/* Hero */}

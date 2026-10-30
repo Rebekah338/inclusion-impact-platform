@@ -83,7 +83,7 @@ export default function SupportingPhysicalDisabilities() {
   const priorityAreas = ALL_QUESTIONS.filter((q) => ratings[q.id] !== undefined && ratings[q.id] <= 1);
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "var(--gray-soft)", fontFamily: "var(--font-body)" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "var(--sage-xlight)", fontFamily: "var(--font-body)" }}>
       <PlatformNav />
       <div style={{ background: "linear-gradient(135deg, #1E40AF 0%, #1e3a8a 100%)", padding: "3rem 1.5rem 2.5rem", textAlign: "center" }}>
         <div style={{ display: "inline-block", background: "rgba(255,255,255,0.15)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1rem" }}>

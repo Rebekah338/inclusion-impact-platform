@@ -74,7 +74,7 @@ export default function InclusiveCommsBoundaries() {
   );
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--gray-soft)", fontFamily: "var(--font-body)" }}>
+    <div style={{ minHeight: "100vh", background: "var(--sage-xlight)", fontFamily: "var(--font-body)" }}>
       <PlatformNav />
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "2rem 1rem 4rem" }}>
         <div style={{ marginBottom: "2rem" }}>

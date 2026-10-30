@@ -199,7 +199,7 @@ export default function EdiFatigueGuidePage() {
   const tip = TIPS[currentTip];
 
   return (
-    <div style={{ fontFamily: "var(--font-body)", background: "var(--gray-soft)", minHeight: "100vh" }}>
+    <div style={{ fontFamily: "var(--font-body)", background: "var(--sage-xlight)", minHeight: "100vh" }}>
       <PlatformNav />
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "2rem 1rem 6rem" }}>
 

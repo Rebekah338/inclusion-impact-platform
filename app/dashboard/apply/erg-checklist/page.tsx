@@ -177,7 +177,7 @@ export default function ErgChecklist() {
   ];
 
   return (
-    <div className="min-h-screen" style={{ background: "var(--gray-soft)" }}>
+    <div className="min-h-screen" style={{ background: "var(--sage-xlight)" }}>
       <PlatformNav />
       <main className="max-w-3xl mx-auto px-4 py-10">
         <div className="mb-8">

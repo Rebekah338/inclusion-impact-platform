@@ -140,7 +140,7 @@ export default function InclusiveRemoteHybrid() {
   const checkedCount = Object.values(checked).filter(Boolean).length;
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "var(--gray-soft)", fontFamily: "var(--font-body)" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "var(--sage-xlight)", fontFamily: "var(--font-body)" }}>
       <PlatformNav />
 
       <div style={{ background: "linear-gradient(135deg, #0F766E 0%, #0c4a42 100%)", padding: "3rem 1.5rem 2.5rem", textAlign: "center" }}>

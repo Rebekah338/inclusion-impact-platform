@@ -140,7 +140,7 @@ export default function InclusiveDataCollection() {
   const answeredCount = PRE_COLLECTION_QUESTIONS.filter((q) => (answers[q.id] || "").trim().length > 0).length;
 
   return (
-    <div className="min-h-screen" style={{ background: "var(--gray-soft)" }}>
+    <div className="min-h-screen" style={{ background: "var(--sage-xlight)" }}>
       <PlatformNav />
       <main className="max-w-3xl mx-auto px-4 py-10">
         <div className="mb-8">

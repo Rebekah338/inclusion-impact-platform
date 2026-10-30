@@ -117,7 +117,7 @@ export default function InclusiveOnboardingGuide() {
   const overallPct = Math.round((totalDone / totalItems) * 100);
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "var(--gray-soft)", fontFamily: "var(--font-body)" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "var(--sage-xlight)", fontFamily: "var(--font-body)" }}>
       <PlatformNav />
 
       <div style={{ background: "linear-gradient(135deg, #2D5A3C 0%, #1a3d2b 100%)", padding: "3rem 1.5rem 2.5rem", textAlign: "center" }}>
