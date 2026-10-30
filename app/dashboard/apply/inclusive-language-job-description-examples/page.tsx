@@ -276,6 +276,9 @@ export default function InclusiveLanguageJobDescriptionExamplesPage() {
 
                   {/* After + Why this works */}
                   <div style={{ padding: "1.1rem 1.25rem", background: "#f6fdf8", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                    <span style={{ display: "inline-flex", alignItems: "center", gap: "0.2rem", background: "#f0fdf4", border: "1px solid #bbf7d0", color: "#15803d", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.6rem", letterSpacing: "0.07em", textTransform: "uppercase", padding: "0.15rem 0.45rem", borderRadius: "999px", alignSelf: "flex-start" }}>
+                      ✓ Inclusive language
+                    </span>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "#14532d", lineHeight: 1.65, margin: 0 }}>
                       {ex.after}
                     </p>
