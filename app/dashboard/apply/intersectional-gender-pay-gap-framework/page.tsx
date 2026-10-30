@@ -205,34 +205,23 @@ const FRAMEWORK_GROUPS: FrameworkGroup[] = [
 ];
 
 function StepCard({ step }: { step: typeof STEPS[0] }) {
-  const [open, setOpen] = useState(false);
   return (
-    <div style={{ background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: "12px", overflow: "hidden" }}>
-      <button
-        onClick={() => setOpen(!open)}
-        style={{ width: "100%", textAlign: "left", background: "none", border: "none", cursor: "pointer", padding: "1rem 1.25rem", display: "flex", alignItems: "center", gap: "1rem" }}
-      >
-        <span style={{ flexShrink: 0, fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.4rem", color: "var(--sage-light)", lineHeight: 1, width: "2.5rem" }}>
+    <div style={{ background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: "12px", padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.875rem" }}>
+      <div style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
+        <span style={{ flexShrink: 0, fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.6rem", color: "var(--sage-light)", lineHeight: 1 }}>
           {step.num}
         </span>
-        <span style={{ flex: 1, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--charcoal)", lineHeight: 1.4 }}>
+        <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.4, paddingTop: "0.15rem" }}>
           {step.title}
         </span>
-        <span style={{ flexShrink: 0, fontSize: "0.8rem", color: "#6b7280", transition: "transform 0.2s", transform: open ? "rotate(180deg)" : "rotate(0deg)" }}>
-          ▼
-        </span>
-      </button>
-      {open && (
-        <div style={{ padding: "1rem 1.25rem 1.25rem 4.75rem", borderTop: "1px solid var(--gray-border)" }}>
-          <ul style={{ margin: 0, paddingLeft: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-            {step.bullets.map((b, i) => (
-              <li key={i} style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.7 }}>
-                {b}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      </div>
+      <ul style={{ margin: 0, paddingLeft: "1.1rem", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+        {step.bullets.map((b, i) => (
+          <li key={i} style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", lineHeight: 1.65 }}>
+            {b}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
@@ -287,7 +276,7 @@ export default function IntersectionalGenderPayGapFrameworkPage() {
       <main style={{ maxWidth: "900px", margin: "0 auto", padding: "2rem 1.5rem 5rem" }}>
 
         {tab === "steps" && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "0.875rem" }}>
             {STEPS.map((step) => <StepCard key={step.num} step={step} />)}
           </div>
         )}
