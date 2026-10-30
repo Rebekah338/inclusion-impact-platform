@@ -27,7 +27,7 @@ const AFFIRMATIONS = [
   { id: 20, text: "Showing patience and understanding during learning moments or mistakes.", category: "Identity and Respect" },
   { id: 21, text: "Inviting someone to collaborate on a project where their skills shine.", category: "Collaboration" },
   { id: 22, text: "Publicly appreciating someone's commitment to inclusion or equity initiatives.", category: "Recognition" },
-  { id: 23, text: "Calmly naming what happened: That comment touched on race and I think it is worth us pausing on that.", category: "Responding to Microaggressions" },
+  { id: 23, text: "Calmly naming what happened: That comment seemed like it had a racial undertone. I think it is worth us pausing and addressing that.", category: "Responding to Microaggressions" },
   { id: 24, text: "Gently redirecting after a gendered assumption: She is actually the lead engineer on this project, not the note-taker.", category: "Responding to Microaggressions" },
   { id: 25, text: "Affirming someone after a dismissive comment about their age: Your perspective on this is really valuable and I want to make sure we hear it.", category: "Responding to Microaggressions" },
   { id: 26, text: "Quietly checking in after a microaggression is directed at a colleague: Are you okay? I noticed what just happened and I am sorry you experienced that.", category: "Responding to Microaggressions" },
