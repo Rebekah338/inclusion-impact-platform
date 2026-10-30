@@ -220,7 +220,7 @@ export default function InclusiveEventPlanning() {
           ))}
         </div>
       </div>
-      <main className="max-w-3xl mx-auto px-4 py-10">
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px 80px" }}>
         <div className="mb-8">
           <Link href="/dashboard/apply" className="text-sm font-medium" style={{ color: "var(--sage-dark)" }}>
             ← Back to Apply
@@ -303,7 +303,7 @@ export default function InclusiveEventPlanning() {
             Print Checklist
           </button>
         </div>
-      </main>
+      </div>
 
       {/* About this topic */}
       <div style={{ background: "#fff", borderTop: "1px solid #e5e7eb", padding: "56px 24px" }}>

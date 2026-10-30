@@ -194,18 +194,7 @@ export default function ChallengingAgeism() {
           ))}
         </div>
       </div>
-      <main className="max-w-3xl mx-auto px-4 py-10">
-        <div className="mb-8">
-          <Link href="/dashboard/apply" className="text-sm font-medium" style={{ color: "var(--sage-dark)" }}>
-            ← Back to Apply
-          </Link>
-          <h1 className="text-3xl font-bold mt-3 mb-2" style={{ fontFamily: "var(--font-heading)", color: "var(--charcoal)" }}>
-            Challenging Ageism in the Workplace
-          </h1>
-          <p className="text-base" style={{ color: "var(--charcoal)", opacity: 0.75 }}>
-            An honest audit of how well your organisation is addressing age discrimination and creating an age-inclusive culture.
-          </p>
-        </div>
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px 80px" }}>
 
         {/* Summary dashboard */}
         <div className="grid grid-cols-3 gap-3 mb-6">
@@ -291,7 +280,7 @@ export default function ChallengingAgeism() {
             Print Audit Summary
           </button>
         </div>
-      </main>
+      </div>
 
       {/* About this topic */}
       <div style={{ background: "#fff", borderTop: "1px solid #e5e7eb", padding: "56px 24px" }}>
