@@ -22,7 +22,7 @@ const TOPIC_CHIPS = [
 ];
 
 /* ── Format chips ── */
-const FORMAT_CHIPS = ["Guide", "Checklist", "Tool", "Reflection", "Survey", "Framework", "Glossary", "AI Inclusion Tool"];
+const FORMAT_CHIPS = ["Guide", "Checklist", "Tool", "Toolkit", "Reflection", "Survey", "Framework", "Glossary", "AI Inclusion Tool"];
 
 /* ── Resource data ── */
 type Resource = {
@@ -52,6 +52,12 @@ const ALL_RESOURCES: Resource[] = [
   { id: "ai1", icon: "✨", title: "Job Description Equity Checker",            desc: "Paste your job description and get an equity audit in seconds: non-inclusive language flagged, a rationale for each suggestion, and a rewritten version ready to use.", format: "AI Inclusion Tool", topics: ["Gender", "Disability", "Inclusion Practices"], time: "5 min" },
   { id: "ai2", icon: "✨", title: "Interview Question Generator",              desc: "Tell us the role, sector, and any equity focus areas: this tool generates a bank of bias-free, competency-based interview questions tailored to your context.", format: "AI Inclusion Tool", topics: ["Inclusion Practices", "Gender", "Disability", "Neurodiversity"], time: "5 min" },
   { id: "ai3", icon: "✨", title: "Gender Pay Gap Analysis Tool",              desc: "Input your pay data and workforce breakdown: this tool identifies pay gaps across intersecting dimensions, highlights the key drivers, and recommends evidence-based actions.", format: "AI Inclusion Tool", topics: ["Gender", "Race and Ethnicity", "Socioeconomic Background"], time: "10 min" },
+  { id: "w1",  icon: "❓", title: "Bias-Free Interview Question Bank",             desc: "21 bias-free, competency-based interview questions across 9 categories (general, behavioural, disability, gender, neurodiversity, race and ethnicity, age, religion, and wellbeing): with what to listen for and watch out for guidance for each.", format: "Tool",       topics: ["Inclusion Practices", "Gender", "Disability", "Neurodiversity", "Race and Ethnicity"], time: "Reference" },
+  { id: "w2",  icon: "📝", title: "Inclusive Language: Job Description Examples",  desc: "Before-and-after examples across 5 language categories: gendered language, ableist language, jargon and gatekeeping, inflated requirements, and tone and culture fit; with the problem explained and the fix justified.", format: "Tool",       topics: ["Gender", "Disability", "Inclusion Practices", "Socioeconomic Background"],          time: "Reference" },
+  { id: "w3",  icon: "⚖️", title: "Intersectional Gender Pay Gap Framework",       desc: "A structured 5-section framework for pay gap analysis that goes beyond binary gender reporting: data collection, intersectional analysis, driver identification, action planning, and reporting.", format: "Framework",  topics: ["Gender", "Race and Ethnicity", "Disability", "Inclusion Practices"],               time: "45 min"    },
+  { id: "w4",  icon: "🔍", title: "Fair Progression Audit Tool",                   desc: "A 5-step progression audit process with checklists: preparing scope, gathering data, running the audit, interpreting findings, and translating them into action; with progress tracking.", format: "Tool",       topics: ["Inclusion Practices", "Gender", "Race and Ethnicity", "Disability"],               time: "60 min"    },
+  { id: "w5",  icon: "🤝", title: "Inclusion and Belonging Survey",                desc: "A bank of 20 validated survey questions across 6 inclusion themes (belonging, fairness and equity, voice and inclusion, psychological safety, day-to-day inclusion, leadership commitment): with rationale and interpretation guidance for each.", format: "Survey",     topics: ["Inclusion Practices"],                                                               time: "Reference" },
+  { id: "w6",  icon: "♿", title: "Accessible Environments Toolkit",               desc: "Practical actions for making physical, digital, and cultural environments more accessible: 15 items across 6 areas (physical space, digital and tools, communication, meetings and events, onboarding, culture and process) with what to do, why it matters, and how to start.", format: "Toolkit",    topics: ["Disability", "Neurodiversity", "Inclusion Practices"],                               time: "Reference" },
   // --- COMING SOON: placeholder resources ---
   { id: "r11", icon: "📐", title: "Inclusion Maturity Framework",              desc: "Assess where your organisation sits on the inclusion maturity spectrum and identify the most impactful next steps.", format: "Framework",  topics: ["Inclusion Practices"],                         time: "45 min"      },
   { id: "r12", icon: "📣", title: "Business Case Builder",                     desc: "Structure your internal business case for EDI investment using evidence, ROI data, and narrative frameworks that resonate with decision-makers.", format: "Tool",       topics: ["Inclusion Practices"],                         time: "45–60 min"   },
@@ -70,6 +76,7 @@ const FORMAT_ICONS: Record<string, string> = {
   Tool: "🛠️",
   Reflection: "🪞",
   Survey: "📊",
+  Toolkit: "🛠️",
   Framework: "📐",
   Glossary: "📖",
   "AI Inclusion Tool": "✨",
@@ -123,6 +130,12 @@ export default function ApplyPage() {
     ai1: "job-description-equity-checker",
     ai2: "interview-question-generator",
     ai3: "gender-pay-gap-analysis",
+    w1:  "bias-free-interview-question-bank",
+    w2:  "inclusive-language-job-description-examples",
+    w3:  "intersectional-gender-pay-gap-framework",
+    w4:  "fair-progression-audit-tool",
+    w5:  "inclusion-and-belonging-survey",
+    w6:  "accessible-environments-toolkit",
   };
 
   const openResource = (id: string) => {
