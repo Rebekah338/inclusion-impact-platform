@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import PlatformNav from "@/app/components/PlatformNav";
 import BottomBanner from "@/app/components/BottomBanner";
@@ -133,60 +134,256 @@ const CATEGORIES: { key: IssueType; label: string; icon: string; desc: string }[
   { key: "ableist",  label: "Ableist language",       icon: "♿", desc: "Phrases that assume a particular physical or cognitive capability and may exclude disabled or neurodivergent candidates." },
   { key: "jargon",   label: "Jargon and gatekeeping", icon: "🔐", desc: "Insider terms, acronyms, and credential-signalling that disadvantage candidates from outside particular networks." },
   { key: "criteria", label: "Inflated requirements",  icon: "📐", desc: "Criteria that are asked for but not essential: experience thresholds, degree requirements, and expectation inflation." },
-  { key: "tone",     label: "Tone and culture fit",   icon: "🎯", desc: "Language that signals a narrow culture and signals to underrepresented candidates that this workplace is not for them." },
+  { key: "tone",     label: "Tone and culture fit",   icon: "🎯", desc: "Language that signals a narrow culture and tells underrepresented candidates that this workplace is not for them." },
 ];
 
-function CategoryTable({ category, examples }: { category: typeof CATEGORIES[0]; examples: Example[] }) {
+function ExampleRow({ ex, isLast }: { ex: Example; isLast: boolean }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div style={{ borderBottom: isLast ? "none" : "1px solid #e5e7eb" }}>
+      {/* Collapsed trigger: just the before quote */}
+      <button
+        onClick={() => setOpen(!open)}
+        style={{
+          width: "100%",
+          textAlign: "left",
+          background: "none",
+          border: "none",
+          cursor: "pointer",
+          padding: "1rem 1.25rem",
+          display: "flex",
+          alignItems: "flex-start",
+          gap: "0.75rem",
+        }}
+      >
+        <span
+          style={{
+            flexShrink: 0,
+            marginTop: "2px",
+            display: "inline-block",
+            transition: "transform 0.2s",
+            transform: open ? "rotate(180deg)" : "rotate(0deg)",
+            color: "#6b7280",
+            fontSize: "0.8rem",
+          }}
+        >
+          ▼
+        </span>
+        <span
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: "0.875rem",
+            color: "#7f1d1d",
+            fontStyle: "italic",
+            lineHeight: 1.6,
+            flex: 1,
+          }}
+        >
+          &ldquo;{ex.before}&rdquo;
+        </span>
+      </button>
+
+      {/* Expanded content */}
+      {open && (
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            borderTop: "1px solid #e5e7eb",
+          }}
+        >
+          {/* Before side */}
+          <div
+            style={{
+              padding: "1rem 1.25rem",
+              borderRight: "2px solid #2d6a4f",
+              background: "#fef9f9",
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.625rem",
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "0.875rem",
+                color: "#7f1d1d",
+                fontStyle: "italic",
+                lineHeight: 1.6,
+                margin: 0,
+              }}
+            >
+              &ldquo;{ex.before}&rdquo;
+            </p>
+            <div>
+              <p
+                style={{
+                  fontFamily: "var(--font-heading)",
+                  fontWeight: 700,
+                  fontSize: "0.65rem",
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: "#b45309",
+                  margin: "0 0 0.3rem",
+                }}
+              >
+                ⚠️ The problem
+              </p>
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "0.8rem",
+                  color: "#57534e",
+                  lineHeight: 1.6,
+                  margin: 0,
+                }}
+              >
+                {ex.issue}
+              </p>
+            </div>
+          </div>
+
+          {/* After side */}
+          <div
+            style={{
+              padding: "1rem 1.25rem",
+              background: "#f6fdf8",
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.625rem",
+            }}
+          >
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "0.875rem",
+                color: "#14532d",
+                lineHeight: 1.6,
+                margin: 0,
+              }}
+            >
+              {ex.after}
+            </p>
+            <div>
+              <p
+                style={{
+                  fontFamily: "var(--font-heading)",
+                  fontWeight: 700,
+                  fontSize: "0.65rem",
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: "var(--sage-dark)",
+                  margin: "0 0 0.3rem",
+                }}
+              >
+                💡 Why this works
+              </p>
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "0.8rem",
+                  color: "#57534e",
+                  lineHeight: 1.6,
+                  margin: 0,
+                }}
+              >
+                {ex.why}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function CategorySection({ category, examples }: { category: typeof CATEGORIES[0]; examples: Example[] }) {
   return (
     <div>
       {/* Category heading */}
-      <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.875rem" }}>
-        <span style={{ fontSize: "1.2rem" }}>{category.icon}</span>
-        <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", margin: 0 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.5rem" }}>
+        <span style={{ fontSize: "1.1rem" }}>{category.icon}</span>
+        <h2
+          style={{
+            fontFamily: "var(--font-heading)",
+            fontWeight: 700,
+            fontSize: "1rem",
+            color: "var(--charcoal)",
+            margin: 0,
+          }}
+        >
           {category.label}
         </h2>
       </div>
-      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", lineHeight: 1.65, margin: "0 0 1rem" }}>
+      <p
+        style={{
+          fontFamily: "var(--font-body)",
+          fontSize: "0.875rem",
+          color: "var(--gray-soft)",
+          lineHeight: 1.65,
+          margin: "0 0 0.875rem",
+        }}
+      >
         {category.desc}
       </p>
 
-      {/* Table */}
-      <div style={{ background: "var(--white)", borderRadius: "14px", border: "1px solid var(--gray-border)", overflow: "hidden" }}>
-        {/* Header row */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", borderBottom: "2px solid #2d6a4f" }}>
-          <div style={{ padding: "0.75rem 1.25rem", borderRight: "2px solid #2d6a4f", background: "#fef2f2" }}>
-            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#b91c1c" }}>❌ Before</span>
+      {/* Accordion list */}
+      <div
+        style={{
+          background: "var(--white)",
+          borderRadius: "12px",
+          border: "1px solid var(--gray-border)",
+          overflow: "hidden",
+        }}
+      >
+        {/* Column headers — visible always */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            borderBottom: "2px solid #2d6a4f",
+          }}
+        >
+          <div
+            style={{
+              padding: "0.6rem 1.25rem 0.6rem 2.75rem",
+              borderRight: "2px solid #2d6a4f",
+              background: "#fef2f2",
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "var(--font-heading)",
+                fontWeight: 700,
+                fontSize: "0.65rem",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                color: "#b91c1c",
+              }}
+            >
+              ❌ Before
+            </span>
           </div>
-          <div style={{ padding: "0.75rem 1.25rem", background: "#f0fdf4" }}>
-            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#15803d" }}>✓ After</span>
+          <div style={{ padding: "0.6rem 1.25rem", background: "#f0fdf4" }}>
+            <span
+              style={{
+                fontFamily: "var(--font-heading)",
+                fontWeight: 700,
+                fontSize: "0.65rem",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                color: "#15803d",
+              }}
+            >
+              ✓ After (click to reveal)
+            </span>
           </div>
         </div>
 
-        {/* Example rows */}
+        {/* Rows */}
         {examples.map((ex, idx) => (
-          <div key={ex.id} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", borderBottom: idx === examples.length - 1 ? "none" : "2px solid #2d6a4f" }}>
-            {/* Before + The problem */}
-            <div style={{ padding: "1.1rem 1.25rem", borderRight: "2px solid #2d6a4f", background: "#fef9f9", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "#7f1d1d", fontStyle: "italic", lineHeight: 1.65, margin: 0 }}>
-                &ldquo;{ex.before}&rdquo;
-              </p>
-              <div>
-                <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#b45309", margin: "0 0 0.3rem" }}>⚠️ The problem</p>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "#57534e", lineHeight: 1.6, margin: 0 }}>{ex.issue}</p>
-              </div>
-            </div>
-
-            {/* After + Why this works */}
-            <div style={{ padding: "1.1rem 1.25rem", background: "#f6fdf8", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "#14532d", lineHeight: 1.65, margin: 0 }}>
-                {ex.after}
-              </p>
-              <div>
-                <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--sage-dark)", margin: "0 0 0.3rem" }}>💡 Why this works</p>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "#57534e", lineHeight: 1.6, margin: 0 }}>{ex.why}</p>
-              </div>
-            </div>
-          </div>
+          <ExampleRow key={ex.id} ex={ex} isLast={idx === examples.length - 1} />
         ))}
       </div>
     </div>
@@ -199,36 +396,124 @@ export default function InclusiveLanguageJobDescriptionExamplesPage() {
       <PlatformNav />
 
       {/* Breadcrumb */}
-      <nav style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)", padding: "0 1.5rem", height: "64px", display: "flex", alignItems: "center", gap: "1.5rem", position: "sticky", top: 0, zIndex: 50 }}>
-        <Link href="/dashboard/apply" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--charcoal)", textDecoration: "none" }}>
+      <nav
+        style={{
+          background: "var(--white)",
+          borderBottom: "1px solid var(--gray-border)",
+          padding: "0 1.5rem",
+          height: "64px",
+          display: "flex",
+          alignItems: "center",
+          gap: "1.5rem",
+          position: "sticky",
+          top: 0,
+          zIndex: 50,
+        }}
+      >
+        <Link
+          href="/dashboard/apply"
+          style={{
+            fontFamily: "var(--font-heading)",
+            fontWeight: 700,
+            fontSize: "0.8rem",
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            color: "var(--charcoal)",
+            textDecoration: "none",
+          }}
+        >
           ← Apply
         </Link>
         <span style={{ color: "var(--gray-border)" }}>|</span>
-        <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--charcoal)" }}>Inclusive Language: Job Description Examples</span>
+        <span
+          style={{
+            fontFamily: "var(--font-heading)",
+            fontWeight: 700,
+            fontSize: "0.95rem",
+            color: "var(--charcoal)",
+          }}
+        >
+          Inclusive Language: Job Description Examples
+        </span>
       </nav>
 
       {/* Header */}
-      <div style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)", padding: "2rem 1.5rem 2rem" }}>
+      <div
+        style={{
+          background: "var(--white)",
+          borderBottom: "1px solid var(--gray-border)",
+          padding: "2rem 1.5rem",
+        }}
+      >
         <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.75rem",
+              marginBottom: "0.5rem",
+            }}
+          >
             <span style={{ fontSize: "1.75rem" }}>📝</span>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem", background: "var(--sage-xlight)", border: "1px solid var(--sage-light)", color: "var(--sage-dark)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", padding: "0.2rem 0.6rem", borderRadius: "999px" }}>
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.25rem",
+                background: "var(--sage-xlight)",
+                border: "1px solid var(--sage-light)",
+                color: "var(--sage-dark)",
+                fontFamily: "var(--font-heading)",
+                fontWeight: 700,
+                fontSize: "0.65rem",
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                padding: "0.2rem 0.6rem",
+                borderRadius: "999px",
+              }}
+            >
               🛠️ Toolkit
             </span>
           </div>
-          <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 3.5vw, 2rem)", color: "var(--charcoal)", margin: "0 0 0.5rem" }}>
+          <h1
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 700,
+              fontSize: "clamp(1.5rem, 3.5vw, 2rem)",
+              color: "var(--charcoal)",
+              margin: "0 0 0.5rem",
+            }}
+          >
             Inclusive Language: Job Description Examples
           </h1>
-          <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.95rem", lineHeight: 1.7, maxWidth: "640px", margin: 0 }}>
-            Before-and-after examples of the language patterns most likely to deter underrepresented candidates: what the original says, why it is a problem, and how to rewrite it without losing what you actually need.
+          <p
+            style={{
+              fontFamily: "var(--font-body)",
+              color: "var(--gray-soft)",
+              fontSize: "0.95rem",
+              lineHeight: 1.7,
+              maxWidth: "640px",
+              margin: 0,
+            }}
+          >
+            Before-and-after examples of the language patterns most likely to deter underrepresented candidates. Click any example to see what the problem is and how to rewrite it.
           </p>
         </div>
       </div>
 
-      {/* Category tables */}
-      <main style={{ maxWidth: "1000px", margin: "0 auto", padding: "2.5rem 1.5rem 5rem", display: "flex", flexDirection: "column", gap: "3rem" }}>
+      {/* Category sections */}
+      <main
+        style={{
+          maxWidth: "1000px",
+          margin: "0 auto",
+          padding: "2.5rem 1.5rem 5rem",
+          display: "flex",
+          flexDirection: "column",
+          gap: "2.5rem",
+        }}
+      >
         {CATEGORIES.map((cat) => (
-          <CategoryTable
+          <CategorySection
             key={cat.key}
             category={cat}
             examples={EXAMPLES.filter((e) => e.issueType === cat.key)}
@@ -236,9 +521,31 @@ export default function InclusiveLanguageJobDescriptionExamplesPage() {
         ))}
 
         {/* About this resource */}
-        <div className="card" style={{ background: "var(--sage-xlight)", border: "1px solid var(--sage-light)" }}>
-          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--charcoal)", marginBottom: "0.75rem", marginTop: 0 }}>About this resource</h2>
-          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", lineHeight: 1.7, margin: 0 }}>
+        <div
+          className="card"
+          style={{ background: "var(--sage-xlight)", border: "1px solid var(--sage-light)" }}
+        >
+          <h2
+            style={{
+              fontFamily: "var(--font-heading)",
+              fontWeight: 700,
+              fontSize: "0.875rem",
+              color: "var(--charcoal)",
+              marginBottom: "0.75rem",
+              marginTop: 0,
+            }}
+          >
+            About this resource
+          </h2>
+          <p
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "0.875rem",
+              color: "var(--gray-soft)",
+              lineHeight: 1.7,
+              margin: 0,
+            }}
+          >
             These examples are drawn from patterns in recruitment research and are not exhaustive. Language alone does not determine who applies or who gets hired: process, panel composition, scoring criteria, and organisational culture all matter. Use these examples as a starting point for reviewing your own job descriptions, and consider using the Job Description Equity Checker AI tool for a personalised audit of your own draft.
           </p>
         </div>
