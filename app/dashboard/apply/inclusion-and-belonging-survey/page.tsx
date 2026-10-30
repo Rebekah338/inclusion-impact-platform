@@ -490,7 +490,7 @@ export default function InclusionAndBelongingSurveyPage() {
               {search && <button onClick={() => setSearch("")} style={{ position: "absolute", right: "0.75rem", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "var(--gray-soft)" }}>✕</button>}
             </div>
 
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--gray-soft)", marginBottom: "0.875rem" }}>{visible.length} question{visible.length !== 1 ? "s" : ""}{selected.size > 0 && ` · ${selected.size} selected for your survey`}</p>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--gray-soft)", marginBottom: "0.875rem" }}>{visible.length === QUESTIONS.length ? `${QUESTIONS.length} questions across ${THEMES.length} themes` : `${visible.length} question${visible.length !== 1 ? "s" : ""} matching your filter`}{selected.size > 0 && ` · ${selected.size} added to your survey builder`}</p>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
               {visible.map((q) => {
@@ -519,7 +519,7 @@ export default function InclusionAndBelongingSurveyPage() {
                       </div>
                       {/* Expand toggle */}
                       <button onClick={() => setExpanded(isOpen ? null : q.id)}
-                        style={{ flexShrink: 0, background: "none", border: "none", cursor: "pointer", padding: "0.1rem 0 0 0.75rem", color: "var(--sage-dark)", fontWeight: 800, fontSize: "1rem", lineHeight: 1, transform: isOpen ? "rotate(45deg)" : "none", transition: "transform 0.2s" }}>+</button>
+                        style={{ flexShrink: 0, background: "none", border: "none", cursor: "pointer", padding: "0.1rem 0 0 0.75rem", color: "var(--sage-dark)", fontWeight: 700, fontSize: "0.7rem", lineHeight: 1, transform: isOpen ? "rotate(180deg)" : "none", transition: "transform 0.2s" }}>▼</button>
                     </div>
 
                     {isOpen && (
