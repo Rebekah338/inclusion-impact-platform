@@ -60,13 +60,7 @@ const STAGES: Stage[] = [
             whatToListen: "Not an assessment question: this is a signal of intent. What you do with the answer matters more than the answer itself.",
             watchOut: "Never probe for a diagnosis or condition. Adjustments are about function, not label.",
           },
-          {
-            id: "da3",
-            subheading: "Flexibility",
-            question: "As you think ahead to starting this role: are there any aspects of how or where the work is delivered that you would want us to explore or plan for together?",
-            whatToListen: "Openness to the role's requirements; any practical considerations the employer can address proactively.",
-            watchOut: "Flexibility requests are not a red flag. Research shows flexibility improves retention, performance, and wellbeing across all employees.",
-          },
+
         ],
       },
     ],
@@ -248,9 +242,9 @@ const STAGES: Stage[] = [
           {
             id: "ge2",
             subheading: "Flexibility",
-            question: "Now that you have accepted the role, are there aspects of how or where the role is delivered that you would like to explore further with us?",
+            question: "As you think ahead to starting this role: are there any aspects of how or where the work is delivered that you would want us to explore or plan for together?",
             whatToListen: "Practical requests the employer can plan for proactively; a signal that you are committed to making the role work for this person.",
-            watchOut: "Never ask about pregnancy, childcare arrangements, or plans for children; this constitutes unlawful discrimination.",
+            watchOut: "Flexibility requests are not a red flag. Research shows flexibility improves retention, performance, and wellbeing across all employees. Never ask about pregnancy, childcare arrangements, or plans for children; this constitutes unlawful discrimination.",
           },
         ],
       },
