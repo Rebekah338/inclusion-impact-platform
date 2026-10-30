@@ -208,17 +208,6 @@ export default function ErgChecklist() {
         </div>
       </div>
       <main className="max-w-3xl mx-auto px-4 py-10">
-        <div className="mb-8">
-          <Link href="/dashboard/apply" className="text-sm font-medium" style={{ color: "var(--sage-dark)" }}>
-            ← Back to Apply
-          </Link>
-          <h1 className="text-3xl font-bold mt-3 mb-2" style={{ fontFamily: "var(--font-heading)", color: "var(--charcoal)" }}>
-            ERG and Staff Network Checklist
-          </h1>
-          <p className="text-base" style={{ color: "var(--charcoal)", opacity: 0.75 }}>
-            Use this checklist whether you are setting up a new ERG or auditing one that already exists.
-          </p>
-        </div>
 
         {/* Mode toggle */}
         <div className="flex gap-3 mb-6">

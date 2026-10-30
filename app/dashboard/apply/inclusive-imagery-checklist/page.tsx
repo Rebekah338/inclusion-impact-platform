@@ -178,17 +178,6 @@ export default function InclusiveImageryChecklist() {
         </div>
       </div>
       <main className="max-w-3xl mx-auto px-4 py-10">
-        <div className="mb-8">
-          <Link href="/dashboard/apply" className="text-sm font-medium" style={{ color: "var(--sage-dark)" }}>
-            ← Back to Apply
-          </Link>
-          <h1 className="text-3xl font-bold mt-3 mb-2" style={{ fontFamily: "var(--font-heading)", color: "var(--charcoal)" }}>
-            Inclusive Imagery and Diverse Representation
-          </h1>
-          <p className="text-base" style={{ color: "var(--charcoal)", opacity: 0.75 }}>
-            A checklist to help you audit and improve the images, photos, and illustrations used across your organisation.
-          </p>
-        </div>
 
         {/* Mode toggle */}
         <div className="flex gap-2 mb-6">
