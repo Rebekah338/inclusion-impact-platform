@@ -206,7 +206,7 @@ const FRAMEWORK_GROUPS: FrameworkGroup[] = [
 
 function StepCard({ step }: { step: typeof STEPS[0] }) {
   return (
-    <div style={{ background: "var(--white)", border: "2px solid var(--gray-border)", borderRadius: "12px", padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.875rem", boxShadow: "0 2px 8px rgba(0,0,0,0.07)" }}>
+    <div style={{ background: "var(--white)", border: "2px solid var(--gray-border)", borderRadius: "12px", padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.875rem", boxShadow: "0 2px 8px rgba(0,0,0,0.07)", width: "100%" }}>
       <div style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
         <span style={{ flexShrink: 0, fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.6rem", color: "var(--sage-dark)", lineHeight: 1 }}>
           {step.num}
@@ -284,9 +284,9 @@ export default function IntersectionalGenderPayGapFrameworkPage() {
           </div>
         )}
         {tab === "steps" && (
-          <div style={{ display: "flex", gap: "0.875rem", marginTop: "0.875rem", justifyContent: "center" }}>
+          <div style={{ display: "flex", gap: "0.875rem", marginTop: "0.875rem", justifyContent: "center", alignItems: "stretch" }}>
             {STEPS.slice(12).map((step) => (
-              <div key={step.num} style={{ width: "calc(33.333% - 0.584rem)" }}>
+              <div key={step.num} style={{ width: "calc(33.333% - 0.584rem)", display: "flex" }}>
                 <StepCard step={step} />
               </div>
             ))}
