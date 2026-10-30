@@ -332,10 +332,9 @@ export default function RecognisingBiasPage() {
       <div style={{ maxWidth: 900, margin: "0 auto", padding: "48px 24px 40px" }}>
         <div style={{ background: "#fff", border: "1px solid #e5e7eb", borderRadius: 12, padding: "32px 28px" }}>
           <div style={{ marginBottom: 20 }}>
-            <p style={{ fontFamily: "Raleway, sans-serif", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)", margin: "0 0 8px" }}>Reference</p>
             <h2 style={{ fontFamily: "Raleway, sans-serif", fontSize: 20, fontWeight: 800, color: "var(--charcoal, #2C2C2C)", margin: "0 0 10px" }}>Social and interpersonal biases</h2>
             <p style={{ fontSize: 14, color: "#6b7280", lineHeight: 1.7, margin: 0 }}>
-              These biases influence how we interact with, perceive and treat other people. They often operate below conscious awareness and are reinforced by wider cultural norms. The list below gives a quick overview: some of these are explored in depth in the expandable cards above.
+              This category covers the many ways our interactions with others are shaped by social and cultural factors. They can apply to culture, beauty standards, name, accent, language, class, education, age, gender, race, religion, disability, neurodiversity, body size, parenting status, pregnancy and caregiving responsibilities, among others. These biases often operate below conscious awareness and are reinforced by wider cultural norms.
             </p>
           </div>
           <p style={{ fontSize: 14, color: "#374151", lineHeight: 1.8, margin: 0 }}>
