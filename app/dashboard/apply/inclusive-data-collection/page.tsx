@@ -485,26 +485,55 @@ export default function InclusiveDataCollection() {
         <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 18, fontWeight: 800, color: "var(--charcoal)", marginBottom: 16 }}>
           Eight Steps to Inclusive Data Collection
         </h2>
-        <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 24 }}>
           {STEPS.map((step, idx) => {
             const isOpen = expanded[step.id];
             const currentStatus = stepStatus[step.id];
+            const statusCfg = currentStatus ? stepStatusConfig[currentStatus] : null;
+            const leftBorderColor = statusCfg ? statusCfg.border : "var(--gray-border)";
+            const cardBg = statusCfg ? statusCfg.bg : "var(--white)";
             return (
-              <div key={step.id} style={{ background: "var(--white)", border: `1px solid ${currentStatus ? stepStatusConfig[currentStatus].border : "var(--gray-border)"}`, borderRadius: 14, overflow: "hidden" }}>
-                <button onClick={() => toggleSection(step.id)} style={{ width: "100%", display: "flex", alignItems: "center", gap: 14, padding: "18px 20px", textAlign: "left", background: "none", border: "none", cursor: "pointer" }}>
-                  <span style={{ fontSize: 20, flexShrink: 0 }}>{step.icon}</span>
-                  <div style={{ flex: 1 }}>
-                    <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 15, color: "var(--charcoal)" }}>
-                      Step {idx + 1}: {step.title}
-                    </span>
+              <div key={step.id} style={{
+                background: isOpen ? "var(--white)" : cardBg,
+                border: `1px solid ${leftBorderColor}`,
+                borderLeft: `4px solid ${statusCfg ? statusCfg.border : "var(--sage-dark)"}`,
+                borderRadius: 12,
+                overflow: "hidden",
+                boxShadow: isOpen ? "0 2px 12px rgba(0,0,0,0.07)" : "0 1px 4px rgba(0,0,0,0.04)",
+                transition: "box-shadow 0.15s",
+              }}>
+                {/* Card header — always visible */}
+                <button onClick={() => toggleSection(step.id)} style={{ width: "100%", display: "flex", alignItems: "center", gap: 14, padding: "16px 20px", textAlign: "left", background: "none", border: "none", cursor: "pointer" }}>
+                  {/* Step number badge */}
+                  <span style={{
+                    flexShrink: 0, width: 32, height: 32, borderRadius: "50%",
+                    background: statusCfg ? statusCfg.border : "var(--sage-dark)",
+                    color: "var(--white)", fontFamily: "var(--font-heading)", fontSize: 13, fontWeight: 800,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}>
+                    {statusCfg?.label === "Done ✓" ? "✓" : idx + 1}
+                  </span>
+                  <span style={{ fontSize: 18, flexShrink: 0 }}>{step.icon}</span>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 15, color: "var(--charcoal)", marginBottom: isOpen ? 0 : 3 }}>
+                      {step.title}
+                    </div>
+                    {/* Preview line shown only when closed */}
+                    {!isOpen && (
+                      <div style={{ fontSize: 12, color: "#6b7280", lineHeight: 1.4, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "100%" }}>
+                        {step.desc.split(".")[0]}.
+                      </div>
+                    )}
                     {currentStatus && (
-                      <span style={{ marginLeft: 10, fontSize: 11, fontWeight: 700, padding: "2px 8px", borderRadius: 10, background: stepStatusConfig[currentStatus].bg, color: stepStatusConfig[currentStatus].text, border: `1px solid ${stepStatusConfig[currentStatus].border}` }}>
-                        {stepStatusConfig[currentStatus].label}
+                      <span style={{ display: "inline-block", marginTop: 4, fontSize: 11, fontWeight: 700, padding: "2px 8px", borderRadius: 10, background: statusCfg!.bg, color: statusCfg!.text, border: `1px solid ${statusCfg!.border}` }}>
+                        {statusCfg!.label}
                       </span>
                     )}
                   </div>
-                  <span style={{ color: "var(--sage-dark)", fontSize: 12, flexShrink: 0 }}>{isOpen ? "▲" : "▼"}</span>
+                  <span style={{ color: "var(--sage-dark)", fontSize: 11, flexShrink: 0, fontWeight: 700 }}>{isOpen ? "▲ Close" : "▼ Open"}</span>
                 </button>
+
+                {/* Expanded content */}
                 {isOpen && (
                   <div style={{ borderTop: "1px solid var(--gray-border)", padding: "20px" }}>
                     <p style={{ fontSize: 14, color: "var(--charcoal)", opacity: 0.8, marginBottom: 16, lineHeight: 1.6 }}>{step.desc}</p>
@@ -524,12 +553,12 @@ export default function InclusiveDataCollection() {
                     </div>
 
                     {/* Status toggles */}
-                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                      <p style={{ fontSize: 13, fontWeight: 600, color: "var(--charcoal)", width: "100%", margin: "0 0 6px" }}>Have you done this step?</p>
+                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
+                      <p style={{ fontSize: 13, fontWeight: 600, color: "var(--charcoal)", width: "100%", margin: "0 0 6px" }}>Have you completed this step?</p>
                       {(["yes", "partially", "not-yet"] as const).map((s) => (
                         <button key={s} onClick={() => setStep(step.id, s)}
                           style={{
-                            padding: "5px 14px", borderRadius: 20, fontSize: 12, fontWeight: 600, cursor: "pointer",
+                            padding: "6px 16px", borderRadius: 20, fontSize: 12, fontWeight: 600, cursor: "pointer",
                             background: currentStatus === s ? stepStatusConfig[s].bg : "transparent",
                             color: currentStatus === s ? stepStatusConfig[s].text : "var(--charcoal)",
                             border: `1px solid ${currentStatus === s ? stepStatusConfig[s].border : "var(--gray-border)"}`,
