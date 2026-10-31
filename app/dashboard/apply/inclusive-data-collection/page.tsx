@@ -225,13 +225,6 @@ const LEGAL_FRAMEWORKS = {
 };
 
 // Lightweight reminder for bottom of page (4 key points linking to full tab)
-const LEGAL_QUICK_HITS = [
-  "Special category data requires a lawful basis under UK GDPR before collection begins",
-  "Check whether your process triggers a Data Protection Impact Assessment (DPIA)",
-  "Never report data in a way that could identify individuals, especially in small teams",
-  "Equality Act 2010: data collection on protected characteristics must be justified and proportionate",
-];
-
 const READINESS_QUESTIONS = [
   {
     id: "r1",
@@ -262,7 +255,7 @@ export default function InclusiveDataCollection() {
   const [actionText, setActionText] = useState("");
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
   const [stepStatus, setStepStatus] = useState<Record<string, StepStatus>>({});
-  const [legalOpen, setLegalOpen] = useState(false);
+  const [pageTab, setPageTab] = useState<"resource" | "legal">("resource");
   const [legalTab, setLegalTab] = useState<"statutory" | "standards" | "charters">("statutory");
   const [rationaleOpen, setRationaleOpen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -347,67 +340,86 @@ export default function InclusiveDataCollection() {
         <p style={{ fontSize: 17, color: "#374151", lineHeight: 1.75, maxWidth: 720, margin: "0 0 24px" }}>
           A step-by-step guide to collecting workforce diversity data ethically, legally, and in ways that build trust with employees.
         </p>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
-          {["Data and Evidence", "Inclusion Practices", "UK Law", "Legal Guidance"].map((tag) => (
+        {/* Topic tags */}
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 24 }}>
+          {["Data and Evidence", "Inclusion Practices", "UK Law"].map((tag) => (
             <span key={tag} style={{ background: "var(--sage-xlight)", color: "var(--sage-dark)", border: "1px solid #c6dbc9", borderRadius: 20, fontSize: 12, fontWeight: 600, padding: "4px 12px" }}>
               {tag}
             </span>
           ))}
         </div>
-      </div>
 
-      {/* Legal Guidance Tab */}
-      <div id="legal-guidance-tab" style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px 32px" }}>
-        <div style={{ background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: 14, overflow: "hidden" }}>
-          <div style={{ padding: "20px 20px 0", background: "#EFF6FF", borderBottom: "1px solid #93C5FD" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
-              <span style={{ fontSize: 20 }}>⚖️</span>
-              <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 17, fontWeight: 800, color: "#1E3A5F", margin: 0 }}>
-                Legal Guidance, Frameworks and Standards
-              </h2>
-            </div>
-            <p style={{ fontSize: 13, color: "#1E3A5F", opacity: 0.8, margin: "0 0 16px" }}>
-              The legal and professional landscape that governs inclusive data collection. Use these before you design your programme.
-            </p>
-            {/* Tabs */}
-            <div style={{ display: "flex", gap: 0, borderBottom: "none" }}>
-              {([
-                { key: "statutory", label: "Legal Frameworks and Statutory Guidance" },
-                { key: "standards", label: "Industry Standards" },
-                { key: "charters", label: "Charters and Frameworks" },
-              ] as const).map((tab) => (
-                <button key={tab.key} onClick={() => setLegalTab(tab.key)}
-                  style={{
-                    padding: "8px 16px", fontSize: 13, fontWeight: 700, cursor: "pointer", border: "none", borderRadius: "8px 8px 0 0",
-                    background: legalTab === tab.key ? "var(--white)" : "transparent",
-                    color: legalTab === tab.key ? "#1E40AF" : "#1E3A5F",
-                    opacity: legalTab === tab.key ? 1 : 0.65,
-                    borderBottom: legalTab === tab.key ? "2px solid #3B82F6" : "none",
-                  }}>
-                  {tab.label}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div style={{ padding: "24px 20px", display: "flex", flexDirection: "column", gap: 20 }}>
-            {LEGAL_FRAMEWORKS[legalTab].map((item) => (
-              <div key={item.name} style={{ borderBottom: "1px solid var(--gray-border)", paddingBottom: 18 }}>
-                <div style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 6 }}>
-                  <span style={{ fontSize: 11, fontWeight: 700, padding: "2px 8px", borderRadius: 10, background: "#DBEAFE", color: "#1E40AF", whiteSpace: "nowrap", flexShrink: 0, marginTop: 2 }}>
-                    {item.tag}
-                  </span>
-                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 14, color: "var(--charcoal)", margin: 0 }}>{item.name}</p>
-                </div>
-                <p style={{ fontSize: 13, color: "#374151", lineHeight: 1.7, margin: 0, paddingLeft: 0 }}>{item.desc}</p>
-              </div>
-            ))}
-            <p style={{ fontSize: 12, color: "#6b7280", margin: 0 }}>
-              Always seek legal advice specific to your organisation when designing a data collection programme. This guidance is for information only and does not constitute legal advice.
-            </p>
-          </div>
+        {/* Page-level tab switcher */}
+        <div style={{ display: "flex", gap: 4, borderBottom: "2px solid var(--gray-border)", marginBottom: 0 }}>
+          {([
+            { key: "resource", label: "Resource" },
+            { key: "legal", label: "⚖️ Legal Guidance" },
+          ] as const).map((tab) => (
+            <button key={tab.key} onClick={() => setPageTab(tab.key)}
+              style={{
+                padding: "10px 20px", fontSize: 14, fontWeight: 700, cursor: "pointer",
+                border: "none", background: "none",
+                color: pageTab === tab.key ? "var(--sage-dark)" : "#6b7280",
+                borderBottom: pageTab === tab.key ? "3px solid var(--sage-dark)" : "3px solid transparent",
+                marginBottom: "-2px",
+              }}>
+              {tab.label}
+            </button>
+          ))}
         </div>
       </div>
 
+      {/* Legal Guidance panel */}
+      {pageTab === "legal" && (
+        <div style={{ maxWidth: 900, margin: "0 auto", padding: "24px 24px 80px" }}>
+          <div style={{ background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: 14, overflow: "hidden" }}>
+            <div style={{ padding: "20px 20px 0", background: "#EFF6FF", borderBottom: "1px solid #93C5FD" }}>
+              <p style={{ fontSize: 13, color: "#1E3A5F", opacity: 0.8, margin: "0 0 16px" }}>
+                The legal and professional landscape that governs inclusive data collection. Always seek advice specific to your organisation before designing a programme.
+              </p>
+              <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+                {([
+                  { key: "statutory", label: "Legal Frameworks and Statutory Guidance" },
+                  { key: "standards", label: "Industry Standards" },
+                  { key: "charters", label: "Charters and Frameworks" },
+                ] as const).map((tab) => (
+                  <button key={tab.key} onClick={() => setLegalTab(tab.key)}
+                    style={{
+                      padding: "7px 14px", fontSize: 13, fontWeight: 700, cursor: "pointer",
+                      border: "none", borderRadius: "8px 8px 0 0",
+                      background: legalTab === tab.key ? "var(--white)" : "transparent",
+                      color: legalTab === tab.key ? "#1E40AF" : "#1E3A5F",
+                      opacity: legalTab === tab.key ? 1 : 0.65,
+                      borderBottom: legalTab === tab.key ? "3px solid #3B82F6" : "3px solid transparent",
+                      marginBottom: "-1px",
+                    }}>
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div style={{ padding: "24px 20px", display: "flex", flexDirection: "column", gap: 20 }}>
+              {LEGAL_FRAMEWORKS[legalTab].map((item) => (
+                <div key={item.name} style={{ borderBottom: "1px solid var(--gray-border)", paddingBottom: 18 }}>
+                  <div style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 6 }}>
+                    <span style={{ fontSize: 11, fontWeight: 700, padding: "2px 8px", borderRadius: 10, background: "#DBEAFE", color: "#1E40AF", whiteSpace: "nowrap", flexShrink: 0, marginTop: 2 }}>
+                      {item.tag}
+                    </span>
+                    <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 14, color: "var(--charcoal)", margin: 0 }}>{item.name}</p>
+                  </div>
+                  <p style={{ fontSize: 13, color: "#374151", lineHeight: 1.7, margin: 0 }}>{item.desc}</p>
+                </div>
+              ))}
+              <p style={{ fontSize: 12, color: "#6b7280", margin: 0 }}>
+                This guidance is for information only and does not constitute legal advice.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Resource content */}
+      {pageTab === "resource" && (
       <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px 80px" }}>
 
         {/* Readiness check */}
@@ -680,36 +692,13 @@ export default function InclusiveDataCollection() {
           </div>
         </div>
 
-        {/* Legal quick-hits reminder */}
-        <div style={{ background: "#EFF6FF", border: "1px solid #93C5FD", borderRadius: 14, padding: "20px", marginBottom: 24 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
-            <span style={{ fontSize: 18 }}>⚖️</span>
-            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 15, color: "#1E3A5F" }}>Remember: UK Legal Frameworks</span>
-          </div>
-          <ul style={{ listStyle: "none", padding: 0, margin: "0 0 16px", display: "flex", flexDirection: "column", gap: 8 }}>
-            {LEGAL_QUICK_HITS.map((tip, i) => (
-              <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 8, fontSize: 13, color: "#1E3A5F", lineHeight: 1.6 }}>
-                <span style={{ marginTop: 6, flexShrink: 0, width: 6, height: 6, borderRadius: "50%", background: "#3B82F6", display: "inline-block" }} />
-                {tip}
-              </li>
-            ))}
-          </ul>
-          <button
-            onClick={() => {
-              const el = document.getElementById("legal-guidance-tab");
-              if (el) { el.scrollIntoView({ behavior: "smooth" }); }
-            }}
-            style={{ fontSize: 13, fontWeight: 700, color: "#1E40AF", background: "none", border: "1px solid #93C5FD", borderRadius: 8, padding: "6px 14px", cursor: "pointer" }}>
-            View full legal frameworks and guidance ↑
-          </button>
-        </div>
-
         <div style={{ textAlign: "center" }}>
           <button onClick={() => window.print()} style={{ padding: "10px 28px", borderRadius: 24, fontSize: 14, fontWeight: 700, cursor: "pointer", background: "var(--sage-dark)", color: "var(--white)", border: "none" }}>
             Print Guide
           </button>
         </div>
       </div>
+      )}
 
       {/* About this topic */}
       <div style={{ background: "#fff", borderTop: "1px solid #e5e7eb", padding: "56px 24px" }}>
