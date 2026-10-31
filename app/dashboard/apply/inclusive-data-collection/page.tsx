@@ -40,6 +40,23 @@ const FREE_TEXT_QUESTION = {
 
 const STEPS = [
   {
+    id: "considerations",
+    title: "Key Considerations Before You Begin",
+    icon: "🧭",
+    desc: "Before designing your survey or choosing your platform, pause and work through these five considerations. Getting clarity here shapes every decision that follows.",
+    points: [
+      "Purpose and use: what are you collecting data for, and how will it be used to drive inclusion? Be specific: vague purposes lead to vague data.",
+      "Representation: are all groups, especially marginalised or underrepresented communities, included in the design process, not just as respondents?",
+      "Privacy and trust: how will personal data be protected, how will confidentiality be maintained, and how will you communicate your intentions to participants?",
+      "Intersectionality: are you capturing multiple, overlapping identities such as race, disability, gender, and age, rather than treating each in isolation?",
+      "Avoiding harm: could the data collection process itself reinforce bias, tokenism, or stereotypes? Who has reviewed the design with this question in mind?",
+    ],
+    mistake: {
+      label: "Common mistake: skipping the planning stage",
+      desc: "Many organisations move straight to survey design without answering these five questions first. The result is data that is hard to act on, questions that feel invasive without context, and participation rates that fall because employees do not understand why the data is being collected. These considerations are not optional extras: they are the foundation.",
+    },
+  },
+  {
     id: "objectives",
     title: "Define Clear Objectives",
     icon: "🎯",
@@ -158,11 +175,61 @@ const STEPS = [
   },
 ];
 
-const LEGAL_FRAMEWORKS = [
-  { name: "Equality Act 2010", desc: "Protects nine protected characteristics in employment and service delivery. Collecting data on protected characteristics must be justified, proportionate, and lawful." },
-  { name: "UK GDPR", desc: "Special category data (including race, disability, health, sexual orientation, and religion) requires explicit consent or another lawful basis. Data subjects have rights including access, correction, and erasure." },
-  { name: "Data Protection Act 2018", desc: "Sets out how special category data may be processed in the UK context, including processing for equality monitoring under Schedule 1, Part 2." },
-  { name: "Data Protection Impact Assessment (DPIA)", desc: "Required for processing that is likely to result in high risk to individuals. Collecting sensitive equality data may trigger a DPIA requirement." },
+const LEGAL_FRAMEWORKS = {
+  statutory: [
+    {
+      name: "Equality Act 2010",
+      tag: "UK Law",
+      desc: "The foundational legislation that protects individuals from discrimination based on nine protected characteristics, including sex, race, disability, sexual orientation, and religion. It mandates equal treatment in employment and access to services. Data collection on protected characteristics must be justified, proportionate, and lawful under this framework.",
+    },
+    {
+      name: "UK Data Protection Act 2018 and UK GDPR",
+      tag: "UK Law",
+      desc: "Governs how organisations handle personal data in the UK. Sensitive categories of data, including ethnicity, disability, religion, sexual orientation, and health, are classed as 'special category data' and require either explicit consent or a specific lawful basis under Schedule 1 to process. Individuals have rights to access, correct, and erase their data. Organisations must be transparent about how data is used.",
+    },
+    {
+      name: "EU General Data Protection Regulation (GDPR)",
+      tag: "EU",
+      desc: "Sets strict rules for how organisations collect, store, and use personal data, especially sensitive information such as ethnicity, gender, and health. Ensures individuals have control over their data and requires organisations to be transparent, secure, and purposeful. Relevant for organisations operating across EU jurisdictions or with EU-based employees.",
+    },
+  ],
+  standards: [
+    {
+      name: "Data Protection Impact Assessment (DPIA)",
+      tag: "Required process",
+      desc: "A structured process required by UK GDPR to identify and minimise privacy risks before launching new data processing that could significantly affect individuals' rights. Collecting sensitive equality data is likely to trigger a DPIA requirement. It helps organisations think through risk and accountability proactively, with real people in mind.",
+    },
+    {
+      name: "NIST Privacy Framework",
+      tag: "US/International",
+      desc: "A voluntary, risk-based tool created by the US National Institute of Standards and Technology to help organisations identify and manage privacy risks. Flexible and adaptable across industries; useful for organisations building data systems that need to balance innovation with individual privacy protection.",
+    },
+    {
+      name: "CIPD / Reed Inclusion at Work 2022",
+      tag: "Benchmarking",
+      desc: "Annual benchmarking of UK employer diversity and inclusion practice, covering what is working and where the gaps are. Useful for comparing your organisation's data practices against sector peers and identifying areas for improvement in data collection design and use.",
+    },
+  ],
+  charters: [
+    {
+      name: "PAS 1948: BSI Code of Practice for Creating Inclusive Workplace Culture",
+      tag: "BSI Standard",
+      desc: "A free-to-download British Standards Institution standard guiding how to implement EDI frameworks in practice. Covers dimensions of diversity, inclusive design principles, recruitment and retention, and behaviour. Provides a structured approach to embedding inclusion across the employee lifecycle, including data collection practices.",
+    },
+    {
+      name: "National Equality Standard (NES)",
+      tag: "Accreditation",
+      desc: "A business assessment and benchmarking scheme that helps organisations evaluate their EDI policies and practices in a structured way. Achieving NES accreditation requires evidencing inclusive data practices. Useful as a benchmark for assessing where your organisation sits and what good looks like.",
+    },
+  ],
+};
+
+// Lightweight reminder for bottom of page (4 key points linking to full tab)
+const LEGAL_QUICK_HITS = [
+  "Special category data requires a lawful basis under UK GDPR before collection begins",
+  "Check whether your process triggers a Data Protection Impact Assessment (DPIA)",
+  "Never report data in a way that could identify individuals, especially in small teams",
+  "Equality Act 2010: data collection on protected characteristics must be justified and proportionate",
 ];
 
 const READINESS_QUESTIONS = [
@@ -196,6 +263,7 @@ export default function InclusiveDataCollection() {
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
   const [stepStatus, setStepStatus] = useState<Record<string, StepStatus>>({});
   const [legalOpen, setLegalOpen] = useState(false);
+  const [legalTab, setLegalTab] = useState<"statutory" | "standards" | "charters">("statutory");
   const [rationaleOpen, setRationaleOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -280,11 +348,63 @@ export default function InclusiveDataCollection() {
           A step-by-step guide to collecting workforce diversity data ethically, legally, and in ways that build trust with employees.
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 40 }}>
-          {["Data and Evidence", "Inclusion Practices", "UK Law"].map((tag) => (
+          {["Data and Evidence", "Inclusion Practices", "UK Law", "Legal Guidance"].map((tag) => (
             <span key={tag} style={{ background: "var(--sage-xlight)", color: "var(--sage-dark)", border: "1px solid #c6dbc9", borderRadius: 20, fontSize: 12, fontWeight: 600, padding: "4px 12px" }}>
               {tag}
             </span>
           ))}
+        </div>
+      </div>
+
+      {/* Legal Guidance Tab */}
+      <div id="legal-guidance-tab" style={{ maxWidth: 900, margin: "0 auto", padding: "0 24px 32px" }}>
+        <div style={{ background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: 14, overflow: "hidden" }}>
+          <div style={{ padding: "20px 20px 0", background: "#EFF6FF", borderBottom: "1px solid #93C5FD" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+              <span style={{ fontSize: 20 }}>⚖️</span>
+              <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 17, fontWeight: 800, color: "#1E3A5F", margin: 0 }}>
+                Legal Guidance, Frameworks and Standards
+              </h2>
+            </div>
+            <p style={{ fontSize: 13, color: "#1E3A5F", opacity: 0.8, margin: "0 0 16px" }}>
+              The legal and professional landscape that governs inclusive data collection. Use these before you design your programme.
+            </p>
+            {/* Tabs */}
+            <div style={{ display: "flex", gap: 0, borderBottom: "none" }}>
+              {([
+                { key: "statutory", label: "Legal Frameworks and Statutory Guidance" },
+                { key: "standards", label: "Industry Standards" },
+                { key: "charters", label: "Charters and Frameworks" },
+              ] as const).map((tab) => (
+                <button key={tab.key} onClick={() => setLegalTab(tab.key)}
+                  style={{
+                    padding: "8px 16px", fontSize: 13, fontWeight: 700, cursor: "pointer", border: "none", borderRadius: "8px 8px 0 0",
+                    background: legalTab === tab.key ? "var(--white)" : "transparent",
+                    color: legalTab === tab.key ? "#1E40AF" : "#1E3A5F",
+                    opacity: legalTab === tab.key ? 1 : 0.65,
+                    borderBottom: legalTab === tab.key ? "2px solid #3B82F6" : "none",
+                  }}>
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div style={{ padding: "24px 20px", display: "flex", flexDirection: "column", gap: 20 }}>
+            {LEGAL_FRAMEWORKS[legalTab].map((item) => (
+              <div key={item.name} style={{ borderBottom: "1px solid var(--gray-border)", paddingBottom: 18 }}>
+                <div style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 6 }}>
+                  <span style={{ fontSize: 11, fontWeight: 700, padding: "2px 8px", borderRadius: 10, background: "#DBEAFE", color: "#1E40AF", whiteSpace: "nowrap", flexShrink: 0, marginTop: 2 }}>
+                    {item.tag}
+                  </span>
+                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 14, color: "var(--charcoal)", margin: 0 }}>{item.name}</p>
+                </div>
+                <p style={{ fontSize: 13, color: "#374151", lineHeight: 1.7, margin: 0, paddingLeft: 0 }}>{item.desc}</p>
+              </div>
+            ))}
+            <p style={{ fontSize: 12, color: "#6b7280", margin: 0 }}>
+              Always seek legal advice specific to your organisation when designing a data collection programme. This guidance is for information only and does not constitute legal advice.
+            </p>
+          </div>
         </div>
       </div>
 
@@ -295,7 +415,7 @@ export default function InclusiveDataCollection() {
           <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 8 }}>Step 1</p>
           <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 18, fontWeight: 800, color: "var(--charcoal)", marginBottom: 6 }}>Quick readiness check</h2>
           <p style={{ fontSize: 14, color: "#374151", marginBottom: 20, lineHeight: 1.6 }}>
-            Two questions to help contextualise this guide for your situation. Work through the seven steps below, then return to Step 3 to put your plan together.
+            Two questions to help contextualise this guide for your situation. Work through the eight steps below, then return to Step 3 to put your plan together.
           </p>
           {READINESS_QUESTIONS.map((rq) => (
             <div key={rq.id} style={{ marginBottom: 20 }}>
@@ -320,7 +440,7 @@ export default function InclusiveDataCollection() {
             <div style={{ background: "var(--sage-xlight)", border: "1px solid #c6dbc9", borderRadius: 10, padding: "14px 16px", marginTop: 8 }}>
               {readinessAnswers.r2 === "To understand our baseline for the first time" || readinessAnswers.r1 === "No, this would be a first" ? (
                 <p style={{ fontSize: 14, color: "var(--sage-dark)", fontWeight: 600, margin: 0 }}>
-                  Starting from scratch: work through all seven steps below carefully, then use the planning section at the end to set your intentions before you design your survey.
+                  Starting from scratch: work through all eight steps below carefully, then use the planning section at the end to set your intentions before you design your survey.
                 </p>
               ) : (
                 <p style={{ fontSize: 14, color: "var(--sage-dark)", fontWeight: 600, margin: 0 }}>
@@ -351,7 +471,7 @@ export default function InclusiveDataCollection() {
         {/* Steps */}
         <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 12 }}>Step 2</p>
         <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 18, fontWeight: 800, color: "var(--charcoal)", marginBottom: 16 }}>
-          Seven Steps to Inclusive Data Collection
+          Eight Steps to Inclusive Data Collection
         </h2>
         <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
           {STEPS.map((step, idx) => {
@@ -560,28 +680,28 @@ export default function InclusiveDataCollection() {
           </div>
         </div>
 
-        {/* Legal framework */}
-        <div style={{ background: "#EFF6FF", border: "1px solid #93C5FD", borderRadius: 14, overflow: "hidden", marginBottom: 24 }}>
-          <button onClick={() => setLegalOpen((p) => !p)} style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "18px 20px", textAlign: "left", background: "none", border: "none", cursor: "pointer" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <span style={{ fontSize: 18 }}>⚖️</span>
-              <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 15, color: "#1E3A5F" }}>UK Legal Framework</span>
-            </div>
-            <span style={{ color: "#1E3A5F", fontSize: 12 }}>{legalOpen ? "▲" : "▼"}</span>
+        {/* Legal quick-hits reminder */}
+        <div style={{ background: "#EFF6FF", border: "1px solid #93C5FD", borderRadius: 14, padding: "20px", marginBottom: 24 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
+            <span style={{ fontSize: 18 }}>⚖️</span>
+            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 15, color: "#1E3A5F" }}>Remember: UK Legal Frameworks</span>
+          </div>
+          <ul style={{ listStyle: "none", padding: 0, margin: "0 0 16px", display: "flex", flexDirection: "column", gap: 8 }}>
+            {LEGAL_QUICK_HITS.map((tip, i) => (
+              <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 8, fontSize: 13, color: "#1E3A5F", lineHeight: 1.6 }}>
+                <span style={{ marginTop: 6, flexShrink: 0, width: 6, height: 6, borderRadius: "50%", background: "#3B82F6", display: "inline-block" }} />
+                {tip}
+              </li>
+            ))}
+          </ul>
+          <button
+            onClick={() => {
+              const el = document.getElementById("legal-guidance-tab");
+              if (el) { el.scrollIntoView({ behavior: "smooth" }); }
+            }}
+            style={{ fontSize: 13, fontWeight: 700, color: "#1E40AF", background: "none", border: "1px solid #93C5FD", borderRadius: 8, padding: "6px 14px", cursor: "pointer" }}>
+            View full legal frameworks and guidance ↑
           </button>
-          {legalOpen && (
-            <div style={{ borderTop: "1px solid #93C5FD", padding: "20px", display: "flex", flexDirection: "column", gap: 16 }}>
-              {LEGAL_FRAMEWORKS.map((lf) => (
-                <div key={lf.name}>
-                  <p style={{ fontWeight: 700, fontSize: 14, color: "#1E3A5F", marginBottom: 4 }}>{lf.name}</p>
-                  <p style={{ fontSize: 13, color: "#1E3A5F", opacity: 0.85, margin: 0, lineHeight: 1.6 }}>{lf.desc}</p>
-                </div>
-              ))}
-              <p style={{ fontSize: 12, color: "#1E3A5F", opacity: 0.7, margin: 0 }}>
-                Always seek legal advice specific to your organisation when designing a data collection programme.
-              </p>
-            </div>
-          )}
         </div>
 
         <div style={{ textAlign: "center" }}>
