@@ -295,7 +295,7 @@ export default function InclusiveDataCollection() {
           <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 8 }}>Step 1</p>
           <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 18, fontWeight: 800, color: "var(--charcoal)", marginBottom: 6 }}>Quick readiness check</h2>
           <p style={{ fontSize: 14, color: "#374151", marginBottom: 20, lineHeight: 1.6 }}>
-            Two questions to help contextualise this guide for your situation.
+            Two questions to help contextualise this guide for your situation. Work through the seven steps below, then return to Step 3 to put your plan together.
           </p>
           {READINESS_QUESTIONS.map((rq) => (
             <div key={rq.id} style={{ marginBottom: 20 }}>
@@ -320,11 +320,11 @@ export default function InclusiveDataCollection() {
             <div style={{ background: "var(--sage-xlight)", border: "1px solid #c6dbc9", borderRadius: 10, padding: "14px 16px", marginTop: 8 }}>
               {readinessAnswers.r2 === "To understand our baseline for the first time" || readinessAnswers.r1 === "No, this would be a first" ? (
                 <p style={{ fontSize: 14, color: "var(--sage-dark)", fontWeight: 600, margin: 0 }}>
-                  Starting from scratch: the "Before You Begin" questions below are especially important. Take time with them before designing your survey.
+                  Starting from scratch: work through all seven steps below carefully, then use the planning section at the end to set your intentions before you design your survey.
                 </p>
               ) : (
                 <p style={{ fontSize: 14, color: "var(--sage-dark)", fontWeight: 600, margin: 0 }}>
-                  You have experience to build on. Use the steps below to audit and improve your existing approach, paying particular attention to steps 2 (question design) and 4 (privacy and trust).
+                  You have experience to build on. Use the steps below to audit and improve your existing approach, paying particular attention to steps 2 (question design) and 4 (privacy and trust). Then complete the planning section at the end.
                 </p>
               )}
               <button onClick={() => setCanStartGuide(true)}
@@ -338,15 +338,90 @@ export default function InclusiveDataCollection() {
           )}
         </div>
 
-        {/* Before You Begin */}
+        {/* Step progress */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12, marginBottom: 16 }}>
+          {(["yes", "partially", "not-yet"] as const).map((s) => (
+            <div key={s} style={{ background: stepStatusConfig[s].bg, border: `1px solid ${stepStatusConfig[s].border}`, borderRadius: 12, padding: "12px", textAlign: "center" }}>
+              <div style={{ fontSize: 24, fontWeight: 800, color: stepStatusConfig[s].text }}>{stepCounts[s]}</div>
+              <div style={{ fontSize: 12, fontWeight: 600, color: stepStatusConfig[s].text }}>{stepStatusConfig[s].label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Steps */}
+        <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 12 }}>Step 2</p>
+        <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 18, fontWeight: 800, color: "var(--charcoal)", marginBottom: 16 }}>
+          Seven Steps to Inclusive Data Collection
+        </h2>
+        <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
+          {STEPS.map((step, idx) => {
+            const isOpen = expanded[step.id];
+            const currentStatus = stepStatus[step.id];
+            return (
+              <div key={step.id} style={{ background: "var(--white)", border: `1px solid ${currentStatus ? stepStatusConfig[currentStatus].border : "var(--gray-border)"}`, borderRadius: 14, overflow: "hidden" }}>
+                <button onClick={() => toggleSection(step.id)} style={{ width: "100%", display: "flex", alignItems: "center", gap: 14, padding: "18px 20px", textAlign: "left", background: "none", border: "none", cursor: "pointer" }}>
+                  <span style={{ fontSize: 20, flexShrink: 0 }}>{step.icon}</span>
+                  <div style={{ flex: 1 }}>
+                    <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 15, color: "var(--charcoal)" }}>
+                      Step {idx + 1}: {step.title}
+                    </span>
+                    {currentStatus && (
+                      <span style={{ marginLeft: 10, fontSize: 11, fontWeight: 700, padding: "2px 8px", borderRadius: 10, background: stepStatusConfig[currentStatus].bg, color: stepStatusConfig[currentStatus].text, border: `1px solid ${stepStatusConfig[currentStatus].border}` }}>
+                        {stepStatusConfig[currentStatus].label}
+                      </span>
+                    )}
+                  </div>
+                  <span style={{ color: "var(--sage-dark)", fontSize: 12, flexShrink: 0 }}>{isOpen ? "▲" : "▼"}</span>
+                </button>
+                {isOpen && (
+                  <div style={{ borderTop: "1px solid var(--gray-border)", padding: "20px" }}>
+                    <p style={{ fontSize: 14, color: "var(--charcoal)", opacity: 0.8, marginBottom: 16, lineHeight: 1.6 }}>{step.desc}</p>
+                    <ul style={{ listStyle: "none", padding: 0, margin: "0 0 16px" }}>
+                      {step.points.map((pt, i) => (
+                        <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 8, fontSize: 14, color: "var(--charcoal)", lineHeight: 1.6, marginBottom: 8 }}>
+                          <span style={{ marginTop: 8, flexShrink: 0, width: 6, height: 6, borderRadius: "50%", background: "var(--sage-dark)", display: "inline-block" }} />
+                          {pt}
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Common mistake callout */}
+                    <div style={{ background: "#FEF3C7", border: "1px solid #FCD34D", borderLeft: "4px solid #D97706", borderRadius: "0 8px 8px 0", padding: "14px 16px", marginBottom: 16 }}>
+                      <p style={{ fontSize: 13, fontWeight: 700, color: "#92400E", margin: "0 0 6px" }}>⚠ {step.mistake.label}</p>
+                      <p style={{ fontSize: 13, color: "#92400E", margin: 0, lineHeight: 1.6 }}>{step.mistake.desc}</p>
+                    </div>
+
+                    {/* Status toggles */}
+                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                      <p style={{ fontSize: 13, fontWeight: 600, color: "var(--charcoal)", width: "100%", margin: "0 0 6px" }}>Have you done this step?</p>
+                      {(["yes", "partially", "not-yet"] as const).map((s) => (
+                        <button key={s} onClick={() => setStep(step.id, s)}
+                          style={{
+                            padding: "5px 14px", borderRadius: 20, fontSize: 12, fontWeight: 600, cursor: "pointer",
+                            background: currentStatus === s ? stepStatusConfig[s].bg : "transparent",
+                            color: currentStatus === s ? stepStatusConfig[s].text : "var(--charcoal)",
+                            border: `1px solid ${currentStatus === s ? stepStatusConfig[s].border : "var(--gray-border)"}`,
+                          }}>
+                          {stepStatusConfig[s].label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Plan Your Approach */}
         <div style={{ background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: 14, overflow: "hidden", marginBottom: 24 }}>
           <div style={{ padding: "20px 20px 16px", background: "var(--sage-xlight)", borderBottom: "1px solid var(--gray-border)" }}>
-            <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 6 }}>Step 2</p>
+            <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 6 }}>Step 3</p>
             <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 18, fontWeight: 700, color: "var(--charcoal)", margin: "0 0 4px" }}>
-              Before You Begin
+              Plan Your Approach
             </h2>
             <p style={{ fontSize: 13, color: "var(--charcoal)", opacity: 0.75, margin: 0 }}>
-              Three things to agree before you design your data collection.
+              Now you have worked through the guide: three things to agree before you design your data collection.
             </p>
           </div>
           <div style={{ padding: "24px 20px", display: "flex", flexDirection: "column", gap: 28 }}>
@@ -483,81 +558,6 @@ export default function InclusiveDataCollection() {
               </div>
             )}
           </div>
-        </div>
-
-        {/* Step progress */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12, marginBottom: 16 }}>
-          {(["yes", "partially", "not-yet"] as const).map((s) => (
-            <div key={s} style={{ background: stepStatusConfig[s].bg, border: `1px solid ${stepStatusConfig[s].border}`, borderRadius: 12, padding: "12px", textAlign: "center" }}>
-              <div style={{ fontSize: 24, fontWeight: 800, color: stepStatusConfig[s].text }}>{stepCounts[s]}</div>
-              <div style={{ fontSize: 12, fontWeight: 600, color: stepStatusConfig[s].text }}>{stepStatusConfig[s].label}</div>
-            </div>
-          ))}
-        </div>
-
-        {/* Steps */}
-        <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 12 }}>Step 3</p>
-        <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 18, fontWeight: 800, color: "var(--charcoal)", marginBottom: 16 }}>
-          Seven Steps to Inclusive Data Collection
-        </h2>
-        <div style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
-          {STEPS.map((step, idx) => {
-            const isOpen = expanded[step.id];
-            const currentStatus = stepStatus[step.id];
-            return (
-              <div key={step.id} style={{ background: "var(--white)", border: `1px solid ${currentStatus ? stepStatusConfig[currentStatus].border : "var(--gray-border)"}`, borderRadius: 14, overflow: "hidden" }}>
-                <button onClick={() => toggleSection(step.id)} style={{ width: "100%", display: "flex", alignItems: "center", gap: 14, padding: "18px 20px", textAlign: "left", background: "none", border: "none", cursor: "pointer" }}>
-                  <span style={{ fontSize: 20, flexShrink: 0 }}>{step.icon}</span>
-                  <div style={{ flex: 1 }}>
-                    <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: 15, color: "var(--charcoal)" }}>
-                      Step {idx + 1}: {step.title}
-                    </span>
-                    {currentStatus && (
-                      <span style={{ marginLeft: 10, fontSize: 11, fontWeight: 700, padding: "2px 8px", borderRadius: 10, background: stepStatusConfig[currentStatus].bg, color: stepStatusConfig[currentStatus].text, border: `1px solid ${stepStatusConfig[currentStatus].border}` }}>
-                        {stepStatusConfig[currentStatus].label}
-                      </span>
-                    )}
-                  </div>
-                  <span style={{ color: "var(--sage-dark)", fontSize: 12, flexShrink: 0 }}>{isOpen ? "▲" : "▼"}</span>
-                </button>
-                {isOpen && (
-                  <div style={{ borderTop: "1px solid var(--gray-border)", padding: "20px" }}>
-                    <p style={{ fontSize: 14, color: "var(--charcoal)", opacity: 0.8, marginBottom: 16, lineHeight: 1.6 }}>{step.desc}</p>
-                    <ul style={{ listStyle: "none", padding: 0, margin: "0 0 16px" }}>
-                      {step.points.map((pt, i) => (
-                        <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: 8, fontSize: 14, color: "var(--charcoal)", lineHeight: 1.6, marginBottom: 8 }}>
-                          <span style={{ marginTop: 8, flexShrink: 0, width: 6, height: 6, borderRadius: "50%", background: "var(--sage-dark)", display: "inline-block" }} />
-                          {pt}
-                        </li>
-                      ))}
-                    </ul>
-
-                    {/* Common mistake callout */}
-                    <div style={{ background: "#FEF3C7", border: "1px solid #FCD34D", borderLeft: "4px solid #D97706", borderRadius: "0 8px 8px 0", padding: "14px 16px", marginBottom: 16 }}>
-                      <p style={{ fontSize: 13, fontWeight: 700, color: "#92400E", margin: "0 0 6px" }}>⚠ {step.mistake.label}</p>
-                      <p style={{ fontSize: 13, color: "#92400E", margin: 0, lineHeight: 1.6 }}>{step.mistake.desc}</p>
-                    </div>
-
-                    {/* Status toggles */}
-                    <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-                      <p style={{ fontSize: 13, fontWeight: 600, color: "var(--charcoal)", width: "100%", margin: "0 0 6px" }}>Have you done this step?</p>
-                      {(["yes", "partially", "not-yet"] as const).map((s) => (
-                        <button key={s} onClick={() => setStep(step.id, s)}
-                          style={{
-                            padding: "5px 14px", borderRadius: 20, fontSize: 12, fontWeight: 600, cursor: "pointer",
-                            background: currentStatus === s ? stepStatusConfig[s].bg : "transparent",
-                            color: currentStatus === s ? stepStatusConfig[s].text : "var(--charcoal)",
-                            border: `1px solid ${currentStatus === s ? stepStatusConfig[s].border : "var(--gray-border)"}`,
-                          }}>
-                          {stepStatusConfig[s].label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            );
-          })}
         </div>
 
         {/* Legal framework */}
