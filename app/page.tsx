@@ -127,6 +127,7 @@ export default function Home() {
   const NAV_LINKS = [
     { href: "/dashboard/learn", label: "Learn" },
     { href: "/dashboard/watch", label: "Watch" },
+    { href: "/dashboard/inclusion-ai", label: "Inclusion AI" },
     { href: "/dashboard/apply", label: "Apply" },
     { href: "/dashboard/evidence", label: "Make the Case" },
     { href: "/dashboard/community", label: "The Inclusion Editors" },
@@ -285,7 +286,7 @@ export default function Home() {
 
           <div style={{ position: "relative", zIndex: 2, maxWidth: "1200px", margin: "0 auto", padding: "5rem 2rem", width: "100%" }}>
             <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>
-              Members-only platform · Build inclusive, high-performing cultures
+              Inclusion AI Platform · Build inclusive, high-performing cultures
             </span>
 
             <h1 style={{
@@ -346,10 +347,11 @@ export default function Home() {
 
         {/* STATS STRIP */}
         <section style={{ background: "linear-gradient(135deg, var(--sage-dark) 0%, #3A6040 100%)", padding: "1.5rem 1.5rem" }}>
-          <div className="stats-grid" style={{ maxWidth: "1100px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "0.5rem", textAlign: "center" }}>
+          <div className="stats-grid" style={{ maxWidth: "1100px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "0.5rem", textAlign: "center" }}>
             {[
               { value: "31", label: "EDI modules" },
               { value: "50+", label: "Practical tools" },
+              { value: "9", label: "AI tools" },
               { value: "87%*", label: "Better decisions" },
               { value: "35%**", label: "Outperform competitors" },
               { value: "WCAG 2.1", label: "Accessibility standard" },
@@ -363,6 +365,63 @@ export default function Home() {
           <p style={{ textAlign: "center", fontFamily: "var(--font-body)", fontSize: "0.68rem", color: "rgba(255,255,255,0.45)", marginTop: "0.75rem" }}>
             *Inclusive teams make better decisions 87% of the time. Cloverpop, 2017. **Organisations with inclusive cultures are 35% more likely to outperform competitors. McKinsey, 2023.
           </p>
+        </section>
+
+        {/* INCLUSION AI SECTION */}
+        <section style={{ background: "#1C1F1E", padding: "4.5rem 1.5rem" }}>
+          <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+            {/* Header */}
+            <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.16em", color: "#C9A84C", background: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.3)", padding: "0.35rem 1rem", borderRadius: "999px", marginBottom: "1.25rem" }}>
+                Inclusion AI
+              </span>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "#F5F0E8", marginBottom: "1rem", letterSpacing: "-0.01em" }}>
+                AI-powered tools built for inclusion professionals.
+              </h2>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", color: "rgba(245,240,232,0.65)", maxWidth: "620px", margin: "0 auto", lineHeight: 1.7 }}>
+                Inclusion AI brings cutting-edge artificial intelligence into your EDI practice. Audit policies, build evidence, generate job descriptions and analyse pay gaps; all powered by intelligent tools designed specifically for the complexity of inclusion work.
+              </p>
+            </div>
+
+            {/* Tool cards grid */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", marginBottom: "2.5rem" }}>
+              {[
+                { icon: "📋", name: "Policy Equity Auditor", desc: "Upload any policy and get a detailed equity audit: inclusive language, missing provisions, legal framework alignment and action points.", href: "/dashboard/inclusion-ai", badge: "New" },
+                { icon: "💼", name: "Job Description Equity Checker", desc: "Identify biased language, gendered wording and barriers to diverse applicants before your role goes live.", href: "/dashboard/inclusion-ai", badge: "New" },
+                { icon: "🎯", name: "Interview Question Generator", desc: "Generate structured, bias-aware interview questions aligned to your role competencies and inclusion values.", href: "/dashboard/inclusion-ai", badge: "New" },
+                { icon: "🏥", name: "Inclusion Health Check", desc: "A rapid diagnostic that surfaces your organisation's inclusion strengths, gaps and priority actions.", href: "/dashboard/inclusion-ai", badge: "New" },
+                { icon: "📊", name: "Pay Gap Narrative Generator", desc: "Turn your gender pay gap data into a clear, compliant and compelling narrative for your annual report.", href: "/dashboard/inclusion-ai", badge: "New" },
+                { icon: "🔍", name: "Gender Pay Gap Analysis Tool", desc: "Input your pay data and receive a full analysis with visualisations, root cause indicators and recommended actions.", href: "/dashboard/inclusion-ai", badge: "New" },
+                { icon: "⚖️", name: "Evidence Argument Builder", desc: "Build a compelling, evidence-backed business case for EDI investment tailored to your organisation.", href: "/dashboard/evidence", badge: "Available" },
+                { icon: "🔬", name: "Research Interpreter", desc: "Paste any research paper or report and get an inclusion-focused summary with practical takeaways.", href: "/dashboard/evidence", badge: "Available" },
+                { icon: "📖", name: "Case Study Roadmap", desc: "Turn an external case study into a replication roadmap for your own organisation.", href: "/dashboard/evidence", badge: "Available" },
+              ].map((tool) => (
+                <Link key={tool.name} href={tool.href} style={{ textDecoration: "none" }}>
+                  <div
+                    style={{ background: "#242827", border: "1px solid rgba(201,168,76,0.2)", borderRadius: "16px", padding: "1.5rem", height: "100%", cursor: "pointer", transition: "border-color 0.2s, transform 0.2s", boxSizing: "border-box" }}
+                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "#C9A84C"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
+                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(201,168,76,0.2)"; (e.currentTarget as HTMLElement).style.transform = "none"; }}
+                  >
+                    <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "0.875rem", gap: "0.5rem" }}>
+                      <span style={{ fontSize: "1.75rem" }} aria-hidden="true">{tool.icon}</span>
+                      <span style={{ fontFamily: "var(--font-heading)", fontSize: "0.65rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: tool.badge === "Available" ? "#7DBF8A" : "#C9A84C", background: tool.badge === "Available" ? "rgba(125,191,138,0.12)" : "rgba(201,168,76,0.12)", border: `1px solid ${tool.badge === "Available" ? "rgba(125,191,138,0.3)" : "rgba(201,168,76,0.3)"}`, padding: "0.2rem 0.5rem", borderRadius: "999px", flexShrink: 0 }}>
+                        {tool.badge}
+                      </span>
+                    </div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "#F5F0E8", marginBottom: "0.5rem", lineHeight: 1.3 }}>{tool.name}</div>
+                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(245,240,232,0.55)", lineHeight: 1.6 }}>{tool.desc}</div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <div style={{ textAlign: "center" }}>
+              <Link href="/dashboard/inclusion-ai" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "#1C1F1E", background: "linear-gradient(135deg, #C9A84C 0%, #E8C870 100%)", padding: "0.875rem 2.25rem", borderRadius: "10px", textDecoration: "none", boxShadow: "0 4px 20px rgba(201,168,76,0.35)" }}>
+                Explore all Inclusion AI tools →
+              </Link>
+            </div>
+          </div>
         </section>
 
         {/* EVERYTHING YOU NEED */}
@@ -894,7 +953,7 @@ export default function Home() {
         zIndex: 200, boxShadow: "0 -4px 24px rgba(0,0,0,0.2)",
       }}>
         <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.8)", margin: 0 }}>
-          <strong style={{ color: "var(--white)" }}>Unlock the full platform</strong> 31 CPD modules, 50+ tools, evidence resources and expert coaching.
+          <strong style={{ color: "var(--white)" }}>Unlock the full platform</strong> 31 CPD modules, 50+ tools, 9 AI tools, evidence resources and expert coaching.
         </p>
         <div style={{ display: "flex", gap: "0.75rem", flexShrink: 0 }}>
           <Link href="/sign-in" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "rgba(255,255,255,0.65)", textDecoration: "none", padding: "0.5rem 0.875rem", border: "1px solid rgba(255,255,255,0.2)", borderRadius: "6px" }}>

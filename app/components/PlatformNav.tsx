@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 const NAV_LINKS = [
   { href: "/dashboard/learn", label: "Learn" },
   { href: "/dashboard/watch", label: "Watch" },
+  { href: "/dashboard/inclusion-ai", label: "Inclusion AI" },
   { href: "/dashboard/apply", label: "Apply" },
   { href: "/dashboard/evidence", label: "Make the Case" },
   { href: "/dashboard/community", label: "Inclusion Editors" },
