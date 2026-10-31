@@ -4,33 +4,39 @@ import PlatformNav from "@/app/components/PlatformNav";
 import BottomBanner from "@/app/components/BottomBanner";
 import { useState } from "react";
 
-const PRE_COLLECTION_QUESTIONS = [
-  {
-    id: "q1",
-    question: "What is the specific purpose of collecting this data?",
-    placeholder: "e.g. To understand the diversity of our workforce and identify equity gaps in recruitment and progression.",
-  },
-  {
-    id: "q2",
-    question: "Who will have access to the data and how will it be stored securely?",
-    placeholder: "e.g. The People team will hold aggregated data. Individual responses will not be identifiable and will be stored in a password-protected system.",
-  },
-  {
-    id: "q3",
-    question: "Is consent freely given, or does power dynamics risk making it feel compulsory?",
-    placeholder: "e.g. Participation will be voluntary and anonymous. Staff can opt out without any impact on their role.",
-  },
-  {
-    id: "q4",
-    question: "What will you do with the data? How will it lead to change?",
-    placeholder: "e.g. The data will inform our EDI strategy, be reported to the board, and shared in our annual transparency report.",
-  },
-  {
-    id: "q5",
-    question: "Have you considered who might not feel safe to disclose and why?",
-    placeholder: "e.g. We recognise that some staff may not feel comfortable disclosing gender identity, disability, or ethnicity. We will offer a 'prefer not to say' option throughout.",
-  },
+// Step 2a: button-select questions
+const PURPOSE_OPTIONS = [
+  "To build or update an EDI strategy",
+  "To meet a reporting or legal requirement",
+  "To investigate a specific equity concern",
+  "To understand our baseline for the first time",
+  "To track progress against existing targets",
 ];
+
+const ACCESS_OPTIONS = [
+  "People team only, aggregated",
+  "Senior leadership and People team",
+  "Board and executive team",
+  "Externally reported",
+  "Not yet decided",
+];
+
+const DISCLOSURE_OPTIONS = [
+  "Gender identity",
+  "Race and ethnicity",
+  "Disability and health",
+  "Sexual orientation",
+  "Religion or belief",
+  "Age",
+  "Socioeconomic background",
+];
+
+// Step 2b: free-text question
+const FREE_TEXT_QUESTION = {
+  id: "action",
+  question: "What will you do with the data, and how will it lead to change?",
+  placeholder: "e.g. Findings will be shared in an annual transparency report, inform our EDI strategy, and be presented to the board with named actions against each gap identified.",
+};
 
 const STEPS = [
   {
@@ -183,7 +189,10 @@ const stepStatusConfig: Record<NonNullable<StepStatus>, { label: string; bg: str
 export default function InclusiveDataCollection() {
   const [readinessAnswers, setReadinessAnswers] = useState<Record<string, string>>({});
   const [canStartGuide, setCanStartGuide] = useState(false);
-  const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [purposeSelected, setPurposeSelected] = useState<string[]>([]);
+  const [accessSelected, setAccessSelected] = useState<string | null>(null);
+  const [disclosureSelected, setDisclosureSelected] = useState<string[]>([]);
+  const [actionText, setActionText] = useState("");
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
   const [stepStatus, setStepStatus] = useState<Record<string, StepStatus>>({});
   const [legalOpen, setLegalOpen] = useState(false);
@@ -193,8 +202,12 @@ export default function InclusiveDataCollection() {
   const toggleSection = (id: string) => setExpanded((p) => ({ ...p, [id]: !p[id] }));
   const setStep = (id: string, s: StepStatus) =>
     setStepStatus((p) => ({ ...p, [id]: p[id] === s ? null : s }));
+  const togglePurpose = (opt: string) =>
+    setPurposeSelected((p) => p.includes(opt) ? p.filter((x) => x !== opt) : [...p, opt]);
+  const toggleDisclosure = (opt: string) =>
+    setDisclosureSelected((p) => p.includes(opt) ? p.filter((x) => x !== opt) : [...p, opt]);
 
-  const answeredCount = PRE_COLLECTION_QUESTIONS.filter((q) => (answers[q.id] || "").trim().length > 0).length;
+  const planningComplete = purposeSelected.length > 0 && accessSelected && actionText.trim().length > 0;
   const readinessComplete = READINESS_QUESTIONS.every((q) => readinessAnswers[q.id]);
 
   const stepCounts = {
@@ -204,36 +217,30 @@ export default function InclusiveDataCollection() {
   };
 
   const generateRationale = () => {
-    const a = answers;
     const lines: string[] = [];
     lines.push("DATA COLLECTION RATIONALE STATEMENT");
     lines.push("=".repeat(40));
     lines.push("");
     lines.push(`Generated: ${new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}`);
     lines.push("");
-    if (a.q1?.trim()) {
+    if (purposeSelected.length > 0) {
       lines.push("PURPOSE");
-      lines.push(a.q1.trim());
+      lines.push(purposeSelected.join("; "));
       lines.push("");
     }
-    if (a.q2?.trim()) {
-      lines.push("DATA ACCESS AND STORAGE");
-      lines.push(a.q2.trim());
+    if (accessSelected) {
+      lines.push("DATA ACCESS");
+      lines.push(accessSelected);
       lines.push("");
     }
-    if (a.q3?.trim()) {
-      lines.push("CONSENT AND VOLUNTARINESS");
-      lines.push(a.q3.trim());
+    if (disclosureSelected.length > 0) {
+      lines.push("DATA GROUPS THAT MAY FEEL LESS SAFE DISCLOSING");
+      lines.push(disclosureSelected.join("; "));
       lines.push("");
     }
-    if (a.q4?.trim()) {
+    if (actionText.trim()) {
       lines.push("HOW DATA WILL LEAD TO CHANGE");
-      lines.push(a.q4.trim());
-      lines.push("");
-    }
-    if (a.q5?.trim()) {
-      lines.push("DISCLOSURE CONSIDERATIONS");
-      lines.push(a.q5.trim());
+      lines.push(actionText.trim());
       lines.push("");
     }
     lines.push("---");
@@ -293,14 +300,15 @@ export default function InclusiveDataCollection() {
           {READINESS_QUESTIONS.map((rq) => (
             <div key={rq.id} style={{ marginBottom: 20 }}>
               <p style={{ fontSize: 14, fontWeight: 600, color: "var(--charcoal)", marginBottom: 10 }}>{rq.question}</p>
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                 {rq.options.map((opt) => (
                   <button key={opt} onClick={() => setReadinessAnswers((p) => ({ ...p, [rq.id]: opt }))}
                     style={{
-                      textAlign: "left", padding: "10px 14px", borderRadius: 8, fontSize: 13, fontWeight: 500, cursor: "pointer",
+                      padding: "7px 14px", borderRadius: 20, fontSize: 13, fontWeight: 500, cursor: "pointer",
                       border: readinessAnswers[rq.id] === opt ? "2px solid var(--sage-dark)" : "1px solid var(--gray-border)",
                       background: readinessAnswers[rq.id] === opt ? "var(--sage-xlight)" : "var(--white)",
                       color: readinessAnswers[rq.id] === opt ? "var(--sage-dark)" : "var(--charcoal)",
+                      whiteSpace: "nowrap",
                     }}>
                     {opt}
                   </button>
@@ -335,34 +343,104 @@ export default function InclusiveDataCollection() {
           <div style={{ padding: "20px 20px 16px", background: "var(--sage-xlight)", borderBottom: "1px solid var(--gray-border)" }}>
             <p style={{ fontFamily: "var(--font-heading)", fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: 6 }}>Step 2</p>
             <h2 style={{ fontFamily: "var(--font-heading)", fontSize: 18, fontWeight: 700, color: "var(--charcoal)", margin: "0 0 4px" }}>
-              Before You Begin: Five Questions to Answer
+              Before You Begin
             </h2>
             <p style={{ fontSize: 13, color: "var(--charcoal)", opacity: 0.75, margin: 0 }}>
-              Answer these before designing your data collection. {answeredCount} of {PRE_COLLECTION_QUESTIONS.length} answered.
+              Three things to agree before you design your data collection.
             </p>
           </div>
-          <div style={{ padding: "20px" }}>
-            {PRE_COLLECTION_QUESTIONS.map((q, i) => (
-              <div key={q.id} style={{ marginBottom: i < PRE_COLLECTION_QUESTIONS.length - 1 ? 20 : 0 }}>
-                <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "var(--charcoal)", marginBottom: 8 }}>
-                  <span style={{
-                    display: "inline-flex", alignItems: "center", justifyContent: "center", width: 22, height: 22, borderRadius: "50%", fontSize: 12, fontWeight: 700, marginRight: 8,
-                    background: (answers[q.id] || "").trim() ? "var(--sage-dark)" : "var(--sage-xlight)",
-                    color: (answers[q.id] || "").trim() ? "var(--white)" : "var(--sage-dark)",
-                  }}>
-                    {i + 1}
-                  </span>
-                  {q.question}
-                </label>
-                <textarea
-                  value={answers[q.id] || ""}
-                  onChange={(e) => setAnswers((p) => ({ ...p, [q.id]: e.target.value }))}
-                  placeholder={q.placeholder}
-                  rows={3}
-                  style={{ width: "100%", borderRadius: 8, border: "1px solid var(--gray-border)", fontSize: 13, padding: "10px 12px", resize: "none", color: "var(--charcoal)", background: "#fafafa", boxSizing: "border-box", lineHeight: 1.6, fontFamily: "var(--font-body)" }}
-                />
+          <div style={{ padding: "24px 20px", display: "flex", flexDirection: "column", gap: 28 }}>
+
+            {/* Sub-step A: Purpose */}
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                <span style={{
+                  display: "inline-flex", alignItems: "center", justifyContent: "center", width: 26, height: 26, borderRadius: "50%", fontSize: 13, fontWeight: 700, flexShrink: 0,
+                  background: purposeSelected.length > 0 ? "var(--sage-dark)" : "var(--sage-xlight)",
+                  color: purposeSelected.length > 0 ? "var(--white)" : "var(--sage-dark)",
+                }}>A</span>
+                <p style={{ fontSize: 14, fontWeight: 700, color: "var(--charcoal)", margin: 0 }}>
+                  What is the purpose of this data collection? <span style={{ fontWeight: 400, color: "#6b7280" }}>(select all that apply)</span>
+                </p>
               </div>
-            ))}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                {PURPOSE_OPTIONS.map((opt) => (
+                  <button key={opt} onClick={() => togglePurpose(opt)}
+                    style={{
+                      padding: "7px 14px", borderRadius: 20, fontSize: 13, fontWeight: 500, cursor: "pointer",
+                      border: purposeSelected.includes(opt) ? "2px solid var(--sage-dark)" : "1px solid var(--gray-border)",
+                      background: purposeSelected.includes(opt) ? "var(--sage-xlight)" : "var(--white)",
+                      color: purposeSelected.includes(opt) ? "var(--sage-dark)" : "var(--charcoal)",
+                    }}>
+                    {opt}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Sub-step B: Access + disclosure groups */}
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                <span style={{
+                  display: "inline-flex", alignItems: "center", justifyContent: "center", width: 26, height: 26, borderRadius: "50%", fontSize: 13, fontWeight: 700, flexShrink: 0,
+                  background: accessSelected ? "var(--sage-dark)" : "var(--sage-xlight)",
+                  color: accessSelected ? "var(--white)" : "var(--sage-dark)",
+                }}>B</span>
+                <p style={{ fontSize: 14, fontWeight: 700, color: "var(--charcoal)", margin: 0 }}>
+                  Who will have access to the data?
+                </p>
+              </div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
+                {ACCESS_OPTIONS.map((opt) => (
+                  <button key={opt} onClick={() => setAccessSelected(accessSelected === opt ? null : opt)}
+                    style={{
+                      padding: "7px 14px", borderRadius: 20, fontSize: 13, fontWeight: 500, cursor: "pointer",
+                      border: accessSelected === opt ? "2px solid var(--sage-dark)" : "1px solid var(--gray-border)",
+                      background: accessSelected === opt ? "var(--sage-xlight)" : "var(--white)",
+                      color: accessSelected === opt ? "var(--sage-dark)" : "var(--charcoal)",
+                    }}>
+                    {opt}
+                  </button>
+                ))}
+              </div>
+              <p style={{ fontSize: 13, fontWeight: 600, color: "var(--charcoal)", margin: "0 0 8px" }}>
+                Which groups may feel less safe disclosing? <span style={{ fontWeight: 400, color: "#6b7280" }}>(select all that apply)</span>
+              </p>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                {DISCLOSURE_OPTIONS.map((opt) => (
+                  <button key={opt} onClick={() => toggleDisclosure(opt)}
+                    style={{
+                      padding: "7px 14px", borderRadius: 20, fontSize: 13, fontWeight: 500, cursor: "pointer",
+                      border: disclosureSelected.includes(opt) ? "2px solid var(--sage-dark)" : "1px solid var(--gray-border)",
+                      background: disclosureSelected.includes(opt) ? "var(--sage-xlight)" : "var(--white)",
+                      color: disclosureSelected.includes(opt) ? "var(--sage-dark)" : "var(--charcoal)",
+                    }}>
+                    {opt}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Sub-step C: What will you do with the data */}
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                <span style={{
+                  display: "inline-flex", alignItems: "center", justifyContent: "center", width: 26, height: 26, borderRadius: "50%", fontSize: 13, fontWeight: 700, flexShrink: 0,
+                  background: actionText.trim().length > 0 ? "var(--sage-dark)" : "var(--sage-xlight)",
+                  color: actionText.trim().length > 0 ? "var(--white)" : "var(--sage-dark)",
+                }}>C</span>
+                <p style={{ fontSize: 14, fontWeight: 700, color: "var(--charcoal)", margin: 0 }}>
+                  {FREE_TEXT_QUESTION.question}
+                </p>
+              </div>
+              <textarea
+                value={actionText}
+                onChange={(e) => setActionText(e.target.value)}
+                placeholder={FREE_TEXT_QUESTION.placeholder}
+                rows={3}
+                style={{ width: "100%", borderRadius: 8, border: "1px solid var(--gray-border)", fontSize: 13, padding: "10px 12px", resize: "none", color: "var(--charcoal)", background: "#fafafa", boxSizing: "border-box", lineHeight: 1.6, fontFamily: "var(--font-body)" }}
+              />
+            </div>
           </div>
 
           {/* Rationale generator */}
@@ -374,16 +452,16 @@ export default function InclusiveDataCollection() {
                   Generate your data collection rationale
                 </p>
                 <p style={{ fontSize: 12, color: "var(--charcoal)", opacity: 0.65, margin: "2px 0 0" }}>
-                  {answeredCount} of 5 questions answered &middot; produces a statement for DPIAs, board papers, and staff comms
+                  {planningComplete ? "Ready to generate" : "Complete A, B and C above"} &middot; produces a statement for DPIAs, board papers, and staff comms
                 </p>
               </div>
               <span style={{ color: "var(--sage-dark)", fontSize: 12 }}>{rationaleOpen ? "▲" : "▼"}</span>
             </button>
             {rationaleOpen && (
               <div style={{ borderTop: "1px solid var(--gray-border)", padding: "20px" }}>
-                {answeredCount === 0 ? (
+                {!planningComplete ? (
                   <p style={{ fontSize: 14, color: "var(--charcoal)", opacity: 0.7, margin: 0 }}>
-                    Answer the questions above to generate your rationale statement.
+                    Complete sections A, B, and C above to generate your rationale statement.
                   </p>
                 ) : (
                   <>
