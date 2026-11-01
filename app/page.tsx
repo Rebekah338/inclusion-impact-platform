@@ -313,7 +313,7 @@ export default function Home() {
               marginBottom: "1.25rem",
               letterSpacing: "-0.02em",
             }}>
-              <span style={{ background: "linear-gradient(135deg, #C9A84C 0%, #E2C265 50%, #A8741A 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Your Culture Is</span><br />
+              <span style={{ background: "linear-gradient(135deg, #E8D5A3 0%, #F5E9C8 45%, #DCC078 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Your Culture Is</span><br />
               <span style={{ color: "#A8D4B0" }}>Your Competitive<br />Edge.</span>
             </h1>
 
