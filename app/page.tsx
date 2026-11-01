@@ -728,68 +728,64 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Top row: Learn, Watch, Inclusion AI, Apply */}
-            <div className="platform-cards-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem", marginBottom: "1.25rem" }}>
+            {/* Top row: Learn, Watch, Inclusion AI, Apply — all equal height via grid rows */}
+            <div className="platform-cards-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem", marginBottom: "1.25rem", gridAutoRows: "1fr" }}>
               {[
                 { href: "/dashboard/learn", icon: "📚", label: "Learn", sub: "CPD Modules", desc: "Build the knowledge base that reduces risk and drives performance." },
                 { href: "/dashboard/watch", icon: "🎥", label: "Watch", sub: "Masterclasses", desc: "Expert insight you can apply the same week." },
                 { href: "/dashboard/apply", icon: "🛠️", label: "Apply", sub: "Tools & Frameworks", desc: "Turn good intentions into documented, defensible action." },
               ].map((f) => (
-                <Link key={f.label} href={f.href} style={{ textDecoration: "none" }}>
+                <Link key={f.label} href={f.href} style={{ textDecoration: "none", display: "flex" }}>
                   <div style={{
                     background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)",
-                    borderRadius: "18px", padding: "1.75rem 1.5rem",
+                    borderRadius: "18px", padding: "1.5rem 1.25rem",
                     boxShadow: "0 6px 28px rgba(42,74,48,0.22)",
-                    cursor: "pointer", height: "100%", position: "relative", overflow: "hidden",
+                    cursor: "pointer", flex: 1, position: "relative", overflow: "hidden",
                   }}>
                     <div style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
-                    <div style={{ fontSize: "2rem", marginBottom: "1rem" }} aria-hidden="true">{f.icon}</div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.05rem", color: "white", marginBottom: "0.2rem" }}>{f.label}</div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>{f.sub}</div>
-                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}>{f.desc}</div>
+                    <div style={{ fontSize: "1.75rem", marginBottom: "0.75rem" }} aria-hidden="true">{f.icon}</div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1rem", color: "white", marginBottom: "0.2rem" }}>{f.label}</div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.625rem" }}>{f.sub}</div>
+                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.55 }}>{f.desc}</div>
                   </div>
                 </Link>
               ))}
-              {/* Inclusion AI card — gold bordered */}
-              <Link href="/dashboard/ai-tools" style={{ textDecoration: "none" }}>
+              {/* Inclusion AI card — gold bordered, after Watch */}
+              <Link href="/dashboard/ai-tools" style={{ textDecoration: "none", display: "flex" }}>
                 <div style={{
                   background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 50%, #FAF6EE 100%)",
-                  borderRadius: "18px", padding: "1.75rem 1.5rem",
+                  borderRadius: "18px", padding: "1.5rem 1.25rem",
                   border: "2px solid rgba(201,168,76,0.55)",
                   boxShadow: "0 6px 28px rgba(201,168,76,0.18), 0 0 0 1px rgba(201,168,76,0.12)",
-                  cursor: "pointer", height: "100%", position: "relative", overflow: "hidden",
+                  cursor: "pointer", flex: 1, position: "relative", overflow: "hidden",
                 }}>
-                  {/* Gold orb decoration */}
                   <div style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(201,168,76,0.1)" }} />
-                  <div style={{ fontSize: "2rem", marginBottom: "1rem" }} aria-hidden="true">✨</div>
-                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.05rem", color: "var(--charcoal)", marginBottom: "0.2rem" }}>Inclusion AI</div>
-                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "#8B6914", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>15 AI Tools</div>
-                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--gray-soft)", lineHeight: 1.6 }}>AI-powered tools built for inclusion practitioners; fast, evidence-based and actionable.</div>
-                  <div style={{ marginTop: "0.875rem" }}>
-                    <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase", letterSpacing: "0.12em", color: "#8B6914", background: "rgba(201,168,76,0.15)", border: "1px solid rgba(201,168,76,0.35)", padding: "0.25rem 0.65rem", borderRadius: "999px" }}>Inclusion AI</span>
-                  </div>
+                  <div style={{ fontSize: "1.75rem", marginBottom: "0.75rem" }} aria-hidden="true">✨</div>
+                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "0.2rem" }}>Inclusion AI</div>
+                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "#8B6914", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.625rem" }}>15 AI Tools</div>
+                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--gray-soft)", lineHeight: 1.55 }}>AI-powered tools built for inclusion practitioners; fast, evidence-based and actionable.</div>
                 </div>
               </Link>
             </div>
-            {/* Bottom row: Make the Case, The Inclusion Editors, Get Support */}
-            <div className="platform-cards-bottom" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", maxWidth: "900px", margin: "0 auto" }}>
+            {/* Bottom row: Make the Case, The Inclusion Editors, Get Support — same height as top row */}
+            <div className="platform-cards-bottom" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", maxWidth: "900px", margin: "0 auto", gridAutoRows: "1fr" }}>
               {[
                 { href: "/dashboard/evidence", icon: "📊", label: "Make the Case", sub: "Evidence & ROI", desc: "The data and evidence your leadership team needs." },
                 { href: "/dashboard/community", icon: "🌍", label: "The Inclusion Editors", sub: "Community", desc: "Connect with practitioners, share insights, and grow your network." },
                 { href: "/dashboard/support", icon: "🤝", label: "Get Support", sub: "Coaching & Office Hours", desc: "Book office hours with Rebekah, enquire about expert coaching, or join a live event." },
               ].map((f) => (
-                <Link key={f.label} href={f.href} style={{ textDecoration: "none" }}>
+                <Link key={f.label} href={f.href} style={{ textDecoration: "none", display: "flex" }}>
                   <div style={{
                     background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)",
-                    borderRadius: "18px", padding: "1.75rem 1.5rem",
+                    borderRadius: "18px", padding: "1.5rem 1.25rem",
                     boxShadow: "0 6px 28px rgba(42,74,48,0.22)",
-                    cursor: "pointer", position: "relative", overflow: "hidden",
+                    cursor: "pointer", flex: 1, position: "relative", overflow: "hidden",
                   }}>
                     <div style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
-                    <div style={{ fontSize: "2rem", marginBottom: "1rem" }} aria-hidden="true">{f.icon}</div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.05rem", color: "white", marginBottom: "0.2rem" }}>{f.label}</div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>{f.sub}</div>
-                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}>{f.desc}</div>
+                    <div style={{ fontSize: "1.75rem", marginBottom: "0.75rem" }} aria-hidden="true">{f.icon}</div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1rem", color: "white", marginBottom: "0.2rem" }}>{f.label}</div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.625rem" }}>{f.sub}</div>
+                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.55 }}>{f.desc}</div>
                   </div>
                 </Link>
               ))}
