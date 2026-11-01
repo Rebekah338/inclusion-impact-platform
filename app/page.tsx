@@ -383,7 +383,7 @@ export default function Home() {
 
         {/* AI-POWERED FINDER */}
         {(() => {
-          const ORG_SIZES = ["Just me", "2–50 people", "51–250 people", "250+ people"];
+          const ORG_SIZES = ["2–50 people", "51–250 people", "250+ people"];
 
           const handleTopicChange = (val: string) => {
             setFinderTopic(val);
