@@ -2255,7 +2255,7 @@ function EvidencePageInner() {
           <div style={{ display: "flex", gap: "0.375rem", borderBottom: "1px solid var(--gray-border)", padding: "0.5rem 0", overflowX: "auto" }}>
             {([
               { key: "research", label: "📊 Research and Data" },
-              { key: "evidence-builder", label: "🧩 Evidence Builder" },
+              { key: "evidence-builder", label: "✨ Inclusion AI Tools" },
               { key: "cases", label: "🏢 Case Studies" },
               { key: "downloads", label: "📁 Templates and Resources" },
             ] as { key: Tab; label: string }[]).map((tab) => (
@@ -2465,7 +2465,7 @@ function EvidencePageInner() {
                 {/* EVIDENCE BUILDER */}
         {activeTab === "evidence-builder" && (
           <>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.35rem", color: "var(--charcoal)", marginBottom: "0.5rem" }}>Evidence Builder</h2>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.35rem", color: "var(--charcoal)", marginBottom: "0.5rem" }}>✨ Inclusion AI Evidence Builder Tools</h2>
             <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.925rem", lineHeight: 1.7, marginBottom: "2rem", maxWidth: "640px" }}>
               Three AI tools to help you make the case for EDI internally. Choose the one that fits what you need right now.
             </p>
@@ -3238,7 +3238,7 @@ function EvidencePageInner() {
             {/* 3 — Evidence Builder (Tool) */}
             <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("evidence-builder"); setEbActiveTool("argument"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
               <span style={{ fontSize: 28 }}>⚙️</span>
-              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Evidence Builder</span>
+              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Inclusion AI Tools</span>
               <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>Build Your Business Case</p>
               <p style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.8rem", color: "#4b5563", margin: 0, lineHeight: 1.5, flexGrow: 1 }}>Answer three questions and get a tailored, evidence-backed business case ready to present in minutes.</p>
               <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.72rem", color: "#6b7280" }}>Interactive tool</span>
