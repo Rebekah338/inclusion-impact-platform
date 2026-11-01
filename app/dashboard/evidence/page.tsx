@@ -2255,7 +2255,7 @@ function EvidencePageInner() {
           <div style={{ display: "flex", gap: "0.375rem", borderBottom: "1px solid var(--gray-border)", padding: "0.5rem 0", overflowX: "auto" }}>
             {([
               { key: "research", label: "📊 Research and Data" },
-              { key: "evidence-builder", label: "✨ Inclusion AI Tools" },
+              { key: "evidence-builder", label: "✨ Inclusion AI: Evidence Builder" },
               { key: "cases", label: "🏢 Case Studies" },
               { key: "downloads", label: "📁 Templates and Resources" },
             ] as { key: Tab; label: string }[]).map((tab) => (
