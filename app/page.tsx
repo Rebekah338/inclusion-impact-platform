@@ -381,229 +381,6 @@ export default function Home() {
           </p>
         </section>
 
-        {/* INCLUSION AI SECTION */}
-        {(() => {
-          const AI_TOOLS_CAROUSEL = [
-            { icon: "⚖️", name: "Evidence Argument Builder", desc: "Build a compelling, evidence-backed business case for EDI investment tailored to your organisation.", href: "/dashboard/evidence", badge: "Available now", badgeColor: "#3D6142" },
-            { icon: "🔬", name: "Research Interpreter", desc: "Paste any research paper or report and get an inclusion-focused summary with practical takeaways.", href: "/dashboard/evidence", badge: "Available now", badgeColor: "#3D6142" },
-            { icon: "📖", name: "Case Study Roadmap", desc: "Turn an external case study into a step-by-step replication roadmap for your own organisation.", href: "/dashboard/evidence", badge: "Available now", badgeColor: "#3D6142" },
-            { icon: "📋", name: "Policy Equity Auditor", desc: "Upload any policy and get a detailed equity audit: inclusive language, missing provisions, legal framework alignment and action points.", href: "/dashboard/inclusion-ai", badge: "Coming soon", badgeColor: "#C9A84C" },
-            { icon: "💼", name: "Job Description Equity Checker", desc: "Identify biased language, gendered wording and barriers to diverse applicants before your role goes live.", href: "/dashboard/inclusion-ai", badge: "Coming soon", badgeColor: "#C9A84C" },
-            { icon: "🎯", name: "Interview Question Generator", desc: "Generate structured, bias-aware interview questions aligned to your role competencies and inclusion values.", href: "/dashboard/inclusion-ai", badge: "Coming soon", badgeColor: "#C9A84C" },
-            { icon: "🏥", name: "Inclusion Health Check", desc: "A rapid diagnostic that surfaces your organisation's inclusion strengths, gaps and priority actions.", href: "/dashboard/inclusion-ai", badge: "Coming soon", badgeColor: "#C9A84C" },
-            { icon: "📊", name: "Pay Gap Narrative Generator", desc: "Turn your gender pay gap data into a clear, compliant and compelling narrative for your annual report.", href: "/dashboard/inclusion-ai", badge: "Coming soon", badgeColor: "#C9A84C" },
-            { icon: "🔍", name: "Gender Pay Gap Analysis Tool", desc: "Input your pay data and receive a full analysis with root cause indicators and recommended actions.", href: "/dashboard/inclusion-ai", badge: "Coming soon", badgeColor: "#C9A84C" },
-          ];
-          const totalSlides = Math.ceil(AI_TOOLS_CAROUSEL.length / 3);
-          const visibleTools = AI_TOOLS_CAROUSEL.slice(aiCarouselIdx * 3, aiCarouselIdx * 3 + 3);
-          return (
-            <section style={{ padding: "4.5rem 1.5rem", position: "relative", overflow: "hidden" }}>
-              {/* Background: same faded photo technique as Learning Pathways */}
-              <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/team-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 0 }} aria-hidden="true" />
-              <div style={{ position: "absolute", inset: 0, background: "rgba(232, 238, 230, 0.93)", backdropFilter: "blur(2px)", zIndex: 1 }} aria-hidden="true" />
-
-              <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 2 }}>
-                {/* Header */}
-                <div style={{ textAlign: "center", marginBottom: "3rem" }}>
-                  <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.16em", color: "#8B6914", background: "rgba(201,168,76,0.18)", border: "1px solid rgba(201,168,76,0.4)", padding: "0.35rem 1rem", borderRadius: "999px", marginBottom: "1.25rem" }}>
-                    Inclusion AI
-                  </span>
-                  <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "1rem", letterSpacing: "-0.01em" }}>
-                    AI-powered tools built for inclusion professionals.
-                  </h2>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", color: "var(--gray-soft)", maxWidth: "620px", margin: "0 auto", lineHeight: 1.7 }}>
-                    Audit policies, build evidence, check job descriptions and analyse pay gaps; intelligent tools designed for the real complexity of inclusion work.
-                  </p>
-                </div>
-
-                {/* Carousel */}
-                <div style={{ position: "relative" }}>
-                  {/* Prev button */}
-                  <button
-                    onClick={() => setAiCarouselIdx((i) => Math.max(0, i - 1))}
-                    disabled={aiCarouselIdx === 0}
-                    aria-label="Previous tools"
-                    style={{ position: "absolute", left: "-1.75rem", top: "50%", transform: "translateY(-50%)", zIndex: 10, width: "2.5rem", height: "2.5rem", borderRadius: "50%", border: "1.5px solid rgba(42,74,48,0.25)", background: "var(--white)", cursor: aiCarouselIdx === 0 ? "default" : "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", color: aiCarouselIdx === 0 ? "rgba(42,74,48,0.2)" : "var(--sage-dark)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)", transition: "all 0.15s" }}
-                  >‹</button>
-
-                  {/* Cards */}
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", marginBottom: "2rem" }}>
-                    {visibleTools.map((tool) => (
-                      <Link key={tool.name} href={tool.href} style={{ textDecoration: "none" }}>
-                        <div
-                          style={{ position: "relative", background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 50%, #FAF6EE 100%)", border: "1px solid rgba(201,168,76,0.25)", borderRadius: "16px", padding: "1.75rem", height: "100%", cursor: "pointer", transition: "box-shadow 0.2s, transform 0.2s", boxSizing: "border-box", boxShadow: "0 0 0 3px rgba(201,168,76,0.12), 0 0 18px 4px rgba(201,168,76,0.13), 0 4px 20px rgba(0,0,0,0.06)", overflow: "hidden" }}
-                          onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 0 0 3px rgba(201,168,76,0.22), 0 0 32px 8px rgba(201,168,76,0.22), 0 8px 32px rgba(0,0,0,0.09)"; el.style.transform = "translateY(-4px)"; }}
-                          onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 0 0 3px rgba(201,168,76,0.12), 0 0 18px 4px rgba(201,168,76,0.13), 0 4px 20px rgba(0,0,0,0.06)"; el.style.transform = "none"; }}
-                        >
-                          {/* Subtle circle orb pattern */}
-                          <svg aria-hidden="true" style={{ position: "absolute", top: "-30px", right: "-30px", width: "160px", height: "160px", opacity: 0.18, pointerEvents: "none" }} viewBox="0 0 160 160" fill="none">
-                            <circle cx="80" cy="80" r="70" stroke="#C9A84C" strokeWidth="1.5"/>
-                            <circle cx="80" cy="80" r="50" stroke="#C9A84C" strokeWidth="1"/>
-                            <circle cx="80" cy="80" r="30" stroke="#C9A84C" strokeWidth="0.75"/>
-                          </svg>
-                          <svg aria-hidden="true" style={{ position: "absolute", bottom: "-40px", left: "-40px", width: "120px", height: "120px", opacity: 0.10, pointerEvents: "none" }} viewBox="0 0 120 120" fill="none">
-                            <circle cx="60" cy="60" r="55" stroke="#C9A84C" strokeWidth="1.5"/>
-                            <circle cx="60" cy="60" r="38" stroke="#C9A84C" strokeWidth="1"/>
-                          </svg>
-                          <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "1rem", gap: "0.5rem" }}>
-                            <span style={{ fontSize: "1.75rem" }} aria-hidden="true">{tool.icon}</span>
-                            <span style={{ fontFamily: "var(--font-heading)", fontSize: "0.62rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: tool.badge === "Available now" ? "#2C4A31" : "#7A5200", background: tool.badge === "Available now" ? "rgba(61,97,66,0.12)" : "rgba(255,255,255,0.6)", border: `1px solid ${tool.badge === "Available now" ? "rgba(61,97,66,0.3)" : "rgba(180,130,20,0.4)"}`, padding: "0.2rem 0.55rem", borderRadius: "999px", flexShrink: 0, whiteSpace: "nowrap" }}>
-                              {tool.badge}
-                            </span>
-                          </div>
-                          <div style={{ position: "relative", zIndex: 1, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "0.5rem", lineHeight: 1.3 }}>{tool.name}</div>
-                          <div style={{ position: "relative", zIndex: 1, fontFamily: "var(--font-body)", fontSize: "0.84rem", color: "#4A4A4A", lineHeight: 1.65 }}>{tool.desc}</div>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-
-                  {/* Next button */}
-                  <button
-                    onClick={() => setAiCarouselIdx((i) => Math.min(totalSlides - 1, i + 1))}
-                    disabled={aiCarouselIdx === totalSlides - 1}
-                    aria-label="Next tools"
-                    style={{ position: "absolute", right: "-1.75rem", top: "50%", transform: "translateY(-50%)", zIndex: 10, width: "2.5rem", height: "2.5rem", borderRadius: "50%", border: "1.5px solid rgba(42,74,48,0.25)", background: "var(--white)", cursor: aiCarouselIdx === totalSlides - 1 ? "default" : "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", color: aiCarouselIdx === totalSlides - 1 ? "rgba(42,74,48,0.2)" : "var(--sage-dark)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)", transition: "all 0.15s" }}
-                  >›</button>
-                </div>
-
-                {/* Dot indicators */}
-                <div style={{ display: "flex", justifyContent: "center", gap: "0.5rem", marginBottom: "2.5rem" }}>
-                  {Array.from({ length: totalSlides }).map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setAiCarouselIdx(i)}
-                      aria-label={`Go to slide ${i + 1}`}
-                      style={{ width: i === aiCarouselIdx ? "1.5rem" : "0.5rem", height: "0.5rem", borderRadius: "999px", border: "none", background: i === aiCarouselIdx ? "#C9A84C" : "rgba(42,74,48,0.2)", cursor: "pointer", padding: 0, transition: "all 0.2s" }}
-                    />
-                  ))}
-                </div>
-
-                {/* CTA */}
-                <div style={{ textAlign: "center" }}>
-                  <Link href="/dashboard/inclusion-ai" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--white)", background: "linear-gradient(135deg, #3D6142 0%, #2C4A31 100%)", padding: "0.875rem 2.25rem", borderRadius: "10px", textDecoration: "none", boxShadow: "0 4px 16px rgba(42,74,48,0.25)" }}>
-                    Explore all 9 Inclusion AI tools →
-                  </Link>
-                </div>
-              </div>
-            </section>
-          );
-        })()}
-
-        {/* EVERYTHING YOU NEED */}
-        <section style={{ padding: "4rem 1.5rem 5rem", background: "var(--white)" }}>
-          <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-            <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--sage-xlight)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1rem" }}>
-                The platform
-              </span>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "0.75rem", letterSpacing: "-0.01em" }}>
-                From knowledge to action to measurable change; all in one place.
-              </h2>
-              <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.05rem", maxWidth: "640px", margin: "0 auto", lineHeight: 1.65, whiteSpace: "nowrap" }}>
-                The tools, training and evidence to build a culture that performs.
-              </p>
-            </div>
-
-            <div className="platform-cards-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem", marginBottom: "1.25rem" }}>
-              {[
-                { href: "/dashboard/learn", icon: "📚", label: "Learn", sub: "CPD Modules", desc: "Build the knowledge base that reduces risk and drives performance." },
-                { href: "/dashboard/watch", icon: "🎥", label: "Watch", sub: "Masterclasses", desc: "Expert insight you can apply the same week." },
-                { href: "/dashboard/apply", icon: "🛠️", label: "Apply", sub: "Tools & Frameworks", desc: "Turn good intentions into documented, defensible action." },
-                { href: "/dashboard/evidence", icon: "📊", label: "Make the Case", sub: "Evidence & ROI", desc: "The data and evidence your leadership team needs." },
-              ].map((f) => (
-                <Link key={f.label} href={f.href} style={{ textDecoration: "none" }}>
-                  <div style={{
-                    background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)",
-                    borderRadius: "18px", padding: "1.75rem 1.5rem",
-                    boxShadow: "0 6px 28px rgba(42,74,48,0.22)",
-                    cursor: "pointer", height: "100%", position: "relative", overflow: "hidden",
-                  }}>
-                    <div style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
-                    <div style={{ fontSize: "2rem", marginBottom: "1rem" }} aria-hidden="true">{f.icon}</div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.05rem", color: "white", marginBottom: "0.2rem" }}>{f.label}</div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>{f.sub}</div>
-                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}>{f.desc}</div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-            <div className="platform-cards-bottom" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1.25rem", maxWidth: "600px", margin: "0 auto" }}>
-              {[
-                { href: "/dashboard/support", icon: "🤝", label: "Get Support", sub: "Coaching & Office Hours", desc: "Book office hours with Rebekah, enquire about expert coaching, or join a live event." },
-                { href: "/dashboard/community", icon: "🌍", label: "The Inclusion Editors", sub: "Community", desc: "Connect with practitioners, share insights, and grow your network." },
-              ].map((f) => (
-                <Link key={f.label} href={f.href} style={{ textDecoration: "none" }}>
-                  <div style={{
-                    background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)",
-                    borderRadius: "18px", padding: "1.75rem 1.5rem",
-                    boxShadow: "0 6px 28px rgba(42,74,48,0.22)",
-                    cursor: "pointer", position: "relative", overflow: "hidden",
-                  }}>
-                    <div style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
-                    <div style={{ fontSize: "2rem", marginBottom: "1rem" }} aria-hidden="true">{f.icon}</div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.05rem", color: "white", marginBottom: "0.2rem" }}>{f.label}</div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>{f.sub}</div>
-                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}>{f.desc}</div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* BIG SEARCH BAR */}
-        <section style={{ background: "var(--white)", padding: "2rem 1.5rem 0" }}>
-          <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 3vw, 2.25rem)", color: "var(--charcoal)", textAlign: "center", marginBottom: "0.5rem", letterSpacing: "-0.01em" }}>
-              What does your culture need?
-            </h2>
-            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 500, fontSize: "1rem", color: "var(--gray-soft)", textAlign: "center", marginBottom: "1.5rem" }}>
-              Find the tools and resources to move it forward.
-            </p>
-            <div ref={heroSearchRef} style={{ position: "relative" }}>
-              <input
-                type="search"
-                placeholder="Search modules, tools, guides, research…"
-                value={heroSearchQuery}
-                onChange={(e) => setHeroSearchQuery(e.target.value)}
-                onFocus={() => heroSearchQuery.length >= 2 && setHeroSearchOpen(true)}
-                aria-label="Search all platform content"
-                style={{
-                  width: "100%", padding: "1rem 1.5rem 1rem 3.25rem",
-                  borderRadius: "14px", border: "2px solid var(--sage-dark)",
-                  fontFamily: "var(--font-body)", fontSize: "1rem",
-                  background: "var(--sage-xlight)", color: "var(--charcoal)", outline: "none",
-                  boxShadow: "0 4px 24px rgba(42,74,48,0.18)",
-                  boxSizing: "border-box",
-                }}
-              />
-              <span style={{ position: "absolute", left: "1.125rem", top: "50%", transform: "translateY(-50%)", fontSize: "1.1rem" }} aria-hidden="true">🔍</span>
-              {heroSearchOpen && heroSearchResults.length > 0 && (
-                <div role="listbox" style={{ position: "absolute", top: "calc(100% + 8px)", left: 0, right: 0, background: "var(--white)", border: "1.5px solid var(--sage-light)", borderRadius: "14px", boxShadow: "0 16px 48px rgba(0,0,0,0.14)", zIndex: 200, overflow: "hidden" }}>
-                  {heroSearchResults.map((item) => (
-                    <button key={item.id} role="option" aria-selected="false"
-                      onClick={() => { item.free ? (window.location.href = item.href) : handleLockedClick(item.title); setHeroSearchOpen(false); setHeroSearchQuery(""); }}
-                      style={{ width: "100%", padding: "0.9rem 1.5rem", display: "flex", alignItems: "center", gap: "0.875rem", border: "none", background: "none", cursor: "pointer", textAlign: "left", borderBottom: "1px solid var(--gray-border)" }}
-                      onMouseEnter={(e) => (e.currentTarget.style.background = "var(--sage-xlight)")}
-                      onMouseLeave={(e) => (e.currentTarget.style.background = "none")}
-                    >
-                      <span style={{ fontSize: "1.1rem" }} aria-hidden="true">{TYPE_ICONS[item.type]}</span>
-                      <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.9rem", color: "var(--charcoal)" }}>{item.title}</div>
-                        {item.subtitle && <div style={{ fontSize: "0.75rem", color: "var(--gray-soft)" }}>{item.subtitle}</div>}
-                      </div>
-                      <span style={{ fontSize: "0.65rem", fontFamily: "var(--font-heading)", fontWeight: 700, textTransform: "uppercase", color: "var(--sage-dark)", background: "var(--sage-light)", padding: "0.2rem 0.6rem", borderRadius: "999px", whiteSpace: "nowrap" }}>
-                        {item.free ? "Free" : TYPE_LABELS[item.type]}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
-
         {/* AI-POWERED FINDER */}
         {(() => {
           const ORG_SIZES = ["Just me", "2–50 people", "51–250 people", "250+ people"];
@@ -842,6 +619,229 @@ export default function Home() {
             </section>
           );
         })()}
+
+        {/* INCLUSION AI SECTION */}
+        {(() => {
+          const AI_TOOLS_CAROUSEL = [
+            { icon: "⚖️", name: "Evidence Argument Builder", desc: "Build a compelling, evidence-backed business case for EDI investment tailored to your organisation.", href: "/dashboard/evidence", badge: "Available now", badgeColor: "#3D6142" },
+            { icon: "🔬", name: "Research Interpreter", desc: "Paste any research paper or report and get an inclusion-focused summary with practical takeaways.", href: "/dashboard/evidence", badge: "Available now", badgeColor: "#3D6142" },
+            { icon: "📖", name: "Case Study Roadmap", desc: "Turn an external case study into a step-by-step replication roadmap for your own organisation.", href: "/dashboard/evidence", badge: "Available now", badgeColor: "#3D6142" },
+            { icon: "📋", name: "Policy Equity Auditor", desc: "Upload any policy and get a detailed equity audit: inclusive language, missing provisions, legal framework alignment and action points.", href: "/dashboard/inclusion-ai", badge: "Coming soon", badgeColor: "#C9A84C" },
+            { icon: "💼", name: "Job Description Equity Checker", desc: "Identify biased language, gendered wording and barriers to diverse applicants before your role goes live.", href: "/dashboard/inclusion-ai", badge: "Coming soon", badgeColor: "#C9A84C" },
+            { icon: "🎯", name: "Interview Question Generator", desc: "Generate structured, bias-aware interview questions aligned to your role competencies and inclusion values.", href: "/dashboard/inclusion-ai", badge: "Coming soon", badgeColor: "#C9A84C" },
+            { icon: "🏥", name: "Inclusion Health Check", desc: "A rapid diagnostic that surfaces your organisation's inclusion strengths, gaps and priority actions.", href: "/dashboard/inclusion-ai", badge: "Coming soon", badgeColor: "#C9A84C" },
+            { icon: "📊", name: "Pay Gap Narrative Generator", desc: "Turn your gender pay gap data into a clear, compliant and compelling narrative for your annual report.", href: "/dashboard/inclusion-ai", badge: "Coming soon", badgeColor: "#C9A84C" },
+            { icon: "🔍", name: "Gender Pay Gap Analysis Tool", desc: "Input your pay data and receive a full analysis with root cause indicators and recommended actions.", href: "/dashboard/inclusion-ai", badge: "Coming soon", badgeColor: "#C9A84C" },
+          ];
+          const totalSlides = Math.ceil(AI_TOOLS_CAROUSEL.length / 3);
+          const visibleTools = AI_TOOLS_CAROUSEL.slice(aiCarouselIdx * 3, aiCarouselIdx * 3 + 3);
+          return (
+            <section style={{ padding: "4.5rem 1.5rem", position: "relative", overflow: "hidden" }}>
+              {/* Background: same faded photo technique as Learning Pathways */}
+              <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/team-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 0 }} aria-hidden="true" />
+              <div style={{ position: "absolute", inset: 0, background: "rgba(232, 238, 230, 0.93)", backdropFilter: "blur(2px)", zIndex: 1 }} aria-hidden="true" />
+
+              <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 2 }}>
+                {/* Header */}
+                <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+                  <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.16em", color: "#8B6914", background: "rgba(201,168,76,0.18)", border: "1px solid rgba(201,168,76,0.4)", padding: "0.35rem 1rem", borderRadius: "999px", marginBottom: "1.25rem" }}>
+                    Inclusion AI
+                  </span>
+                  <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "1rem", letterSpacing: "-0.01em" }}>
+                    AI-powered tools built for inclusion professionals.
+                  </h2>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", color: "var(--gray-soft)", maxWidth: "620px", margin: "0 auto", lineHeight: 1.7 }}>
+                    Audit policies, build evidence, check job descriptions and analyse pay gaps; intelligent tools designed for the real complexity of inclusion work.
+                  </p>
+                </div>
+
+                {/* Carousel */}
+                <div style={{ position: "relative" }}>
+                  {/* Prev button */}
+                  <button
+                    onClick={() => setAiCarouselIdx((i) => Math.max(0, i - 1))}
+                    disabled={aiCarouselIdx === 0}
+                    aria-label="Previous tools"
+                    style={{ position: "absolute", left: "-1.75rem", top: "50%", transform: "translateY(-50%)", zIndex: 10, width: "2.5rem", height: "2.5rem", borderRadius: "50%", border: "1.5px solid rgba(42,74,48,0.25)", background: "var(--white)", cursor: aiCarouselIdx === 0 ? "default" : "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", color: aiCarouselIdx === 0 ? "rgba(42,74,48,0.2)" : "var(--sage-dark)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)", transition: "all 0.15s" }}
+                  >‹</button>
+
+                  {/* Cards */}
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", marginBottom: "2rem" }}>
+                    {visibleTools.map((tool) => (
+                      <Link key={tool.name} href={tool.href} style={{ textDecoration: "none" }}>
+                        <div
+                          style={{ position: "relative", background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 50%, #FAF6EE 100%)", border: "1px solid rgba(201,168,76,0.25)", borderRadius: "16px", padding: "1.75rem", height: "100%", cursor: "pointer", transition: "box-shadow 0.2s, transform 0.2s", boxSizing: "border-box", boxShadow: "0 0 0 3px rgba(201,168,76,0.12), 0 0 18px 4px rgba(201,168,76,0.13), 0 4px 20px rgba(0,0,0,0.06)", overflow: "hidden" }}
+                          onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 0 0 3px rgba(201,168,76,0.22), 0 0 32px 8px rgba(201,168,76,0.22), 0 8px 32px rgba(0,0,0,0.09)"; el.style.transform = "translateY(-4px)"; }}
+                          onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 0 0 3px rgba(201,168,76,0.12), 0 0 18px 4px rgba(201,168,76,0.13), 0 4px 20px rgba(0,0,0,0.06)"; el.style.transform = "none"; }}
+                        >
+                          {/* Subtle circle orb pattern */}
+                          <svg aria-hidden="true" style={{ position: "absolute", top: "-30px", right: "-30px", width: "160px", height: "160px", opacity: 0.18, pointerEvents: "none" }} viewBox="0 0 160 160" fill="none">
+                            <circle cx="80" cy="80" r="70" stroke="#C9A84C" strokeWidth="1.5"/>
+                            <circle cx="80" cy="80" r="50" stroke="#C9A84C" strokeWidth="1"/>
+                            <circle cx="80" cy="80" r="30" stroke="#C9A84C" strokeWidth="0.75"/>
+                          </svg>
+                          <svg aria-hidden="true" style={{ position: "absolute", bottom: "-40px", left: "-40px", width: "120px", height: "120px", opacity: 0.10, pointerEvents: "none" }} viewBox="0 0 120 120" fill="none">
+                            <circle cx="60" cy="60" r="55" stroke="#C9A84C" strokeWidth="1.5"/>
+                            <circle cx="60" cy="60" r="38" stroke="#C9A84C" strokeWidth="1"/>
+                          </svg>
+                          <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "1rem", gap: "0.5rem" }}>
+                            <span style={{ fontSize: "1.75rem" }} aria-hidden="true">{tool.icon}</span>
+                            <span style={{ fontFamily: "var(--font-heading)", fontSize: "0.62rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: tool.badge === "Available now" ? "#2C4A31" : "#7A5200", background: tool.badge === "Available now" ? "rgba(61,97,66,0.12)" : "rgba(255,255,255,0.6)", border: `1px solid ${tool.badge === "Available now" ? "rgba(61,97,66,0.3)" : "rgba(180,130,20,0.4)"}`, padding: "0.2rem 0.55rem", borderRadius: "999px", flexShrink: 0, whiteSpace: "nowrap" }}>
+                              {tool.badge}
+                            </span>
+                          </div>
+                          <div style={{ position: "relative", zIndex: 1, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "0.5rem", lineHeight: 1.3 }}>{tool.name}</div>
+                          <div style={{ position: "relative", zIndex: 1, fontFamily: "var(--font-body)", fontSize: "0.84rem", color: "#4A4A4A", lineHeight: 1.65 }}>{tool.desc}</div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+
+                  {/* Next button */}
+                  <button
+                    onClick={() => setAiCarouselIdx((i) => Math.min(totalSlides - 1, i + 1))}
+                    disabled={aiCarouselIdx === totalSlides - 1}
+                    aria-label="Next tools"
+                    style={{ position: "absolute", right: "-1.75rem", top: "50%", transform: "translateY(-50%)", zIndex: 10, width: "2.5rem", height: "2.5rem", borderRadius: "50%", border: "1.5px solid rgba(42,74,48,0.25)", background: "var(--white)", cursor: aiCarouselIdx === totalSlides - 1 ? "default" : "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", color: aiCarouselIdx === totalSlides - 1 ? "rgba(42,74,48,0.2)" : "var(--sage-dark)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)", transition: "all 0.15s" }}
+                  >›</button>
+                </div>
+
+                {/* Dot indicators */}
+                <div style={{ display: "flex", justifyContent: "center", gap: "0.5rem", marginBottom: "2.5rem" }}>
+                  {Array.from({ length: totalSlides }).map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setAiCarouselIdx(i)}
+                      aria-label={`Go to slide ${i + 1}`}
+                      style={{ width: i === aiCarouselIdx ? "1.5rem" : "0.5rem", height: "0.5rem", borderRadius: "999px", border: "none", background: i === aiCarouselIdx ? "#C9A84C" : "rgba(42,74,48,0.2)", cursor: "pointer", padding: 0, transition: "all 0.2s" }}
+                    />
+                  ))}
+                </div>
+
+                {/* CTA */}
+                <div style={{ textAlign: "center" }}>
+                  <Link href="/dashboard/inclusion-ai" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--white)", background: "linear-gradient(135deg, #3D6142 0%, #2C4A31 100%)", padding: "0.875rem 2.25rem", borderRadius: "10px", textDecoration: "none", boxShadow: "0 4px 16px rgba(42,74,48,0.25)" }}>
+                    Explore all 9 Inclusion AI tools →
+                  </Link>
+                </div>
+              </div>
+            </section>
+          );
+        })()}
+
+        {/* EVERYTHING YOU NEED */}
+        <section style={{ padding: "4rem 1.5rem 5rem", background: "var(--white)" }}>
+          <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+            <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--sage-xlight)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1rem" }}>
+                The platform
+              </span>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "0.75rem", letterSpacing: "-0.01em" }}>
+                From knowledge to action to measurable change; all in one place.
+              </h2>
+              <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.05rem", maxWidth: "640px", margin: "0 auto", lineHeight: 1.65, whiteSpace: "nowrap" }}>
+                The tools, training and evidence to build a culture that performs.
+              </p>
+            </div>
+
+            <div className="platform-cards-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem", marginBottom: "1.25rem" }}>
+              {[
+                { href: "/dashboard/learn", icon: "📚", label: "Learn", sub: "CPD Modules", desc: "Build the knowledge base that reduces risk and drives performance." },
+                { href: "/dashboard/watch", icon: "🎥", label: "Watch", sub: "Masterclasses", desc: "Expert insight you can apply the same week." },
+                { href: "/dashboard/apply", icon: "🛠️", label: "Apply", sub: "Tools & Frameworks", desc: "Turn good intentions into documented, defensible action." },
+                { href: "/dashboard/evidence", icon: "📊", label: "Make the Case", sub: "Evidence & ROI", desc: "The data and evidence your leadership team needs." },
+              ].map((f) => (
+                <Link key={f.label} href={f.href} style={{ textDecoration: "none" }}>
+                  <div style={{
+                    background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)",
+                    borderRadius: "18px", padding: "1.75rem 1.5rem",
+                    boxShadow: "0 6px 28px rgba(42,74,48,0.22)",
+                    cursor: "pointer", height: "100%", position: "relative", overflow: "hidden",
+                  }}>
+                    <div style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
+                    <div style={{ fontSize: "2rem", marginBottom: "1rem" }} aria-hidden="true">{f.icon}</div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.05rem", color: "white", marginBottom: "0.2rem" }}>{f.label}</div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>{f.sub}</div>
+                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}>{f.desc}</div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            <div className="platform-cards-bottom" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1.25rem", maxWidth: "600px", margin: "0 auto" }}>
+              {[
+                { href: "/dashboard/support", icon: "🤝", label: "Get Support", sub: "Coaching & Office Hours", desc: "Book office hours with Rebekah, enquire about expert coaching, or join a live event." },
+                { href: "/dashboard/community", icon: "🌍", label: "The Inclusion Editors", sub: "Community", desc: "Connect with practitioners, share insights, and grow your network." },
+              ].map((f) => (
+                <Link key={f.label} href={f.href} style={{ textDecoration: "none" }}>
+                  <div style={{
+                    background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)",
+                    borderRadius: "18px", padding: "1.75rem 1.5rem",
+                    boxShadow: "0 6px 28px rgba(42,74,48,0.22)",
+                    cursor: "pointer", position: "relative", overflow: "hidden",
+                  }}>
+                    <div style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
+                    <div style={{ fontSize: "2rem", marginBottom: "1rem" }} aria-hidden="true">{f.icon}</div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.05rem", color: "white", marginBottom: "0.2rem" }}>{f.label}</div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>{f.sub}</div>
+                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}>{f.desc}</div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* BIG SEARCH BAR */}
+        <section style={{ background: "var(--white)", padding: "2rem 1.5rem 0" }}>
+          <div style={{ maxWidth: "760px", margin: "0 auto" }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 3vw, 2.25rem)", color: "var(--charcoal)", textAlign: "center", marginBottom: "0.5rem", letterSpacing: "-0.01em" }}>
+              What does your culture need?
+            </h2>
+            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 500, fontSize: "1rem", color: "var(--gray-soft)", textAlign: "center", marginBottom: "1.5rem" }}>
+              Find the tools and resources to move it forward.
+            </p>
+            <div ref={heroSearchRef} style={{ position: "relative" }}>
+              <input
+                type="search"
+                placeholder="Search modules, tools, guides, research…"
+                value={heroSearchQuery}
+                onChange={(e) => setHeroSearchQuery(e.target.value)}
+                onFocus={() => heroSearchQuery.length >= 2 && setHeroSearchOpen(true)}
+                aria-label="Search all platform content"
+                style={{
+                  width: "100%", padding: "1rem 1.5rem 1rem 3.25rem",
+                  borderRadius: "14px", border: "2px solid var(--sage-dark)",
+                  fontFamily: "var(--font-body)", fontSize: "1rem",
+                  background: "var(--sage-xlight)", color: "var(--charcoal)", outline: "none",
+                  boxShadow: "0 4px 24px rgba(42,74,48,0.18)",
+                  boxSizing: "border-box",
+                }}
+              />
+              <span style={{ position: "absolute", left: "1.125rem", top: "50%", transform: "translateY(-50%)", fontSize: "1.1rem" }} aria-hidden="true">🔍</span>
+              {heroSearchOpen && heroSearchResults.length > 0 && (
+                <div role="listbox" style={{ position: "absolute", top: "calc(100% + 8px)", left: 0, right: 0, background: "var(--white)", border: "1.5px solid var(--sage-light)", borderRadius: "14px", boxShadow: "0 16px 48px rgba(0,0,0,0.14)", zIndex: 200, overflow: "hidden" }}>
+                  {heroSearchResults.map((item) => (
+                    <button key={item.id} role="option" aria-selected="false"
+                      onClick={() => { item.free ? (window.location.href = item.href) : handleLockedClick(item.title); setHeroSearchOpen(false); setHeroSearchQuery(""); }}
+                      style={{ width: "100%", padding: "0.9rem 1.5rem", display: "flex", alignItems: "center", gap: "0.875rem", border: "none", background: "none", cursor: "pointer", textAlign: "left", borderBottom: "1px solid var(--gray-border)" }}
+                      onMouseEnter={(e) => (e.currentTarget.style.background = "var(--sage-xlight)")}
+                      onMouseLeave={(e) => (e.currentTarget.style.background = "none")}
+                    >
+                      <span style={{ fontSize: "1.1rem" }} aria-hidden="true">{TYPE_ICONS[item.type]}</span>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.9rem", color: "var(--charcoal)" }}>{item.title}</div>
+                        {item.subtitle && <div style={{ fontSize: "0.75rem", color: "var(--gray-soft)" }}>{item.subtitle}</div>}
+                      </div>
+                      <span style={{ fontSize: "0.65rem", fontFamily: "var(--font-heading)", fontWeight: 700, textTransform: "uppercase", color: "var(--sage-dark)", background: "var(--sage-light)", padding: "0.2rem 0.6rem", borderRadius: "999px", whiteSpace: "nowrap" }}>
+                        {item.free ? "Free" : TYPE_LABELS[item.type]}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
 
         {/* EXPLORE LEARNING PATHWAYS */}
         <section style={{ padding: "5rem 1.5rem", position: "relative", overflow: "hidden" }}>
