@@ -338,25 +338,28 @@ export default function ApplyPage() {
 
       {/* ── Inclusion AI Tools strip ── */}
       {!toolkitView && (
-        <div style={{ background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 100%)", padding: "2rem 1.5rem" }}>
+        <div style={{ background: "linear-gradient(160deg, #3A2E00 0%, #5C4600 50%, #3A2E00 100%)", padding: "2.5rem 1.5rem" }}>
           <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-            <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", marginBottom: "1.25rem" }}>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.15rem", color: "#fff", margin: 0 }}>✨ Inclusion AI Tools</h2>
-              <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "rgba(255,255,255,0.65)" }}>AI-powered tools that do the heavy lifting for you</span>
+            <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.75rem" }}>
+              <div>
+                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.35rem", color: "#F5D97A", margin: "0 0 0.2rem" }}>✨ Inclusion AI Tools</h2>
+                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(245,217,122,0.65)" }}>AI-powered tools built for inclusion professionals</span>
+              </div>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "0.875rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem" }}>
               {aiTools.map((r) => (
                 <div
                   key={r.id}
                   onClick={() => openResource(r.id)}
-                  style={{ background: "rgba(255,255,255,0.09)", border: "1px solid rgba(255,255,255,0.18)", borderRadius: "12px", padding: "1.1rem 1.25rem", cursor: "pointer", transition: "background 0.15s ease", display: "flex", flexDirection: "column", gap: "0.4rem" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.15)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.09)")}
+                  style={{ background: "#FBF5E0", border: "1.5px solid #C9A84C", borderRadius: "14px", padding: "1.5rem", cursor: "pointer", transition: "box-shadow 0.15s ease, transform 0.15s ease", display: "flex", flexDirection: "column", gap: "0.6rem", position: "relative" as const }}
+                  onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 4px 20px rgba(201,168,76,0.35)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.transform = "translateY(0)"; }}
                 >
-                  <div style={{ fontSize: "1.25rem" }}>{r.icon}</div>
-                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "#fff", lineHeight: 1.3 }}>{r.title}</div>
-                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.7)", lineHeight: 1.5 }}>{r.desc}</div>
-                  <div style={{ marginTop: "0.5rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", color: "rgba(255,255,255,0.9)" }}>Open tool →</div>
+                  <div style={{ position: "absolute" as const, top: "1rem", right: "1rem", background: "#C9A84C", color: "#fff", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase" as const, padding: "0.2rem 0.6rem", borderRadius: "999px" }}>Available now</div>
+                  <div style={{ fontSize: "1.75rem", lineHeight: 1 }}>{r.icon}</div>
+                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "#3A2E00", lineHeight: 1.3, paddingRight: "4rem" }}>{r.title}</div>
+                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "#6B5200", lineHeight: 1.6 }}>{r.desc}</div>
+                  <div style={{ marginTop: "auto", paddingTop: "0.75rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "#C9A84C" }}>Open tool →</div>
                 </div>
               ))}
             </div>
