@@ -424,12 +424,24 @@ export default function Home() {
           const greetingName = finderName.trim().split(" ")[0];
 
           return (
-            <section style={{ padding: "3rem 1.5rem 2.5rem", background: "var(--white)" }}>
-              <div style={{ maxWidth: "860px", margin: "0 auto" }}>
+            <section style={{ padding: "3.5rem 1.5rem 3rem", position: "relative", overflow: "hidden", background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 50%, #FAF6EE 100%)" }}>
+              {/* Gold glow orbs */}
+              <svg aria-hidden="true" style={{ position: "absolute", top: "-60px", right: "-60px", width: "320px", height: "320px", opacity: 0.13, pointerEvents: "none", zIndex: 0 }} viewBox="0 0 320 320" fill="none">
+                <circle cx="160" cy="160" r="150" stroke="#C9A84C" strokeWidth="1.5"/>
+                <circle cx="160" cy="160" r="110" stroke="#C9A84C" strokeWidth="1"/>
+                <circle cx="160" cy="160" r="70" stroke="#C9A84C" strokeWidth="0.75"/>
+              </svg>
+              <svg aria-hidden="true" style={{ position: "absolute", bottom: "-80px", left: "-80px", width: "260px", height: "260px", opacity: 0.09, pointerEvents: "none", zIndex: 0 }} viewBox="0 0 260 260" fill="none">
+                <circle cx="130" cy="130" r="120" stroke="#C9A84C" strokeWidth="1.5"/>
+                <circle cx="130" cy="130" r="85" stroke="#C9A84C" strokeWidth="1"/>
+              </svg>
+              {/* Gold shimmer sweep */}
+              <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, transparent 0%, rgba(201,168,76,0.06) 40%, rgba(201,168,76,0.13) 60%, transparent 100%)", zIndex: 0, pointerEvents: "none" }} />
+              <div style={{ maxWidth: "860px", margin: "0 auto", position: "relative", zIndex: 1 }}>
 
                 {/* Header */}
                 <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-                  <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.7rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.16em", color: "#7A5200", background: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.3)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1rem" }}>
+                  <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.16em", color: "#8B6914", background: "rgba(201,168,76,0.18)", border: "1px solid rgba(201,168,76,0.4)", padding: "0.35rem 1rem", borderRadius: "999px", marginBottom: "1rem" }}>
                     Inclusion AI
                   </span>
                   <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)", color: "var(--charcoal)", marginBottom: "0.625rem", letterSpacing: "-0.01em" }}>
@@ -478,18 +490,18 @@ export default function Home() {
                         placeholder="Your first name"
                         value={finderName}
                         onChange={(e) => setFinderName(e.target.value)}
-                        style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "10px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", outline: "none", boxSizing: "border-box", background: "var(--white)", transition: "border-color 0.15s, box-shadow 0.15s" }}
-                        onFocus={(e) => { e.target.style.borderColor = "var(--sage-dark)"; e.target.style.boxShadow = "0 0 0 3px rgba(42,74,48,0.08)"; }}
-                        onBlur={(e) => { e.target.style.borderColor = "var(--gray-border)"; e.target.style.boxShadow = "none"; }}
+                        style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "10px", border: "1.5px solid rgba(201,168,76,0.3)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", outline: "none", boxSizing: "border-box", background: "rgba(255,255,255,0.85)", transition: "border-color 0.15s, box-shadow 0.15s" }}
+                        onFocus={(e) => { e.target.style.borderColor = "#C9A84C"; e.target.style.boxShadow = "0 0 0 3px rgba(201,168,76,0.18), 0 0 12px rgba(201,168,76,0.15)"; }}
+                        onBlur={(e) => { e.target.style.borderColor = "rgba(201,168,76,0.3)"; e.target.style.boxShadow = "none"; }}
                       />
                       <input
                         type="email"
                         placeholder="Your email address"
                         value={finderEmail}
                         onChange={(e) => setFinderEmail(e.target.value)}
-                        style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "10px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", outline: "none", boxSizing: "border-box", background: "var(--white)", transition: "border-color 0.15s, box-shadow 0.15s" }}
-                        onFocus={(e) => { e.target.style.borderColor = "var(--sage-dark)"; e.target.style.boxShadow = "0 0 0 3px rgba(42,74,48,0.08)"; }}
-                        onBlur={(e) => { e.target.style.borderColor = "var(--gray-border)"; e.target.style.boxShadow = "none"; }}
+                        style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "10px", border: "1.5px solid rgba(201,168,76,0.3)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", outline: "none", boxSizing: "border-box", background: "rgba(255,255,255,0.85)", transition: "border-color 0.15s, box-shadow 0.15s" }}
+                        onFocus={(e) => { e.target.style.borderColor = "#C9A84C"; e.target.style.boxShadow = "0 0 0 3px rgba(201,168,76,0.18), 0 0 12px rgba(201,168,76,0.15)"; }}
+                        onBlur={(e) => { e.target.style.borderColor = "rgba(201,168,76,0.3)"; e.target.style.boxShadow = "none"; }}
                       />
                     </div>
 
@@ -502,9 +514,9 @@ export default function Home() {
                           value={finderTopic}
                           rows={3}
                           onChange={(e) => handleTopicChange(e.target.value)}
-                          onFocus={(e) => { (e.target as HTMLTextAreaElement).style.borderColor = "var(--sage-dark)"; (e.target as HTMLTextAreaElement).style.boxShadow = "0 0 0 3px rgba(42,74,48,0.08)"; }}
-                          onBlur={(e) => { (e.target as HTMLTextAreaElement).style.borderColor = "var(--gray-border)"; (e.target as HTMLTextAreaElement).style.boxShadow = "none"; setTimeout(() => setFinderSuggestionsOpen(false), 150); }}
-                          style={{ width: "100%", padding: "0.875rem 1rem", borderRadius: "10px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", outline: "none", resize: "none", boxSizing: "border-box", lineHeight: 1.6, transition: "border-color 0.15s, box-shadow 0.15s" }}
+                          onFocus={(e) => { (e.target as HTMLTextAreaElement).style.borderColor = "#C9A84C"; (e.target as HTMLTextAreaElement).style.boxShadow = "0 0 0 3px rgba(201,168,76,0.18), 0 0 12px rgba(201,168,76,0.15)"; }}
+                          onBlur={(e) => { (e.target as HTMLTextAreaElement).style.borderColor = "rgba(201,168,76,0.3)"; (e.target as HTMLTextAreaElement).style.boxShadow = "none"; setTimeout(() => setFinderSuggestionsOpen(false), 150); }}
+                          style={{ width: "100%", padding: "0.875rem 1rem", borderRadius: "10px", border: "1.5px solid rgba(201,168,76,0.3)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", outline: "none", resize: "none", boxSizing: "border-box", lineHeight: 1.6, background: "rgba(255,255,255,0.85)", transition: "border-color 0.15s, box-shadow 0.15s" }}
                         />
                         {finderSuggestionsOpen && finderSuggestions.length > 0 && (
                           <div style={{ position: "absolute", top: "100%", left: 0, right: 0, background: "var(--white)", border: "1.5px solid var(--gray-border)", borderRadius: "10px", boxShadow: "0 8px 24px rgba(0,0,0,0.1)", zIndex: 20, overflowY: "auto", maxHeight: "220px", marginTop: "4px" }}>
@@ -533,7 +545,7 @@ export default function Home() {
                       <button
                         onClick={handleSubmit}
                         disabled={!finderName || !finderEmail || !finderTopic}
-                        style={{ padding: "0.875rem 2.25rem", borderRadius: "12px", background: (!finderName || !finderEmail || !finderTopic) ? "var(--gray-border)" : "var(--sage-dark)", border: "none", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: (!finderName || !finderEmail || !finderTopic) ? "var(--gray-soft)" : "var(--white)", cursor: (!finderName || !finderEmail || !finderTopic) ? "not-allowed" : "pointer", transition: "all 0.15s", boxShadow: (!finderName || !finderEmail || !finderTopic) ? "none" : "0 4px 18px rgba(42,74,48,0.28)" }}
+                        style={{ padding: "0.875rem 2.25rem", borderRadius: "12px", background: (!finderName || !finderEmail || !finderTopic) ? "var(--gray-border)" : "var(--sage-dark)", border: "none", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: (!finderName || !finderEmail || !finderTopic) ? "var(--gray-soft)" : "var(--white)", cursor: (!finderName || !finderEmail || !finderTopic) ? "not-allowed" : "pointer", transition: "all 0.15s", boxShadow: (!finderName || !finderEmail || !finderTopic) ? "none" : "0 0 0 2px rgba(201,168,76,0.3), 0 0 18px rgba(201,168,76,0.25), 0 4px 18px rgba(42,74,48,0.28)" }}
                       >
                         Find my starting points →
                       </button>
