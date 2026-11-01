@@ -78,6 +78,10 @@ const ALL_RESOURCES: Resource[] = [
   { id: "s17", icon: "🎪", title: "Inclusive Event Planning Checklist",       desc: "A 3-phase checklist (pre-event, during, post-event) across 14 sections: from stakeholder co-design and venue accessibility to catering, communications, and evaluation.", format: "Checklist",  topics: ["Disability", "Religion and Belief", "Inclusion Practices"], time: "25 min" },
   { id: "s18", icon: "👴🏾", title: "Challenging Ageism in the Workplace",    desc: "An 11-area audit covering recruitment, progression, performance, leadership, culture, flexible working, intersectionality, and measurement: with yes/partially/not-yet status tracking.", format: "Toolkit",   topics: ["Age", "Inclusion Practices"],                  time: "20 min"      },
   { id: "s19", icon: "📊", title: "Inclusive Data Collection",                desc: "A 7-step guide to collecting equality data ethically: with a pre-collection planning tool, step-by-step guidance, and a UK legal framework callout.", format: "Guide",      topics: ["Inclusion Practices"],                         time: "20 min read"  },
+  // --- AI INCLUSION TOOLS: not yet built ---
+  { id: "ai-policy",  icon: "📋", title: "Policy Equity Auditor",       desc: "Paste any existing policy and receive a structured audit report: inclusive language review, legal framework alignment, accountability checks, and a prioritised action list.", format: "AI Inclusion Tool", topics: ["Inclusion Practices"], time: "10 min" },
+  { id: "ai-health",  icon: "🩺", title: "Inclusion Health Check",       desc: "A 15-question diagnostic across five inclusion dimensions: get a traffic light rating for each area and a prioritised list of next steps.", format: "AI Inclusion Tool", topics: ["Inclusion Practices"], time: "10 min" },
+  { id: "ai-paygap",  icon: "💰", title: "Pay Gap Narrative Generator",  desc: "Input your gender pay gap figures and receive a statutory narrative report: honest, constructive, legally sound, and ready to publish.", format: "AI Inclusion Tool", topics: ["Gender", "Inclusion Practices"], time: "10 min" },
   // --- COMING SOON: placeholder resources ---
   { id: "r11", icon: "📐", title: "Inclusion Maturity Framework",              desc: "Assess where your organisation sits on the inclusion maturity spectrum and identify the most impactful next steps.", format: "Framework",  topics: ["Inclusion Practices"],                         time: "45 min"      },
   { id: "r13", icon: "🗓️", title: "30/60/90 Day EDI Action Planner",           desc: "A practical planning tool for those new to an EDI role or kicking off a new strategy. Break your first quarter into focused, achievable steps.", format: "Toolkit",       topics: ["Inclusion Practices"],                         time: "60 min"      },
@@ -105,20 +109,32 @@ export default function ApplyPage() {
   const [myToolkit, setMyToolkit] = useState<string[]>([]);
   const [visited, setVisited] = useState<string[]>([]);
   const [toolkitView, setToolkitView] = useState(false);
+  const [activeTab, setActiveTab] = useState<"ai" | "frameworks" | "guides">("ai");
   const [shareMenuId, setShareMenuId] = useState<string | null>(null);
+
+  /* ── Tab membership ── */
+  const AI_IDS = new Set(["ai1", "ai2", "ai3", "ai-policy", "ai-health", "ai-paygap"]);
+  const FRAMEWORK_IDS = new Set(["r11", "r13", "r14"]);
 
   /* ── Filter logic ── */
   const visibleResources = useMemo(() => {
-    let pool = toolkitView
-      ? ALL_RESOURCES.filter((r) => myToolkit.includes(r.id))
-      : ALL_RESOURCES;
+    let pool: Resource[];
+    if (toolkitView) {
+      pool = ALL_RESOURCES.filter((r) => myToolkit.includes(r.id));
+    } else if (activeTab === "ai") {
+      pool = ALL_RESOURCES.filter((r) => AI_IDS.has(r.id));
+    } else if (activeTab === "frameworks") {
+      pool = ALL_RESOURCES.filter((r) => FRAMEWORK_IDS.has(r.id));
+    } else {
+      pool = ALL_RESOURCES.filter((r) => !AI_IDS.has(r.id) && !FRAMEWORK_IDS.has(r.id));
+    }
 
     const q = search.toLowerCase();
     if (q) pool = pool.filter((r) => r.title.toLowerCase().includes(q) || r.desc.toLowerCase().includes(q));
     if (activeTopics.length) pool = pool.filter((r) => r.topics.some((t) => activeTopics.includes(t)));
     if (activeFormats.length) pool = pool.filter((r) => activeFormats.includes(r.format));
     return pool;
-  }, [search, activeTopics, activeFormats, myToolkit, toolkitView]);
+  }, [search, activeTopics, activeFormats, myToolkit, toolkitView, activeTab]);
 
   const toggleTopic = (t: string) =>
     setActiveTopics((prev) => (prev.includes(t) ? prev.filter((x) => x !== t) : [...prev, t]));
@@ -175,6 +191,9 @@ export default function ApplyPage() {
     r14: "edi-strategy-guide",
     r15: "sceptical-stakeholders",
     r20: "intersectionality",
+    "ai-policy": "policy-equity-auditor",
+    "ai-health": "inclusion-health-check",
+    "ai-paygap": "pay-gap-narrative-generator",
   };
 
   const openResource = (id: string) => {
@@ -304,6 +323,45 @@ export default function ApplyPage() {
           )}
         </div>
       </div>
+
+      {/* ── Tab bar ── */}
+      {!toolkitView && (
+        <div style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)" }}>
+          <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 1.5rem", display: "flex", overflowX: "auto" }}>
+            {(["ai", "frameworks", "guides"] as const).map((tab) => {
+              const labels: Record<string, string> = {
+                ai: "✨ Inclusion AI Tools",
+                frameworks: "📐 Frameworks and Planners",
+                guides: "📖 Guides and Resources",
+              };
+              const isActive = activeTab === tab;
+              return (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  style={{
+                    fontFamily: "var(--font-heading)",
+                    fontWeight: 700,
+                    fontSize: "0.85rem",
+                    color: isActive ? "var(--sage-dark)" : "var(--gray-soft)",
+                    background: "none",
+                    border: "none",
+                    borderBottom: isActive ? "3px solid var(--sage-dark)" : "3px solid transparent",
+                    padding: "1rem 1.25rem 0.875rem",
+                    cursor: "pointer",
+                    whiteSpace: "nowrap" as const,
+                    transition: "all 0.15s ease",
+                    flexShrink: 0,
+                  }}
+                  aria-selected={isActive}
+                >
+                  {labels[tab]}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {/* ── Resource grid ── */}
       <main id="main-content" style={{ maxWidth: "1100px", margin: "0 auto", padding: "2.5rem 1.5rem 5rem" }}>
