@@ -91,6 +91,7 @@ export default function Home() {
   const [activePathway, setActivePathway] = useState<string | null>(null);
   const [watchTab, setWatchTab] = useState<"deep-dives" | "masterclasses" | "quick-wins">("deep-dives");
   const [carouselIdx, setCarouselIdx] = useState(0);
+  const [aiCarouselIdx, setAiCarouselIdx] = useState(0);
   const [joinModalOpen, setJoinModalOpen] = useState(false);
   const [joinModalItem, setJoinModalItem] = useState("");
   const [challengeText, setChallengeText] = useState("");
@@ -368,61 +369,103 @@ export default function Home() {
         </section>
 
         {/* INCLUSION AI SECTION */}
-        <section style={{ background: "#1C1F1E", padding: "4.5rem 1.5rem" }}>
-          <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-            {/* Header */}
-            <div style={{ textAlign: "center", marginBottom: "3rem" }}>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.16em", color: "#C9A84C", background: "rgba(201,168,76,0.12)", border: "1px solid rgba(201,168,76,0.3)", padding: "0.35rem 1rem", borderRadius: "999px", marginBottom: "1.25rem" }}>
-                Inclusion AI
-              </span>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "#F5F0E8", marginBottom: "1rem", letterSpacing: "-0.01em" }}>
-                AI-powered tools built for inclusion professionals.
-              </h2>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", color: "rgba(245,240,232,0.65)", maxWidth: "620px", margin: "0 auto", lineHeight: 1.7 }}>
-                Inclusion AI brings cutting-edge artificial intelligence into your EDI practice. Audit policies, build evidence, generate job descriptions and analyse pay gaps; all powered by intelligent tools designed specifically for the complexity of inclusion work.
-              </p>
-            </div>
+        {(() => {
+          const AI_TOOLS_CAROUSEL = [
+            { icon: "⚖️", name: "Evidence Argument Builder", desc: "Build a compelling, evidence-backed business case for EDI investment tailored to your organisation.", href: "/dashboard/evidence", badge: "Available now", badgeColor: "#3D6142" },
+            { icon: "🔬", name: "Research Interpreter", desc: "Paste any research paper or report and get an inclusion-focused summary with practical takeaways.", href: "/dashboard/evidence", badge: "Available now", badgeColor: "#3D6142" },
+            { icon: "📖", name: "Case Study Roadmap", desc: "Turn an external case study into a step-by-step replication roadmap for your own organisation.", href: "/dashboard/evidence", badge: "Available now", badgeColor: "#3D6142" },
+            { icon: "📋", name: "Policy Equity Auditor", desc: "Upload any policy and get a detailed equity audit: inclusive language, missing provisions, legal framework alignment and action points.", href: "/dashboard/inclusion-ai", badge: "Coming soon", badgeColor: "#C9A84C" },
+            { icon: "💼", name: "Job Description Equity Checker", desc: "Identify biased language, gendered wording and barriers to diverse applicants before your role goes live.", href: "/dashboard/inclusion-ai", badge: "Coming soon", badgeColor: "#C9A84C" },
+            { icon: "🎯", name: "Interview Question Generator", desc: "Generate structured, bias-aware interview questions aligned to your role competencies and inclusion values.", href: "/dashboard/inclusion-ai", badge: "Coming soon", badgeColor: "#C9A84C" },
+            { icon: "🏥", name: "Inclusion Health Check", desc: "A rapid diagnostic that surfaces your organisation's inclusion strengths, gaps and priority actions.", href: "/dashboard/inclusion-ai", badge: "Coming soon", badgeColor: "#C9A84C" },
+            { icon: "📊", name: "Pay Gap Narrative Generator", desc: "Turn your gender pay gap data into a clear, compliant and compelling narrative for your annual report.", href: "/dashboard/inclusion-ai", badge: "Coming soon", badgeColor: "#C9A84C" },
+            { icon: "🔍", name: "Gender Pay Gap Analysis Tool", desc: "Input your pay data and receive a full analysis with root cause indicators and recommended actions.", href: "/dashboard/inclusion-ai", badge: "Coming soon", badgeColor: "#C9A84C" },
+          ];
+          const totalSlides = Math.ceil(AI_TOOLS_CAROUSEL.length / 3);
+          const visibleTools = AI_TOOLS_CAROUSEL.slice(aiCarouselIdx * 3, aiCarouselIdx * 3 + 3);
+          return (
+            <section style={{ padding: "4.5rem 1.5rem", position: "relative", overflow: "hidden" }}>
+              {/* Background: same faded photo technique as Learning Pathways */}
+              <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/team-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 0 }} aria-hidden="true" />
+              <div style={{ position: "absolute", inset: 0, background: "rgba(232, 238, 230, 0.93)", backdropFilter: "blur(2px)", zIndex: 1 }} aria-hidden="true" />
 
-            {/* Tool cards grid */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", marginBottom: "2.5rem" }}>
-              {[
-                { icon: "📋", name: "Policy Equity Auditor", desc: "Upload any policy and get a detailed equity audit: inclusive language, missing provisions, legal framework alignment and action points.", href: "/dashboard/inclusion-ai", badge: "New" },
-                { icon: "💼", name: "Job Description Equity Checker", desc: "Identify biased language, gendered wording and barriers to diverse applicants before your role goes live.", href: "/dashboard/inclusion-ai", badge: "New" },
-                { icon: "🎯", name: "Interview Question Generator", desc: "Generate structured, bias-aware interview questions aligned to your role competencies and inclusion values.", href: "/dashboard/inclusion-ai", badge: "New" },
-                { icon: "🏥", name: "Inclusion Health Check", desc: "A rapid diagnostic that surfaces your organisation's inclusion strengths, gaps and priority actions.", href: "/dashboard/inclusion-ai", badge: "New" },
-                { icon: "📊", name: "Pay Gap Narrative Generator", desc: "Turn your gender pay gap data into a clear, compliant and compelling narrative for your annual report.", href: "/dashboard/inclusion-ai", badge: "New" },
-                { icon: "🔍", name: "Gender Pay Gap Analysis Tool", desc: "Input your pay data and receive a full analysis with visualisations, root cause indicators and recommended actions.", href: "/dashboard/inclusion-ai", badge: "New" },
-                { icon: "⚖️", name: "Evidence Argument Builder", desc: "Build a compelling, evidence-backed business case for EDI investment tailored to your organisation.", href: "/dashboard/evidence", badge: "Available" },
-                { icon: "🔬", name: "Research Interpreter", desc: "Paste any research paper or report and get an inclusion-focused summary with practical takeaways.", href: "/dashboard/evidence", badge: "Available" },
-                { icon: "📖", name: "Case Study Roadmap", desc: "Turn an external case study into a replication roadmap for your own organisation.", href: "/dashboard/evidence", badge: "Available" },
-              ].map((tool) => (
-                <Link key={tool.name} href={tool.href} style={{ textDecoration: "none" }}>
-                  <div
-                    style={{ background: "#242827", border: "1px solid rgba(201,168,76,0.2)", borderRadius: "16px", padding: "1.5rem", height: "100%", cursor: "pointer", transition: "border-color 0.2s, transform 0.2s", boxSizing: "border-box" }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "#C9A84C"; (e.currentTarget as HTMLElement).style.transform = "translateY(-2px)"; }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(201,168,76,0.2)"; (e.currentTarget as HTMLElement).style.transform = "none"; }}
-                  >
-                    <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "0.875rem", gap: "0.5rem" }}>
-                      <span style={{ fontSize: "1.75rem" }} aria-hidden="true">{tool.icon}</span>
-                      <span style={{ fontFamily: "var(--font-heading)", fontSize: "0.65rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: tool.badge === "Available" ? "#7DBF8A" : "#C9A84C", background: tool.badge === "Available" ? "rgba(125,191,138,0.12)" : "rgba(201,168,76,0.12)", border: `1px solid ${tool.badge === "Available" ? "rgba(125,191,138,0.3)" : "rgba(201,168,76,0.3)"}`, padding: "0.2rem 0.5rem", borderRadius: "999px", flexShrink: 0 }}>
-                        {tool.badge}
-                      </span>
-                    </div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "#F5F0E8", marginBottom: "0.5rem", lineHeight: 1.3 }}>{tool.name}</div>
-                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(245,240,232,0.55)", lineHeight: 1.6 }}>{tool.desc}</div>
+              <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 2 }}>
+                {/* Header */}
+                <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+                  <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.16em", color: "#8B6914", background: "rgba(201,168,76,0.18)", border: "1px solid rgba(201,168,76,0.4)", padding: "0.35rem 1rem", borderRadius: "999px", marginBottom: "1.25rem" }}>
+                    Inclusion AI
+                  </span>
+                  <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "1rem", letterSpacing: "-0.01em" }}>
+                    AI-powered tools built for inclusion professionals.
+                  </h2>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", color: "var(--gray-soft)", maxWidth: "620px", margin: "0 auto", lineHeight: 1.7 }}>
+                    Audit policies, build evidence, check job descriptions and analyse pay gaps; intelligent tools designed for the real complexity of inclusion work.
+                  </p>
+                </div>
+
+                {/* Carousel */}
+                <div style={{ position: "relative" }}>
+                  {/* Prev button */}
+                  <button
+                    onClick={() => setAiCarouselIdx((i) => Math.max(0, i - 1))}
+                    disabled={aiCarouselIdx === 0}
+                    aria-label="Previous tools"
+                    style={{ position: "absolute", left: "-1.75rem", top: "50%", transform: "translateY(-50%)", zIndex: 10, width: "2.5rem", height: "2.5rem", borderRadius: "50%", border: "1.5px solid rgba(42,74,48,0.25)", background: "var(--white)", cursor: aiCarouselIdx === 0 ? "default" : "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", color: aiCarouselIdx === 0 ? "rgba(42,74,48,0.2)" : "var(--sage-dark)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)", transition: "all 0.15s" }}
+                  >‹</button>
+
+                  {/* Cards */}
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", marginBottom: "2rem" }}>
+                    {visibleTools.map((tool) => (
+                      <Link key={tool.name} href={tool.href} style={{ textDecoration: "none" }}>
+                        <div
+                          style={{ background: "var(--white)", border: "1.5px solid rgba(201,168,76,0.25)", borderRadius: "16px", padding: "1.75rem", height: "100%", cursor: "pointer", transition: "border-color 0.2s, box-shadow 0.2s, transform 0.2s", boxSizing: "border-box", boxShadow: "0 2px 12px rgba(42,74,48,0.07)" }}
+                          onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "#C9A84C"; el.style.boxShadow = "0 6px 24px rgba(201,168,76,0.2)"; el.style.transform = "translateY(-2px)"; }}
+                          onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(201,168,76,0.25)"; el.style.boxShadow = "0 2px 12px rgba(42,74,48,0.07)"; el.style.transform = "none"; }}
+                        >
+                          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "1rem", gap: "0.5rem" }}>
+                            <span style={{ fontSize: "1.75rem" }} aria-hidden="true">{tool.icon}</span>
+                            <span style={{ fontFamily: "var(--font-heading)", fontSize: "0.62rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: tool.badgeColor, background: tool.badge === "Available now" ? "rgba(61,97,66,0.08)" : "rgba(201,168,76,0.1)", border: `1px solid ${tool.badge === "Available now" ? "rgba(61,97,66,0.2)" : "rgba(201,168,76,0.3)"}`, padding: "0.2rem 0.55rem", borderRadius: "999px", flexShrink: 0, whiteSpace: "nowrap" }}>
+                              {tool.badge}
+                            </span>
+                          </div>
+                          <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "0.5rem", lineHeight: 1.3 }}>{tool.name}</div>
+                          <div style={{ fontFamily: "var(--font-body)", fontSize: "0.84rem", color: "var(--gray-soft)", lineHeight: 1.65 }}>{tool.desc}</div>
+                        </div>
+                      </Link>
+                    ))}
                   </div>
-                </Link>
-              ))}
-            </div>
 
-            {/* CTA */}
-            <div style={{ textAlign: "center" }}>
-              <Link href="/dashboard/inclusion-ai" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "#1C1F1E", background: "linear-gradient(135deg, #C9A84C 0%, #E8C870 100%)", padding: "0.875rem 2.25rem", borderRadius: "10px", textDecoration: "none", boxShadow: "0 4px 20px rgba(201,168,76,0.35)" }}>
-                Explore all Inclusion AI tools →
-              </Link>
-            </div>
-          </div>
-        </section>
+                  {/* Next button */}
+                  <button
+                    onClick={() => setAiCarouselIdx((i) => Math.min(totalSlides - 1, i + 1))}
+                    disabled={aiCarouselIdx === totalSlides - 1}
+                    aria-label="Next tools"
+                    style={{ position: "absolute", right: "-1.75rem", top: "50%", transform: "translateY(-50%)", zIndex: 10, width: "2.5rem", height: "2.5rem", borderRadius: "50%", border: "1.5px solid rgba(42,74,48,0.25)", background: "var(--white)", cursor: aiCarouselIdx === totalSlides - 1 ? "default" : "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", color: aiCarouselIdx === totalSlides - 1 ? "rgba(42,74,48,0.2)" : "var(--sage-dark)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)", transition: "all 0.15s" }}
+                  >›</button>
+                </div>
+
+                {/* Dot indicators */}
+                <div style={{ display: "flex", justifyContent: "center", gap: "0.5rem", marginBottom: "2.5rem" }}>
+                  {Array.from({ length: totalSlides }).map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setAiCarouselIdx(i)}
+                      aria-label={`Go to slide ${i + 1}`}
+                      style={{ width: i === aiCarouselIdx ? "1.5rem" : "0.5rem", height: "0.5rem", borderRadius: "999px", border: "none", background: i === aiCarouselIdx ? "#C9A84C" : "rgba(42,74,48,0.2)", cursor: "pointer", padding: 0, transition: "all 0.2s" }}
+                    />
+                  ))}
+                </div>
+
+                {/* CTA */}
+                <div style={{ textAlign: "center" }}>
+                  <Link href="/dashboard/inclusion-ai" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--white)", background: "linear-gradient(135deg, #3D6142 0%, #2C4A31 100%)", padding: "0.875rem 2.25rem", borderRadius: "10px", textDecoration: "none", boxShadow: "0 4px 16px rgba(42,74,48,0.25)" }}>
+                    Explore all 9 Inclusion AI tools →
+                  </Link>
+                </div>
+              </div>
+            </section>
+          );
+        })()}
 
         {/* EVERYTHING YOU NEED */}
         <section style={{ padding: "4rem 1.5rem 5rem", background: "var(--white)" }}>
