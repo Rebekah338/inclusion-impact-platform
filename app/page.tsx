@@ -931,7 +931,7 @@ export default function Home() {
 
 
         {/* COACHING */}
-        <section style={{ padding: "3.5rem 1.5rem", background: "var(--sage-xlight)" }}>
+        <section style={{ padding: "3.5rem 1.5rem", background: "var(--white)" }}>
           <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
             <div className="coaching-grid" style={{
               borderRadius: "24px", overflow: "hidden",
@@ -948,14 +948,14 @@ export default function Home() {
               }}>
                 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(42,74,48,0.2) 0%, rgba(0,0,0,0.05) 100%)" }} />
               </div>
-              <div style={{ background: "var(--white)", padding: "3rem 2.75rem" }}>
-                <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--sage-xlight)", border: "1px solid var(--sage-light)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1.5rem" }}>
+              <div style={{ background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 100%)", padding: "3rem 2.75rem" }}>
+                <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "white", background: "rgba(255,255,255,0.18)", border: "1px solid rgba(255,255,255,0.35)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1.5rem" }}>
                   Real-life expert support
                 </span>
-                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", color: "var(--charcoal)", marginBottom: "0.875rem" }}>
+                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", color: "var(--white)", marginBottom: "0.875rem" }}>
                   Get coaching from a real inclusion expert
                 </h2>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--gray-soft)", lineHeight: 1.7, marginBottom: "1.75rem" }}>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "rgba(255,255,255,0.82)", lineHeight: 1.7, marginBottom: "1.75rem" }}>
                   Backed by Rebekah Hayward, award-winning EDI consultant. Book weekly office hours, enquire about one-to-one coaching, or join a live event.
                 </p>
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem", marginBottom: "1.75rem" }}>
@@ -966,7 +966,7 @@ export default function Home() {
                   ].map((item) => (
                     <div key={item.text} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
                       <span style={{ fontSize: "1rem", flexShrink: 0 }}>{item.icon}</span>
-                      <span style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.5 }}>{item.text}</span>
+                      <span style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.9)", lineHeight: 1.5 }}>{item.text}</span>
                     </div>
                   ))}
                 </div>
