@@ -418,18 +418,18 @@ export default function Home() {
                     {visibleTools.map((tool) => (
                       <Link key={tool.name} href={tool.href} style={{ textDecoration: "none" }}>
                         <div
-                          style={{ background: "var(--white)", border: "1.5px solid rgba(201,168,76,0.25)", borderRadius: "16px", padding: "1.75rem", height: "100%", cursor: "pointer", transition: "border-color 0.2s, box-shadow 0.2s, transform 0.2s", boxSizing: "border-box", boxShadow: "0 2px 12px rgba(42,74,48,0.07)" }}
-                          onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "#C9A84C"; el.style.boxShadow = "0 6px 24px rgba(201,168,76,0.2)"; el.style.transform = "translateY(-2px)"; }}
-                          onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "rgba(201,168,76,0.25)"; el.style.boxShadow = "0 2px 12px rgba(42,74,48,0.07)"; el.style.transform = "none"; }}
+                          style={{ background: "linear-gradient(145deg, #FFFBF0 0%, #FDF3D0 45%, #FAE8A8 100%)", border: "1.5px solid #D4A832", borderRadius: "16px", padding: "1.75rem", height: "100%", cursor: "pointer", transition: "border-color 0.2s, box-shadow 0.2s, transform 0.2s", boxSizing: "border-box", boxShadow: "0 4px 18px rgba(201,168,76,0.22), inset 0 1px 0 rgba(255,255,255,0.8)" }}
+                          onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "#C9A84C"; el.style.boxShadow = "0 10px 36px rgba(201,168,76,0.38), inset 0 1px 0 rgba(255,255,255,0.9)"; el.style.transform = "translateY(-3px)"; }}
+                          onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "#D4A832"; el.style.boxShadow = "0 4px 18px rgba(201,168,76,0.22), inset 0 1px 0 rgba(255,255,255,0.8)"; el.style.transform = "none"; }}
                         >
                           <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "1rem", gap: "0.5rem" }}>
                             <span style={{ fontSize: "1.75rem" }} aria-hidden="true">{tool.icon}</span>
-                            <span style={{ fontFamily: "var(--font-heading)", fontSize: "0.62rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: tool.badgeColor, background: tool.badge === "Available now" ? "rgba(61,97,66,0.08)" : "rgba(201,168,76,0.1)", border: `1px solid ${tool.badge === "Available now" ? "rgba(61,97,66,0.2)" : "rgba(201,168,76,0.3)"}`, padding: "0.2rem 0.55rem", borderRadius: "999px", flexShrink: 0, whiteSpace: "nowrap" }}>
+                            <span style={{ fontFamily: "var(--font-heading)", fontSize: "0.62rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: tool.badge === "Available now" ? "#2C4A31" : "#7A5200", background: tool.badge === "Available now" ? "rgba(61,97,66,0.12)" : "rgba(255,255,255,0.6)", border: `1px solid ${tool.badge === "Available now" ? "rgba(61,97,66,0.3)" : "rgba(180,130,20,0.4)"}`, padding: "0.2rem 0.55rem", borderRadius: "999px", flexShrink: 0, whiteSpace: "nowrap" }}>
                               {tool.badge}
                             </span>
                           </div>
-                          <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "0.5rem", lineHeight: 1.3 }}>{tool.name}</div>
-                          <div style={{ fontFamily: "var(--font-body)", fontSize: "0.84rem", color: "var(--gray-soft)", lineHeight: 1.65 }}>{tool.desc}</div>
+                          <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "#2C2000", marginBottom: "0.5rem", lineHeight: 1.3 }}>{tool.name}</div>
+                          <div style={{ fontFamily: "var(--font-body)", fontSize: "0.84rem", color: "#6B5000", lineHeight: 1.65 }}>{tool.desc}</div>
                         </div>
                       </Link>
                     ))}
