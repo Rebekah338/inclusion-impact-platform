@@ -364,7 +364,7 @@ export default function Home() {
           {/* background photo */}
           <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url('/team-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "center 30%", zIndex: 0 }} />
           {/* deep sage green overlay */}
-          <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(108deg, rgba(42,68,40,0.91) 0%, rgba(58,94,56,0.88) 50%, rgba(42,68,40,0.93) 100%)", zIndex: 1, pointerEvents: "none" }} />
+          <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(108deg, rgba(58,94,56,0.72) 0%, rgba(74,116,72,0.65) 50%, rgba(58,94,56,0.72) 100%)", zIndex: 1, pointerEvents: "none" }} />
           {/* gold shimmer sweep */}
           <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.09) 40%, rgba(201,168,76,0.16) 55%, transparent 100%)", zIndex: 2, pointerEvents: "none" }} />
           <div style={{ maxWidth: "1100px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0", position: "relative", zIndex: 3 }}>
