@@ -365,6 +365,8 @@ export default function Home() {
           <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url('/team-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "60% 30%", zIndex: 0 }} />
           {/* sage green overlay — stronger on left to mask warm photo edge */}
           <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(58,94,56,0.88) 0%, rgba(58,94,56,0.68) 30%, rgba(74,116,72,0.62) 60%, rgba(58,94,56,0.70) 100%)", zIndex: 1, pointerEvents: "none" }} />
+          {/* hard left-edge mask — covers warm photo tones */}
+          <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #3d5e3a 0%, #3d5e3a 6%, transparent 18%)", zIndex: 2, pointerEvents: "none" }} />
           {/* gold shimmer sweep */}
           <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.09) 40%, rgba(201,168,76,0.16) 55%, transparent 100%)", zIndex: 2, pointerEvents: "none" }} />
           <div style={{ maxWidth: "1100px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0", position: "relative", zIndex: 3 }}>
