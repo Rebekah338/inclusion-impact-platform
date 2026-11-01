@@ -424,16 +424,21 @@ export default function Home() {
           const greetingName = finderName.trim().split(" ")[0];
 
           return (
-            <section style={{ padding: "3.5rem 1.5rem 3rem", background: "var(--white)" }}>
-              <div style={{ maxWidth: "860px", margin: "0 auto" }}>
+            <section style={{ padding: "4rem 1.5rem 3.5rem", background: "var(--white)", position: "relative", overflow: "hidden" }}>
+              {/* Radial gold glow — centred behind the heading, slow pulse */}
+              <div className="finder-glow" style={{ position: "absolute", top: "0", left: "50%", transform: "translateX(-50%)", width: "700px", height: "420px", background: "radial-gradient(ellipse at 50% 30%, rgba(201,168,76,0.13) 0%, rgba(201,168,76,0.05) 45%, transparent 70%)", pointerEvents: "none", zIndex: 0 }} />
+              <div style={{ maxWidth: "860px", margin: "0 auto", position: "relative", zIndex: 1 }}>
 
                 {/* Header */}
-                <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-                  <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.16em", color: "#8B6914", background: "rgba(201,168,76,0.18)", border: "1px solid rgba(201,168,76,0.4)", padding: "0.35rem 1rem", borderRadius: "999px", marginBottom: "1rem" }}>
+                <div style={{ textAlign: "center", marginBottom: "2.25rem" }}>
+                  <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.16em", color: "#8B6914", background: "rgba(201,168,76,0.18)", border: "1px solid rgba(201,168,76,0.4)", padding: "0.35rem 1rem", borderRadius: "999px", marginBottom: "1.25rem" }}>
                     Inclusion AI
                   </span>
-                  <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)", color: "var(--charcoal)", marginBottom: "0.625rem", letterSpacing: "-0.01em" }}>
-                    Find your starting point in 60 seconds.
+                  <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.9rem, 4vw, 2.8rem)", color: "var(--charcoal)", marginBottom: "0.75rem", letterSpacing: "-0.02em", lineHeight: 1.15 }}>
+                    Find your starting point in{" "}
+                    <span style={{ background: "linear-gradient(135deg, #C9A84C 0%, #E2C265 50%, #A8741A 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
+                      60 seconds.
+                    </span>
                   </h2>
                   <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--gray-soft)", margin: "0 auto", lineHeight: 1.4, whiteSpace: "nowrap" }}>
                     Tell us what you are working on and we will match you to the right modules, tools and resources; instantly.
@@ -1274,6 +1279,11 @@ export default function Home() {
       )}
 
       <style>{`
+        @keyframes finderGlowPulse {
+          0%, 100% { opacity: 0.85; transform: translateX(-50%) scale(1); }
+          50% { opacity: 1; transform: translateX(-50%) scale(1.06); }
+        }
+        .finder-glow { animation: finderGlowPulse 5s ease-in-out infinite; }
         .challenge-textarea::placeholder { color: rgba(255,255,255,0.5); }
         .hidden { display: none !important; }
         @media (min-width: 768px) {
