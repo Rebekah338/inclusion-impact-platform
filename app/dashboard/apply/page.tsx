@@ -392,7 +392,7 @@ export default function ApplyPage() {
                       return next;
                     })}
                     aria-expanded={isOpen}
-                    style={{ width: "100%", display: "flex", alignItems: "center", gap: "1rem", padding: "1.25rem 1.5rem", background: "var(--sage-xlight)", border: "none", cursor: "pointer", textAlign: "left" as const }}
+                    style={{ width: "100%", display: "flex", alignItems: "center", gap: "1rem", padding: "1.25rem 1.5rem", background: "var(--sage-light)", border: "none", cursor: "pointer", textAlign: "left" as const }}
                   >
                     <span style={{ fontSize: "1.5rem", flexShrink: 0 }}>{icons[cat]}</span>
                     <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", flexGrow: 1 }}>{cat}</span>
