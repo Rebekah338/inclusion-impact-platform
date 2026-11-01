@@ -109,24 +109,32 @@ export default function ApplyPage() {
   const [myToolkit, setMyToolkit] = useState<string[]>([]);
   const [visited, setVisited] = useState<string[]>([]);
   const [toolkitView, setToolkitView] = useState(false);
-  const [activeTab, setActiveTab] = useState<"ai" | "frameworks" | "guides">("ai");
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [shareMenuId, setShareMenuId] = useState<string | null>(null);
 
-  /* ── Tab membership ── */
+  /* ── AI tool IDs (shown in the dedicated strip, not the main grid) ── */
   const AI_IDS = new Set(["ai1", "ai2", "ai3", "ai-policy", "ai-health", "ai-paygap"]);
-  const FRAMEWORK_IDS = new Set(["r11", "r13", "r14"]);
+
+  /* ── Category membership ── */
+  const CATEGORY_MAP: Record<string, string[]> = {
+    "Recruitment and Hiring":    ["r3", "r2", "w1", "w2", "w4", "w5"],
+    "Policy and Process":        ["r11", "r13", "r14", "s10", "s19", "w3"],
+    "Culture and Belonging":     ["r1", "r4", "r9", "r10", "s1", "s7", "s12", "s13", "s14", "s16"],
+    "Leadership and Strategy":   ["r5", "r15", "r20", "s9", "s11", "s18"],
+    "People and Characteristics":["r6", "r7", "r8", "r18", "s2", "s3", "s6", "s8"],
+    "Events, Comms and Culture": ["r2", "s4", "s5", "s15", "s17", "w6"],
+  };
 
   /* ── Filter logic ── */
   const visibleResources = useMemo(() => {
-    let pool: Resource[];
+    // Main grid never shows AI tools — they live in the strip above
+    let pool = ALL_RESOURCES.filter((r) => !AI_IDS.has(r.id));
+
     if (toolkitView) {
       pool = ALL_RESOURCES.filter((r) => myToolkit.includes(r.id));
-    } else if (activeTab === "ai") {
-      pool = ALL_RESOURCES.filter((r) => AI_IDS.has(r.id));
-    } else if (activeTab === "frameworks") {
-      pool = ALL_RESOURCES.filter((r) => FRAMEWORK_IDS.has(r.id));
-    } else {
-      pool = ALL_RESOURCES.filter((r) => !AI_IDS.has(r.id) && !FRAMEWORK_IDS.has(r.id));
+    } else if (activeCategory) {
+      const ids = CATEGORY_MAP[activeCategory] || [];
+      pool = pool.filter((r) => ids.includes(r.id));
     }
 
     const q = search.toLowerCase();
@@ -134,7 +142,10 @@ export default function ApplyPage() {
     if (activeTopics.length) pool = pool.filter((r) => r.topics.some((t) => activeTopics.includes(t)));
     if (activeFormats.length) pool = pool.filter((r) => activeFormats.includes(r.format));
     return pool;
-  }, [search, activeTopics, activeFormats, myToolkit, toolkitView, activeTab]);
+  }, [search, activeTopics, activeFormats, myToolkit, toolkitView, activeCategory]);
+
+  /* AI tools always shown in strip */
+  const aiTools = ALL_RESOURCES.filter((r) => AI_IDS.has(r.id));
 
   const toggleTopic = (t: string) =>
     setActiveTopics((prev) => (prev.includes(t) ? prev.filter((x) => x !== t) : [...prev, t]));
@@ -324,41 +335,87 @@ export default function ApplyPage() {
         </div>
       </div>
 
-      {/* ── Tab bar ── */}
+      {/* ── Inclusion AI Tools strip ── */}
       {!toolkitView && (
-        <div style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)" }}>
-          <div style={{ maxWidth: "1100px", margin: "0 auto", padding: "0 1.5rem", display: "flex", overflowX: "auto" }}>
-            {(["ai", "frameworks", "guides"] as const).map((tab) => {
-              const labels: Record<string, string> = {
-                ai: "✨ Inclusion AI Tools",
-                frameworks: "📐 Frameworks and Planners",
-                guides: "📖 Guides and Resources",
-              };
-              const isActive = activeTab === tab;
-              return (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  style={{
-                    fontFamily: "var(--font-heading)",
-                    fontWeight: 700,
-                    fontSize: "0.85rem",
-                    color: isActive ? "var(--sage-dark)" : "var(--gray-soft)",
-                    background: "none",
-                    border: "none",
-                    borderBottom: isActive ? "3px solid var(--sage-dark)" : "3px solid transparent",
-                    padding: "1rem 1.25rem 0.875rem",
-                    cursor: "pointer",
-                    whiteSpace: "nowrap" as const,
-                    transition: "all 0.15s ease",
-                    flexShrink: 0,
-                  }}
-                  aria-selected={isActive}
+        <div style={{ background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 100%)", padding: "2rem 1.5rem" }}>
+          <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+            <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", marginBottom: "1.25rem" }}>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.15rem", color: "#fff", margin: 0 }}>✨ Inclusion AI Tools</h2>
+              <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "rgba(255,255,255,0.65)" }}>AI-powered tools that do the heavy lifting for you</span>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "0.875rem" }}>
+              {aiTools.map((r) => (
+                <div
+                  key={r.id}
+                  onClick={() => openResource(r.id)}
+                  style={{ background: "rgba(255,255,255,0.09)", border: "1px solid rgba(255,255,255,0.18)", borderRadius: "12px", padding: "1.1rem 1.25rem", cursor: "pointer", transition: "background 0.15s ease", display: "flex", flexDirection: "column", gap: "0.4rem" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.15)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.09)")}
                 >
-                  {labels[tab]}
-                </button>
-              );
-            })}
+                  <div style={{ fontSize: "1.25rem" }}>{r.icon}</div>
+                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "#fff", lineHeight: 1.3 }}>{r.title}</div>
+                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.7)", lineHeight: 1.5 }}>{r.desc}</div>
+                  <div style={{ marginTop: "0.5rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", color: "rgba(255,255,255,0.9)" }}>Open tool →</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Category filter boxes ── */}
+      {!toolkitView && (
+        <div style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)", padding: "1.5rem 1.5rem 1.25rem" }}>
+          <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+            <div style={{ fontSize: "0.7rem", fontFamily: "var(--font-heading)", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--gray-soft)", marginBottom: "0.875rem" }}>Browse by area</div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: "0.625rem" }}>
+              {Object.keys(CATEGORY_MAP).map((cat) => {
+                const icons: Record<string, string> = {
+                  "Recruitment and Hiring": "🎯",
+                  "Policy and Process": "📋",
+                  "Culture and Belonging": "🤝",
+                  "Leadership and Strategy": "🧭",
+                  "People and Characteristics": "👥",
+                  "Events, Comms and Culture": "📣",
+                };
+                const isActive = activeCategory === cat;
+                return (
+                  <button
+                    key={cat}
+                    onClick={() => setActiveCategory(isActive ? null : cat)}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                      padding: "0.75rem 1rem",
+                      borderRadius: "10px",
+                      border: isActive ? "2px solid var(--sage-dark)" : "1.5px solid var(--gray-border)",
+                      background: isActive ? "var(--sage-dark)" : "var(--sage-xlight)",
+                      color: isActive ? "var(--white)" : "var(--charcoal)",
+                      fontFamily: "var(--font-heading)",
+                      fontWeight: 700,
+                      fontSize: "0.8rem",
+                      cursor: "pointer",
+                      textAlign: "left" as const,
+                      transition: "all 0.15s ease",
+                      lineHeight: 1.3,
+                    }}
+                    aria-pressed={isActive}
+                  >
+                    <span style={{ fontSize: "1rem", flexShrink: 0 }}>{icons[cat]}</span>
+                    {cat}
+                  </button>
+                );
+              })}
+            </div>
+            {activeCategory && (
+              <button
+                onClick={() => setActiveCategory(null)}
+                style={{ marginTop: "0.75rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.75rem", color: "var(--sage-dark)", background: "none", border: "none", cursor: "pointer", textDecoration: "underline", padding: 0 }}
+              >
+                Show all resources
+              </button>
+            )}
           </div>
         </div>
       )}
