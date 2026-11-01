@@ -430,7 +430,7 @@ export default function Home() {
                 </div>
 
                 {/* Card */}
-                <div style={{ background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: "20px", padding: "2rem", boxShadow: "0 4px 24px rgba(0,0,0,0.07)", position: "relative", overflow: "hidden" }}>
+                <div style={{ background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: "20px", padding: "2rem", boxShadow: "0 4px 24px rgba(0,0,0,0.07)", position: "relative" }}>
 
                   {/* Orb decorations */}
                   <svg aria-hidden="true" style={{ position: "absolute", top: "-40px", right: "-40px", width: "180px", height: "180px", opacity: 0.07, pointerEvents: "none" }} viewBox="0 0 180 180" fill="none">
@@ -521,7 +521,7 @@ export default function Home() {
                           />
                           {/* Live suggestions */}
                           {finderSuggestionsOpen && finderSuggestions.length > 0 && (
-                            <div style={{ position: "absolute", top: "100%", left: 0, right: 0, background: "var(--white)", border: "1.5px solid var(--gray-border)", borderRadius: "10px", boxShadow: "0 8px 24px rgba(0,0,0,0.1)", zIndex: 20, overflow: "hidden", marginTop: "4px" }}>
+                            <div style={{ position: "absolute", top: "100%", left: 0, right: 0, background: "var(--white)", border: "1.5px solid var(--gray-border)", borderRadius: "10px", boxShadow: "0 8px 24px rgba(0,0,0,0.1)", zIndex: 20, overflowY: "auto", maxHeight: "220px", marginTop: "4px" }}>
                               {finderSuggestions.map((s) => (
                                 <button
                                   key={s.id}
