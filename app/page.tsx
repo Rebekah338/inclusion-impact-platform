@@ -953,15 +953,15 @@ export default function Home() {
                   Real-life expert support
                 </span>
                 <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 2.5vw, 2rem)", color: "var(--white)", marginBottom: "0.875rem" }}>
-                  Get coaching from a real inclusion expert
+                  Ask an inclusion expert
                 </h2>
                 <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "rgba(255,255,255,0.82)", lineHeight: 1.7, marginBottom: "1.75rem" }}>
-                  Backed by Rebekah Hayward, award-winning EDI consultant. Book weekly office hours, enquire about one-to-one coaching, or join a live event.
+                  Get direct access to real EDI expertise. Book a one-to-one session, join weekly office hours to ask your questions, or attend a live event.
                 </p>
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem", marginBottom: "1.75rem" }}>
                   {[
-                    { icon: "📅", text: "Weekly office hours book a slot" },
-                    { icon: "🧠", text: "One-to-one expert coaching packages" },
+                    { icon: "📅", text: "Weekly office hours; book a slot" },
+                    { icon: "🧠", text: "One-to-one expert support sessions" },
                     { icon: "🎤", text: "Live events and cohort sessions" },
                   ].map((item) => (
                     <div key={item.text} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
