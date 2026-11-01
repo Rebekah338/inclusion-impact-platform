@@ -788,7 +788,7 @@ export default function Home() {
                           <div style={{ height: "4px", borderRadius: "999px", background: "var(--gray-border)", overflow: "hidden" }}>
                             <div style={{ height: "100%", borderRadius: "999px", background: "linear-gradient(90deg, var(--sage-dark), #C9A84C)", animation: "finderLoad 1.8s ease-in-out forwards" }} />
                           </div>
-                          <style>{\`@keyframes finderLoad { from { width: 0% } to { width: 100% } }\`}</style>
+                          <style>{`@keyframes finderLoad { from { width: 0% } to { width: 100% } }`}</style>
                         </div>
                       )}
                     </div>
