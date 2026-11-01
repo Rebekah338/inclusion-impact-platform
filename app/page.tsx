@@ -360,7 +360,7 @@ export default function Home() {
         </section>
 
         {/* STATS STRIP */}
-        <section style={{ padding: "0.6rem 1.5rem", position: "relative", overflow: "hidden", background: "linear-gradient(105deg, #3a5c38 0%, #4a6f47 40%, #507550 60%, #4a6f47 100%)" }}>
+        <section style={{ padding: "0.6rem 1.5rem", position: "relative", overflow: "hidden", background: "linear-gradient(105deg, #7aa876 0%, #8ab887 40%, #92c090 60%, #8ab887 100%)" }}>
           {/* gold shimmer sweep */}
           <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.08) 35%, rgba(201,168,76,0.18) 55%, transparent 100%)", zIndex: 1, pointerEvents: "none" }} />
           <div style={{ maxWidth: "1100px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0", position: "relative", zIndex: 3 }}>
