@@ -111,6 +111,7 @@ export default function ApplyPage() {
   const [toolkitView, setToolkitView] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [openAccordion, setOpenAccordion] = useState<string | null>(null);
+  const [expandedAccordions, setExpandedAccordions] = useState<Set<string>>(new Set());
   const [shareMenuId, setShareMenuId] = useState<string | null>(null);
 
   /* ── AI tool IDs (shown in the dedicated strip, not the main grid) ── */
@@ -395,10 +396,14 @@ export default function ApplyPage() {
                     <span style={{ fontSize: "1rem", color: "var(--sage-dark)", flexShrink: 0, transform: isOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s ease" }}>▼</span>
                   </button>
                   {/* Expanded content */}
-                  {isOpen && (
+                  {isOpen && (() => {
+                    const isExpanded = expandedAccordions.has(cat);
+                    const visibleCatResources = isExpanded ? catResources : catResources.slice(0, 3);
+                    const hiddenCount = catResources.length - 3;
+                    return (
                     <div style={{ padding: "0 1.5rem 1.5rem", borderTop: "1px solid var(--gray-border)" }}>
                       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1rem", paddingTop: "1.25rem" }}>
-                        {catResources.map((r) => {
+                        {visibleCatResources.map((r) => {
                           const isVisited = visited.includes(r.id);
                           const isBookmarked = myToolkit.includes(r.id);
                           const isAiTool = r.format === "AI Inclusion Tool";
@@ -494,8 +499,21 @@ export default function ApplyPage() {
                           );
                         })}
                       </div>
+                      {hiddenCount > 0 && (
+                        <button
+                          onClick={() => setExpandedAccordions((prev) => {
+                            const next = new Set(prev);
+                            if (isExpanded) { next.delete(cat); } else { next.add(cat); }
+                            return next;
+                          })}
+                          style={{ marginTop: '1rem', fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.8rem', color: 'var(--sage-dark)', background: 'var(--sage-xlight)', border: '1.5px solid var(--sage-light)', borderRadius: '999px', padding: '0.5rem 1.25rem', cursor: 'pointer' }}
+                        >
+                          {isExpanded ? 'Show less ▲' : `Show ${hiddenCount} more resource${hiddenCount === 1 ? '' : 's'} ▼`}
+                        </button>
+                      )}
                     </div>
-                  )}
+                    );
+                  })()}
                 </div>
               );
             })}
