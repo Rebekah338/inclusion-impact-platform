@@ -342,8 +342,8 @@ export default function ApplyPage() {
           <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.75rem" }}>
               <div>
-                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.35rem", color: "#F5D97A", margin: "0 0 0.2rem" }}>✨ Inclusion AI Tools</h2>
-                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(245,217,122,0.65)" }}>AI-powered tools built for inclusion professionals</span>
+                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.35rem", color: "var(--charcoal)", margin: "0 0 0.2rem" }}>✨ Inclusion AI Tools</h2>
+                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--gray-soft)" }}>AI-powered tools built for inclusion professionals</span>
               </div>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem" }}>
