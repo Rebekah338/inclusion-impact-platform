@@ -355,7 +355,7 @@ export default function ApplyPage() {
                   onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 4px 20px rgba(201,168,76,0.35)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
                   onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.transform = "translateY(0)"; }}
                 >
-                  <div style={{ position: "absolute" as const, top: "1rem", right: "1rem", background: "transparent", color: "var(--charcoal)", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.6rem", letterSpacing: "0.08em", textTransform: "uppercase" as const, padding: "0.2rem 0.65rem", borderRadius: "999px", border: "1.5px solid var(--gray-border)" }}>Available now</div>
+                  <div style={{ position: "absolute" as const, top: "1rem", right: "1rem", background: "transparent", color: "var(--charcoal)", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.6rem", letterSpacing: "0.08em", textTransform: "uppercase" as const, padding: "0.2rem 0.65rem", borderRadius: "999px", border: "1.5px solid var(--gray-border)" }}>Inclusion AI</div>
                   <div style={{ fontSize: "1.75rem", lineHeight: 1 }}>{r.icon}</div>
                   <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", lineHeight: 1.3, paddingRight: "4rem" }}>{r.title}</div>
                   <div style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", lineHeight: 1.6 }}>{r.desc}</div>
