@@ -338,7 +338,7 @@ export default function ApplyPage() {
 
       {/* ── Inclusion AI Tools strip ── */}
       {!toolkitView && (
-        <div style={{ background: "linear-gradient(160deg, #3A2E00 0%, #5C4600 50%, #3A2E00 100%)", padding: "2.5rem 1.5rem" }}>
+        <div style={{ background: "var(--sage-xlight)", padding: "2.5rem 1.5rem" }}>
           <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
             <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "1.75rem" }}>
               <div>
