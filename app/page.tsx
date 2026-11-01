@@ -413,8 +413,6 @@ export default function Home() {
             if (!finderName || !finderEmail || !finderTopic) return;
             setFinderSuggestionsOpen(false);
             setFinderLoading(true);
-            // TODO: save to Supabase
-            // await supabase.from('leads').insert({ name: finderName, email: finderEmail, audience: finderAudience, org_size: finderOrgSize, topic: finderTopic })
             console.log("Finder submission:", { finderName, finderEmail, finderAudience, finderOrgSize, finderTopic });
             await new Promise((r) => setTimeout(r, 1800));
             const results = searchContent(finderTopic).slice(0, 4);
@@ -426,8 +424,8 @@ export default function Home() {
           const greetingName = finderName.trim().split(" ")[0];
 
           return (
-            <section style={{ padding: "2.5rem 1.5rem 0", background: "var(--white)" }}>
-              <div style={{ maxWidth: "780px", margin: "0 auto" }}>
+            <section style={{ padding: "3rem 1.5rem 2.5rem", background: "var(--white)" }}>
+              <div style={{ maxWidth: "860px", margin: "0 auto" }}>
 
                 {/* Header */}
                 <div style={{ textAlign: "center", marginBottom: "2rem" }}>
@@ -442,197 +440,170 @@ export default function Home() {
                   </p>
                 </div>
 
-                {/* Card */}
-                <div style={{ background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: "20px", padding: "2rem", boxShadow: "0 4px 24px rgba(0,0,0,0.07)", position: "relative" }}>
-
-                  {/* Orb decorations */}
-                  <svg aria-hidden="true" style={{ position: "absolute", top: "-40px", right: "-40px", width: "180px", height: "180px", opacity: 0.07, pointerEvents: "none" }} viewBox="0 0 180 180" fill="none">
-                    <circle cx="90" cy="90" r="80" stroke="#C9A84C" strokeWidth="1.5"/>
-                    <circle cx="90" cy="90" r="58" stroke="#C9A84C" strokeWidth="1"/>
-                    <circle cx="90" cy="90" r="36" stroke="#C9A84C" strokeWidth="0.75"/>
-                  </svg>
-
-                  {!finderSubmitted ? (
-                    <div>
-                      {/* Step 1: Toggle */}
-                      <div style={{ marginBottom: "1.5rem" }}>
-                        <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--charcoal)", marginBottom: "0.75rem" }}>
-                          Who are you looking for support for?
-                        </p>
-                        <div style={{ display: "flex", gap: "0.75rem" }}>
-                          {(["individual", "organisation"] as const).map((opt) => (
-                            <button
-                              key={opt}
-                              onClick={() => setFinderAudience(opt)}
-                              style={{ flex: 1, padding: "0.75rem 1rem", borderRadius: "10px", border: `2px solid ${finderAudience === opt ? "var(--sage-dark)" : "var(--gray-border)"}`, background: finderAudience === opt ? "var(--sage-xlight)" : "var(--white)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: finderAudience === opt ? "var(--sage-dark)" : "var(--charcoal)", cursor: "pointer", transition: "all 0.15s" }}
-                            >
-                              {opt === "individual" ? "👤  Myself" : "🏢  My organisation or team"}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Step 2: Name + Email */}
-                      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.875rem", marginBottom: "1.25rem" }}>
-                        <div>
-                          <label style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--charcoal)", marginBottom: "0.4rem" }}>Your name</label>
-                          <input
-                            type="text"
-                            placeholder="First name"
-                            value={finderName}
-                            onChange={(e) => setFinderName(e.target.value)}
-                            style={{ width: "100%", padding: "0.7rem 0.875rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", outline: "none", boxSizing: "border-box", background: "var(--white)", transition: "border-color 0.15s" }}
-                            onFocus={(e) => (e.target.style.borderColor = "var(--sage-dark)")}
-                            onBlur={(e) => (e.target.style.borderColor = "var(--gray-border)")}
-                          />
-                        </div>
-                        <div>
-                          <label style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--charcoal)", marginBottom: "0.4rem" }}>Email address</label>
-                          <input
-                            type="email"
-                            placeholder="you@organisation.com"
-                            value={finderEmail}
-                            onChange={(e) => setFinderEmail(e.target.value)}
-                            style={{ width: "100%", padding: "0.7rem 0.875rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", outline: "none", boxSizing: "border-box", background: "var(--white)", transition: "border-color 0.15s" }}
-                            onFocus={(e) => (e.target.style.borderColor = "var(--sage-dark)")}
-                            onBlur={(e) => (e.target.style.borderColor = "var(--gray-border)")}
-                          />
-                        </div>
-                      </div>
-
-                      {/* Step 3: Org size (conditional) */}
-                      {finderAudience === "organisation" && (
-                        <div style={{ marginBottom: "1.25rem" }}>
-                          <label style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--charcoal)", marginBottom: "0.5rem" }}>Organisation size</label>
-                          <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-                            {ORG_SIZES.map((s) => (
-                              <button
-                                key={s}
-                                onClick={() => setFinderOrgSize(s)}
-                                style={{ padding: "0.45rem 0.875rem", borderRadius: "999px", border: `1.5px solid ${finderOrgSize === s ? "var(--sage-dark)" : "var(--gray-border)"}`, background: finderOrgSize === s ? "var(--sage-xlight)" : "var(--white)", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: finderOrgSize === s ? "var(--sage-dark)" : "var(--charcoal)", cursor: "pointer", transition: "all 0.15s" }}
-                              >{s}</button>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Step 4: Topic search */}
-                      <div style={{ marginBottom: "1.5rem", position: "relative" }}>
-                        <label style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--charcoal)", marginBottom: "0.4rem" }}>
-                          What do you need help with today?
-                        </label>
-                        <div style={{ position: "relative" }}>
-                          <textarea
-                            ref={finderTopicRef}
-                            placeholder="e.g. gender pay gap, recruitment bias, inclusive leadership..."
-                            value={finderTopic}
-                            rows={2}
-                            onChange={(e) => handleTopicChange(e.target.value)}
-                            onFocus={(e) => { (e.target as HTMLTextAreaElement).style.borderColor = "var(--sage-dark)"; (e.target as HTMLTextAreaElement).style.boxShadow = "0 0 0 3px rgba(42,74,48,0.08)"; }}
-                            onBlur={(e) => { (e.target as HTMLTextAreaElement).style.borderColor = "var(--gray-border)"; (e.target as HTMLTextAreaElement).style.boxShadow = "none"; setTimeout(() => setFinderSuggestionsOpen(false), 150); }}
-                            style={{ width: "100%", padding: "0.75rem 0.875rem", borderRadius: "10px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", outline: "none", resize: "none", boxSizing: "border-box", lineHeight: 1.6, transition: "border-color 0.15s, box-shadow 0.15s" }}
-                          />
-                          {/* Live suggestions */}
-                          {finderSuggestionsOpen && finderSuggestions.length > 0 && (
-                            <div style={{ position: "absolute", top: "100%", left: 0, right: 0, background: "var(--white)", border: "1.5px solid var(--gray-border)", borderRadius: "10px", boxShadow: "0 8px 24px rgba(0,0,0,0.1)", zIndex: 20, overflowY: "auto", maxHeight: "220px", marginTop: "4px" }}>
-                              {finderSuggestions.map((s) => (
-                                <button
-                                  key={s.id}
-                                  onMouseDown={() => { setFinderTopic(s.title); setFinderSuggestionsOpen(false); }}
-                                  style={{ display: "flex", alignItems: "center", gap: "0.75rem", width: "100%", padding: "0.7rem 1rem", background: "none", border: "none", borderBottom: "1px solid var(--gray-border)", cursor: "pointer", textAlign: "left" }}
-                                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--sage-xlight)")}
-                                  onMouseLeave={(e) => (e.currentTarget.style.background = "none")}
-                                >
-                                  <span style={{ fontSize: "0.9rem" }}>{TYPE_ICONS[s.type]}</span>
-                                  <span>
-                                    <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block" }}>{s.title}</span>
-                                    <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", color: "var(--gray-soft)", textTransform: "capitalize" }}>{TYPE_LABELS[s.type]}</span>
-                                  </span>
-                                </button>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-
-                      {/* Submit */}
-                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "1rem" }}>
-                        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--gray-soft)" }}>
-                          🌍 Trusted by organisations worldwide
-                        </p>
+                {!finderSubmitted ? (
+                  <div>
+                    {/* Row 1: audience toggle — right-aligned */}
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "0.875rem", marginBottom: "1.25rem", flexWrap: "wrap" }}>
+                      <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.85rem", color: "var(--charcoal)" }}>
+                        Who are you looking for support for?
+                      </span>
+                      {(["individual", "organisation"] as const).map((opt) => (
                         <button
-                          onClick={handleSubmit}
-                          disabled={!finderName || !finderEmail || !finderTopic}
-                          style={{ padding: "0.75rem 1.75rem", borderRadius: "10px", background: (!finderName || !finderEmail || !finderTopic) ? "var(--gray-border)" : "var(--sage-dark)", border: "none", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: (!finderName || !finderEmail || !finderTopic) ? "var(--gray-soft)" : "var(--white)", cursor: (!finderName || !finderEmail || !finderTopic) ? "not-allowed" : "pointer", transition: "all 0.15s", boxShadow: (!finderName || !finderEmail || !finderTopic) ? "none" : "0 4px 14px rgba(42,74,48,0.25)" }}
+                          key={opt}
+                          onClick={() => setFinderAudience(opt)}
+                          style={{ padding: "0.6rem 1.1rem", borderRadius: "10px", border: `2px solid ${finderAudience === opt ? "var(--sage-dark)" : "var(--gray-border)"}`, background: finderAudience === opt ? "var(--sage-xlight)" : "var(--white)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: finderAudience === opt ? "var(--sage-dark)" : "var(--charcoal)", cursor: "pointer", transition: "all 0.15s" }}
                         >
-                          Find my starting points →
+                          {opt === "individual" ? "👤  Myself" : "🏢  My organisation or team"}
                         </button>
-                      </div>
-
-                      {/* Loading bar */}
-                      {finderLoading && (
-                        <div style={{ marginTop: "1.5rem" }}>
-                          <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--sage-dark)", marginBottom: "0.6rem", textAlign: "center" }}>
-                            Matching you to the right resources...
-                          </p>
-                          <div style={{ height: "4px", borderRadius: "999px", background: "var(--gray-border)", overflow: "hidden" }}>
-                            <div style={{ height: "100%", borderRadius: "999px", background: "linear-gradient(90deg, var(--sage-dark), #C9A84C)", animation: "finderLoad 1.8s ease-in-out forwards" }} />
-                          </div>
-                          <style>{`@keyframes finderLoad { from { width: 0% } to { width: 100% } }`}</style>
-                        </div>
-                      )}
+                      ))}
                     </div>
-                  ) : (
-                    /* Results */
-                    <div>
-                      <div style={{ marginBottom: "1.5rem" }}>
-                        <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "0.25rem" }}>
-                          {greetingName ? `Hi ${greetingName} — here is where to start.` : "Here is where to start."}
-                        </p>
-                        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--gray-soft)" }}>
-                          Results personalised for you based on: <strong style={{ color: "var(--sage-dark)" }}>{finderTopic}</strong>
-                        </p>
-                      </div>
-                      <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "0.875rem", marginBottom: "1.5rem" }}>
-                        {finderResults.map((r) => (
-                          <Link key={r.id} href={r.href} style={{ textDecoration: "none" }}>
-                            <div style={{ background: "var(--sage-xlight)", border: "1px solid var(--sage-light)", borderRadius: "12px", padding: "1.125rem", height: "100%", cursor: "pointer", transition: "box-shadow 0.15s, transform 0.15s", boxSizing: "border-box" }}
-                              onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 4px 16px rgba(42,74,48,0.12)"; el.style.transform = "translateY(-2px)"; }}
-                              onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "none"; el.style.transform = "none"; }}
-                            >
-                              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
-                                <span style={{ fontSize: "1.1rem" }}>{TYPE_ICONS[r.type]}</span>
-                                <span style={{ fontFamily: "var(--font-heading)", fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--sage-dark)", background: "rgba(42,74,48,0.1)", padding: "0.15rem 0.5rem", borderRadius: "999px" }}>
-                                  Matched: {finderTopic.trim().split(" ").slice(0, 3).join(" ")}
-                                </span>
-                              </div>
-                              <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", color: "var(--charcoal)", marginBottom: "0.3rem", lineHeight: 1.3 }}>{r.title}</div>
-                              <div style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--gray-soft)", lineHeight: 1.55 }}>{r.desc.slice(0, 90)}...</div>
-                            </div>
-                          </Link>
+
+                    {/* Org size pills — conditional, right-aligned */}
+                    {finderAudience === "organisation" && (
+                      <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.5rem", flexWrap: "wrap", marginBottom: "1.25rem" }}>
+                        {ORG_SIZES.map((s) => (
+                          <button
+                            key={s}
+                            onClick={() => setFinderOrgSize(s)}
+                            style={{ padding: "0.4rem 0.875rem", borderRadius: "999px", border: `1.5px solid ${finderOrgSize === s ? "var(--sage-dark)" : "var(--gray-border)"}`, background: finderOrgSize === s ? "var(--sage-xlight)" : "var(--white)", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: finderOrgSize === s ? "var(--sage-dark)" : "var(--charcoal)", cursor: "pointer", transition: "all 0.15s" }}
+                          >{s}</button>
                         ))}
                       </div>
-                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0.75rem" }}>
-                        <button
-                          onClick={() => { setFinderSubmitted(false); setFinderResults([]); setFinderTopic(""); }}
-                          style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--sage-dark)", background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}
-                        >
-                          Search again
-                        </button>
-                        <Link href="/sign-up" style={{ textDecoration: "none" }}>
-                          <button style={{ padding: "0.7rem 1.5rem", borderRadius: "10px", background: "var(--sage-dark)", border: "none", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--white)", cursor: "pointer", boxShadow: "0 4px 14px rgba(42,74,48,0.25)" }}>
-                            Unlock full access →
-                          </button>
-                        </Link>
+                    )}
+
+                    {/* Row 2: Name + Email — no labels, side by side */}
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.875rem", marginBottom: "1rem" }}>
+                      <input
+                        type="text"
+                        placeholder="Your first name"
+                        value={finderName}
+                        onChange={(e) => setFinderName(e.target.value)}
+                        style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "10px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", outline: "none", boxSizing: "border-box", background: "var(--white)", transition: "border-color 0.15s, box-shadow 0.15s" }}
+                        onFocus={(e) => { e.target.style.borderColor = "var(--sage-dark)"; e.target.style.boxShadow = "0 0 0 3px rgba(42,74,48,0.08)"; }}
+                        onBlur={(e) => { e.target.style.borderColor = "var(--gray-border)"; e.target.style.boxShadow = "none"; }}
+                      />
+                      <input
+                        type="email"
+                        placeholder="Your email address"
+                        value={finderEmail}
+                        onChange={(e) => setFinderEmail(e.target.value)}
+                        style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "10px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", outline: "none", boxSizing: "border-box", background: "var(--white)", transition: "border-color 0.15s, box-shadow 0.15s" }}
+                        onFocus={(e) => { e.target.style.borderColor = "var(--sage-dark)"; e.target.style.boxShadow = "0 0 0 3px rgba(42,74,48,0.08)"; }}
+                        onBlur={(e) => { e.target.style.borderColor = "var(--gray-border)"; e.target.style.boxShadow = "none"; }}
+                      />
+                    </div>
+
+                    {/* Row 3: Topic textarea — placeholder carries the label */}
+                    <div style={{ marginBottom: "1.75rem", position: "relative" }}>
+                      <div style={{ position: "relative" }}>
+                        <textarea
+                          ref={finderTopicRef}
+                          placeholder="What do you need help with today? e.g. EDI strategy, gender pay gap, recruitment bias, inclusive leadership, creating a policy, developing a survey..."
+                          value={finderTopic}
+                          rows={3}
+                          onChange={(e) => handleTopicChange(e.target.value)}
+                          onFocus={(e) => { (e.target as HTMLTextAreaElement).style.borderColor = "var(--sage-dark)"; (e.target as HTMLTextAreaElement).style.boxShadow = "0 0 0 3px rgba(42,74,48,0.08)"; }}
+                          onBlur={(e) => { (e.target as HTMLTextAreaElement).style.borderColor = "var(--gray-border)"; (e.target as HTMLTextAreaElement).style.boxShadow = "none"; setTimeout(() => setFinderSuggestionsOpen(false), 150); }}
+                          style={{ width: "100%", padding: "0.875rem 1rem", borderRadius: "10px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", outline: "none", resize: "none", boxSizing: "border-box", lineHeight: 1.6, transition: "border-color 0.15s, box-shadow 0.15s" }}
+                        />
+                        {finderSuggestionsOpen && finderSuggestions.length > 0 && (
+                          <div style={{ position: "absolute", top: "100%", left: 0, right: 0, background: "var(--white)", border: "1.5px solid var(--gray-border)", borderRadius: "10px", boxShadow: "0 8px 24px rgba(0,0,0,0.1)", zIndex: 20, overflowY: "auto", maxHeight: "220px", marginTop: "4px" }}>
+                            {finderSuggestions.map((s) => (
+                              <button
+                                key={s.id}
+                                onMouseDown={() => { setFinderTopic(s.title); setFinderSuggestionsOpen(false); }}
+                                style={{ display: "flex", alignItems: "center", gap: "0.75rem", width: "100%", padding: "0.7rem 1rem", background: "none", border: "none", borderBottom: "1px solid var(--gray-border)", cursor: "pointer", textAlign: "left" }}
+                                onMouseEnter={(e) => (e.currentTarget.style.background = "var(--sage-xlight)")}
+                                onMouseLeave={(e) => (e.currentTarget.style.background = "none")}
+                              >
+                                <span style={{ fontSize: "0.9rem" }}>{TYPE_ICONS[s.type]}</span>
+                                <span>
+                                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block" }}>{s.title}</span>
+                                  <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", color: "var(--gray-soft)", textTransform: "capitalize" }}>{TYPE_LABELS[s.type]}</span>
+                                </span>
+                              </button>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
-                  )}
-                </div>
+
+                    {/* CTA — centered */}
+                    <div style={{ textAlign: "center" }}>
+                      <button
+                        onClick={handleSubmit}
+                        disabled={!finderName || !finderEmail || !finderTopic}
+                        style={{ padding: "0.875rem 2.25rem", borderRadius: "12px", background: (!finderName || !finderEmail || !finderTopic) ? "var(--gray-border)" : "var(--sage-dark)", border: "none", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: (!finderName || !finderEmail || !finderTopic) ? "var(--gray-soft)" : "var(--white)", cursor: (!finderName || !finderEmail || !finderTopic) ? "not-allowed" : "pointer", transition: "all 0.15s", boxShadow: (!finderName || !finderEmail || !finderTopic) ? "none" : "0 4px 18px rgba(42,74,48,0.28)" }}
+                      >
+                        Find my starting points →
+                      </button>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--gray-soft)", marginTop: "0.875rem" }}>
+                        🌍 Trusted by organisations worldwide
+                      </p>
+                    </div>
+
+                    {/* Loading bar */}
+                    {finderLoading && (
+                      <div style={{ marginTop: "1.5rem" }}>
+                        <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--sage-dark)", marginBottom: "0.6rem", textAlign: "center" }}>
+                          Matching you to the right resources...
+                        </p>
+                        <div style={{ height: "4px", borderRadius: "999px", background: "var(--gray-border)", overflow: "hidden" }}>
+                          <div style={{ height: "100%", borderRadius: "999px", background: "linear-gradient(90deg, var(--sage-dark), #C9A84C)", animation: "finderLoad 1.8s ease-in-out forwards" }} />
+                        </div>
+                        <style>{`@keyframes finderLoad { from { width: 0% } to { width: 100% } }`}</style>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  /* Results */
+                  <div>
+                    <div style={{ marginBottom: "1.5rem" }}>
+                      <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "0.25rem" }}>
+                        {greetingName ? `Hi ${greetingName} — here is where to start.` : "Here is where to start."}
+                      </p>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--gray-soft)" }}>
+                        Results personalised for you based on: <strong style={{ color: "var(--sage-dark)" }}>{finderTopic}</strong>
+                      </p>
+                    </div>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "0.875rem", marginBottom: "1.5rem" }}>
+                      {finderResults.map((r) => (
+                        <Link key={r.id} href={r.href} style={{ textDecoration: "none" }}>
+                          <div style={{ background: "var(--sage-xlight)", border: "1px solid var(--sage-light)", borderRadius: "12px", padding: "1.125rem", height: "100%", cursor: "pointer", transition: "box-shadow 0.15s, transform 0.15s", boxSizing: "border-box" }}
+                            onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 4px 16px rgba(42,74,48,0.12)"; el.style.transform = "translateY(-2px)"; }}
+                            onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "none"; el.style.transform = "none"; }}
+                          >
+                            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
+                              <span style={{ fontSize: "1.1rem" }}>{TYPE_ICONS[r.type]}</span>
+                              <span style={{ fontFamily: "var(--font-heading)", fontSize: "0.6rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--sage-dark)", background: "rgba(42,74,48,0.1)", padding: "0.15rem 0.5rem", borderRadius: "999px" }}>
+                                Matched: {finderTopic.trim().split(" ").slice(0, 3).join(" ")}
+                              </span>
+                            </div>
+                            <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", color: "var(--charcoal)", marginBottom: "0.3rem", lineHeight: 1.3 }}>{r.title}</div>
+                            <div style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--gray-soft)", lineHeight: 1.55 }}>{r.desc.slice(0, 90)}...</div>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0.75rem" }}>
+                      <button
+                        onClick={() => { setFinderSubmitted(false); setFinderResults([]); setFinderTopic(""); }}
+                        style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--sage-dark)", background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}
+                      >
+                        Search again
+                      </button>
+                      <Link href="/sign-up" style={{ textDecoration: "none" }}>
+                        <button style={{ padding: "0.7rem 1.5rem", borderRadius: "10px", background: "var(--sage-dark)", border: "none", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--white)", cursor: "pointer", boxShadow: "0 4px 14px rgba(42,74,48,0.25)" }}>
+                          Unlock full access →
+                        </button>
+                      </Link>
+                    </div>
+                  </div>
+                )}
               </div>
             </section>
           );
         })()}
-
         {/* INCLUSION AI SECTION */}
         {(() => {
           const AI_TOOLS_CAROUSEL = [
