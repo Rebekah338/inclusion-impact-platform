@@ -418,18 +418,28 @@ export default function Home() {
                     {visibleTools.map((tool) => (
                       <Link key={tool.name} href={tool.href} style={{ textDecoration: "none" }}>
                         <div
-                          style={{ background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 50%, #FAF6EE 100%)", border: "2px solid #C9A84C", borderRadius: "16px", padding: "1.75rem", height: "100%", cursor: "pointer", transition: "border-color 0.2s, box-shadow 0.2s, transform 0.2s", boxSizing: "border-box", boxShadow: "0 2px 0 #E8C870 inset, 0 6px 28px rgba(140,100,20,0.18), 0 1px 0 rgba(255,255,255,0.9) inset" }}
-                          onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "#B8941E"; el.style.boxShadow = "0 2px 0 #E8C870 inset, 0 14px 44px rgba(140,100,20,0.32), 0 1px 0 rgba(255,255,255,0.9) inset"; el.style.transform = "translateY(-4px)"; }}
-                          onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "#C9A84C"; el.style.boxShadow = "0 2px 0 #E8C870 inset, 0 6px 28px rgba(140,100,20,0.18), 0 1px 0 rgba(255,255,255,0.9) inset"; el.style.transform = "none"; }}
+                          style={{ position: "relative", background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 50%, #FAF6EE 100%)", border: "1px solid rgba(201,168,76,0.25)", borderRadius: "16px", padding: "1.75rem", height: "100%", cursor: "pointer", transition: "box-shadow 0.2s, transform 0.2s", boxSizing: "border-box", boxShadow: "0 0 0 3px rgba(201,168,76,0.12), 0 0 18px 4px rgba(201,168,76,0.13), 0 4px 20px rgba(0,0,0,0.06)", overflow: "hidden" }}
+                          onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 0 0 3px rgba(201,168,76,0.22), 0 0 32px 8px rgba(201,168,76,0.22), 0 8px 32px rgba(0,0,0,0.09)"; el.style.transform = "translateY(-4px)"; }}
+                          onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 0 0 3px rgba(201,168,76,0.12), 0 0 18px 4px rgba(201,168,76,0.13), 0 4px 20px rgba(0,0,0,0.06)"; el.style.transform = "none"; }}
                         >
-                          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "1rem", gap: "0.5rem" }}>
+                          {/* Subtle circle orb pattern */}
+                          <svg aria-hidden="true" style={{ position: "absolute", top: "-30px", right: "-30px", width: "160px", height: "160px", opacity: 0.18, pointerEvents: "none" }} viewBox="0 0 160 160" fill="none">
+                            <circle cx="80" cy="80" r="70" stroke="#C9A84C" strokeWidth="1.5"/>
+                            <circle cx="80" cy="80" r="50" stroke="#C9A84C" strokeWidth="1"/>
+                            <circle cx="80" cy="80" r="30" stroke="#C9A84C" strokeWidth="0.75"/>
+                          </svg>
+                          <svg aria-hidden="true" style={{ position: "absolute", bottom: "-40px", left: "-40px", width: "120px", height: "120px", opacity: 0.10, pointerEvents: "none" }} viewBox="0 0 120 120" fill="none">
+                            <circle cx="60" cy="60" r="55" stroke="#C9A84C" strokeWidth="1.5"/>
+                            <circle cx="60" cy="60" r="38" stroke="#C9A84C" strokeWidth="1"/>
+                          </svg>
+                          <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "1rem", gap: "0.5rem" }}>
                             <span style={{ fontSize: "1.75rem" }} aria-hidden="true">{tool.icon}</span>
                             <span style={{ fontFamily: "var(--font-heading)", fontSize: "0.62rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: tool.badge === "Available now" ? "#2C4A31" : "#7A5200", background: tool.badge === "Available now" ? "rgba(61,97,66,0.12)" : "rgba(255,255,255,0.6)", border: `1px solid ${tool.badge === "Available now" ? "rgba(61,97,66,0.3)" : "rgba(180,130,20,0.4)"}`, padding: "0.2rem 0.55rem", borderRadius: "999px", flexShrink: 0, whiteSpace: "nowrap" }}>
                               {tool.badge}
                             </span>
                           </div>
-                          <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "0.5rem", lineHeight: 1.3 }}>{tool.name}</div>
-                          <div style={{ fontFamily: "var(--font-body)", fontSize: "0.84rem", color: "#4A4A4A", lineHeight: 1.65 }}>{tool.desc}</div>
+                          <div style={{ position: "relative", zIndex: 1, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "0.5rem", lineHeight: 1.3 }}>{tool.name}</div>
+                          <div style={{ position: "relative", zIndex: 1, fontFamily: "var(--font-body)", fontSize: "0.84rem", color: "#4A4A4A", lineHeight: 1.65 }}>{tool.desc}</div>
                         </div>
                       </Link>
                     ))}
