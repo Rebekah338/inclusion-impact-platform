@@ -314,7 +314,7 @@ export default function Home() {
               letterSpacing: "-0.02em",
             }}>
               Your Culture Is<br />
-              <span style={{ color: "#A8D4B0" }}>Your Competitive<br />Edge.</span>
+              <span style={{ background: "linear-gradient(135deg, #C9A84C 0%, #E2C265 50%, #A8741A 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Your Competitive<br />Edge.</span>
             </h1>
 
             <p style={{
