@@ -313,7 +313,7 @@ export default function Home() {
               marginBottom: "1.25rem",
               letterSpacing: "-0.02em",
             }}>
-              <span style={{ background: "linear-gradient(135deg, #E8D5A3 0%, #F5E9C8 45%, #DCC078 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Your Culture Is</span><br />
+              <span style={{ color: "#F0E6C8" }}>Your Culture Is</span><br />
               <span style={{ color: "#A8D4B0" }}>Your Competitive<br />Edge.</span>
             </h1>
 
@@ -827,7 +827,7 @@ export default function Home() {
                 Explore the platform
               </h2>
               <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.05rem", maxWidth: "460px", margin: "0 auto" }}>
-                Browse all 31 modules. A selection is free join to unlock the full library.
+                Browse all 31 modules; a selection is free to explore, join to unlock the full library.
               </p>
             </div>
 
@@ -877,26 +877,16 @@ export default function Home() {
               </div>
             )}
 
-            <div style={{ textAlign: "center", marginTop: "0.5rem" }}>
-              <Link href="/sign-up" className="btn-primary" style={{ fontSize: "0.95rem", padding: "0.875rem 2rem" }}>
-                Join to access all 31 modules →
-              </Link>
-            </div>
           </div>
-        </section>
 
-        {/* EXPLORE THE WATCH LIBRARY */}
-        <section style={{ padding: "3.5rem 1.5rem", background: "var(--white)" }}>
-          <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+          {/* WATCH LIBRARY sub-section */}
+          <div style={{ maxWidth: "1100px", margin: "4rem auto 0" }}>
             <div style={{ textAlign: "center", marginBottom: "3rem" }}>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--sage-xlight)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1rem" }}>
-                Coming soon
-              </span>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "0.75rem" }}>
+              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 3vw, 2.25rem)", color: "var(--charcoal)", marginBottom: "0.6rem" }}>
                 Explore the Watch library
-              </h2>
-              <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.05rem", maxWidth: "520px", margin: "0 auto" }}>
-                Expert-led video content in production launching to members first. Three formats, designed to fit your day.
+              </h3>
+              <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1rem", maxWidth: "520px", margin: "0 auto" }}>
+                Expert-led video content in three formats; designed to fit your day.
               </p>
             </div>
 
@@ -959,9 +949,40 @@ export default function Home() {
               ))}
             </div>
 
-            <div style={{ textAlign: "center", marginTop: "2.5rem" }}>
-              <Link href="/sign-up" className="btn-primary" style={{ fontSize: "0.9rem" }}>
-                Join to access the full Watch library →
+          </div>
+
+          {/* RESOURCES sub-section */}
+          <div style={{ maxWidth: "1100px", margin: "4.5rem auto 0" }}>
+            <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 3vw, 2.25rem)", color: "var(--charcoal)", marginBottom: "0.6rem" }}>
+                Resources and frameworks
+              </h3>
+              <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1rem", maxWidth: "520px", margin: "0 auto" }}>
+                Browse the tools that help you apply inclusion in practice.
+              </p>
+            </div>
+
+            <div className="resources-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", marginBottom: "3rem" }}>
+              {[
+                { icon: "📋", title: "Inclusive Meeting Checklist", type: "Checklist", desc: "A practical checklist for running meetings where every voice is heard and psychological safety is maintained." },
+                { icon: "🗺️", title: "EDI Strategy Roadmap", type: "Framework", desc: "A step-by-step framework for building a credible, evidence-led EDI strategy from the ground up." },
+                { icon: "📊", title: "Business Case Template", type: "Template", desc: "Build the evidence-backed case for EDI investment; tailored for leadership teams and board presentations." },
+              ].map((r) => (
+                <div key={r.title} style={{ background: "var(--white)", borderRadius: "16px", padding: "1.75rem 1.5rem", border: "1.5px solid var(--gray-border)", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                  <div style={{ fontSize: "1.75rem" }}>{r.icon}</div>
+                  <div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.72rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--sage-dark)", marginBottom: "0.35rem" }}>{r.type}</div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.97rem", color: "var(--charcoal)", lineHeight: 1.35 }}>{r.title}</div>
+                  </div>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.84rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: 0 }}>{r.desc}</p>
+                  <div style={{ marginTop: "auto", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "var(--sage-dark)" }}>Members only 🔒</div>
+                </div>
+              ))}
+            </div>
+
+            <div style={{ textAlign: "center", paddingBottom: "0.5rem" }}>
+              <Link href="/sign-up" className="btn-primary" style={{ fontSize: "0.95rem", padding: "0.875rem 2rem" }}>
+                Join to access the full collection →
               </Link>
             </div>
           </div>
