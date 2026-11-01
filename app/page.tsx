@@ -418,9 +418,9 @@ export default function Home() {
                     {visibleTools.map((tool) => (
                       <Link key={tool.name} href={tool.href} style={{ textDecoration: "none" }}>
                         <div
-                          style={{ background: "linear-gradient(145deg, #FFFBF0 0%, #FDF3D0 45%, #FAE8A8 100%)", border: "1.5px solid #D4A832", borderRadius: "16px", padding: "1.75rem", height: "100%", cursor: "pointer", transition: "border-color 0.2s, box-shadow 0.2s, transform 0.2s", boxSizing: "border-box", boxShadow: "0 4px 18px rgba(201,168,76,0.22), inset 0 1px 0 rgba(255,255,255,0.8)" }}
-                          onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "#C9A84C"; el.style.boxShadow = "0 10px 36px rgba(201,168,76,0.38), inset 0 1px 0 rgba(255,255,255,0.9)"; el.style.transform = "translateY(-3px)"; }}
-                          onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "#D4A832"; el.style.boxShadow = "0 4px 18px rgba(201,168,76,0.22), inset 0 1px 0 rgba(255,255,255,0.8)"; el.style.transform = "none"; }}
+                          style={{ background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 50%, #FAF6EE 100%)", border: "2px solid #C9A84C", borderRadius: "16px", padding: "1.75rem", height: "100%", cursor: "pointer", transition: "border-color 0.2s, box-shadow 0.2s, transform 0.2s", boxSizing: "border-box", boxShadow: "0 2px 0 #E8C870 inset, 0 6px 28px rgba(140,100,20,0.18), 0 1px 0 rgba(255,255,255,0.9) inset" }}
+                          onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "#B8941E"; el.style.boxShadow = "0 2px 0 #E8C870 inset, 0 14px 44px rgba(140,100,20,0.32), 0 1px 0 rgba(255,255,255,0.9) inset"; el.style.transform = "translateY(-4px)"; }}
+                          onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.borderColor = "#C9A84C"; el.style.boxShadow = "0 2px 0 #E8C870 inset, 0 6px 28px rgba(140,100,20,0.18), 0 1px 0 rgba(255,255,255,0.9) inset"; el.style.transform = "none"; }}
                         >
                           <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "1rem", gap: "0.5rem" }}>
                             <span style={{ fontSize: "1.75rem" }} aria-hidden="true">{tool.icon}</span>
@@ -428,8 +428,8 @@ export default function Home() {
                               {tool.badge}
                             </span>
                           </div>
-                          <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "#2C2000", marginBottom: "0.5rem", lineHeight: 1.3 }}>{tool.name}</div>
-                          <div style={{ fontFamily: "var(--font-body)", fontSize: "0.84rem", color: "#6B5000", lineHeight: 1.65 }}>{tool.desc}</div>
+                          <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "0.5rem", lineHeight: 1.3 }}>{tool.name}</div>
+                          <div style={{ fontFamily: "var(--font-body)", fontSize: "0.84rem", color: "#4A4A4A", lineHeight: 1.65 }}>{tool.desc}</div>
                         </div>
                       </Link>
                     ))}
