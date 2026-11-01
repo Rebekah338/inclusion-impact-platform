@@ -110,7 +110,6 @@ export default function ApplyPage() {
   const [visited, setVisited] = useState<string[]>([]);
   const [toolkitView, setToolkitView] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  const [openAccordion, setOpenAccordion] = useState<string | null>(null);
   const [expandedAccordions, setExpandedAccordions] = useState<Set<string>>(new Set());
   const [shareMenuId, setShareMenuId] = useState<string | null>(null);
 
@@ -378,7 +377,8 @@ export default function ApplyPage() {
                 "People and Characteristics": "👥",
                 "Events, Comms and Culture": "📣",
               };
-              const isOpen = openAccordion === cat;
+              const isOpen = expandedAccordions.has(cat);
+              const hasMore = (CATEGORY_MAP[cat] || []).length > 3;
               const catResources = (CATEGORY_MAP[cat] || [])
                 .map((id) => ALL_RESOURCES.find((r) => r.id === id))
                 .filter(Boolean) as Resource[];
@@ -386,7 +386,11 @@ export default function ApplyPage() {
                 <div key={cat} style={{ background: "var(--white)", borderRadius: "14px", border: isOpen ? "2px solid var(--sage-dark)" : "1.5px solid var(--gray-border)", overflow: "hidden", transition: "border-color 0.15s ease" }}>
                   {/* Header row */}
                   <button
-                    onClick={() => setOpenAccordion(isOpen ? null : cat)}
+                    onClick={() => setExpandedAccordions((prev) => {
+                      const next = new Set(prev);
+                      if (next.has(cat)) { next.delete(cat); } else { next.add(cat); }
+                      return next;
+                    })}
                     aria-expanded={isOpen}
                     style={{ width: "100%", display: "flex", alignItems: "center", gap: "1rem", padding: "1.25rem 1.5rem", background: "none", border: "none", cursor: "pointer", textAlign: "left" as const }}
                   >
@@ -396,9 +400,8 @@ export default function ApplyPage() {
                     <span style={{ fontSize: "1rem", color: "var(--sage-dark)", flexShrink: 0, transform: isOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s ease" }}>▼</span>
                   </button>
                   {/* Expanded content */}
-                  {isOpen && (() => {
-                    const isExpanded = expandedAccordions.has(cat);
-                    const visibleCatResources = isExpanded ? catResources : catResources.slice(0, 3);
+                  {(() => {
+                    const visibleCatResources = isOpen ? catResources : catResources.slice(0, 3);
                     const hiddenCount = catResources.length - 3;
                     return (
                     <div style={{ padding: "0 1.5rem 1.5rem", borderTop: "1px solid var(--gray-border)" }}>
@@ -503,12 +506,12 @@ export default function ApplyPage() {
                         <button
                           onClick={() => setExpandedAccordions((prev) => {
                             const next = new Set(prev);
-                            if (isExpanded) { next.delete(cat); } else { next.add(cat); }
+                            if (isOpen) { next.delete(cat); } else { next.add(cat); }
                             return next;
                           })}
                           style={{ marginTop: '1rem', fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.8rem', color: 'var(--sage-dark)', background: 'var(--sage-xlight)', border: '1.5px solid var(--sage-light)', borderRadius: '999px', padding: '0.5rem 1.25rem', cursor: 'pointer' }}
                         >
-                          {isExpanded ? 'Show less ▲' : `Show ${hiddenCount} more resource${hiddenCount === 1 ? '' : 's'} ▼`}
+                          {isOpen ? 'Show less ▲' : `Show ${hiddenCount} more resource${hiddenCount === 1 ? '' : 's'} ▼`}
                         </button>
                       )}
                     </div>
