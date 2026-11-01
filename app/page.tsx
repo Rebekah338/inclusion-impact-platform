@@ -878,11 +878,9 @@ export default function Home() {
             )}
 
           </div>
-        </section>
 
-        {/* WATCH LIBRARY + RESOURCES */}
-        <section style={{ padding: "5rem 1.5rem", background: "var(--white)" }}>
-          <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+          {/* WATCH LIBRARY */}
+          <div style={{ maxWidth: "1100px", margin: "4rem auto 0", position: "relative", zIndex: 2 }}>
             <div style={{ textAlign: "center", marginBottom: "3rem" }}>
               <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 3vw, 2.25rem)", color: "var(--charcoal)", marginBottom: "0.6rem" }}>
                 Explore the Watch library
@@ -986,7 +984,6 @@ export default function Home() {
                 Join to access the full collection →
               </Link>
             </div>
-          </div>
           </div>
         </section>
 
