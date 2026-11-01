@@ -812,57 +812,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* BIG SEARCH BAR */}
-        <section style={{ background: "var(--white)", padding: "2rem 1.5rem 0" }}>
-          <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 3vw, 2.25rem)", color: "var(--charcoal)", textAlign: "center", marginBottom: "0.5rem", letterSpacing: "-0.01em" }}>
-              What does your culture need?
-            </h2>
-            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 500, fontSize: "1rem", color: "var(--gray-soft)", textAlign: "center", marginBottom: "1.5rem" }}>
-              Find the tools and resources to move it forward.
-            </p>
-            <div ref={heroSearchRef} style={{ position: "relative" }}>
-              <input
-                type="search"
-                placeholder="Search modules, tools, guides, research…"
-                value={heroSearchQuery}
-                onChange={(e) => setHeroSearchQuery(e.target.value)}
-                onFocus={() => heroSearchQuery.length >= 2 && setHeroSearchOpen(true)}
-                aria-label="Search all platform content"
-                style={{
-                  width: "100%", padding: "1rem 1.5rem 1rem 3.25rem",
-                  borderRadius: "14px", border: "2px solid var(--sage-dark)",
-                  fontFamily: "var(--font-body)", fontSize: "1rem",
-                  background: "var(--sage-xlight)", color: "var(--charcoal)", outline: "none",
-                  boxShadow: "0 4px 24px rgba(42,74,48,0.18)",
-                  boxSizing: "border-box",
-                }}
-              />
-              <span style={{ position: "absolute", left: "1.125rem", top: "50%", transform: "translateY(-50%)", fontSize: "1.1rem" }} aria-hidden="true">🔍</span>
-              {heroSearchOpen && heroSearchResults.length > 0 && (
-                <div role="listbox" style={{ position: "absolute", top: "calc(100% + 8px)", left: 0, right: 0, background: "var(--white)", border: "1.5px solid var(--sage-light)", borderRadius: "14px", boxShadow: "0 16px 48px rgba(0,0,0,0.14)", zIndex: 200, overflow: "hidden" }}>
-                  {heroSearchResults.map((item) => (
-                    <button key={item.id} role="option" aria-selected="false"
-                      onClick={() => { item.free ? (window.location.href = item.href) : handleLockedClick(item.title); setHeroSearchOpen(false); setHeroSearchQuery(""); }}
-                      style={{ width: "100%", padding: "0.9rem 1.5rem", display: "flex", alignItems: "center", gap: "0.875rem", border: "none", background: "none", cursor: "pointer", textAlign: "left", borderBottom: "1px solid var(--gray-border)" }}
-                      onMouseEnter={(e) => (e.currentTarget.style.background = "var(--sage-xlight)")}
-                      onMouseLeave={(e) => (e.currentTarget.style.background = "none")}
-                    >
-                      <span style={{ fontSize: "1.1rem" }} aria-hidden="true">{TYPE_ICONS[item.type]}</span>
-                      <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.9rem", color: "var(--charcoal)" }}>{item.title}</div>
-                        {item.subtitle && <div style={{ fontSize: "0.75rem", color: "var(--gray-soft)" }}>{item.subtitle}</div>}
-                      </div>
-                      <span style={{ fontSize: "0.65rem", fontFamily: "var(--font-heading)", fontWeight: 700, textTransform: "uppercase", color: "var(--sage-dark)", background: "var(--sage-light)", padding: "0.2rem 0.6rem", borderRadius: "999px", whiteSpace: "nowrap" }}>
-                        {item.free ? "Free" : TYPE_LABELS[item.type]}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        </section>
+
 
         {/* EXPLORE LEARNING PATHWAYS */}
         <section style={{ padding: "5rem 1.5rem", position: "relative", overflow: "hidden" }}>
