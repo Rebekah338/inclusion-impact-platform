@@ -879,8 +879,15 @@ export default function Home() {
 
           </div>
 
+        </section>
+
+        {/* WATCH LIBRARY + RESOURCES */}
+        <section style={{ padding: "0 1.5rem 5rem", position: "relative", overflow: "hidden" }}>
+          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/team-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 0 }} aria-hidden="true" />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(240, 244, 241, 0.91)", backdropFilter: "blur(2px)", zIndex: 1 }} aria-hidden="true" />
+
           {/* WATCH LIBRARY */}
-          <div style={{ maxWidth: "1100px", margin: "4rem auto 0", position: "relative", zIndex: 2 }}>
+          <div style={{ maxWidth: "1100px", margin: "0 auto", paddingTop: "4rem", position: "relative", zIndex: 2 }}>
             <div style={{ textAlign: "center", marginBottom: "3rem" }}>
               <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 3vw, 2.25rem)", color: "var(--charcoal)", marginBottom: "0.6rem" }}>
                 Explore the Watch library
