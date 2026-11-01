@@ -360,15 +360,9 @@ export default function Home() {
         </section>
 
         {/* STATS STRIP */}
-        <section style={{ padding: "0.6rem 1.5rem", position: "relative", overflow: "hidden" }}>
-          {/* background photo */}
-          <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url('/team-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "60% 30%", zIndex: 0 }} />
-          {/* sage green overlay — stronger on left to mask warm photo edge */}
-          <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(58,94,56,0.88) 0%, rgba(58,94,56,0.68) 30%, rgba(74,116,72,0.62) 60%, rgba(58,94,56,0.70) 100%)", zIndex: 1, pointerEvents: "none" }} />
-          {/* hard left-edge mask — covers warm photo tones */}
-          <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, #3d5e3a 0%, #3d5e3a 6%, transparent 18%)", zIndex: 2, pointerEvents: "none" }} />
+        <section style={{ padding: "0.6rem 1.5rem", position: "relative", overflow: "hidden", background: "linear-gradient(105deg, #3a5c38 0%, #4a6f47 40%, #507550 60%, #4a6f47 100%)" }}>
           {/* gold shimmer sweep */}
-          <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.09) 40%, rgba(201,168,76,0.16) 55%, transparent 100%)", zIndex: 2, pointerEvents: "none" }} />
+          <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.08) 35%, rgba(201,168,76,0.18) 55%, transparent 100%)", zIndex: 1, pointerEvents: "none" }} />
           <div style={{ maxWidth: "1100px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0", position: "relative", zIndex: 3 }}>
             {[
               { value: "31", label: "EDI modules", ai: false },
