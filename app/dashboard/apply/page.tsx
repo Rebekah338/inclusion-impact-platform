@@ -174,6 +174,11 @@ export default function ApplyPage() {
     s17: "inclusive-event-planning",
     s18: "challenging-ageism",
     s19: "inclusive-data-collection",
+    r11: "inclusion-maturity-framework",
+    r13: "edi-action-planner",
+    r14: "edi-strategy-guide",
+    r15: "sceptical-stakeholders",
+    r20: "intersectionality",
   };
 
   const openResource = (id: string) => {
