@@ -478,18 +478,18 @@ export default function Home() {
                         placeholder="Your first name"
                         value={finderName}
                         onChange={(e) => setFinderName(e.target.value)}
-                        style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "10px", border: "1.5px solid rgba(201,168,76,0.3)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", outline: "none", boxSizing: "border-box", background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", transition: "border-color 0.15s, box-shadow 0.15s" }}
+                        style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "10px", border: "1.5px solid rgba(201,168,76,0.45)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", outline: "none", boxSizing: "border-box", background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", transition: "border-color 0.15s, box-shadow 0.15s" }}
                         onFocus={(e) => { e.target.style.borderColor = "#C9A84C"; e.target.style.boxShadow = "0 0 0 3px rgba(201,168,76,0.18), 0 0 12px rgba(201,168,76,0.15)"; }}
-                        onBlur={(e) => { e.target.style.borderColor = "rgba(201,168,76,0.3)"; e.target.style.boxShadow = "none"; }}
+                        onBlur={(e) => { e.target.style.borderColor = "rgba(201,168,76,0.45)"; e.target.style.boxShadow = "none"; }}
                       />
                       <input
                         type="email"
                         placeholder="Your email address"
                         value={finderEmail}
                         onChange={(e) => setFinderEmail(e.target.value)}
-                        style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "10px", border: "1.5px solid rgba(201,168,76,0.3)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", outline: "none", boxSizing: "border-box", background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", transition: "border-color 0.15s, box-shadow 0.15s" }}
+                        style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "10px", border: "1.5px solid rgba(201,168,76,0.45)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", outline: "none", boxSizing: "border-box", background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", transition: "border-color 0.15s, box-shadow 0.15s" }}
                         onFocus={(e) => { e.target.style.borderColor = "#C9A84C"; e.target.style.boxShadow = "0 0 0 3px rgba(201,168,76,0.18), 0 0 12px rgba(201,168,76,0.15)"; }}
-                        onBlur={(e) => { e.target.style.borderColor = "rgba(201,168,76,0.3)"; e.target.style.boxShadow = "none"; }}
+                        onBlur={(e) => { e.target.style.borderColor = "rgba(201,168,76,0.45)"; e.target.style.boxShadow = "none"; }}
                       />
                     </div>
 
@@ -503,8 +503,8 @@ export default function Home() {
                           rows={3}
                           onChange={(e) => handleTopicChange(e.target.value)}
                           onFocus={(e) => { (e.target as HTMLTextAreaElement).style.borderColor = "#C9A84C"; (e.target as HTMLTextAreaElement).style.boxShadow = "0 0 0 3px rgba(201,168,76,0.18), 0 0 12px rgba(201,168,76,0.15)"; }}
-                          onBlur={(e) => { (e.target as HTMLTextAreaElement).style.borderColor = "rgba(201,168,76,0.3)"; (e.target as HTMLTextAreaElement).style.boxShadow = "none"; setTimeout(() => setFinderSuggestionsOpen(false), 150); }}
-                          style={{ width: "100%", padding: "0.875rem 1rem", borderRadius: "10px", border: "1.5px solid rgba(201,168,76,0.3)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", outline: "none", resize: "none", boxSizing: "border-box", lineHeight: 1.6, background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", transition: "border-color 0.15s, box-shadow 0.15s" }}
+                          onBlur={(e) => { (e.target as HTMLTextAreaElement).style.borderColor = "rgba(201,168,76,0.45)"; (e.target as HTMLTextAreaElement).style.boxShadow = "none"; setTimeout(() => setFinderSuggestionsOpen(false), 150); }}
+                          style={{ width: "100%", padding: "0.875rem 1rem", borderRadius: "10px", border: "1.5px solid rgba(201,168,76,0.45)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", outline: "none", resize: "none", boxSizing: "border-box", lineHeight: 1.6, background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", transition: "border-color 0.15s, box-shadow 0.15s" }}
                         />
                         {finderSuggestionsOpen && finderSuggestions.length > 0 && (
                           <div style={{ position: "absolute", top: "100%", left: 0, right: 0, background: "var(--white)", border: "1.5px solid var(--gray-border)", borderRadius: "10px", boxShadow: "0 8px 24px rgba(0,0,0,0.1)", zIndex: 20, overflowY: "auto", maxHeight: "220px", marginTop: "4px" }}>
