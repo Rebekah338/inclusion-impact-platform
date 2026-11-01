@@ -360,7 +360,7 @@ export default function Home() {
         </section>
 
         {/* STATS STRIP */}
-        <section style={{ padding: "0.6rem 1.5rem", position: "relative", overflow: "hidden", background: "linear-gradient(105deg, rgba(122,168,118,0.35) 0%, rgba(138,184,135,0.28) 40%, rgba(146,192,144,0.32) 60%, rgba(138,184,135,0.28) 100%)", backgroundColor: "#f4f7f4" }}>
+        <section style={{ padding: "0.6rem 1.5rem", position: "relative", overflow: "hidden", background: "linear-gradient(105deg, rgba(107,143,113,0.18) 0%, rgba(107,143,113,0.10) 50%, rgba(107,143,113,0.18) 100%)", backgroundColor: "#f4f7f4" }}>
           {/* gold shimmer sweep */}
           <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.08) 35%, rgba(201,168,76,0.18) 55%, transparent 100%)", zIndex: 1, pointerEvents: "none" }} />
           <div style={{ maxWidth: "1100px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0", position: "relative", zIndex: 3 }}>
@@ -376,20 +376,20 @@ export default function Home() {
                 {s.ai ? (
                   <div style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: "0.2rem" }}>
                     <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "2.6rem", height: "2.6rem", borderRadius: "50%", border: "2px solid #C9A84C", boxShadow: "0 0 10px rgba(201,168,76,0.45), 0 0 20px rgba(201,168,76,0.2)", background: "rgba(201,168,76,0.12)" }}>
-                      <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.05rem", color: "#F0D07A", lineHeight: 1 }}>{s.value}</span>
+                      <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.05rem", color: "#C9A84C", lineHeight: 1 }}>{s.value}</span>
                     </div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.65rem", color: "rgba(255,255,255,0.75)", textTransform: "uppercase", letterSpacing: "0.07em" }}>{s.label}</div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.65rem", color: "rgba(42,58,42,0.65)", textTransform: "uppercase", letterSpacing: "0.07em" }}>{s.label}</div>
                   </div>
                 ) : (
                   <>
-                    <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.1rem, 2.2vw, 1.6rem)", color: "var(--white)", lineHeight: 1, marginBottom: "0.2rem" }}>{s.value}</div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.62rem", color: "rgba(255,255,255,0.68)", textTransform: "uppercase", letterSpacing: "0.07em" }}>{s.label}</div>
+                    <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.1rem, 2.2vw, 1.6rem)", color: "var(--charcoal)", lineHeight: 1, marginBottom: "0.2rem" }}>{s.value}</div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.62rem", color: "rgba(42,58,42,0.60)", textTransform: "uppercase", letterSpacing: "0.07em" }}>{s.label}</div>
                   </>
                 )}
               </div>
             ))}
           </div>
-          <p style={{ textAlign: "center", fontFamily: "var(--font-body)", fontSize: "0.6rem", color: "rgba(255,255,255,0.38)", marginTop: "0.3rem", position: "relative", zIndex: 3 }}>
+          <p style={{ textAlign: "center", fontFamily: "var(--font-body)", fontSize: "0.6rem", color: "rgba(42,58,42,0.40)", marginTop: "0.3rem", position: "relative", zIndex: 3 }}>
             87% stat: Cloverpop 2017 &nbsp;&middot;&nbsp; 35% stat: McKinsey 2023
           </p>
         </section>
