@@ -962,7 +962,7 @@ export default function Home() {
                   {[
                     { icon: "📅", text: "Weekly office hours; book a slot" },
                     { icon: "🧠", text: "One-to-one expert support sessions" },
-                    { icon: "🎤", text: "Live events and cohort sessions" },
+                    { icon: "💡", text: "Bring a challenge; get expert perspective" },
                   ].map((item) => (
                     <div key={item.text} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
                       <span style={{ fontSize: "1rem", flexShrink: 0 }}>{item.icon}</span>
