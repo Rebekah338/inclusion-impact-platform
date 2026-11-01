@@ -367,7 +367,7 @@ export default function Home() {
             {[
               { value: "31", label: "EDI modules", ai: false },
               { value: "50+", label: "Practical tools", ai: false },
-              { value: "9", label: "AI tools", ai: true },
+              { value: "15", label: "AI tools", ai: true },
               { value: "87%", label: "Better decisions", ai: false },
               { value: "35%", label: "Outperform competitors", ai: false },
               { value: "WCAG 2.1", label: "Accessibility", ai: false },
