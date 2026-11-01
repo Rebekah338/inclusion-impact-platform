@@ -978,6 +978,26 @@ export default function Home() {
           </div>
         </section>
 
+        {/* FINAL CTA */}
+        <section style={{ padding: "4rem 1.5rem", textAlign: "center", background: "var(--white)" }}>
+          <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--sage-xlight)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1.5rem" }}>
+            Join today
+          </span>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(2rem, 5vw, 3.25rem)", color: "var(--charcoal)", marginBottom: "1rem" }}>
+            Ready to build inclusion that lasts?
+          </h2>
+          <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.1rem", maxWidth: "36rem", margin: "0 auto 2.5rem", lineHeight: 1.7 }}>
+            Join practitioners, HR leaders, and people managers across the UK building their EDI capability backed by real expertise, not just content.
+          </p>
+          <Link href="/sign-up" className="btn-primary" style={{ fontSize: "1.05rem", padding: "1rem 2.75rem" }}>
+            Start your membership →
+          </Link>
+          <p style={{ marginTop: "1.25rem", fontFamily: "var(--font-heading)", fontSize: "0.78rem", color: "var(--gray-soft)", letterSpacing: "0.04em" }}>
+            CPD content · WCAG 2.1 AA · Cancel any time
+          </p>
+        </section>
+      </main>
+
         {/* MEMBERSHIP / PRICING */}
         <section style={{ padding: "3.5rem 1.5rem", background: "var(--sage-xlight)" }} aria-label="Membership options">
           <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
@@ -1050,26 +1070,6 @@ export default function Home() {
           </div>
         </section>
 
-
-        {/* FINAL CTA */}
-        <section style={{ padding: "4rem 1.5rem", textAlign: "center", background: "var(--white)" }}>
-          <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--sage-xlight)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1.5rem" }}>
-            Join today
-          </span>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(2rem, 5vw, 3.25rem)", color: "var(--charcoal)", marginBottom: "1rem" }}>
-            Ready to build inclusion that lasts?
-          </h2>
-          <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.1rem", maxWidth: "36rem", margin: "0 auto 2.5rem", lineHeight: 1.7 }}>
-            Join practitioners, HR leaders, and people managers across the UK building their EDI capability backed by real expertise, not just content.
-          </p>
-          <Link href="/sign-up" className="btn-primary" style={{ fontSize: "1.05rem", padding: "1rem 2.75rem" }}>
-            Start your membership →
-          </Link>
-          <p style={{ marginTop: "1.25rem", fontFamily: "var(--font-heading)", fontSize: "0.78rem", color: "var(--gray-soft)", letterSpacing: "0.04em" }}>
-            CPD content · WCAG 2.1 AA · Cancel any time
-          </p>
-        </section>
-      </main>
 
       {/* FOOTER */}
       <footer role="contentinfo" style={{ borderTop: "1px solid var(--gray-border)", padding: "2rem 1.5rem", background: "var(--white)" }}>
