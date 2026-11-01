@@ -424,20 +424,8 @@ export default function Home() {
           const greetingName = finderName.trim().split(" ")[0];
 
           return (
-            <section style={{ padding: "3.5rem 1.5rem 3rem", position: "relative", overflow: "hidden", background: "var(--white)" }}>
-              {/* Gold glow orbs */}
-              <svg aria-hidden="true" style={{ position: "absolute", top: "-60px", right: "-60px", width: "320px", height: "320px", opacity: 0.13, pointerEvents: "none", zIndex: 0 }} viewBox="0 0 320 320" fill="none">
-                <circle cx="160" cy="160" r="150" stroke="#C9A84C" strokeWidth="1.5"/>
-                <circle cx="160" cy="160" r="110" stroke="#C9A84C" strokeWidth="1"/>
-                <circle cx="160" cy="160" r="70" stroke="#C9A84C" strokeWidth="0.75"/>
-              </svg>
-              <svg aria-hidden="true" style={{ position: "absolute", bottom: "-80px", left: "-80px", width: "260px", height: "260px", opacity: 0.09, pointerEvents: "none", zIndex: 0 }} viewBox="0 0 260 260" fill="none">
-                <circle cx="130" cy="130" r="120" stroke="#C9A84C" strokeWidth="1.5"/>
-                <circle cx="130" cy="130" r="85" stroke="#C9A84C" strokeWidth="1"/>
-              </svg>
-              {/* Gold shimmer sweep */}
-              <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, transparent 0%, rgba(201,168,76,0.06) 40%, rgba(201,168,76,0.13) 60%, transparent 100%)", zIndex: 0, pointerEvents: "none" }} />
-              <div style={{ maxWidth: "860px", margin: "0 auto", position: "relative", zIndex: 1 }}>
+            <section style={{ padding: "3.5rem 1.5rem 3rem", background: "var(--white)" }}>
+              <div style={{ maxWidth: "860px", margin: "0 auto" }}>
 
                 {/* Header */}
                 <div style={{ textAlign: "center", marginBottom: "2rem" }}>
