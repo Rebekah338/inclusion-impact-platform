@@ -749,22 +749,7 @@ export default function Home() {
                   </div>
                 </Link>
               ))}
-              {/* Apply card */}
-              <Link href="/dashboard/apply" style={{ textDecoration: "none", display: "flex" }}>
-                <div style={{
-                  background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)",
-                  borderRadius: "18px", padding: "1.5rem 1.25rem",
-                  boxShadow: "0 6px 28px rgba(42,74,48,0.22)",
-                  cursor: "pointer", flex: 1, position: "relative", overflow: "hidden",
-                }}>
-                  <div style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
-                  <div style={{ fontSize: "1.75rem", marginBottom: "0.75rem" }} aria-hidden="true">🛠️</div>
-                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1rem", color: "white", marginBottom: "0.2rem" }}>Apply</div>
-                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.625rem" }}>Tools & Frameworks</div>
-                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.55 }}>Turn good intentions into documented, defensible action.</div>
-                </div>
-              </Link>
-              {/* Inclusion AI card — gold bordered, after Watch */}
+              {/* Inclusion AI card — gold bordered */}
               <Link href="/dashboard/ai-tools" style={{ textDecoration: "none", display: "flex" }}>
                 <div style={{
                   background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 50%, #FAF6EE 100%)",
@@ -778,6 +763,21 @@ export default function Home() {
                   <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "0.2rem" }}>Inclusion AI</div>
                   <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "#8B6914", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.625rem" }}>15 AI Tools</div>
                   <div style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--gray-soft)", lineHeight: 1.55 }}>AI-powered tools built for inclusion practitioners; fast, evidence-based and actionable.</div>
+                </div>
+              </Link>
+              {/* Apply card */}
+              <Link href="/dashboard/apply" style={{ textDecoration: "none", display: "flex" }}>
+                <div style={{
+                  background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)",
+                  borderRadius: "18px", padding: "1.5rem 1.25rem",
+                  boxShadow: "0 6px 28px rgba(42,74,48,0.22)",
+                  cursor: "pointer", flex: 1, position: "relative", overflow: "hidden",
+                }}>
+                  <div style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
+                  <div style={{ fontSize: "1.75rem", marginBottom: "0.75rem" }} aria-hidden="true">🛠️</div>
+                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1rem", color: "white", marginBottom: "0.2rem" }}>Apply</div>
+                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.625rem" }}>Tools & Frameworks</div>
+                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.55 }}>Turn good intentions into documented, defensible action.</div>
                 </div>
               </Link>
             </div>
