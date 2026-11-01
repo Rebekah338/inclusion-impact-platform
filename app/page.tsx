@@ -104,6 +104,7 @@ export default function Home() {
   const [activePathway, setActivePathway] = useState<string | null>(null);
   const [watchTab, setWatchTab] = useState<"deep-dives" | "masterclasses" | "quick-wins">("deep-dives");
   const [carouselIdx, setCarouselIdx] = useState(0);
+  const [platformTab, setPlatformTab] = useState<"pathways" | "watch" | "resources">("pathways");
   const [aiCarouselIdx, setAiCarouselIdx] = useState(0);
   const [joinModalOpen, setJoinModalOpen] = useState(false);
   const [joinModalItem, setJoinModalItem] = useState("");
@@ -814,185 +815,170 @@ export default function Home() {
 
 
 
-        {/* EXPLORE LEARNING PATHWAYS */}
-        <section style={{ padding: "5rem 1.5rem", position: "relative", overflow: "hidden" }}>
+
+        {/* WHAT'S INSIDE */}
+        <section style={{ padding: "3.5rem 1.5rem", position: "relative", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/team-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 0 }} aria-hidden="true" />
           <div style={{ position: "absolute", inset: 0, background: "rgba(240, 244, 241, 0.91)", backdropFilter: "blur(2px)", zIndex: 1 }} aria-hidden="true" />
           <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 2 }}>
-            <div style={{ textAlign: "center", marginBottom: "3rem" }}>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--white)", border: "1px solid var(--sage-light)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1rem" }}>
-                Learning pathways
+
+            <div style={{ textAlign: "center", marginBottom: "1.75rem" }}>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--white)", border: "1px solid var(--sage-light)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "0.75rem" }}>
+                Inside the platform
               </span>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "0.75rem" }}>
-                Explore the platform
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "0.45rem" }}>
+                What&apos;s inside
               </h2>
-              <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.05rem", maxWidth: "460px", margin: "0 auto" }}>
-                Browse all 31 modules; a selection is free to explore, join to unlock the full library.
+              <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1rem", maxWidth: "520px", margin: "0 auto" }}>
+                Practical knowledge, expert insight and ready-to-use tools; so you can lead inclusion with confidence, not guesswork.
               </p>
             </div>
 
-            <div className="pathways-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", marginBottom: "2.5rem" }}>
-              {PATHWAY_INFO.map((p) => (
-                <button
-                  key={p.key}
-                  onClick={() => setActivePathway(activePathway === p.key ? null : p.key)}
-                  style={{
-                    background: "var(--white)", borderRadius: "16px", overflow: "hidden",
-                    border: `2px solid ${activePathway === p.key ? p.color : "var(--gray-border)"}`,
-                    cursor: "pointer", textAlign: "left",
-                  }}
-                >
-                  <div style={{ height: "140px", backgroundImage: `url('${p.img}')`, backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
-                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.55) 100%)" }} />
-                    <span style={{ position: "absolute", bottom: "0.75rem", left: "1rem", fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.72rem", color: "white", textTransform: "uppercase", letterSpacing: "0.12em" }}>{p.count} modules</span>
-                  </div>
-                  <div style={{ padding: "1.25rem 1.25rem 1.5rem" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
-                      <span style={{ fontSize: "1.25rem" }} aria-hidden="true">{p.icon}</span>
-                      <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1rem", color: "var(--charcoal)" }}>{p.key}</span>
-                    </div>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.84rem", color: "var(--gray-soft)", lineHeight: 1.55, margin: 0 }}>{p.desc}</p>
-                    <div style={{ marginTop: "1rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: p.color }}>
-                      {activePathway === p.key ? "Hide modules ↑" : "Browse modules →"}
-                    </div>
-                  </div>
-                </button>
-              ))}
+            <div style={{ display: "flex", justifyContent: "center", gap: "0.5rem", marginBottom: "1.75rem" }}>
+              {(["pathways", "watch", "resources"] as const).map((t) => {
+                const labels: Record<string, string> = { pathways: "Learning pathways", watch: "Watch library", resources: "Resources" };
+                return (
+                  <button key={t} onClick={() => setPlatformTab(t)}
+                    style={{
+                      fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem",
+                      padding: "0.55rem 1.25rem", borderRadius: "999px", border: "2px solid",
+                      borderColor: platformTab === t ? "var(--sage-dark)" : "var(--gray-border)",
+                      background: platformTab === t ? "var(--sage-dark)" : "var(--white)",
+                      color: platformTab === t ? "var(--white)" : "var(--charcoal)",
+                      cursor: "pointer",
+                    }}>
+                    {labels[t]}
+                  </button>
+                );
+              })}
             </div>
 
-            {activePathway && visibleModules.length > 0 && (
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1rem", marginBottom: "2rem" }}>
-                {visibleModules.map((m) => (
-                  <div key={m.id} className="card" style={{ background: "var(--white)", opacity: m.free ? 1 : 0.85 }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.5rem" }}>
-                      <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.35 }}>{m.title}</span>
-                      {!m.free && <span style={{ fontSize: "0.8rem", flexShrink: 0 }}>🔒</span>}
-                    </div>
-                    <button onClick={() => m.free ? (window.location.href = m.href) : handleLockedClick(m.title)}
-                      style={{ marginTop: "0.75rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: m.free ? "var(--sage-dark)" : "var(--gray-soft)", background: "none", border: "none", cursor: "pointer", padding: 0 }}>
-                      {m.free ? "Start free →" : "Members only"}
+            {platformTab === "pathways" && (
+              <div>
+                <div className="pathways-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", marginBottom: "1.5rem" }}>
+                  {PATHWAY_INFO.map((p) => (
+                    <button key={p.key}
+                      onClick={() => setActivePathway(activePathway === p.key ? null : p.key)}
+                      style={{
+                        background: "var(--white)", borderRadius: "16px", overflow: "hidden",
+                        border: `2px solid ${activePathway === p.key ? p.color : "var(--gray-border)"}`,
+                        cursor: "pointer", textAlign: "left",
+                      }}>
+                      <div style={{ height: "130px", backgroundImage: `url('${p.img}')`, backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
+                        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.55) 100%)" }} />
+                        <span style={{ position: "absolute", bottom: "0.75rem", left: "1rem", fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.72rem", color: "white", textTransform: "uppercase", letterSpacing: "0.12em" }}>{p.count} modules</span>
+                      </div>
+                      <div style={{ padding: "1rem 1.25rem 1.25rem" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.4rem" }}>
+                          <span style={{ fontSize: "1.1rem" }} aria-hidden="true">{p.icon}</span>
+                          <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.95rem", color: "var(--charcoal)" }}>{p.key}</span>
+                        </div>
+                        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--gray-soft)", lineHeight: 1.5, margin: 0 }}>{p.desc}</p>
+                        <div style={{ marginTop: "0.75rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", color: p.color }}>
+                          {activePathway === p.key ? "Hide modules ↑" : "Browse modules →"}
+                        </div>
+                      </div>
                     </button>
+                  ))}
+                </div>
+                {activePathway && visibleModules.length > 0 && (
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1rem", marginBottom: "1.5rem" }}>
+                    {visibleModules.map((m) => (
+                      <div key={m.id} className="card" style={{ background: "var(--white)", opacity: m.free ? 1 : 0.85 }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.5rem" }}>
+                          <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.35 }}>{m.title}</span>
+                          {!m.free && <span style={{ fontSize: "0.8rem", flexShrink: 0 }}>🔒</span>}
+                        </div>
+                        <button onClick={() => m.free ? (window.location.href = m.href) : handleLockedClick(m.title)}
+                          style={{ marginTop: "0.75rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: m.free ? "var(--sage-dark)" : "var(--gray-soft)", background: "none", border: "none", cursor: "pointer", padding: 0 }}>
+                          {m.free ? "Start free →" : "Members only"}
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {platformTab === "watch" && (
+              <div>
+                <div className="watch-tabs-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", marginBottom: "1.75rem" }}>
+                  {([
+                    { icon: "🎓", label: "Deep Dives",    desc: "Full 30–45 minute expert-led training sessions on complex EDI topics.", key: "deep-dives" as const },
+                    { icon: "🎬", label: "Masterclasses", desc: "Focused 15–20 minute sessions on a single skill, framework or challenge.", key: "masterclasses" as const },
+                    { icon: "⚡",       label: "Nuggets",        desc: "5–10 minute sharp, actionable takeaways easy to fit into your week.", key: "quick-wins" as const },
+                  ]).map((w) => (
+                    <button key={w.label} onClick={() => { setWatchTab(w.key); setCarouselIdx(0); }}
+                      style={{
+                        textAlign: "left",
+                        background: watchTab === w.key ? "linear-gradient(160deg, #3D6142 0%, #2C4A31 100%)" : "var(--sage-xlight)",
+                        border: `2px solid ${watchTab === w.key ? "transparent" : "var(--sage-light)"}`,
+                        borderRadius: "14px", padding: "1.25rem", cursor: "pointer",
+                      }}>
+                      <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>{w.icon}</div>
+                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.95rem", color: watchTab === w.key ? "var(--white)" : "var(--charcoal)", marginBottom: "0.3rem" }}>{w.label}</div>
+                      <div style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: watchTab === w.key ? "rgba(255,255,255,0.8)" : "var(--gray-soft)", lineHeight: 1.5 }}>{w.desc}</div>
+                    </button>
+                  ))}
+                </div>
+                <div style={{ overflow: "hidden" }}>
+                  <div style={{ display: "flex", gap: "1.25rem", transform: `translateX(calc(-${carouselIdx} * (33.333% + 0.417rem)))`, transition: "transform 0.35s ease" }}>
+                    {WATCH_ITEMS[watchTab].map((v, i) => (
+                      <div key={i} style={{ minWidth: "calc(33.333% - 0.833rem)", background: "var(--white)", borderRadius: "14px", overflow: "hidden", border: "1.5px solid var(--gray-border)", flexShrink: 0 }}>
+                        <div style={{ height: "150px", backgroundImage: `url('${v.img}')`, backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
+                          <div style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.28)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                            <div style={{ width: "42px", height: "42px", borderRadius: "50%", background: "rgba(255,255,255,0.9)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                              <span style={{ fontSize: "1rem", marginLeft: "3px" }}>▶</span>
+                            </div>
+                          </div>
+                          <div style={{ position: "absolute", top: "0.6rem", left: "0.6rem", background: "var(--sage-dark)", color: "white", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", padding: "0.2rem 0.5rem", borderRadius: "999px", textTransform: "uppercase", letterSpacing: "0.08em" }}>🔒 Members</div>
+                        </div>
+                        <div style={{ padding: "1rem" }}>
+                          <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", color: "var(--charcoal)", marginBottom: "0.3rem", lineHeight: 1.35 }}>{v.title}</div>
+                          <div style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--gray-soft)" }}>{v.duration}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div style={{ display: "flex", justifyContent: "center", gap: "0.4rem", marginTop: "1rem" }}>
+                  {WATCH_ITEMS[watchTab].map((_, i) => (
+                    <button key={i} onClick={() => setCarouselIdx(i)} aria-label={`Show video ${i + 1}`}
+                      style={{ width: carouselIdx === i ? "22px" : "8px", height: "8px", borderRadius: "999px", background: carouselIdx === i ? "var(--sage-dark)" : "var(--gray-border)", border: "none", cursor: "pointer", padding: 0 }} />
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {platformTab === "resources" && (
+              <div className="resources-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem" }}>
+                {[
+                  { icon: "📋", title: "Inclusive Meeting Checklist", type: "Checklist", desc: "A practical checklist for running meetings where every voice is heard and psychological safety is maintained." },
+                  { icon: "🗺️", title: "EDI Strategy Roadmap",  type: "Framework", desc: "A step-by-step framework for building a credible, evidence-led EDI strategy from the ground up." },
+                  { icon: "📊", title: "Business Case Template",        type: "Template",  desc: "Build the evidence-backed case for EDI investment; tailored for leadership teams and board presentations." },
+                ].map((r) => (
+                  <div key={r.title} style={{ background: "var(--white)", borderRadius: "16px", padding: "1.5rem", border: "1.5px solid var(--gray-border)", display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+                    <div style={{ fontSize: "1.75rem" }}>{r.icon}</div>
+                    <div>
+                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--sage-dark)", marginBottom: "0.25rem" }}>{r.type}</div>
+                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--charcoal)", lineHeight: 1.35 }}>{r.title}</div>
+                    </div>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--gray-soft)", lineHeight: 1.55, margin: 0 }}>{r.desc}</p>
+                    <div style={{ marginTop: "auto", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", color: "var(--sage-dark)" }}>Members only 🔒</div>
                   </div>
                 ))}
               </div>
             )}
 
-          </div>
-
-        </section>
-
-        {/* WATCH LIBRARY + RESOURCES */}
-        <section style={{ padding: "0 1.5rem 5rem", position: "relative", overflow: "hidden" }}>
-          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/team-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 0 }} aria-hidden="true" />
-          <div style={{ position: "absolute", inset: 0, background: "rgba(240, 244, 241, 0.91)", backdropFilter: "blur(2px)", zIndex: 1 }} aria-hidden="true" />
-
-          {/* WATCH LIBRARY */}
-          <div style={{ maxWidth: "1100px", margin: "0 auto", paddingTop: "4rem", position: "relative", zIndex: 2 }}>
-            <div style={{ textAlign: "center", marginBottom: "3rem" }}>
-              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 3vw, 2.25rem)", color: "var(--charcoal)", marginBottom: "0.6rem" }}>
-                Explore the Watch library
-              </h3>
-              <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1rem", maxWidth: "520px", margin: "0 auto" }}>
-                Expert-led video content in three formats; designed to fit your day.
-              </p>
-            </div>
-
-            <div className="watch-tabs-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", marginBottom: "3.5rem" }}>
-              {[
-                { icon: "🎓", label: "Deep Dives", desc: "Full 30–45 minute expert-led training sessions on complex EDI topics.", key: "deep-dives" as const },
-                { icon: "🎬", label: "Masterclasses", desc: "Focused 15–20 minute sessions on a single skill, framework or challenge.", key: "masterclasses" as const },
-                { icon: "⚡", label: "Nuggets", desc: "5–10 minute sharp, actionable takeaways easy to fit into your week.", key: "quick-wins" as const },
-              ].map((w) => (
-                <button key={w.label}
-                  onClick={() => { setWatchTab(w.key); setCarouselIdx(0); }}
-                  style={{
-                    textAlign: "left",
-                    background: watchTab === w.key ? "linear-gradient(160deg, #3D6142 0%, #2C4A31 100%)" : "var(--sage-xlight)",
-                    border: watchTab === w.key ? "2px solid var(--sage-dark)" : "1.5px solid var(--sage-light)",
-                    borderRadius: "16px", padding: "1.75rem 1.5rem",
-                    cursor: "pointer",
-                  }}
-                >
-                  <div style={{ fontSize: "2rem", marginBottom: "0.875rem" }} aria-hidden="true">{w.icon}</div>
-                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1rem", color: watchTab === w.key ? "white" : "var(--charcoal)", marginBottom: "0.5rem" }}>{w.label}</div>
-                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.84rem", color: watchTab === w.key ? "rgba(255,255,255,0.82)" : "var(--gray-soft)", lineHeight: 1.6 }}>{w.desc}</div>
-                </button>
-              ))}
-            </div>
-
-            <div className="watch-videos-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem" }}>
-              {WATCH_ITEMS[watchTab].map((item, i) => (
-                <div key={item.title} style={{
-                  borderRadius: "16px", overflow: "hidden",
-                  boxShadow: carouselIdx === i ? "0 12px 40px rgba(0,0,0,0.18)" : "0 4px 16px rgba(0,0,0,0.08)",
-                  border: carouselIdx === i ? "2px solid var(--sage-dark)" : "1.5px solid var(--gray-border)",
-                  cursor: "pointer",
-                }} onClick={() => setCarouselIdx(i)}>
-                  <div style={{ position: "relative", height: "190px", backgroundImage: `url('${item.img}')`, backgroundSize: "cover", backgroundPosition: "center" }}>
-                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%)" }} />
-                    <div style={{ position: "absolute", top: "0.75rem", left: "0.75rem", background: "rgba(0,0,0,0.45)", backdropFilter: "blur(4px)", borderRadius: "999px", padding: "0.2rem 0.6rem", display: "flex", alignItems: "center", gap: "0.3rem" }}>
-                      <span style={{ fontSize: "0.65rem" }}>🔒</span>
-                      <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.62rem", color: "rgba(255,255,255,0.9)", textTransform: "uppercase", letterSpacing: "0.06em" }}>Members only</span>
-                    </div>
-                    <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: "56px", height: "56px", borderRadius: "50%", background: "rgba(255,255,255,0.95)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <div style={{ width: 0, height: 0, borderTop: "10px solid transparent", borderBottom: "10px solid transparent", borderLeft: "18px solid var(--sage-dark)", marginLeft: "4px" }} />
-                    </div>
-                    <span style={{ position: "absolute", bottom: "0.75rem", right: "0.75rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "rgba(255,255,255,0.9)", background: "rgba(0,0,0,0.4)", padding: "0.2rem 0.55rem", borderRadius: "999px" }}>{item.duration}</span>
-                  </div>
-                  <div style={{ background: "var(--white)", padding: "1.125rem 1.25rem" }}>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", color: "var(--charcoal)", lineHeight: 1.35 }}>{item.title}</div>
-                    <div style={{ marginTop: "0.45rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.68rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
-                      {watchTab === "deep-dives" ? "Deep Dive" : watchTab === "masterclasses" ? "Masterclass" : "Nugget"} · Coming soon
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div style={{ display: "flex", justifyContent: "center", gap: "0.4rem", marginTop: "1.5rem" }}>
-              {WATCH_ITEMS[watchTab].map((_, i) => (
-                <button key={i} onClick={() => setCarouselIdx(i)} aria-label={`Show video ${i + 1}`}
-                  style={{ width: carouselIdx === i ? "22px" : "8px", height: "8px", borderRadius: "999px", background: carouselIdx === i ? "var(--sage-dark)" : "var(--gray-border)", border: "none", cursor: "pointer", padding: 0 }} />
-              ))}
-            </div>
-          </div>
-
-          {/* RESOURCES sub-section */}
-          <div style={{ maxWidth: "1100px", margin: "4.5rem auto 0", position: "relative", zIndex: 2 }}>
-            <div style={{ textAlign: "center", marginBottom: "3rem" }}>
-              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 3vw, 2.25rem)", color: "var(--charcoal)", marginBottom: "0.6rem" }}>
-                Resources and frameworks
-              </h3>
-              <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1rem", maxWidth: "520px", margin: "0 auto" }}>
-                Browse the tools that help you apply inclusion in practice.
-              </p>
-            </div>
-
-            <div className="resources-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", marginBottom: "3rem" }}>
-              {[
-                { icon: "📋", title: "Inclusive Meeting Checklist", type: "Checklist", desc: "A practical checklist for running meetings where every voice is heard and psychological safety is maintained." },
-                { icon: "🗺️", title: "EDI Strategy Roadmap", type: "Framework", desc: "A step-by-step framework for building a credible, evidence-led EDI strategy from the ground up." },
-                { icon: "📊", title: "Business Case Template", type: "Template", desc: "Build the evidence-backed case for EDI investment; tailored for leadership teams and board presentations." },
-              ].map((r) => (
-                <div key={r.title} style={{ background: "var(--white)", borderRadius: "16px", padding: "1.75rem 1.5rem", border: "1.5px solid var(--gray-border)", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-                  <div style={{ fontSize: "1.75rem" }}>{r.icon}</div>
-                  <div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.72rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--sage-dark)", marginBottom: "0.35rem" }}>{r.type}</div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.97rem", color: "var(--charcoal)", lineHeight: 1.35 }}>{r.title}</div>
-                  </div>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.84rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: 0 }}>{r.desc}</p>
-                  <div style={{ marginTop: "auto", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "var(--sage-dark)" }}>Members only 🔒</div>
-                </div>
-              ))}
-            </div>
-
-            <div style={{ textAlign: "center", paddingBottom: "0.5rem" }}>
+            <div style={{ textAlign: "center", marginTop: "2rem" }}>
               <Link href="/sign-up" className="btn-primary" style={{ fontSize: "0.95rem", padding: "0.875rem 2rem" }}>
-                Join to access the full collection →
+                Join to access everything →
               </Link>
             </div>
+
           </div>
         </section>
+
 
         {/* COACHING */}
         <section style={{ padding: "3.5rem 1.5rem", background: "var(--sage-xlight)" }}>
