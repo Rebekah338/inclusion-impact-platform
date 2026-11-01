@@ -110,6 +110,7 @@ export default function ApplyPage() {
   const [visited, setVisited] = useState<string[]>([]);
   const [toolkitView, setToolkitView] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [openAccordion, setOpenAccordion] = useState<string | null>(null);
   const [shareMenuId, setShareMenuId] = useState<string | null>(null);
 
   /* ── AI tool IDs (shown in the dedicated strip, not the main grid) ── */
@@ -363,84 +364,148 @@ export default function ApplyPage() {
         </div>
       )}
 
-      {/* ── Category boxes ── */}
+      {/* ── Accordion categories ── */}
       {!toolkitView && (
         <div style={{ background: "var(--sage-xlight)", padding: "2rem 1.5rem 2.5rem" }}>
-          <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--gray-soft)", marginBottom: "1.5rem" }}>
-              Choose an area to explore the tools and resources for it.
-            </p>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem" }}>
-              {Object.keys(CATEGORY_MAP).map((cat) => {
-                const icons: Record<string, string> = {
-                  "Recruitment and Hiring": "🎯",
-                  "Policy and Process": "📋",
-                  "Culture and Belonging": "🤝",
-                  "Leadership and Strategy": "🧭",
-                  "People and Characteristics": "👥",
-                  "Events, Comms and Culture": "📣",
-                };
-                const descs: Record<string, string> = {
-                  "Recruitment and Hiring": "Job descriptions, interview questions, diverse hiring checklists, and progression audits.",
-                  "Policy and Process": "Inclusive policy design, EDI strategy, data collection, and planning frameworks.",
-                  "Culture and Belonging": "Allyship, bias, belonging, psychological safety, and inclusive communication.",
-                  "Leadership and Strategy": "Leadership reflection, stakeholder engagement, intersectionality, and strategic guides.",
-                  "People and Characteristics": "Race, gender, disability, neurodiversity, religion, age, and identity at work.",
-                  "Events, Comms and Culture": "Inclusive onboarding, events, remote working, imagery, and comms.",
-                };
-                const isActive = activeCategory === cat;
-                return (
+          <div style={{ maxWidth: "1100px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+            {Object.keys(CATEGORY_MAP).map((cat) => {
+              const icons: Record<string, string> = {
+                "Recruitment and Hiring": "🎯",
+                "Policy and Process": "📋",
+                "Culture and Belonging": "🤝",
+                "Leadership and Strategy": "🧭",
+                "People and Characteristics": "👥",
+                "Events, Comms and Culture": "📣",
+              };
+              const isOpen = openAccordion === cat;
+              const catResources = (CATEGORY_MAP[cat] || [])
+                .map((id) => ALL_RESOURCES.find((r) => r.id === id))
+                .filter(Boolean) as Resource[];
+              return (
+                <div key={cat} style={{ background: "var(--white)", borderRadius: "14px", border: isOpen ? "2px solid var(--sage-dark)" : "1.5px solid var(--gray-border)", overflow: "hidden", transition: "border-color 0.15s ease" }}>
+                  {/* Header row */}
                   <button
-                    key={cat}
-                    onClick={() => setActiveCategory(isActive ? null : cat)}
-                    className="card"
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "flex-start",
-                      gap: "0.75rem",
-                      padding: "1.75rem",
-                      border: isActive ? "2px solid var(--sage-dark)" : "1.5px solid var(--gray-border)",
-                      background: isActive ? "var(--sage-dark)" : "var(--white)",
-                      color: isActive ? "var(--white)" : "var(--charcoal)",
-                      cursor: "pointer",
-                      textAlign: "left" as const,
-                      transition: "all 0.15s ease",
-                      width: "100%",
-                      boxSizing: "border-box" as const,
-                    }}
-                    aria-pressed={isActive}
+                    onClick={() => setOpenAccordion(isOpen ? null : cat)}
+                    aria-expanded={isOpen}
+                    style={{ width: "100%", display: "flex", alignItems: "center", gap: "1rem", padding: "1.25rem 1.5rem", background: "none", border: "none", cursor: "pointer", textAlign: "left" as const }}
                   >
-                    <span style={{ fontSize: "1.75rem" }}>{icons[cat]}</span>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", lineHeight: 1.3 }}>{cat}</div>
-                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", lineHeight: 1.55, color: isActive ? "rgba(255,255,255,0.8)" : "var(--gray-soft)" }}>{descs[cat]}</div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: isActive ? "rgba(255,255,255,0.9)" : "var(--sage-dark)", marginTop: "0.25rem" }}>
-                      {isActive ? "← Back to areas" : `Explore ${CATEGORY_MAP[cat].length} resources →`}
-                    </div>
+                    <span style={{ fontSize: "1.5rem", flexShrink: 0 }}>{icons[cat]}</span>
+                    <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", flexGrow: 1 }}>{cat}</span>
+                    <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", flexShrink: 0 }}>{catResources.length} resources</span>
+                    <span style={{ fontSize: "1rem", color: "var(--sage-dark)", flexShrink: 0, transform: isOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s ease" }}>▼</span>
                   </button>
-                );
-              })}
-            </div>
+                  {/* Expanded content */}
+                  {isOpen && (
+                    <div style={{ padding: "0 1.5rem 1.5rem", borderTop: "1px solid var(--gray-border)" }}>
+                      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1rem", paddingTop: "1.25rem" }}>
+                        {catResources.map((r) => {
+                          const isVisited = visited.includes(r.id);
+                          const isBookmarked = myToolkit.includes(r.id);
+                          const isAiTool = r.format === "AI Inclusion Tool";
+                          return (
+                            <div
+                              key={r.id}
+                              className="card"
+                              style={{ position: "relative", display: "flex", flexDirection: "column", gap: "0.75rem", opacity: isVisited ? 0.85 : 1, border: isAiTool ? "2px solid #D4A017" : undefined, boxShadow: isAiTool ? "0 0 0 1px #F5E6A0" : undefined }}
+                            >
+                              {isVisited && (
+                                <span style={{ position: "absolute", top: "0.875rem", left: "0.875rem", background: "var(--sage-xlight)", border: "1px solid var(--sage-light)", color: "var(--sage-dark)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.6rem", letterSpacing: "0.08em", textTransform: "uppercase", padding: "0.15rem 0.5rem", borderRadius: "999px" }}>
+                                  ✓ Visited
+                                </span>
+                              )}
+                              <div style={{ position: "absolute", top: "0.875rem", right: "0.875rem", display: "flex", gap: "0.4rem" }}>
+                                <button
+                                  onClick={(e) => { e.stopPropagation(); toggleToolkit(r.id); }}
+                                  aria-label={isBookmarked ? "Remove from My Toolkit" : "Save to My Toolkit"}
+                                  title={isBookmarked ? "Remove from My Toolkit" : "Save to My Toolkit"}
+                                  style={{ background: isBookmarked ? "var(--sage-dark)" : "var(--sage-xlight)", border: "1px solid var(--sage-light)", borderRadius: "999px", padding: "0.3rem 0.55rem", cursor: "pointer", fontSize: "0.8rem", color: isBookmarked ? "var(--white)" : "var(--sage-dark)", lineHeight: 1 }}
+                                >
+                                  🔖
+                                </button>
+                                <div style={{ position: "relative" }}>
+                                  <button
+                                    onClick={(e) => { e.stopPropagation(); setShareMenuId(shareMenuId === r.id ? null : r.id); }}
+                                    aria-label="Share or download this resource"
+                                    title="Share / Download"
+                                    style={{ background: "var(--sage-xlight)", border: "1px solid var(--sage-light)", borderRadius: "999px", padding: "0.3rem 0.55rem", cursor: "pointer", fontSize: "0.8rem", color: "var(--sage-dark)", lineHeight: 1 }}
+                                  >
+                                    ↗
+                                  </button>
+                                  {shareMenuId === r.id && (
+                                    <div
+                                      onClick={(e) => e.stopPropagation()}
+                                      style={{ position: "absolute", top: "calc(100% + 6px)", right: 0, background: "#fff", border: "1px solid #e5e7eb", borderRadius: 10, boxShadow: "0 4px 16px rgba(0,0,0,0.1)", padding: "6px", zIndex: 50, minWidth: 180 }}
+                                    >
+                                      {(() => {
+                                        const slug = RESOURCE_SLUGS[r.id];
+                                        const url = slug ? `${typeof window !== "undefined" ? window.location.origin : ""}/dashboard/apply/${slug}` : null;
+                                        return (
+                                          <>
+                                            {url && (
+                                              <button
+                                                onClick={() => { navigator.clipboard.writeText(url); setShareMenuId(null); }}
+                                                style={{ display: "flex", alignItems: "center", gap: 8, width: "100%", padding: "8px 12px", background: "none", border: "none", borderRadius: 7, cursor: "pointer", fontSize: 13, color: "#374151", fontFamily: "Lato, sans-serif", textAlign: "left" }}
+                                                onMouseEnter={(e) => (e.currentTarget.style.background = "var(--sage-xlight)")}
+                                                onMouseLeave={(e) => (e.currentTarget.style.background = "none")}
+                                              >
+                                                <span>🔗</span> Copy link
+                                              </button>
+                                            )}
+                                            {url && (
+                                              <a
+                                                href={url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                onClick={() => setShareMenuId(null)}
+                                                style={{ display: "flex", alignItems: "center", gap: 8, width: "100%", padding: "8px 12px", background: "none", border: "none", borderRadius: 7, cursor: "pointer", fontSize: 13, color: "#374151", fontFamily: "Lato, sans-serif", textDecoration: "none" }}
+                                                onMouseEnter={(e) => (e.currentTarget.style.background = "var(--sage-xlight)")}
+                                                onMouseLeave={(e) => (e.currentTarget.style.background = "none")}
+                                              >
+                                                <span>🖨️</span> Print / Save as PDF
+                                              </a>
+                                            )}
+                                            {!url && (
+                                              <p style={{ fontSize: 12, color: "#9ca3af", padding: "8px 12px", margin: 0 }}>Coming soon</p>
+                                            )}
+                                          </>
+                                        );
+                                      })()}
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                              <div style={{ fontSize: "1.75rem", marginTop: isVisited ? "1.25rem" : "0" }} aria-hidden="true">{r.icon}</div>
+                              <span style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem", background: isAiTool ? "#FBF5E0" : "var(--sage-xlight)", border: isAiTool ? "1px solid #D4A017" : "1px solid var(--sage-light)", color: isAiTool ? "#7A5C00" : "var(--sage-dark)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", padding: "0.2rem 0.6rem", borderRadius: "999px", width: "fit-content" }}>
+                                {FORMAT_ICONS[r.format]} {r.format}
+                              </span>
+                              <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9375rem", color: "var(--charcoal)", lineHeight: 1.35 }}>{r.title}</div>
+                              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: 0, flexGrow: 1 }}>{r.desc}</p>
+                              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "auto", paddingTop: "0.5rem", borderTop: "1px solid var(--gray-border)" }}>
+                                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--gray-soft)" }}>⏱ {r.time}</span>
+                                <button
+                                  className="btn-primary"
+                                  style={{ fontSize: "0.8rem", padding: "0.45rem 1rem" }}
+                                  onClick={() => openResource(r.id)}
+                                >
+                                  Open {r.format.toLowerCase()} →
+                                </button>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
 
-      {/* ── Resource grid ── */}
-      {(toolkitView || !!activeCategory) && (
+      {/* ── My Toolkit grid ── */}
+      {toolkitView && (
       <main id="main-content" style={{ maxWidth: "1100px", margin: "0 auto", padding: "2.5rem 1.5rem 5rem" }}>
-
-        {/* Category heading + back button */}
-        {!toolkitView && activeCategory && (
-          <div style={{ marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" as const }}>
-            <button
-              onClick={() => setActiveCategory(null)}
-              style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "var(--sage-dark)", background: "var(--white)", border: "1.5px solid var(--sage-light)", borderRadius: "999px", padding: "0.45rem 1rem", cursor: "pointer" }}
-            >
-              ← Back to areas
-            </button>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.1rem", color: "var(--charcoal)", margin: 0 }}>{activeCategory}</h2>
-          </div>
-        )}
 
         {/* My Toolkit empty state */}
         {toolkitView && myToolkit.length === 0 && (
