@@ -728,12 +728,12 @@ export default function Home() {
               </p>
             </div>
 
+            {/* Top row: Learn, Watch, Inclusion AI, Apply */}
             <div className="platform-cards-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem", marginBottom: "1.25rem" }}>
               {[
                 { href: "/dashboard/learn", icon: "📚", label: "Learn", sub: "CPD Modules", desc: "Build the knowledge base that reduces risk and drives performance." },
                 { href: "/dashboard/watch", icon: "🎥", label: "Watch", sub: "Masterclasses", desc: "Expert insight you can apply the same week." },
                 { href: "/dashboard/apply", icon: "🛠️", label: "Apply", sub: "Tools & Frameworks", desc: "Turn good intentions into documented, defensible action." },
-                { href: "/dashboard/evidence", icon: "📊", label: "Make the Case", sub: "Evidence & ROI", desc: "The data and evidence your leadership team needs." },
               ].map((f) => (
                 <Link key={f.label} href={f.href} style={{ textDecoration: "none" }}>
                   <div style={{
@@ -750,11 +750,33 @@ export default function Home() {
                   </div>
                 </Link>
               ))}
+              {/* Inclusion AI card — gold bordered */}
+              <Link href="/dashboard/ai-tools" style={{ textDecoration: "none" }}>
+                <div style={{
+                  background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 50%, #FAF6EE 100%)",
+                  borderRadius: "18px", padding: "1.75rem 1.5rem",
+                  border: "2px solid rgba(201,168,76,0.55)",
+                  boxShadow: "0 6px 28px rgba(201,168,76,0.18), 0 0 0 1px rgba(201,168,76,0.12)",
+                  cursor: "pointer", height: "100%", position: "relative", overflow: "hidden",
+                }}>
+                  {/* Gold orb decoration */}
+                  <div style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(201,168,76,0.1)" }} />
+                  <div style={{ fontSize: "2rem", marginBottom: "1rem" }} aria-hidden="true">✨</div>
+                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.05rem", color: "var(--charcoal)", marginBottom: "0.2rem" }}>Inclusion AI</div>
+                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "#8B6914", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>15 AI Tools</div>
+                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--gray-soft)", lineHeight: 1.6 }}>AI-powered tools built for inclusion practitioners; fast, evidence-based and actionable.</div>
+                  <div style={{ marginTop: "0.875rem" }}>
+                    <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase", letterSpacing: "0.12em", color: "#8B6914", background: "rgba(201,168,76,0.15)", border: "1px solid rgba(201,168,76,0.35)", padding: "0.25rem 0.65rem", borderRadius: "999px" }}>Inclusion AI</span>
+                  </div>
+                </div>
+              </Link>
             </div>
-            <div className="platform-cards-bottom" style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1.25rem", maxWidth: "600px", margin: "0 auto" }}>
+            {/* Bottom row: Make the Case, The Inclusion Editors, Get Support */}
+            <div className="platform-cards-bottom" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", maxWidth: "900px", margin: "0 auto" }}>
               {[
-                { href: "/dashboard/support", icon: "🤝", label: "Get Support", sub: "Coaching & Office Hours", desc: "Book office hours with Rebekah, enquire about expert coaching, or join a live event." },
+                { href: "/dashboard/evidence", icon: "📊", label: "Make the Case", sub: "Evidence & ROI", desc: "The data and evidence your leadership team needs." },
                 { href: "/dashboard/community", icon: "🌍", label: "The Inclusion Editors", sub: "Community", desc: "Connect with practitioners, share insights, and grow your network." },
+                { href: "/dashboard/support", icon: "🤝", label: "Get Support", sub: "Coaching & Office Hours", desc: "Book office hours with Rebekah, enquire about expert coaching, or join a live event." },
               ].map((f) => (
                 <Link key={f.label} href={f.href} style={{ textDecoration: "none" }}>
                   <div style={{
