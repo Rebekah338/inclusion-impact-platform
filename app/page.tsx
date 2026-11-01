@@ -451,7 +451,7 @@ export default function Home() {
                         <button
                           key={opt}
                           onClick={() => setFinderAudience(opt)}
-                          style={{ padding: "0.6rem 1.1rem", borderRadius: "10px", border: `2px solid ${finderAudience === opt ? "var(--sage-dark)" : "var(--gray-border)"}`, background: finderAudience === opt ? "var(--sage-xlight)" : "var(--white)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: finderAudience === opt ? "var(--sage-dark)" : "var(--charcoal)", cursor: "pointer", transition: "all 0.15s" }}
+                          style={{ padding: "0.6rem 1.1rem", borderRadius: "10px", border: `2px solid ${finderAudience === opt ? "var(--sage-dark)" : "#C9A84C"}`, background: finderAudience === opt ? "var(--sage-xlight)" : "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: finderAudience === opt ? "var(--sage-dark)" : "#7A5200", cursor: "pointer", transition: "all 0.15s", boxShadow: finderAudience === opt ? "none" : "0 0 0 3px rgba(201,168,76,0.12)" }}
                         >
                           {opt === "individual" ? "👤  Myself" : "🏢  My organisation or team"}
                         </button>
@@ -465,7 +465,7 @@ export default function Home() {
                           <button
                             key={s}
                             onClick={() => setFinderOrgSize(s)}
-                            style={{ padding: "0.4rem 0.875rem", borderRadius: "999px", border: `1.5px solid ${finderOrgSize === s ? "var(--sage-dark)" : "var(--gray-border)"}`, background: finderOrgSize === s ? "var(--sage-xlight)" : "var(--white)", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: finderOrgSize === s ? "var(--sage-dark)" : "var(--charcoal)", cursor: "pointer", transition: "all 0.15s" }}
+                            style={{ padding: "0.4rem 0.875rem", borderRadius: "999px", border: `1.5px solid ${finderOrgSize === s ? "var(--sage-dark)" : "#C9A84C"}`, background: finderOrgSize === s ? "var(--sage-xlight)" : "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: finderOrgSize === s ? "var(--sage-dark)" : "#7A5200", cursor: "pointer", transition: "all 0.15s", boxShadow: finderOrgSize === s ? "none" : "0 0 0 2px rgba(201,168,76,0.12)" }}
                           >{s}</button>
                         ))}
                       </div>
