@@ -363,12 +363,14 @@ export default function ApplyPage() {
         </div>
       )}
 
-      {/* ── Category filter boxes ── */}
+      {/* ── Category boxes ── */}
       {!toolkitView && (
-        <div style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)", padding: "1.5rem 1.5rem 1.25rem" }}>
+        <div style={{ background: "var(--sage-xlight)", padding: "2rem 1.5rem 2.5rem" }}>
           <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-            <div style={{ fontSize: "0.7rem", fontFamily: "var(--font-heading)", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--gray-soft)", marginBottom: "0.875rem" }}>Browse by area</div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: "0.625rem" }}>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--gray-soft)", marginBottom: "1.5rem" }}>
+              Choose an area to explore the tools and resources for it.
+            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem" }}>
               {Object.keys(CATEGORY_MAP).map((cat) => {
                 const icons: Record<string, string> = {
                   "Recruitment and Hiring": "🎯",
@@ -378,50 +380,67 @@ export default function ApplyPage() {
                   "People and Characteristics": "👥",
                   "Events, Comms and Culture": "📣",
                 };
+                const descs: Record<string, string> = {
+                  "Recruitment and Hiring": "Job descriptions, interview questions, diverse hiring checklists, and progression audits.",
+                  "Policy and Process": "Inclusive policy design, EDI strategy, data collection, and planning frameworks.",
+                  "Culture and Belonging": "Allyship, bias, belonging, psychological safety, and inclusive communication.",
+                  "Leadership and Strategy": "Leadership reflection, stakeholder engagement, intersectionality, and strategic guides.",
+                  "People and Characteristics": "Race, gender, disability, neurodiversity, religion, age, and identity at work.",
+                  "Events, Comms and Culture": "Inclusive onboarding, events, remote working, imagery, and comms.",
+                };
                 const isActive = activeCategory === cat;
                 return (
                   <button
                     key={cat}
                     onClick={() => setActiveCategory(isActive ? null : cat)}
+                    className="card"
                     style={{
                       display: "flex",
-                      alignItems: "center",
-                      gap: "0.5rem",
-                      padding: "0.75rem 1rem",
-                      borderRadius: "10px",
+                      flexDirection: "column",
+                      alignItems: "flex-start",
+                      gap: "0.75rem",
+                      padding: "1.75rem",
                       border: isActive ? "2px solid var(--sage-dark)" : "1.5px solid var(--gray-border)",
-                      background: isActive ? "var(--sage-dark)" : "var(--sage-xlight)",
+                      background: isActive ? "var(--sage-dark)" : "var(--white)",
                       color: isActive ? "var(--white)" : "var(--charcoal)",
-                      fontFamily: "var(--font-heading)",
-                      fontWeight: 700,
-                      fontSize: "0.8rem",
                       cursor: "pointer",
                       textAlign: "left" as const,
                       transition: "all 0.15s ease",
-                      lineHeight: 1.3,
+                      width: "100%",
+                      boxSizing: "border-box" as const,
                     }}
                     aria-pressed={isActive}
                   >
-                    <span style={{ fontSize: "1rem", flexShrink: 0 }}>{icons[cat]}</span>
-                    {cat}
+                    <span style={{ fontSize: "1.75rem" }}>{icons[cat]}</span>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", lineHeight: 1.3 }}>{cat}</div>
+                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", lineHeight: 1.55, color: isActive ? "rgba(255,255,255,0.8)" : "var(--gray-soft)" }}>{descs[cat]}</div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: isActive ? "rgba(255,255,255,0.9)" : "var(--sage-dark)", marginTop: "0.25rem" }}>
+                      {isActive ? "← Back to areas" : `Explore ${CATEGORY_MAP[cat].length} resources →`}
+                    </div>
                   </button>
                 );
               })}
             </div>
-            {activeCategory && (
-              <button
-                onClick={() => setActiveCategory(null)}
-                style={{ marginTop: "0.75rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.75rem", color: "var(--sage-dark)", background: "none", border: "none", cursor: "pointer", textDecoration: "underline", padding: 0 }}
-              >
-                Show all resources
-              </button>
-            )}
           </div>
         </div>
       )}
 
       {/* ── Resource grid ── */}
+      {(toolkitView || !!activeCategory) && (
       <main id="main-content" style={{ maxWidth: "1100px", margin: "0 auto", padding: "2.5rem 1.5rem 5rem" }}>
+
+        {/* Category heading + back button */}
+        {!toolkitView && activeCategory && (
+          <div style={{ marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap" as const }}>
+            <button
+              onClick={() => setActiveCategory(null)}
+              style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "var(--sage-dark)", background: "var(--white)", border: "1.5px solid var(--sage-light)", borderRadius: "999px", padding: "0.45rem 1rem", cursor: "pointer" }}
+            >
+              ← Back to areas
+            </button>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.1rem", color: "var(--charcoal)", margin: 0 }}>{activeCategory}</h2>
+          </div>
+        )}
 
         {/* My Toolkit empty state */}
         {toolkitView && myToolkit.length === 0 && (
@@ -563,6 +582,7 @@ export default function ApplyPage() {
         )}
       </main>
 
+      )}
       <BottomBanner />
     </div>
   );
