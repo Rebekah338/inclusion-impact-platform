@@ -343,7 +343,7 @@ export default function ApplyPage() {
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.15rem", color: "#fff", margin: 0 }}>✨ Inclusion AI Tools</h2>
               <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "rgba(255,255,255,0.65)" }}>AI-powered tools that do the heavy lifting for you</span>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "0.875rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "0.875rem" }}>
               {aiTools.map((r) => (
                 <div
                   key={r.id}
