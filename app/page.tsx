@@ -435,7 +435,7 @@ export default function Home() {
                   <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)", color: "var(--charcoal)", marginBottom: "0.625rem", letterSpacing: "-0.01em" }}>
                     Find your starting point in 60 seconds.
                   </h2>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--gray-soft)", maxWidth: "520px", margin: "0 auto", lineHeight: 1.7 }}>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--gray-soft)", margin: "0 auto", lineHeight: 1.4, whiteSpace: "nowrap" }}>
                     Tell us what you are working on and we will match you to the right modules, tools and resources; instantly.
                   </p>
                 </div>
@@ -443,7 +443,7 @@ export default function Home() {
                 {!finderSubmitted ? (
                   <div>
                     {/* Row 1: audience toggle — right-aligned */}
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "0.875rem", marginBottom: "1.25rem", flexWrap: "wrap" }}>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.875rem", marginBottom: "1.25rem", flexWrap: "wrap" }}>
                       <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.85rem", color: "var(--charcoal)" }}>
                         Who are you looking for support for?
                       </span>
@@ -460,7 +460,7 @@ export default function Home() {
 
                     {/* Org size pills — conditional, right-aligned */}
                     {finderAudience === "organisation" && (
-                      <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.5rem", flexWrap: "wrap", marginBottom: "1.25rem" }}>
+                      <div style={{ display: "flex", justifyContent: "center", gap: "0.5rem", flexWrap: "wrap", marginBottom: "1.25rem" }}>
                         {ORG_SIZES.map((s) => (
                           <button
                             key={s}
