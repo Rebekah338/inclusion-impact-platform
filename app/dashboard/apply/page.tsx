@@ -408,7 +408,7 @@ export default function ApplyPage() {
                     const hiddenCount = catResources.length - 3;
                     return (
                     <div style={{ padding: "0 1.5rem 1.5rem", borderTop: "1px solid var(--gray-border)" }}>
-                      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1rem", paddingTop: "1.25rem" }}>
+                      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1rem", paddingTop: "1.25rem" }}>
                         {visibleCatResources.map((r) => {
                           const isVisited = visited.includes(r.id);
                           const isBookmarked = myToolkit.includes(r.id);
@@ -485,12 +485,12 @@ export default function ApplyPage() {
                                   )}
                                 </div>
                               </div>
-                              <div style={{ fontSize: "1.75rem", marginTop: isVisited ? "1.25rem" : "0" }} aria-hidden="true">{r.icon}</div>
+                              <div style={{ fontSize: "1.35rem", marginTop: isVisited ? "1rem" : "0" }} aria-hidden="true">{r.icon}</div>
                               <span style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem", background: isAiTool ? "#FBF5E0" : "var(--sage-xlight)", border: isAiTool ? "1px solid #D4A017" : "1px solid var(--sage-light)", color: isAiTool ? "#7A5C00" : "var(--sage-dark)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", padding: "0.2rem 0.6rem", borderRadius: "999px", width: "fit-content" }}>
                                 {FORMAT_ICONS[r.format]} {r.format}
                               </span>
-                              <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9375rem", color: "var(--charcoal)", lineHeight: 1.35 }}>{r.title}</div>
-                              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: 0, flexGrow: 1 }}>{r.desc}</p>
+                              <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--charcoal)", lineHeight: 1.35 }}>{r.title}</div>
+                              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--gray-soft)", lineHeight: 1.55, margin: 0, flexGrow: 1 }}>{r.desc}</p>
                               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "auto", paddingTop: "0.5rem", borderTop: "1px solid var(--gray-border)" }}>
                                 <span style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--gray-soft)" }}>⏱ {r.time}</span>
                                 <button
