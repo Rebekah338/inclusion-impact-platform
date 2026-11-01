@@ -948,10 +948,10 @@ export default function Home() {
                   style={{ width: carouselIdx === i ? "22px" : "8px", height: "8px", borderRadius: "999px", background: carouselIdx === i ? "var(--sage-dark)" : "var(--gray-border)", border: "none", cursor: "pointer", padding: 0 }} />
               ))}
             </div>
-
+          </div>
 
           {/* RESOURCES sub-section */}
-          <div style={{ marginTop: "4.5rem" }}>
+          <div style={{ maxWidth: "1100px", margin: "4.5rem auto 0", position: "relative", zIndex: 2 }}>
             <div style={{ textAlign: "center", marginBottom: "3rem" }}>
               <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 3vw, 2.25rem)", color: "var(--charcoal)", marginBottom: "0.6rem" }}>
                 Resources and frameworks
