@@ -351,7 +351,7 @@ export default function ApplyPage() {
                 <div
                   key={r.id}
                   onClick={() => openResource(r.id)}
-                  style={{ background: "var(--white)", border: "1.5px solid var(--gray-border)", borderRadius: "14px", padding: "1.5rem", cursor: "pointer", transition: "box-shadow 0.15s ease, transform 0.15s ease", display: "flex", flexDirection: "column", gap: "0.6rem", position: "relative" as const }}
+                  style={{ background: "var(--white)", border: "1.5px solid #C9A84C", borderRadius: "14px", padding: "1.5rem", cursor: "pointer", transition: "box-shadow 0.15s ease, transform 0.15s ease", display: "flex", flexDirection: "column", gap: "0.6rem", position: "relative" as const }}
                   onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 4px 20px rgba(201,168,76,0.35)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
                   onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.transform = "translateY(0)"; }}
                 >
