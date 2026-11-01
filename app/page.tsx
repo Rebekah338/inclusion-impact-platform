@@ -360,24 +360,39 @@ export default function Home() {
         </section>
 
         {/* STATS STRIP */}
-        <section style={{ background: "linear-gradient(135deg, var(--sage-dark) 0%, #3A6040 100%)", padding: "1.5rem 1.5rem" }}>
-          <div className="stats-grid" style={{ maxWidth: "1100px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "0.5rem", textAlign: "center" }}>
+        <section style={{ background: "linear-gradient(108deg, #3d5e3a 0%, #4a6347 45%, #3e5c3b 100%)", padding: "0.6rem 1.5rem", position: "relative", overflow: "hidden" }}>
+          {/* subtle gold shimmer overlay */}
+          <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.08) 35%, rgba(201,168,76,0.14) 55%, transparent 100%)", pointerEvents: "none" }} />
+          {/* fine dot texture */}
+          <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px)", backgroundSize: "18px 18px", pointerEvents: "none" }} />
+          <div style={{ maxWidth: "1100px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0", position: "relative", zIndex: 1 }}>
             {[
-              { value: "31", label: "EDI modules" },
-              { value: "50+", label: "Practical tools" },
-              { value: "9", label: "AI tools" },
-              { value: "87%*", label: "Better decisions" },
-              { value: "35%**", label: "Outperform competitors" },
-              { value: "WCAG 2.1", label: "Accessibility standard" },
+              { value: "31", label: "EDI modules", ai: false },
+              { value: "50+", label: "Practical tools", ai: false },
+              { value: "9", label: "AI tools", ai: true },
+              { value: "87%", label: "Better decisions", ai: false },
+              { value: "35%", label: "Outperform competitors", ai: false },
+              { value: "WCAG 2.1", label: "Accessibility", ai: false },
             ].map((s) => (
-              <div key={s.label} style={{ padding: "0.75rem 0.5rem" }}>
-                <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.5rem, 3vw, 2.25rem)", color: "var(--white)", lineHeight: 1, marginBottom: "0.35rem" }}>{s.value}</div>
-                <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.72rem", color: "rgba(255,255,255,0.7)", textTransform: "uppercase", letterSpacing: "0.08em" }}>{s.label}</div>
+              <div key={s.label} style={{ flex: "1 1 0", minWidth: "80px", padding: "0.55rem 0.4rem", textAlign: "center" }}>
+                {s.ai ? (
+                  <div style={{ display: "inline-flex", flexDirection: "column", alignItems: "center", gap: "0.2rem" }}>
+                    <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "2.6rem", height: "2.6rem", borderRadius: "50%", border: "2px solid #C9A84C", boxShadow: "0 0 10px rgba(201,168,76,0.45), 0 0 20px rgba(201,168,76,0.2)", background: "rgba(201,168,76,0.12)" }}>
+                      <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.05rem", color: "#F0D07A", lineHeight: 1 }}>{s.value}</span>
+                    </div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.65rem", color: "rgba(255,255,255,0.75)", textTransform: "uppercase", letterSpacing: "0.07em" }}>{s.label}</div>
+                  </div>
+                ) : (
+                  <>
+                    <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.1rem, 2.2vw, 1.6rem)", color: "var(--white)", lineHeight: 1, marginBottom: "0.2rem" }}>{s.value}</div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.62rem", color: "rgba(255,255,255,0.68)", textTransform: "uppercase", letterSpacing: "0.07em" }}>{s.label}</div>
+                  </>
+                )}
               </div>
             ))}
           </div>
-          <p style={{ textAlign: "center", fontFamily: "var(--font-body)", fontSize: "0.68rem", color: "rgba(255,255,255,0.45)", marginTop: "0.75rem" }}>
-            *Inclusive teams make better decisions 87% of the time. Cloverpop, 2017. **Organisations with inclusive cultures are 35% more likely to outperform competitors. McKinsey, 2023.
+          <p style={{ textAlign: "center", fontFamily: "var(--font-body)", fontSize: "0.6rem", color: "rgba(255,255,255,0.38)", marginTop: "0.3rem", position: "relative", zIndex: 1 }}>
+            87% stat: Cloverpop 2017 &nbsp;&middot;&nbsp; 35% stat: McKinsey 2023
           </p>
         </section>
 
