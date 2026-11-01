@@ -1050,65 +1050,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* SHARE A CULTURE CHALLENGE */}
-        <section style={{ padding: "3rem 1.5rem", background: "var(--white)" }}>
-          <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-            <div style={{
-              borderRadius: "20px", padding: "2.75rem",
-              background: "linear-gradient(135deg, #1E3624 0%, #2C4A31 100%)",
-              boxShadow: "0 8px 40px rgba(30,54,36,0.25)",
-              position: "relative", overflow: "hidden",
-            }}>
-              <div style={{ position: "absolute", top: "-30px", right: "-30px", width: "160px", height: "160px", borderRadius: "50%", background: "rgba(255,255,255,0.04)" }} />
-              <div style={{ position: "absolute", bottom: "-40px", left: "-20px", width: "120px", height: "120px", borderRadius: "50%", background: "rgba(255,255,255,0.03)" }} />
-              <div style={{ position: "relative", zIndex: 1 }}>
-                <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "rgba(255,255,255,0.6)", marginBottom: "1rem" }}>
-                  💬 Community
-                </span>
-                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 3vw, 2rem)", color: "var(--white)", marginBottom: "0.75rem" }}>
-                  Share a culture challenge
-                </h2>
-                <p style={{ fontFamily: "var(--font-body)", color: "rgba(255,255,255,0.78)", fontSize: "0.95rem", marginBottom: "1.75rem", lineHeight: 1.65, maxWidth: "520px" }}>
-                  Facing something tricky in your organisation&apos;s culture? Share it here and we&apos;ll address it through content, resources, or our live sessions.
-                </p>
-                {challengeSubmitted ? (
-                  <div style={{ background: "rgba(255,255,255,0.12)", borderRadius: "12px", padding: "1.25rem 1.5rem", border: "1px solid rgba(255,255,255,0.2)" }}>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, color: "var(--white)", fontSize: "0.95rem" }}>✅ Thank you challenge received!</div>
-                    <div style={{ fontFamily: "var(--font-body)", color: "rgba(255,255,255,0.75)", fontSize: "0.85rem", marginTop: "0.375rem" }}>We&apos;ll review it and address it through the platform.</div>
-                  </div>
-                ) : (
-                  <div>
-                    <textarea
-                      className="challenge-textarea"
-                      value={challengeText}
-                      onChange={(e) => setChallengeText(e.target.value)}
-                      placeholder="Describe your culture challenge…"
-                      rows={3}
-                      style={{
-                        width: "100%", padding: "0.875rem 1rem", borderRadius: "10px",
-                        border: "1.5px solid rgba(255,255,255,0.2)", background: "rgba(255,255,255,0.1)",
-                        color: "var(--white)", fontFamily: "var(--font-body)", fontSize: "0.9rem",
-                        outline: "none", resize: "vertical", marginBottom: "0.875rem",
-                        boxSizing: "border-box",
-                      }}
-                    />
-                    <button
-                      onClick={() => { if (challengeText.trim()) setChallengeSubmitted(true); }}
-                      style={{
-                        fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem",
-                        background: "var(--white)", color: "var(--sage-dark)",
-                        padding: "0.75rem 1.75rem", borderRadius: "8px", border: "none",
-                        cursor: "pointer",
-                      }}
-                    >
-                      Share your challenge →
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* FINAL CTA */}
         <section style={{ padding: "4rem 1.5rem", textAlign: "center", background: "var(--white)" }}>
