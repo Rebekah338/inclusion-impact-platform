@@ -1,0 +1,167 @@
+"use client";
+
+import Link from "next/link";
+import { useState, useRef, useEffect } from "react";
+import { usePathname } from "next/navigation";
+
+const WHAT_WE_OFFER = [
+  { href: "/edi-consultancy-programmes", label: "Inclusion Consultancy" },
+  { href: "/edi-training", label: "Inclusion Training" },
+  { href: "/bespoke-inclusion-resources", label: "Bespoke Inclusion Resources" },
+  { href: "/the-inclusion-business-case", label: "The Inclusion Business Case" },
+];
+
+const NAV_LINKS = [
+  { href: "/about-us", label: "About" },
+  { href: "/about-our-inclusion-resource-hub", label: "Platform" },
+  { href: "/podcast", label: "Podcast" },
+  { href: "/blog", label: "Blog" },
+  { href: "/contact-us", label: "Contact" },
+];
+
+export default function SiteNav() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [offerOpen, setOfferOpen] = useState(false);
+  const [mobileOfferOpen, setMobileOfferOpen] = useState(false);
+  const offerRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (offerRef.current && !offerRef.current.contains(e.target as Node)) {
+        setOfferOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  useEffect(() => {
+    setMobileOpen(false);
+    setOfferOpen(false);
+  }, [pathname]);
+
+  const isOfferActive = WHAT_WE_OFFER.some(l => pathname === l.href);
+
+  return (
+    <>
+      <nav
+        role="navigation"
+        aria-label="Main navigation"
+        style={{
+          borderBottom: "1px solid rgba(0,0,0,0.08)",
+          background: "rgba(255,255,255,0.96)",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+          position: "sticky",
+          top: 0,
+          zIndex: 100,
+        }}
+      >
+        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem", height: "68px", display: "flex", alignItems: "center", gap: "1rem" }}>
+
+          <Link href="/" aria-label="The Inclusion Edit home" style={{ textDecoration: "none", flexShrink: 0 }}>
+            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.82rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--charcoal)" }}>
+              THE INCLUSION EDIT
+            </span>
+          </Link>
+
+          <div style={{ display: "flex", gap: "0.125rem", flex: 1, alignItems: "center" }} className="site-nav-desktop">
+
+            <Link href="/about-us"
+              style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: pathname === "/about-us" ? "var(--sage-dark)" : "var(--charcoal)", textDecoration: "none", padding: "0.4rem 0.65rem", borderRadius: "6px", background: pathname === "/about-us" ? "var(--sage-xlight)" : "transparent", letterSpacing: "0.01em", whiteSpace: "nowrap" as const }}
+              onMouseEnter={(e) => { if (pathname !== "/about-us") e.currentTarget.style.background = "var(--sage-xlight)"; }}
+              onMouseLeave={(e) => { if (pathname !== "/about-us") e.currentTarget.style.background = "transparent"; }}
+            >About</Link>
+
+            <div ref={offerRef} style={{ position: "relative" }}>
+              <button
+                onClick={() => setOfferOpen(!offerOpen)}
+                aria-expanded={offerOpen}
+                style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: isOfferActive ? "var(--sage-dark)" : "var(--charcoal)", background: isOfferActive || offerOpen ? "var(--sage-xlight)" : "transparent", border: "none", cursor: "pointer", padding: "0.4rem 0.65rem", borderRadius: "6px", letterSpacing: "0.01em", whiteSpace: "nowrap" as const, display: "flex", alignItems: "center", gap: "0.3rem" }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = "var(--sage-xlight)"; }}
+                onMouseLeave={(e) => { if (!isOfferActive && !offerOpen) e.currentTarget.style.background = "transparent"; }}
+              >
+                What We Offer
+                <span style={{ fontSize: "0.6rem", display: "inline-block", transform: offerOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }}>▼</span>
+              </button>
+              {offerOpen && (
+                <div role="menu" style={{ position: "absolute", top: "calc(100% + 8px)", left: 0, background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: "12px", boxShadow: "0 12px 40px rgba(0,0,0,0.13)", minWidth: "260px", overflow: "hidden", zIndex: 200 }}>
+                  {WHAT_WE_OFFER.map((item) => (
+                    <Link key={item.href} href={item.href} role="menuitem"
+                      style={{ display: "block", padding: "0.75rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: pathname === item.href ? 700 : 600, fontSize: "0.82rem", color: pathname === item.href ? "var(--sage-dark)" : "var(--charcoal)", textDecoration: "none", background: pathname === item.href ? "var(--sage-xlight)" : "transparent", borderBottom: "1px solid var(--gray-border)" }}
+                      onMouseEnter={(e) => { e.currentTarget.style.background = "var(--sage-xlight)"; }}
+                      onMouseLeave={(e) => { if (pathname !== item.href) e.currentTarget.style.background = "transparent"; }}
+                    >{item.label}</Link>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {[
+              { href: "/about-our-inclusion-resource-hub", label: "Platform" },
+              { href: "/podcast", label: "Podcast" },
+              { href: "/blog", label: "Blog" },
+              { href: "/contact-us", label: "Contact" },
+            ].map((l) => (
+              <Link key={l.href} href={l.href}
+                style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: pathname === l.href ? "var(--sage-dark)" : "var(--charcoal)", textDecoration: "none", padding: "0.4rem 0.65rem", borderRadius: "6px", background: pathname === l.href ? "var(--sage-xlight)" : "transparent", letterSpacing: "0.01em", whiteSpace: "nowrap" as const }}
+                onMouseEnter={(e) => { if (pathname !== l.href) e.currentTarget.style.background = "var(--sage-xlight)"; }}
+                onMouseLeave={(e) => { if (pathname !== l.href) e.currentTarget.style.background = "transparent"; }}
+              >{l.label}</Link>
+            ))}
+          </div>
+
+          <div style={{ display: "flex", gap: "0.625rem", alignItems: "center", flexShrink: 0 }} className="site-nav-desktop">
+            <Link href="/sign-in" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--charcoal)", padding: "0.45rem 0.875rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", textDecoration: "none", whiteSpace: "nowrap" as const }}>Sign in</Link>
+            <Link href="/pricing" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.45rem 1rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" as const }}>Join now</Link>
+          </div>
+
+          <button onClick={() => setMobileOpen(!mobileOpen)} aria-label={mobileOpen ? "Close menu" : "Open menu"} aria-expanded={mobileOpen} className="site-nav-mobile-btn"
+            style={{ background: "none", border: "none", cursor: "pointer", padding: "0.5rem", color: "var(--charcoal)", fontSize: "1.25rem", marginLeft: "auto", display: "none" }}>
+            {mobileOpen ? "✕" : "☰"}
+          </button>
+        </div>
+      </nav>
+
+      {mobileOpen && (
+        <div style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)", padding: "1rem 1.5rem 1.5rem", position: "sticky", top: "68px", zIndex: 99 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.125rem", marginBottom: "1rem" }}>
+            <Link href="/about-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.9rem", color: "var(--charcoal)", textDecoration: "none", padding: "0.625rem 0.75rem", borderRadius: "8px", display: "block" }}>About</Link>
+            <button onClick={() => setMobileOfferOpen(!mobileOfferOpen)}
+              style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.9rem", color: "var(--charcoal)", background: "none", border: "none", cursor: "pointer", padding: "0.625rem 0.75rem", borderRadius: "8px", textAlign: "left", display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+              What We Offer
+              <span style={{ fontSize: "0.6rem", transform: mobileOfferOpen ? "rotate(180deg)" : "rotate(0deg)", display: "inline-block", transition: "transform 0.2s" }}>▼</span>
+            </button>
+            {mobileOfferOpen && (
+              <div style={{ paddingLeft: "1rem", display: "flex", flexDirection: "column", gap: "0.125rem" }}>
+                {WHAT_WE_OFFER.map((item) => (
+                  <Link key={item.href} href={item.href} style={{ fontFamily: "var(--font-heading)", fontWeight: 500, fontSize: "0.85rem", color: "var(--charcoal)", textDecoration: "none", padding: "0.5rem 0.75rem", borderRadius: "8px", display: "block" }}>{item.label}</Link>
+                ))}
+              </div>
+            )}
+            {[
+              { href: "/about-our-inclusion-resource-hub", label: "Platform" },
+              { href: "/podcast", label: "Podcast" },
+              { href: "/blog", label: "Blog" },
+              { href: "/contact-us", label: "Contact" },
+            ].map((l) => (
+              <Link key={l.href} href={l.href} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.9rem", color: "var(--charcoal)", textDecoration: "none", padding: "0.625rem 0.75rem", borderRadius: "8px", display: "block" }}>{l.label}</Link>
+            ))}
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
+            <Link href="/pricing" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "var(--sage-dark)", textDecoration: "none", textAlign: "center", padding: "0.75rem", borderRadius: "8px", display: "block" }}>Join now</Link>
+            <Link href="/sign-in" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", color: "var(--charcoal)", textDecoration: "none", textAlign: "center", padding: "0.5rem", display: "block" }}>Sign in</Link>
+          </div>
+        </div>
+      )}
+
+      <style>{`
+        @media (max-width: 900px) {
+          .site-nav-desktop { display: none !important; }
+          .site-nav-mobile-btn { display: block !important; }
+        }
+      `}</style>
+    </>
+  );
+}

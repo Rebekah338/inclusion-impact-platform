@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { searchContent, CONTENT, FEATURED_CONTENT, TYPE_ICONS, TYPE_LABELS } from "@/lib/content";
+import SiteNav from "@/components/SiteNav";
 
 const PULSE_QUESTIONS = [
   { id: "role", question: "What best describes your role?", options: ["EDI / D&I Lead or Manager", "HR Professional", "People Manager", "Senior Leader / Executive", "Consultant or Trainer", "Other"] },
@@ -110,7 +111,6 @@ export default function Home() {
   const [joinModalItem, setJoinModalItem] = useState("");
   const [challengeText, setChallengeText] = useState("");
   const [challengeSubmitted, setChallengeSubmitted] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     setSearchResults(searchContent(searchQuery));
@@ -139,129 +139,11 @@ export default function Home() {
     ? modulesByPathway[activePathway as keyof typeof modulesByPathway] || []
     : Object.values(modulesByPathway).flat();
 
-  const NAV_LINKS = [
-    { href: "/dashboard/learn", label: "Learn" },
-    { href: "/dashboard/watch", label: "Watch" },
-    { href: "/dashboard/inclusion-ai", label: "Inclusion AI" },
-    { href: "/dashboard/apply", label: "Apply" },
-    { href: "/dashboard/evidence", label: "Make the Case" },
-    { href: "/dashboard/community", label: "The Inclusion Editors" },
-    { href: "/dashboard/support", label: "Get Support" },
-  ];
 
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "var(--white)" }}>
 
-      {/* STICKY NAV */}
-      <nav
-        role="navigation"
-        aria-label="Main navigation"
-        style={{
-          borderBottom: "1px solid rgba(0,0,0,0.08)",
-          background: "rgba(255,255,255,0.96)",
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
-          position: "sticky",
-          top: 0,
-          zIndex: 100,
-        }}
-      >
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem", height: "68px", display: "flex", alignItems: "center", gap: "1.25rem" }}>
-          <Link href="/" aria-label="The Inclusion Edit home" style={{ textDecoration: "none", flexShrink: 0 }}>
-            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.82rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--charcoal)" }}>
-              THE INCLUSION EDIT
-            </span>
-            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 400, fontSize: "0.82rem", color: "var(--sage)", marginLeft: "0.5rem" }}>
-              · Impact Platform
-            </span>
-          </Link>
-
-          <div className="hidden md:flex" style={{ gap: "0.125rem", flex: 1 }}>
-            {NAV_LINKS.map((l) => (
-              <Link key={l.href} href={l.href}
-                style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--charcoal)", textDecoration: "none", padding: "0.4rem 0.65rem", borderRadius: "6px", transition: "background 0.15s", letterSpacing: "0.01em", whiteSpace: "nowrap" }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "var(--sage-xlight)")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-              >
-                {l.label}
-              </Link>
-            ))}
-          </div>
-
-          <div ref={searchRef} style={{ position: "relative", flex: "0 1 400px" }}>
-            <input
-              type="search"
-              placeholder="Search modules, tools, guides…"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onFocus={() => searchQuery.length >= 2 && setSearchOpen(true)}
-              aria-label="Search platform content"
-              style={{ width: "100%", padding: "0.45rem 1rem 0.45rem 2.25rem", borderRadius: "999px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.82rem", background: "var(--sage-xlight)", color: "var(--charcoal)", outline: "none" }}
-            />
-            <span style={{ position: "absolute", left: "0.75rem", top: "50%", transform: "translateY(-50%)", color: "var(--gray-soft)", fontSize: "0.8rem" }} aria-hidden="true">🔍</span>
-            {searchOpen && searchResults.length > 0 && (
-              <div role="listbox" style={{ position: "absolute", top: "calc(100% + 8px)", left: "-60px", right: "-60px", minWidth: "420px", background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: "12px", boxShadow: "0 12px 40px rgba(0,0,0,0.13)", zIndex: 200, overflow: "hidden" }}>
-                {searchResults.map((item) => (
-                  <button key={item.id} role="option" aria-selected="false"
-                    onClick={() => { item.free ? (window.location.href = item.href) : handleLockedClick(item.title); setSearchOpen(false); setSearchQuery(""); }}
-                    style={{ width: "100%", padding: "0.75rem 1.25rem", display: "flex", alignItems: "center", gap: "0.75rem", border: "none", background: "none", cursor: "pointer", textAlign: "left", borderBottom: "1px solid var(--gray-border)" }}
-                    onMouseEnter={(e) => (e.currentTarget.style.background = "var(--sage-xlight)")}
-                    onMouseLeave={(e) => (e.currentTarget.style.background = "none")}
-                  >
-                    <span style={{ fontSize: "1rem" }} aria-hidden="true">{TYPE_ICONS[item.type]}</span>
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.84rem", color: "var(--charcoal)" }}>{item.title}</div>
-                      {item.subtitle && <div style={{ fontSize: "0.72rem", color: "var(--gray-soft)" }}>{item.subtitle}</div>}
-                    </div>
-                    <span style={{ fontSize: "0.62rem", fontFamily: "var(--font-heading)", fontWeight: 700, textTransform: "uppercase", color: "var(--sage-dark)", background: "var(--sage-light)", padding: "0.18rem 0.5rem", borderRadius: "999px", whiteSpace: "nowrap" }}>
-                      {item.free ? "Free" : TYPE_LABELS[item.type]}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          <div className="hidden md:flex" style={{ gap: "0.75rem", alignItems: "center", flexShrink: 0 }}>
-            <Link href="/sign-in" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--charcoal)", padding: "0.45rem 0.875rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", textDecoration: "none", whiteSpace: "nowrap" }}>
-              Sign in
-            </Link>
-            <Link href="/dashboard" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--sage-dark)", padding: "0.45rem 0.875rem", borderRadius: "8px", border: "1.5px solid var(--sage-dark)", textDecoration: "none", whiteSpace: "nowrap" }}>
-              Dashboard
-            </Link>
-            <Link href="/sign-up" className="btn-primary" style={{ fontSize: "0.78rem", padding: "0.45rem 1rem", whiteSpace: "nowrap" }}>
-              Join now
-            </Link>
-          </div>
-          <button
-            className="mobile-menu-btn"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={mobileMenuOpen}
-            style={{ background: "none", border: "none", cursor: "pointer", padding: "0.5rem", color: "var(--charcoal)", display: "none", fontSize: "1.25rem" }}
-          >
-            {mobileMenuOpen ? "✕" : "☰"}
-          </button>
-        </div>
-      </nav>
-      {mobileMenuOpen && (
-        <div style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)", padding: "1rem 1.5rem 1.5rem", position: "relative", zIndex: 99 }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem", marginBottom: "1rem" }}>
-            {NAV_LINKS.map((l) => (
-              <Link key={l.href} href={l.href}
-                onClick={() => setMobileMenuOpen(false)}
-                style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.9rem", color: "var(--charcoal)", textDecoration: "none", padding: "0.625rem 0.75rem", borderRadius: "8px", display: "block" }}
-              >
-                {l.label}
-              </Link>
-            ))}
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
-            <Link href="/sign-up" className="btn-primary" style={{ textAlign: "center", fontSize: "0.9rem" }}>Join now</Link>
-            <Link href="/sign-in" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", color: "var(--charcoal)", textDecoration: "none", textAlign: "center", padding: "0.5rem" }}>Sign in</Link>
-          </div>
-        </div>
-      )}
+      <SiteNav />
 
       <main id="main-content">
 
