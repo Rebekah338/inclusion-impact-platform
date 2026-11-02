@@ -234,7 +234,7 @@ export default function MakingPoliciesInclusivePage() {
                           <span style={{ fontSize: 11, fontWeight: 700, color: tip.color.text }}>{tip.number}</span>
                           {done && <span style={{ fontSize: 11, fontWeight: 700, color: "#166534", background: "#BBF7D0", padding: "1px 8px", borderRadius: 10 }}>Done</span>}
                         </div>
-                        <p style={{ margin: "0 0 6px", fontWeight: 700, fontSize: 15, color: "var(--charcoal)", textDecoration: done ? "line-through" : "none", color: done ? "#9ca3af" : "var(--charcoal)" }}>
+                        <p style={{ margin: "0 0 6px", fontWeight: 700, fontSize: 15, textDecoration: done ? "line-through" : "none", color: done ? "#9ca3af" : "var(--charcoal)" }}>
                           {tip.title}
                         </p>
                         <p style={{ margin: 0, fontSize: 14, color: "#6b7280", lineHeight: 1.6 }}>
