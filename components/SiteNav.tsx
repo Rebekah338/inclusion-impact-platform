@@ -13,7 +13,7 @@ const WHAT_WE_OFFER = [
 
 const NAV_LINKS = [
   { href: "/about-us", label: "About" },
-  { href: "/about-our-inclusion-resource-hub", label: "Platform" },
+  { href: "/about-our-impact-platform", label: "Platform" },
   { href: "/podcast", label: "Podcast" },
   { href: "/blog", label: "Blog" },
   { href: "/contact-us", label: "Contact" },
@@ -99,7 +99,7 @@ export default function SiteNav() {
             </div>
 
             {[
-              { href: "/about-our-inclusion-resource-hub", label: "Platform" },
+              { href: "/about-our-impact-platform", label: "Platform" },
               { href: "/podcast", label: "Podcast" },
               { href: "/blog", label: "Blog" },
               { href: "/contact-us", label: "Contact" },
@@ -141,7 +141,7 @@ export default function SiteNav() {
               </div>
             )}
             {[
-              { href: "/about-our-inclusion-resource-hub", label: "Platform" },
+              { href: "/about-our-impact-platform", label: "Platform" },
               { href: "/podcast", label: "Podcast" },
               { href: "/blog", label: "Blog" },
               { href: "/contact-us", label: "Contact" },
