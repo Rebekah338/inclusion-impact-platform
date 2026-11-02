@@ -250,6 +250,26 @@ export default function DashboardPage() {
           </div>
         </div>
 
+        {/* STAFF ONBOARDING */}
+        <div style={{ marginBottom: '2rem', background: 'linear-gradient(135deg, rgba(42,107,58,0.07) 0%, rgba(30,60,35,0.04) 100%)', borderRadius: '16px', border: '1.5px solid rgba(42,107,58,0.3)', padding: '1.75rem 2rem', boxShadow: '0 4px 20px rgba(30,60,35,0.1)' }}>
+          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
+            <div>
+              <p style={{ fontSize: '.7rem', fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: '#2A6B3A', margin: '0 0 .4rem' }}>Staff onboarding</p>
+              <h2 style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '1.1rem', color: 'var(--charcoal)', margin: '0 0 .4rem' }}>Inclusion Foundations Programme</h2>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '.875rem', color: '#666', margin: 0, maxWidth: '520px', lineHeight: 1.6 }}>A structured onboarding journey for your team. Members work through curated resources, earn a certificate of completion, and build a shared foundation for inclusion.</p>
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '.6rem', minWidth: '200px' }}>
+              <Link href="/onboarding" style={{ display: 'block', textAlign: 'center', padding: '.65rem 1.25rem', background: '#2A6B3A', color: '#fff', borderRadius: '8px', fontSize: '.875rem', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
+                View onboarding programme →
+              </Link>
+              <button disabled style={{ display: 'block', width: '100%', padding: '.65rem 1.25rem', background: 'rgba(42,107,58,0.08)', color: '#aaa', border: '1.5px dashed rgba(42,107,58,0.25)', borderRadius: '8px', fontSize: '.875rem', fontWeight: 600, cursor: 'not-allowed', fontFamily: 'var(--font-body)' }} title="Available on organisation plans">
+                🔒 Generate staff onboarding links
+              </button>
+              <p style={{ fontSize: '.75rem', color: '#aaa', margin: 0, textAlign: 'center' }}>Staff link generation available on organisation plans</p>
+            </div>
+          </div>
+        </div>
+
         {/* Section cards */}
         <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--charcoal)", marginBottom: "0.75rem" }}>
           Explore the platform

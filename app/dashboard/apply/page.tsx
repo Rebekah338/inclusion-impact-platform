@@ -49,9 +49,9 @@ const ALL_RESOURCES: Resource[] = [
   { id: "r10", icon: "💬", title: "Challenging Non-Inclusive Behaviour",       desc: "Real language for real situations: six common scenarios (interruptions, idea theft, discriminatory jokes, exclusion, name mispronunciation, and stereotyping assumptions) with in-the-moment and follow-up responses.", format: "Guide", topics: ["Inclusion Practices"], time: "15 min read" },
   { id: "r18", icon: "📖", title: "EDI Glossary",                              desc: "A comprehensive glossary of EDI terms, concepts, and definitions: from allyship to intersectionality, psychological safety to systemic racism.", format: "Glossary",   topics: ["Inclusion Practices"],                         time: "Reference"   },
   // --- AI INCLUSION TOOLS ---
-  { id: "ai1", icon: "✨", title: "Job Description Equity Checker",            desc: "Paste your job description and get an equity audit in seconds: non-inclusive language flagged, a rationale for each suggestion, and a rewritten version ready to use.", format: "AI Inclusion Tool", topics: ["Gender", "Disability", "Inclusion Practices"], time: "5 min" },
+  { id: "ai1", icon: "✨", title: "Job Spec Equity Check",            desc: "Paste your job description and get an equity audit in seconds: non-inclusive language flagged, a rationale for each suggestion, and a rewritten version ready to use.", format: "AI Inclusion Tool", topics: ["Gender", "Disability", "Inclusion Practices"], time: "5 min" },
   { id: "ai2", icon: "✨", title: "Interview Question Generator",              desc: "Tell us the role, sector, and any equity focus areas: this tool generates a bank of bias-free, competency-based interview questions tailored to your context.", format: "AI Inclusion Tool", topics: ["Inclusion Practices", "Gender", "Disability", "Neurodiversity"], time: "5 min" },
-  { id: "ai3", icon: "✨", title: "Gender Pay Gap Analysis Tool",              desc: "Input your pay data and workforce breakdown: this tool identifies pay gaps across intersecting dimensions, highlights the key drivers, and recommends evidence-based actions.", format: "AI Inclusion Tool", topics: ["Gender", "Race and Ethnicity", "Socioeconomic Background"], time: "10 min" },
+  { id: "ai3", icon: "✨", title: "Inclusion Strategy Builder",              desc: "Tell us where your organisation is now and what matters most. We generate a prioritised 12-month framework: focus areas, measurable objectives, quick wins, and a board-ready summary.", format: "AI Inclusion Tool", topics: ["Gender", "Race and Ethnicity", "Socioeconomic Background"], time: "10 min" },
   { id: "w1",  icon: "❓", title: "Inclusive Hiring Questions",             desc: "21 bias-free, competency-based interview questions across 9 categories (general, behavioural, disability, gender, neurodiversity, race and ethnicity, age, religion, and wellbeing): with what to listen for and watch out for guidance for each.", format: "Toolkit",       topics: ["Inclusion Practices", "Gender", "Disability", "Neurodiversity", "Race and Ethnicity"], time: "Reference" },
   { id: "w2",  icon: "📝", title: "Inclusive Language: Job Description Examples",  desc: "Before-and-after examples across 5 language categories: gendered language, ableist language, jargon and gatekeeping, inflated requirements, and tone and culture fit; with the problem explained and the fix justified.", format: "Toolkit",       topics: ["Gender", "Disability", "Inclusion Practices", "Socioeconomic Background"],          time: "Reference" },
   { id: "w3",  icon: "⚖️", title: "Intersectional Gender Pay Gap Framework",       desc: "A structured 5-section framework for pay gap analysis that goes beyond binary gender reporting: data collection, intersectional analysis, driver identification, action planning, and reporting.", format: "Framework",  topics: ["Gender", "Race and Ethnicity", "Disability", "Inclusion Practices"],               time: "45 min"    },
@@ -81,7 +81,7 @@ const ALL_RESOURCES: Resource[] = [
   // --- AI INCLUSION TOOLS: not yet built ---
   { id: "ai-policy",  icon: "📋", title: "Policy Equity Auditor",       desc: "Paste any existing policy and receive a structured audit report: inclusive language review, legal framework alignment, accountability checks, and a prioritised action list.", format: "AI Inclusion Tool", topics: ["Inclusion Practices"], time: "10 min" },
   { id: "ai-health",  icon: "🩺", title: "Inclusion Health Check",       desc: "A 15-question diagnostic across five inclusion dimensions: get a traffic light rating for each area and a prioritised list of next steps.", format: "AI Inclusion Tool", topics: ["Inclusion Practices"], time: "10 min" },
-  { id: "ai-paygap",  icon: "💰", title: "Pay Gap Narrative Generator",  desc: "Input your gender pay gap figures and receive a statutory narrative report: honest, constructive, legally sound, and ready to publish.", format: "AI Inclusion Tool", topics: ["Gender", "Inclusion Practices"], time: "10 min" },
+  { id: "ai-paygap",  icon: "💰", title: "Gender Pay Gap Statement Builder",  desc: "Input your gender pay gap figures and receive a statutory narrative report: honest, constructive, legally sound, and ready to publish.", format: "AI Inclusion Tool", topics: ["Gender", "Inclusion Practices"], time: "10 min" },
   // --- COMING SOON: placeholder resources ---
   { id: "r11", icon: "📐", title: "Inclusion Maturity Framework",              desc: "Assess where your organisation sits on the inclusion maturity spectrum and identify the most impactful next steps.", format: "Framework",  topics: ["Inclusion Practices"],                         time: "45 min"      },
   { id: "r13", icon: "🗓️", title: "30/60/90 Day EDI Action Planner",           desc: "A practical planning tool for those new to an EDI role or kicking off a new strategy. Break your first quarter into focused, achievable steps.", format: "Toolkit",       topics: ["Inclusion Practices"],                         time: "60 min"      },
@@ -170,9 +170,9 @@ export default function ApplyPage() {
     r9:  "inclusive-meeting-checklist",
     r10: "challenging-non-inclusive-behaviour",
     r18: "edi-glossary",
-    ai1: "job-description-equity-checker",
-    ai2: "interview-question-generator",
-    ai3: "gender-pay-gap-analysis",
+    ai1: "/dashboard/inclusion-ai/jd-equity-checker",
+    ai2: "/dashboard/inclusion-ai/interview-question-generator",
+    ai3: "/dashboard/inclusion-ai/inclusion-strategy-builder",
     w1:  "bias-free-interview-question-bank",
     w2:  "inclusive-language-job-description-examples",
     w3:  "intersectional-gender-pay-gap-framework",
@@ -204,14 +204,14 @@ export default function ApplyPage() {
     r15: "sceptical-stakeholders",
     r20: "intersectionality",
     "ai-policy": "policy-equity-auditor",
-    "ai-health": "inclusion-health-check",
-    "ai-paygap": "pay-gap-narrative-generator",
+    "ai-health": "/dashboard/inclusion-ai/inclusion-health-check",
+    "ai-paygap": "/dashboard/inclusion-ai/gender-pay-gap-statement-builder",
   };
 
   const openResource = (id: string) => {
     if (!visited.includes(id)) setVisited((prev) => [...prev, id]);
     const slug = RESOURCE_SLUGS[id];
-    if (slug) router.push(`/dashboard/apply/${slug}`);
+    if (slug) router.push(slug.startsWith("/") ? slug : `/dashboard/apply/${slug}`);
   };
 
   const clearFilters = activeTopics.length > 0 || activeFormats.length > 0 || search;
@@ -449,7 +449,7 @@ export default function ApplyPage() {
                                     >
                                       {(() => {
                                         const slug = RESOURCE_SLUGS[r.id];
-                                        const url = slug ? `${typeof window !== "undefined" ? window.location.origin : ""}/dashboard/apply/${slug}` : null;
+                                        const url = slug ? (slug.startsWith("/") ? `${typeof window !== "undefined" ? window.location.origin : ""}${slug}` : `${typeof window !== "undefined" ? window.location.origin : ""}/dashboard/apply/${slug}`) : null;
                                         return (
                                           <>
                                             {url && (
@@ -602,7 +602,7 @@ export default function ApplyPage() {
                         >
                           {(() => {
                             const slug = RESOURCE_SLUGS[r.id];
-                            const url = slug ? `${typeof window !== "undefined" ? window.location.origin : ""}/dashboard/apply/${slug}` : null;
+                            const url = slug ? (slug.startsWith("/") ? `${typeof window !== "undefined" ? window.location.origin : ""}${slug}` : `${typeof window !== "undefined" ? window.location.origin : ""}/dashboard/apply/${slug}`) : null;
                             return (
                               <>
                                 {url && (

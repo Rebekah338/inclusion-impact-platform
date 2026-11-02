@@ -74,6 +74,13 @@ export default function PlatformNav() {
         }}>
           Sign in
         </Link>
+        <Link href="/dashboard" style={{
+          fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem",
+          color: "var(--sage-dark)", padding: "0.4rem 0.875rem", borderRadius: "8px",
+          border: "1.5px solid var(--sage-dark)", textDecoration: "none", whiteSpace: "nowrap",
+        }}>
+          Dashboard
+        </Link>
         <Link href="/sign-up" style={{
           fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem",
           color: "var(--white)", padding: "0.4rem 1rem", borderRadius: "8px",

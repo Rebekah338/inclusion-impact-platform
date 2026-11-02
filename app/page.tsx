@@ -226,6 +226,9 @@ export default function Home() {
             <Link href="/sign-in" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--charcoal)", padding: "0.45rem 0.875rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", textDecoration: "none", whiteSpace: "nowrap" }}>
               Sign in
             </Link>
+            <Link href="/dashboard" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--sage-dark)", padding: "0.45rem 0.875rem", borderRadius: "8px", border: "1.5px solid var(--sage-dark)", textDecoration: "none", whiteSpace: "nowrap" }}>
+              Dashboard
+            </Link>
             <Link href="/sign-up" className="btn-primary" style={{ fontSize: "0.78rem", padding: "0.45rem 1rem", whiteSpace: "nowrap" }}>
               Join now
             </Link>
