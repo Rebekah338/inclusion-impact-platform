@@ -177,28 +177,7 @@ export default function PricingPage() {
           </div>
         </div>
       </footer>
-      <style>{}</style>
-    </>
-  );
-}
-        <section style={{ padding: '4rem 1.5rem', textAlign: 'center', background: 'var(--sage-xlight)' }}>
-          <div style={{ maxWidth: '560px', margin: '0 auto' }}>
-            <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 'clamp(1.4rem, 3vw, 2rem)', color: 'var(--charcoal)', marginBottom: '1rem' }}>Want to see the platform first?</h2>
-            <p style={{ fontFamily: 'var(--font-body)', fontSize: '1rem', color: 'var(--gray-soft)', lineHeight: 1.7, marginBottom: '2rem' }}>Book a short call and we can walk you through the platform, answer your questions, and help you find the right membership for your organisation.</p>
-            <button disabled style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.9rem', color: 'var(--white)', background: '#1e3c23', border: 'none', padding: '0.875rem 2rem', borderRadius: '10px', cursor: 'not-allowed', opacity: 0.7 }}>Book a call — coming soon</button>
-          </div>
-        </section>
-      </main>
-      <footer style={{ borderTop: '1px solid var(--gray-border)', padding: '2rem 1.5rem', background: 'var(--white)' }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-          <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '0.78rem', letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--charcoal)' }}>The Inclusion Edit</span>
-          <div style={{ fontFamily: 'var(--font-body)', fontSize: '0.78rem', color: 'var(--gray-soft)', display: 'flex', gap: '1.5rem' }}>
-            <span>© {new Date().getFullYear()} The Inclusion Edit</span>
-            <Link href="/privacy" style={{ color: 'var(--gray-soft)', textDecoration: 'none' }}>Privacy</Link>
-          </div>
-        </div>
-      </footer>
-      <style>{\`.pricing-grid { } @media (max-width: 768px) { .pricing-grid { grid-template-columns: 1fr !important; } }\`}</style>
+      <style>{'.pricing-grid { } @media (max-width: 768px) { .pricing-grid { grid-template-columns: 1fr !important; } }'}</style>
     </>
   );
 }
