@@ -1009,32 +1009,32 @@ export default function Home() {
                 Pricing
               </span>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "0.75rem" }}>
-                Membership for every stage
+                Choose your membership
               </h2>
               <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.05rem", maxWidth: "440px", margin: "0 auto" }}>
-                Choose the plan that fits where you are.
+                Annual membership. Cancel any time.
               </p>
             </div>
 
             <div className="pricing-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
               {[
                 {
-                  tier: "Individual Practitioner", price: "£XX", period: "/month",
-                  desc: "For EDI practitioners, HR professionals, and people managers building their capability.",
-                  features: ["Full access to all 31 modules", "CPD certificate on completion", "Tools & frameworks library", "Member community access", "Weekly office hours"],
-                  cta: "Start free trial", highlight: false,
+                  tier: "Individual Practitioner", price: "£249", period: "/year",
+                  desc: "For EDI practitioners, HR professionals, and people managers building their own capability.",
+                  features: ["1 named user account", "Full access to all platform modules", "Inclusion AI tools", "CPD certificate on completion", "Tools and frameworks library", "Evidence and research library"],
+                  cta: "Join today", highlight: false,
                 },
                 {
-                  tier: "Small Organisation", price: "£XXX", period: "/month",
-                  desc: "For SMEs and teams investing in their collective EDI capability.",
-                  features: ["Up to 25 seats", "Team progress dashboard", "Organisation-wide certificate", "All individual features", "Priority support"],
+                  tier: "Growing Teams", price: "£2,400", period: "/year",
+                  desc: "For organisations with up to 500 employees.",
+                  features: ["Access for up to 5 team members", "Full access to all platform modules", "Inclusion AI tools", "Unlimited new starter access across all onboarding modules", "Team progress dashboard", "Organisation-wide certificates", "Priority support"],
                   cta: "Get started", highlight: true,
                 },
                 {
-                  tier: "Enterprise", price: "Custom", period: "",
-                  desc: "For larger organisations embedding inclusion at scale across teams and leadership.",
-                  features: ["Unlimited seats", "Custom learning pathways", "Bespoke reporting", "Dedicated account support", "Consultancy add-ons"],
-                  cta: "Contact us", highlight: false,
+                  tier: "Established Organisations", price: "£4,800", period: "/year",
+                  desc: "For organisations with 501 to 2,000 employees.",
+                  features: ["Access for up to 10 team members", "Full access to all platform modules", "Inclusion AI tools", "Unlimited new starter access across all onboarding modules", "Bespoke reporting", "Dedicated account support", "Consultancy add-ons available"],
+                  cta: "Get started", highlight: false,
                 },
               ].map((t) => (
                 <div key={t.tier} style={{
@@ -1069,6 +1069,11 @@ export default function Home() {
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* Enterprise line */}
+            <div style={{ textAlign: "center", marginTop: "2rem", fontFamily: "var(--font-body)", fontSize: "0.92rem", color: "var(--gray-soft)" }}>
+              For organisations with over 2,000 employees: <Link href="/contact" style={{ color: "var(--sage-dark)", fontWeight: 600, textDecoration: "underline" }}>contact us for a custom quote</Link>.
             </div>
           </div>
         </section>
