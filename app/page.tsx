@@ -1045,7 +1045,7 @@ export default function Home() {
                 }}>
                   {t.highlight && (
                     <div style={{ position: "absolute", top: "-1px", left: "50%", transform: "translateX(-50%)", background: "var(--sage-dark)", color: "white", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", textTransform: "uppercase", letterSpacing: "0.1em", padding: "0.3rem 1rem", borderRadius: "0 0 8px 8px" }}>
-                      Most popular
+                      Most chosen
                     </div>
                   )}
                   <div style={{ marginTop: t.highlight ? "0.75rem" : 0 }}>
