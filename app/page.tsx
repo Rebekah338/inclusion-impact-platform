@@ -1063,7 +1063,7 @@ export default function Home() {
                         </li>
                       ))}
                     </ul>
-                    <Link href="/sign-up" className={t.highlight ? "btn-primary" : "btn-secondary"} style={{ width: "100%", textAlign: "center", display: "block" }}>
+                    <Link href="/pricing" className={t.highlight ? "btn-primary" : "btn-secondary"} style={{ width: "100%", textAlign: "center", display: "block" }}>
                       {t.cta}
                     </Link>
                   </div>
