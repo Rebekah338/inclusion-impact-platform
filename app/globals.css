@@ -10,7 +10,7 @@
   --sage-xlight: #f4f7f4;
   --cream: #fff6ea;
   --sand: #f3e9dd;
-  --charcoal: #1A1A2E;
+  --charcoal: #1C1C1C;
   --charcoal-mid: #3d3d52;
   --gray-soft: #6b7280;
   --gray-border: #e5e7eb;
@@ -328,4 +328,9 @@ html {
     padding-top: 6pt;
     margin-top: 16pt;
   }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }

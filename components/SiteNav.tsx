@@ -8,15 +8,6 @@ const WHAT_WE_OFFER = [
   { href: "/edi-consultancy-programmes", label: "Inclusion Consultancy" },
   { href: "/edi-training", label: "Inclusion Training" },
   { href: "/bespoke-inclusion-resources", label: "Bespoke Inclusion Resources" },
-  { href: "/the-inclusion-business-case", label: "The Inclusion Business Case" },
-];
-
-const NAV_LINKS = [
-  { href: "/about-us", label: "About" },
-  { href: "/about-our-impact-platform", label: "Platform" },
-  { href: "/podcast", label: "Podcast" },
-  { href: "/blog", label: "Blog" },
-  { href: "/contact-us", label: "Contact" },
 ];
 
 export default function SiteNav() {
@@ -43,6 +34,19 @@ export default function SiteNav() {
 
   const isOfferActive = WHAT_WE_OFFER.some(l => pathname === l.href);
 
+  const navLinkStyle = (href: string) => ({
+    fontFamily: "var(--font-heading)",
+    fontWeight: 600,
+    fontSize: "0.78rem",
+    color: pathname === href ? "var(--sage-dark)" : "var(--charcoal)",
+    textDecoration: "none",
+    padding: "0.4rem 0.65rem",
+    borderRadius: "6px",
+    background: pathname === href ? "var(--sage-xlight)" : "transparent",
+    letterSpacing: "0.01em",
+    whiteSpace: "nowrap" as const,
+  });
+
   return (
     <>
       <nav
@@ -58,22 +62,23 @@ export default function SiteNav() {
           zIndex: 100,
         }}
       >
-        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem", height: "68px", display: "flex", alignItems: "center", gap: "1rem" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem", height: "68px", display: "flex", alignItems: "center", gap: "0.125rem" }}>
 
-          <Link href="/" aria-label="The Inclusion Edit home" style={{ textDecoration: "none", flexShrink: 0 }}>
+          <Link href="/" aria-label="The Inclusion Edit home" style={{ textDecoration: "none", flexShrink: 0, marginRight: "0.5rem" }}>
             <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.82rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--charcoal)" }}>
               THE INCLUSION EDIT
             </span>
           </Link>
 
+          {/* Desktop nav */}
           <div style={{ display: "flex", gap: "0.125rem", flex: 1, alignItems: "center" }} className="site-nav-desktop">
 
-            <Link href="/about-us"
-              style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: pathname === "/about-us" ? "var(--sage-dark)" : "var(--charcoal)", textDecoration: "none", padding: "0.4rem 0.65rem", borderRadius: "6px", background: pathname === "/about-us" ? "var(--sage-xlight)" : "transparent", letterSpacing: "0.01em", whiteSpace: "nowrap" as const }}
+            <Link href="/about-us" style={navLinkStyle("/about-us")}
               onMouseEnter={(e) => { if (pathname !== "/about-us") e.currentTarget.style.background = "var(--sage-xlight)"; }}
               onMouseLeave={(e) => { if (pathname !== "/about-us") e.currentTarget.style.background = "transparent"; }}
             >About</Link>
 
+            {/* What We Offer dropdown */}
             <div ref={offerRef} style={{ position: "relative" }}>
               <button
                 onClick={() => setOfferOpen(!offerOpen)}
@@ -86,10 +91,10 @@ export default function SiteNav() {
                 <span style={{ fontSize: "0.6rem", display: "inline-block", transform: offerOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }}>▼</span>
               </button>
               {offerOpen && (
-                <div role="menu" style={{ position: "absolute", top: "calc(100% + 8px)", left: 0, background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: "12px", boxShadow: "0 12px 40px rgba(0,0,0,0.13)", minWidth: "260px", overflow: "hidden", zIndex: 200 }}>
-                  {WHAT_WE_OFFER.map((item) => (
+                <div role="menu" style={{ position: "absolute", top: "calc(100% + 8px)", left: 0, background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: "12px", boxShadow: "0 12px 40px rgba(0,0,0,0.13)", minWidth: "240px", overflow: "hidden", zIndex: 200 }}>
+                  {WHAT_WE_OFFER.map((item, i) => (
                     <Link key={item.href} href={item.href} role="menuitem"
-                      style={{ display: "block", padding: "0.75rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: pathname === item.href ? 700 : 600, fontSize: "0.82rem", color: pathname === item.href ? "var(--sage-dark)" : "var(--charcoal)", textDecoration: "none", background: pathname === item.href ? "var(--sage-xlight)" : "transparent", borderBottom: "1px solid var(--gray-border)" }}
+                      style={{ display: "block", padding: "0.75rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: pathname === item.href ? 700 : 600, fontSize: "0.82rem", color: pathname === item.href ? "var(--sage-dark)" : "var(--charcoal)", textDecoration: "none", background: pathname === item.href ? "var(--sage-xlight)" : "transparent", borderBottom: i < WHAT_WE_OFFER.length - 1 ? "1px solid var(--gray-border)" : "none" }}
                       onMouseEnter={(e) => { e.currentTarget.style.background = "var(--sage-xlight)"; }}
                       onMouseLeave={(e) => { if (pathname !== item.href) e.currentTarget.style.background = "transparent"; }}
                     >{item.label}</Link>
@@ -98,25 +103,38 @@ export default function SiteNav() {
               )}
             </div>
 
+            {/* Impact Platform — own tab */}
+            <Link href="/about-our-impact-platform" style={navLinkStyle("/about-our-impact-platform")}
+              onMouseEnter={(e) => { if (pathname !== "/about-our-impact-platform") e.currentTarget.style.background = "var(--sage-xlight)"; }}
+              onMouseLeave={(e) => { if (pathname !== "/about-our-impact-platform") e.currentTarget.style.background = "transparent"; }}
+            >Impact Platform</Link>
+
+            {/* The Inclusion Business Case — own tab */}
+            <Link href="/the-inclusion-business-case" style={navLinkStyle("/the-inclusion-business-case")}
+              onMouseEnter={(e) => { if (pathname !== "/the-inclusion-business-case") e.currentTarget.style.background = "var(--sage-xlight)"; }}
+              onMouseLeave={(e) => { if (pathname !== "/the-inclusion-business-case") e.currentTarget.style.background = "transparent"; }}
+            >The Business Case</Link>
+
             {[
-              { href: "/about-our-impact-platform", label: "Platform" },
               { href: "/podcast", label: "Podcast" },
               { href: "/blog", label: "Blog" },
               { href: "/contact-us", label: "Contact" },
             ].map((l) => (
-              <Link key={l.href} href={l.href}
-                style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: pathname === l.href ? "var(--sage-dark)" : "var(--charcoal)", textDecoration: "none", padding: "0.4rem 0.65rem", borderRadius: "6px", background: pathname === l.href ? "var(--sage-xlight)" : "transparent", letterSpacing: "0.01em", whiteSpace: "nowrap" as const }}
+              <Link key={l.href} href={l.href} style={navLinkStyle(l.href)}
                 onMouseEnter={(e) => { if (pathname !== l.href) e.currentTarget.style.background = "var(--sage-xlight)"; }}
                 onMouseLeave={(e) => { if (pathname !== l.href) e.currentTarget.style.background = "transparent"; }}
               >{l.label}</Link>
             ))}
           </div>
 
-          <div style={{ display: "flex", gap: "0.625rem", alignItems: "center", flexShrink: 0 }} className="site-nav-desktop">
+          {/* CTA buttons */}
+          <div style={{ display: "flex", gap: "0.625rem", alignItems: "center", flexShrink: 0, marginLeft: "0.5rem" }} className="site-nav-desktop">
             <Link href="/sign-in" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--charcoal)", padding: "0.45rem 0.875rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", textDecoration: "none", whiteSpace: "nowrap" as const }}>Sign in</Link>
+            <Link href="/dashboard" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--sage-dark)", padding: "0.45rem 0.875rem", borderRadius: "8px", border: "1.5px solid var(--sage-dark)", textDecoration: "none", whiteSpace: "nowrap" as const }}>Dashboard</Link>
             <Link href="/pricing" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.45rem 1rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" as const }}>Join now</Link>
           </div>
 
+          {/* Mobile hamburger */}
           <button onClick={() => setMobileOpen(!mobileOpen)} aria-label={mobileOpen ? "Close menu" : "Open menu"} aria-expanded={mobileOpen} className="site-nav-mobile-btn"
             style={{ background: "none", border: "none", cursor: "pointer", padding: "0.5rem", color: "var(--charcoal)", fontSize: "1.25rem", marginLeft: "auto", display: "none" }}>
             {mobileOpen ? "✕" : "☰"}
@@ -124,6 +142,7 @@ export default function SiteNav() {
         </div>
       </nav>
 
+      {/* Mobile menu */}
       {mobileOpen && (
         <div style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)", padding: "1rem 1.5rem 1.5rem", position: "sticky", top: "68px", zIndex: 99 }}>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.125rem", marginBottom: "1rem" }}>
@@ -141,7 +160,8 @@ export default function SiteNav() {
               </div>
             )}
             {[
-              { href: "/about-our-impact-platform", label: "Platform" },
+              { href: "/about-our-impact-platform", label: "Impact Platform" },
+              { href: "/the-inclusion-business-case", label: "The Business Case" },
               { href: "/podcast", label: "Podcast" },
               { href: "/blog", label: "Blog" },
               { href: "/contact-us", label: "Contact" },
@@ -150,6 +170,7 @@ export default function SiteNav() {
             ))}
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
+            <Link href="/dashboard" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "transparent", border: "1.5px solid var(--sage-dark)", textDecoration: "none", textAlign: "center", padding: "0.72rem", borderRadius: "8px", display: "block" }}>Dashboard</Link>
             <Link href="/pricing" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "var(--sage-dark)", textDecoration: "none", textAlign: "center", padding: "0.75rem", borderRadius: "8px", display: "block" }}>Join now</Link>
             <Link href="/sign-in" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", color: "var(--charcoal)", textDecoration: "none", textAlign: "center", padding: "0.5rem", display: "block" }}>Sign in</Link>
           </div>

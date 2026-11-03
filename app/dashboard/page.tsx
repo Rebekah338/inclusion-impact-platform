@@ -108,26 +108,60 @@ export default function DashboardPage() {
     <div className="min-h-screen" style={{ background: "var(--sage-xlight)", paddingBottom: "5rem" }}>
 
       {/* Top nav */}
-      <nav role="navigation" aria-label="Platform navigation" style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)", padding: "0 1.5rem", height: "64px", display: "flex", alignItems: "center", justifyContent: "space-between", position: "sticky", top: 0, zIndex: 50 }}>
-        <Link href="/" aria-label="Home" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--charcoal)", textDecoration: "none" }}>
-          THE INCLUSION EDIT
-          <span style={{ color: "var(--sage)", marginLeft: "0.5rem", fontWeight: 400 }}>· Impact Platform</span>
-        </Link>
+      <nav role="navigation" aria-label="Platform navigation" style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)", padding: "0 1.5rem", height: "64px", display: "flex", alignItems: "center", gap: "1.5rem", position: "sticky", top: 0, zIndex: 50 }}>
 
-        {/* Search */}
-        <div ref={searchRef} style={{ position: "relative", flex: "0 1 340px" }}>
+        {/* Logo */}
+        <div style={{ display: "flex", alignItems: "center", whiteSpace: "nowrap", flexShrink: 0 }}>
+          <Link href="/" aria-label="Home" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--charcoal)", textDecoration: "none" }}>
+            THE INCLUSION EDIT
+          </Link>
+          <span style={{ fontFamily: "var(--font-heading)", fontWeight: 400, fontSize: "0.78rem", color: "var(--sage)", marginLeft: "0.4rem" }}>· Impact Platform</span>
+        </div>
+
+        {/* Divider */}
+        <span style={{ width: "1px", height: "24px", background: "var(--gray-border)", flexShrink: 0 }} />
+
+        {/* Platform section links */}
+        <div style={{ display: "flex", alignItems: "center", gap: "0.1rem", flexShrink: 0 }}>
+          {[
+            { label: "Learn", href: "/dashboard/learn" },
+            { label: "Watch", href: "/dashboard/watch" },
+            { label: "Apply", href: "/dashboard/apply" },
+            { label: "Make the Case", href: "/dashboard/evidence" },
+            { label: "Inclusion Editors", href: "/dashboard/community" },
+            { label: "Tools", href: "/dashboard/tools" },
+            { label: "Get Support", href: "/dashboard/support" },
+          ].map(({ label, href }) => (
+            <Link key={href} href={href} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.85rem", color: "var(--charcoal)", textDecoration: "none", padding: "0.4rem 0.75rem", borderRadius: "6px", whiteSpace: "nowrap" }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "var(--sage-xlight)"; e.currentTarget.style.color = "var(--sage-dark)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--charcoal)"; }}>
+              {label}
+            </Link>
+          ))}
+          <Link href="/dashboard/inclusion-ai" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", textDecoration: "none", padding: "0.4rem 0.8rem", borderRadius: "6px", background: "var(--sage-light)", whiteSpace: "nowrap" }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = "var(--sage)"; e.currentTarget.style.color = "var(--white)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = "var(--sage-light)"; e.currentTarget.style.color = "var(--sage-dark)"; }}>
+            Inclusion AI
+          </Link>
+        </div>
+
+        {/* Spacer pushes search + utilities to the right */}
+        <div style={{ flex: 1 }} />
+
+        {/* Compact search */}
+        <div ref={searchRef} style={{ position: "relative", width: "180px", flexShrink: 0 }}>
           <input
             type="search"
-            placeholder="Search modules, tools…"
+            placeholder="Search…"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onFocus={() => searchQuery.length >= 2 && setSearchOpen(true)}
             aria-label="Search platform content"
-            style={{ width: "100%", padding: "0.4rem 1rem 0.4rem 2.25rem", borderRadius: "999px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.85rem", background: "var(--sage-xlight)", color: "var(--charcoal)", outline: "none" }}
+            style={{ width: "100%", padding: "0.35rem 0.75rem 0.35rem 2rem", borderRadius: "999px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.78rem", background: "var(--sage-xlight)", color: "var(--charcoal)", outline: "none" }}
           />
-          <span style={{ position: "absolute", left: "0.75rem", top: "50%", transform: "translateY(-50%)", color: "var(--gray-soft)", fontSize: "0.8rem" }}>🔍</span>
+          <span style={{ position: "absolute", left: "0.65rem", top: "50%", transform: "translateY(-50%)", color: "var(--gray-soft)", fontSize: "0.75rem" }}>🔍</span>
           {searchOpen && searchResults.length > 0 && (
-            <div role="listbox" style={{ position: "absolute", top: "calc(100% + 8px)", left: 0, right: 0, background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: "12px", boxShadow: "0 8px 32px rgba(0,0,0,0.12)", zIndex: 200, overflow: "hidden" }}>
+            <div role="listbox" style={{ position: "absolute", top: "calc(100% + 8px)", right: 0, width: "320px", background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: "12px", boxShadow: "0 8px 32px rgba(0,0,0,0.12)", zIndex: 200, overflow: "hidden" }}>
               {searchResults.map((item) => (
                 <Link key={item.id} href={item.href} onClick={() => { setSearchOpen(false); setSearchQuery(""); }}
                   style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.75rem 1rem", textDecoration: "none", borderBottom: "1px solid var(--gray-border)" }}
@@ -146,22 +180,22 @@ export default function DashboardPage() {
           )}
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+        {/* Right utilities */}
+        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexShrink: 0 }}>
           {/* Accessibility toolbar */}
-          <div role="group" aria-label="Accessibility options" style={{ display: "flex", gap: "0.375rem" }}>
+          <div role="group" aria-label="Accessibility options" style={{ display: "flex", gap: "0.25rem" }}>
             <button onClick={() => setLargeText(!largeText)} aria-pressed={largeText} aria-label="Toggle large text" title="Larger text"
-              style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", padding: "0.25rem 0.5rem", borderRadius: "6px", border: "1.5px solid var(--gray-border)", background: largeText ? "var(--sage-light)" : "transparent", color: largeText ? "var(--sage-dark)" : "var(--gray-soft)", cursor: "pointer" }}>
+              style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", padding: "0.2rem 0.45rem", borderRadius: "6px", border: "1.5px solid var(--gray-border)", background: largeText ? "var(--sage-light)" : "transparent", color: largeText ? "var(--sage-dark)" : "var(--gray-soft)", cursor: "pointer" }}>
               A+
             </button>
             <button onClick={() => setDyslexiaMode(!dyslexiaMode)} aria-pressed={dyslexiaMode} aria-label="Toggle dyslexia-friendly font" title="Dyslexia-friendly font"
-              style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.67rem", padding: "0.25rem 0.5rem", borderRadius: "6px", border: "1.5px solid var(--gray-border)", background: dyslexiaMode ? "var(--sage-light)" : "transparent", color: dyslexiaMode ? "var(--sage-dark)" : "var(--gray-soft)", cursor: "pointer" }}>
+              style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.62rem", padding: "0.2rem 0.45rem", borderRadius: "6px", border: "1.5px solid var(--gray-border)", background: dyslexiaMode ? "var(--sage-light)" : "transparent", color: dyslexiaMode ? "var(--sage-dark)" : "var(--gray-soft)", cursor: "pointer" }}>
               Dy
             </button>
           </div>
-          <Link href="/dashboard/pulse" style={{ fontSize: "0.8rem", fontFamily: "var(--font-heading)", color: "var(--sage-dark)", fontWeight: 600, textDecoration: "none" }}>Inclusion Pulse</Link>
-          <Link href="/dashboard/saved" style={{ fontSize: "0.8rem", fontFamily: "var(--font-heading)", color: "var(--gray-soft)", textDecoration: "none" }}>Saved</Link>
-          <Link href="/dashboard/settings" style={{ fontSize: "0.8rem", fontFamily: "var(--font-heading)", color: "var(--gray-soft)", textDecoration: "none" }}>Settings</Link>
-          
+          <Link href="/dashboard/pulse" style={{ fontSize: "0.75rem", fontFamily: "var(--font-heading)", color: "var(--sage-dark)", fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap" }}>Pulse</Link>
+          <Link href="/dashboard/saved" style={{ fontSize: "0.75rem", fontFamily: "var(--font-heading)", color: "var(--gray-soft)", textDecoration: "none" }}>Saved</Link>
+          <Link href="/dashboard/settings" style={{ fontSize: "0.75rem", fontFamily: "var(--font-heading)", color: "var(--gray-soft)", textDecoration: "none" }}>Settings</Link>
         </div>
       </nav>
 
