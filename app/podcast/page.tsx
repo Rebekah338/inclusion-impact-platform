@@ -1,4 +1,3 @@
-import { supabase } from "@/lib/supabase";
 import Footer from "../components/Footer";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
@@ -8,12 +7,8 @@ export const metadata = {
   description: "Honest conversations about inclusion; with practitioners, leaders and thinkers doing the real work.",
 };
 
-export default async function PodcastPage() {
-  const { data: episodes } = await supabase
-    .from("podcast_episodes")
-    .select("*")
-    .eq("active", true)
-    .order("sort_order");
+export default function PodcastPage() {
+  const episodes: never[] = [];
 
   return (
     <div style={{ background: "var(--white)", minHeight: "100vh" }}>
