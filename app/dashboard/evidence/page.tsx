@@ -1468,8 +1468,7 @@ const PITCH_TARGETS = [
 type Tab = "research" | "evidence-builder" | "cases" | "downloads";
 
 function EvidencePageInner() {
-  const tabParam = searchParams.get("tab") as Tab | null;
-  const [activeTab, setActiveTab] = useState<Tab>(tabParam ?? "research");
+  const [activeTab, setActiveTab] = useState<Tab>("research");
   const [search, setSearch] = useState("");
 
   // Research brief state
@@ -1547,6 +1546,9 @@ function EvidencePageInner() {
   const [t3VoiceField, setT3VoiceField] = useState<string | null>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
+  const tabParam = searchParams.get("tab") as Tab | null;
+  // Set active tab from URL param on mount
+  useEffect(() => { if (tabParam) setActiveTab(tabParam); }, [tabParam]);
 
   // Initialise from URL param; updates when URL changes
   const activeCategory = searchParams.get("category");
