@@ -10,7 +10,6 @@ export default function AccessibilityPage() {
         The Impact Platform is committed to WCAG 2.1 AA accessibility standards. We provide text-to-speech on all module content, a dyslexia-friendly font option, keyboard navigation, screen reader compatible markup, and sufficient colour contrast throughout. If you experience any accessibility issues, please contact us at hello@theinclusionedit.com.
       </p>
     </div>
-    </div>
     <Footer />
     </>
   );
