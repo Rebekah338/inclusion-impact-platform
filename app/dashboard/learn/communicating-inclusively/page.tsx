@@ -149,7 +149,7 @@ function Slide2() {
       <SlideHeading title="Why Inclusive Communication Matters" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <Image src={"/images/communicating-inclusively/slide2-diverse-conversation.jpg"} alt="A diverse group of colleagues engaged in thoughtful conversation around a table" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
+        <Image src={"/images/communicating-inclusively/slide2-diverse-conversation.jpg"} alt="A diverse group of colleagues engaged in thoughtful conversation around a table" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
 
       <BodyText>
@@ -211,7 +211,7 @@ function Slide4() {
       <SlideHeading title="Tone and Intent" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <Image src={"/images/communicating-inclusively/slide4-tone-meeting.jpg"} alt="A team member speaking in a meeting with attentive, open colleagues listening" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
+        <Image src={"/images/communicating-inclusively/slide4-tone-meeting.jpg"} alt="A team member speaking in a meeting with attentive, open colleagues listening" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
 
       <BodyText>

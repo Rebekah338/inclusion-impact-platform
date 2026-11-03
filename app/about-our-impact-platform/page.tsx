@@ -170,7 +170,7 @@ export default function Home() {
             opacity: 0.35,
             mixBlendMode: "luminosity",
           }} aria-hidden="true">
-  <Image src="/hero-people.jpg" alt="" fill style={{{ objectFit: "cover", objectPosition: "center 30%", opacity: 0.35 }}} />
+  <Image src="/hero-people.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center 30%", opacity: 0.35 }} />
 </div>
 
           {/* Fade left so text stays readable */}
@@ -514,7 +514,7 @@ export default function Home() {
             <section style={{ padding: "4.5rem 1.5rem", position: "relative", overflow: "hidden" }}>
               {/* Background: same faded photo technique as Learning Pathways */}
               <div style={{ position: "absolute", inset: 0, zIndex: 0 }} aria-hidden="true">
-  <Image src="/team-meeting.jpg" alt="" fill style={{{ objectFit: "cover", objectPosition: "center 40%" }}} />
+  <Image src="/team-meeting.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center 40%" }} />
 </div>
               <div style={{ position: "absolute", inset: 0, background: "rgba(232, 238, 230, 0.93)", backdropFilter: "blur(2px)", zIndex: 1 }} aria-hidden="true" />
 
@@ -707,7 +707,7 @@ export default function Home() {
         {/* WHAT'S INSIDE */}
         <section style={{ padding: "3.5rem 1.5rem", position: "relative", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, zIndex: 0 }} aria-hidden="true">
-  <Image src="/team-meeting.jpg" alt="" fill style={{{ objectFit: "cover", objectPosition: "center 40%" }}} />
+  <Image src="/team-meeting.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center 40%" }} />
 </div>
           <div style={{ position: "absolute", inset: 0, background: "rgba(240, 244, 241, 0.91)", backdropFilter: "blur(2px)", zIndex: 1 }} aria-hidden="true" />
           <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 2 }}>

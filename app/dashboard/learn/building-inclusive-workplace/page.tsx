@@ -151,7 +151,7 @@ function Slide2() {
       <SlideHeading title="Why Workplace Culture Matters" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <Image src={"/images/building-inclusive-workplace/slide2-inclusive-team.jpg"} alt="A diverse team working together in a welcoming office environment" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
+        <Image src={"/images/building-inclusive-workplace/slide2-inclusive-team.jpg"} alt="A diverse team working together in a welcoming office environment" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
 
       <BodyText>
@@ -177,7 +177,7 @@ function Slide3() {
       <SlideHeading title="Strategies 1 and 2: Leadership and Accountability" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <Image src={"/images/building-inclusive-workplace/slide3-leadership.jpg"} alt="A leader engaging their team with openness and trust" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
+        <Image src={"/images/building-inclusive-workplace/slide3-leadership.jpg"} alt="A leader engaging their team with openness and trust" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
 
       <SectionLabel text="Strategy 1: Visible, committed leadership" />
@@ -210,7 +210,7 @@ function Slide4() {
       <SlideHeading title="Strategies 3 and 4: Data and Listening" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <Image src={"/images/building-inclusive-workplace/slide4-data-listening.jpg"} alt="People reviewing data and listening in a collaborative meeting" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
+        <Image src={"/images/building-inclusive-workplace/slide4-data-listening.jpg"} alt="People reviewing data and listening in a collaborative meeting" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
 
       <SectionLabel text="Strategy 3: Collect and use workforce data" />
@@ -244,7 +244,7 @@ function Slide5() {
       <SlideHeading title="Strategies 5 and 6: Recruitment and Onboarding" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <Image src={"/images/building-inclusive-workplace/slide5-recruitment.jpg"} alt="A welcoming recruitment and onboarding process with diverse candidates" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
+        <Image src={"/images/building-inclusive-workplace/slide5-recruitment.jpg"} alt="A welcoming recruitment and onboarding process with diverse candidates" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
 
       <SectionLabel text="Strategy 5: Embed inclusion in recruitment" />
@@ -279,7 +279,7 @@ function Slide6() {
       <SlideHeading title="Strategies 7 and 8: Development and Progression" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <Image src={"/images/building-inclusive-workplace/slide6-progression.jpg"} alt="Employees from diverse backgrounds accessing training and development opportunities" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
+        <Image src={"/images/building-inclusive-workplace/slide6-progression.jpg"} alt="Employees from diverse backgrounds accessing training and development opportunities" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
 
       <SectionLabel text="Strategy 7: Remove barriers to development" />
@@ -345,7 +345,7 @@ function Slide8() {
       <SlideHeading title="Strategies 11 and 12: Education and Employee Networks" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <Image src={"/images/building-inclusive-workplace/slide8-learning.jpg"} alt="Employees engaged in inclusive learning and network community activities" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
+        <Image src={"/images/building-inclusive-workplace/slide8-learning.jpg"} alt="Employees engaged in inclusive learning and network community activities" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
 
       <SectionLabel text="Strategy 11: Invest in ongoing inclusion education" />
@@ -379,7 +379,7 @@ function Slide9() {
       <SlideHeading title="Strategies 13 and 14: Culture and Inclusion Everyday" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <Image src={"/images/building-inclusive-workplace/slide9-everyday.jpg"} alt="Colleagues in everyday work interactions that reflect mutual respect and inclusion" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
+        <Image src={"/images/building-inclusive-workplace/slide9-everyday.jpg"} alt="Colleagues in everyday work interactions that reflect mutual respect and inclusion" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
 
       <SectionLabel text="Strategy 13: Address exclusionary behaviour consistently" />

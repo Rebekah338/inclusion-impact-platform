@@ -14,7 +14,7 @@ function ImagePlaceholder({ description, src }: { description: string; src?: str
     return (
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <Image src={src} alt="" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
+        <Image src={src} alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
     );
   }

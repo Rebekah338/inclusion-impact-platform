@@ -285,7 +285,7 @@ This is exactly the kind of situation The Inclusion Edit supports. The right sta
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, #1A3220 0%, #243D28 40%, #2E5235 65%, rgba(46,82,53,0.4) 100%)", zIndex: 0 }} />
           {/* Hero photo */}
           <div style={{ position: "absolute", inset: 0, zIndex: 1 }} >
-  <Image src="/homepage-hero.jpg" alt="" fill style={{{ objectFit: "cover", objectPosition: "center 45%" }}} />
+  <Image src="/homepage-hero.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center 45%" }} />
 </div>
           {/* Left-to-right dark gradient overlay — glossy effect */}
           
@@ -478,7 +478,7 @@ This is exactly the kind of situation The Inclusion Edit supports. The right sta
         <section style={{ position: "relative", overflow: "hidden", padding: "2.5rem 1.5rem" }}>
           {/* Photo layer */}
           <div style={{ position: "absolute", inset: 0, zIndex: 0 }} aria-hidden="true">
-  <Image src="/team-meeting.jpg" alt="" fill style={{{ objectFit: "cover", objectPosition: "center 40%" }}} />
+  <Image src="/team-meeting.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center 40%" }} />
 </div>
           {/* Sage overlay */}
           <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "rgba(232, 238, 230, 0.93)", backdropFilter: "blur(2px)", zIndex: 1 }} />
@@ -517,7 +517,7 @@ This is exactly the kind of situation The Inclusion Edit supports. The right sta
               {SERVICES.map((s) => (
                 <div key={s.label} style={{ background: "var(--white)", borderRadius: "16px", border: "1.5px solid rgba(107,143,113,0.3)", display: "flex", flexDirection: "column", overflow: "hidden", boxShadow: "0 4px 16px rgba(42,74,48,0.08), 0 1px 4px rgba(42,74,48,0.06)" }}>
                   <div style={{ width: "100%", height: "160px", overflow: "hidden", flexShrink: 0, background: "linear-gradient(160deg, #c8dbc9 0%, #a8c4aa 100%)" }}>
-                    {s.image && <Image src={s.image} alt="" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />}
+                    {s.image && <Image src={s.image} alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />}
                   </div>
                   <div style={{ padding: "1.5rem", display: "flex", flexDirection: "column", flexGrow: 1, background: "linear-gradient(160deg, #f7fbf7 0%, #eef6ee 60%, #e4f0e4 100%)" }}>
                   <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.75rem" }}>{s.label}</p>
@@ -534,7 +534,7 @@ This is exactly the kind of situation The Inclusion Edit supports. The right sta
         {/* ── VALUE PILLARS ── */}
         <section style={{ position: "relative", overflow: "hidden", padding: "5rem 1.5rem" }}>
           <div style={{ position: "absolute", inset: 0, zIndex: 0 }} aria-hidden="true">
-  <Image src="/team-meeting.jpg" alt="" fill style={{{ objectFit: "cover", objectPosition: "center 40%" }}} />
+  <Image src="/team-meeting.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center 40%" }} />
 </div>
           <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "rgba(232,238,230,0.82)", backdropFilter: "blur(4px)", zIndex: 1 }} />
           <div style={{ position: "relative", zIndex: 2, maxWidth: "980px", margin: "0 auto" }}>
@@ -588,7 +588,7 @@ This is exactly the kind of situation The Inclusion Edit supports. The right sta
           return (
             <section style={{ padding: "4.5rem 1.5rem", position: "relative", overflow: "hidden" }}>
               <div style={{ position: "absolute", inset: 0, zIndex: 0 }} aria-hidden="true">
-  <Image src="/team-meeting.jpg" alt="" fill style={{{ objectFit: "cover", objectPosition: "center 40%" }}} />
+  <Image src="/team-meeting.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center 40%" }} />
 </div>
               <div style={{ position: "absolute", inset: 0, background: "rgba(232, 238, 230, 0.93)", backdropFilter: "blur(2px)", zIndex: 1 }} aria-hidden="true" />
 
@@ -686,7 +686,7 @@ This is exactly the kind of situation The Inclusion Edit supports. The right sta
               <Link href="/about-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--sage-dark)", textDecoration: "none" }}>Learn more about our work →</Link>
             </div>
             <div style={{ borderRadius: "20px", aspectRatio: "4/5", overflow: "hidden", border: "1px solid var(--gray-border)" }}>
-              <Image src={"/rebekah-hayward.jpg"} alt="Rebekah Hayward, Founder of The Inclusion Edit" fill style={{{ objectFit: "cover", objectPosition: "center top" }}} />
+              <Image src={"/rebekah-hayward.jpg"} alt="Rebekah Hayward, Founder of The Inclusion Edit" fill style={{ objectFit: "cover", objectPosition: "center top" }} />
             </div>
           </div>
         </section>

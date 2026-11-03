@@ -18,7 +18,7 @@ export default function PodcastPage() {
       <section style={{ position: "relative", minHeight: "600px", display: "flex", alignItems: "center", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, #1A3220 0%, #243D28 40%, #2E5235 65%, rgba(46,82,53,0.4) 100%)", zIndex: 0 }} />
           <div style={{ position: "absolute", inset: 0, zIndex: 1 }} >
-  <Image src="/hero-podcast.jpg" alt="" fill style={{{ objectFit: "cover", objectPosition: "center 40%" }}} />
+  <Image src="/hero-podcast.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center 40%" }} />
 </div>
           
           {/* Logo top-right of hero */}

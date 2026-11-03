@@ -151,7 +151,7 @@ function Slide2() {
       <SlideHeading title="Why This Distinction Matters" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <Image src={"/images/positive-action/slide2-workplace-diversity.jpg"} alt="A diverse group of professionals collaborating in a modern workplace" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
+        <Image src={"/images/positive-action/slide2-workplace-diversity.jpg"} alt="A diverse group of professionals collaborating in a modern workplace" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
 
       <BodyText>
@@ -180,7 +180,7 @@ function Slide3() {
       <SlideHeading title="What Is Positive Discrimination?" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <Image src={"/images/positive-action/slide3-legal-scales.jpg"} alt="Scales of justice representing legal frameworks and fairness" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
+        <Image src={"/images/positive-action/slide3-legal-scales.jpg"} alt="Scales of justice representing legal frameworks and fairness" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
 
       <BodyText>
@@ -211,7 +211,7 @@ function Slide4() {
       <SlideHeading title="What Is Positive Action?" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <Image src={"/images/positive-action/slide4-open-door.jpg"} alt="A door being opened wide, symbolising access and opportunity" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
+        <Image src={"/images/positive-action/slide4-open-door.jpg"} alt="A door being opened wide, symbolising access and opportunity" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
 
       <BodyText>
@@ -279,7 +279,7 @@ function Slide6() {
       <SlideHeading title="Positive Action in Recruitment" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <Image src={"/images/positive-action/slide6-recruitment.jpg"} alt="A hiring manager reviewing applications from a diverse pool of candidates" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
+        <Image src={"/images/positive-action/slide6-recruitment.jpg"} alt="A hiring manager reviewing applications from a diverse pool of candidates" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
 
       <BodyText>
@@ -311,7 +311,7 @@ function Slide7() {
       <SlideHeading title="Positive Action in Development and Progression" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <Image src={"/images/positive-action/slide7-mentoring.jpg"} alt="A mentor and mentee having a focused one to one conversation" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
+        <Image src={"/images/positive-action/slide7-mentoring.jpg"} alt="A mentor and mentee having a focused one to one conversation" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
 
       <BodyText>
