@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import PlatformNav from "@/app/components/PlatformNav";
 import { markCompleted } from "@/lib/completionStore";
 
@@ -147,7 +148,7 @@ function Slide2() {
       <SlideHeading title="What Is EDI Fatigue?" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/managing-edi-fatigue/slide2-tired-professional.jpg" alt="A professional looking thoughtfully tired at their desk, representing the emotional weight of sustained EDI work" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+        <Image src={"/images/managing-edi-fatigue/slide2-tired-professional.jpg"} alt="A professional looking thoughtfully tired at their desk, representing the emotional weight of sustained EDI work" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
       </div>
 
       <BodyText>
@@ -207,7 +208,7 @@ function Slide4() {
       <SlideHeading title="Celebrate Wins; Communicate Transparently" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/managing-edi-fatigue/slide4-team-celebrating.jpg" alt="A team celebrating a milestone together in a modern workspace" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+        <Image src={"/images/managing-edi-fatigue/slide4-team-celebrating.jpg"} alt="A team celebrating a milestone together in a modern workspace" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
       </div>
 
       <SectionLabel text="Celebrate measurable progress:" />
@@ -310,7 +311,7 @@ function Slide7() {
       <SlideHeading title="Support Wellbeing; Equip People with Tools" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/managing-edi-fatigue/slide7-wellbeing-support.jpg" alt="Two colleagues having a supportive one to one conversation in a calm workplace setting" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+        <Image src={"/images/managing-edi-fatigue/slide7-wellbeing-support.jpg"} alt="Two colleagues having a supportive one to one conversation in a calm workplace setting" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
       </div>
 
       <SectionLabel text="Support the wellbeing of those doing the most intensive work:" />

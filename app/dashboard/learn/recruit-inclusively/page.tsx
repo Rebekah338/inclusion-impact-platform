@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import PlatformNav from "@/app/components/PlatformNav";
 import { markCompleted } from "@/lib/completionStore";
 
@@ -11,7 +12,7 @@ function ImagePlaceholder({ description, src }: { description: string; src?: str
     return (
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={src} alt={description} style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+        <Image src={src} alt="" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
       </div>
     );
   }
@@ -169,7 +170,7 @@ function Slide2() {
   return (
     <SlideShell>
       <SlideHeading title="Why Inclusive Recruitment Matters" />
-      <img src="/images/recruit-inclusively/slide1-candidates-waiting.jpg" alt="A diverse group of candidates waiting for interviews in a professional setting" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+      <Image src={"/images/recruit-inclusively/slide1-candidates-waiting.jpg"} alt="A diverse group of candidates waiting for interviews in a professional setting" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
 
       <BodyText>
         Recruitment is one of the most consequential processes in any organisation. Every decision you make at every stage either opens up opportunity or closes it down. And yet research consistently shows that bias enters the process far earlier and far more deeply than most organisations realise.
@@ -196,7 +197,7 @@ function Slide3() {
   return (
     <SlideShell>
       <SlideHeading title="Company Messaging and Job Specifications" />
-      <img src="/images/recruit-inclusively/slide2-careers-page.jpg" alt="A person browsing a careers page on a laptop" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+      <Image src={"/images/recruit-inclusively/slide2-careers-page.jpg"} alt="A person browsing a careers page on a laptop" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
 
       <SectionLabel text="Your public presence:" />
       <BodyText>
@@ -228,7 +229,7 @@ function Slide4() {
   return (
     <SlideShell>
       <SlideHeading title="Where You Advertise" />
-      <img src="/images/recruit-inclusively/slide3-job-platforms.jpg" alt="A jobs wanted newspaper showing multiple job listings" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+      <Image src={"/images/recruit-inclusively/slide3-job-platforms.jpg"} alt="A jobs wanted newspaper showing multiple job listings" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
 
       <BodyText>
         If you only advertise in the same places you have always used, you will only ever reach the same people. Inclusive recruitment requires intentional effort to go beyond your usual channels.
@@ -258,7 +259,7 @@ function Slide5() {
   return (
     <SlideShell>
       <SlideHeading title="The Application Process" />
-      <img src="/images/recruit-inclusively/slide4-application-form.jpg" alt="Hands completing an application form" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+      <Image src={"/images/recruit-inclusively/slide4-application-form.jpg"} alt="Hands completing an application form" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
 
       <BodyText>
         Even if a candidate finds your role and wants to apply, a poorly designed application process can exclude them before they have had the chance to demonstrate their ability. Accessibility at the application stage matters.
@@ -289,7 +290,7 @@ function Slide6() {
   return (
     <SlideShell>
       <SlideHeading title="Real World Scenario" />
-      <img src="/images/recruit-inclusively/slide5-candidates-outside.jpg" alt="A diverse group of professionals in a meeting discussion" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+      <Image src={"/images/recruit-inclusively/slide5-candidates-outside.jpg"} alt="A diverse group of professionals in a meeting discussion" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
 
       <SectionLabel text="The Scenario:" />
       <BodyText>
@@ -312,7 +313,7 @@ function Slide7() {
   return (
     <SlideShell>
       <SlideHeading title="Interview and Assessment" />
-      <img src="/images/recruit-inclusively/slide6-interview-panel.jpg" alt="A structured interview panel with diverse panellists" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+      <Image src={"/images/recruit-inclusively/slide6-interview-panel.jpg"} alt="A structured interview panel with diverse panellists" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
 
       <SectionLabel text="Before the interview:" />
       <BulletList items={[
@@ -339,7 +340,7 @@ function Slide8() {
   return (
     <SlideShell>
       <SlideHeading title="Decision-Making and Offer" />
-      <img src="/images/recruit-inclusively/slide8-decision-meeting.jpg" alt="A diverse group in a structured interview or decision-making meeting" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+      <Image src={"/images/recruit-inclusively/slide8-decision-meeting.jpg"} alt="A diverse group in a structured interview or decision-making meeting" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
 
       <SectionLabel text="Making the decision:" />
       <BulletList items={[
@@ -372,7 +373,7 @@ function Slide9() {
   return (
     <SlideShell>
       <SlideHeading title="Your Turn" subtitle="Activity Slide" />
-      <img src="/images/recruit-inclusively/slide9-notebook.jpg" alt="A hand holding a pencil ready to write in a notebook" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+      <Image src={"/images/recruit-inclusively/slide9-notebook.jpg"} alt="A hand holding a pencil ready to write in a notebook" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
 
       <BodyText>
         ✏️ Have your pen and paper ready.
@@ -397,7 +398,7 @@ function Slide10() {
   return (
     <SlideShell>
       <SlideHeading title="What the Research Says" />
-      <img src="/images/recruit-inclusively/slide10-research-documents.jpg" alt="A person reviewing research documents at a desk" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+      <Image src={"/images/recruit-inclusively/slide10-research-documents.jpg"} alt="A person reviewing research documents at a desk" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
 
       <SectionLabel text="The impact of bias in recruitment:" />
       <BulletList items={[

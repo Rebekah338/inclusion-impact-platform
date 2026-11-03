@@ -1,6 +1,7 @@
 import SiteNav from "@/components/SiteNav";
 import Footer from "../components/Footer";
 import Link from "next/link";
+import Image from "next/image";
 
 export const metadata = { title: "Inclusion Training | The Inclusion Edit", description: "High-impact EDI training for teams, managers and leaders. Built around your context, your challenges and your goals." };
 
@@ -13,7 +14,9 @@ export default function Training() {
         {/* HERO */}
         <section style={{ position: "relative", minHeight: "600px", display: "flex", alignItems: "center", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, #1A3220 0%, #243D28 40%, #2E5235 65%, rgba(46,82,53,0.4) 100%)", zIndex: 0 }} />
-          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/edi-training.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 1 }} />
+          <div style={{ position: "absolute", inset: 0, zIndex: 1 }} >
+  <Image src="/edi-training.jpg" alt="" fill style={{{ objectFit: "cover", objectPosition: "center 40%" }}} />
+</div>
           <div style={{ position: "absolute", top: "1.75rem", right: "2rem", zIndex: 3 }}>
             <img src="/logo-short.png" alt="The Inclusion Edit" style={{ height: "110px", width: "auto", objectFit: "contain" }} />
           </div>
@@ -147,7 +150,7 @@ export default function Training() {
                 { src: "/training-photo-4.jpg", alt: "Rebekah speaking at a training session" },
               ].map((photo) => (
                 <div key={photo.src} style={{ borderRadius: "12px", overflow: "hidden", aspectRatio: "3/4" }}>
-                  <img src={photo.src} alt={photo.alt} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  <Image src={photo.src} alt="" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
                 </div>
               ))}
             </div>
@@ -156,7 +159,9 @@ export default function Training() {
 
         {/* TESTIMONIALS */}
         <section style={{ position: "relative", padding: "5rem 1.5rem", overflow: "hidden" }}>
-          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/team-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "center", zIndex: 0 }} />
+          <div style={{ position: "absolute", inset: 0, zIndex: 0 }} >
+  <Image src="/team-meeting.jpg" alt="" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
+</div>
           <div style={{ position: "absolute", inset: 0, background: "rgba(232,238,230,0.93)", zIndex: 1 }} />
           <div style={{ position: "relative", zIndex: 2, maxWidth: "1100px", margin: "0 auto" }}>
             <span style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.75rem", textAlign: "center" }}>What people say</span>

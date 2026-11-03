@@ -1,6 +1,7 @@
 import SiteNav from "@/components/SiteNav";
 import Footer from "../components/Footer";
 import Link from "next/link";
+import Image from "next/image";
 
 export const metadata = { title: "About Us | The Inclusion Edit", description: "We are an award-winning EDI consultancy and learning platform helping organisations build capacity, capability and lasting change." };
 
@@ -13,7 +14,9 @@ export default function AboutUs() {
         {/* HERO */}
         <section style={{ position: "relative", minHeight: "600px", display: "flex", alignItems: "center", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, #1A3220 0%, #243D28 40%, #2E5235 65%, rgba(46,82,53,0.4) 100%)", zIndex: 0 }} />
-          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/about-page.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 1 }} />
+          <div style={{ position: "absolute", inset: 0, zIndex: 1 }} >
+  <Image src="/about-page.jpg" alt="" fill style={{{ objectFit: "cover", objectPosition: "center 40%" }}} />
+</div>
           <div style={{ position: "absolute", top: "1.75rem", right: "2rem", zIndex: 3 }}>
             <img src="/logo-short.png" alt="The Inclusion Edit" style={{ height: "110px", width: "auto", objectFit: "contain" }} />
           </div>
@@ -107,7 +110,7 @@ export default function AboutUs() {
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.75rem", flexShrink: 0 }}>
               <div style={{ width: "180px", height: "180px", borderRadius: "50%", overflow: "hidden", border: "4px solid var(--white)", boxShadow: "0 12px 48px rgba(42,74,48,0.45), 0 4px 20px rgba(42,74,48,0.25), 0 0 60px rgba(107,143,113,0.2)" }}>
-                <img src="/rebekah-hayward.jpg" alt="Rebekah Hayward" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
+                <Image src={"/rebekah-hayward.jpg"} alt="Rebekah Hayward" fill style={{{ objectFit: "cover", objectPosition: "center top" }}} />
               </div>
               <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--charcoal)", textAlign: "center", margin: 0 }}>Rebekah Hayward</p>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "#4a6a4a", textAlign: "center", margin: 0 }}>Founder, The Inclusion Edit</p>
@@ -118,7 +121,9 @@ export default function AboutUs() {
         {/* OUR VALUES */}
         <section style={{ position: "relative", overflow: "hidden", padding: "2.5rem 1.5rem" }}>
           <div style={{ position: "absolute", inset: 0, background: "var(--sage-xlight)", zIndex: 0 }} />
-          <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url('/about-page.jpg')", backgroundSize: "cover", backgroundPosition: "center", opacity: 0.18, zIndex: 1, pointerEvents: "none" }} />
+          <div style={{ position: "absolute", inset: 0, opacity: 0.18, zIndex: 1, pointerEvents: "none" }} aria-hidden="true">
+  <Image src="/about-page.jpg" alt="" fill style={{{ objectFit: "cover", objectPosition: "center", opacity: 0.18 }}} />
+</div>
           <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 2 }}>
             <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap", marginBottom: "1.5rem" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "var(--white)", borderRadius: "999px", padding: "0.35rem 1rem", flexShrink: 0 }}>Our values</span>
@@ -159,7 +164,7 @@ export default function AboutUs() {
               ].map((person) => (
                 <div key={person.name} style={{ background: "var(--white)", borderRadius: "16px", border: "1.5px solid rgba(107,143,113,0.3)", overflow: "hidden", boxShadow: "0 4px 16px rgba(42,74,48,0.08), 0 1px 4px rgba(42,74,48,0.06)", display: "flex", flexDirection: "column", alignItems: "center", padding: "1.25rem 1.25rem 1.25rem", textAlign: "center" }}>
                   <div style={{ width: "120px", height: "120px", borderRadius: "50%", overflow: "hidden", marginBottom: "0.4rem", border: "3px solid var(--sage-xlight)", boxShadow: "0 4px 16px rgba(42,74,48,0.1)" }}>
-                    <img src={person.img} alt={person.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
+                    <Image src={person.img} alt="" fill style={{{ objectFit: "cover", objectPosition: "center top" }}} />
                   </div>
                   <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--charcoal)", marginBottom: "0.15rem" }}>{person.name}</p>
                   <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.5rem" }}>{person.role}</p>
@@ -180,7 +185,7 @@ export default function AboutUs() {
               ].map((person) => (
                 <div key={person.name} style={{ background: "var(--white)", borderRadius: "16px", border: "1.5px solid rgba(107,143,113,0.3)", overflow: "hidden", boxShadow: "0 4px 16px rgba(42,74,48,0.08), 0 1px 4px rgba(42,74,48,0.06)", display: "flex", flexDirection: "column", alignItems: "center", padding: "1.25rem 1.25rem 1.25rem", textAlign: "center" }}>
                   <div style={{ width: "120px", height: "120px", borderRadius: "50%", overflow: "hidden", marginBottom: "0.4rem", border: "3px solid var(--sage-xlight)", boxShadow: "0 4px 16px rgba(42,74,48,0.1)" }}>
-                    <img src={person.img} alt={person.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
+                    <Image src={person.img} alt="" fill style={{{ objectFit: "cover", objectPosition: "center top" }}} />
                   </div>
                   <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--charcoal)", marginBottom: "0.15rem" }}>{person.name}</p>
                   <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.5rem" }}>{person.role}</p>
@@ -223,7 +228,9 @@ export default function AboutUs() {
         {/* WHAT WE DO */}
         <section style={{ background: "var(--white)", padding: "4rem 1.5rem 4.5rem", position: "relative", overflow: "hidden" }}>
           {/* Photo background with heavy blur + gradient wash */}
-          <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url('/about-page.jpg')", backgroundSize: "cover", backgroundPosition: "center", filter: "blur(8px)", transform: "scale(1.05)", pointerEvents: "none" }} />
+          <div style={{ position: "absolute", inset: 0, filter: "blur(8px)", transform: "scale(1.05)", pointerEvents: "none" }} aria-hidden="true">
+  <Image src="/about-page.jpg" alt="" fill style={{{ objectFit: "cover", objectPosition: "center", filter: "blur(8px)" }}} />
+</div>
           <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg, rgba(255,255,255,0.88) 0%, rgba(255,255,255,0.80) 50%, rgba(255,255,255,0.88) 100%)", pointerEvents: "none" }} />
           <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 1 }}>
             <div style={{ marginBottom: "2.5rem" }}>

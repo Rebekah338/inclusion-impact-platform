@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import PlatformNav from "@/app/components/PlatformNav";
 import { markCompleted } from "@/lib/completionStore";
 
@@ -151,7 +152,7 @@ function Slide2() {
       <SlideHeading title="What Allyship Actually Means" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/allyship/slide2-solidarity.jpg" alt="Two colleagues standing together in a shared moment of support and understanding" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+        <Image src={"/images/allyship/slide2-solidarity.jpg"} alt="Two colleagues standing together in a shared moment of support and understanding" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
       </div>
 
       <BodyText>
@@ -179,7 +180,7 @@ function Slide3() {
       <SlideHeading title="Why Allies Matter" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/allyship/slide3-group-meeting.jpg" alt="A diverse team in a workplace meeting, with one person clearly being listened to and supported" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+        <Image src={"/images/allyship/slide3-group-meeting.jpg"} alt="A diverse team in a workplace meeting, with one person clearly being listened to and supported" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
       </div>
 
       <BodyText>
@@ -209,7 +210,7 @@ function Slide4() {
       <SlideHeading title="Common Situations That Call for an Ally" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/allyship/slide4-workplace-moment.jpg" alt="A workplace moment where one person appears overlooked while another looks on" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+        <Image src={"/images/allyship/slide4-workplace-moment.jpg"} alt="A workplace moment where one person appears overlooked while another looks on" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
       </div>
 
       <BodyText>
@@ -266,7 +267,7 @@ function Slide6() {
       <SlideHeading title="Supporting Colleagues After an Incident" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/allyship/slide6-one-to-one.jpg" alt="Two colleagues in a quiet one-to-one conversation, one listening attentively" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+        <Image src={"/images/allyship/slide6-one-to-one.jpg"} alt="Two colleagues in a quiet one-to-one conversation, one listening attentively" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
       </div>
 
       <BodyText>
@@ -294,7 +295,7 @@ function Slide7() {
       <SlideHeading title="Allyship and Accountability" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/allyship/slide7-accountability.jpg" alt="A person pausing thoughtfully in a workplace setting, reflecting on their own behaviour" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+        <Image src={"/images/allyship/slide7-accountability.jpg"} alt="A person pausing thoughtfully in a workplace setting, reflecting on their own behaviour" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
       </div>
 
       <BodyText>

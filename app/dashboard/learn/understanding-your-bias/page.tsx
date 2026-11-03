@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import PlatformNav from "@/app/components/PlatformNav";
 import { markCompleted } from "@/lib/completionStore";
 
@@ -13,7 +14,7 @@ function ImagePlaceholder({ description, src }: { description: string; src?: str
     return (
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={src} alt={description} style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+        <Image src={src} alt="" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
       </div>
     );
   }

@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import PlatformNav from "@/app/components/PlatformNav";
 import { markCompleted } from "@/lib/completionStore";
 
@@ -147,7 +148,7 @@ function Slide2() {
       <SlideHeading title="What Allyship Actually Means" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/active-allyship/slide2-colleagues-listening.jpg" alt="Two colleagues in a thoughtful conversation, one listening attentively to the other" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+        <Image src={"/images/active-allyship/slide2-colleagues-listening.jpg"} alt="Two colleagues in a thoughtful conversation, one listening attentively to the other" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
       </div>
 
       <BodyText>
@@ -177,7 +178,7 @@ function Slide3() {
       <SlideHeading title="Educate Yourself; Listen to Understand" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/active-allyship/slide3-reading-learning.jpg" alt="A person reading thoughtfully, representing self-directed learning" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+        <Image src={"/images/active-allyship/slide3-reading-learning.jpg"} alt="A person reading thoughtfully, representing self-directed learning" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
       </div>
 
       <SectionLabel text="Take responsibility for your own learning:" />
@@ -208,7 +209,7 @@ function Slide4() {
       <SlideHeading title="Use Inclusive Language; Speak Up and Step Up" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/active-allyship/slide4-speaking-up.jpg" alt="A person speaking up in a team meeting, others listening" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+        <Image src={"/images/active-allyship/slide4-speaking-up.jpg"} alt="A person speaking up in a team meeting, others listening" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
       </div>
 
       <SectionLabel text="Language matters:" />
@@ -268,7 +269,7 @@ function Slide6() {
       <SlideHeading title="Micro-affirmations and Supporting Accessibility" />
       <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/active-allyship/slide6-inclusive-workspace.jpg" alt="A welcoming, inclusive workspace with people collaborating in an accessible environment" style={{ width: "100%", height: "360px", objectFit: "cover", display: "block" }} />
+        <Image src={"/images/active-allyship/slide6-inclusive-workspace.jpg"} alt="A welcoming, inclusive workspace with people collaborating in an accessible environment" fill style={{{ objectFit: "cover", objectPosition: "center" }}} />
       </div>
 
       <SectionLabel text="Micro-affirmations:" />
