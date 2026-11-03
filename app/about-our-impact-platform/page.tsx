@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { searchContent, CONTENT, FEATURED_CONTENT, TYPE_ICONS, TYPE_LABELS } from "@/lib/content";
 import SiteNav from "@/components/SiteNav";
@@ -167,11 +166,12 @@ export default function Home() {
           {/* Hero photo overlay */}
           <div style={{
             position: "absolute", inset: 0,
+            backgroundImage: "url('/hero-people.jpg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center 30%",
             opacity: 0.35,
             mixBlendMode: "luminosity",
-          }} aria-hidden="true">
-  <Image src="/hero-people.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center 30%", opacity: 0.35 }} />
-</div>
+          }} aria-hidden="true" />
 
           {/* Fade left so text stays readable */}
           <div style={{
@@ -513,9 +513,7 @@ export default function Home() {
           return (
             <section style={{ padding: "4.5rem 1.5rem", position: "relative", overflow: "hidden" }}>
               {/* Background: same faded photo technique as Learning Pathways */}
-              <div style={{ position: "absolute", inset: 0, zIndex: 0 }} aria-hidden="true">
-  <Image src="/team-meeting.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center 40%" }} />
-</div>
+              <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/team-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 0 }} aria-hidden="true" />
               <div style={{ position: "absolute", inset: 0, background: "rgba(232, 238, 230, 0.93)", backdropFilter: "blur(2px)", zIndex: 1 }} aria-hidden="true" />
 
               <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 2 }}>
@@ -706,9 +704,7 @@ export default function Home() {
 
         {/* WHAT'S INSIDE */}
         <section style={{ padding: "3.5rem 1.5rem", position: "relative", overflow: "hidden" }}>
-          <div style={{ position: "absolute", inset: 0, zIndex: 0 }} aria-hidden="true">
-  <Image src="/team-meeting.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center 40%" }} />
-</div>
+          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/team-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 0 }} aria-hidden="true" />
           <div style={{ position: "absolute", inset: 0, background: "rgba(240, 244, 241, 0.91)", backdropFilter: "blur(2px)", zIndex: 1 }} aria-hidden="true" />
           <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 2 }}>
 
@@ -734,8 +730,7 @@ export default function Home() {
               <div className="pathways-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem" }}>
                 {PATHWAY_INFO.map((p) => (
                   <div key={p.key} style={{ background: "var(--white)", borderRadius: "14px", overflow: "hidden", border: "1.5px solid var(--gray-border)" }}>
-                    <div style={{ height: "110px", position: "relative" }}>
-                      <Image src={p.img} alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+                    <div style={{ height: "110px", backgroundImage: `url('${p.img}')`, backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
                       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.5) 100%)" }} />
                       <span style={{ position: "absolute", bottom: "0.6rem", left: "0.875rem", fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.68rem", color: "white", textTransform: "uppercase", letterSpacing: "0.1em" }}>{p.count} modules</span>
                     </div>
@@ -764,8 +759,7 @@ export default function Home() {
                   { icon: "⚡",     label: "Nuggets",        sub: "5–10 min",  desc: "Sharp, actionable takeaways for a busy week.",       img: "/watch-nuggets.jpg" },
                 ] as const).map((w) => (
                   <div key={w.label} style={{ background: "var(--white)", borderRadius: "14px", overflow: "hidden", border: "1.5px solid var(--gray-border)" }}>
-                    <div style={{ height: "110px", position: "relative" }}>
-                      <Image src={w.img} alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+                    <div style={{ height: "110px", backgroundImage: `url('${w.img}')`, backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
                       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.55) 100%)" }} />
                       <div style={{ position: "absolute", bottom: "0.6rem", left: "0.875rem", right: "0.875rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                         <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.82rem", color: "white" }}>{w.icon} {w.label}</span>
@@ -794,8 +788,7 @@ export default function Home() {
                   { title: "Business Case Template",      type: "Template",  desc: "Build the evidence-backed case for EDI investment; tailored for leadership teams.", img: "/resources-template.jpg" },
                 ].map((r) => (
                   <div key={r.title} style={{ background: "var(--white)", borderRadius: "14px", overflow: "hidden", border: "1.5px solid var(--gray-border)" }}>
-                    <div style={{ height: "110px", position: "relative" }}>
-                      <Image src={r.img} alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />
+                    <div style={{ height: "110px", backgroundImage: `url('${r.img}')`, backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
                       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.5) 100%)" }} />
                       <div style={{ position: "absolute", top: "0.6rem", left: "0.875rem", background: "var(--sage-dark)", color: "white", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.62rem", textTransform: "uppercase", letterSpacing: "0.08em", padding: "0.2rem 0.5rem", borderRadius: "999px" }}>{r.type}</div>
                       <div style={{ position: "absolute", bottom: "0.6rem", left: "0.875rem", right: "0.875rem" }}>
@@ -832,10 +825,12 @@ export default function Home() {
               border: "1.5px solid var(--sage-light)",
             }}>
               <div style={{
+                backgroundImage: "url('/coaching-people.jpg')",
+                backgroundSize: "cover",
+                backgroundPosition: "center top",
                 minHeight: "380px",
                 position: "relative",
               }}>
-                <Image src="/coaching-people.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center top" }} />
                 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(42,74,48,0.2) 0%, rgba(0,0,0,0.05) 100%)" }} />
               </div>
               <div style={{ background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 100%)", padding: "3rem 2.75rem" }}>

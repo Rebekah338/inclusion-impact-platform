@@ -1,7 +1,6 @@
 import SiteNav from "@/components/SiteNav";
 import Footer from "../components/Footer";
 import Link from "next/link";
-import Image from "next/image";
 import ProgrammeFinder from "@/components/ProgrammeFinder";
 
 export const metadata = { title: "Inclusion Consultancy | The Inclusion Edit", description: "Bespoke EDI consultancy programmes for schools, businesses and organisations. Audit, advise and embed equity, diversity and inclusion." };
@@ -15,9 +14,7 @@ export default function Consultancy() {
       {/* HERO */}
       <section style={{ position: "relative", minHeight: "600px", display: "flex", alignItems: "center", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, #1A3220 0%, #243D28 40%, #2E5235 65%, rgba(46,82,53,0.4) 100%)", zIndex: 0 }} />
-          <div style={{ position: "absolute", inset: 0, zIndex: 1 }} >
-  <Image src="/watch-7-diverse-meeting.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center 40%" }} />
-</div>
+          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/watch-7-diverse-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 1 }} />
           <div style={{ position: "absolute", top: "1.75rem", right: "2rem", zIndex: 3 }}>
             <img src="/logo-short.png" alt="The Inclusion Edit" style={{ height: "110px", width: "auto", objectFit: "contain" }} />
           </div>
@@ -75,9 +72,7 @@ export default function Consultancy() {
 
       {/* FLAGSHIP PROGRAMMES */}
       <section style={{ position: "relative", padding: "4rem 1.5rem 5rem", overflow: "hidden" }}>
-        <div style={{ position: "absolute", inset: 0, zIndex: 0 }} aria-hidden="true">
-  <Image src="/watch-7-diverse-meeting.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center 30%" }} />
-</div>
+        <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url('/watch-7-diverse-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "center 30%", zIndex: 0 }} />
         <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "rgba(232,238,230,0.93)", backdropFilter: "blur(2px)", zIndex: 1 }} />
         <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 2 }}>
           <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap", marginBottom: "2.5rem" }}>
@@ -90,9 +85,7 @@ export default function Consultancy() {
             {/* PROGRAMME 1: 2027 Roadmap */}
             <div style={{ borderRadius: "16px", overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.18)", background: "#ffffff", borderTop: "4px solid #C9A84C" }}>
               <div style={{ position: "relative", height: "160px", overflow: "hidden" }}>
-                <div style={{ position: "absolute", inset: 0 }} aria-hidden="true">
-  <Image src="/watch-6-strategy.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center 40%" }} />
-</div>
+                <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url('/watch-6-strategy.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%" }} />
                 <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.1) 100%)" }} />
                 <div style={{ position: "absolute", inset: 0, padding: "1.25rem 1.5rem", display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
                   <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.62rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.8)", marginBottom: "0.4rem" }}>2027 Inclusion &amp; Culture Roadmap</span>
@@ -141,9 +134,7 @@ export default function Consultancy() {
             {/* PROGRAMME 2: Inclusive Leadership */}
             <div style={{ borderRadius: "16px", overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.18)", background: "#ffffff", borderTop: "4px solid #4a8a5c" }}>
               <div style={{ position: "relative", height: "160px", overflow: "hidden" }}>
-                <div style={{ position: "absolute", inset: 0 }} aria-hidden="true">
-  <Image src="/watch-5-team-presentation.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center 30%" }} />
-</div>
+                <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url('/watch-5-team-presentation.jpg')", backgroundSize: "cover", backgroundPosition: "center 30%" }} />
                 <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.1) 100%)" }} />
                 <div style={{ position: "absolute", inset: 0, padding: "1.25rem 1.5rem", display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
                   <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.62rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.8)", marginBottom: "0.4rem" }}>Inclusive Leadership Programme</span>
@@ -192,9 +183,7 @@ export default function Consultancy() {
             {/* PROGRAMME 3: B Corp JEDI */}
             <div style={{ borderRadius: "16px", overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.18)", background: "#ffffff", borderTop: "4px solid #4a6080" }}>
               <div style={{ position: "relative", height: "160px", overflow: "hidden" }}>
-                <div style={{ position: "absolute", inset: 0 }} aria-hidden="true">
-  <Image src="/watch-2-collaboration.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center 35%" }} />
-</div>
+                <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url('/watch-2-collaboration.jpg')", backgroundSize: "cover", backgroundPosition: "center 35%" }} />
                 <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.1) 100%)" }} />
                 <div style={{ position: "absolute", inset: 0, padding: "1.25rem 1.5rem", display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
                   <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.62rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.8)", marginBottom: "0.4rem" }}>B Corp JEDI Readiness</span>

@@ -1,7 +1,6 @@
 import SiteNav from "@/components/SiteNav";
 import Footer from "../components/Footer";
 import Link from "next/link";
-import Image from "next/image";
 
 export const metadata = { title: "Bespoke Inclusion Resources | The Inclusion Edit", description: "Custom-designed EDI toolkits, guides and frameworks created specifically for your organisation." };
 
@@ -14,9 +13,7 @@ export default function BespokeResources() {
         {/* HERO */}
         <section style={{ position: "relative", minHeight: "600px", display: "flex", alignItems: "center", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, #1A3220 0%, #243D28 40%, #2E5235 65%, rgba(46,82,53,0.4) 100%)", zIndex: 0 }} />
-          <div style={{ position: "absolute", inset: 0, zIndex: 1 }} >
-  <Image src="/bespoke-resources.jpg" alt="" fill style={{ objectFit: "cover", objectPosition: "center 40%" }} />
-</div>
+          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/bespoke-resources.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 1 }} />
           <div style={{ position: "absolute", top: "1.75rem", right: "2rem", zIndex: 3 }}>
             <img src="/logo-short.png" alt="The Inclusion Edit" style={{ height: "110px", width: "auto", objectFit: "contain" }} />
           </div>
