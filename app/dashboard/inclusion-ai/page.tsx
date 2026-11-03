@@ -95,7 +95,7 @@ const SECTIONS = [
         name: "Case Study Replication Roadmap",
         tagline: "Turn someone else's success into your action plan.",
         desc: "Provide a case study from another organisation and receive a step-by-step replication roadmap adapted to your context: what they did, why it worked, and how you can apply it.",
-        href: "/dashboard/evidence",
+        href: "/dashboard/evidence?tab=evidence-builder",
       },
     ],
   },
