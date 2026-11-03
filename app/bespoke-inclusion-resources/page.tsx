@@ -55,35 +55,54 @@ export default function BespokeResources() {
         </section>
 
         {/* WHY BESPOKE */}
-        <section style={{ padding: "5rem 1.5rem", maxWidth: "800px", margin: "0 auto" }}>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", color: "var(--charcoal)", marginBottom: "1.5rem" }}>Why bespoke?</h2>
-          <p style={{ fontFamily: "var(--font-body)", fontSize: "1.1rem", color: "var(--charcoal)", lineHeight: 1.8, marginBottom: "1.25rem" }}>
-            Generic inclusion resources rarely drive change because they are not designed with your people, your context or your challenges in mind. A resource that reflects your organisation&apos;s language, policies and culture is far more likely to be used; and far more likely to make a difference.
-          </p>
-          <p style={{ fontFamily: "var(--font-body)", fontSize: "1.1rem", color: "var(--charcoal)", lineHeight: 1.8 }}>
-            We design resources that are clear, practical and visually compelling. Whether you need a one-page guide or a comprehensive organisational toolkit, we work with you at every step.
-          </p>
+        <section style={{ padding: "3rem 1.5rem", background: "var(--white)" }}>
+          <div style={{ maxWidth: "1060px", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "3rem", alignItems: "center" }}>
+            <div>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(107,143,113,0.12)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1rem" }}>Why bespoke?</span>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.4rem, 2.8vw, 2rem)", color: "var(--charcoal)", lineHeight: 1.2, marginBottom: "0.875rem" }}>Built specifically for your team</h2>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--charcoal)", lineHeight: 1.8, opacity: 0.75 }}>
+                Bespoke resources speak directly to your people; your sector, your policies, your culture. When something is made for your organisation, it lands differently.
+              </p>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+              {[
+                { label: "Built around your context", detail: "Designed from the ground up for your organisation, sector and people; so it fits from the very first page." },
+                { label: "Reflects your language and culture", detail: "Your policies, your tone, your brand. The resource feels like it came from inside your organisation; because it did." },
+                { label: "Tied to your goals from the start", detail: "Because we build around your objectives, every element of the resource is working toward the outcomes you actually want to achieve." },
+              ].map((r) => (
+                <div key={r.label} style={{ display: "flex", gap: "0.875rem", alignItems: "flex-start" }}>
+                  <span style={{ flexShrink: 0, marginTop: "0.2rem", width: "20px", height: "20px", borderRadius: "50%", background: "var(--sage-dark)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </span>
+                  <div>
+                    <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--charcoal)", marginBottom: "0.2rem" }}>{r.label}</p>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--charcoal)", lineHeight: 1.65, opacity: 0.72, margin: 0 }}>{r.detail}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </section>
 
         {/* HOW IT WORKS */}
-        <section style={{ background: "var(--sage-xlight)", padding: "5rem 1.5rem" }}>
+        <section style={{ background: "linear-gradient(135deg, #1A3220 0%, #2C4A31 60%, #2E5235 100%)", padding: "3.5rem 1.5rem" }}>
           <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-            <span style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.75rem", textAlign: "center" }}>The process</span>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.6rem, 3vw, 2.2rem)", color: "var(--charcoal)", textAlign: "center", marginBottom: "0.75rem" }}>How it works</h2>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--charcoal)", opacity: 0.7, textAlign: "center", maxWidth: "560px", margin: "0 auto 3.5rem", lineHeight: 1.7 }}>Commissioning a bespoke resource is straightforward. Here is what to expect from start to finish.</p>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1.5rem" }}>
+            <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: "0.5rem" }}>The process</span>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--white)", margin: 0 }}>How it works</h2>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1rem" }}>
               {[
-                { step: "01", accent: "#C9A84C", title: "Discovery call", body: "We start with a conversation about your organisation, your audience and what you need the resource to do. No brief required; we will help you shape it." },
+                { step: "01", accent: "#4a8a5c", title: "Discovery call", body: "We start with a conversation about your organisation, your audience and what you need the resource to do. No brief required; we will help you shape it." },
                 { step: "02", accent: "#4a8a5c", title: "Scope and brief", body: "We turn that conversation into a clear scope: format, length, content areas, tone and timeline. You review and confirm before any work begins." },
-                { step: "03", accent: "#4a6080", title: "Design and review", body: "We create a draft in your brand, language and voice. You give feedback; we refine. Most resources go through two rounds of review before final sign-off." },
-                { step: "04", accent: "#1A3220", title: "Final delivery", body: "You receive your finished resource in the agreed format; print-ready, digitally accessible, or both; ready to use straight away." },
+                { step: "03", accent: "#4a8a5c", title: "Design and review", body: "We create a draft in your brand, language and voice. You give feedback; we refine. Most resources go through two rounds of review before final sign-off." },
+                { step: "04", accent: "#4a8a5c", title: "Final delivery", body: "You receive your finished resource in the agreed format; print-ready, digitally accessible, or both; ready to use straight away." },
               ].map((s) => (
-                <div key={s.step} style={{ borderRadius: "16px", overflow: "hidden", background: "var(--white)", border: "1px solid rgba(0,0,0,0.06)" }}>
-                  <div style={{ height: "5px", background: s.accent }} />
-                  <div style={{ padding: "2rem" }}>
-                    <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2.5rem", color: s.accent, opacity: 0.18, lineHeight: 1, marginBottom: "0.5rem" }}>{s.step}</span>
-                    <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "0.75rem" }}>{s.title}</h3>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.75, opacity: 0.8 }}>{s.body}</p>
+                <div key={s.step} style={{ borderRadius: "12px", overflow: "hidden", background: "var(--white)", border: "1px solid rgba(0,0,0,0.06)" }}>
+                  <div style={{ padding: "1.6rem 1.5rem" }}>
+                    <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2rem", color: "#2C4A31", opacity: 0.45, lineHeight: 1, marginBottom: "0.5rem" }}>{s.step}</span>
+                    <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--charcoal)", marginBottom: "0.5rem" }}>{s.title}</h3>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.7, opacity: 0.8, margin: 0 }}>{s.body}</p>
                   </div>
                 </div>
               ))}
@@ -92,11 +111,11 @@ export default function BespokeResources() {
         </section>
 
         {/* WHAT WE CREATE */}
-        <section style={{ padding: "5rem 1.5rem" }}>
+        <section style={{ padding: "2.5rem 1.5rem 3rem" }}>
           <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-            <span style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.75rem", textAlign: "center" }}>What we create</span>
-            <h2 id="what-we-create" style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.6rem, 3vw, 2.2rem)", color: "var(--charcoal)", textAlign: "center", marginBottom: "3rem" }}>Resource types</h2>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.5rem" }}>
+            <span style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.5rem", textAlign: "center" }}>What we create</span>
+            <h2 id="what-we-create" style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.4rem, 2.6vw, 1.9rem)", color: "var(--charcoal)", textAlign: "center", marginBottom: "1.75rem" }}>Resource types</h2>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem" }}>
               {[
                 { title: "Inclusion Toolkits", desc: "Comprehensive, practical toolkits that give your teams everything they need to take action on inclusion; from self-assessments to step-by-step guides." },
                 { title: "Policy Templates", desc: "EDI-informed policy templates tailored to your sector and legal context; ready to adapt and implement." },
@@ -105,9 +124,66 @@ export default function BespokeResources() {
                 { title: "Onboarding and Communication Materials", desc: "Inclusive onboarding packs, internal communication templates and staff-facing resources that reflect your commitment to EDI from day one." },
                 { title: "Data and Reporting Frameworks", desc: "Frameworks to help your organisation collect, analyse and act on EDI data in a way that is ethical, meaningful and tied to measurable outcomes." },
               ].map((item) => (
-                <div key={item.title} style={{ background: "var(--sage-xlight)", borderRadius: "16px", padding: "2rem", border: "1px solid rgba(74,138,92,0.15)" }}>
-                  <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--sage-dark)", marginBottom: "0.75rem" }}>{item.title}</h3>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.7, opacity: 0.85 }}>{item.desc}</p>
+                <div key={item.title} style={{ background: "var(--sage-xlight)", borderRadius: "14px", padding: "1.35rem 1.5rem", border: "1px solid rgba(74,138,92,0.15)" }}>
+                  <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--sage-dark)", marginBottom: "0.5rem" }}>{item.title}</h3>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--charcoal)", lineHeight: 1.65, opacity: 0.85 }}>{item.desc}</p>
+                </div>
+              ))}
+            </div>
+            <div style={{ marginTop: "2rem" }}>
+              <div style={{ background: "var(--white)", borderRadius: "14px", border: "2px solid rgba(74,138,92,0.35)", boxShadow: "0 8px 40px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.06)", maxWidth: "900px", margin: "0 auto", textAlign: "center", overflow: "hidden" }}>
+                <div style={{ height: "5px", background: "var(--sage-dark)" }} />
+                <div style={{ padding: "1.5rem 2rem" }}>
+                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.4rem" }}>Need something different?</p>
+                  <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.1rem", color: "var(--charcoal)", marginBottom: "0.5rem", lineHeight: 1.3 }}>We can create any resource your organisation needs</h3>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "var(--charcoal)", opacity: 0.7, maxWidth: "560px", margin: "0 auto 0.75rem", lineHeight: 1.65 }}>From surveys to action plan templates; we build around your brief. Tell us what you need and we will design something that works.</p>
+                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--sage-dark)", marginBottom: "0.6rem" }}>We also create:</p>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", justifyContent: "center", marginBottom: "1rem" }}>
+                    {[
+                      "Staff Surveys and Pulse Checks",
+                      "EDI Action Plan Templates",
+                      "Accessible Communication Guides",
+                      "Recruitment and Selection Guidance",
+                      "Training Pre-reads and Companion Guides",
+                      "Governor and Trustee Briefings",
+                      "Celebration and Awareness Day Packs",
+                      "Induction and Welcome Packs",
+                    ].map((label) => (
+                      <span key={label} style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--sage-dark)", background: "rgba(74,138,92,0.1)", border: "1px solid rgba(74,138,92,0.25)", borderRadius: "999px", padding: "0.3rem 0.85rem", whiteSpace: "nowrap" }}>{label}</span>
+                    ))}
+                  </div>
+                  <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.75rem 1.75rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>Commission a bespoke resource</Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CASE STUDIES */}
+        <section style={{ position: "relative", padding: "3.5rem 1.5rem", overflow: "hidden" }}>
+          <div style={{ position: "absolute", inset: 0, backgroundImage: "url(/bespoke-resources.jpg)", backgroundSize: "cover", backgroundPosition: "center", zIndex: 0 }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(26,50,32,0.92) 0%, rgba(44,74,49,0.88) 60%, rgba(46,82,53,0.82) 100%)", zIndex: 1 }} />
+          <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 2 }}>
+            <span style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.7)", marginBottom: "0.5rem", textAlign: "center" }}>Our work</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.4rem, 2.6vw, 1.9rem)", color: "var(--white)", textAlign: "center", marginBottom: "0.5rem" }}>Resources we have created</h2>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "rgba(255,255,255,0.8)", textAlign: "center", maxWidth: "520px", margin: "0 auto 2rem", lineHeight: 1.7 }}>Bespoke resources designed and built for real organisations; each one made from scratch for their context, people and goals.</p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem", marginBottom: "2.5rem" }}>
+              {[
+                { org: "Hospice UK", tag: "Toolkit", title: "Compassionate and Inclusive Workplaces Toolkit" },
+                { org: "Hospice UK", tag: "Manager Guide", title: "Identity and Inclusion Guide for Managers" },
+                { org: "Black Inclusion Week", tag: "Audit Tool", title: "Black Inclusion Curriculum Audit" },
+                { org: "Project Free", tag: "Curriculum Resource", title: "Windrush Curriculum Map" },
+                { org: "Black Inclusion Week", tag: "Toolkit", title: "Black Inclusion Intervention Toolkit" },
+                { org: "Black Inclusion Week", tag: "Guide", title: "From Allyship to Accountability: A Guide for Workplaces" },
+                { org: "Network Plus", tag: "Guide", title: "Understanding Intersectionality: A Conversation Guide" },
+                { org: "Project Free", tag: "Curriculum Resource", title: "Inclusive Curriculum Guidance" },
+              ].map((p) => (
+                <div key={p.title} style={{ background: "var(--sage-xlight)", borderRadius: "14px", padding: "1.35rem 1.5rem", border: "1px solid rgba(74,138,92,0.15)", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--white)", background: "var(--sage-dark)", borderRadius: "999px", padding: "0.2rem 0.7rem" }}>{p.tag}</span>
+                    <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--sage-dark)", opacity: 0.75 }}>{p.org}</span>
+                  </div>
+                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--charcoal)", margin: 0, lineHeight: 1.4 }}>{p.title}</p>
                 </div>
               ))}
             </div>
@@ -115,11 +191,13 @@ export default function BespokeResources() {
         </section>
 
         {/* CTA */}
-        <section style={{ background: "#1A3220", padding: "5rem 1.5rem", textAlign: "center" }}>
-          <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.65)", background: "rgba(255,255,255,0.1)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.5rem" }}>Get started</span>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.75rem, 3.5vw, 2.5rem)", color: "var(--white)", marginBottom: "1rem" }}>Commission a bespoke resource</h2>
-          <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", color: "rgba(255,255,255,0.8)", maxWidth: "500px", margin: "0 auto 2.5rem", lineHeight: 1.75 }}>Tell us what you need and we will design something that works for your organisation.</p>
-          <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "#1A3220", background: "var(--white)", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none" }}>Get in touch</Link>
+        <section style={{ background: "#1A3220", padding: "2.5rem 1.5rem", textAlign: "center" }}>
+          <div style={{ maxWidth: "560px", margin: "0 auto" }}>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.65)", background: "rgba(255,255,255,0.1)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1rem" }}>Get started</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--white)", marginBottom: "0.75rem" }}>Commission a bespoke resource</h2>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "rgba(255,255,255,0.8)", maxWidth: "420px", margin: "0 auto 1.5rem", lineHeight: 1.7 }}>Tell us what you need and we will design something that works for your organisation.</p>
+            <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "#1A3220", background: "var(--white)", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none" }}>Get in touch</Link>
+          </div>
         </section>
 
         <Footer />

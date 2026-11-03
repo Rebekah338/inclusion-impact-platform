@@ -21,11 +21,11 @@ export default function Consultancy() {
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(100deg, rgba(20,40,25,0.95) 0%, rgba(20,40,25,0.85) 38%, rgba(20,40,25,0.3) 70%, rgba(20,40,25,0.05) 100%)", zIndex: 2 }} />
           <div style={{ position: "relative", zIndex: 3, maxWidth: "1100px", width: "100%", margin: "0 auto", padding: "5rem 2rem" }}>
             <div style={{ maxWidth: "560px" }}>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(30,40,30,0.65)", background: "rgba(0,0,0,0.04)", border: "1px solid rgba(0,0,0,0.1)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>Inclusion Consultancy</span>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.9)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.3)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>Inclusion Consultancy</span>
               <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.4rem, 5.5vw, 3.6rem)", color: "var(--white)", lineHeight: 1.08, marginBottom: "1.5rem" }}>
                 EDI consultancy that creates lasting change.
               </h1>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "1.1rem", color: "rgba(30,40,30,0.85)", lineHeight: 1.8, marginBottom: "2.25rem" }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "1.1rem", color: "rgba(255,255,255,0.85)", lineHeight: 1.8, marginBottom: "2.25rem" }}>
                 We partner with organisations to design and deliver bespoke consultancy programmes that audit where you are, advise on where to go, and embed the changes that matter.
               </p>
               <div style={{ display: "flex", gap: "0.875rem", flexWrap: "wrap" }}>
@@ -83,20 +83,20 @@ export default function Consultancy() {
           <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
 
             {/* PROGRAMME 1: 2027 Roadmap */}
-            <div style={{ borderRadius: "16px", overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.18)", background: "#ffffff", borderTop: "4px solid #C9A84C" }}>
+            <div style={{ borderRadius: "16px", overflow: "hidden", boxShadow: "0 20px 60px rgba(0,0,0,0.12), 0 8px 20px rgba(0,0,0,0.08)", background: "#ffffff", borderTop: "5px solid #C9A84C", border: "1px solid rgba(201,168,76,0.3)", borderTopWidth: "5px" }}>
               <div style={{ position: "relative", height: "160px", overflow: "hidden" }}>
                 <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url('/watch-6-strategy.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%" }} />
                 <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.1) 100%)" }} />
                 <div style={{ position: "absolute", inset: 0, padding: "1.25rem 1.5rem", display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
-                  <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.62rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.8)", marginBottom: "0.4rem" }}>2027 Inclusion &amp; Culture Roadmap</span>
+                  <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "clamp(1.1rem, 2.2vw, 1.4rem)", letterSpacing: "0", textTransform: "none", color: "var(--white)", marginBottom: "0.35rem", fontWeight: 800, fontFamily: "var(--font-display)" }}>2027 Inclusion &amp; Culture Roadmap</span>
                   <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "0.75rem", flexWrap: "wrap" }}>
-                    <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.05rem, 2vw, 1.3rem)", color: "var(--white)", margin: 0, lineHeight: 1.2 }}>Turn good intentions into a clear, measurable plan.</h3>
+                    <h3 style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.9rem", color: "rgba(255,255,255,0.8)", margin: 0, lineHeight: 1.4, fontStyle: "italic" }}>Turn good intentions into a clear, measurable plan.</h3>
                     <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "rgba(255,255,255,0.85)", background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)", borderRadius: "999px", padding: "0.25rem 0.75rem", whiteSpace: "nowrap", flexShrink: 0 }}>10–12 weeks</span>
                   </div>
                 </div>
               </div>
               <div style={{ padding: "1.25rem 2rem 0" }}>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(30,40,30,0.85)", lineHeight: 1.65, marginBottom: "1rem" }}>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(30,40,30,0.82)", lineHeight: 1.65, marginBottom: "1rem" }}>
                   2027 brings new expectations for employers: from preventing sexual harassment to pay gap and menopause action plans. This programme gives you a clear picture of where you are now, where you want to be, and exactly how you will get there; with your legal duties built in from the start.
                 </p>
               </div>
@@ -132,20 +132,20 @@ export default function Consultancy() {
             </div>
 
             {/* PROGRAMME 2: Inclusive Leadership */}
-            <div style={{ borderRadius: "16px", overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.18)", background: "#ffffff", borderTop: "4px solid #4a8a5c" }}>
+            <div style={{ borderRadius: "16px", overflow: "hidden", boxShadow: "0 20px 60px rgba(0,0,0,0.12), 0 8px 20px rgba(0,0,0,0.08)", background: "#ffffff", borderTop: "5px solid #4a8a5c", border: "1px solid rgba(74,138,92,0.3)", borderTopWidth: "5px" }}>
               <div style={{ position: "relative", height: "160px", overflow: "hidden" }}>
                 <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url('/watch-5-team-presentation.jpg')", backgroundSize: "cover", backgroundPosition: "center 30%" }} />
                 <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.1) 100%)" }} />
                 <div style={{ position: "absolute", inset: 0, padding: "1.25rem 1.5rem", display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
-                  <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.62rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.8)", marginBottom: "0.4rem" }}>Inclusive Leadership Programme</span>
+                  <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "clamp(1.1rem, 2.2vw, 1.4rem)", letterSpacing: "0", textTransform: "none", color: "var(--white)", marginBottom: "0.35rem", fontWeight: 800, fontFamily: "var(--font-display)" }}>Inclusive Leadership Programme</span>
                   <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "0.75rem", flexWrap: "wrap" }}>
-                    <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.05rem, 2vw, 1.3rem)", color: "var(--white)", margin: 0, lineHeight: 1.2 }}>One consistent standard of inclusion across every site.</h3>
+                    <h3 style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.9rem", color: "rgba(255,255,255,0.8)", margin: 0, lineHeight: 1.4, fontStyle: "italic" }}>One consistent standard of inclusion across every site.</h3>
                     <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "rgba(255,255,255,0.85)", background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)", borderRadius: "999px", padding: "0.25rem 0.75rem", whiteSpace: "nowrap", flexShrink: 0 }}>6–12 weeks</span>
                   </div>
                 </div>
               </div>
               <div style={{ padding: "1.25rem 2rem 0" }}>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(30,40,30,0.85)", lineHeight: 1.65, marginBottom: "1rem" }}>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(30,40,30,0.82)", lineHeight: 1.65, marginBottom: "1rem" }}>
                   For organisations with teams across sites, regions or time zones. Inclusion depends on managers: when your people are spread across locations, consistency matters. This programme gives every manager the same confidence, language and tools; wherever they work.
                 </p>
               </div>
@@ -181,20 +181,20 @@ export default function Consultancy() {
             </div>
 
             {/* PROGRAMME 3: B Corp JEDI */}
-            <div style={{ borderRadius: "16px", overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.18)", background: "#ffffff", borderTop: "4px solid #4a6080" }}>
+            <div style={{ borderRadius: "16px", overflow: "hidden", boxShadow: "0 20px 60px rgba(0,0,0,0.12), 0 8px 20px rgba(0,0,0,0.08)", background: "#ffffff", borderTop: "5px solid #4a6080", border: "1px solid rgba(74,96,128,0.3)", borderTopWidth: "5px" }}>
               <div style={{ position: "relative", height: "160px", overflow: "hidden" }}>
                 <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url('/watch-2-collaboration.jpg')", backgroundSize: "cover", backgroundPosition: "center 35%" }} />
                 <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.1) 100%)" }} />
                 <div style={{ position: "absolute", inset: 0, padding: "1.25rem 1.5rem", display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
-                  <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.62rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.8)", marginBottom: "0.4rem" }}>B Corp JEDI Readiness</span>
+                  <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "clamp(1.1rem, 2.2vw, 1.4rem)", letterSpacing: "0", textTransform: "none", color: "var(--white)", marginBottom: "0.35rem", fontWeight: 800, fontFamily: "var(--font-display)" }}>B Corp JEDI Readiness</span>
                   <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "0.75rem", flexWrap: "wrap" }}>
-                    <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.05rem, 2vw, 1.3rem)", color: "var(--white)", margin: 0, lineHeight: 1.2 }}>Meet the JEDI standard with evidence that stands up to verification.</h3>
+                    <h3 style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.9rem", color: "rgba(255,255,255,0.8)", margin: 0, lineHeight: 1.4, fontStyle: "italic" }}>Meet the JEDI standard with evidence that stands up to verification.</h3>
                     <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "rgba(255,255,255,0.85)", background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.3)", borderRadius: "999px", padding: "0.25rem 0.75rem", whiteSpace: "nowrap", flexShrink: 0 }}>6–8 weeks</span>
                   </div>
                 </div>
               </div>
               <div style={{ padding: "1.25rem 2rem 0" }}>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(30,40,30,0.85)", lineHeight: 1.65, marginBottom: "1rem" }}>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(30,40,30,0.82)", lineHeight: 1.65, marginBottom: "1rem" }}>
                   For businesses certifying or recertifying against B Lab&#39;s new standards. Under B Lab&#39;s new standards, Justice, Equity, Diversity and Inclusion (JEDI) is a mandatory, pass or fail topic. It asks for real data and real action; not just a policy. We help you meet it with evidence that stands up to verification.
                 </p>
               </div>
@@ -232,20 +232,44 @@ export default function Consultancy() {
         </div>
       </section>
 
-      {/* BESPOKE ADD-ON */}
-      <section style={{ background: "#1A3220", padding: "3.5rem 1.5rem 4rem" }}>
-        <div style={{ maxWidth: "860px", margin: "0 auto" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap", marginBottom: "1.25rem" }}>
-            <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", borderRadius: "999px", padding: "0.35rem 1rem", flexShrink: 0 }}>Add-on</span>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.1rem, 2vw, 1.4rem)", color: "var(--white)", margin: 0 }}>Make it yours: bespoke resources and learning modules</h2>
+      {/* TAILOR + BUILD FROM SCRATCH */}
+      <section style={{ background: "var(--white)", padding: "1.75rem 1.5rem" }}>
+        <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: "1.25rem" }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.2rem, 2.4vw, 1.7rem)", color: "var(--charcoal)", marginBottom: "0.4rem" }}>Not a one-size-fits-all approach</h2>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", opacity: 0.7, maxWidth: "560px", margin: "0 auto" }}>Every organisation is different. We build around you.</p>
           </div>
-          <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "rgba(255,255,255,0.85)", lineHeight: 1.8, marginBottom: "1rem" }}>
-            Add tailored, fully branded inclusion resources or e-learning modules to any programme. That includes guides, toolkits and learning content designed just for your organisation; in your look and your language.
-          </p>
-          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", color: "rgba(255,255,255,0.65)", lineHeight: 1.75, marginBottom: "1.75rem" }}>
-            Investment: Our flagship programmes are tailored to your needs, taking into account your organisational size, number of sites, and the scope and complexity of the work. Every proposal is designed to deliver relevant, practical and lasting impact. Contact us to discuss your requirements and receive a bespoke proposal.
-          </p>
-          <Link href="/contact-us" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "#1A3220", background: "var(--white)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none" }}>Contact us →</Link>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem" }}>
+
+            <div style={{ background: "var(--sage-xlight)", borderRadius: "14px", padding: "1.1rem 1.4rem", border: "1px solid rgba(107,143,113,0.2)" }}>
+              <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "38px", height: "38px", borderRadius: "10px", background: "var(--sage-dark)", marginBottom: "0.875rem" }}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+              </div>
+              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.05rem", color: "var(--charcoal)", marginBottom: "0.5rem" }}>Tailor any programme to your organisation</h3>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "var(--charcoal)", opacity: 0.8, lineHeight: 1.7, marginBottom: "0.75rem" }}>
+                See a programme that is almost right, but not quite? We adapt any of our existing programmes to reflect your sector, culture, team makeup and current priorities. The framework is proven; the content becomes yours.
+              </p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.83rem", color: "var(--charcoal)", opacity: 0.65, lineHeight: 1.65, marginBottom: "1rem" }}>
+                You can also add bespoke inclusion resources or fully branded e-learning modules to any programme: guides, toolkits and learning content designed in your look and your language.
+              </p>
+              <Link href="/contact-us" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.7rem 1.4rem", borderRadius: "8px", textDecoration: "none" }}>Tell us what you need →</Link>
+            </div>
+
+            <div style={{ background: "#1A3220", borderRadius: "14px", padding: "1.1rem 1.4rem" }}>
+              <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "38px", height: "38px", borderRadius: "10px", background: "rgba(255,255,255,0.15)", marginBottom: "0.875rem" }}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+              </div>
+              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.05rem", color: "var(--white)", marginBottom: "0.5rem" }}>Build a programme from scratch</h3>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "rgba(255,255,255,0.85)", lineHeight: 1.7, marginBottom: "0.75rem" }}>
+                None of our existing programmes quite fit? No problem. We design consultancy programmes from the ground up; shaped entirely around your organisation&#39;s specific challenges, goals and context.
+              </p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.83rem", color: "rgba(255,255,255,0.65)", lineHeight: 1.65, marginBottom: "1rem" }}>
+                Whether you need a single focused intervention or a multi-strand programme spanning months, we scope it together and build exactly what will make a difference for your people.
+              </p>
+              <Link href="/contact-us" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "#1A3220", background: "var(--white)", padding: "0.7rem 1.4rem", borderRadius: "8px", textDecoration: "none" }}>Start the conversation →</Link>
+            </div>
+
+          </div>
         </div>
       </section>
 
@@ -255,16 +279,16 @@ export default function Consultancy() {
           <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap", marginBottom: "2rem" }}>
             <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(107,143,113,0.15)", borderRadius: "999px", padding: "0.35rem 1rem", flexShrink: 0 }}>What clients say</span>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.5rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
             {[
-              { quote: "Rebekah is a well-organised, methodical instructor; her approach is warm and friendly. The sequence of the session was clear and each section built on the last; with some great practical tips.", name: "Caroline Starling", org: "MSA" },
-              { quote: "Rebekah demonstrated strong facilitation skills throughout the session. She created a safe and inclusive learning environment where participants felt comfortable sharing their perspectives. Her communication style was clear, respectful, and she maintained excellent energy and focus across all discussions.", name: "Portia Slater", org: "The Berkeley School" },
-              { quote: "Rebekah is very knowledgeable on inclusion topics and good at explaining ideas and connecting to comments made by participants. Rebekah is always great at making participants feel comfortable.", name: "Nea Moore", org: "Saltus" },
+              { quote: "Rebekah is a well-organised, methodical instructor; her approach is warm and friendly. The sequence of the session was clear and each section built on the last; with some great practical tips.", name: "", org: "Project Free" },
+              { quote: "Rebekah demonstrated strong facilitation skills throughout the session. She created a safe and inclusive learning environment where participants felt comfortable sharing their perspectives. Her communication style was clear, respectful, and she maintained excellent energy and focus across all discussions.", name: "", org: "Network Plus" },
+              { quote: "Rebekah is very knowledgeable on inclusion topics and good at explaining ideas and connecting to comments made by participants. Rebekah is always great at making participants feel comfortable.", name: "", org: "Hospice UK" },
             ].map((t) => (
-              <div key={t.name} style={{ background: "var(--white)", borderRadius: "16px", padding: "1.75rem", border: "1px solid var(--gray-border)", boxShadow: "0 4px 16px rgba(20,50,25,0.07)" }}>
+              <div key={t.org} style={{ background: "var(--white)", borderRadius: "16px", padding: "1.75rem", border: "1px solid var(--gray-border)", boxShadow: "0 4px 16px rgba(20,50,25,0.07)" }}>
                 <span style={{ fontSize: "1.75rem", color: "var(--sage)", display: "block", marginBottom: "0.75rem", lineHeight: 1 }}>&ldquo;</span>
                 <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "var(--charcoal)", lineHeight: 1.75, marginBottom: "1.25rem", opacity: 0.85, fontStyle: "italic" }}>{t.quote}</p>
-                <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "var(--sage-dark)", margin: 0 }}>{t.name}<span style={{ fontWeight: 400, color: "var(--charcoal)", opacity: 0.6 }}>, {t.org}</span></p>
+                <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "var(--sage-dark)", margin: 0 }}><span style={{ fontWeight: 400, color: "var(--charcoal)", opacity: 0.6 }}>{t.org}</span></p>
               </div>
             ))}
           </div>

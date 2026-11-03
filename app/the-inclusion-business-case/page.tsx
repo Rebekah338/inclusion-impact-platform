@@ -6,12 +6,14 @@ export const metadata = { title: "The Inclusion Business Case | The Inclusion Ed
 
 export default function InclusionBusinessCase() {
   const pillars = [
-    { icon: "📈", title: "Performance and innovation", body: "Diverse teams consistently outperform homogeneous ones on complex problem-solving and creative tasks. McKinsey research shows companies in the top quartile for ethnic diversity are 36% more likely to achieve above-average profitability." },
-    { icon: "🎯", title: "Talent attraction and retention", body: "Candidates increasingly choose employers based on their EDI track record. Organisations that cannot demonstrate genuine commitment to inclusion face a shrinking talent pool and higher attrition costs." },
-    { icon: "⚖️", title: "Legal and reputational risk", body: "The Equality Act 2010 places clear legal duties on organisations. Beyond compliance, reputational damage from inclusion failures can be significant and lasting; particularly in an era of heightened public scrutiny." },
-    { icon: "🤝", title: "Employee wellbeing and engagement", body: "Inclusion is a direct driver of psychological safety, engagement and wellbeing at work. Employees who feel included are more productive, more loyal and more likely to recommend their employer." },
-    { icon: "🏫", title: "Community and social impact", body: "For schools, charities and public sector bodies, inclusion is also a social responsibility. Organisations that reflect and serve their communities build deeper trust and wider impact." },
-    { icon: "🌍", title: "ESG and stakeholder expectations", body: "Investors, funders and commissioners increasingly require evidence of EDI commitment as part of ESG frameworks. The business case is no longer optional; it is expected." },
+    { icon: "📈", title: "Profitability and financial performance", body: "Diverse leadership drives stronger bottom-line results." },
+    { icon: "💡", title: "Innovation and decision-making", body: "Diverse teams generate better ideas and fewer blind spots." },
+    { icon: "🔄", title: "Retention and reducing turnover costs", body: "Inclusion keeps people; and saves the cost of losing them." },
+    { icon: "🌟", title: "Talent attraction and workforce capability", body: "The best candidates choose employers with a genuine EDI track record." },
+    { icon: "⚡", title: "Productivity and team performance", body: "Belonging and psychological safety drive day-to-day output." },
+    { icon: "🛡️", title: "Reputation, risk and accountability", body: "Inclusion failures carry legal, financial and reputational consequences." },
+    { icon: "🌍", title: "ESG and stakeholder expectations", body: "Investors, funders and commissioners expect evidence of EDI commitment." },
+    { icon: "📣", title: "Customer reach and market growth", body: "Inclusive organisations understand and serve broader audiences." },
   ];
 
   return (
@@ -20,7 +22,7 @@ export default function InclusionBusinessCase() {
       <main>
       <section style={{ position: "relative", minHeight: "600px", display: "flex", alignItems: "center", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, #1A3220 0%, #243D28 40%, #2E5235 65%, rgba(46,82,53,0.4) 100%)", zIndex: 0 }} />
-          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/hero-business-case.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 1 }} />
+          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/watch-3-team-review.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 1 }} />
           
           {/* Logo top-right of hero */}
           <div style={{ position: "absolute", top: "1.75rem", right: "2rem", zIndex: 3 }}>
@@ -76,19 +78,97 @@ export default function InclusionBusinessCase() {
         </div>
       </section>
 
-        <section id="the-evidence" style={{ padding: "5rem 1.5rem", background: "var(--white)" }}>
-          <div style={{ maxWidth: "860px", margin: "0 auto" }}>
-            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "1rem", textAlign: "center" }}>The evidence</p>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.5rem, 3vw, 2rem)", color: "var(--charcoal)", marginBottom: "1rem", textAlign: "center" }}>Six reasons inclusion makes business sense.</h2>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--charcoal)", lineHeight: 1.75, maxWidth: "600px", margin: "0 auto 3rem", textAlign: "center", opacity: 0.75 }}>From commercial performance to legal risk, the case for inclusion spans every part of an organisation.</p>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1.5rem" }}>
+        <section id="the-evidence" style={{ padding: "2.5rem 1.5rem", background: "var(--white)" }}>
+          <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+            <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.5rem" }}>The evidence</p>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", margin: 0 }}>Six reasons inclusion makes business sense.</h2>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "1rem" }}>
               {pillars.map((p) => (
-                <div key={p.title} style={{ background: "var(--sage-xlight)", border: "1px solid var(--gray-border)", borderRadius: "16px", padding: "1.75rem" }}>
-                  <div style={{ fontSize: "2rem", marginBottom: "0.75rem" }}>{p.icon}</div>
-                  <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "0.75rem" }}>{p.title}</h3>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.75, opacity: 0.8 }}>{p.body}</p>
+                <div key={p.title} style={{ background: "var(--sage-xlight)", border: "1px solid var(--gray-border)", borderRadius: "12px", padding: "1.25rem" }}>
+                  <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>{p.icon}</div>
+                  <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--charcoal)", marginBottom: "0.4rem" }}>{p.title}</h3>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--charcoal)", lineHeight: 1.65, opacity: 0.8, margin: 0 }}>{p.body}</p>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* STATS EVIDENCE */}
+        <section style={{ background: "#1A3220", padding: "2.5rem 1.5rem" }}>
+          <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+            <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.65)", background: "rgba(255,255,255,0.1)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.75rem" }}>The numbers</span>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.2rem, 2.5vw, 1.7rem)", color: "var(--white)", margin: 0 }}>Evidence you can take into any room.</h2>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem" }}>
+              {[
+                { stat: "36%", label: "More likely to outperform", source: "McKinsey, Diversity Wins (2020)" },
+                { stat: "83%", label: "Of millennials more engaged in inclusive cultures", source: "Deloitte (2018)" },
+                { stat: "87%", label: "Better decision-making in diverse teams", source: "Cloverpop / HBR (2017)" },
+                { stat: "2×", label: "More likely to meet financial targets", source: "Deloitte (2020)" },
+              ].map((s) => (
+                <div key={s.stat} style={{ background: "rgba(255,255,255,0.07)", borderRadius: "12px", padding: "1.25rem", border: "1px solid rgba(255,255,255,0.12)" }}>
+                  <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2.25rem", color: "var(--white)", lineHeight: 1, marginBottom: "0.4rem" }}>{s.stat}</span>
+                  <span style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "rgba(255,255,255,0.9)", marginBottom: "0.5rem", lineHeight: 1.4 }}>{s.label}</span>
+                  <span style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", color: "rgba(255,255,255,0.45)", fontStyle: "italic" }}>{s.source}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* OBJECTIONS */}
+        <section style={{ background: "var(--white)", padding: "4.5rem 1.5rem" }}>
+          <div style={{ maxWidth: "760px", margin: "0 auto" }}>
+            <div style={{ textAlign: "center", marginBottom: "2rem" }}>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.08)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1rem" }}>Common pushbacks</span>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", margin: 0 }}>Heard these in the room?</h2>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              {[
+                { q: "We can't afford to invest in EDI right now.", a: "The cost of not investing is higher: attrition, recruitment fees, discrimination claims and reputational damage all cost far more than a proactive inclusion strategy." },
+                { q: "We're too small to need this.", a: "Inclusion matters at every size. EDI does not require a dedicated HR department; it requires intention and the right tools." },
+                { q: "Our data doesn't show a problem.", a: "An absence of data is not evidence of inclusion. Pay gap analysis, recruitment funnel data and promotion rates often reveal patterns invisible to leadership." },
+                { q: "We tried something before and it didn't work.", a: "One-off training rarely sticks. Real change requires strategy, leadership accountability and ongoing measurement; not a single workshop." },
+              ].map((item, i, arr) => (
+                <div key={item.q} style={{ padding: "1.25rem 0", borderBottom: i < arr.length - 1 ? "1px solid rgba(74,99,71,0.15)" : "none" }}>
+                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", marginBottom: "0.35rem", margin: "0 0 0.35rem" }}>{item.q}</p>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.7, margin: 0, opacity: 0.8 }}>{item.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* PLATFORM TEASER */}
+        <section style={{ background: "linear-gradient(135deg, #1A3220 0%, #2C4A31 60%, #2E5235 100%)", padding: "4rem 1.5rem" }}>
+          <div style={{ maxWidth: "960px", margin: "0 auto" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "3rem", alignItems: "center" }}>
+              <div>
+                <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.65)", background: "rgba(255,255,255,0.1)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.25rem" }}>The Impact Platform</span>
+                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--white)", lineHeight: 1.2, marginBottom: "1rem" }}>Go deeper with the full evidence library.</h2>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.925rem", color: "rgba(255,255,255,0.8)", lineHeight: 1.75, marginBottom: "1.75rem" }}>Platform members get access to structured learning, research and tools built specifically for people driving inclusion in their organisations.</p>
+                <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "#1A3220", background: "var(--white)", padding: "0.75rem 1.75rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>Find out more</Link>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
+                {[
+                  { icon: "📚", title: "Research and evidence bank", desc: "Curated studies, reports and data points organised by theme; ready to cite." },
+                  { icon: "💬", title: "Conversation guides", desc: "Structured prompts and frameworks for navigating difficult EDI conversations with confidence." },
+                  { icon: "📋", title: "Editable templates and toolkits", desc: "Ready-to-adapt resources your organisation can put to use immediately." },
+                  { icon: "🎓", title: "Structured learning modules", desc: "Self-paced courses that build knowledge and practical capability across your team." },
+                ].map((f) => (
+                  <div key={f.title} style={{ display: "flex", gap: "1rem", alignItems: "flex-start", background: "rgba(255,255,255,0.07)", borderRadius: "10px", padding: "1rem 1.25rem", border: "1px solid rgba(255,255,255,0.1)" }}>
+                    <span style={{ fontSize: "1.25rem", flexShrink: 0, marginTop: "0.1rem" }}>{f.icon}</span>
+                    <div>
+                      <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", margin: "0 0 0.25rem" }}>{f.title}</p>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "rgba(255,255,255,0.65)", lineHeight: 1.6, margin: 0 }}>{f.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -118,10 +198,13 @@ export default function InclusionBusinessCase() {
           </div>
         </section>
 
-        <section style={{ background: "var(--charcoal)", padding: "4rem 1.5rem", textAlign: "center" }}>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.75rem", color: "var(--white)", marginBottom: "1rem" }}>Let us help you build the case.</h2>
-          <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "rgba(255,255,255,0.8)", maxWidth: "460px", margin: "0 auto 2rem" }}>Whether you are starting from scratch or strengthening an existing approach; we are here to help.</p>
-          <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--charcoal)", background: "var(--white)", padding: "0.75rem 1.75rem", borderRadius: "8px", textDecoration: "none" }}>Get in touch</Link>
+        <section style={{ background: "#1A3220", padding: "3rem 1.5rem", textAlign: "center" }}>
+          <div style={{ maxWidth: "600px", margin: "0 auto" }}>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.65)", background: "rgba(255,255,255,0.1)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.25rem" }}>Get support</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--white)", marginBottom: "0.75rem" }}>Need help getting buy-in internally?</h2>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "rgba(255,255,255,0.8)", lineHeight: 1.75, marginBottom: "1.75rem" }}>We work with EDI leads, HR teams and people managers to build a compelling case for inclusion investment. Whether you need data, a strategy or someone to help you make the argument; we can help.</p>
+            <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "#1A3220", background: "var(--white)", padding: "0.8rem 2rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>Talk to us about your situation</Link>
+          </div>
         </section>
             <Footer />
     </main>

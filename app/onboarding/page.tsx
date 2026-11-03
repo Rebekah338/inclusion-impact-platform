@@ -213,7 +213,7 @@ export default function OnboardingPage() {
           <img src="/logo-short.png" alt="The Inclusion Edit" style={{ height: '110px', width: 'auto', objectFit: 'contain' }} />
         </div>
         <div style={{ position: 'absolute', top: '1.5rem', left: '2rem', zIndex: 3 }}>
-          <a href="/dashboard" style={{ display: 'inline-flex', alignItems: 'center', gap: '.4rem', color: 'rgba(255,255,255,0.85)', textDecoration: 'none', fontSize: '.9rem', fontFamily: 'var(--font-body)', fontWeight: 500, background: 'rgba(255,255,255,0.12)', borderRadius: '8px', padding: '.5rem 1rem', backdropFilter: 'blur(4px)', border: '1px solid rgba(255,255,255,0.2)', transition: 'background .2s' }}>← Back to dashboard</a>
+          <a href="/dashboard" style={{ display: 'inline-flex', alignItems: 'center', gap: '.3rem', color: 'rgba(255,255,255,0.85)', textDecoration: 'none', fontSize: '.78rem', fontFamily: 'var(--font-body)', fontWeight: 500, background: 'rgba(255,255,255,0.12)', borderRadius: '6px', padding: '.35rem .7rem', backdropFilter: 'blur(4px)', border: '1px solid rgba(255,255,255,0.2)' }}>← Back to dashboard</a>
         </div>
         <div style={{ position: 'relative', zIndex: 1, maxWidth: '1200px', margin: '0 auto', padding: '4rem 2rem', width: '100%', boxSizing: 'border-box' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '.75rem', marginBottom: '2rem' }}>

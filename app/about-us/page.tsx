@@ -158,7 +158,7 @@ export default function AboutUs() {
                 { name: "Osakpolor Orumwense", role: "Creative Contributor", img: "/team-osa.jpg", linkedin: "#", bio: "Content creator and community builder with experience in podcast production and social media. She brings creative strategy and audience insight to everything The Inclusion Edit produces." },
               ].map((person) => (
                 <div key={person.name} style={{ background: "var(--white)", borderRadius: "16px", border: "1.5px solid rgba(107,143,113,0.3)", overflow: "hidden", boxShadow: "0 4px 16px rgba(42,74,48,0.08), 0 1px 4px rgba(42,74,48,0.06)", display: "flex", flexDirection: "column", alignItems: "center", padding: "1.25rem 1.25rem 1.25rem", textAlign: "center" }}>
-                  <div style={{ width: "120px", height: "120px", borderRadius: "50%", overflow: "hidden", marginBottom: "0.4rem", border: "3px solid var(--sage-xlight)", boxShadow: "0 4px 16px rgba(42,74,48,0.1)" }}>
+                  <div style={{ width: "120px", height: "120px", borderRadius: "50%", overflow: "hidden", marginBottom: "0.4rem", border: "3px solid var(--sage-xlight)", boxShadow: "0 4px 16px rgba(42,74,48,0.1)", background: "#ffffff" }}>
                     <img src={person.img} alt={person.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
                   </div>
                   <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--charcoal)", marginBottom: "0.15rem" }}>{person.name}</p>
@@ -176,10 +176,10 @@ export default function AboutUs() {
               {[
                 { name: "Elizabeth Vincent", role: "Product & Digital Platform Development", img: "/team-elizabeth.jpg", linkedin: "#", bio: "Commercial strategy and operations leader with a decade of experience scaling technology businesses; bringing a sharp focus on inclusive workplace culture and digital learning." },
                 { name: "Rioh Burke", role: "Commercial & Business Strategy", img: "/team-rioh.jpg", linkedin: "#", bio: "Strategy Director specialising in enterprise strategy, operating model design and large-scale transformation. A recognised voice on equity, diversity and inclusion." },
-                { name: "Tracy Bortier", role: "Partnerships & Collaborations", img: "/team-tracy.jpg", linkedin: "#", bio: "Strategic leader specialising in cross-sector partnerships that drive sustainable growth. She helps organisations turn values into action and scale with integrity." },
+                { name: "Tracy Bortier", role: "Partnerships & Collaborations", img: "/team-tracy.png", linkedin: "#", bio: "Strategic leader specialising in cross-sector partnerships that drive sustainable growth. She helps organisations turn values into action and scale with integrity." },
               ].map((person) => (
                 <div key={person.name} style={{ background: "var(--white)", borderRadius: "16px", border: "1.5px solid rgba(107,143,113,0.3)", overflow: "hidden", boxShadow: "0 4px 16px rgba(42,74,48,0.08), 0 1px 4px rgba(42,74,48,0.06)", display: "flex", flexDirection: "column", alignItems: "center", padding: "1.25rem 1.25rem 1.25rem", textAlign: "center" }}>
-                  <div style={{ width: "120px", height: "120px", borderRadius: "50%", overflow: "hidden", marginBottom: "0.4rem", border: "3px solid var(--sage-xlight)", boxShadow: "0 4px 16px rgba(42,74,48,0.1)" }}>
+                  <div style={{ width: "120px", height: "120px", borderRadius: "50%", overflow: "hidden", marginBottom: "0.4rem", border: "3px solid var(--sage-xlight)", boxShadow: "0 4px 16px rgba(42,74,48,0.1)", background: "#ffffff" }}>
                     <img src={person.img} alt={person.name} style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
                   </div>
                   <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--charcoal)", marginBottom: "0.15rem" }}>{person.name}</p>
