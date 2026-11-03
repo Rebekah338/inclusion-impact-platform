@@ -83,7 +83,7 @@ export default function Consultancy() {
           <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
 
             {/* PROGRAMME 1: 2027 Roadmap */}
-            <div style={{ borderRadius: "20px", borderRadius: "16px", overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.18)", background: "#ffffff", borderTop: "4px solid #C9A84C" }}>
+            <div style={{ borderRadius: "16px", overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.18)", background: "#ffffff", borderTop: "4px solid #C9A84C" }}>
               <div style={{ position: "relative", height: "160px", overflow: "hidden" }}>
                 <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url('/watch-6-strategy.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%" }} />
                 <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.1) 100%)" }} />
@@ -132,7 +132,7 @@ export default function Consultancy() {
             </div>
 
             {/* PROGRAMME 2: Inclusive Leadership */}
-            <div style={{ borderRadius: "20px", borderRadius: "16px", overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.18)", background: "#ffffff", borderTop: "4px solid #4a8a5c" }}>
+            <div style={{ borderRadius: "16px", overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.18)", background: "#ffffff", borderTop: "4px solid #4a8a5c" }}>
               <div style={{ position: "relative", height: "160px", overflow: "hidden" }}>
                 <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url('/watch-5-team-presentation.jpg')", backgroundSize: "cover", backgroundPosition: "center 30%" }} />
                 <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.1) 100%)" }} />
@@ -181,7 +181,7 @@ export default function Consultancy() {
             </div>
 
             {/* PROGRAMME 3: B Corp JEDI */}
-            <div style={{ borderRadius: "20px", borderRadius: "16px", overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.18)", background: "#ffffff", borderTop: "4px solid #4a6080" }}>
+            <div style={{ borderRadius: "16px", overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.18)", background: "#ffffff", borderTop: "4px solid #4a6080" }}>
               <div style={{ position: "relative", height: "160px", overflow: "hidden" }}>
                 <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url('/watch-2-collaboration.jpg')", backgroundSize: "cover", backgroundPosition: "center 35%" }} />
                 <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.1) 100%)" }} />
