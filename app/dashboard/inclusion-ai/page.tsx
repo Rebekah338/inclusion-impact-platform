@@ -17,7 +17,7 @@ const SECTIONS = [
         name: "Evidence Argument Builder",
         tagline: "Build a structured, evidence-backed argument for EDI investment.",
         desc: "Tell us what you are trying to argue and who you are presenting to. We surface the most relevant evidence from our research library and build you a tailored business case.",
-        href: "/dashboard/evidence",
+        href: "/dashboard/evidence?tab=evidence-builder",
       },
       {
         id: "research-interpreter",
@@ -25,7 +25,7 @@ const SECTIONS = [
         name: "Personalised Research Interpreter",
         tagline: "Turn academic research into actionable insight for your organisation.",
         desc: "Paste any research paper, report or article and receive an inclusion-focused summary: key findings, practical takeaways, and how the evidence applies to your specific context.",
-        href: "/dashboard/evidence",
+        href: "/dashboard/evidence?tab=evidence-builder",
       },
       {
         id: "gender-pay-gap-statement-builder",

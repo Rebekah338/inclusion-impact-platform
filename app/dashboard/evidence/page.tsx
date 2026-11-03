@@ -1468,7 +1468,8 @@ const PITCH_TARGETS = [
 type Tab = "research" | "evidence-builder" | "cases" | "downloads";
 
 function EvidencePageInner() {
-  const [activeTab, setActiveTab] = useState<Tab>("research");
+  const tabParam = searchParams.get("tab") as Tab | null;
+  const [activeTab, setActiveTab] = useState<Tab>(tabParam ?? "research");
   const [search, setSearch] = useState("");
 
   // Research brief state
