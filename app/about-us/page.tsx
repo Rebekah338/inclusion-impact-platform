@@ -109,7 +109,7 @@ export default function AboutUs() {
               <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", margin: 0 }}>Rebekah Hayward, Founder</p>
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.75rem", flexShrink: 0 }}>
-              <div style={{ width: "180px", height: "180px", borderRadius: "50%", overflow: "hidden", border: "4px solid var(--white)", boxShadow: "0 12px 48px rgba(42,74,48,0.45), 0 4px 20px rgba(42,74,48,0.25), 0 0 60px rgba(107,143,113,0.2)" }}>
+              <div style={{ position: "relative", width: "180px", height: "180px", borderRadius: "50%", overflow: "hidden", border: "4px solid var(--white)", boxShadow: "0 12px 48px rgba(42,74,48,0.45), 0 4px 20px rgba(42,74,48,0.25), 0 0 60px rgba(107,143,113,0.2)" }}>
                 <Image src={"/rebekah-hayward.jpg"} alt="Rebekah Hayward" fill style={{ objectFit: "cover", objectPosition: "center top" }} />
               </div>
               <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--charcoal)", textAlign: "center", margin: 0 }}>Rebekah Hayward</p>
@@ -163,7 +163,7 @@ export default function AboutUs() {
                 { name: "Osakpolor Orumwense", role: "Creative Contributor", img: "/team-osa.jpg", linkedin: "#", bio: "Content creator and community builder with experience in podcast production and social media. She brings creative strategy and audience insight to everything The Inclusion Edit produces." },
               ].map((person) => (
                 <div key={person.name} style={{ background: "var(--white)", borderRadius: "16px", border: "1.5px solid rgba(107,143,113,0.3)", overflow: "hidden", boxShadow: "0 4px 16px rgba(42,74,48,0.08), 0 1px 4px rgba(42,74,48,0.06)", display: "flex", flexDirection: "column", alignItems: "center", padding: "1.25rem 1.25rem 1.25rem", textAlign: "center" }}>
-                  <div style={{ width: "120px", height: "120px", borderRadius: "50%", overflow: "hidden", marginBottom: "0.4rem", border: "3px solid var(--sage-xlight)", boxShadow: "0 4px 16px rgba(42,74,48,0.1)" }}>
+                  <div style={{ position: "relative", width: "120px", height: "120px", borderRadius: "50%", overflow: "hidden", marginBottom: "0.4rem", border: "3px solid var(--sage-xlight)", boxShadow: "0 4px 16px rgba(42,74,48,0.1)" }}>
                     <Image src={person.img} alt="" fill style={{ objectFit: "cover", objectPosition: "center top" }} />
                   </div>
                   <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--charcoal)", marginBottom: "0.15rem" }}>{person.name}</p>
@@ -184,7 +184,7 @@ export default function AboutUs() {
                 { name: "Tracy Bortier", role: "Partnerships & Collaborations", img: "/team-tracy.jpg", linkedin: "#", bio: "Strategic leader specialising in cross-sector partnerships that drive sustainable growth. She helps organisations turn values into action and scale with integrity." },
               ].map((person) => (
                 <div key={person.name} style={{ background: "var(--white)", borderRadius: "16px", border: "1.5px solid rgba(107,143,113,0.3)", overflow: "hidden", boxShadow: "0 4px 16px rgba(42,74,48,0.08), 0 1px 4px rgba(42,74,48,0.06)", display: "flex", flexDirection: "column", alignItems: "center", padding: "1.25rem 1.25rem 1.25rem", textAlign: "center" }}>
-                  <div style={{ width: "120px", height: "120px", borderRadius: "50%", overflow: "hidden", marginBottom: "0.4rem", border: "3px solid var(--sage-xlight)", boxShadow: "0 4px 16px rgba(42,74,48,0.1)" }}>
+                  <div style={{ position: "relative", width: "120px", height: "120px", borderRadius: "50%", overflow: "hidden", marginBottom: "0.4rem", border: "3px solid var(--sage-xlight)", boxShadow: "0 4px 16px rgba(42,74,48,0.1)" }}>
                     <Image src={person.img} alt="" fill style={{ objectFit: "cover", objectPosition: "center top" }} />
                   </div>
                   <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--charcoal)", marginBottom: "0.15rem" }}>{person.name}</p>

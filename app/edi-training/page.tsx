@@ -149,7 +149,7 @@ export default function Training() {
                 { src: "/training-photo-3.jpg", alt: "Rebekah facilitating an inclusion workshop" },
                 { src: "/training-photo-4.jpg", alt: "Rebekah speaking at a training session" },
               ].map((photo) => (
-                <div key={photo.src} style={{ borderRadius: "12px", overflow: "hidden", aspectRatio: "3/4" }}>
+                <div key={photo.src} style={{ position: "relative", borderRadius: "12px", overflow: "hidden", aspectRatio: "3/4" }}>
                   <Image src={photo.src} alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />
                 </div>
               ))}

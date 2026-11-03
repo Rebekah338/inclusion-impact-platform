@@ -516,7 +516,7 @@ This is exactly the kind of situation The Inclusion Edit supports. The right sta
             <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem" }} className="services-grid">
               {SERVICES.map((s) => (
                 <div key={s.label} style={{ background: "var(--white)", borderRadius: "16px", border: "1.5px solid rgba(107,143,113,0.3)", display: "flex", flexDirection: "column", overflow: "hidden", boxShadow: "0 4px 16px rgba(42,74,48,0.08), 0 1px 4px rgba(42,74,48,0.06)" }}>
-                  <div style={{ width: "100%", height: "160px", overflow: "hidden", flexShrink: 0, background: "linear-gradient(160deg, #c8dbc9 0%, #a8c4aa 100%)" }}>
+                  <div style={{ width: "100%", height: "160px", overflow: "hidden", flexShrink: 0, position: "relative", background: "linear-gradient(160deg, #c8dbc9 0%, #a8c4aa 100%)" }}>
                     {s.image && <Image src={s.image} alt="" fill style={{ objectFit: "cover", objectPosition: "center" }} />}
                   </div>
                   <div style={{ padding: "1.5rem", display: "flex", flexDirection: "column", flexGrow: 1, background: "linear-gradient(160deg, #f7fbf7 0%, #eef6ee 60%, #e4f0e4 100%)" }}>
@@ -685,9 +685,7 @@ This is exactly the kind of situation The Inclusion Edit supports. The right sta
               </p>
               <Link href="/about-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--sage-dark)", textDecoration: "none" }}>Learn more about our work →</Link>
             </div>
-            <div style={{ borderRadius: "20px", aspectRatio: "4/5", overflow: "hidden", border: "1px solid var(--gray-border)" }}>
-              <Image src={"/rebekah-hayward.jpg"} alt="Rebekah Hayward, Founder of The Inclusion Edit" fill style={{ objectFit: "cover", objectPosition: "center top" }} />
-            </div>
+            <div style={{ borderRadius: "20px", aspectRatio: "4/5", background: "linear-gradient(160deg, #e8f0e9 0%, #d4e4d5 100%)", border: "1px solid var(--gray-border)" }} />
           </div>
         </section>
 

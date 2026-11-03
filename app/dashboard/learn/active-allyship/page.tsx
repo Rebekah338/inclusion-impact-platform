@@ -146,7 +146,7 @@ function Slide2() {
   return (
     <SlideShell>
       <SlideHeading title="What Allyship Actually Means" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/active-allyship/slide2-colleagues-listening.jpg"} alt="Two colleagues in a thoughtful conversation, one listening attentively to the other" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -176,7 +176,7 @@ function Slide3() {
   return (
     <SlideShell>
       <SlideHeading title="Educate Yourself; Listen to Understand" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/active-allyship/slide3-reading-learning.jpg"} alt="A person reading thoughtfully, representing self-directed learning" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -207,7 +207,7 @@ function Slide4() {
   return (
     <SlideShell>
       <SlideHeading title="Use Inclusive Language; Speak Up and Step Up" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/active-allyship/slide4-speaking-up.jpg"} alt="A person speaking up in a team meeting, others listening" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -267,7 +267,7 @@ function Slide6() {
   return (
     <SlideShell>
       <SlideHeading title="Micro-affirmations and Supporting Accessibility" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/active-allyship/slide6-inclusive-workspace.jpg"} alt="A welcoming, inclusive workspace with people collaborating in an accessible environment" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>

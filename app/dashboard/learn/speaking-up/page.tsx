@@ -166,7 +166,7 @@ function Slide2() {
   return (
     <SlideShell>
       <SlideHeading title="Why People Stay Silent" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/speaking-up/slide2-bystander.jpg"} alt="A person observing a workplace conversation with concern" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -194,7 +194,7 @@ function Slide3() {
   return (
     <SlideShell>
       <SlideHeading title="Step 1: Assess Safety, Setting, and Timing" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/speaking-up/slide3-assess.jpg"} alt="A person pausing thoughtfully before responding in a workplace situation" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -221,7 +221,7 @@ function Slide4() {
   return (
     <SlideShell>
       <SlideHeading title="Step 2: Using Constructive Language" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/speaking-up/slide4-language.jpg"} alt="Two colleagues having a calm and constructive one to one conversation" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -287,7 +287,7 @@ function Slide6() {
   return (
     <SlideShell>
       <SlideHeading title="Step 4: Acknowledging Emotions and Checking In" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/speaking-up/slide6-checkin.jpg"} alt="A colleague checking in with empathy and genuine concern" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -379,7 +379,7 @@ function Slide9() {
   return (
     <SlideShell>
       <SlideHeading title="Step 7: Reporting Through the Right Channels" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/speaking-up/slide9-reporting.jpg"} alt="A person meeting with a trusted manager or HR professional to report a concern" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>

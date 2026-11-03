@@ -149,7 +149,7 @@ function Slide2() {
   return (
     <SlideShell>
       <SlideHeading title="Why Imagery Matters" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/representation-matters/slide2-diverse-imagery.jpg"} alt="A diverse group of people featured across different workplace and community contexts" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -180,7 +180,7 @@ function Slide3() {
   return (
     <SlideShell>
       <SlideHeading title="Centre Lived Experience" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/representation-matters/slide3-authentic-community.jpg"} alt="People from diverse backgrounds engaged authentically in a community or workplace setting" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -211,7 +211,7 @@ function Slide4() {
   return (
     <SlideShell>
       <SlideHeading title="Challenge Stereotypes and Represent Power Equitably" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/representation-matters/slide4-leadership-diversity.jpg"} alt="Diverse individuals in leadership and decision-making roles" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -251,7 +251,7 @@ function Slide5() {
   return (
     <SlideShell>
       <SlideHeading title="Accessibility in Imagery" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/representation-matters/slide5-accessibility.jpg"} alt="A person using assistive technology to access digital content" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -283,7 +283,7 @@ function Slide6() {
   return (
     <SlideShell>
       <SlideHeading title="Authenticity and the Diversity Stock Photo Problem" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/representation-matters/slide6-authentic-workplace.jpg"} alt="Real colleagues in a natural, unposed workplace interaction" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -317,7 +317,7 @@ function Slide7() {
   return (
     <SlideShell>
       <SlideHeading title="Trauma-Informed and Intersectional Imagery" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/representation-matters/slide7-community.jpg"} alt="A diverse group of people showing resilience, agency, and connection in their community" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -403,7 +403,7 @@ function Slide9() {
   return (
     <SlideShell>
       <SlideHeading title="Aligning Imagery with Organisational Action" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/representation-matters/slide9-alignment.jpg"} alt="An organisation's visual communications reflecting its inclusive culture and practice" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>

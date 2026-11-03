@@ -150,7 +150,7 @@ function Slide2() {
   return (
     <SlideShell>
       <SlideHeading title="The Origin of Intersectionality" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/what-is-intersectionality/slide2-origin.jpg"} alt="A person speaking at a podium to a large audience at a law and equality conference" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -182,7 +182,7 @@ function Slide3() {
   return (
     <SlideShell>
       <SlideHeading title="Moving Beyond Single Identities" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/what-is-intersectionality/slide3-beyond-single-identity.jpg"} alt="Two women with different backgrounds sitting side by side in a workplace, each with a distinct expression" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -212,7 +212,7 @@ function Slide4() {
   return (
     <SlideShell>
       <SlideHeading title="Understanding Privilege" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/what-is-intersectionality/slide4-privilege.jpg"} alt="A person walking through an open door while others wait, illustrating unequal access" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -243,7 +243,7 @@ function Slide5() {
   return (
     <SlideShell>
       <SlideHeading title="Power: Who Sets the Rules" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/what-is-intersectionality/slide5-power.jpg"} alt="A board room table with one dominant voice while others sit back and listen" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -273,7 +273,7 @@ function Slide6() {
   return (
     <SlideShell>
       <SlideHeading title="Where Intersectionality Shows Up at Work" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/what-is-intersectionality/slide6-workplace.jpg"} alt="A diverse group of employees in a modern open plan office, some engaged and some less so" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -415,7 +415,7 @@ function Slide10() {
   return (
     <SlideShell>
       <SlideHeading title="Applying an Intersectional Lens: Practical Strategies" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/what-is-intersectionality/slide10-strategies.jpg"} alt="A team reviewing data and process diagrams together with post-it notes on a whiteboard" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -449,7 +449,7 @@ function Slide11() {
   return (
     <SlideShell>
       <SlideHeading title="Things to Remember" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/what-is-intersectionality/slide11-remember.jpg"} alt="A person sitting quietly in reflection, looking thoughtfully out of a window" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>

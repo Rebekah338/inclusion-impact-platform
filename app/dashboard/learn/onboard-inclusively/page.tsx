@@ -149,7 +149,7 @@ function Slide2() {
   return (
     <SlideShell>
       <SlideHeading title="Pre-Onboarding: Setting the Tone Before Day One" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/onboard-inclusively/slide2-welcome.jpg"} alt="A new employee receiving a warm welcome communication before their first day" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -183,7 +183,7 @@ function Slide3() {
   return (
     <SlideShell>
       <SlideHeading title="The First Day and First Week" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/onboard-inclusively/slide3-first-day.jpg"} alt="A new employee being welcomed warmly by colleagues on their first day" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -225,7 +225,7 @@ function Slide4() {
   return (
     <SlideShell>
       <SlideHeading title="Policy and Process Awareness" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/onboard-inclusively/slide4-policies.jpg"} alt="An employee reviewing workplace policies and inclusion documents" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -261,7 +261,7 @@ function Slide5() {
   return (
     <SlideShell>
       <SlideHeading title="Ongoing Support and Development" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/onboard-inclusively/slide5-development.jpg"} alt="A manager and new employee in a supportive one-to-one conversation" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -291,7 +291,7 @@ function Slide6() {
   return (
     <SlideShell>
       <SlideHeading title="Inclusive Communication During Onboarding" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/onboard-inclusively/slide6-communication.jpg"} alt="Colleagues communicating inclusively across different backgrounds and communication styles" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -332,7 +332,7 @@ function Slide7() {
   return (
     <SlideShell>
       <SlideHeading title="Wellbeing and Psychological Safety" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/onboard-inclusively/slide7-wellbeing.jpg"} alt="A new employee feeling psychologically safe and supported in their new workplace" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -362,7 +362,7 @@ function Slide8() {
   return (
     <SlideShell>
       <SlideHeading title="Measuring Inclusion in Onboarding" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/onboard-inclusively/slide8-measurement.jpg"} alt="Data and feedback being used to improve onboarding practices" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>

@@ -146,7 +146,7 @@ function Slide2() {
   return (
     <SlideShell>
       <SlideHeading title="What Is EDI Fatigue?" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/managing-edi-fatigue/slide2-tired-professional.jpg"} alt="A professional looking thoughtfully tired at their desk, representing the emotional weight of sustained EDI work" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -206,7 +206,7 @@ function Slide4() {
   return (
     <SlideShell>
       <SlideHeading title="Celebrate Wins; Communicate Transparently" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/managing-edi-fatigue/slide4-team-celebrating.jpg"} alt="A team celebrating a milestone together in a modern workspace" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
@@ -309,7 +309,7 @@ function Slide7() {
   return (
     <SlideShell>
       <SlideHeading title="Support Wellbeing; Equip People with Tools" />
-      <div style={{ borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
+      <div style={{ position: "relative", borderRadius: "0.75rem", overflow: "hidden", marginBottom: "1.5rem", border: "1px solid var(--gray-border)" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <Image src={"/images/managing-edi-fatigue/slide7-wellbeing-support.jpg"} alt="Two colleagues having a supportive one to one conversation in a calm workplace setting" fill style={{ objectFit: "cover", objectPosition: "center" }} />
       </div>
