@@ -126,7 +126,6 @@ function computeMatcherResults(answers: string[]): string[] {
 
 export default function OnboardingPage() {
   const [name, setName] = useState('');
-  const [nameSubmitted, setNameSubmitted] = useState(false);
   const [completed, setCompleted] = useState<CompletedMap>({});
   const [reflections, setReflections] = useState<ReflectionMap>({});
   const [openReflection, setOpenReflection] = useState<OpenMap>({});
@@ -140,7 +139,7 @@ export default function OnboardingPage() {
       const saved = localStorage.getItem('onboarding_state');
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (parsed.name) { setName(parsed.name); setNameSubmitted(true); }
+        if (parsed.name) { setName(parsed.name); }
         if (parsed.completed) setCompleted(parsed.completed);
         if (parsed.reflections) setReflections(parsed.reflections);
       }
@@ -148,11 +147,10 @@ export default function OnboardingPage() {
   }, []);
 
   useEffect(() => {
-    if (!nameSubmitted) return;
     try {
       localStorage.setItem('onboarding_state', JSON.stringify({ name, completed, reflections }));
     } catch {}
-  }, [name, completed, reflections, nameSubmitted]);
+  }, [name, completed, reflections]);
 
   const toggleComplete = (id: string) => setCompleted(prev => ({ ...prev, [id]: !prev[id] }));
   const toggleReflection = (id: string) => setOpenReflection(prev => ({ ...prev, [id]: !prev[id] }));
@@ -225,22 +223,14 @@ export default function OnboardingPage() {
             <span style={{ color: 'rgba(255,255,255,0.8)', fontSize: '.9rem', display: 'flex', alignItems: 'center', gap: '.4rem' }}>📋 12 items to complete</span>
             <span style={{ color: 'rgba(255,255,255,0.8)', fontSize: '.9rem', display: 'flex', alignItems: 'center', gap: '.4rem' }}>🏆 Certificate on completion</span>
           </div>
-          {!nameSubmitted ? (
-            <div style={{ display: 'flex', gap: '.75rem', flexWrap: 'wrap', maxWidth: '480px' }}>
-              <input type="text" placeholder="Enter your name to begin" value={name} onChange={e => setName(e.target.value)} onKeyDown={e => { if (e.key === 'Enter' && name.trim()) setNameSubmitted(true); }} style={{ flex: 1, minWidth: '200px', padding: '.875rem 1rem', borderRadius: '8px', border: 'none', fontSize: '1rem', fontFamily: 'var(--font-body)', outline: 'none', boxSizing: 'border-box' }} />
-              <button onClick={() => { if (name.trim()) setNameSubmitted(true); }} disabled={!name.trim()} style={{ padding: '.875rem 1.75rem', background: name.trim() ? '#C9A84C' : 'rgba(255,255,255,0.3)', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '1rem', fontWeight: 700, cursor: name.trim() ? 'pointer' : 'default', fontFamily: 'var(--font-body)', whiteSpace: 'nowrap' }}>Begin →</button>
-            </div>
-          ) : (
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '.75rem', background: 'rgba(255,255,255,0.12)', borderRadius: '10px', padding: '.75rem 1.25rem', backdropFilter: 'blur(4px)' }}>
-              <span style={{ color: '#fff', fontSize: '1rem' }}>Welcome back, <strong>{name}</strong></span>
-              <span style={{ background: '#C9A84C', color: '#fff', borderRadius: '6px', padding: '.2rem .6rem', fontSize: '.8rem', fontWeight: 700 }}>{progressPct}% complete</span>
-            </div>
-          )}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '.5rem', maxWidth: '480px' }}>
+            <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '.9rem', margin: 0 }}>Enter your name below; it will appear on your certificate when you complete the programme.</p>
+            <input type="text" placeholder="Your name" value={name} onChange={e => setName(e.target.value)} style={{ padding: '.875rem 1rem', borderRadius: '8px', border: 'none', fontSize: '1rem', fontFamily: 'var(--font-body)', outline: 'none', boxSizing: 'border-box', maxWidth: '320px' }} />
+          </div>
         </div>
       </div>
 
-      {nameSubmitted && (
-        <>
+      <>
           {/* PROGRESS BAR */}
           <div style={{ background: 'var(--white)', borderBottom: '1px solid var(--gray-border)', padding: '1.25rem 1.5rem' }}>
             <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
@@ -495,12 +485,17 @@ export default function OnboardingPage() {
                 <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🏆</div>
                 <h2 style={{ fontFamily: 'var(--font-display)', color: 'var(--charcoal)', marginBottom: '.5rem' }}>Foundations Complete</h2>
                 <p style={{ color: '#666', marginBottom: '1.5rem' }}>You have completed your Inclusion Foundations programme. Download your certificate below.</p>
-                <button onClick={() => generateCertificate(name)} style={{ padding: '.875rem 2rem', background: '#C9A84C', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '1rem', fontWeight: 700, cursor: 'pointer', fontFamily: 'var(--font-body)' }}>Download Certificate</button>
+                {!name.trim() && (
+                  <div style={{ marginBottom: '1rem' }}>
+                    <p style={{ color: '#666', fontSize: '.9rem', marginBottom: '.5rem' }}>Please enter your name so it appears on your certificate:</p>
+                    <input type="text" placeholder="Your name" value={name} onChange={e => setName(e.target.value)} style={{ padding: '.75rem 1rem', borderRadius: '8px', border: '1px solid var(--gray-border)', fontSize: '1rem', fontFamily: 'var(--font-body)', outline: 'none', width: '280px', boxSizing: 'border-box' }} />
+                  </div>
+                )}
+                <button onClick={() => generateCertificate(name)} disabled={!name.trim()} style={{ padding: '.875rem 2rem', background: name.trim() ? '#C9A84C' : '#ccc', color: '#fff', border: 'none', borderRadius: '8px', fontSize: '1rem', fontWeight: 700, cursor: name.trim() ? 'pointer' : 'default', fontFamily: 'var(--font-body)' }}>Download Certificate</button>
               </div>
             </div>
           )}
-        </>
-      )}
+      </>
 
           {/* FOOTER */}
           <div style={{ background: 'linear-gradient(180deg, var(--sage-xlight) 0%, #f0ede6 100%)', marginTop: '4rem', padding: '3.5rem 1.5rem 2.5rem', borderTop: '1px solid var(--gray-border)' }}>
