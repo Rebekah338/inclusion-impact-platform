@@ -1481,14 +1481,10 @@ const PREVIEW_COUNT = 4;
 
 /* Start here: the eight Business Case Essentials (sourced figures as given in each item's own source) */
 const ESSENTIALS: { kind: string; title: string; desc: string; icon: string; go: "brief" | "case" | "builder" | "downloads"; target: string }[] = [
-  { kind: "Research and Data", title: "McKinsey Diversity Wins", desc: "Top-quartile gender diversity and above-average profitability. McKinsey and Company, 2023.", icon: "chart", go: "brief", target: "mckinsey-diversity-wins" },
-  { kind: "Research and Data", title: "The Diversity and Inclusion Revolution", desc: "How belonging links to team performance and turnover risk. Deloitte, 2018.", icon: "chart", go: "brief", target: "deloitte-inclusion-revolution" },
-  { kind: "Case Study", title: "SAP: Neurodiversity as a Business Strategy", desc: "Autism at Work: inclusion as capability, not charity.", icon: "briefcase", go: "case", target: "sap-autism-at-work" },
-  { kind: "Case Study", title: "NHS: Quantifying the Price of Fear", desc: "What workplace exclusion costs, across seven financial categories. Kline and Lewis, 2019.", icon: "briefcase", go: "case", target: "nhs-cost-of-exclusion" },
-  { kind: "Inclusion AI", title: "Build Your Business Case", desc: "Answer a few questions and get a tailored, evidence-backed argument.", icon: "sparkle", go: "builder", target: "" },
-  { kind: "Template", title: "Business Case for Inclusion Template", desc: "A board-ready structure with prompts, data placeholders and example language.", icon: "clipboard", go: "downloads", target: "" },
-  { kind: "Template", title: "EDI Data Dashboard Template", desc: "Track recruitment, retention, pay, progression and engagement in one place.", icon: "chart", go: "downloads", target: "" },
-  { kind: "Template", title: "EDI Strategy One-Pager Template", desc: "A one-page summary of your EDI strategy for senior stakeholders.", icon: "clipboard", go: "downloads", target: "" },
+  { kind: "Research", title: "McKinsey Diversity Wins", desc: "Diversity and above-average profitability. McKinsey, 2023.", icon: "chart", go: "brief", target: "mckinsey-diversity-wins" },
+  { kind: "Case Study", title: "SAP: Autism at Work", desc: "Neurodiversity as a business strategy.", icon: "briefcase", go: "case", target: "sap-autism-at-work" },
+  { kind: "Inclusion AI", title: "Build Your Business Case", desc: "A tailored, evidence-backed argument.", icon: "sparkle", go: "builder", target: "" },
+  { kind: "Template", title: "Business Case Template", desc: "A board-ready structure with prompts.", icon: "clipboard", go: "downloads", target: "" },
 ];
 
 /* The three Evidence Builder tools, in the standard Inclusion AI card */
@@ -2367,7 +2363,7 @@ function EvidencePageInner() {
 
       {/* PHOTO HERO (platform page template, compact) */}
       <header style={{ position: "relative", minHeight: "420px", display: "flex", alignItems: "center", overflow: "hidden", background: "var(--forest)" }}>
-        <img src="/make-the-case-hero.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 35%" }} />
+        <img src="/make-the-case-hero.jpg" alt="" style={{ position: "absolute", top: 0, bottom: 0, right: 0, left: "28%", width: "72%", height: "100%", objectFit: "cover", objectPosition: "center 30%" }} />
         <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "var(--hero-overlay)" }} />
         <div style={{ position: "relative", zIndex: 1, maxWidth: "1200px", margin: "0 auto", padding: "2.25rem 1.5rem 2.5rem", width: "100%", boxSizing: "border-box" }}>
           <Link href="/dashboard" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", textDecoration: "none", background: "rgba(255,255,255,0.12)", border: "1.5px solid rgba(255,255,255,0.4)", borderRadius: "var(--radius-sm)", padding: "0.45rem 0.9rem", backdropFilter: "blur(4px)" }}>
@@ -2424,13 +2420,13 @@ function EvidencePageInner() {
           <>
             {/* START HERE: Business Case Essentials (shown on the landing view only) */}
             {!activeCategory && !search && (
-              <section aria-labelledby="essentials" style={{ marginBottom: "2.75rem" }}>
-                <div style={{ marginBottom: "1.1rem" }}>
+              <section aria-labelledby="essentials" style={{ marginBottom: "2.25rem" }}>
+                <div style={{ marginBottom: "1rem" }}>
                   <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--evergreen)", marginBottom: "0.35rem" }}>Start here</div>
                   <h2 id="essentials" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 2.8vw, 1.85rem)", color: "var(--ink)", margin: "0 0 0.3rem", lineHeight: 1.2 }}>Business Case Essentials</h2>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.98rem", color: "var(--slate)", margin: 0 }}>The eight resources most members start with: the data that convinces, the examples that prove it works, and the tools and templates that present it.</p>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.98rem", color: "var(--slate)", margin: 0 }}>Four places to begin: the data that convinces, an example that proves it, a tool to build your argument and a template to present it.</p>
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "0.85rem" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))", gap: "0.85rem" }}>
                   {ESSENTIALS.map((e) => (
                     <button key={e.title} onClick={() => {
                         if (e.go === "brief") { setActiveTab("research"); setActiveBrief(e.target); setShowRelated(false); setShowTailorModal(false); }
