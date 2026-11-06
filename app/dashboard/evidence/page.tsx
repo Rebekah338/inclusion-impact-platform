@@ -1467,15 +1467,19 @@ const PITCH_TARGETS = [
 /* ─── COMPONENT ─────────────────────────────────────────────────────────── */
 
 /* One colour per business outcome, kept on every tab (hub collection tones plus the category palette) */
-const OUTCOME_TONES: Record<string, { color: string; bg: string; mid: string; icon: string }> = {
-  profitability: { color: "var(--coll-green)", bg: "var(--coll-green-tint)", mid: "var(--coll-green-mid)", icon: "chart" },
-  innovation:    { color: "var(--coll-purple)", bg: "var(--coll-purple-tint)", mid: "var(--coll-purple-mid)", icon: "zap" },
-  retention:     { color: "var(--coll-blue)", bg: "var(--coll-blue-tint)", mid: "var(--coll-blue-mid)", icon: "people" },
-  talent:        { color: "var(--coll-amber)", bg: "var(--coll-amber-tint)", mid: "var(--coll-amber-mid)", icon: "award" },
-  productivity:  { color: "#1F5C73", bg: "#E2F0F4", mid: "#5FA3BA", icon: "target" },
-  reputation:    { color: "#9A4325", bg: "#FBE9E1", mid: "#E08A62", icon: "shield" },
-  customer:      { color: "#8A2F4D", bg: "#FAE6EC", mid: "#D27A95", icon: "heart" },
-};
+/* Three outcome groups (the arguments boards respond to: money, people, performance). One colour per group, kept on every tab */
+const OUTCOME_GROUPS: { key: string; label: string; desc: string; cats: string[]; color: string; bg: string; mid: string; icon: string }[] = [
+  { key: "value", label: "Financial Performance and Growth", desc: "Profit, new markets and a reputation worth protecting.", cats: ["profitability", "customer", "reputation"], color: "var(--coll-green)", bg: "var(--coll-green-tint)", mid: "var(--coll-green-mid)", icon: "chart" },
+  { key: "people", label: "Talent and Retention", desc: "Attracting the best people and keeping them.", cats: ["talent", "retention"], color: "var(--coll-blue)", bg: "var(--coll-blue-tint)", mid: "var(--coll-blue-mid)", icon: "people" },
+  { key: "performance", label: "Innovation and Team Performance", desc: "Better decisions, more ideas and teams that perform.", cats: ["innovation", "productivity"], color: "var(--coll-purple)", bg: "var(--coll-purple-tint)", mid: "var(--coll-purple-mid)", icon: "zap" },
+];
+const groupOf = (cat?: string) => OUTCOME_GROUPS.find((g) => cat && g.cats.includes(cat)) ?? OUTCOME_GROUPS[0];
+const OUTCOME_TONES: Record<string, { color: string; bg: string; mid: string; icon: string }> = Object.fromEntries(
+  [...CATEGORIES.map((c) => c.key), ...OUTCOME_GROUPS.map((g) => g.key)].map((k) => {
+    const g = OUTCOME_GROUPS.find((x) => x.key === k) ?? groupOf(k);
+    return [k, { color: g.color, bg: g.bg, mid: g.mid, icon: g.icon }];
+  })
+);
 
 const PREVIEW_COUNT = 4;
 
@@ -1603,7 +1607,8 @@ function EvidencePageInner() {
     const q = search.toLowerCase();
     let results = RESEARCH_REPORTS;
     if (activeCategory) {
-      results = results.filter((r) => r.categories?.includes(activeCategory));
+      const cats = OUTCOME_GROUPS.find((g) => g.key === activeCategory)?.cats ?? [activeCategory];
+      results = results.filter((r) => r.categories?.some((c) => cats.includes(c)));
     }
     if (!q) return results;
     return results.filter(
@@ -1631,7 +1636,8 @@ function EvidencePageInner() {
     const q = search.toLowerCase();
     let results = CASE_STUDIES;
     if (caseCategory) {
-      results = results.filter((c) => c.category === caseCategory);
+      const cats = OUTCOME_GROUPS.find((g) => g.key === caseCategory)?.cats ?? [caseCategory];
+      results = results.filter((c) => cats.includes(c.category));
     }
     if (!q) return results;
     return results.filter(
@@ -2251,7 +2257,7 @@ function EvidencePageInner() {
   /* ── MAIN LISTING VIEW ───────────────────────────────────────────────── */
   const totalResearch = RESEARCH_REPORTS.length;
   const totalCases = CASE_STUDIES.length;
-  const primaryResearch = (key: string) => RESEARCH_REPORTS.filter((r) => r.categories?.[0] === key);
+  const primaryResearch = (groupKey: string) => RESEARCH_REPORTS.filter((r) => groupOf(r.categories?.[0]).key === groupKey);
   const tabDefs: { key: Tab; label: string; icon: string; count?: number }[] = [
     { key: "research", label: "Research and Data", icon: "chart", count: totalResearch },
     { key: "evidence-builder", label: "Inclusion AI: Evidence Builder", icon: "sparkle", count: 3 },
@@ -2262,8 +2268,8 @@ function EvidencePageInner() {
   const goTab = (t: Tab) => { setActiveTab(t); setActiveCase(null); window.scrollTo({ top: 0, behavior: "smooth" }); };
 
   const sectionOpener = (key: string, count: number, noun: string, plural = `${noun}s`) => {
-    const cat = CATEGORIES.find((c) => c.key === key);
-    const tone = OUTCOME_TONES[key] || OUTCOME_TONES.profitability;
+    const cat = OUTCOME_GROUPS.find((g) => g.key === key) ?? groupOf(key);
+    const tone = OUTCOME_TONES[key] || OUTCOME_TONES.value;
     return (
       <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.1rem", padding: "0.85rem 1.25rem", background: tone.bg, borderRadius: "var(--radius-md)", borderLeft: `4px solid ${tone.color}` }}>
         <Icon name={tone.icon} size={22} color={tone.color} />
@@ -2345,12 +2351,12 @@ function EvidencePageInner() {
     <div style={{ display: "flex", flexWrap: "wrap", gap: "0.45rem", alignItems: "center", marginTop: "1rem" }} aria-label="Filter by business outcome">
       <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--slate)", marginRight: "0.3rem" }}>Outcome</span>
       <button onClick={() => onSelect(null)} aria-pressed={!selected} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", padding: "0.4rem 0.9rem", minHeight: "34px", borderRadius: "999px", cursor: "pointer", border: "1.5px solid", borderColor: !selected ? "var(--evergreen)" : "var(--line)", background: !selected ? "var(--evergreen)" : "var(--white)", color: !selected ? "var(--white)" : "var(--ink)" }}>All outcomes</button>
-      {CATEGORIES.map((cat) => {
+      {OUTCOME_GROUPS.map((cat) => {
         const tone = OUTCOME_TONES[cat.key];
         const on = selected === cat.key;
         return (
           <button key={cat.key} onClick={() => onSelect(on ? null : cat.key)} aria-pressed={on} style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", padding: "0.4rem 0.85rem", minHeight: "34px", borderRadius: "999px", cursor: "pointer", border: `1.5px solid ${tone.color}`, background: on ? tone.color : "var(--white)", color: on ? "var(--white)" : tone.color }}>
-            <Icon name={tone.icon} size={14} color={on ? "var(--white)" : tone.color} /> {cat.label.split(" and ")[0]}
+            <Icon name={tone.icon} size={14} color={on ? "var(--white)" : tone.color} /> {cat.label}
           </button>
         );
       })}
@@ -2471,7 +2477,7 @@ function EvidencePageInner() {
             )}
 
             {/* LANDING: grouped by each report's main outcome, four per group, then Show all */}
-            {!search && !activeCategory && CATEGORIES.map((cat) => {
+            {!search && !activeCategory && OUTCOME_GROUPS.map((cat) => {
               const list = primaryResearch(cat.key);
               if (!list.length) return null;
               const tone = OUTCOME_TONES[cat.key];
@@ -3052,8 +3058,8 @@ function EvidencePageInner() {
                 <div style={grid}>{filteredCases.map((c) => caseCard(c))}</div>
               </>
             ) : (
-              CATEGORIES.filter((cat) => !caseCategory || cat.key === caseCategory).map((cat) => {
-                const list = CASE_STUDIES.filter((c) => c.category === cat.key);
+              OUTCOME_GROUPS.filter((cat) => !caseCategory || cat.key === caseCategory).map((cat) => {
+                const list = CASE_STUDIES.filter((c) => cat.cats.includes(c.category));
                 if (!list.length) return null;
                 const tone = OUTCOME_TONES[cat.key];
                 const shown = caseCategory || expandedSections[`c-${cat.key}`] ? list : list.slice(0, PREVIEW_COUNT);
