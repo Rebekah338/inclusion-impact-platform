@@ -80,6 +80,69 @@ const chipStyle = (selected: boolean): React.CSSProperties => ({
   transition: "all 0.15s",
 });
 
+type Video = { id: string; image: string; title: string; duration: string; tags: string[] };
+type Tone = { color: string; bg: string; mid: string };
+
+function VideoCard({ video, tone, label }: { video: Video; tone: Tone; label: string }) {
+  return (
+    <article
+                          style={{ display: "flex", flexDirection: "column", background: "var(--white)", borderRadius: "var(--radius-md)", overflow: "hidden", border: `1.5px solid ${tone.mid}`, boxShadow: "var(--shadow-sm)" }}
+    >
+      {/* Thumbnail: tinted photo with the 6px collection band on top */}
+      <div style={{ height: "130px", position: "relative", display: "flex", alignItems: "center", justifyContent: "center", borderTop: `6px solid ${tone.color}`, background: "var(--forest)" }}>
+        <img src={video.image} alt="" loading="lazy" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+        <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "var(--photo-tint)" }} />
+        <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(20,40,25,0) 45%, rgba(20,40,25,0.7) 100%)" }} />
+        <span style={{ position: "relative", width: "48px", height: "48px", borderRadius: "50%", background: "rgba(26,50,32,0.55)", border: "2px solid rgba(255,255,255,0.9)", display: "flex", alignItems: "center", justifyContent: "center", paddingLeft: "3px", backdropFilter: "blur(2px)" }} aria-hidden="true">
+          <Icon name="play" size={22} color="var(--white)" />
+        </span>
+        <span style={{ position: "absolute", top: "0.6rem", right: "0.75rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", textTransform: "uppercase", letterSpacing: "0.08em", background: "var(--gold)", color: "var(--ink)", padding: "0.22rem 0.6rem", borderRadius: "999px" }}>
+          Coming soon
+        </span>
+        <span style={{ position: "absolute", bottom: "0.55rem", left: "0.85rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--white)", lineHeight: 1, fontVariantNumeric: "lining-nums" }} aria-hidden="true">
+          {label}
+        </span>
+      </div>
+
+      {/* Card body */}
+      <div style={{ padding: "1rem 1.1rem 1.1rem", flex: 1, display: "flex", flexDirection: "column", gap: "0.55rem" }}>
+        <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.98rem", color: "var(--ink)", lineHeight: 1.35, margin: 0 }}>
+          {video.title}
+        </h3>
+
+        <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
+          {video.tags.slice(0, 2).map((tag) => (
+            <span key={tag} style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.07em", color: tone.color, background: tone.bg, padding: "0.2rem 0.6rem", borderRadius: "999px" }}>
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        <div style={{ display: "flex", gap: "0.75rem", alignItems: "center", justifyContent: "space-between", marginTop: "auto", paddingTop: "0.5rem" }}>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "0.3rem", fontSize: "0.85rem", color: "var(--slate)", fontFamily: "var(--font-heading)", fontWeight: 600 }}>
+            <Icon name="clock" size={14} color="var(--slate)" /> {video.duration}
+          </span>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+const TONES: Record<string, Tone> = {
+  green: { color: "var(--coll-green)", bg: "var(--coll-green-tint)", mid: "var(--coll-green-mid)" },
+  purple: { color: "var(--coll-purple)", bg: "var(--coll-purple-tint)", mid: "var(--coll-purple-mid)" },
+  amber: { color: "var(--coll-amber)", bg: "var(--coll-amber-tint)", mid: "var(--coll-amber-mid)" },
+  blue: { color: "var(--coll-blue)", bg: "var(--coll-blue-tint)", mid: "var(--coll-blue-mid)" },
+};
+
+// Start here: four short foundation videos, one in each collection tone (mirrors Foundation Lessons on Learn)
+const FOUNDATION_VIDEOS: (Video & { tone: keyof typeof TONES })[] = [
+  { id: "start-what-inclusion-means", tone: "green", image: "/watch-1-team-coffee.jpg", title: "What Inclusion Really Means", duration: "8 min", tags: ["Foundations", "Culture"] },
+  { id: "start-equity-vs-equality", tone: "purple", image: "/watch-7-diverse-meeting.jpg", title: "Equity and Equality: What is the Difference?", duration: "7 min", tags: ["Foundations", "Policy"] },
+  { id: "start-protected-characteristics", tone: "amber", image: "/edi-training.jpg", title: "Protected Characteristics in Plain English", duration: "10 min", tags: ["Foundations", "Policy"] },
+  { id: "start-your-first-step", tone: "blue", image: "/watch-8-working-together.jpg", title: "Your First Step as an Inclusive Colleague", duration: "6 min", tags: ["Foundations", "Belonging"] },
+];
+
 export default function WatchPage() {
   const [search, setSearch] = useState("");
   const [activeTag, setActiveTag] = useState<string | null>(null);
@@ -99,8 +162,17 @@ export default function WatchPage() {
     })).filter((c) => c.videos.length > 0);
   }, [search, activeTag]);
 
-  const totalVisible = filtered.reduce((sum, c) => sum + c.videos.length, 0);
-  const totalVideos = videoCollections.reduce((sum, c) => sum + c.videos.length, 0);
+  const filteredFoundation = useMemo(() => {
+    const q = search.toLowerCase();
+    return FOUNDATION_VIDEOS.filter((v) => {
+      const matchesSearch = !q || v.title.toLowerCase().includes(q) || v.tags.some((t) => t.toLowerCase().includes(q));
+      const matchesTag = !activeTag || v.tags.includes(activeTag);
+      return matchesSearch && matchesTag;
+    });
+  }, [search, activeTag]);
+
+  const totalVisible = filteredFoundation.length + filtered.reduce((sum, c) => sum + c.videos.length, 0);
+  const totalVideos = FOUNDATION_VIDEOS.length + videoCollections.reduce((sum, c) => sum + c.videos.length, 0);
 
   return (
     <div className="min-h-screen" style={{ background: "var(--mist)" }}>
@@ -198,6 +270,39 @@ export default function WatchPage() {
           </div>
         )}
 
+        {/* START HERE: foundation videos (mirrors Foundation Lessons on Learn) */}
+        {filteredFoundation.length > 0 && (
+          <section style={{ marginBottom: "3.5rem" }} aria-labelledby="start-here">
+            <div style={{ marginBottom: "1.25rem" }}>
+              <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--evergreen)", marginBottom: "0.4rem" }}>
+                Start here
+              </div>
+              <h2 id="start-here" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.6rem, 3vw, 2rem)", color: "var(--ink)", margin: "0 0 0.35rem 0", lineHeight: 1.2 }}>
+                The Basics
+              </h2>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--slate)", margin: 0 }}>
+                New to EDI, or want a quick refresher? Begin with these four short videos.
+              </p>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1.25rem" }}>
+              {filteredFoundation.map((video, idx) => (
+                <VideoCard key={video.id} video={video} tone={TONES[video.tone]} label={`Basics ${String(idx + 1).padStart(2, "0")}`} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* DIVIDER */}
+        {filteredFoundation.length > 0 && filtered.length > 0 && (
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "2.5rem" }}>
+            <div style={{ flex: 1, height: "1px", background: "var(--line)" }} />
+            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.16em", color: "var(--slate)", whiteSpace: "nowrap" }}>
+              Or explore the full video library
+            </span>
+            <div style={{ flex: 1, height: "1px", background: "var(--line)" }} />
+          </div>
+        )}
+
         {filtered.map((collection) => (
           <section key={collection.id} id={`collection-${collection.id}`} style={{ marginBottom: "2.75rem", scrollMarginTop: "90px" }} aria-labelledby={`collection-title-${collection.id}`}>
             {/* Section opener: pale tint with a 4px left border in the collection tone */}
@@ -218,51 +323,9 @@ export default function WatchPage() {
 
             {/* Video cards: tinted photo thumbnails, one choice per row */}
             <div id={`collection-videos-${collection.id}`} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1.25rem" }}>
-              {(isFiltering || expanded[collection.id] ? collection.videos : collection.videos.slice(0, PREVIEW_COUNT)).map((video, idx) => {
-                return (
-                  <article
-                    key={video.id}
-                    style={{ display: "flex", flexDirection: "column", background: "var(--white)", borderRadius: "var(--radius-md)", overflow: "hidden", border: `1.5px solid ${collection.mid}`, boxShadow: "var(--shadow-sm)" }}
-                  >
-                    {/* Thumbnail: tinted photo with the 6px collection band on top */}
-                    <div style={{ height: "130px", position: "relative", display: "flex", alignItems: "center", justifyContent: "center", borderTop: `6px solid ${collection.color}`, background: "var(--forest)" }}>
-                      <img src={video.image} alt="" loading="lazy" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
-                      <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "var(--photo-tint)" }} />
-                      <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(20,40,25,0) 45%, rgba(20,40,25,0.7) 100%)" }} />
-                      <span style={{ position: "relative", width: "48px", height: "48px", borderRadius: "50%", background: "rgba(26,50,32,0.55)", border: "2px solid rgba(255,255,255,0.9)", display: "flex", alignItems: "center", justifyContent: "center", paddingLeft: "3px", backdropFilter: "blur(2px)" }} aria-hidden="true">
-                        <Icon name="play" size={22} color="var(--white)" />
-                      </span>
-                      <span style={{ position: "absolute", top: "0.6rem", right: "0.75rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", textTransform: "uppercase", letterSpacing: "0.08em", background: "var(--gold)", color: "var(--ink)", padding: "0.22rem 0.6rem", borderRadius: "999px" }}>
-                        Coming soon
-                      </span>
-                      <span style={{ position: "absolute", bottom: "0.55rem", left: "0.85rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--white)", lineHeight: 1, fontVariantNumeric: "lining-nums" }} aria-hidden="true">
-                        Video {String(idx + 1).padStart(2, "0")}
-                      </span>
-                    </div>
-
-                    {/* Card body */}
-                    <div style={{ padding: "1rem 1.1rem 1.1rem", flex: 1, display: "flex", flexDirection: "column", gap: "0.55rem" }}>
-                      <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.98rem", color: "var(--ink)", lineHeight: 1.35, margin: 0 }}>
-                        {video.title}
-                      </h3>
-
-                      <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
-                        {video.tags.slice(0, 2).map((tag) => (
-                          <span key={tag} style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.07em", color: collection.color, background: collection.bg, padding: "0.2rem 0.6rem", borderRadius: "999px" }}>
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      <div style={{ display: "flex", gap: "0.75rem", alignItems: "center", justifyContent: "space-between", marginTop: "auto", paddingTop: "0.5rem" }}>
-                        <span style={{ display: "inline-flex", alignItems: "center", gap: "0.3rem", fontSize: "0.85rem", color: "var(--slate)", fontFamily: "var(--font-heading)", fontWeight: 600 }}>
-                          <Icon name="clock" size={14} color="var(--slate)" /> {video.duration}
-                        </span>
-                      </div>
-                    </div>
-                  </article>
-                );
-              })}
+              {(isFiltering || expanded[collection.id] ? collection.videos : collection.videos.slice(0, PREVIEW_COUNT)).map((video, idx) => (
+                <VideoCard key={video.id} video={video} tone={collection} label={`Video ${String(idx + 1).padStart(2, "0")}`} />
+              ))}
             </div>
 
             {!isFiltering && collection.videos.length > PREVIEW_COUNT && (
