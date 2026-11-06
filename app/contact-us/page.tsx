@@ -42,7 +42,7 @@ export default function Contact() {
         <div style={{ maxWidth: "1100px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0", position: "relative", zIndex: 3 }}>
           {[
             { icon: "in", label: "LinkedIn", sub: "Connect with us", href: "https://www.linkedin.com/company/the-inclusion-edit" },
-            { icon: "✉", label: "Email", sub: "hello@theinclusionedit.com", href: "mailto:hello@theinclusionedit.com" },
+            { icon: "✉", label: "Email", sub: "info@theinclusionedit.com", href: "mailto:info@theinclusionedit.com" },
             { icon: "📸", label: "Instagram", sub: "@theinclusionedit", href: "https://www.instagram.com/theinclusionedit" },
             { icon: "♪", label: "TikTok", sub: "@theinclusionedit", href: "https://www.tiktok.com/@theinclusionedit" },
             { icon: "🎙", label: "Podcast", sub: "Listen on Spotify", href: "https://open.spotify.com/show/theinclusionedit" },

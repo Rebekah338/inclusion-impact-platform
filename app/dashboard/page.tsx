@@ -371,7 +371,7 @@ export default function DashboardPage() {
                 Is there a topic, tool, or resource you&apos;d love to see on the platform? Let us know and we&apos;ll prioritise it.
               </div>
             </div>
-            <a href="mailto:hello@theinclusionedit.com?subject=Resource%20Request"
+            <a href="mailto:info@theinclusionedit.com?subject=Resource%20Request"
               style={{ flexShrink: 0, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", background: "var(--white)", color: "var(--sage-dark)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none" }}>
               Send a request →
             </a>
