@@ -344,7 +344,7 @@ export default function InclusionAIPage() {
                     onMouseLeave={() => setHovered(null)}
                     onFocus={() => setHovered(tool.id)}
                     onBlur={() => setHovered(null)}
-                    style={{ display: "flex", flexDirection: "column", background: "var(--white)", borderRadius: "var(--radius-md)", overflow: "hidden", border: `1.5px solid ${isHover ? section.color : section.mid}`, borderTop: `6px solid ${section.color}`, boxShadow: isHover ? "var(--shadow-md)" : "var(--shadow-sm)", transform: isHover ? "translateY(-2px)" : "none", transition: "box-shadow 0.15s, border-color 0.15s, transform 0.15s", textDecoration: "none" }}
+                    style={{ display: "flex", flexDirection: "column", background: "var(--white)", borderRadius: "var(--radius-md)", overflow: "hidden", borderTop: `6px solid ${section.color}`, borderRight: `1.5px solid ${isHover ? section.color : section.mid}`, borderBottom: `1.5px solid ${isHover ? section.color : section.mid}`, borderLeft: `1.5px solid ${isHover ? section.color : section.mid}`, boxShadow: isHover ? "var(--shadow-md)" : "var(--shadow-sm)", transform: isHover ? "translateY(-2px)" : "none", transition: "box-shadow 0.15s, border-color 0.15s, transform 0.15s", textDecoration: "none" }}
                   >
                     {/* Pale header in the collection tint */}
                     <div style={{ background: section.bg, padding: "0.9rem 1.15rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem" }}>
