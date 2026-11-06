@@ -232,36 +232,69 @@ export default function InclusionAIPage() {
       {/* TOOLS */}
       <main id="main-content" style={{ maxWidth: "1200px", margin: "0 auto", padding: "2.5rem 1.5rem 5rem" }}>
 
-        {/* HOW INCLUSION AI WORKS: dark card band (website treatment), shown once */}
+        {/* ORIENTATION (as on Onboarding): a note on how we built Inclusion AI beside How it works, then two privacy callouts */}
         {!search && (
-          <section aria-labelledby="how-it-works" style={{ marginBottom: "3rem", borderRadius: "var(--radius-lg)", background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)", boxShadow: "var(--shadow-feature)", padding: "2.25rem 2.25rem 2.5rem", color: "var(--white)" }}>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--white)", border: "1.5px solid rgba(255,255,255,0.35)", background: "rgba(255,255,255,0.08)", borderRadius: "999px", padding: "0.35rem 0.9rem" }}>
-              <Icon name="sparkle" size={13} color="var(--gold-light)" /> How it works
-            </span>
-            <h2 id="how-it-works" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.6rem, 3vw, 2.1rem)", lineHeight: 1.15, margin: "0.9rem 0 1.75rem" }}>
-              <span style={{ color: "var(--hero-cream)" }}>How Inclusion AI</span> <span style={{ color: "var(--hero-mint)" }}>works.</span>
-            </h2>
-            <ol style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1.5rem" }}>
+          <>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "1.5rem", marginBottom: "1.5rem" }}>
+              <section aria-labelledby="how-we-built" style={{ background: "var(--white)", border: "1px solid var(--line)", borderRadius: "var(--radius-lg)", boxShadow: "var(--shadow-sm)", padding: "2rem 2rem 1.75rem", display: "flex", flexDirection: "column" }}>
+                <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--evergreen)" }}>
+                  A note from The Inclusion Edit
+                </div>
+                <h2 id="how-we-built" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.4rem, 2.4vw, 1.75rem)", lineHeight: 1.2, color: "var(--ink)", margin: "0.6rem 0 0.9rem" }}>
+                  How we built Inclusion AI.
+                </h2>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", lineHeight: 1.7, color: "var(--slate)", margin: "0 0 0.9rem" }}>
+                  A general AI chatbot can answer almost anything, which means it is not built for any one job. Inclusion AI is different. Each tool was designed by our EDI specialists for people working in inclusion, HR and leadership, to do one specific task well, using instructions we have written and tested for that task.
+                </p>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", lineHeight: 1.7, color: "var(--slate)", margin: "0 0 1.25rem" }}>
+                  You do not need to know how to write a prompt. The tool asks the right questions, and you get a result shaped for the decision in front of you: a business case, an equity review, a set of interview questions.
+                </p>
+                <div style={{ marginTop: "auto", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--evergreen)" }}>
+                  The Inclusion Edit
+                </div>
+              </section>
+
+              <section aria-labelledby="how-it-works" style={{ borderRadius: "var(--radius-lg)", background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)", boxShadow: "var(--shadow-feature)", padding: "2rem 2rem 1.75rem", color: "var(--white)" }}>
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--hero-cream)" }}>
+                  <Icon name="sparkle" size={14} color="var(--gold-light)" /> How it works
+                </div>
+                <h2 id="how-it-works" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.4rem, 2.4vw, 1.75rem)", lineHeight: 1.2, margin: "0.6rem 0 1.25rem" }}>
+                  <span style={{ color: "var(--hero-cream)" }}>Three steps to</span> <span style={{ color: "var(--hero-mint)" }}>a strong draft.</span>
+                </h2>
+                <ol style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "1.1rem" }}>
+                  {[
+                    { title: "Tell us your context", body: "Share your role, your organisation and what you need to achieve." },
+                    { title: "The tool does the groundwork", body: "It applies EDI expertise and evidence to your situation." },
+                    { title: "You get a draft to check and adapt", body: "Every result is a starting point: review it, edit it and make it yours. It supports your judgement; it is not legal advice." },
+                  ].map((step, i) => (
+                    <li key={step.title} style={{ display: "flex", gap: "0.9rem", alignItems: "flex-start" }}>
+                      <span style={{ flexShrink: 0, width: "38px", height: "38px", borderRadius: "50%", border: "2px solid var(--gold-light)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.05rem", color: "var(--gold-light)", fontVariantNumeric: "lining-nums" }}>
+                        {i + 1}
+                      </span>
+                      <div>
+                        <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--white)", margin: "0.2rem 0 0.2rem" }}>{step.title}</h3>
+                        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", lineHeight: 1.6, color: "rgba(255,255,255,0.85)", margin: 0 }}>{step.body}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+              </section>
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "1.5rem", marginBottom: "3rem" }}>
               {[
-                { title: "Tell us your context", body: "Share your role, your organisation and what you need to achieve." },
-                { title: "The tool does the groundwork", body: "It applies EDI expertise and evidence to your situation." },
-                { title: "You get a draft to check and adapt", body: "Every result is a starting point: review it, edit it and make it yours." },
-              ].map((step, i) => (
-                <li key={step.title} style={{ display: "flex", gap: "0.9rem", alignItems: "flex-start" }}>
-                  <span style={{ flexShrink: 0, width: "42px", height: "42px", borderRadius: "50%", border: "2px solid var(--gold-light)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.15rem", color: "var(--gold-light)", fontVariantNumeric: "lining-nums" }}>
-                    {i + 1}
-                  </span>
-                  <div>
-                    <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.02rem", color: "var(--white)", margin: "0.35rem 0 0.3rem" }}>{step.title}</h3>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.6, color: "rgba(255,255,255,0.85)", margin: 0 }}>{step.body}</p>
-                  </div>
-                </li>
+                { icon: "lock", title: "No personal details needed:", body: "we never ask for your name or anyone else's, and where a tool asks for your organisation's name, it is optional. Please remove names and personal details from anything you paste in.", bg: "var(--pale-sage)", border: "var(--sage)", color: "var(--evergreen)" },
+                { icon: "shield", title: "Your content stays yours:", body: "we do not save what you enter. The AI is provided by Anthropic, whose terms do not allow it to train its models on what you enter, and which deletes it from its systems within 30 days by default.", bg: "var(--coll-blue-tint)", border: "var(--coll-blue-mid)", color: "var(--coll-blue)" },
+              ].map((c) => (
+                <div key={c.title} style={{ display: "flex", gap: "0.9rem", alignItems: "flex-start", background: c.bg, border: `1px solid ${c.border}`, borderRadius: "var(--radius-md)", padding: "1.1rem 1.35rem" }}>
+                  <span style={{ flexShrink: 0, marginTop: "0.15rem", display: "flex" }}><Icon name={c.icon} size={20} color={c.color} /></span>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", lineHeight: 1.6, color: "var(--ink)", margin: 0 }}>
+                    <strong style={{ fontFamily: "var(--font-heading)", color: c.color }}>{c.title}</strong> {c.body}
+                  </p>
+                </div>
               ))}
-            </ol>
-            <a href="#built-responsibly" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", marginTop: "1.75rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--hero-cream)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
-              <Icon name="shield" size={17} color="var(--hero-cream)" /> How we built Inclusion AI responsibly
-            </a>
-          </section>
+            </div>
+          </>
         )}
 
         {search && (
@@ -355,44 +388,6 @@ export default function InclusionAIPage() {
           </section>
         ))}
 
-        {/* BUILT RESPONSIBLY: how Inclusion AI was made, and how it treats members' information */}
-        {!search && (
-          <section id="built-responsibly" aria-labelledby="built-responsibly-title" style={{ marginTop: "1rem", scrollMarginTop: "90px", background: "var(--white)", borderRadius: "var(--radius-lg)", border: "1px solid var(--line)", boxShadow: "var(--shadow-md)", padding: "2.5rem 2.25rem", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "2rem 3rem" }}>
-            <div>
-              <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--evergreen)", background: "var(--pale-sage)", borderRadius: "999px", padding: "0.35rem 0.9rem" }}>
-                <Icon name="shield" size={14} color="var(--evergreen)" /> Built responsibly
-              </span>
-              <h2 id="built-responsibly-title" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.6rem, 3vw, 2.1rem)", lineHeight: 1.15, color: "var(--ink)", margin: "0.9rem 0 0.9rem" }}>
-                How we built Inclusion AI.
-              </h2>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "1.02rem", lineHeight: 1.7, color: "var(--slate)", margin: "0 0 1rem" }}>
-                A general AI chatbot can answer almost anything, which means it is not built for any one job. Inclusion AI is different. Each tool was designed by our EDI specialists to do one specific inclusion task well, using instructions we have written and tested for that task.
-              </p>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "1.02rem", lineHeight: 1.7, color: "var(--slate)", margin: 0 }}>
-                You do not need to know how to write a prompt. The tool asks the right questions, and you get a result shaped for the decision in front of you: a business case, an equity review, a set of interview questions.
-              </p>
-            </div>
-            <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "1.35rem" }}>
-              {[
-                { icon: "people", title: "Designed by inclusion specialists", body: "Every tool was created by The Inclusion Edit for people working in inclusion, HR and leadership, and reflects how inclusion work is actually done." },
-                { icon: "target", title: "Built for one job at a time", body: "Each tool works to a clear brief, with its own questions and its own structured result, so you get specialist output rather than a general answer." },
-                { icon: "lock", title: "No personal details needed", body: "We never ask for your name or anyone else's. Where a tool asks for your organisation's name, it is optional. Please remove names and personal details from anything you paste in." },
-                { icon: "shield", title: "Your content stays yours", body: "We do not save what you enter. The AI is provided by Anthropic, whose terms do not allow it to train its models on what you enter, and which deletes it from its systems within 30 days by default." },
-                { icon: "check", title: "You stay in control", body: "Every result is a draft for you to check, adapt and decide on. Inclusion AI supports your judgement; it is not legal advice and does not replace it." },
-              ].map((point) => (
-                <li key={point.title} style={{ display: "flex", gap: "0.9rem", alignItems: "flex-start" }}>
-                  <span style={{ flexShrink: 0, width: "40px", height: "40px", borderRadius: "50%", background: "var(--pale-sage)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                    <Icon name={point.icon} size={19} color="var(--evergreen)" />
-                  </span>
-                  <div>
-                    <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--ink)", margin: "0.15rem 0 0.25rem" }}>{point.title}</h3>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.6, color: "var(--slate)", margin: 0 }}>{point.body}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
       </main>
       <BottomBanner />
     </div>
