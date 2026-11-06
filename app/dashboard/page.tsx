@@ -203,7 +203,7 @@ export default function DashboardPage() {
       <PlatformNav />
 
       {/* PHOTO HERO with search (platform page template, compact) */}
-      <header style={{ position: "relative", minHeight: "420px", display: "flex", alignItems: "center", background: "var(--forest)", zIndex: 5 }}>
+      <header style={{ position: "relative", minHeight: "380px", display: "flex", alignItems: "center", background: "var(--forest)" }}>
         <div aria-hidden="true" style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
           <img src="/dashboard-hero.jpg" alt="" style={{ position: "absolute", top: 0, bottom: 0, right: 0, left: "28%", width: "72%", height: "100%", objectFit: "cover", objectPosition: "center 35%" }} />
           <div style={{ position: "absolute", inset: 0, background: "var(--hero-overlay)" }} />
@@ -215,48 +215,9 @@ export default function DashboardPage() {
           <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(2.4rem, 5.5vw, 3.75rem)", lineHeight: 1.05, color: "var(--white)", margin: "1rem 0 0.75rem", letterSpacing: "-0.01em" }}>
             <span style={{ color: "var(--hero-cream)" }}>{hello}{certName ? "," : "."}</span>{certName && <> <span style={{ color: "var(--hero-mint)" }}>{certName.split(" ")[0]}.</span></>}
           </h1>
-          <p style={{ fontFamily: "var(--font-body)", fontSize: "clamp(1rem, 2vw, 1.15rem)", lineHeight: 1.7, color: "var(--white)", maxWidth: "540px", margin: "0 0 1.25rem" }}>
-            What do you need to do today?
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "clamp(1rem, 2vw, 1.15rem)", lineHeight: 1.7, color: "var(--white)", maxWidth: "540px", margin: 0 }}>
+            Everything you need for your inclusion work, in one place.
           </p>
-
-          {/* Goals: each opens a hand-picked three-step path below */}
-          <div role="group" aria-label="Choose what you need to do" style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", maxWidth: "780px", marginBottom: "1.25rem" }}>
-            {GOALS.map((g) => {
-              const on = goal === g.key;
-              return (
-                <button key={g.key} onClick={() => chooseGoal(g.key)} aria-pressed={on} aria-controls="your-path"
-                  style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", padding: "0.55rem 1rem", minHeight: "44px", borderRadius: "999px", cursor: "pointer", border: `1.5px solid ${on ? "var(--white)" : "rgba(255,255,255,0.45)"}`, background: on ? "var(--white)" : "rgba(255,255,255,0.1)", color: on ? "var(--evergreen)" : "var(--white)", backdropFilter: "blur(4px)" }}>
-                  <Icon name={g.icon} size={16} color={on ? "var(--evergreen)" : "var(--hero-cream)"} /> {g.label}
-                </button>
-              );
-            })}
-            <Link href="/dashboard/pulse" style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", padding: "0.55rem 1rem", minHeight: "44px", boxSizing: "border-box", borderRadius: "999px", border: "1.5px dashed rgba(255,255,255,0.5)", color: "var(--hero-cream)", textDecoration: "none" }}>
-              <Icon name="pulse" size={16} color="var(--hero-cream)" /> Not sure? Take the Pulse
-            </Link>
-          </div>
-
-          {/* Search across the whole platform */}
-          <div ref={searchRef} style={{ position: "relative", maxWidth: "560px" }}>
-            <span style={{ position: "absolute", left: "1.1rem", top: "50%", transform: "translateY(-50%)", display: "flex", zIndex: 1 }}><Icon name="search" color="var(--slate)" /></span>
-            <input type="search" placeholder="Or search courses, tools and resources" value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)} onFocus={() => searchQuery.length >= 2 && setSearchOpen(true)} aria-label="Search platform content"
-              style={{ width: "100%", padding: "0.95rem 1.25rem 0.95rem 3rem", borderRadius: "var(--radius-md)", border: "none", fontFamily: "var(--font-body)", fontSize: "1rem", background: "var(--white)", color: "var(--ink)", boxSizing: "border-box", boxShadow: "var(--shadow-md)" }} />
-            {searchOpen && searchResults.length > 0 && (
-              <div role="listbox" style={{ position: "absolute", top: "calc(100% + 8px)", left: 0, right: 0, background: "var(--white)", border: "1px solid var(--line)", borderRadius: "var(--radius-md)", boxShadow: "var(--shadow-md)", zIndex: 200, overflow: "hidden" }}>
-                {searchResults.map((item) => (
-                  <Link key={item.id} href={item.href} onClick={() => { setSearchOpen(false); setSearchQuery(""); }}
-                    style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.75rem 1rem", minHeight: "44px", textDecoration: "none", borderBottom: "1px solid var(--line)" }}>
-                    <Icon name={TYPE_ICON[item.type] || "book"} size={18} color="var(--evergreen)" />
-                    <span style={{ flex: 1, minWidth: 0 }}>
-                      <span style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--ink)" }}>{item.title}</span>
-                      {item.subtitle && <span style={{ display: "block", fontSize: "0.8rem", color: "var(--slate)" }}>{item.subtitle}</span>}
-                    </span>
-                    <span style={{ fontSize: "0.7rem", fontFamily: "var(--font-heading)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--evergreen)", background: "var(--pale-sage)", padding: "0.2rem 0.55rem", borderRadius: "999px", whiteSpace: "nowrap" }}>{TYPE_LABELS[item.type]}</span>
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
         </div>
       </header>
 
@@ -300,7 +261,51 @@ export default function DashboardPage() {
 
       <main id="main-content" style={{ maxWidth: "1200px", margin: "0 auto", padding: "2rem 1.5rem 4.5rem" }}>
 
-        {/* YOUR PATH: the three steps for the goal chosen in the hero */}
+        {/* WHAT DO YOU NEED TO DO TODAY? goals, then search */}
+        <section aria-labelledby="what-today" style={{ marginBottom: "2rem" }}>
+          <h2 id="what-today" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 2.8vw, 1.85rem)", color: "var(--ink)", margin: "0 0 0.3rem", lineHeight: 1.2 }}>What do you need to do today?</h2>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.98rem", color: "var(--slate)", margin: "0 0 1rem" }}>Choose a goal and we will show you where to start, step by step.</p>
+          {/* Goals: each opens a hand-picked three-step path below */}
+          <div role="group" aria-label="Choose what you need to do" style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1rem" }}>
+            {GOALS.map((g) => {
+              const on = goal === g.key;
+              return (
+                <button key={g.key} onClick={() => chooseGoal(g.key)} aria-pressed={on} aria-controls="your-path"
+                  style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", padding: "0.55rem 1rem", minHeight: "44px", borderRadius: "999px", cursor: "pointer", border: `1.5px solid ${on ? "var(--evergreen)" : "var(--line)"}`, background: on ? "var(--evergreen)" : "var(--white)", color: on ? "var(--white)" : "var(--ink)", boxShadow: on ? "none" : "var(--shadow-sm)" }}>
+                  <Icon name={g.icon} size={16} color={on ? "var(--white)" : "var(--evergreen)"} /> {g.label}
+                </button>
+              );
+            })}
+            <Link href="/dashboard/pulse" style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", padding: "0.55rem 1rem", minHeight: "44px", boxSizing: "border-box", borderRadius: "999px", border: "1.5px dashed var(--evergreen)", color: "var(--evergreen)", background: "var(--pale-sage)", textDecoration: "none" }}>
+              <Icon name="pulse" size={16} color="var(--evergreen)" /> Not sure? Take the Pulse
+            </Link>
+          </div>
+
+          {/* Search across the whole platform */}
+          <div ref={searchRef} style={{ position: "relative", maxWidth: "640px" }}>
+            <span style={{ position: "absolute", left: "1.1rem", top: "50%", transform: "translateY(-50%)", display: "flex", zIndex: 1 }}><Icon name="search" color="var(--slate)" /></span>
+            <input type="search" placeholder="Or search courses, tools and resources" value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)} onFocus={() => searchQuery.length >= 2 && setSearchOpen(true)} aria-label="Search platform content"
+              style={{ width: "100%", padding: "0.95rem 1.25rem 0.95rem 3rem", borderRadius: "var(--radius-md)", border: "1.5px solid var(--line)", fontFamily: "var(--font-body)", fontSize: "1rem", background: "var(--white)", color: "var(--ink)", boxSizing: "border-box" }} />
+            {searchOpen && searchResults.length > 0 && (
+              <div role="listbox" style={{ position: "absolute", top: "calc(100% + 8px)", left: 0, right: 0, background: "var(--white)", border: "1px solid var(--line)", borderRadius: "var(--radius-md)", boxShadow: "var(--shadow-md)", zIndex: 200, overflow: "hidden" }}>
+                {searchResults.map((item) => (
+                  <Link key={item.id} href={item.href} onClick={() => { setSearchOpen(false); setSearchQuery(""); }}
+                    style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.75rem 1rem", minHeight: "44px", textDecoration: "none", borderBottom: "1px solid var(--line)" }}>
+                    <Icon name={TYPE_ICON[item.type] || "book"} size={18} color="var(--evergreen)" />
+                    <span style={{ flex: 1, minWidth: 0 }}>
+                      <span style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--ink)" }}>{item.title}</span>
+                      {item.subtitle && <span style={{ display: "block", fontSize: "0.8rem", color: "var(--slate)" }}>{item.subtitle}</span>}
+                    </span>
+                    <span style={{ fontSize: "0.7rem", fontFamily: "var(--font-heading)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--evergreen)", background: "var(--pale-sage)", padding: "0.2rem 0.55rem", borderRadius: "999px", whiteSpace: "nowrap" }}>{TYPE_LABELS[item.type]}</span>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* YOUR PATH: the three steps for the goal chosen above */}
         {goal && (() => {
           const g = GOALS.find((x) => x.key === goal)!;
           return (
