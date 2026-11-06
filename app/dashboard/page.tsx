@@ -41,7 +41,7 @@ const AREAS = [
   { href: "/dashboard/evidence", image: "/make-the-case-hero.jpg", title: "Make the Case", eyebrow: "Evidence and ROI", desc: "Research, case studies and templates to win support for inclusion.", meta: "27 summaries", icon: "chart" },
   { href: "/dashboard/community", image: "/inclusion-editors-hero.jpg", title: "Inclusion Editors", eyebrow: "Member community", desc: "Ask questions, share small wins and find member perks.", meta: "Peer community", icon: "people" },
   { href: "/dashboard/support", image: "/get-support-hero.jpg", title: "Get Support", eyebrow: "Talk to a person", desc: "Office hours with an inclusion expert, twice a month.", meta: "30 minute calls", icon: "message" },
-  { href: "/onboarding", image: "/onboarding-hero.jpg", title: "Inclusion Foundations", eyebrow: "Staff onboarding", desc: "A structured programme your whole team can work through.", meta: "Certificate", icon: "graduation" },
+  { href: "/onboarding", image: "/onboarding-hero.jpg", title: "Inclusion Foundations", eyebrow: "New starter onboarding", desc: "Our onboarding programme for new starters, with a certificate at the end.", meta: "12 short pieces", icon: "graduation" },
 ];
 
 /* What do you need to do today? Hand-picked paths: learn it, use it, do it */
@@ -78,9 +78,9 @@ const GOALS: { key: string; label: string; icon: string; steps: Step[] }[] = [
     { kind: "Do it", title: "Take the Inclusion Pulse", why: "Five questions that point you to what to do next.", href: "/dashboard/pulse", icon: "pulse" },
   ] },
   { key: "team", label: "Support or onboard my team", icon: "people", steps: [
-    { kind: "Learn it", title: "Inclusion Foundations Programme", why: "A structured programme your whole team can work through.", href: "/onboarding", icon: "graduation" },
+    { kind: "Learn it", title: "Preview Inclusion Foundations", why: "Our onboarding programme for new starters: see what they will work through.", href: "/onboarding", icon: "graduation" },
     { kind: "Use it", title: "Inclusion Health Check", why: "See where your team or organisation is now.", href: "/dashboard/inclusion-ai/inclusion-health-check", icon: "pulse", ai: true },
-    { kind: "Do it", title: "Book a Free Inclusion Call", why: "Talk to us about training or support for your teams.", href: "/dashboard/support#more-support", icon: "message" },
+    { kind: "Do it", title: "Invite your new starters", why: "Send each new starter their link to the onboarding programme.", href: "#new-starters", icon: "message" },
   ] },
 ];
 
@@ -107,6 +107,10 @@ export default function DashboardPage() {
   const [lastLearning, setLastLearning] = useState<{ href: string; title: string; date: string } | null>(null);
   const [hello, setHello] = useState("Welcome back");
   const pathRef = useRef<HTMLElement>(null);
+  const [starterName, setStarterName] = useState("");
+  const [starterEmail, setStarterEmail] = useState("");
+  const [inviteError, setInviteError] = useState("");
+  const [linkCopied, setLinkCopied] = useState(false);
 
   useEffect(() => {
     setHello(greeting());
@@ -115,6 +119,31 @@ export default function DashboardPage() {
       if (raw) setLastLearning(JSON.parse(raw));
     } catch { /* ignore */ }
   }, []);
+
+
+  /* Invite a new starter to Inclusion Foundations: the email goes from the member's own inbox */
+  const onboardingLink = () => (typeof window !== "undefined" ? `${window.location.origin}/onboarding` : "/onboarding");
+  const sendInvite = () => {
+    const email = starterEmail.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setInviteError("Enter a work email address, for example name@company.com"); return; }
+    setInviteError("");
+    const first = starterName.trim();
+    const body = [
+      `Hi${first ? ` ${first}` : ""},`,
+      "",
+      "Welcome to the team. As part of your onboarding, please complete Inclusion Foundations, a short programme from The Inclusion Edit.",
+      "",
+      "It takes around 3 to 4 hours in total and you can work through it at your own pace: four short pieces each from Watch, Learn and Read and Reflect, with a certificate when you finish.",
+      "",
+      `Start here: ${onboardingLink()}`,
+      "",
+      certName ? certName : "",
+    ].join("\n");
+    window.location.href = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent("Your inclusion onboarding: Inclusion Foundations")}&body=${encodeURIComponent(body)}`;
+  };
+  const copyLink = async () => {
+    try { await navigator.clipboard.writeText(onboardingLink()); setLinkCopied(true); setTimeout(() => setLinkCopied(false), 2500); } catch { /* ignore */ }
+  };
 
   const chooseGoal = (key: string) => {
     setGoal((g) => (g === key ? null : key));
@@ -342,6 +371,68 @@ export default function DashboardPage() {
             </section>
           );
         })()}
+
+        {/* NEW STARTERS: the onboarding programme, preview and invite */}
+        <section id="new-starters" aria-labelledby="new-starters-title" style={{ marginBottom: "2rem", scrollMarginTop: "90px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem", padding: "0.85rem 1.25rem", background: "var(--pale-sage)", borderRadius: "var(--radius-md)", borderLeft: "4px solid var(--evergreen)" }}>
+            <Icon name="graduation" size={22} color="var(--evergreen)" />
+            <div>
+              <h2 id="new-starters-title" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.15rem", color: "var(--evergreen)", margin: 0 }}>Onboard your new starters</h2>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--ink)", margin: "0.1rem 0 0" }}>Inclusion Foundations is our onboarding programme. Preview it, then send each new starter their link.</p>
+            </div>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "1.25rem" }}>
+            {/* Programme */}
+            <div style={{ display: "flex", flexDirection: "column", background: "var(--white)", borderRadius: "var(--radius-md)", borderTop: "1px solid var(--line)", borderRight: "1px solid var(--line)", borderBottom: "1px solid var(--line)", borderLeft: "1px solid var(--line)", boxShadow: "var(--shadow-sm)", overflow: "hidden" }}>
+              <div style={{ position: "relative", height: "88px", flexShrink: 0 }}>
+                <img src="/onboarding-hero.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 40%" }} />
+                <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "var(--photo-tint)" }} />
+                <span style={{ position: "absolute", top: "10px", left: "10px", background: "var(--white)", color: "var(--evergreen)", borderRadius: "999px", padding: "0.25rem 0.7rem", fontFamily: "var(--font-heading)", fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" }}>Onboarding programme</span>
+              </div>
+              <div style={{ padding: "1.1rem 1.3rem 1.25rem", display: "flex", flexDirection: "column", flex: 1 }}>
+                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.45rem", color: "var(--ink)", margin: "0 0 0.6rem" }}>Inclusion Foundations</h3>
+                <ul style={{ listStyle: "none", margin: "0 0 0.9rem", padding: 0, display: "flex", flexDirection: "column", gap: "0.35rem" }}>
+                  {[["clock", "Around 3 to 4 hours, at their own pace"], ["layers", "12 short pieces: Watch, Learn, Read and Reflect"], ["award", "A certificate when they finish"]].map(([ic, t]) => (
+                    <li key={t} style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--slate)" }}><Icon name={ic} size={16} color="var(--evergreen)" /> {t}</li>
+                  ))}
+                </ul>
+                <Link href="/onboarding" style={{ marginTop: "auto", alignSelf: "flex-start", display: "inline-flex", alignItems: "center", gap: "0.35rem", minHeight: "44px", boxSizing: "border-box", padding: "0.6rem 1.25rem", borderRadius: "var(--radius-sm)", border: "2px solid var(--evergreen)", color: "var(--evergreen)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", textDecoration: "none" }}>
+                  Preview the Programme <Icon name="chevron" size={15} color="var(--evergreen)" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Invite */}
+            <div style={{ display: "flex", flexDirection: "column", background: "var(--white)", borderRadius: "var(--radius-md)", borderTop: "6px solid var(--evergreen)", borderRight: "1px solid var(--line)", borderBottom: "1px solid var(--line)", borderLeft: "1px solid var(--line)", boxShadow: "var(--shadow-sm)", padding: "1.15rem 1.3rem 1.25rem" }}>
+              <h3 style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.1rem", color: "var(--ink)", margin: "0 0 0.3rem" }}>
+                <Icon name="message" size={19} color="var(--evergreen)" /> Invite a new starter
+              </h3>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--slate)", lineHeight: 1.5, margin: "0 0 0.9rem" }}>Add their details and we will write the welcome email with their link. It sends from your own inbox, so it arrives from someone they know.</p>
+              <form onSubmit={(e) => { e.preventDefault(); sendInvite(); }} noValidate style={{ display: "flex", flexDirection: "column", gap: "0.7rem" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "0.7rem" }}>
+                  <div>
+                    <label htmlFor="starter-name" style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--ink)", marginBottom: "0.3rem" }}>First name <span style={{ fontWeight: 400, color: "var(--slate)" }}>(optional)</span></label>
+                    <input id="starter-name" type="text" autoComplete="off" value={starterName} onChange={(e) => setStarterName(e.target.value)} style={{ width: "100%", boxSizing: "border-box", minHeight: "44px", padding: "0.55rem 0.8rem", borderRadius: "var(--radius-sm)", border: "1.5px solid var(--line)", fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--ink)" }} />
+                  </div>
+                  <div>
+                    <label htmlFor="starter-email" style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--ink)", marginBottom: "0.3rem" }}>Work email</label>
+                    <input id="starter-email" type="email" autoComplete="off" placeholder="name@company.com" value={starterEmail} onChange={(e) => { setStarterEmail(e.target.value); if (inviteError) setInviteError(""); }} aria-invalid={!!inviteError} aria-describedby={inviteError ? "starter-email-error" : undefined} style={{ width: "100%", boxSizing: "border-box", minHeight: "44px", padding: "0.55rem 0.8rem", borderRadius: "var(--radius-sm)", border: `1.5px solid ${inviteError ? "var(--error)" : "var(--line)"}`, fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--ink)" }} />
+                  </div>
+                </div>
+                {inviteError && <p id="starter-email-error" role="alert" style={{ margin: 0, fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--error)" }}>{inviteError}</p>}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.6rem", alignItems: "center", marginTop: "0.2rem" }}>
+                  <button type="submit" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", minHeight: "44px", padding: "0.6rem 1.4rem", borderRadius: "var(--radius-sm)", border: "none", background: "var(--evergreen)", color: "var(--white)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", cursor: "pointer" }}>
+                    <Icon name="message" size={16} color="var(--white)" /> Send Invite
+                  </button>
+                  <button type="button" onClick={copyLink} style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", minHeight: "44px", padding: "0.6rem 1.1rem", borderRadius: "var(--radius-sm)", border: "2px solid var(--evergreen)", background: "var(--white)", color: "var(--evergreen)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", cursor: "pointer" }}>
+                    <Icon name={linkCopied ? "check" : "link"} size={16} color="var(--evergreen)" /> {linkCopied ? "Link Copied" : "Copy Link"}
+                  </button>
+                </div>
+                <p aria-live="polite" style={{ margin: 0, fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)" }}>Prefer Teams or Slack? Copy the link and share it there.</p>
+              </form>
+            </div>
+          </div>
+        </section>
 
         {/* CONTINUE (or Today's focus) beside COMING UP */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "1.5rem", marginBottom: "2rem" }}>
