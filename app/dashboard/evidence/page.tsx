@@ -3,6 +3,7 @@
 import Link from "next/link";
 import PlatformNav from "@/app/components/PlatformNav";
 import BottomBanner from "@/app/components/BottomBanner";
+import Icon from "@/app/components/BrandIcon";
 import { useState, useMemo, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -1465,11 +1466,45 @@ const PITCH_TARGETS = [
 
 /* ─── COMPONENT ─────────────────────────────────────────────────────────── */
 
+/* One colour per business outcome, kept on every tab (hub collection tones plus the category palette) */
+const OUTCOME_TONES: Record<string, { color: string; bg: string; mid: string; icon: string }> = {
+  profitability: { color: "var(--coll-green)", bg: "var(--coll-green-tint)", mid: "var(--coll-green-mid)", icon: "chart" },
+  innovation:    { color: "var(--coll-purple)", bg: "var(--coll-purple-tint)", mid: "var(--coll-purple-mid)", icon: "zap" },
+  retention:     { color: "var(--coll-blue)", bg: "var(--coll-blue-tint)", mid: "var(--coll-blue-mid)", icon: "people" },
+  talent:        { color: "var(--coll-amber)", bg: "var(--coll-amber-tint)", mid: "var(--coll-amber-mid)", icon: "award" },
+  productivity:  { color: "#1F5C73", bg: "#E2F0F4", mid: "#5FA3BA", icon: "target" },
+  reputation:    { color: "#9A4325", bg: "#FBE9E1", mid: "#E08A62", icon: "shield" },
+  customer:      { color: "#8A2F4D", bg: "#FAE6EC", mid: "#D27A95", icon: "heart" },
+};
+
+const PREVIEW_COUNT = 4;
+
+/* Start here: the eight Business Case Essentials (sourced figures as given in each item's own source) */
+const ESSENTIALS: { kind: string; title: string; desc: string; icon: string; go: "brief" | "case" | "builder" | "downloads"; target: string }[] = [
+  { kind: "Research and Data", title: "McKinsey Diversity Wins", desc: "Top-quartile gender diversity and above-average profitability. McKinsey and Company, 2023.", icon: "chart", go: "brief", target: "mckinsey-diversity-wins" },
+  { kind: "Research and Data", title: "The Diversity and Inclusion Revolution", desc: "How belonging links to team performance and turnover risk. Deloitte, 2018.", icon: "chart", go: "brief", target: "deloitte-inclusion-revolution" },
+  { kind: "Case Study", title: "SAP: Neurodiversity as a Business Strategy", desc: "Autism at Work: inclusion as capability, not charity.", icon: "briefcase", go: "case", target: "sap-autism-at-work" },
+  { kind: "Case Study", title: "NHS: Quantifying the Price of Fear", desc: "What workplace exclusion costs, across seven financial categories. Kline and Lewis, 2019.", icon: "briefcase", go: "case", target: "nhs-cost-of-exclusion" },
+  { kind: "Inclusion AI", title: "Build Your Business Case", desc: "Answer a few questions and get a tailored, evidence-backed argument.", icon: "sparkle", go: "builder", target: "" },
+  { kind: "Template", title: "Business Case for Inclusion Template", desc: "A board-ready structure with prompts, data placeholders and example language.", icon: "clipboard", go: "downloads", target: "" },
+  { kind: "Template", title: "EDI Data Dashboard Template", desc: "Track recruitment, retention, pay, progression and engagement in one place.", icon: "chart", go: "downloads", target: "" },
+  { kind: "Template", title: "EDI Strategy One-Pager Template", desc: "A one-page summary of your EDI strategy for senior stakeholders.", icon: "clipboard", go: "downloads", target: "" },
+];
+
+/* The three Evidence Builder tools, in the standard Inclusion AI card */
+const EB_TOOLS = [
+  { key: "argument", icon: "scale", name: "Evidence Argument Builder", tagline: "Build a structured, evidence-backed argument.", give: "What you are arguing and who you are presenting to", get: "A structured argument built from our research library", cta: "Build My Argument" },
+  { key: "research", icon: "microscope", name: "Personalised Research Interpreter", tagline: "Make a piece of research speak to your organisation.", give: "The title and summary of a piece of research", get: "An interpretation for your sector, size and audience", cta: "Personalise Research" },
+  { key: "objections", icon: "map", name: "Case Study Replication Roadmap", tagline: "Turn someone else's success into your plan.", give: "A case study and five quick answers about your organisation", get: "A personalised action plan for replicating that result", cta: "Build My Roadmap" },
+];
+
 type Tab = "research" | "evidence-builder" | "cases" | "downloads";
 
 function EvidencePageInner() {
   const [activeTab, setActiveTab] = useState<Tab>("research");
   const [search, setSearch] = useState("");
+  const [activeCase, setActiveCase] = useState<string | null>(null);
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
 
   // Research brief state
   const [activeBrief, setActiveBrief] = useState<string | null>(null);
@@ -1805,11 +1840,11 @@ function EvidencePageInner() {
     width: "100%",
     padding: "0.8rem 1rem",
     borderRadius: "10px",
-    border: "1.5px solid var(--gray-border)",
+    border: "1.5px solid var(--line)",
     fontFamily: "var(--font-body)",
     fontSize: "0.925rem",
     background: "var(--white)",
-    color: "var(--charcoal)",
+    color: "var(--ink)",
     outline: "none",
     boxSizing: "border-box",
   };
@@ -1824,7 +1859,7 @@ function EvidencePageInner() {
     fontFamily: "var(--font-heading)",
     fontWeight: 700,
     fontSize: "0.8rem",
-    color: "var(--charcoal)",
+    color: "var(--ink)",
     marginBottom: "0.5rem",
     display: "block",
     letterSpacing: "0.04em",
@@ -1837,15 +1872,15 @@ function EvidencePageInner() {
         <PlatformNav />
 
         {/* Breadcrumb */}
-        <nav role="navigation" style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)", padding: "0 1.5rem", height: "64px", display: "flex", alignItems: "center", gap: "1rem" }}>
-          <Link href="/dashboard/evidence" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--charcoal)", textDecoration: "none" }}>
-            ← Make the Case
+        <nav role="navigation" style={{ background: "var(--white)", borderBottom: "1px solid var(--line)", padding: "0 1.5rem", height: "64px", display: "flex", alignItems: "center", gap: "1rem" }}>
+          <Link href="/dashboard/evidence" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--ink)", textDecoration: "none" }}>
+            Make the Case
           </Link>
-          <span style={{ color: "var(--gray-border)" }}>|</span>
-          <button onClick={() => { setActiveBrief(null); setShowRelated(false); setShowTailorModal(false); resetTool1(); }} style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--charcoal)", background: "none", border: "none", cursor: "pointer" }}>
-            ← Research and Data
+          <span style={{ color: "var(--line)" }}>|</span>
+          <button onClick={() => { setActiveBrief(null); setShowRelated(false); setShowTailorModal(false); resetTool1(); }} style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--ink)", background: "none", border: "none", cursor: "pointer" }}>
+            Research and Data
           </button>
-          <span style={{ color: "var(--gray-border)" }}>|</span>
+          <span style={{ color: "var(--line)" }}>|</span>
           <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--sage-dark)" }}>{currentBrief.title}</span>
         </nav>
 
@@ -1857,30 +1892,30 @@ function EvidencePageInner() {
               <span className="badge badge-sage" style={{ fontSize: "0.65rem" }}>{currentBrief.type}</span>
               <span className="badge badge-cream" style={{ fontSize: "0.65rem" }}>{currentBrief.year}</span>
             </div>
-            <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 4vw, 2rem)", color: "var(--charcoal)", marginBottom: "0.5rem" }}>
+            <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 4vw, 2rem)", color: "var(--ink)", marginBottom: "0.5rem" }}>
               {currentBrief.title}
             </h1>
             <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--sage-dark)", fontWeight: 600, marginBottom: "0.75rem" }}>
               Published by {currentBrief.source}
             </p>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--gray-soft)", lineHeight: 1.7 }}>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--slate)", lineHeight: 1.7 }}>
               {currentBrief.desc}
             </p>
           </div>
 
           {/* About */}
           <section style={{ background: "var(--white)", borderRadius: "16px", padding: "2rem", marginBottom: "1.5rem" }}>
-            <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "1rem", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+            <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--ink)", marginBottom: "1rem", textTransform: "uppercase", letterSpacing: "0.08em" }}>
               About this research
             </h2>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--charcoal)", lineHeight: 1.8, margin: 0 }}>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--ink)", lineHeight: 1.8, margin: 0 }}>
               {currentBrief.about}
             </p>
           </section>
 
           {/* Findings */}
           <section style={{ background: "var(--white)", borderRadius: "16px", padding: "2rem", marginBottom: "1.5rem" }}>
-            <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "1.25rem", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+            <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--ink)", marginBottom: "1.25rem", textTransform: "uppercase", letterSpacing: "0.08em" }}>
               What the research found
             </h2>
             <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
@@ -1889,7 +1924,7 @@ function EvidencePageInner() {
                   <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", color: "var(--white)", background: "var(--sage-dark)", borderRadius: "50%", width: "24px", height: "24px", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: "0.1rem" }}>
                     {i + 1}
                   </span>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.925rem", color: "var(--charcoal)", lineHeight: 1.7, margin: 0 }}>{f}</p>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.925rem", color: "var(--ink)", lineHeight: 1.7, margin: 0 }}>{f}</p>
                 </div>
               ))}
             </div>
@@ -1917,13 +1952,13 @@ function EvidencePageInner() {
 
           {/* Quotes */}
           <section style={{ background: "var(--white)", borderRadius: "16px", padding: "2rem", marginBottom: "1.5rem" }}>
-            <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "1.25rem", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+            <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--ink)", marginBottom: "1.25rem", textTransform: "uppercase", letterSpacing: "0.08em" }}>
               Voices from the research
             </h2>
             <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
               {currentBrief.quotes.map((q, i) => (
                 <div key={i} style={{ borderLeft: "4px solid var(--sage-dark)", paddingLeft: "1.25rem" }}>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--charcoal)", lineHeight: 1.75, fontStyle: "italic", margin: "0 0 0.5rem 0" }}>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--ink)", lineHeight: 1.75, fontStyle: "italic", margin: "0 0 0.5rem 0" }}>
                     &ldquo;{q.text}&rdquo;
                   </p>
                   <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.75rem", color: "var(--sage-dark)", margin: 0 }}>
@@ -1936,7 +1971,7 @@ function EvidencePageInner() {
 
           {/* Source */}
           <section style={{ background: "var(--white)", borderRadius: "16px", padding: "2rem", marginBottom: "2rem" }}>
-            <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "1.25rem", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+            <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--ink)", marginBottom: "1.25rem", textTransform: "uppercase", letterSpacing: "0.08em" }}>
               Source
             </h2>
             <div style={{ display: "flex", gap: "1.25rem", alignItems: "center", flexWrap: "wrap" }}>
@@ -1944,10 +1979,10 @@ function EvidencePageInner() {
                 {currentBrief.icon}
               </div>
               <div>
-                <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--charcoal)", marginBottom: "0.25rem" }}>{currentBrief.title}</div>
+                <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--ink)", marginBottom: "0.25rem" }}>{currentBrief.title}</div>
                 <div style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--sage-dark)", fontWeight: 600, marginBottom: "0.75rem" }}>{currentBrief.source} · {currentBrief.year}</div>
                 <a href={currentBrief.url} target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ fontSize: "0.8rem", padding: "0.5rem 1.25rem", display: "inline-block", textDecoration: "none" }}>
-                  Read the full report →
+                  Read the full report
                 </a>
               </div>
             </div>
@@ -1960,14 +1995,14 @@ function EvidencePageInner() {
               className="btn-primary"
               style={{ fontSize: "0.9rem", padding: "0.875rem 1.75rem" }}
             >
-              ✨ Personalise this research for my organisation
+              Personalise This Research
             </button>
             <button
               onClick={() => { setShowRelated(!showRelated); setShowTailorModal(false); }}
               className="btn-secondary"
               style={{ fontSize: "0.9rem", padding: "0.875rem 1.75rem" }}
             >
-              📚 Read more research like this
+              Read Related Research
             </button>
           </div>
 
@@ -1977,14 +2012,14 @@ function EvidencePageInner() {
               {/* Header */}
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1.5rem" }}>
                 <div>
-                  <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.05rem", color: "var(--charcoal)", marginBottom: "0.25rem" }}>
+                  <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.05rem", color: "var(--ink)", marginBottom: "0.25rem" }}>
                     Personalised Research Interpreter
                   </h2>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", margin: 0 }}>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--slate)", margin: 0 }}>
                     Answer six quick questions and we will personalise this research for your organisation.
                   </p>
                 </div>
-                <button onClick={() => { setShowTailorModal(false); resetTool1(); }} style={{ background: "none", border: "none", cursor: "pointer", fontSize: "1.2rem", color: "var(--gray-soft)", padding: "0.25rem" }}>✕</button>
+                <button onClick={() => { setShowTailorModal(false); resetTool1(); }} style={{ background: "none", border: "none", cursor: "pointer", fontSize: "1.2rem", color: "var(--slate)", padding: "0.25rem" }}>✕</button>
               </div>
 
               {/* Results view */}
@@ -2000,7 +2035,7 @@ function EvidencePageInner() {
                         {t1Copied === "s1" ? "Copied!" : "Copy"}
                       </button>
                     </div>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.8, margin: 0, whiteSpace: "pre-wrap" }}>{t1Result.section1}</p>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--ink)", lineHeight: 1.8, margin: 0, whiteSpace: "pre-wrap" }}>{t1Result.section1}</p>
                   </div>
 
                   {/* Box 2 */}
@@ -2013,7 +2048,7 @@ function EvidencePageInner() {
                         {t1Copied === "s2" ? "Copied!" : "Copy"}
                       </button>
                     </div>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.8, margin: 0, whiteSpace: "pre-wrap" }}>{t1Result.section2}</p>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--ink)", lineHeight: 1.8, margin: 0, whiteSpace: "pre-wrap" }}>{t1Result.section2}</p>
                   </div>
 
                   {/* Box 3 */}
@@ -2026,29 +2061,29 @@ function EvidencePageInner() {
                         {t1Copied === "s3" ? "Copied!" : "Copy"}
                       </button>
                     </div>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.8, margin: 0, fontStyle: "italic" }}>{t1Result.section3}</p>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--ink)", lineHeight: 1.8, margin: 0, fontStyle: "italic" }}>{t1Result.section3}</p>
                   </div>
 
                   {/* Link to Tool 2 */}
                   <div style={{ background: "var(--sage-xlight)", borderRadius: "12px", padding: "1.25rem", marginBottom: "1.5rem", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
                     <div>
                       <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "var(--sage-dark)", marginBottom: "0.25rem" }}>Ready to take action?</div>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--charcoal)", margin: 0, lineHeight: 1.6 }}>Once your leadership is on board, find a relevant case study and use <strong>Tool 2: Replicate a case study</strong> to build your step-by-step action plan.</p>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--ink)", margin: 0, lineHeight: 1.6 }}>Once your leadership is on board, find a relevant case study and use <strong>Tool 2: Replicate a case study</strong> to build your step-by-step action plan.</p>
                     </div>
                     <button onClick={() => { setShowTailorModal(false); resetTool1(); }} style={{ background: "var(--sage-dark)", color: "var(--white)", border: "none", borderRadius: "8px", padding: "0.625rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", cursor: "pointer", whiteSpace: "nowrap" }}>
-                      Go to case studies →
+                      Go to case studies
                     </button>
                   </div>
 
                   {/* Start again */}
-                  <button onClick={resetTool1} style={{ background: "none", border: "1px solid var(--gray-soft)", borderRadius: "8px", padding: "0.625rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--gray-soft)", cursor: "pointer" }}>
+                  <button onClick={resetTool1} style={{ background: "none", border: "1px solid var(--slate)", borderRadius: "8px", padding: "0.625rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--slate)", cursor: "pointer" }}>
                     Start again
                   </button>
                 </div>
               ) : t1Loading ? (
                 <div style={{ textAlign: "center", padding: "2.5rem 0" }}>
                   <div style={{ fontFamily: "var(--font-body)", fontSize: "0.925rem", color: "var(--sage-dark)" }}>Building your tailored output…</div>
-                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", marginTop: "0.5rem" }}>This usually takes around 15 seconds</div>
+                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)", marginTop: "0.5rem" }}>This usually takes around 15 seconds</div>
                 </div>
               ) : (
                 <div>
@@ -2112,7 +2147,7 @@ function EvidencePageInner() {
                                 >
                                   <span style={{
                                     fontFamily: "var(--font-body)", fontSize: "0.72rem", lineHeight: "1.3",
-                                    color: t1Progress === opt ? "var(--sage-dark)" : "var(--gray-soft)",
+                                    color: t1Progress === opt ? "var(--sage-dark)" : "var(--slate)",
                                     fontWeight: t1Progress === opt ? 600 : 400,
                                     transition: "all 0.15s", display: "block"
                                   }}>{opt}</span>
@@ -2127,9 +2162,9 @@ function EvidencePageInner() {
                     {/* Q4: Challenge */}
                     <div>
                       <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.25rem", display: "block" }}>4. What is your biggest inclusion challenge right now?</label>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", margin: "0 0 0.5rem 0" }}>Write in your own words. Be as specific as you like.</p>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)", margin: "0 0 0.5rem 0" }}>Write in your own words. Be as specific as you like.</p>
                       <div style={{ position: "relative" }}>
-                        <textarea value={t1Challenge} onChange={e => setT1Challenge(e.target.value)} placeholder="e.g. we struggle to retain diverse talent after hiring" rows={2} style={{ width: "100%", border: `1px solid ${t1VoiceField === "challenge" ? "var(--sage-dark)" : "var(--sage-xlight)"}`, borderRadius: "8px", padding: "0.75rem 2.75rem 0.75rem 0.75rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", resize: "vertical", boxSizing: "border-box" }} />
+                        <textarea value={t1Challenge} onChange={e => setT1Challenge(e.target.value)} placeholder="e.g. we struggle to retain diverse talent after hiring" rows={2} style={{ width: "100%", border: `1px solid ${t1VoiceField === "challenge" ? "var(--sage-dark)" : "var(--sage-xlight)"}`, borderRadius: "8px", padding: "0.75rem 2.75rem 0.75rem 0.75rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--ink)", resize: "vertical", boxSizing: "border-box" }} />
                         <VoiceButton
                           isRecording={t1VoiceField === "challenge"}
                           onToggle={() => handleVoiceToggle("challenge", t1Challenge, setT1Challenge, t1VoiceField, setT1VoiceField)}
@@ -2140,9 +2175,9 @@ function EvidencePageInner() {
                     {/* Q5: Outcomes */}
                     <div>
                       <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.25rem", display: "block" }}>5. What outcomes would you like to see?</label>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", margin: "0 0 0.5rem 0" }}>Think about what success looks like for your organisation.</p>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)", margin: "0 0 0.5rem 0" }}>Think about what success looks like for your organisation.</p>
                       <div style={{ position: "relative" }}>
-                        <textarea value={t1Outcomes} onChange={e => setT1Outcomes(e.target.value)} placeholder="e.g. I want to show the board measurable progress within six months" rows={2} style={{ width: "100%", border: `1px solid ${t1VoiceField === "outcomes" ? "var(--sage-dark)" : "var(--sage-xlight)"}`, borderRadius: "8px", padding: "0.75rem 2.75rem 0.75rem 0.75rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", resize: "vertical", boxSizing: "border-box" }} />
+                        <textarea value={t1Outcomes} onChange={e => setT1Outcomes(e.target.value)} placeholder="e.g. I want to show the board measurable progress within six months" rows={2} style={{ width: "100%", border: `1px solid ${t1VoiceField === "outcomes" ? "var(--sage-dark)" : "var(--sage-xlight)"}`, borderRadius: "8px", padding: "0.75rem 2.75rem 0.75rem 0.75rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--ink)", resize: "vertical", boxSizing: "border-box" }} />
                         <VoiceButton
                           isRecording={t1VoiceField === "outcomes"}
                           onToggle={() => handleVoiceToggle("outcomes", t1Outcomes, setT1Outcomes, t1VoiceField, setT1VoiceField)}
@@ -2170,7 +2205,7 @@ function EvidencePageInner() {
                         className="btn-primary"
                         style={{ fontSize: "0.875rem", padding: "0.875rem 1.75rem", opacity: (!t1Sector || !t1Size || !t1Progress || !t1Challenge.trim() || !t1Outcomes.trim() || !t1Audience) ? 0.5 : 1, cursor: (!t1Sector || !t1Size || !t1Progress || !t1Challenge.trim() || !t1Outcomes.trim() || !t1Audience) ? "not-allowed" : "pointer" }}
                       >
-                        Generate my tailored output →
+                        Generate my tailored output
                       </button>
                     </div>
 
@@ -2184,7 +2219,7 @@ function EvidencePageInner() {
           {/* Related research */}
           {showRelated && relatedBriefs.length > 0 && (
             <section style={{ marginBottom: "2rem" }}>
-              <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "1.25rem", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+              <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--ink)", marginBottom: "1.25rem", textTransform: "uppercase", letterSpacing: "0.08em" }}>
                 Read more research like this
               </h2>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem" }}>
@@ -2197,10 +2232,10 @@ function EvidencePageInner() {
                         <span className="badge badge-cream" style={{ fontSize: "0.6rem" }}>{r.year}</span>
                       </div>
                     </div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--charcoal)", marginBottom: "0.25rem" }}>{r.title}</div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--ink)", marginBottom: "0.25rem" }}>{r.title}</div>
                     <div style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--sage-dark)", fontWeight: 600, marginBottom: "0.625rem" }}>{r.source}</div>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: "0 0 0.75rem 0" }}>{r.desc}</p>
-                    <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--sage-dark)" }}>Read summary →</span>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--slate)", lineHeight: 1.6, margin: "0 0 0.75rem 0" }}>{r.desc}</p>
+                    <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--sage-dark)" }}>Read summary</span>
                   </div>
                 ))}
               </div>
@@ -2218,357 +2253,298 @@ function EvidencePageInner() {
   }
 
   /* ── MAIN LISTING VIEW ───────────────────────────────────────────────── */
-  return (
-    <div className="min-h-screen" style={{ background: "var(--sage-xlight)" }}>
-      <PlatformNav />
-      <nav role="navigation" style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)", padding: "0 1.5rem", height: "64px", display: "flex", alignItems: "center", gap: "1.5rem", position: "sticky", top: 0, zIndex: 50 }}>
-        <Link href="/" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--charcoal)", textDecoration: "none" }}>
-          ← Dashboard
-        </Link>
-        <span style={{ color: "var(--gray-border)" }}>|</span>
-        <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--charcoal)" }}>Make the Case</span>
-      </nav>
+  const totalResearch = RESEARCH_REPORTS.length;
+  const totalCases = CASE_STUDIES.length;
+  const primaryResearch = (key: string) => RESEARCH_REPORTS.filter((r) => r.categories?.[0] === key);
+  const tabDefs: { key: Tab; label: string; icon: string; count?: number }[] = [
+    { key: "research", label: "Research and Data", icon: "chart", count: totalResearch },
+    { key: "evidence-builder", label: "Inclusion AI: Evidence Builder", icon: "sparkle", count: 3 },
+    { key: "cases", label: "Case Studies", icon: "briefcase", count: totalCases },
+    { key: "downloads", label: "Templates and Resources", icon: "clipboard", count: DOWNLOADS.length },
+  ];
+  const activeCaseStudy = CASE_STUDIES.find((c) => c.id === activeCase) ?? null;
+  const goTab = (t: Tab) => { setActiveTab(t); setActiveCase(null); window.scrollTo({ top: 0, behavior: "smooth" }); };
 
-      <div style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)", padding: "2rem 1.5rem 0" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.25rem)", color: "var(--charcoal)", marginBottom: "0.5rem" }}>
-            Make the Case
-          </h1>
-          <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", marginBottom: "1.25rem" }}>
-            Evidence, data, case studies and resources to build a compelling business case for inclusion.
+  const sectionOpener = (key: string, count: number, noun: string, plural = `${noun}s`) => {
+    const cat = CATEGORIES.find((c) => c.key === key);
+    const tone = OUTCOME_TONES[key] || OUTCOME_TONES.profitability;
+    return (
+      <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.1rem", padding: "0.85rem 1.25rem", background: tone.bg, borderRadius: "var(--radius-md)", borderLeft: `4px solid ${tone.color}` }}>
+        <Icon name={tone.icon} size={22} color={tone.color} />
+        <div style={{ flex: 1, display: "flex", alignItems: "baseline", flexWrap: "wrap", gap: "0.2rem 0.75rem" }}>
+          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.15rem", color: tone.color, margin: 0 }}>{cat?.label}</h2>
+          <span style={{ fontSize: "0.9rem", color: "var(--slate)", fontFamily: "var(--font-body)" }}>{cat?.desc}</span>
+        </div>
+        <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: tone.color, whiteSpace: "nowrap" }}>{count} {count === 1 ? noun : plural}</span>
+      </div>
+    );
+  };
+
+  const showAllButton = (id: string, total: number, plural: string, tone: { color: string }) => (
+    total > PREVIEW_COUNT ? (
+      <div style={{ display: "flex", justifyContent: "center", marginTop: "1.1rem" }}>
+        <button onClick={() => setExpandedSections((e) => ({ ...e, [id]: !e[id] }))} aria-expanded={Boolean(expandedSections[id])}
+          style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: tone.color, background: "var(--white)", border: `1.5px solid ${tone.color}`, borderRadius: "999px", padding: "0.55rem 1.35rem", minHeight: "44px", cursor: "pointer" }}>
+          {expandedSections[id] ? "Show fewer" : `Show all ${total} ${plural}`}
+          <span style={{ display: "flex", transform: expandedSections[id] ? "rotate(-90deg)" : "rotate(90deg)", transition: "transform 0.2s" }}><Icon name="chevron" size={16} color={tone.color} /></span>
+        </button>
+      </div>
+    ) : null
+  );
+
+  const cardShell = (tone: { color: string; bg: string; mid: string }): React.CSSProperties => ({
+    display: "flex", flexDirection: "column", background: "var(--white)", borderRadius: "var(--radius-md)", overflow: "hidden",
+    borderTop: `6px solid ${tone.color}`, borderRight: `1.5px solid ${tone.mid}`, borderBottom: `1.5px solid ${tone.mid}`, borderLeft: `1.5px solid ${tone.mid}`, boxShadow: "var(--shadow-sm)",
+  });
+
+  const researchCard = (r: (typeof RESEARCH_REPORTS)[number], toneKey: string) => {
+    const tone = OUTCOME_TONES[toneKey] || OUTCOME_TONES.profitability;
+    const open = () => { setActiveBrief(r.id); setShowRelated(false); setShowTailorModal(false); resetTool1(); window.scrollTo({ top: 0, behavior: "smooth" }); };
+    return (
+      <article key={`${toneKey}-${r.id}`} style={cardShell(tone)}>
+        <div style={{ background: tone.bg, padding: "0.6rem 1rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem" }}>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase", letterSpacing: "0.08em", color: tone.color }}>
+            <Icon name="chart" size={16} color={tone.color} /> {r.type || "Research"}
+          </span>
+          <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", color: tone.color, background: "var(--white)", borderRadius: "999px", padding: "0.15rem 0.6rem", fontVariantNumeric: "lining-nums" }}>{r.year}</span>
+        </div>
+        <div style={{ padding: "0.9rem 1.05rem 1rem", flex: 1, display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+          <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.98rem", color: "var(--ink)", lineHeight: 1.35, margin: 0 }}>{r.title}</h3>
+          <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: tone.color }}>{r.source}</div>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.86rem", color: "var(--slate)", lineHeight: 1.55, margin: 0, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{r.desc}</p>
+          <button onClick={open} aria-label={`Read the summary of ${r.title}`} style={{ marginTop: "auto", paddingTop: "0.6rem", alignSelf: "flex-start", display: "inline-flex", alignItems: "center", gap: "0.2rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", color: "var(--evergreen)", background: "none", border: "none", cursor: "pointer", padding: "0.6rem 0 0" }}>
+            Read Summary <Icon name="chevron" size={15} color="var(--evergreen)" />
+          </button>
+        </div>
+      </article>
+    );
+  };
+
+  const caseCard = (c: (typeof CASE_STUDIES)[number]) => {
+    const tone = OUTCOME_TONES[c.category] || OUTCOME_TONES.profitability;
+    return (
+      <article key={c.id} style={cardShell(tone)}>
+        <div style={{ background: tone.bg, padding: "0.6rem 1rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem" }}>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase", letterSpacing: "0.08em", color: tone.color, whiteSpace: "nowrap", flexShrink: 0 }}>
+            <Icon name="briefcase" size={16} color={tone.color} /> Case study
+          </span>
+          <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: tone.color, background: "var(--white)", borderRadius: "999px", padding: "0.15rem 0.6rem", maxWidth: "50%", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.sector}</span>
+        </div>
+        <div style={{ padding: "0.9rem 1.05rem 1rem", flex: 1, display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+          <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", letterSpacing: "0.1em", textTransform: "uppercase", color: tone.color }}>{c.org}</div>
+          <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.98rem", color: "var(--ink)", lineHeight: 1.35, margin: 0 }}>{c.title}</h3>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.86rem", color: "var(--slate)", lineHeight: 1.55, margin: 0, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+            <strong style={{ color: "var(--ink)" }}>Outcome:</strong> {c.outcome}
           </p>
+          <button onClick={() => { setActiveCase(c.id); window.scrollTo({ top: 0, behavior: "smooth" }); }} aria-label={`Read the ${c.org} case study`} style={{ marginTop: "auto", alignSelf: "flex-start", display: "inline-flex", alignItems: "center", gap: "0.2rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", color: "var(--evergreen)", background: "none", border: "none", cursor: "pointer", padding: "0.6rem 0 0" }}>
+            Read Case Study <Icon name="chevron" size={15} color="var(--evergreen)" />
+          </button>
+        </div>
+      </article>
+    );
+  };
 
-          {/* Search bar */}
-          <div style={{ position: "relative", marginBottom: "1.5rem", maxWidth: "560px" }}>
-            <span style={{ position: "absolute", left: "1.1rem", top: "50%", transform: "translateY(-50%)", fontSize: "0.95rem", color: "var(--gray-soft)" }} aria-hidden="true">🔍</span>
-            <input
-              type="search"
-              placeholder="Search by keyword, topic or source…"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              aria-label="Search the library"
-              style={{ width: "100%", padding: "0.8rem 2.75rem 0.8rem 2.75rem", borderRadius: "10px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.95rem", background: "var(--sage-xlight)", color: "var(--charcoal)", outline: "none", boxSizing: "border-box" }}
-            />
-            {search && (
-              <button onClick={() => setSearch("")} aria-label="Clear search" style={{ position: "absolute", right: "0.9rem", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "var(--gray-soft)", fontSize: "1rem", padding: "0.2rem" }}>✕</button>
-            )}
-          </div>
+  const grid: React.CSSProperties = { display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1.25rem" };
+  const outcomePills = (selected: string | null, onSelect: (k: string | null) => void) => (
+    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.45rem", alignItems: "center", marginTop: "1rem" }} aria-label="Filter by business outcome">
+      <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--slate)", marginRight: "0.3rem" }}>Outcome</span>
+      <button onClick={() => onSelect(null)} aria-pressed={!selected} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", padding: "0.4rem 0.9rem", minHeight: "34px", borderRadius: "999px", cursor: "pointer", border: "1.5px solid", borderColor: !selected ? "var(--evergreen)" : "var(--line)", background: !selected ? "var(--evergreen)" : "var(--white)", color: !selected ? "var(--white)" : "var(--ink)" }}>All outcomes</button>
+      {CATEGORIES.map((cat) => {
+        const tone = OUTCOME_TONES[cat.key];
+        const on = selected === cat.key;
+        return (
+          <button key={cat.key} onClick={() => onSelect(on ? null : cat.key)} aria-pressed={on} style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", padding: "0.4rem 0.85rem", minHeight: "34px", borderRadius: "999px", cursor: "pointer", border: `1.5px solid ${tone.color}`, background: on ? tone.color : "var(--white)", color: on ? "var(--white)" : tone.color }}>
+            <Icon name={tone.icon} size={14} color={on ? "var(--white)" : tone.color} /> {cat.label.split(" and ")[0]}
+          </button>
+        );
+      })}
+    </div>
+  );
 
-          {/* Tabs */}
-          <div style={{ display: "flex", gap: "0.375rem", borderBottom: "1px solid var(--gray-border)", padding: "0.5rem 0", overflowX: "auto" }}>
-            {([
-              { key: "research", label: "📊 Research and Data" },
-              { key: "evidence-builder", label: "✨ Inclusion AI: Evidence Builder" },
-              { key: "cases", label: "🏢 Case Studies" },
-              { key: "downloads", label: "📁 Templates and Resources" },
-            ] as { key: Tab; label: string }[]).map((tab) => (
-              <button key={tab.key} onClick={() => setActiveTab(tab.key)}
-                style={{ fontFamily: "var(--font-heading)", fontWeight: activeTab === tab.key ? 700 : 600, fontSize: "0.875rem", padding: "0.5rem 1.1rem", background: activeTab === tab.key ? "var(--sage-xlight)" : "none", border: "none", borderRadius: "20px", cursor: "pointer", color: activeTab === tab.key ? "var(--sage-dark)" : "var(--gray-soft)", outline: activeTab === tab.key ? "2px solid var(--sage-light)" : "none", outlineOffset: "-1px", whiteSpace: "nowrap" }}>
-                {tab.label}
-              </button>
-            ))}
+  return (
+    <div className="min-h-screen" style={{ background: "var(--mist)" }}>
+      <PlatformNav />
+
+      {/* PHOTO HERO (platform page template, compact) */}
+      <header style={{ position: "relative", minHeight: "420px", display: "flex", alignItems: "center", overflow: "hidden", background: "var(--forest)" }}>
+        <img src="/make-the-case-hero.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 35%" }} />
+        <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "var(--hero-overlay)" }} />
+        <div style={{ position: "relative", zIndex: 1, maxWidth: "1200px", margin: "0 auto", padding: "2.25rem 1.5rem 2.5rem", width: "100%", boxSizing: "border-box" }}>
+          <Link href="/dashboard" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", textDecoration: "none", background: "rgba(255,255,255,0.12)", border: "1.5px solid rgba(255,255,255,0.4)", borderRadius: "var(--radius-sm)", padding: "0.45rem 0.9rem", backdropFilter: "blur(4px)" }}>
+            <Icon name="back" size={16} /> Back to dashboard
+          </Link>
+          <div style={{ marginTop: "1.5rem" }}>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--white)", border: "1.5px solid rgba(255,255,255,0.4)", background: "rgba(255,255,255,0.08)", backdropFilter: "blur(4px)", borderRadius: "999px", padding: "0.4rem 1rem" }}>
+              Impact Platform: Make the Case
+            </span>
           </div>
+          <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(2.4rem, 5.5vw, 3.75rem)", lineHeight: 1.05, color: "var(--white)", margin: "1rem 0 0.75rem", letterSpacing: "-0.01em" }}>
+            <span style={{ color: "var(--hero-cream)" }}>Make the</span> <span style={{ color: "var(--hero-mint)" }}>Case.</span>
+          </h1>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "clamp(1rem, 2vw, 1.15rem)", lineHeight: 1.7, color: "var(--white)", maxWidth: "580px", margin: "0 0 1.25rem" }}>
+            The research, real examples and templates you need to win support for inclusion, from the budget meeting to the boardroom.
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "1.5rem", fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--hero-cream)" }}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem" }}><Icon name="chart" color="var(--hero-cream)" /> {totalResearch} research summaries</span>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem" }}><Icon name="briefcase" color="var(--hero-cream)" /> {totalCases} case studies</span>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem" }}><Icon name="sparkle" color="var(--hero-cream)" /> 3 Inclusion AI tools</span>
+          </div>
+        </div>
+      </header>
+
+      {/* FILTER STRIP: the four sections as tabs, search, and outcome filters */}
+      <div style={{ background: "var(--white)", borderBottom: "1px solid var(--line)", padding: "1.35rem 1.5rem 1.25rem" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <div role="tablist" aria-label="Make the Case sections" style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginBottom: "1rem" }}>
+            {tabDefs.map((t) => {
+              const on = activeTab === t.key;
+              return (
+                <button key={t.key} role="tab" aria-selected={on} onClick={() => goTab(t.key)}
+                  style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", padding: "0.55rem 1.05rem", minHeight: "44px", borderRadius: "999px", cursor: "pointer", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", border: "1.5px solid var(--evergreen)", background: on ? "var(--evergreen)" : "var(--white)", color: on ? "var(--white)" : "var(--evergreen)" }}>
+                  <Icon name={t.icon} size={16} color={on ? "var(--white)" : t.key === "evidence-builder" ? "var(--gold)" : "var(--evergreen)"} strokeWidth={t.key === "evidence-builder" ? 2 : 1.75} /> {t.label}
+                  {typeof t.count === "number" && <span style={{ fontSize: "0.78rem", fontWeight: 700, opacity: 0.85 }}>{t.count}</span>}
+                </button>
+              );
+            })}
+          </div>
+          <div style={{ position: "relative" }}>
+            <span style={{ position: "absolute", left: "1.1rem", top: "50%", transform: "translateY(-50%)", display: "flex" }}><Icon name="search" color="var(--slate)" /></span>
+            <input type="search" placeholder="Search by keyword, topic, organisation or source" value={search} onChange={(e) => setSearch(e.target.value)} aria-label="Search the library"
+              style={{ width: "100%", padding: "0.85rem 1.25rem 0.85rem 3rem", borderRadius: "var(--radius-md)", border: "1.5px solid var(--line)", fontFamily: "var(--font-body)", fontSize: "1rem", background: "var(--mist)", color: "var(--ink)", boxSizing: "border-box" }} />
+          </div>
+          {activeTab === "research" && outcomePills(activeCategory, setActiveCategory)}
+          {activeTab === "cases" && !activeCaseStudy && outcomePills(caseCategory, setCaseCategory)}
         </div>
       </div>
 
-      <main id="main-content" style={{ maxWidth: "1100px", margin: "0 auto", padding: "2.5rem 1.5rem 5rem" }}>
+      <main id="main-content" style={{ maxWidth: "1200px", margin: "0 auto", padding: "2.25rem 1.5rem 4.5rem" }}>
 
         {/* RESEARCH AND DATA */}
         {activeTab === "research" && (
           <>
-            {/* ── TILE LANDING (no category selected, no search active) ── */}
+            {/* START HERE: Business Case Essentials (shown on the landing view only) */}
             {!activeCategory && !search && (
-              <>
-                <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.9rem", marginBottom: "2rem" }}>
-                  Choose a business outcome to explore the evidence, or use the search bar above to find a specific report.
-                </p>
-                <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "2.25rem" }}>
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem" }}>
-                    {CATEGORIES.slice(0, 4).map((cat) => {
-                      const count = RESEARCH_REPORTS.filter((r) => r.categories?.includes(cat.key)).length;
-                      return (
-                    <button
-                      key={cat.key}
-                      onClick={() => setActiveCategory(cat.key)}
-                      style={{
-                        textAlign: "center",
-                        background: "linear-gradient(160deg, #f0f6f1 0%, #daeadc 60%, #c8deca 100%)",
-                        border: "2.5px solid #8faf93",
-                        borderRadius: "16px",
-                        padding: "3rem 1.75rem 2.75rem",
-                        cursor: "pointer",
-                        transition: "all 0.2s ease",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        boxShadow: "0 2px 8px rgba(74,99,71,0.10), inset 0 1px 0 rgba(255,255,255,0.7)",
-                      }}
-                    >
-                      <div style={{ fontSize: "2.75rem", marginBottom: "0.875rem", lineHeight: 1 }}>{cat.icon}</div>
-                      <div style={{
-                        fontFamily: "var(--font-heading)",
-                        fontWeight: 700,
-                        fontSize: "1rem",
-                        color: "var(--charcoal)",
-                        lineHeight: 1.35,
-                        marginBottom: "0.4rem",
-                        textAlign: "center",
-                      }}>{cat.label}</div>
-                      <div style={{
-                        fontFamily: "var(--font-body)",
-                        fontSize: "0.78rem",
-                        color: "var(--gray-soft)",
-                        lineHeight: 1.5,
-                        textAlign: "center",
-                        marginBottom: "0.6rem",
-                        flexGrow: 1,
-                      }}>{cat.desc}</div>
-                      <div style={{
-                        fontFamily: "var(--font-body)",
-                        fontSize: "0.8rem",
-                        fontWeight: 600,
-                        color: "var(--sage-dark)",
-                        marginTop: "auto",
-                      }}>{count} {count === 1 ? "report" : "reports"}</div>
-                    </button>
-                      );
-                    })}
-                  </div>
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem", width: "75%", margin: "0 auto" }}>
-                    {CATEGORIES.slice(4).map((cat) => {
-                      const count = RESEARCH_REPORTS.filter((r) => r.categories?.includes(cat.key)).length;
-                      return (
-                    <button
-                      key={cat.key}
-                      onClick={() => setActiveCategory(cat.key)}
-                      style={{
-                        textAlign: "center",
-                        background: "linear-gradient(160deg, #f0f6f1 0%, #daeadc 60%, #c8deca 100%)",
-                        border: "2.5px solid #8faf93",
-                        borderRadius: "16px",
-                        padding: "3rem 1.75rem 2.75rem",
-                        cursor: "pointer",
-                        transition: "all 0.2s ease",
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        boxShadow: "0 2px 8px rgba(74,99,71,0.10), inset 0 1px 0 rgba(255,255,255,0.7)",
-                      }}
-                    >
-                      <div style={{ fontSize: "2.75rem", marginBottom: "0.875rem", lineHeight: 1 }}>{cat.icon}</div>
-                      <div style={{
-                        fontFamily: "var(--font-heading)",
-                        fontWeight: 700,
-                        fontSize: "1rem",
-                        color: "var(--charcoal)",
-                        lineHeight: 1.35,
-                        marginBottom: "0.4rem",
-                        textAlign: "center",
-                      }}>{cat.label}</div>
-                      <div style={{
-                        fontFamily: "var(--font-body)",
-                        fontSize: "0.78rem",
-                        color: "var(--gray-soft)",
-                        lineHeight: 1.5,
-                        textAlign: "center",
-                        marginBottom: "0.6rem",
-                        flexGrow: 1,
-                      }}>{cat.desc}</div>
-                      <div style={{
-                        fontFamily: "var(--font-body)",
-                        fontSize: "0.8rem",
-                        fontWeight: 600,
-                        color: "var(--sage-dark)",
-                        marginTop: "auto",
-                      }}>{count} {count === 1 ? "report" : "reports"}</div>
-                    </button>
-                      );
-                    })}
-                  </div>
+              <section aria-labelledby="essentials" style={{ marginBottom: "2.75rem" }}>
+                <div style={{ marginBottom: "1.1rem" }}>
+                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--evergreen)", marginBottom: "0.35rem" }}>Start here</div>
+                  <h2 id="essentials" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 2.8vw, 1.85rem)", color: "var(--ink)", margin: "0 0 0.3rem", lineHeight: 1.2 }}>Business Case Essentials</h2>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.98rem", color: "var(--slate)", margin: 0 }}>The eight resources most members start with: the data that convinces, the examples that prove it works, and the tools and templates that present it.</p>
                 </div>
-              </>
-            )}
-
-            {/* ── CATEGORY VIEW (category selected) ── */}
-            {activeCategory && !search && (
-              <>
-                {/* Back link */}
-                <button
-                  onClick={() => setActiveCategory(null)}
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "0.375rem",
-                    fontFamily: "var(--font-body)",
-                    fontSize: "0.875rem",
-                    color: "var(--sage-dark)",
-                    fontWeight: 600,
-                    background: "none",
-                    border: "none",
-                    cursor: "pointer",
-                    padding: 0,
-                    marginBottom: "1.5rem",
-                  }}
-                >
-                  ← All categories
-                </button>
-                <div style={{ marginBottom: "1.75rem" }}>
-                  <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.5rem", color: "var(--charcoal)", marginBottom: "0.25rem" }}>
-                    {CATEGORIES.find((c) => c.key === activeCategory)?.icon}{" "}
-                    {CATEGORIES.find((c) => c.key === activeCategory)?.label}
-                  </h2>
-                  <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.875rem" }}>
-                    {filteredResearch.length} {filteredResearch.length === 1 ? "report" : "reports"}
-                  </p>
-                </div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "1.25rem" }}>
-                  {filteredResearch.map((r) => (
-                    <div key={r.id} className="card">
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.75rem" }}>
-                        <span style={{ fontSize: "1.75rem" }} aria-hidden="true">{r.icon}</span>
-                        <div style={{ display: "flex", gap: "0.375rem", flexWrap: "wrap", justifyContent: "flex-end" }}>
-                          <span className="badge badge-sage" style={{ fontSize: "0.6rem" }}>{r.type}</span>
-                          <span className="badge badge-cream" style={{ fontSize: "0.6rem" }}>{r.year}</span>
-                        </div>
-                      </div>
-                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9375rem", color: "var(--charcoal)", marginBottom: "0.25rem" }}>{r.title}</div>
-                      <div style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--sage-dark)", fontWeight: 600, marginBottom: "0.625rem" }}>{r.source}</div>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: "0 0 1rem 0" }}>{r.desc}</p>
-                      <button
-                        className="btn-secondary"
-                        style={{ fontSize: "0.8rem", padding: "0.5rem 1rem" }}
-                        onClick={() => { setActiveBrief(r.id); setShowRelated(false); setShowTailorModal(false); resetTool1(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-                      >
-                        Read summary →
-                      </button>
-                    </div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "0.85rem" }}>
+                  {ESSENTIALS.map((e) => (
+                    <button key={e.title} onClick={() => {
+                        if (e.go === "brief") { setActiveTab("research"); setActiveBrief(e.target); setShowRelated(false); setShowTailorModal(false); }
+                        else if (e.go === "case") { setActiveTab("cases"); setActiveCase(e.target); }
+                        else if (e.go === "builder") { setActiveTab("evidence-builder"); setEbActiveTool("argument"); }
+                        else { setActiveTab("downloads"); }
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }}
+                      style={{ display: "flex", alignItems: "center", gap: "0.85rem", textAlign: "left", background: "var(--white)", border: "1px solid var(--line)", borderRadius: "var(--radius-md)", boxShadow: "var(--shadow-sm)", padding: "0.8rem 1rem", cursor: "pointer", minHeight: "72px" }}>
+                      <span style={{ flexShrink: 0, width: "42px", height: "42px", borderRadius: "50%", background: "var(--pale-sage)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <Icon name={e.icon} size={19} color={e.go === "builder" ? "var(--gold-deep)" : "var(--evergreen)"} />
+                      </span>
+                      <span style={{ flex: 1, minWidth: 0 }}>
+                        <span style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--evergreen)" }}>{e.kind}</span>
+                        <span style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--ink)", lineHeight: 1.3, margin: "0.1rem 0" }}>{e.title}</span>
+                        <span style={{ display: "block", fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--slate)", lineHeight: 1.45 }}>{e.desc}</span>
+                      </span>
+                      <Icon name="chevron" size={18} color="var(--evergreen)" />
+                    </button>
                   ))}
                 </div>
-              </>
+              </section>
             )}
 
-            {/* ── SEARCH RESULTS (search active, ignores category) ── */}
+            {/* SEARCH RESULTS */}
             {search && (
               <>
-                <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.875rem", marginBottom: "1.25rem" }}>
-                  {filteredResearch.length === 0
-                    ? "No reports match your search."
-                    : `${filteredResearch.length} ${filteredResearch.length === 1 ? "report" : "reports"} found`}
+                <p style={{ fontFamily: "var(--font-heading)", color: "var(--slate)", fontSize: "0.9rem", margin: "0 0 1.25rem" }} aria-live="polite">
+                  {filteredResearch.length === 0 ? "No reports match your search." : `${filteredResearch.length} ${filteredResearch.length === 1 ? "report" : "reports"} found`}
+                  <button onClick={() => setSearch("")} style={{ marginLeft: "0.75rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", color: "var(--evergreen)", background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}>Clear search</button>
                 </p>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: "1.25rem" }}>
-                  {filteredResearch.map((r) => (
-                    <div key={r.id} className="card">
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.75rem" }}>
-                        <span style={{ fontSize: "1.75rem" }} aria-hidden="true">{r.icon}</span>
-                        <div style={{ display: "flex", gap: "0.375rem", flexWrap: "wrap", justifyContent: "flex-end" }}>
-                          <span className="badge badge-sage" style={{ fontSize: "0.6rem" }}>{r.type}</span>
-                          <span className="badge badge-cream" style={{ fontSize: "0.6rem" }}>{r.year}</span>
-                        </div>
-                      </div>
-                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9375rem", color: "var(--charcoal)", marginBottom: "0.25rem" }}>{r.title}</div>
-                      <div style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--sage-dark)", fontWeight: 600, marginBottom: "0.625rem" }}>{r.source}</div>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: "0 0 1rem 0" }}>{r.desc}</p>
-                      <button
-                        className="btn-secondary"
-                        style={{ fontSize: "0.8rem", padding: "0.5rem 1rem" }}
-                        onClick={() => { setActiveBrief(r.id); setShowRelated(false); setShowTailorModal(false); resetTool1(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-                      >
-                        Read summary →
-                      </button>
-                    </div>
-                  ))}
-                </div>
+                <div style={grid}>{filteredResearch.map((r) => researchCard(r, r.categories?.[0] || "profitability"))}</div>
               </>
             )}
+
+            {/* ONE OUTCOME SELECTED: every report tagged with it */}
+            {!search && activeCategory && (
+              <section>
+                {sectionOpener(activeCategory, filteredResearch.length, "report")}
+                <div style={grid}>{filteredResearch.map((r) => researchCard(r, activeCategory))}</div>
+              </section>
+            )}
+
+            {/* LANDING: grouped by each report's main outcome, four per group, then Show all */}
+            {!search && !activeCategory && CATEGORIES.map((cat) => {
+              const list = primaryResearch(cat.key);
+              if (!list.length) return null;
+              const tone = OUTCOME_TONES[cat.key];
+              const shown = expandedSections[`r-${cat.key}`] ? list : list.slice(0, PREVIEW_COUNT);
+              return (
+                <section key={cat.key} style={{ marginBottom: "2.5rem" }}>
+                  {sectionOpener(cat.key, list.length, "report")}
+                  <div style={grid}>{shown.map((r) => researchCard(r, cat.key))}</div>
+                  {showAllButton(`r-${cat.key}`, list.length, "reports", tone)}
+                </section>
+              );
+            })}
           </>
         )}
 
-                {/* EVIDENCE BUILDER */}
+        {/* EVIDENCE BUILDER */}
         {activeTab === "evidence-builder" && (
           <>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.35rem", color: "var(--charcoal)", marginBottom: "0.5rem" }}>✨ Inclusion AI Evidence Builder Tools</h2>
-            <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.925rem", lineHeight: 1.7, marginBottom: "2rem", maxWidth: "640px" }}>
-              Three AI tools to help you make the case for EDI internally. Choose the one that fits what you need right now.
-            </p>
-
-            {/* Three tool cards */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem", marginBottom: "2.5rem" }}>
-
-              {/* Card 1: Evidence Argument Builder */}
-              <div
-                style={{ display: "flex", flexDirection: "column", gap: "1rem", background: "var(--white)", border: ebActiveTool === "argument" ? "2px solid #B8860B" : "1.5px solid #C9A84C", borderRadius: "16px", padding: "1.75rem", position: "relative", overflow: "hidden", transition: "box-shadow 0.15s ease" }}
-                onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 4px 20px rgba(201,168,76,0.35)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "none"; }}
-              >
-                <div style={{ position: "absolute", top: "0.875rem", right: "0.875rem", background: "transparent", color: "var(--charcoal)", fontSize: "0.65rem", fontFamily: "var(--font-body)", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", padding: "0.2rem 0.55rem", borderRadius: "20px", border: "1.5px solid #C9A84C" }}>Inclusion AI</div>
-                <div style={{ fontSize: "2rem" }}>🧠</div>
-                <div>
-                  <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", margin: "0 0 0.4rem 0" }}>Evidence Argument Builder</h3>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: 0 }}>
-                    Tell us what you are trying to argue and who you are presenting to. We will surface the most relevant evidence from our research library and build you a structured argument.
-                  </p>
-                </div>
-                <button
-                  onClick={() => setEbActiveTool(ebActiveTool === "argument" ? null : "argument")}
-                  className="btn-primary"
-                  style={{ fontSize: "0.825rem", padding: "0.625rem 1.25rem", marginTop: "auto" }}
-                >
-                  {ebActiveTool === "argument" ? "Close ✕" : "Build my argument →"}
-                </button>
+            <div style={{ marginBottom: "1.25rem" }}>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--evergreen)", marginBottom: "0.35rem" }}>
+                <Icon name="sparkle" size={14} color="var(--gold)" strokeWidth={2} /> Inclusion AI
               </div>
-
-              {/* Card 2: Personalised Research Interpreter (Tool 1) */}
-              <div
-                style={{ display: "flex", flexDirection: "column", gap: "1rem", background: "var(--white)", border: ebActiveTool === "research" ? "2px solid #B8860B" : "1.5px solid #C9A84C", borderRadius: "16px", padding: "1.75rem", position: "relative", overflow: "hidden", transition: "box-shadow 0.15s ease" }}
-                onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 4px 20px rgba(201,168,76,0.35)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "none"; }}
-              >
-                <div style={{ position: "absolute", top: "0.875rem", right: "0.875rem", background: "transparent", color: "var(--charcoal)", fontSize: "0.65rem", fontFamily: "var(--font-body)", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", padding: "0.2rem 0.55rem", borderRadius: "20px", border: "1.5px solid #C9A84C" }}>Inclusion AI</div>
-                <div style={{ fontSize: "2rem" }}>🔬</div>
-                <div>
-                  <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", margin: "0 0 0.4rem 0" }}>Personalised Research Interpreter</h3>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: 0 }}>
-                    Already found a piece of research you want to use? Paste the title and summary and we will personalise the interpretation for your organisation, sector and audience.
-                  </p>
-                </div>
-                <button
-                  onClick={() => setEbActiveTool(ebActiveTool === "research" ? null : "research")}
-                  className="btn-primary"
-                  style={{ fontSize: "0.825rem", padding: "0.625rem 1.25rem", marginTop: "auto" }}
-                >
-                  {ebActiveTool === "research" ? "Close ✕" : "Personalise this research →"}
-                </button>
-              </div>
-
-              {/* Card 3: Case Study Replication Roadmap */}
-              <div
-                style={{ display: "flex", flexDirection: "column", gap: "1rem", background: "var(--white)", border: ebActiveTool === "objections" ? "2px solid #B8860B" : "1.5px solid #C9A84C", borderRadius: "16px", padding: "1.75rem", position: "relative", overflow: "hidden", transition: "box-shadow 0.15s ease" }}
-                onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 4px 20px rgba(201,168,76,0.35)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "none"; }}
-              >
-                <div style={{ position: "absolute", top: "0.875rem", right: "0.875rem", background: "transparent", color: "var(--charcoal)", fontSize: "0.65rem", fontFamily: "var(--font-body)", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", padding: "0.2rem 0.55rem", borderRadius: "20px", border: "1.5px solid #C9A84C" }}>Inclusion AI</div>
-                <div style={{ fontSize: "2rem" }}>🗺️</div>
-                <div>
-                  <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", margin: "0 0 0.4rem 0" }}>Case Study Replication Roadmap</h3>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: 0 }}>
-                    Choose a case study and answer five quick questions. We will build you a personalised action plan for replicating that result in your own organisation.
-                  </p>
-                </div>
-                <button
-                  onClick={() => setEbActiveTool(ebActiveTool === "objections" ? null : "objections")}
-                  className="btn-primary"
-                  style={{ fontSize: "0.825rem", padding: "0.625rem 1.25rem", marginTop: "auto" }}
-                >
-                  {ebActiveTool === "objections" ? "Close ✕" : "Build my replication roadmap →"}
-                </button>
-              </div>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 2.8vw, 1.85rem)", color: "var(--ink)", margin: "0 0 0.3rem", lineHeight: 1.2 }}>Evidence Builder</h2>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.98rem", color: "var(--slate)", margin: 0, maxWidth: "640px" }}>Three tools to help you make the case internally. Choose the one that fits what you need right now.</p>
             </div>
+
+            {/* Three tool cards: the standard Inclusion AI card */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem", marginBottom: "2.25rem" }}>
+              {EB_TOOLS.map((t) => {
+                const on = ebActiveTool === t.key;
+                const tone = OUTCOME_TONES.profitability;
+                return (
+                  <article key={t.key} style={{ ...cardShell(tone), borderRight: `1.5px solid ${on ? tone.color : tone.mid}`, borderBottom: `1.5px solid ${on ? tone.color : tone.mid}`, borderLeft: `1.5px solid ${on ? tone.color : tone.mid}`, boxShadow: on ? "var(--shadow-md)" : "var(--shadow-sm)" }}>
+                    <div style={{ background: tone.bg, padding: "0.8rem 1.1rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                      <span style={{ width: "44px", height: "44px", borderRadius: "50%", background: "var(--white)", boxShadow: "var(--shadow-sm)", display: "flex", alignItems: "center", justifyContent: "center" }}><Icon name={t.icon} size={21} color={tone.color} /></span>
+                      <span style={{ display: "inline-flex", alignItems: "center", gap: "0.3rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.08em", color: tone.color, background: "var(--white)", padding: "0.25rem 0.65rem", borderRadius: "999px" }}>
+                        <Icon name="sparkle" size={13} color="var(--gold)" strokeWidth={2} /> Inclusion AI
+                      </span>
+                    </div>
+                    <div style={{ padding: "1rem 1.15rem 1.15rem", flex: 1, display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                      <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.02rem", color: "var(--ink)", margin: 0 }}>{t.name}</h3>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", fontWeight: 700, color: tone.color, lineHeight: 1.45, margin: 0 }}>{t.tagline}</p>
+                      <dl style={{ margin: "0.2rem 0 0", display: "flex", flexDirection: "column", gap: "0.55rem", padding: "0.75rem 0 0", borderTop: "1px solid var(--line)" }}>
+                        {[{ label: "You give", value: t.give, icon: "clipboard" }, { label: "You get", value: t.get, icon: "sparkle" }].map((row) => (
+                          <div key={row.label} style={{ display: "flex", gap: "0.6rem", alignItems: "flex-start" }}>
+                            <span style={{ flexShrink: 0, width: "28px", height: "28px", borderRadius: "50%", background: tone.bg, display: "flex", alignItems: "center", justifyContent: "center" }}><Icon name={row.icon} size={15} color={tone.color} /></span>
+                            <div>
+                              <dt style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--slate)" }}>{row.label}</dt>
+                              <dd style={{ margin: "0.1rem 0 0", fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "var(--ink)", lineHeight: 1.5 }}>{row.value}</dd>
+                            </div>
+                          </div>
+                        ))}
+                      </dl>
+                      <button onClick={() => setEbActiveTool(on ? null : t.key)} aria-expanded={on}
+                        style={{ marginTop: "auto", alignSelf: "stretch", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", padding: "0.75rem 1.25rem", minHeight: "44px", borderRadius: "var(--radius-sm)", cursor: "pointer", border: on ? "1.5px solid var(--evergreen)" : "none", background: on ? "var(--white)" : "var(--evergreen)", color: on ? "var(--evergreen)" : "var(--white)" }}>
+                        {on ? "Close Tool" : t.cta}
+                      </button>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+
 
             {/* Tool 1 panel: Evidence Argument Builder */}
             {ebActiveTool === "argument" && (
               <section style={{ background: "var(--white)", borderRadius: "16px", padding: "2rem", marginBottom: "2rem", border: "2px solid var(--sage-dark)" }}>
-                <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.05rem", color: "var(--charcoal)", marginBottom: "0.375rem" }}>Evidence Argument Builder</h3>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", marginBottom: "1.75rem", lineHeight: 1.7 }}>
+                <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.05rem", color: "var(--ink)", marginBottom: "0.375rem" }}>Evidence Argument Builder</h3>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--slate)", marginBottom: "1.75rem", lineHeight: 1.7 }}>
                   Tell us what you are trying to argue, who you are presenting to, and what you are up against. We will build the case for you.
                 </p>
 
@@ -2625,7 +2601,7 @@ function EvidencePageInner() {
 
                     {/* Q5: Resistance — multi-select */}
                     <div>
-                      <label style={labelStyle}>What is the main resistance you are facing? <span style={{ fontWeight: 400, color: "var(--gray-soft)" }}>(select all that apply)</span></label>
+                      <label style={labelStyle}>What is the main resistance you are facing? <span style={{ fontWeight: 400, color: "var(--slate)" }}>(select all that apply)</span></label>
                       <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                         {[
                           "They do not think it is a priority",
@@ -2637,8 +2613,8 @@ function EvidencePageInner() {
                         ].map(opt => {
                           const selected = ebResistance.includes(opt);
                           return (
-                            <label key={opt} onClick={() => setEbResistance(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} style={{ display: "flex", alignItems: "center", gap: "0.75rem", cursor: "pointer", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: selected ? "var(--charcoal)" : "var(--gray-soft)", fontWeight: selected ? 600 : 400 }}>
-                              <div style={{ width: "18px", height: "18px", borderRadius: "4px", border: `2px solid ${selected ? "var(--sage-dark)" : "var(--gray-border)"}`, background: selected ? "var(--sage-dark)" : "var(--white)", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                            <label key={opt} onClick={() => setEbResistance(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} style={{ display: "flex", alignItems: "center", gap: "0.75rem", cursor: "pointer", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: selected ? "var(--ink)" : "var(--slate)", fontWeight: selected ? 600 : 400 }}>
+                              <div style={{ width: "18px", height: "18px", borderRadius: "4px", border: `2px solid ${selected ? "var(--sage-dark)" : "var(--line)"}`, background: selected ? "var(--sage-dark)" : "var(--white)", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
                                 {selected && <span style={{ color: "var(--white)", fontSize: "0.7rem", lineHeight: 1 }}>✓</span>}
                               </div>
                               {opt}
@@ -2650,7 +2626,7 @@ function EvidencePageInner() {
 
                     {/* Q6: Outcome — multi-select */}
                     <div>
-                      <label style={labelStyle}>What outcome are you hoping for from this conversation? <span style={{ fontWeight: 400, color: "var(--gray-soft)" }}>(select all that apply)</span></label>
+                      <label style={labelStyle}>What outcome are you hoping for from this conversation? <span style={{ fontWeight: 400, color: "var(--slate)" }}>(select all that apply)</span></label>
                       <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                         {[
                           "I want them to approve a budget",
@@ -2661,8 +2637,8 @@ function EvidencePageInner() {
                         ].map(opt => {
                           const selected = ebOutcome.includes(opt);
                           return (
-                            <label key={opt} onClick={() => setEbOutcome(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} style={{ display: "flex", alignItems: "center", gap: "0.75rem", cursor: "pointer", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: selected ? "var(--charcoal)" : "var(--gray-soft)", fontWeight: selected ? 600 : 400 }}>
-                              <div style={{ width: "18px", height: "18px", borderRadius: "4px", border: `2px solid ${selected ? "var(--sage-dark)" : "var(--gray-border)"}`, background: selected ? "var(--sage-dark)" : "var(--white)", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                            <label key={opt} onClick={() => setEbOutcome(prev => prev.includes(opt) ? prev.filter(x => x !== opt) : [...prev, opt])} style={{ display: "flex", alignItems: "center", gap: "0.75rem", cursor: "pointer", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: selected ? "var(--ink)" : "var(--slate)", fontWeight: selected ? 600 : 400 }}>
+                              <div style={{ width: "18px", height: "18px", borderRadius: "4px", border: `2px solid ${selected ? "var(--sage-dark)" : "var(--line)"}`, background: selected ? "var(--sage-dark)" : "var(--white)", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center" }}>
                                 {selected && <span style={{ color: "var(--white)", fontSize: "0.7rem", lineHeight: 1 }}>✓</span>}
                               </div>
                               {opt}
@@ -2679,7 +2655,7 @@ function EvidencePageInner() {
                         className="btn-primary"
                         style={{ fontSize: "0.925rem", padding: "0.875rem 2rem", opacity: (!ebTopic.trim() || !ebSector || !ebSize || !ebAudience || ebResistance.length === 0 || ebOutcome.length === 0) ? 0.5 : 1, cursor: (!ebTopic.trim() || !ebSector || !ebSize || !ebAudience || ebResistance.length === 0 || ebOutcome.length === 0) ? "not-allowed" : "pointer" }}
                       >
-                        {ebLoading ? "Building your case…" : "Build my argument →"}
+                        {ebLoading ? "Building your case…" : "Build my argument"}
                       </button>
                     </div>
                   </div>
@@ -2691,20 +2667,20 @@ function EvidencePageInner() {
                         {ebCopied === "s1" ? "Copied!" : "Copy"}
                       </button>
                       <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.75rem" }}>Your argument</div>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.8, margin: 0, whiteSpace: "pre-wrap" }}>{ebResult.section1}</p>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--ink)", lineHeight: 1.8, margin: 0, whiteSpace: "pre-wrap" }}>{ebResult.section1}</p>
                     </div>
 
                     {/* Box 2: Talking points */}
-                    <div style={{ position: "relative", background: "var(--white)", borderRadius: "12px", padding: "1.5rem", border: "1.5px solid var(--gray-border)" }}>
+                    <div style={{ position: "relative", background: "var(--white)", borderRadius: "12px", padding: "1.5rem", border: "1.5px solid var(--line)" }}>
                       <button onClick={() => copyEbSection("s2", ebResult!.section2)} style={{ position: "absolute", top: "0.75rem", right: "0.75rem", background: "var(--white)", border: "1px solid var(--sage-light)", borderRadius: "6px", padding: "0.25rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "var(--sage-dark)", cursor: "pointer" }}>
                         {ebCopied === "s2" ? "Copied!" : "Copy"}
                       </button>
                       <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.75rem" }}>Talking points and things to remember</div>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.8, margin: 0, whiteSpace: "pre-wrap" }}>{ebResult.section2}</p>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--ink)", lineHeight: 1.8, margin: 0, whiteSpace: "pre-wrap" }}>{ebResult.section2}</p>
                     </div>
 
                     {/* Box 3: Relevant resources from the platform library */}
-                    <div style={{ background: "var(--white)", borderRadius: "12px", padding: "1.5rem", border: "1.5px solid var(--gray-border)" }}>
+                    <div style={{ background: "var(--white)", borderRadius: "12px", padding: "1.5rem", border: "1.5px solid var(--line)" }}>
                       <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "1rem" }}>Relevant resources from the platform</div>
                       <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
                         {(() => {
@@ -2729,20 +2705,20 @@ function EvidencePageInner() {
                             <>
                               {reports.map(r => (
                                 <div key={r.id} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
-                                  <span style={{ fontSize: "1.1rem", flexShrink: 0 }}>{r.icon || "📄"}</span>
+                                  <span style={{ flexShrink: 0, display: "flex" }}><Icon name="chart" size={17} color="var(--evergreen)" /></span>
                                   <div>
-                                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.85rem", color: "var(--charcoal)", marginBottom: "0.15rem" }}>{r.title}</div>
-                                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", lineHeight: 1.5 }}>{r.desc}</div>
+                                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.85rem", color: "var(--ink)", marginBottom: "0.15rem" }}>{r.title}</div>
+                                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)", lineHeight: 1.5 }}>{r.desc}</div>
                                     <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.72rem", color: "var(--sage-dark)", marginTop: "0.25rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>Research Report · {r.source}, {r.year}</div>
                                   </div>
                                 </div>
                               ))}
                               {cases.map(c => (
                                 <div key={c.id} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
-                                  <span style={{ fontSize: "1.1rem", flexShrink: 0 }}>🏢</span>
+                                  <span style={{ flexShrink: 0, display: "flex" }}><Icon name="briefcase" size={17} color="var(--evergreen)" /></span>
                                   <div>
-                                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.85rem", color: "var(--charcoal)", marginBottom: "0.15rem" }}>{c.title}</div>
-                                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", lineHeight: 1.5 }}>{c.what?.slice(0, 120)}{c.what?.length > 120 ? "…" : ""}</div>
+                                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.85rem", color: "var(--ink)", marginBottom: "0.15rem" }}>{c.title}</div>
+                                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)", lineHeight: 1.5 }}>{c.what?.slice(0, 120)}{c.what?.length > 120 ? "…" : ""}</div>
                                     <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.72rem", color: "var(--sage-dark)", marginTop: "0.25rem", textTransform: "uppercase", letterSpacing: "0.05em" }}>Case Study · {c.org}</div>
                                   </div>
                                 </div>
@@ -2754,22 +2730,22 @@ function EvidencePageInner() {
                     </div>
 
                     {/* Box 4: How to have the conversation */}
-                    <div style={{ position: "relative", background: "var(--white)", borderRadius: "12px", padding: "1.5rem", border: "1.5px solid var(--gray-border)" }}>
+                    <div style={{ position: "relative", background: "var(--white)", borderRadius: "12px", padding: "1.5rem", border: "1.5px solid var(--line)" }}>
                       <button onClick={() => copyEbSection("s3", ebResult!.section3)} style={{ position: "absolute", top: "0.75rem", right: "0.75rem", background: "var(--white)", border: "1px solid var(--sage-light)", borderRadius: "6px", padding: "0.25rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "var(--sage-dark)", cursor: "pointer" }}>
                         {ebCopied === "s3" ? "Copied!" : "Copy"}
                       </button>
                       <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.75rem" }}>How to have the conversation</div>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.8, margin: 0, whiteSpace: "pre-wrap" }}>{ebResult.section3}</p>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--ink)", lineHeight: 1.8, margin: 0, whiteSpace: "pre-wrap" }}>{ebResult.section3}</p>
                     </div>
 
                     {/* Encouragement note */}
                     {ebResult.section4 && (
                       <div style={{ background: "var(--sage-xlight)", borderRadius: "12px", padding: "1.25rem 1.5rem", borderLeft: "3px solid var(--sage-dark)" }}>
-                        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.75, margin: 0, fontStyle: "italic", whiteSpace: "pre-wrap" }}>{ebResult.section4}</p>
+                        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--ink)", lineHeight: 1.75, margin: 0, fontStyle: "italic", whiteSpace: "pre-wrap" }}>{ebResult.section4}</p>
                       </div>
                     )}
 
-                    <button onClick={resetEb} style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--gray-soft)", padding: "0.5rem 0" }}>Start again</button>
+                    <button onClick={resetEb} style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--slate)", padding: "0.5rem 0" }}>Start again</button>
                   </div>
                 )}
               </section>
@@ -2778,8 +2754,8 @@ function EvidencePageInner() {
             {/* Tool 2 panel: Personalised Research Interpreter (standalone embed of Tool 1) */}
             {ebActiveTool === "research" && (
               <section style={{ background: "var(--white)", borderRadius: "16px", padding: "2rem", marginBottom: "2rem", border: "2px solid var(--sage-dark)" }}>
-                <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.05rem", color: "var(--charcoal)", marginBottom: "0.375rem" }}>Personalised Research Interpreter</h3>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", marginBottom: "1.75rem" }}>Paste the title and a short summary of the research you have found. Answer six quick questions and we will interpret it specifically for your organisation.</p>
+                <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.05rem", color: "var(--ink)", marginBottom: "0.375rem" }}>Personalised Research Interpreter</h3>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--slate)", marginBottom: "1.75rem" }}>Paste the title and a short summary of the research you have found. Answer six quick questions and we will interpret it specifically for your organisation.</p>
                 <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", marginBottom: "1.5rem" }}>
                   <div>
                     <label style={labelStyle}>Research title</label>
@@ -2818,7 +2794,7 @@ function EvidencePageInner() {
                       <div style={{ display: "flex", justifyContent: "space-between", marginTop: "6px" }}>
                         {["Just starting out","Some activity underway","Established programme","Sector leader"].map(opt => (
                           <div key={opt} onClick={() => setEbRProgress(opt)} style={{ width: "22%", cursor: "pointer", textAlign: "center" }}>
-                            <span style={{ fontSize: "0.72rem", color: ebRProgress === opt ? "var(--sage-dark)" : "var(--gray-soft)", fontWeight: ebRProgress === opt ? 600 : 400 }}>{opt}</span>
+                            <span style={{ fontSize: "0.72rem", color: ebRProgress === opt ? "var(--sage-dark)" : "var(--slate)", fontWeight: ebRProgress === opt ? 600 : 400 }}>{opt}</span>
                           </div>
                         ))}
                       </div>
@@ -2852,7 +2828,7 @@ function EvidencePageInner() {
                   className="btn-primary"
                   style={{ fontSize: "0.925rem", padding: "0.875rem 2rem", opacity: (!ebResearchTitle || !ebResearchSummary || !ebRSector || !ebRProgress || !ebRChallenge.trim() || !ebROutcomes.trim() || !ebRAudience) ? 0.5 : 1, cursor: (!ebResearchTitle || !ebResearchSummary || !ebRSector || !ebRProgress || !ebRChallenge.trim() || !ebROutcomes.trim() || !ebRAudience) ? "not-allowed" : "pointer" }}
                 >
-                  {ebRLoading ? "Interpreting the research…" : "Generate my tailored output →"}
+                  {ebRLoading ? "Interpreting the research…" : "Generate my tailored output"}
                 </button>
                 {ebRResult && (
                   <div style={{ marginTop: "2rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
@@ -2861,15 +2837,15 @@ function EvidencePageInner() {
                       { key: "s2" as const, label: "Key points to highlight for your audience", bg: "var(--white)", border: true },
                       { key: "s3" as const, label: "How to use this research in your argument", bg: "var(--white)", border: true },
                     ].map(({ key, label, bg, border }) => (
-                      <div key={key} style={{ position: "relative", background: bg, borderRadius: "12px", padding: "1.5rem", ...(border ? { border: "1.5px solid var(--gray-border)" } : {}) }}>
+                      <div key={key} style={{ position: "relative", background: bg, borderRadius: "12px", padding: "1.5rem", ...(border ? { border: "1.5px solid var(--line)" } : {}) }}>
                         <button onClick={() => copyEbRSection(key, ebRResult![key])} style={{ position: "absolute", top: "0.75rem", right: "0.75rem", background: "var(--white)", border: "1px solid var(--sage-light)", borderRadius: "6px", padding: "0.25rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "var(--sage-dark)", cursor: "pointer" }}>
                           {ebRCopied === key ? "Copied!" : "Copy"}
                         </button>
                         <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.75rem" }}>{label}</div>
-                        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.75, margin: 0, whiteSpace: "pre-wrap" }}>{ebRResult[key]}</p>
+                        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--ink)", lineHeight: 1.75, margin: 0, whiteSpace: "pre-wrap" }}>{ebRResult[key]}</p>
                       </div>
                     ))}
-                    <button onClick={resetEbR} style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--gray-soft)", padding: "0.5rem 0" }}>Start again</button>
+                    <button onClick={resetEbR} style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--slate)", padding: "0.5rem 0" }}>Start again</button>
                   </div>
                 )}
               </section>
@@ -2878,8 +2854,8 @@ function EvidencePageInner() {
             {/* Tool 3 panel: Case Study Replication Roadmap — reuses Tool 2 state/handlers */}
             {ebActiveTool === "objections" && (
               <section style={{ background: "var(--white)", borderRadius: "16px", padding: "2rem", marginBottom: "2rem", border: "2px solid var(--sage-dark)" }}>
-                <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.05rem", color: "var(--charcoal)", marginBottom: "0.375rem" }}>Case Study Replication Roadmap</h3>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", marginBottom: "1.75rem" }}>Answer five quick questions and we will build you a personalised action plan for replicating a case study result in your own organisation.</p>
+                <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.05rem", color: "var(--ink)", marginBottom: "0.375rem" }}>Case Study Replication Roadmap</h3>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--slate)", marginBottom: "1.75rem" }}>Answer five quick questions and we will build you a personalised action plan for replicating a case study result in your own organisation.</p>
                 {t2Result ? (
                   <div>
                     <div style={{ position: "relative", background: "var(--sage-xlight)", borderRadius: "12px", padding: "1.25rem", marginBottom: "1rem" }}>
@@ -2887,23 +2863,23 @@ function EvidencePageInner() {
                         {t2Copied === "s1" ? "Copied!" : "Copy"}
                       </button>
                       <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--sage-dark)", margin: "0 0 0.625rem 0" }}>Your replication roadmap</p>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", margin: 0, whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{t2Result.section1}</p>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--ink)", margin: 0, whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{t2Result.section1}</p>
                     </div>
                     <div style={{ position: "relative", background: "var(--white)", border: "1px solid var(--sage-xlight)", borderRadius: "12px", padding: "1.25rem", marginBottom: "1rem" }}>
                       <button onClick={() => copyT2Section("s2", t2Result.section2)} style={{ position: "absolute", top: "0.75rem", right: "0.75rem", background: "var(--white)", border: "1px solid var(--sage-light)", borderRadius: "6px", padding: "0.25rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "var(--sage-dark)", cursor: "pointer" }}>
                         {t2Copied === "s2" ? "Copied!" : "Copy"}
                       </button>
-                      <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--charcoal)", margin: "0 0 0.625rem 0" }}>What you will need to adapt</p>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", margin: 0, whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{t2Result.section2}</p>
+                      <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--ink)", margin: "0 0 0.625rem 0" }}>What you will need to adapt</p>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--ink)", margin: 0, whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{t2Result.section2}</p>
                     </div>
                     <div style={{ position: "relative", background: "var(--white)", border: "1px solid var(--sage-xlight)", borderRadius: "12px", padding: "1.25rem", marginBottom: "1.5rem" }}>
                       <button onClick={() => copyT2Section("s3", t2Result.section3)} style={{ position: "absolute", top: "0.75rem", right: "0.75rem", background: "var(--white)", border: "1px solid var(--sage-light)", borderRadius: "6px", padding: "0.25rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "var(--sage-dark)", cursor: "pointer" }}>
                         {t2Copied === "s3" ? "Copied!" : "Copy"}
                       </button>
-                      <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--charcoal)", margin: "0 0 0.625rem 0" }}>How to pitch this for sign-off</p>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", margin: 0, whiteSpace: "pre-wrap", lineHeight: 1.6, fontStyle: "italic" }}>{t2Result.section3}</p>
+                      <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--ink)", margin: "0 0 0.625rem 0" }}>How to pitch this for sign-off</p>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--ink)", margin: 0, whiteSpace: "pre-wrap", lineHeight: 1.6, fontStyle: "italic" }}>{t2Result.section3}</p>
                     </div>
-                    <button onClick={resetTool2} style={{ background: "none", border: "1px solid var(--sage-light)", borderRadius: "8px", padding: "0.625rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", cursor: "pointer" }}>
+                    <button onClick={resetTool2} style={{ background: "none", border: "1px solid var(--sage-light)", borderRadius: "8px", padding: "0.625rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--ink)", cursor: "pointer" }}>
                       Start again
                     </button>
                   </div>
@@ -2919,8 +2895,8 @@ function EvidencePageInner() {
                       <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.5rem", display: "block" }}>Which case study do you want to replicate?</label>
                       {t2CaseStudy ? (
                         <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                          <div style={{ flex: 1, background: "var(--sage-xlight)", borderRadius: "8px", padding: "0.625rem 0.875rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.4 }}>{t2CaseStudy.title}</div>
-                          <button onClick={() => setT2CaseStudy(null)} style={{ background: "none", border: "1px solid var(--gray-border)", borderRadius: "6px", padding: "0.375rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.75rem", color: "var(--gray-soft)", cursor: "pointer", whiteSpace: "nowrap" }}>Change</button>
+                          <div style={{ flex: 1, background: "var(--sage-xlight)", borderRadius: "8px", padding: "0.625rem 0.875rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--ink)", lineHeight: 1.4 }}>{t2CaseStudy.title}</div>
+                          <button onClick={() => setT2CaseStudy(null)} style={{ background: "none", border: "1px solid var(--line)", borderRadius: "6px", padding: "0.375rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.75rem", color: "var(--slate)", cursor: "pointer", whiteSpace: "nowrap" }}>Change</button>
                         </div>
                       ) : (
                         <select onChange={e => { const cs = CASE_STUDIES.find(c => c.id === e.target.value); if (cs) setT2CaseStudy({ title: cs.title, desc: cs.what }); }} defaultValue="" style={selectStyle}>
@@ -2948,17 +2924,17 @@ function EvidencePageInner() {
                     </div>
                     <div>
                       <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.25rem", display: "block" }}>3. What is your biggest barrier to making this happen?</label>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", margin: "0 0 0.5rem 0" }}>Think about budget, buy-in, capacity, or anything else standing in the way.</p>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)", margin: "0 0 0.5rem 0" }}>Think about budget, buy-in, capacity, or anything else standing in the way.</p>
                       <div style={{ position: "relative" }}>
-                        <textarea value={t2Barrier} onChange={e => setT2Barrier(e.target.value)} placeholder="e.g. we do not have a dedicated EDI budget and senior buy-in is limited" rows={2} style={{ width: "100%", border: `1px solid ${t2VoiceField === "barrier" ? "var(--sage-dark)" : "var(--sage-xlight)"}`, borderRadius: "8px", padding: "0.75rem 2.75rem 0.75rem 0.75rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", resize: "vertical", boxSizing: "border-box" }} />
+                        <textarea value={t2Barrier} onChange={e => setT2Barrier(e.target.value)} placeholder="e.g. we do not have a dedicated EDI budget and senior buy-in is limited" rows={2} style={{ width: "100%", border: `1px solid ${t2VoiceField === "barrier" ? "var(--sage-dark)" : "var(--sage-xlight)"}`, borderRadius: "8px", padding: "0.75rem 2.75rem 0.75rem 0.75rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--ink)", resize: "vertical", boxSizing: "border-box" }} />
                         <VoiceButton isRecording={t2VoiceField === "barrier"} onToggle={() => handleVoiceToggle("barrier", t2Barrier, setT2Barrier, t2VoiceField, setT2VoiceField)} />
                       </div>
                     </div>
                     <div>
                       <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.25rem", display: "block" }}>4. What resources do you have available?</label>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", margin: "0 0 0.5rem 0" }}>Tell us about your budget, team capacity and time. Even limited resources count.</p>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)", margin: "0 0 0.5rem 0" }}>Tell us about your budget, team capacity and time. Even limited resources count.</p>
                       <div style={{ position: "relative" }}>
-                        <textarea value={t2Resources} onChange={e => setT2Resources(e.target.value)} placeholder="e.g. small HR team of three; no dedicated budget but could make a case for up to £5k" rows={2} style={{ width: "100%", border: `1px solid ${t2VoiceField === "resources" ? "var(--sage-dark)" : "var(--sage-xlight)"}`, borderRadius: "8px", padding: "0.75rem 2.75rem 0.75rem 0.75rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", resize: "vertical", boxSizing: "border-box" }} />
+                        <textarea value={t2Resources} onChange={e => setT2Resources(e.target.value)} placeholder="e.g. small HR team of three; no dedicated budget but could make a case for up to £5k" rows={2} style={{ width: "100%", border: `1px solid ${t2VoiceField === "resources" ? "var(--sage-dark)" : "var(--sage-xlight)"}`, borderRadius: "8px", padding: "0.75rem 2.75rem 0.75rem 0.75rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--ink)", resize: "vertical", boxSizing: "border-box" }} />
                         <VoiceButton isRecording={t2VoiceField === "resources"} onToggle={() => handleVoiceToggle("resources", t2Resources, setT2Resources, t2VoiceField, setT2VoiceField)} />
                       </div>
                     </div>
@@ -2979,7 +2955,7 @@ function EvidencePageInner() {
                         className="btn-primary"
                         style={{ fontSize: "0.875rem", padding: "0.875rem 1.75rem", opacity: (!t2CaseStudy || !t2Sector || !t2Size || !t2Barrier.trim() || !t2Resources.trim() || !t2Approver) ? 0.5 : 1, cursor: (!t2CaseStudy || !t2Sector || !t2Size || !t2Barrier.trim() || !t2Resources.trim() || !t2Approver) ? "not-allowed" : "pointer" }}
                       >
-                        Build my replication roadmap →
+                        Build my replication roadmap
                       </button>
                     </div>
                   </div>
@@ -2990,316 +2966,152 @@ function EvidencePageInner() {
         )}
 
         {/* CASE STUDIES */}
+        {/* CASE STUDIES */}
         {activeTab === "cases" && (
           <>
-            {/* Landing: category tiles */}
-            {!caseCategory && !search && (
-              <>
-                <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.9rem", marginBottom: "2rem" }}>
-                  Real organisations, real numbers. Browse case studies by outcome category to find the evidence that fits your audience.
-                </p>
-                <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "2.25rem" }}>
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1rem" }}>
-                    {CATEGORIES.slice(0, 4).map((cat) => {
-                      const count = CASE_STUDIES.filter((c) => c.category === cat.key).length;
-                      return (
-                        <button
-                          key={cat.key}
-                          onClick={() => setCaseCategory(cat.key)}
-                          style={{
-                            textAlign: "center",
-                            background: "linear-gradient(160deg, #f0f6f1 0%, #daeadc 60%, #c8deca 100%)",
-                            border: "2.5px solid #8faf93",
-                            borderRadius: "16px",
-                            padding: "3rem 1.75rem 2.75rem",
-                            cursor: "pointer",
-                            transition: "all 0.2s ease",
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            boxShadow: "0 2px 8px rgba(74,99,71,0.10), inset 0 1px 0 rgba(255,255,255,0.7)",
-                          }}
-                        >
-                          <span style={{ fontSize: "2.75rem", marginBottom: "0.875rem", display: "block" }}>{cat.icon}</span>
-                          <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--sage-dark)", lineHeight: 1.3, marginBottom: "0.4rem" }}>{cat.label}</span>
-                          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--gray-soft)", lineHeight: 1.5, textAlign: "center", marginBottom: "0.6rem", flexGrow: 1 }}>{cat.desc}</span>
-                          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)" }}>{count} {count === 1 ? "case study" : "case studies"}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem", width: "75%", margin: "0 auto" }}>
-                    {CATEGORIES.slice(4).map((cat) => {
-                      const count = CASE_STUDIES.filter((c) => c.category === cat.key).length;
-                      return (
-                        <button
-                          key={cat.key}
-                          onClick={() => setCaseCategory(cat.key)}
-                          style={{
-                            textAlign: "center",
-                            background: "linear-gradient(160deg, #f0f6f1 0%, #daeadc 60%, #c8deca 100%)",
-                            border: "2.5px solid #8faf93",
-                            borderRadius: "16px",
-                            padding: "3rem 1.75rem 2.75rem",
-                            cursor: "pointer",
-                            transition: "all 0.2s ease",
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            boxShadow: "0 2px 8px rgba(74,99,71,0.10), inset 0 1px 0 rgba(255,255,255,0.7)",
-                          }}
-                        >
-                          <span style={{ fontSize: "2.75rem", marginBottom: "0.875rem", display: "block" }}>{cat.icon}</span>
-                          <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--sage-dark)", lineHeight: 1.3, marginBottom: "0.4rem" }}>{cat.label}</span>
-                          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--gray-soft)", lineHeight: 1.5, textAlign: "center", marginBottom: "0.6rem", flexGrow: 1 }}>{cat.desc}</span>
-                          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)" }}>{count} {count === 1 ? "case study" : "case studies"}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              </>
-            )}
-
-            {/* Category drill-down */}
-            {(caseCategory || search) && (
-              <>
-                {caseCategory && (
-                  <div style={{ marginBottom: "1.75rem" }}>
-                    <button
-                      onClick={() => setCaseCategory(null)}
-                      style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--sage-dark)", background: "none", border: "none", cursor: "pointer", padding: 0, marginBottom: "1.25rem", display: "flex", alignItems: "center", gap: "0.375rem" }}
-                    >
-                      ← All categories
-                    </button>
-                    <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.5rem", color: "var(--charcoal)", marginBottom: "0.375rem" }}>
-                      {CATEGORIES.find((c) => c.key === caseCategory)?.icon}{" "}
-                      {CATEGORIES.find((c) => c.key === caseCategory)?.label}
-                    </h2>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--gray-soft)", margin: 0 }}>
-                      {filteredCases.length} {filteredCases.length === 1 ? "case study" : "case studies"}
-                    </p>
-                  </div>
-                )}
-                <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-                  {filteredCases.length === 0 && (
-                    <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)" }}>No case studies match your search.</p>
-                  )}
-                  {filteredCases.map((c) => (
-                    <div key={c.id} className="card" style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-                      {/* Top row: main info + key outcome */}
-                      <div style={{ display: "flex", gap: "1.25rem", flexWrap: "wrap" }}>
-                        <div style={{ flex: 1, minWidth: "280px" }}>
-                          <div style={{ display: "flex", gap: "0.5rem", marginBottom: "0.625rem", flexWrap: "wrap", alignItems: "center" }}>
-                            <span className="badge badge-cream" style={{ fontSize: "0.65rem" }}>{c.sector}</span>
-                            <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", fontWeight: 600, color: "var(--charcoal)" }}>{c.org}</span>
-                          </div>
-                          <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.05rem", color: "var(--charcoal)", marginBottom: "0.75rem", lineHeight: 1.4 }}>{c.title}</h3>
-                          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", lineHeight: 1.65, marginBottom: "0.875rem" }}>{c.what}</p>
-                          <div style={{ display: "flex", gap: "0.375rem", flexWrap: "wrap", marginBottom: "0.875rem" }}>
-                            {c.tags.map((t) => <span key={t} className="badge badge-sage" style={{ fontSize: "0.6rem" }}>{t}</span>)}
-                          </div>
-                          <a
-                            href={c.sourceUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--sage-dark)", textDecoration: "underline" }}
-                          >
-                            Source: {c.source} →
-                          </a>
-                        </div>
-                        <div style={{ background: "var(--sage-xlight)", borderRadius: "10px", padding: "1.25rem", minWidth: "240px", maxWidth: "320px", flex: "0 0 auto" }}>
-                          <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.5rem" }}>Key outcome</div>
-                          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.6, marginBottom: "1rem" }}>{c.outcome}</p>
-                          {c.context && (
-                            <>
-                              <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.4rem", marginTop: "0.75rem" }}>Starting point</div>
-                              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--charcoal)", lineHeight: 1.55, margin: 0, fontStyle: "italic" }}>{c.context}</p>
-                            </>
-                          )}
-                          {c.timeline && (
-                            <>
-                              <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: "var(--sage-dark)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: "0.4rem", marginTop: "0.75rem" }}>Timeline</div>
-                              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--charcoal)", lineHeight: 1.55, margin: 0 }}>{c.timeline}</p>
-                            </>
-                          )}
-                        </div>
+            {activeCaseStudy ? (() => {
+              const c = activeCaseStudy;
+              const tone = OUTCOME_TONES[c.category] || OUTCOME_TONES.profitability;
+              const cat = CATEGORIES.find((k) => k.key === c.category);
+              return (
+                <article aria-labelledby="case-title" style={{ maxWidth: "980px" }}>
+                  <button onClick={() => setActiveCase(null)} style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--evergreen)", background: "none", border: "none", cursor: "pointer", padding: 0, marginBottom: "1.1rem" }}>
+                    <Icon name="back" size={16} color="var(--evergreen)" /> All case studies
+                  </button>
+                  <div style={{ background: "var(--white)", borderRadius: "var(--radius-lg)", borderTop: `6px solid ${tone.color}`, boxShadow: "var(--shadow-md)", overflow: "hidden" }}>
+                    <div style={{ background: tone.bg, padding: "1.25rem 1.75rem" }}>
+                      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", alignItems: "center", marginBottom: "0.6rem" }}>
+                        <span style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase", letterSpacing: "0.08em", color: tone.color }}><Icon name={tone.icon} size={15} color={tone.color} /> {cat?.label}</span>
+                        <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: tone.color, background: "var(--white)", borderRadius: "999px", padding: "0.15rem 0.6rem" }}>{c.sector}</span>
                       </div>
-
-                      {/* Lessons extracted */}
-                      {c.lessons && (
-                        <div style={{ borderTop: "1px solid #e8e8e8", paddingTop: "1.125rem" }}>
-                          <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "var(--charcoal)", marginBottom: "0.875rem", letterSpacing: "0.01em" }}>Lessons extracted</div>
-                          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "0.875rem" }}>
-                            <div style={{ background: "#f0f8f1", borderRadius: "8px", padding: "0.875rem" }}>
-                              <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", color: "#2e7d44", textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: "0.4rem" }}>What worked</div>
-                              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--charcoal)", lineHeight: 1.6, margin: 0 }}>{c.lessons.whatWorked}</p>
-                            </div>
-                            <div style={{ background: "#fff8ed", borderRadius: "8px", padding: "0.875rem" }}>
-                              <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", color: "#a05c00", textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: "0.4rem" }}>Watch out for</div>
-                              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--charcoal)", lineHeight: 1.6, margin: 0 }}>{c.lessons.watchOut}</p>
-                            </div>
-                            <div style={{ background: "#f5f0fa", borderRadius: "8px", padding: "0.875rem" }}>
-                              <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", color: "#5b3a8a", textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: "0.4rem" }}>Do differently</div>
-                              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--charcoal)", lineHeight: 1.6, margin: 0 }}>{c.lessons.doDifferently}</p>
-                            </div>
-                          </div>
+                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", letterSpacing: "0.12em", textTransform: "uppercase", color: tone.color }}>{c.org}</div>
+                      <h2 id="case-title" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.4rem, 2.6vw, 1.8rem)", color: "var(--ink)", lineHeight: 1.2, margin: "0.3rem 0 0" }}>{c.title}</h2>
+                    </div>
+                    <div style={{ padding: "1.5rem 1.75rem 1.75rem", display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+                      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.25rem" }}>
+                        <div>
+                          <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--slate)", margin: "0 0 0.4rem" }}>What they did</h3>
+                          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--ink)", lineHeight: 1.65, margin: "0 0 0.9rem" }}>{c.what}</p>
+                          {c.context && (<><h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--slate)", margin: "0 0 0.4rem" }}>Starting point</h3><p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--slate)", lineHeight: 1.6, margin: "0 0 0.9rem" }}>{c.context}</p></>)}
+                          {c.timeline && (<><h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--slate)", margin: "0 0 0.4rem" }}>Timeline</h3><p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--slate)", lineHeight: 1.6, margin: 0 }}>{c.timeline}</p></>)}
                         </div>
-                      )}
-
-                      {/* Replication prompts */}
-                      {c.replication && c.replication.length > 0 && (
-                        <div style={{ borderTop: "1px solid #e8e8e8", paddingTop: "1.125rem" }}>
-                          <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "var(--charcoal)", marginBottom: "0.75rem", letterSpacing: "0.01em" }}>Questions to ask in your organisation</div>
-                          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                            {c.replication.map((q, i) => (
-                              <div key={i} style={{ display: "flex", gap: "0.625rem", alignItems: "flex-start" }}>
-                                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", color: "var(--sage-dark)", minWidth: "1.25rem", paddingTop: "0.15rem" }}>{i + 1}.</span>
-                                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: 0 }}>{q}</p>
+                        <aside style={{ background: "var(--forest)", color: "var(--white)", borderRadius: "var(--radius-md)", padding: "1.25rem 1.35rem", alignSelf: "start" }}>
+                          <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--hero-cream)", marginBottom: "0.5rem" }}>Key outcome</div>
+                          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.98rem", lineHeight: 1.6, margin: "0 0 0.9rem" }}>{c.outcome}</p>
+                          {c.sourceUrl ? (
+                            <a href={c.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--hero-mint)" }}>
+                              Source: {c.source} <Icon name="link" size={14} color="var(--hero-mint)" />
+                            </a>
+                          ) : (<span style={{ fontFamily: "var(--font-heading)", fontSize: "0.85rem", color: "var(--hero-mint)" }}>Source: {c.source}</span>)}
+                        </aside>
+                      </div>
+                      {c.lessons && (
+                        <div>
+                          <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.05rem", color: "var(--ink)", margin: "0 0 0.75rem" }}>Lessons from this example</h3>
+                          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "0.85rem" }}>
+                            {[
+                              { label: "What worked", text: c.lessons.whatWorked, icon: "check", bg: "var(--pale-sage)", color: "var(--evergreen)" },
+                              { label: "Watch out for", text: c.lessons.watchOut, icon: "bell", bg: "var(--coll-amber-tint)", color: "var(--coll-amber)" },
+                              { label: "Do differently", text: c.lessons.doDifferently, icon: "target", bg: "var(--coll-purple-tint)", color: "var(--coll-purple)" },
+                            ].map((l) => (
+                              <div key={l.label} style={{ background: l.bg, borderRadius: "var(--radius-md)", padding: "0.95rem 1.05rem" }}>
+                                <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.1em", textTransform: "uppercase", color: l.color, marginBottom: "0.4rem" }}><Icon name={l.icon} size={15} color={l.color} /> {l.label}</div>
+                                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "var(--ink)", lineHeight: 1.6, margin: 0 }}>{l.text}</p>
                               </div>
                             ))}
                           </div>
                         </div>
                       )}
-                      {/* Tool 2 CTA */}
-                      <div style={{ borderTop: "1px solid #e8e8e8", paddingTop: "1rem" }}>
-                        <button
-                          onClick={() => { setT2CaseStudy({ title: c.title, desc: c.what }); setShowTool2Modal(true); }}
-                          className="btn-secondary"
-                          style={{ fontSize: "0.8rem", padding: "0.625rem 1.25rem" }}
-                        >
-                          🗺️ Get results like this for my organisation
+                      {c.replication && c.replication.length > 0 && (
+                        <div style={{ background: "var(--mist)", borderRadius: "var(--radius-md)", padding: "1.1rem 1.25rem" }}>
+                          <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.05rem", color: "var(--ink)", margin: "0 0 0.7rem" }}>Questions to ask in your organisation</h3>
+                          <ol style={{ margin: 0, padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "0.55rem" }}>
+                            {c.replication.map((q, i) => (
+                              <li key={i} style={{ display: "flex", gap: "0.7rem", alignItems: "flex-start" }}>
+                                <span style={{ flexShrink: 0, width: "26px", height: "26px", borderRadius: "50%", background: "var(--white)", border: `1.5px solid ${tone.color}`, color: tone.color, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", fontVariantNumeric: "lining-nums" }}>{i + 1}</span>
+                                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", color: "var(--ink)", lineHeight: 1.6, margin: 0 }}>{q}</p>
+                              </li>
+                            ))}
+                          </ol>
+                        </div>
+                      )}
+                      <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.75rem 1rem", borderTop: "1px solid var(--line)", paddingTop: "1.1rem" }}>
+                        <button onClick={() => { setT2CaseStudy({ title: c.title, desc: c.what }); setShowTool2Modal(true); }} style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", padding: "0.8rem 1.6rem", minHeight: "44px", borderRadius: "var(--radius-sm)", border: "none", cursor: "pointer", background: "var(--evergreen)", color: "var(--white)" }}>
+                          Plan Results Like This
                         </button>
+                        <span style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "var(--slate)" }}>
+                          <Icon name="sparkle" size={14} color="var(--gold)" strokeWidth={2} /> Uses the Case Study Replication Roadmap, an Inclusion AI tool
+                        </span>
                       </div>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                </article>
+              );
+            })() : search ? (
+              <>
+                <p style={{ fontFamily: "var(--font-heading)", color: "var(--slate)", fontSize: "0.9rem", margin: "0 0 1.25rem" }} aria-live="polite">
+                  {filteredCases.length === 0 ? "No case studies match your search." : `${filteredCases.length} case ${filteredCases.length === 1 ? "study" : "studies"} found`}
+                  <button onClick={() => setSearch("")} style={{ marginLeft: "0.75rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", color: "var(--evergreen)", background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}>Clear search</button>
+                </p>
+                <div style={grid}>{filteredCases.map((c) => caseCard(c))}</div>
               </>
+            ) : (
+              CATEGORIES.filter((cat) => !caseCategory || cat.key === caseCategory).map((cat) => {
+                const list = CASE_STUDIES.filter((c) => c.category === cat.key);
+                if (!list.length) return null;
+                const tone = OUTCOME_TONES[cat.key];
+                const shown = caseCategory || expandedSections[`c-${cat.key}`] ? list : list.slice(0, PREVIEW_COUNT);
+                return (
+                  <section key={cat.key} style={{ marginBottom: "2.5rem" }}>
+                    {sectionOpener(cat.key, list.length, "case study", "case studies")}
+                    <div style={grid}>{shown.map((c) => caseCard(c))}</div>
+                    {!caseCategory && showAllButton(`c-${cat.key}`, list.length, "case studies", tone)}
+                  </section>
+                );
+              })
             )}
           </>
         )}
 
-        {/* DOWNLOADS */}
+        {/* TEMPLATES AND RESOURCES */}
         {activeTab === "downloads" && (
           <>
-            <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.9rem", marginBottom: "1.75rem" }}>
-              Ready-to-use documents and templates to download and adapt for your organisation.
-            </p>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "1.25rem" }}>
-              {filteredDownloads.length === 0 && <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", gridColumn: "1/-1" }}>No templates match your search.</p>}
-              {filteredDownloads.map((d) => (
-                <div key={d.title} className="card" style={{ position: "relative" }}>
-                  {d.free && (
-                    <span className="badge badge-sage" style={{ fontSize: "0.6rem", position: "absolute", top: "1rem", right: "1rem" }}>Free</span>
-                  )}
-                  <div style={{ fontSize: "1.75rem", marginBottom: "0.875rem" }} aria-hidden="true">{d.icon}</div>
-                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9375rem", color: "var(--charcoal)", marginBottom: "0.375rem" }}>{d.title}</div>
-                  <span className="badge badge-cream" style={{ fontSize: "0.6rem", marginBottom: "0.75rem", display: "inline-block" }}>{d.type}</span>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: "0 0 1.25rem 0" }}>{d.desc}</p>
-                  <button className="btn-primary" style={{ fontSize: "0.8rem", padding: "0.5rem 1rem", width: "100%" }}>
-                    Download →
-                  </button>
-                </div>
-              ))}
+            <div style={{ marginBottom: "1.25rem" }}>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 2.8vw, 1.85rem)", color: "var(--ink)", margin: "0 0 0.3rem", lineHeight: 1.2 }}>Templates and Resources</h2>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.98rem", color: "var(--slate)", margin: 0 }}>Ready-to-use templates to adapt for your organisation and take into your next meeting.</p>
+            </div>
+            <div style={grid}>
+              {filteredDownloads.length === 0 && <p style={{ fontFamily: "var(--font-body)", color: "var(--slate)", gridColumn: "1/-1" }}>No templates match your search.</p>}
+              {filteredDownloads.map((d) => {
+                const tone = OUTCOME_TONES.profitability;
+                const typeIcon = d.type.startsWith("Excel") ? "chart" : d.type.startsWith("PDF") ? "checklist" : "clipboard";
+                return (
+                  <article key={d.title} style={cardShell(tone)}>
+                    <div style={{ background: tone.bg, padding: "0.6rem 1rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem" }}>
+                      <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase", letterSpacing: "0.08em", color: tone.color }}><Icon name={typeIcon} size={16} color={tone.color} /> {d.type}</span>
+                      <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: tone.color, background: "var(--white)", borderRadius: "999px", padding: "0.15rem 0.6rem" }}>{d.free ? "Free" : "Members"}</span>
+                    </div>
+                    <div style={{ padding: "0.9rem 1.05rem 1rem", flex: 1, display: "flex", flexDirection: "column", gap: "0.45rem" }}>
+                      <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.98rem", color: "var(--ink)", lineHeight: 1.35, margin: 0 }}>{d.title}</h3>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.86rem", color: "var(--slate)", lineHeight: 1.55, margin: 0 }}>{d.desc}</p>
+                      <div style={{ marginTop: "auto", paddingTop: "0.6rem" }}>
+                        <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ink)", background: "var(--gold)", borderRadius: "999px", padding: "0.3rem 0.8rem" }}>Coming soon</span>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           </>
         )}
 
       </main>
-      {/* ── Business Case Essentials strip ─────────────────────────────── */}
-      <section style={{ background: "linear-gradient(120deg, #c8ddd0 0%, #daeae0 50%, #d0e4d8 100%)", padding: "4rem 2rem", position: "relative", overflow: "hidden", width: "100vw", marginLeft: "calc(-50vw + 50%)" }}>
-        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.40) 0%, transparent 60%)", pointerEvents: "none" }} />
-        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 20% 80%, rgba(0,0,0,0.04) 0%, transparent 50%)", pointerEvents: "none" }} />
-        <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative" }}>
-          <h2 style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontSize: "1.5rem", fontWeight: 800, color: "var(--sage-dark, #2D5A3C)", margin: "0 0 0.375rem" }}>
-            Business Case Essentials
-          </h2>
-          <p style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.95rem", color: "var(--sage-dark, #2D5A3C)", margin: "0 0 2rem" }}>
-            Eight resources to get you started: the data that convinces, the tools that build, the stories that show it works, and the templates that present it.
-          </p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "1rem" }}>
-
-            {/* 1 — McKinsey (Research) */}
-            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("research"); setActiveBrief("mckinsey-diversity-wins"); setShowRelated(false); setShowTailorModal(false); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
-              <span style={{ fontSize: 28 }}>📊</span>
-              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Research and Data</span>
-              <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>McKinsey Diversity Wins</p>
-              <p style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.8rem", color: "#4b5563", margin: 0, lineHeight: 1.5, flexGrow: 1 }}>Companies in the top quartile for gender diversity are 25% more likely to outperform financially.</p>
-              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.72rem", color: "#6b7280" }}>McKinsey and Company · 2023</span>
-            </div>
-
-            {/* 2 — SAP (Case Study) */}
-            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("cases"); setSearch("SAP"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
-              <span style={{ fontSize: 28 }}>🔬</span>
-              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Case Study</span>
-              <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>SAP: Neurodiversity as a Business Strategy</p>
-              <p style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.8rem", color: "#4b5563", margin: 0, lineHeight: 1.5, flexGrow: 1 }}>SAP's Autism at Work programme delivered 40% more innovations and 20% higher retention. Inclusion as capability, not charity.</p>
-              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.72rem", color: "#6b7280" }}>SAP · Autism at Work</span>
-            </div>
-
-            {/* 3 — Evidence Builder (Tool) */}
-            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("evidence-builder"); setEbActiveTool("argument"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
-              <span style={{ fontSize: 28 }}>⚙️</span>
-              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Inclusion AI Tools</span>
-              <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>Build Your Business Case</p>
-              <p style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.8rem", color: "#4b5563", margin: 0, lineHeight: 1.5, flexGrow: 1 }}>Answer three questions and get a tailored, evidence-backed business case ready to present in minutes.</p>
-              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.72rem", color: "#6b7280" }}>Interactive tool</span>
-            </div>
-
-            {/* 4 — Business Case Template (Template) */}
-            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("downloads"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
-              <span style={{ fontSize: 28 }}>📋</span>
-              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Template</span>
-              <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>Business Case Presentation Template</p>
-              <p style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.8rem", color: "#4b5563", margin: 0, lineHeight: 1.5, flexGrow: 1 }}>A board-ready structure with prompts, data placeholders and example language. Use it in a meeting next week.</p>
-              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.72rem", color: "#6b7280" }}>Template · Instant download</span>
-            </div>
-
-            {/* 5 — Deloitte (Research) */}
-            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("research"); setActiveBrief("deloitte-inclusion-revolution"); setShowRelated(false); setShowTailorModal(false); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
-              <span style={{ fontSize: 28 }}>🧠</span>
-              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Research and Data</span>
-              <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>The Diversity and Inclusion Revolution</p>
-              <p style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.8rem", color: "#4b5563", margin: 0, lineHeight: 1.5, flexGrow: 1 }}>When employees feel they belong, team performance increases by 17% and turnover risk drops by 50%.</p>
-              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.72rem", color: "#6b7280" }}>Deloitte · 2018</span>
-            </div>
-
-            {/* 6 — EDI Dashboard Template (Template) */}
-            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("downloads"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
-              <span style={{ fontSize: 28 }}>📈</span>
-              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Template</span>
-              <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>EDI Data Dashboard Template</p>
-              <p style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.8rem", color: "#4b5563", margin: 0, lineHeight: 1.5, flexGrow: 1 }}>Track and visualise your key EDI metrics across recruitment, retention, pay, progression and engagement in one place.</p>
-              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.72rem", color: "#6b7280" }}>Template · Instant download</span>
-            </div>
-
-            {/* 7 — NHS cost of exclusion (Research) */}
-            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("cases"); setSearch("NHS"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
-              <span style={{ fontSize: 28 }}>💷</span>
-              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Research and Data</span>
-              <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>The Cost of Exclusion</p>
-              <p style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.8rem", color: "#4b5563", margin: 0, lineHeight: 1.5, flexGrow: 1 }}>Bullying and harassment costs the NHS £2.281 billion every year. What is non-inclusion costing your organisation?</p>
-              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.72rem", color: "#6b7280" }}>Kline and Lewis · University of Plymouth</span>
-            </div>
-
-            {/* 8 — NHS case study (Case Study) */}
-            <div style={{ background: "#fff", borderRadius: 12, padding: "1.25rem", display: "flex", flexDirection: "column", gap: "0.5rem", cursor: "pointer" }} onClick={() => { setActiveTab("cases"); setSearch("NHS"); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
-              <span style={{ fontSize: 28 }}>🏥</span>
-              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.65rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: "var(--sage-dark, #2D5A3C)" }}>Case Study</span>
-              <p style={{ fontFamily: "var(--font-heading, Raleway, sans-serif)", fontWeight: 700, fontSize: "0.9rem", color: "#1a1a1a", margin: 0, lineHeight: 1.35 }}>NHS: Quantifying the Price of Fear</p>
-              <p style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.8rem", color: "#4b5563", margin: 0, lineHeight: 1.5, flexGrow: 1 }}>A forensic cost analysis of what workplace exclusion actually costs across seven financial categories. The numbers are undeniable.</p>
-              <span style={{ fontFamily: "var(--font-body, Inter, sans-serif)", fontSize: "0.72rem", color: "#6b7280" }}>Kline and Lewis · 2019</span>
-            </div>
-
-          </div>
-        </div>
-      </section>
-      {/* ── end Business Case Essentials ────────────────────────────────── */}
       <BottomBanner
           resourceTitle="Request evidence on a topic"
           resourceBody="Is there a topic where you need stronger evidence to make the case? Tell us what you are working on and we will source and add the most relevant research to the library."
           resourcePlaceholder="What topic do you need evidence for? Include any context about your sector or audience if it helps."
         />
+
       {/* Tool 2 overlay modal — outside all tab conditionals */}
       {showTool2Modal && (
         <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.45)", zIndex: 1000, display: "flex", alignItems: "flex-start", justifyContent: "center", padding: "2rem 1rem", overflowY: "auto" }}>
@@ -3308,10 +3120,10 @@ function EvidencePageInner() {
           {/* Header */}
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "1.25rem" }}>
                 <div>
-                  <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.1rem", color: "var(--charcoal)", margin: "0 0 0.375rem 0" }}>Case Study Replication Roadmap</h2>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", margin: 0 }}>Answer five quick questions and we will build you a personalised action plan.</p>
+                  <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.1rem", color: "var(--ink)", margin: "0 0 0.375rem 0" }}>Case Study Replication Roadmap</h2>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--slate)", margin: 0 }}>Answer five quick questions and we will build you a personalised action plan.</p>
                 </div>
-                <button onClick={() => { setShowTool2Modal(false); resetTool2(); }} style={{ background: "none", border: "none", cursor: "pointer", fontSize: "1.2rem", color: "var(--gray-soft)", padding: "0.25rem" }}>✕</button>
+                <button onClick={() => { setShowTool2Modal(false); resetTool2(); }} style={{ background: "none", border: "none", cursor: "pointer", fontSize: "1.2rem", color: "var(--slate)", padding: "0.25rem" }}>✕</button>
               </div>
 
               {/* Results view */}
@@ -3323,25 +3135,25 @@ function EvidencePageInner() {
                       {t2Copied === "s1" ? "Copied!" : "Copy"}
                     </button>
                     <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--sage-dark)", margin: "0 0 0.625rem 0" }}>Your replication roadmap</p>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", margin: 0, whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{t2Result.section1}</p>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--ink)", margin: 0, whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{t2Result.section1}</p>
                   </div>
                   {/* Box 2: What to adapt */}
                   <div style={{ position: "relative", background: "var(--white)", border: "1px solid var(--sage-xlight)", borderRadius: "12px", padding: "1.25rem", marginBottom: "1rem" }}>
                     <button onClick={() => copyT2Section("s2", t2Result.section2)} style={{ position: "absolute", top: "0.75rem", right: "0.75rem", background: "var(--white)", border: "1px solid var(--sage-light)", borderRadius: "6px", padding: "0.25rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "var(--sage-dark)", cursor: "pointer" }}>
                       {t2Copied === "s2" ? "Copied!" : "Copy"}
                     </button>
-                    <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--charcoal)", margin: "0 0 0.625rem 0" }}>What you will need to adapt</p>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", margin: 0, whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{t2Result.section2}</p>
+                    <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--ink)", margin: "0 0 0.625rem 0" }}>What you will need to adapt</p>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--ink)", margin: 0, whiteSpace: "pre-wrap", lineHeight: 1.6 }}>{t2Result.section2}</p>
                   </div>
                   {/* Box 3: Pitch */}
                   <div style={{ position: "relative", background: "var(--white)", border: "1px solid var(--sage-xlight)", borderRadius: "12px", padding: "1.25rem", marginBottom: "1.5rem" }}>
                     <button onClick={() => copyT2Section("s3", t2Result.section3)} style={{ position: "absolute", top: "0.75rem", right: "0.75rem", background: "var(--white)", border: "1px solid var(--sage-light)", borderRadius: "6px", padding: "0.25rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "var(--sage-dark)", cursor: "pointer" }}>
                       {t2Copied === "s3" ? "Copied!" : "Copy"}
                     </button>
-                    <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--charcoal)", margin: "0 0 0.625rem 0" }}>How to pitch this for sign-off</p>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", margin: 0, whiteSpace: "pre-wrap", lineHeight: 1.6, fontStyle: "italic" }}>{t2Result.section3}</p>
+                    <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--ink)", margin: "0 0 0.625rem 0" }}>How to pitch this for sign-off</p>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--ink)", margin: 0, whiteSpace: "pre-wrap", lineHeight: 1.6, fontStyle: "italic" }}>{t2Result.section3}</p>
                   </div>
-                  <button onClick={() => { setShowTool2Modal(false); resetTool2(); }} style={{ background: "none", border: "1px solid var(--sage-light)", borderRadius: "8px", padding: "0.625rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", cursor: "pointer" }}>
+                  <button onClick={() => { setShowTool2Modal(false); resetTool2(); }} style={{ background: "none", border: "1px solid var(--sage-light)", borderRadius: "8px", padding: "0.625rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--ink)", cursor: "pointer" }}>
                     Start again
                   </button>
                 </div>
@@ -3358,8 +3170,8 @@ function EvidencePageInner() {
                     <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.5rem", display: "block" }}>Which case study do you want to replicate?</label>
                     {t2CaseStudy ? (
                       <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                        <div style={{ flex: 1, background: "var(--sage-xlight)", borderRadius: "8px", padding: "0.625rem 0.875rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.4 }}>{t2CaseStudy.title}</div>
-                        <button onClick={() => setT2CaseStudy(null)} style={{ background: "none", border: "1px solid var(--gray-border)", borderRadius: "6px", padding: "0.375rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.75rem", color: "var(--gray-soft)", cursor: "pointer", whiteSpace: "nowrap" }}>Change</button>
+                        <div style={{ flex: 1, background: "var(--sage-xlight)", borderRadius: "8px", padding: "0.625rem 0.875rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--ink)", lineHeight: 1.4 }}>{t2CaseStudy.title}</div>
+                        <button onClick={() => setT2CaseStudy(null)} style={{ background: "none", border: "1px solid var(--line)", borderRadius: "6px", padding: "0.375rem 0.625rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.75rem", color: "var(--slate)", cursor: "pointer", whiteSpace: "nowrap" }}>Change</button>
                       </div>
                     ) : (
                       <select onChange={e => { const cs = CASE_STUDIES.find(c => c.id === e.target.value); if (cs) setT2CaseStudy({ title: cs.title, desc: cs.what }); }} defaultValue="" style={selectStyle}>
@@ -3393,9 +3205,9 @@ function EvidencePageInner() {
                   {/* Q3: Barrier */}
                   <div>
                     <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.25rem", display: "block" }}>3. What is your biggest barrier to making this happen?</label>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", margin: "0 0 0.5rem 0" }}>Think about budget, buy-in, capacity, or anything else standing in the way.</p>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)", margin: "0 0 0.5rem 0" }}>Think about budget, buy-in, capacity, or anything else standing in the way.</p>
                     <div style={{ position: "relative" }}>
-                      <textarea value={t2Barrier} onChange={e => setT2Barrier(e.target.value)} placeholder="e.g. we do not have a dedicated EDI budget and senior buy-in is limited" rows={2} style={{ width: "100%", border: `1px solid ${t2VoiceField === "barrier" ? "var(--sage-dark)" : "var(--sage-xlight)"}`, borderRadius: "8px", padding: "0.75rem 2.75rem 0.75rem 0.75rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", resize: "vertical", boxSizing: "border-box" }} />
+                      <textarea value={t2Barrier} onChange={e => setT2Barrier(e.target.value)} placeholder="e.g. we do not have a dedicated EDI budget and senior buy-in is limited" rows={2} style={{ width: "100%", border: `1px solid ${t2VoiceField === "barrier" ? "var(--sage-dark)" : "var(--sage-xlight)"}`, borderRadius: "8px", padding: "0.75rem 2.75rem 0.75rem 0.75rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--ink)", resize: "vertical", boxSizing: "border-box" }} />
                       <VoiceButton isRecording={t2VoiceField === "barrier"} onToggle={() => handleVoiceToggle("barrier", t2Barrier, setT2Barrier, t2VoiceField, setT2VoiceField)} />
                     </div>
                   </div>
@@ -3403,9 +3215,9 @@ function EvidencePageInner() {
                   {/* Q4: Resources */}
                   <div>
                     <label style={{ ...labelStyle, fontSize: "0.875rem", marginBottom: "0.25rem", display: "block" }}>4. What resources do you have available?</label>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--gray-soft)", margin: "0 0 0.5rem 0" }}>Tell us about your budget, team capacity and time. Even limited resources count.</p>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)", margin: "0 0 0.5rem 0" }}>Tell us about your budget, team capacity and time. Even limited resources count.</p>
                     <div style={{ position: "relative" }}>
-                      <textarea value={t2Resources} onChange={e => setT2Resources(e.target.value)} placeholder="e.g. small HR team of three; no dedicated budget but could make a case for up to £5k" rows={2} style={{ width: "100%", border: `1px solid ${t2VoiceField === "resources" ? "var(--sage-dark)" : "var(--sage-xlight)"}`, borderRadius: "8px", padding: "0.75rem 2.75rem 0.75rem 0.75rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", resize: "vertical", boxSizing: "border-box" }} />
+                      <textarea value={t2Resources} onChange={e => setT2Resources(e.target.value)} placeholder="e.g. small HR team of three; no dedicated budget but could make a case for up to £5k" rows={2} style={{ width: "100%", border: `1px solid ${t2VoiceField === "resources" ? "var(--sage-dark)" : "var(--sage-xlight)"}`, borderRadius: "8px", padding: "0.75rem 2.75rem 0.75rem 0.75rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--ink)", resize: "vertical", boxSizing: "border-box" }} />
                       <VoiceButton isRecording={t2VoiceField === "resources"} onToggle={() => handleVoiceToggle("resources", t2Resources, setT2Resources, t2VoiceField, setT2VoiceField)} />
                     </div>
                   </div>
@@ -3430,7 +3242,7 @@ function EvidencePageInner() {
                       className="btn-primary"
                       style={{ fontSize: "0.875rem", padding: "0.875rem 1.75rem", opacity: (!t2CaseStudy || !t2Sector || !t2Size || !t2Barrier.trim() || !t2Resources.trim() || !t2Approver) ? 0.5 : 1, cursor: (!t2CaseStudy || !t2Sector || !t2Size || !t2Barrier.trim() || !t2Resources.trim() || !t2Approver) ? "not-allowed" : "pointer" }}
                     >
-                      Build my replication roadmap →
+                      Build my replication roadmap
                     </button>
                   </div>
 
