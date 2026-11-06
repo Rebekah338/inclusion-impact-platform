@@ -265,9 +265,10 @@ This is exactly the kind of work The Inclusion Edit supports. The right starting
   }
 
   async function handleStarterEmail() {
-    if (starterEmailSending) return;
+    if (!starterEmail || starterEmailSending) return;
     setStarterEmailSending(true);
-    try { await navigator.clipboard.writeText(starterResultText); } catch { /* ignore */ }
+    // BEFORE LAUNCH: connect this to the mailing tool so the steps are emailed and the address is captured
+    await new Promise(r => setTimeout(r, 900));
     setStarterEmailSent(true);
     setStarterEmailSending(false);
   }
@@ -442,15 +443,20 @@ This is exactly the kind of work The Inclusion Edit supports. The right starting
                       <div style={{ borderTop: "1px solid rgba(201,168,76,0.2)", paddingTop: "0.75rem", marginTop: "0.25rem" }}>
                         {!starterEmailSent ? (
                           <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-                            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "#6b5a3a" }}>Want to keep these steps? Copy them to paste into an email or document.</span>
+                            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "#6b5a3a" }}>Want to save these steps? We'll email them to you.</span>
                             <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-                              <button onClick={handleStarterEmail}
-                                style={{ padding: "0.5rem 1.25rem", borderRadius: "10px", background: "linear-gradient(135deg, #C9A84C 0%, #E2C265 100%)", border: "1.5px solid rgba(201,168,76,0.45)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.83rem", color: "var(--charcoal)", cursor: "pointer", transition: "all 0.2s", whiteSpace: "nowrap" }}
-                              >Copy these steps →</button>
+                              <input type="email" value={starterEmail} onChange={(e) => setStarterEmail(e.target.value)} placeholder="Your email address"
+                                style={{ flex: 1, minWidth: "200px", padding: "0.5rem 1rem", borderRadius: "10px", border: "1.5px solid rgba(201,168,76,0.45)", background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", fontFamily: "var(--font-body)", fontSize: "0.83rem", color: "var(--charcoal)", outline: "none" }}
+                                onFocus={(e) => { e.target.style.borderColor = "#C9A84C"; e.target.style.boxShadow = "0 0 0 3px rgba(201,168,76,0.18)"; }}
+                                onBlur={(e) => { e.target.style.borderColor = "rgba(201,168,76,0.45)"; e.target.style.boxShadow = "none"; }}
+                              />
+                              <button onClick={handleStarterEmail} disabled={!starterEmail || starterEmailSending}
+                                style={{ padding: "0.5rem 1.25rem", borderRadius: "10px", background: (!starterEmail || starterEmailSending) ? "rgba(201,168,76,0.15)" : "linear-gradient(135deg, #C9A84C 0%, #E2C265 100%)", border: "1.5px solid rgba(201,168,76,0.45)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.83rem", color: (!starterEmail || starterEmailSending) ? "#9a8060" : "var(--charcoal)", cursor: (!starterEmail || starterEmailSending) ? "not-allowed" : "pointer", transition: "all 0.2s", whiteSpace: "nowrap" }}
+                              >{starterEmailSending ? "Sending..." : "Email me these steps →"}</button>
                             </div>
                           </div>
                         ) : (
-                          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.83rem", color: "var(--sage-dark)", margin: 0 }}>✓ Copied. Paste them wherever you need them.</p>
+                          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.83rem", color: "var(--sage-dark)", margin: 0 }}>✓ On its way to your inbox.</p>
                         )}
                       </div>
 
