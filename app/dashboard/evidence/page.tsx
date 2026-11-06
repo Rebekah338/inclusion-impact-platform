@@ -1469,10 +1469,13 @@ const PITCH_TARGETS = [
 /* One colour per business outcome, kept on every tab (hub collection tones plus the category palette) */
 /* Three outcome groups (the arguments boards respond to: money, people, performance). One colour per group, kept on every tab */
 const OUTCOME_GROUPS: { key: string; label: string; desc: string; cats: string[]; color: string; bg: string; mid: string; icon: string }[] = [
-  { key: "value", label: "Financial Performance and Growth", desc: "Profit, new markets and a reputation worth protecting.", cats: ["profitability", "customer", "reputation"], color: "var(--coll-green)", bg: "var(--coll-green-tint)", mid: "var(--coll-green-mid)", icon: "chart" },
+  { key: "value", label: "Financial Performance", desc: "The link between inclusion and the bottom line.", cats: ["profitability"], color: "var(--coll-green)", bg: "var(--coll-green-tint)", mid: "var(--coll-green-mid)", icon: "chart" },
   { key: "people", label: "Talent and Retention", desc: "Attracting the best people and keeping them.", cats: ["talent", "retention"], color: "var(--coll-blue)", bg: "var(--coll-blue-tint)", mid: "var(--coll-blue-mid)", icon: "people" },
   { key: "performance", label: "Innovation and Team Performance", desc: "Better decisions, more ideas and teams that perform.", cats: ["innovation", "productivity"], color: "var(--coll-purple)", bg: "var(--coll-purple-tint)", mid: "var(--coll-purple-mid)", icon: "zap" },
+  { key: "trust", label: "Reputation, Customers and Risk", desc: "Trust, brand, new markets and accountability.", cats: ["reputation", "customer"], color: "var(--coll-amber)", bg: "var(--coll-amber-tint)", mid: "var(--coll-amber-mid)", icon: "shield" },
 ];
+/* A report tagged with reputation or customers sits in that group; otherwise it follows its main outcome */
+const researchGroupKey = (cats?: string[]) => (cats?.some((c) => c === "reputation" || c === "customer") ? "trust" : groupOf(cats?.[0]).key);
 const groupOf = (cat?: string) => OUTCOME_GROUPS.find((g) => cat && g.cats.includes(cat)) ?? OUTCOME_GROUPS[0];
 const OUTCOME_TONES: Record<string, { color: string; bg: string; mid: string; icon: string }> = Object.fromEntries(
   [...CATEGORIES.map((c) => c.key), ...OUTCOME_GROUPS.map((g) => g.key)].map((k) => {
@@ -2257,7 +2260,7 @@ function EvidencePageInner() {
   /* ── MAIN LISTING VIEW ───────────────────────────────────────────────── */
   const totalResearch = RESEARCH_REPORTS.length;
   const totalCases = CASE_STUDIES.length;
-  const primaryResearch = (groupKey: string) => RESEARCH_REPORTS.filter((r) => groupOf(r.categories?.[0]).key === groupKey);
+  const primaryResearch = (groupKey: string) => RESEARCH_REPORTS.filter((r) => researchGroupKey(r.categories) === groupKey);
   const tabDefs: { key: Tab; label: string; icon: string; count?: number }[] = [
     { key: "research", label: "Research and Data", icon: "chart", count: totalResearch },
     { key: "evidence-builder", label: "Inclusion AI: Evidence Builder", icon: "sparkle", count: 3 },
@@ -2464,7 +2467,7 @@ function EvidencePageInner() {
                   {filteredResearch.length === 0 ? "No reports match your search." : `${filteredResearch.length} ${filteredResearch.length === 1 ? "report" : "reports"} found`}
                   <button onClick={() => setSearch("")} style={{ marginLeft: "0.75rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", color: "var(--evergreen)", background: "none", border: "none", cursor: "pointer", textDecoration: "underline" }}>Clear search</button>
                 </p>
-                <div style={grid}>{filteredResearch.map((r) => researchCard(r, r.categories?.[0] || "profitability"))}</div>
+                <div style={grid}>{filteredResearch.map((r) => researchCard(r, researchGroupKey(r.categories)))}</div>
               </>
             )}
 
