@@ -258,6 +258,9 @@ export default function InclusionAIPage() {
                 </li>
               ))}
             </ol>
+            <a href="#built-responsibly" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", marginTop: "1.75rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--hero-cream)", textDecoration: "underline", textUnderlineOffset: "3px" }}>
+              <Icon name="shield" size={17} color="var(--hero-cream)" /> How we built Inclusion AI responsibly
+            </a>
           </section>
         )}
 
@@ -351,6 +354,45 @@ export default function InclusionAIPage() {
             </div>
           </section>
         ))}
+
+        {/* BUILT RESPONSIBLY: how Inclusion AI was made, and how it treats members' information */}
+        {!search && (
+          <section id="built-responsibly" aria-labelledby="built-responsibly-title" style={{ marginTop: "1rem", scrollMarginTop: "90px", background: "var(--white)", borderRadius: "var(--radius-lg)", border: "1px solid var(--line)", boxShadow: "var(--shadow-md)", padding: "2.5rem 2.25rem", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "2rem 3rem" }}>
+            <div>
+              <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--evergreen)", background: "var(--pale-sage)", borderRadius: "999px", padding: "0.35rem 0.9rem" }}>
+                <Icon name="shield" size={14} color="var(--evergreen)" /> Built responsibly
+              </span>
+              <h2 id="built-responsibly-title" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.6rem, 3vw, 2.1rem)", lineHeight: 1.15, color: "var(--ink)", margin: "0.9rem 0 0.9rem" }}>
+                How we built Inclusion AI.
+              </h2>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "1.02rem", lineHeight: 1.7, color: "var(--slate)", margin: "0 0 1rem" }}>
+                A general AI chatbot can answer almost anything, which means it is not built for any one job. Inclusion AI is different. Each tool was designed by our EDI specialists to do one specific inclusion task well, using instructions we have written and tested for that task.
+              </p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "1.02rem", lineHeight: 1.7, color: "var(--slate)", margin: 0 }}>
+                You do not need to know how to write a prompt. The tool asks the right questions, and you get a result shaped for the decision in front of you: a business case, an equity review, a set of interview questions.
+              </p>
+            </div>
+            <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "1.35rem" }}>
+              {[
+                { icon: "people", title: "Designed by inclusion specialists", body: "Every tool was created by The Inclusion Edit for people working in inclusion, HR and leadership, and reflects how inclusion work is actually done." },
+                { icon: "target", title: "Built for one job at a time", body: "Each tool works to a clear brief, with its own questions and its own structured result, so you get specialist output rather than a general answer." },
+                { icon: "lock", title: "No personal details needed", body: "We never ask for your name or anyone else's. Where a tool asks for your organisation's name, it is optional. Please remove names and personal details from anything you paste in." },
+                { icon: "shield", title: "Your content stays yours", body: "We do not save what you enter. The AI is provided by Anthropic, whose terms do not allow it to train its models on what you enter, and which deletes it from its systems within 30 days by default." },
+                { icon: "check", title: "You stay in control", body: "Every result is a draft for you to check, adapt and decide on. Inclusion AI supports your judgement; it is not legal advice and does not replace it." },
+              ].map((point) => (
+                <li key={point.title} style={{ display: "flex", gap: "0.9rem", alignItems: "flex-start" }}>
+                  <span style={{ flexShrink: 0, width: "40px", height: "40px", borderRadius: "50%", background: "var(--pale-sage)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <Icon name={point.icon} size={19} color="var(--evergreen)" />
+                  </span>
+                  <div>
+                    <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--ink)", margin: "0.15rem 0 0.25rem" }}>{point.title}</h3>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.6, color: "var(--slate)", margin: 0 }}>{point.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
       </main>
       <BottomBanner />
     </div>
