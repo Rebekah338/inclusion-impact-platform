@@ -9,7 +9,7 @@ import Icon from "@/app/components/BrandIcon";
 /* Office hours: the first Tuesday and the third Thursday of every month, 2pm to 5pm UK time.
    Dates work themselves out, so nothing needs updating by hand. */
 const SLOT_TIMES = ["2:00pm", "3:00pm", "4:00pm"];
-const SUPPORT_EMAIL = "hello@theinclusionedit.com";
+const SUPPORT_EMAIL = "info@theinclusionedit.com";
 
 function nthWeekday(year: number, month: number, weekday: number, n: number) {
   const d = new Date(year, month, 1);
