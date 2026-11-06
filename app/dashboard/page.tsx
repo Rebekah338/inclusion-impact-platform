@@ -1,63 +1,68 @@
 "use client";
 
-
 import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
-import { searchContent, CONTENT, FEATURED_CONTENT, TYPE_ICONS, TYPE_LABELS } from "@/lib/content";
+import PlatformNav from "@/app/components/PlatformNav";
+import BottomBanner from "@/app/components/BottomBanner";
+import Icon from "@/app/components/BrandIcon";
+import { searchContent, FEATURED_CONTENT, TYPE_LABELS } from "@/lib/content";
 
-const TRENDING = [
-  "psychological safety", "power & privilege", "inclusive recruitment",
-  "EDI strategy", "neurodiversity", "pay gap", "allyship",
+/* Popular topics: quick searches (a fixed list, so it is labelled "popular", not "trending") */
+const POPULAR = ["psychological safety", "inclusive recruitment", "EDI strategy", "neurodiversity", "pay gap", "allyship"];
+
+const TYPE_ICON: Record<string, string> = { module: "book", masterclass: "video", tool: "wrench", resource: "chart" };
+
+/* The eight areas of the platform, each with its own page photo */
+const AREAS = [
+  { href: "/dashboard/learn", image: "/learn-hero.jpg", title: "Learn", eyebrow: "CPD courses", desc: "Structured courses and short foundation lessons across three pathways.", meta: "31 modules", icon: "book" },
+  { href: "/dashboard/watch", image: "/watch-hero.jpg", title: "Watch", eyebrow: "Video library", desc: "Expert-led videos you can apply the same week.", meta: "Coming soon", icon: "video", soon: true },
+  { href: "/dashboard/inclusion-ai", image: "/inclusion-ai-hero.jpg", title: "Inclusion AI", eyebrow: "AI tools", desc: "Specialist tools for audits, business cases and fairer hiring.", meta: "9 tools", icon: "sparkle", ai: true },
+  { href: "/dashboard/apply", image: "/apply-hero.jpg", title: "Apply", eyebrow: "Practical resources", desc: "Guides, checklists and toolkits to use in your work today.", meta: "41 resources", icon: "wrench" },
+  { href: "/dashboard/evidence", image: "/make-the-case-hero.jpg", title: "Make the Case", eyebrow: "Evidence and ROI", desc: "Research, case studies and templates to win support for inclusion.", meta: "27 summaries", icon: "chart" },
+  { href: "/dashboard/community", image: "/inclusion-editors-hero.jpg", title: "Inclusion Editors", eyebrow: "Member community", desc: "Ask questions, share small wins and find member perks.", meta: "Peer community", icon: "people" },
+  { href: "/dashboard/support", image: "/get-support-hero.jpg", title: "Get Support", eyebrow: "Talk to a person", desc: "Office hours with an inclusion expert, twice a month.", meta: "30 minute calls", icon: "message" },
+  { href: "/onboarding", image: "/onboarding-hero.jpg", title: "Inclusion Foundations", eyebrow: "Staff onboarding", desc: "A structured programme your whole team can work through.", meta: "Certificate", icon: "graduation" },
 ];
 
 export default function DashboardPage() {
-  
-  const firstName = "there";
-
   const [dyslexiaMode, setDyslexiaMode] = useState(false);
   const [largeText, setLargeText] = useState(false);
 
-  // Search
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<ReturnType<typeof searchContent>>([]);
   const [searchOpen, setSearchOpen] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
 
-  // Today's focus rotation
   const [featuredIdx, setFeaturedIdx] = useState(0);
-
-  // Milestone celebration
-  const [milestone, setMilestone] = useState<string | null>(null);
-
-  // Completed modules (persisted in localStorage)
   const [completedModules, setCompletedModules] = useState<string[]>([]);
   const [pinnedSummaries, setPinnedSummaries] = useState<string[]>([]);
 
+  /* Saved preferences and progress */
   useEffect(() => {
-    const saved = localStorage.getItem("a11y");
-    if (saved) {
-      const prefs = JSON.parse(saved);
-      setDyslexiaMode(prefs.dyslexia || false);
-      setLargeText(prefs.largeText || false);
-    }
-    const comp = localStorage.getItem("completedModules");
-    const compLessons = localStorage.getItem("tie_completed_lessons");
-    const legacyIds: string[] = comp ? JSON.parse(comp) : [];
-    const lessonIds: string[] = compLessons ? JSON.parse(compLessons) : [];
-    const merged = Array.from(new Set([...legacyIds, ...lessonIds]));
-    if (merged.length > 0) setCompletedModules(merged);
-    const pins = localStorage.getItem("pinnedSummaries");
-    if (pins) setPinnedSummaries(JSON.parse(pins));
+    try {
+      const saved = localStorage.getItem("a11y");
+      if (saved) {
+        const prefs = JSON.parse(saved);
+        setDyslexiaMode(prefs.dyslexia || false);
+        setLargeText(prefs.largeText || false);
+      }
+      const comp = localStorage.getItem("completedModules");
+      const compLessons = localStorage.getItem("tie_completed_lessons");
+      const merged = Array.from(new Set([...(comp ? JSON.parse(comp) : []), ...(compLessons ? JSON.parse(compLessons) : [])])) as string[];
+      if (merged.length > 0) setCompletedModules(merged);
+      const pins = localStorage.getItem("pinnedSummaries");
+      if (pins) setPinnedSummaries(JSON.parse(pins));
+    } catch { /* storage unavailable: keep defaults */ }
   }, []);
 
-  // Keep progress bar in sync when a lesson is completed on this page visit
+  /* Keep progress in sync when a lesson is completed during this visit */
   useEffect(() => {
     const handler = () => {
-      const comp2 = localStorage.getItem("completedModules");
-      const compLessons2 = localStorage.getItem("tie_completed_lessons");
-      const legacy2: string[] = comp2 ? JSON.parse(comp2) : [];
-      const lessons2: string[] = compLessons2 ? JSON.parse(compLessons2) : [];
-      setCompletedModules(Array.from(new Set([...legacy2, ...lessons2])));
+      try {
+        const a = localStorage.getItem("completedModules");
+        const b = localStorage.getItem("tie_completed_lessons");
+        setCompletedModules(Array.from(new Set([...(a ? JSON.parse(a) : []), ...(b ? JSON.parse(b) : [])])) as string[]);
+      } catch { /* ignore */ }
     };
     window.addEventListener("tie_completion_changed", handler);
     return () => window.removeEventListener("tie_completion_changed", handler);
@@ -66,7 +71,7 @@ export default function DashboardPage() {
   useEffect(() => {
     document.body.classList.toggle("dyslexia-mode", dyslexiaMode);
     document.body.classList.toggle("large-text", largeText);
-    localStorage.setItem("a11y", JSON.stringify({ dyslexia: dyslexiaMode, largeText }));
+    try { localStorage.setItem("a11y", JSON.stringify({ dyslexia: dyslexiaMode, largeText })); } catch { /* ignore */ }
   }, [dyslexiaMode, largeText]);
 
   useEffect(() => {
@@ -82,9 +87,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
-      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
-        setSearchOpen(false);
-      }
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) setSearchOpen(false);
     }
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
@@ -93,298 +96,201 @@ export default function DashboardPage() {
   const featured = FEATURED_CONTENT[featuredIdx];
   const totalModules = 31;
   const completedCount = completedModules.length;
-  const progressPct = Math.round((completedCount / totalModules) * 100);
+  const progressPct = Math.min(100, Math.round((completedCount / totalModules) * 100));
 
-  const sections = [
-    { href: "/dashboard/learn", icon: "📚", title: "Learn", subtitle: "CPD Modules", desc: "31 structured learning modules across three pathways.", count: `${completedCount}/${totalModules}` },
-    { href: "/dashboard/watch", icon: "🎥", title: "Watch", subtitle: "Masterclasses", desc: "Expert-led video masterclasses on inclusive practice.", count: "Coming soon" },
-    { href: "/dashboard/apply", icon: "🛠️", title: "Apply", subtitle: "Tools & Frameworks", desc: "Interactive tools, guides, checklists, and frameworks for your work.", count: "18 resources" },
-    { href: "/dashboard/evidence", icon: "📊", title: "Make the Case", subtitle: "Evidence & ROI", desc: "Research, data, case studies and downloadable resources for building your business case.", count: "15 resources" },
-    { href: "/dashboard/community", icon: "🗣️", title: "The Inclusion Editors", subtitle: "Peer Community", desc: "Ask questions, share experiences, and read insights from Rebekah and the community.", count: "Community" },
-    { href: "/dashboard/support", icon: "🤝", title: "Get Support", subtitle: "Coaching & Office Hours", desc: "Book office hours with Rebekah, enquire about coaching, or join a live event.", count: "3 slots/week" },
-  ];
+  const prefButton = (on: boolean, onClick: () => void, label: string, text: string) => (
+    <button onClick={onClick} aria-pressed={on} aria-label={label} title={label}
+      style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", padding: "0.35rem 0.75rem", minHeight: "36px", borderRadius: "999px", cursor: "pointer", border: `1.5px solid ${on ? "var(--evergreen)" : "var(--line)"}`, background: on ? "var(--evergreen)" : "var(--white)", color: on ? "var(--white)" : "var(--ink)" }}>
+      {text}
+    </button>
+  );
 
   return (
-    <div className="min-h-screen" style={{ background: "var(--sage-xlight)", paddingBottom: "5rem" }}>
+    <div className="min-h-screen" style={{ background: "var(--mist)" }}>
+      <PlatformNav />
 
-      {/* Top nav */}
-      <nav role="navigation" aria-label="Platform navigation" style={{ background: "var(--white)", borderBottom: "1px solid var(--gray-border)", padding: "0 1.5rem", height: "64px", display: "flex", alignItems: "center", gap: "1.5rem", position: "sticky", top: 0, zIndex: 50 }}>
-
-        {/* Logo */}
-        <div style={{ display: "flex", alignItems: "center", whiteSpace: "nowrap", flexShrink: 0 }}>
-          <Link href="/" aria-label="Home" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--charcoal)", textDecoration: "none" }}>
-            THE INCLUSION EDIT
-          </Link>
-          <span style={{ fontFamily: "var(--font-heading)", fontWeight: 400, fontSize: "0.78rem", color: "var(--sage)", marginLeft: "0.4rem" }}>· Impact Platform</span>
+      {/* PHOTO HERO with search (platform page template, compact) */}
+      <header style={{ position: "relative", minHeight: "420px", display: "flex", alignItems: "center", background: "var(--forest)", zIndex: 5 }}>
+        <div aria-hidden="true" style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
+          <img src="/dashboard-hero.jpg" alt="" style={{ position: "absolute", top: 0, bottom: 0, right: 0, left: "28%", width: "72%", height: "100%", objectFit: "cover", objectPosition: "center 35%" }} />
+          <div style={{ position: "absolute", inset: 0, background: "var(--hero-overlay)" }} />
         </div>
-
-        {/* Divider */}
-        <span style={{ width: "1px", height: "24px", background: "var(--gray-border)", flexShrink: 0 }} />
-
-        {/* Platform section links */}
-        <div style={{ display: "flex", alignItems: "center", gap: "0.1rem", flexShrink: 0 }}>
-          {[
-            { label: "Learn", href: "/dashboard/learn" },
-            { label: "Watch", href: "/dashboard/watch" },
-            { label: "Apply", href: "/dashboard/apply" },
-            { label: "Make the Case", href: "/dashboard/evidence" },
-            { label: "Inclusion Editors", href: "/dashboard/community" },
-            { label: "Tools", href: "/dashboard/tools" },
-            { label: "Get Support", href: "/dashboard/support" },
-          ].map(({ label, href }) => (
-            <Link key={href} href={href} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.85rem", color: "var(--charcoal)", textDecoration: "none", padding: "0.4rem 0.75rem", borderRadius: "6px", whiteSpace: "nowrap" }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = "var(--sage-xlight)"; e.currentTarget.style.color = "var(--sage-dark)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--charcoal)"; }}>
-              {label}
-            </Link>
-          ))}
-          <Link href="/dashboard/inclusion-ai" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", textDecoration: "none", padding: "0.4rem 0.8rem", borderRadius: "6px", background: "var(--sage-light)", whiteSpace: "nowrap" }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = "var(--sage)"; e.currentTarget.style.color = "var(--white)"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = "var(--sage-light)"; e.currentTarget.style.color = "var(--sage-dark)"; }}>
-            Inclusion AI
-          </Link>
-        </div>
-
-        {/* Spacer pushes search + utilities to the right */}
-        <div style={{ flex: 1 }} />
-
-        {/* Compact search */}
-        <div ref={searchRef} style={{ position: "relative", width: "180px", flexShrink: 0 }}>
-          <input
-            type="search"
-            placeholder="Search…"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onFocus={() => searchQuery.length >= 2 && setSearchOpen(true)}
-            aria-label="Search platform content"
-            style={{ width: "100%", padding: "0.35rem 0.75rem 0.35rem 2rem", borderRadius: "999px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.78rem", background: "var(--sage-xlight)", color: "var(--charcoal)", outline: "none" }}
-          />
-          <span style={{ position: "absolute", left: "0.65rem", top: "50%", transform: "translateY(-50%)", color: "var(--gray-soft)", fontSize: "0.75rem" }}>🔍</span>
-          {searchOpen && searchResults.length > 0 && (
-            <div role="listbox" style={{ position: "absolute", top: "calc(100% + 8px)", right: 0, width: "320px", background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: "12px", boxShadow: "0 8px 32px rgba(0,0,0,0.12)", zIndex: 200, overflow: "hidden" }}>
-              {searchResults.map((item) => (
-                <Link key={item.id} href={item.href} onClick={() => { setSearchOpen(false); setSearchQuery(""); }}
-                  style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.75rem 1rem", textDecoration: "none", borderBottom: "1px solid var(--gray-border)" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "var(--sage-xlight)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "none")}
-                >
-                  <span aria-hidden="true">{TYPE_ICONS[item.type]}</span>
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", color: "var(--charcoal)" }}>{item.title}</div>
-                    {item.subtitle && <div style={{ fontSize: "0.72rem", color: "var(--gray-soft)" }}>{item.subtitle}</div>}
-                  </div>
-                  <span style={{ fontSize: "0.6rem", fontFamily: "var(--font-heading)", fontWeight: 700, textTransform: "uppercase", color: "var(--sage-dark)", background: "var(--sage-light)", padding: "0.15rem 0.5rem", borderRadius: "999px", whiteSpace: "nowrap" }}>{TYPE_LABELS[item.type]}</span>
-                </Link>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Right utilities */}
-        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexShrink: 0 }}>
-          {/* Accessibility toolbar */}
-          <div role="group" aria-label="Accessibility options" style={{ display: "flex", gap: "0.25rem" }}>
-            <button onClick={() => setLargeText(!largeText)} aria-pressed={largeText} aria-label="Toggle large text" title="Larger text"
-              style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", padding: "0.2rem 0.45rem", borderRadius: "6px", border: "1.5px solid var(--gray-border)", background: largeText ? "var(--sage-light)" : "transparent", color: largeText ? "var(--sage-dark)" : "var(--gray-soft)", cursor: "pointer" }}>
-              A+
-            </button>
-            <button onClick={() => setDyslexiaMode(!dyslexiaMode)} aria-pressed={dyslexiaMode} aria-label="Toggle dyslexia-friendly font" title="Dyslexia-friendly font"
-              style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.62rem", padding: "0.2rem 0.45rem", borderRadius: "6px", border: "1.5px solid var(--gray-border)", background: dyslexiaMode ? "var(--sage-light)" : "transparent", color: dyslexiaMode ? "var(--sage-dark)" : "var(--gray-soft)", cursor: "pointer" }}>
-              Dy
-            </button>
-          </div>
-          <Link href="/dashboard/pulse" style={{ fontSize: "0.75rem", fontFamily: "var(--font-heading)", color: "var(--sage-dark)", fontWeight: 600, textDecoration: "none", whiteSpace: "nowrap" }}>Pulse</Link>
-          <Link href="/dashboard/saved" style={{ fontSize: "0.75rem", fontFamily: "var(--font-heading)", color: "var(--gray-soft)", textDecoration: "none" }}>Saved</Link>
-          <Link href="/dashboard/settings" style={{ fontSize: "0.75rem", fontFamily: "var(--font-heading)", color: "var(--gray-soft)", textDecoration: "none" }}>Settings</Link>
-        </div>
-      </nav>
-
-      <main id="main-content" style={{ maxWidth: "1100px", margin: "0 auto", padding: "2.5rem 1.5rem" }}>
-
-        {/* Welcome + milestone */}
-        <div style={{ marginBottom: "2rem" }}>
-          <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.25rem)", color: "var(--charcoal)", marginBottom: "0.25rem" }}>
-            Welcome back, {firstName} 👋
+        <div style={{ position: "relative", zIndex: 1, maxWidth: "1200px", margin: "0 auto", padding: "2.5rem 1.5rem 2.75rem", width: "100%", boxSizing: "border-box" }}>
+          <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--white)", border: "1.5px solid rgba(255,255,255,0.4)", background: "rgba(255,255,255,0.08)", backdropFilter: "blur(4px)", borderRadius: "999px", padding: "0.4rem 1rem" }}>
+            Impact Platform: Your dashboard
+          </span>
+          <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(2.4rem, 5.5vw, 3.75rem)", lineHeight: 1.05, color: "var(--white)", margin: "1rem 0 0.75rem", letterSpacing: "-0.01em" }}>
+            <span style={{ color: "var(--hero-cream)" }}>Welcome</span> <span style={{ color: "var(--hero-mint)" }}>back.</span>
           </h1>
-          <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.95rem" }}>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "clamp(1rem, 2vw, 1.15rem)", lineHeight: 1.7, color: "var(--white)", maxWidth: "540px", margin: "0 0 1.25rem" }}>
             What would you like to work on today?
           </p>
-        </div>
 
-        {/* Milestone celebration */}
-        {milestone && (
-          <div role="status" aria-live="polite" style={{ background: "linear-gradient(135deg, #f0fdf4, #dcfce7)", border: "1.5px solid #86efac", borderRadius: "12px", padding: "1.25rem 1.5rem", marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "1rem", animation: "fadeInUp 0.4s ease" }}>
-            <span style={{ fontSize: "2rem" }}>🎉</span>
-            <div>
-              <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, color: "#166534", fontSize: "1rem" }}>{milestone}</div>
-              <div style={{ fontFamily: "var(--font-body)", color: "#16a34a", fontSize: "0.875rem" }}>Keep up the great work!</div>
-            </div>
-            <button onClick={() => setMilestone(null)} aria-label="Dismiss" style={{ marginLeft: "auto", background: "none", border: "none", color: "#16a34a", cursor: "pointer", fontSize: "1.25rem" }}>×</button>
-          </div>
-        )}
-
-        {/* Progress + stats */}
-        <div className="card" style={{ marginBottom: "1.5rem", padding: "1.5rem" }} aria-label="Your learning progress">
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.625rem" }}>
-            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--charcoal)" }}>Your progress</span>
-            <span style={{ fontSize: "0.8rem", color: "var(--gray-soft)", fontFamily: "var(--font-body)" }}>{completedCount} of {totalModules} modules complete</span>
-          </div>
-          <div className="progress-bar" role="progressbar" aria-valuenow={completedCount} aria-valuemin={0} aria-valuemax={totalModules} aria-label="Module completion">
-            <div className="progress-bar-fill" style={{ width: `${progressPct}%`, transition: "width 0.6s ease" }} />
-          </div>
-          <div style={{ display: "flex", gap: "2rem", marginTop: "1.25rem", flexWrap: "wrap" }}>
-            {[
-              { label: "Modules completed", value: String(completedCount) },
-              { label: "CPD hours", value: String(completedCount * 1) },
-              { label: "Pathways started", value: completedCount > 0 ? "1" : "0" },
-              { label: "Resources saved", value: "0" },
-            ].map((s) => (
-              <div key={s.label}>
-                <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.5rem", color: "var(--sage-dark)" }}>{s.value}</div>
-                <div style={{ fontSize: "0.72rem", color: "var(--gray-soft)", fontFamily: "var(--font-body)" }}>{s.label}</div>
+          {/* Search across the whole platform */}
+          <div ref={searchRef} style={{ position: "relative", maxWidth: "560px" }}>
+            <span style={{ position: "absolute", left: "1.1rem", top: "50%", transform: "translateY(-50%)", display: "flex", zIndex: 1 }}><Icon name="search" color="var(--slate)" /></span>
+            <input type="search" placeholder="Search courses, tools and resources" value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)} onFocus={() => searchQuery.length >= 2 && setSearchOpen(true)} aria-label="Search platform content"
+              style={{ width: "100%", padding: "0.95rem 1.25rem 0.95rem 3rem", borderRadius: "var(--radius-md)", border: "none", fontFamily: "var(--font-body)", fontSize: "1rem", background: "var(--white)", color: "var(--ink)", boxSizing: "border-box", boxShadow: "var(--shadow-md)" }} />
+            {searchOpen && searchResults.length > 0 && (
+              <div role="listbox" style={{ position: "absolute", top: "calc(100% + 8px)", left: 0, right: 0, background: "var(--white)", border: "1px solid var(--line)", borderRadius: "var(--radius-md)", boxShadow: "var(--shadow-md)", zIndex: 200, overflow: "hidden" }}>
+                {searchResults.map((item) => (
+                  <Link key={item.id} href={item.href} onClick={() => { setSearchOpen(false); setSearchQuery(""); }}
+                    style={{ display: "flex", alignItems: "center", gap: "0.75rem", padding: "0.75rem 1rem", minHeight: "44px", textDecoration: "none", borderBottom: "1px solid var(--line)" }}>
+                    <Icon name={TYPE_ICON[item.type] || "book"} size={18} color="var(--evergreen)" />
+                    <span style={{ flex: 1, minWidth: 0 }}>
+                      <span style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--ink)" }}>{item.title}</span>
+                      {item.subtitle && <span style={{ display: "block", fontSize: "0.8rem", color: "var(--slate)" }}>{item.subtitle}</span>}
+                    </span>
+                    <span style={{ fontSize: "0.7rem", fontFamily: "var(--font-heading)", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--evergreen)", background: "var(--pale-sage)", padding: "0.2rem 0.55rem", borderRadius: "999px", whiteSpace: "nowrap" }}>{TYPE_LABELS[item.type]}</span>
+                  </Link>
+                ))}
               </div>
-            ))}
+            )}
           </div>
-        </div>
-
-        {/* Today's Focus */}
-        <div style={{ marginBottom: "2rem" }}>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.75rem" }}>
-            <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--charcoal)", margin: 0 }}>✨ Today's Focus</h2>
-            <div style={{ display: "flex", gap: "0.375rem" }}>
-              {FEATURED_CONTENT.map((_, i) => (
-                <button key={i} onClick={() => setFeaturedIdx(i)} aria-label={`Featured item ${i + 1}`}
-                  style={{ width: i === featuredIdx ? "18px" : "7px", height: "7px", borderRadius: "999px", background: i === featuredIdx ? "var(--sage-dark)" : "var(--gray-border)", border: "none", cursor: "pointer", transition: "all 0.3s ease", padding: 0 }} />
-              ))}
-            </div>
-          </div>
-          <div key={featured.id} style={{ background: "linear-gradient(135deg, var(--sage-dark) 0%, var(--sage-mid) 100%)", borderRadius: "14px", padding: "1.75rem 2rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1.5rem", animation: "fadeInUp 0.4s ease" }}>
-            <div>
-              <span className="badge" style={{ background: "rgba(255,255,255,0.2)", color: "var(--white)", marginBottom: "0.625rem", display: "inline-block" }}>{featured.pathway}</span>
-              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.4rem", color: "var(--white)", marginBottom: "0.375rem" }}>{featured.title}</h3>
-              <p style={{ fontFamily: "var(--font-body)", color: "rgba(255,255,255,0.8)", fontSize: "0.9rem", margin: 0 }}>{featured.tagline}</p>
-            </div>
-            <Link href={featured.href} style={{ background: "var(--white)", color: "var(--sage-dark)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", padding: "0.625rem 1.25rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap", flexShrink: 0 }}>
-              Start module →
-            </Link>
-          </div>
-        </div>
-
-        {/* Trending topics */}
-        <div style={{ marginBottom: "2rem" }}>
-          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--charcoal)", marginBottom: "0.75rem" }}>🔥 Trending this week</h2>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-            {TRENDING.map((tag) => (
-              <button key={tag} onClick={() => setSearchQuery(tag)} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", padding: "0.375rem 0.875rem", borderRadius: "999px", border: "1.5px solid var(--gray-border)", background: "var(--white)", color: "var(--charcoal-mid)", cursor: "pointer", transition: "all 0.15s" }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = "var(--sage-light)"; e.currentTarget.style.borderColor = "var(--sage)"; e.currentTarget.style.color = "var(--sage-dark)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = "var(--white)"; e.currentTarget.style.borderColor = "var(--gray-border)"; e.currentTarget.style.color = "var(--charcoal-mid)"; }}>
+          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.45rem", marginTop: "0.85rem" }}>
+            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--hero-cream)", marginRight: "0.25rem" }}>Popular</span>
+            {POPULAR.map((tag) => (
+              <button key={tag} onClick={() => setSearchQuery(tag)}
+                style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", padding: "0.35rem 0.8rem", minHeight: "32px", borderRadius: "999px", border: "1.5px solid rgba(255,255,255,0.4)", background: "rgba(255,255,255,0.1)", color: "var(--white)", cursor: "pointer", backdropFilter: "blur(4px)" }}>
                 {tag}
               </button>
             ))}
           </div>
         </div>
+      </header>
 
-        {/* STAFF ONBOARDING */}
-        <div style={{ marginBottom: '2rem', background: 'linear-gradient(135deg, rgba(42,107,58,0.07) 0%, rgba(30,60,35,0.04) 100%)', borderRadius: '16px', border: '1.5px solid rgba(42,107,58,0.3)', padding: '1.75rem 2rem', boxShadow: '0 4px 20px rgba(30,60,35,0.1)' }}>
-          <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
-            <div>
-              <p style={{ fontSize: '.7rem', fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: '#2A6B3A', margin: '0 0 .4rem' }}>Staff onboarding</p>
-              <h2 style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '1.1rem', color: 'var(--charcoal)', margin: '0 0 .4rem' }}>Inclusion Foundations Programme</h2>
-              <p style={{ fontFamily: 'var(--font-body)', fontSize: '.875rem', color: '#666', margin: 0, maxWidth: '520px', lineHeight: 1.6 }}>A structured onboarding journey for your team. Members work through curated resources, earn a certificate of completion, and build a shared foundation for inclusion.</p>
+      {/* PROGRESS STRIP (as on Onboarding) with reading preferences */}
+      <div style={{ background: "var(--white)", borderBottom: "1px solid var(--line)", padding: "1.15rem 1.5rem" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "1rem 2rem" }}>
+          <div style={{ flex: "1 1 380px", minWidth: 0 }} aria-label="Your learning progress">
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.45rem", gap: "1rem" }}>
+              <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--ink)" }}>Your progress: {completedCount} of {totalModules} modules complete</span>
+              <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--evergreen)", fontVariantNumeric: "lining-nums" }}>{progressPct}%</span>
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '.6rem', minWidth: '200px' }}>
-              <Link href="/onboarding" style={{ display: 'block', textAlign: 'center', padding: '.65rem 1.25rem', background: '#2A6B3A', color: '#fff', borderRadius: '8px', fontSize: '.875rem', fontWeight: 600, textDecoration: 'none', fontFamily: 'var(--font-body)' }}>
-                View onboarding programme →
-              </Link>
-              <button disabled style={{ display: 'block', width: '100%', padding: '.65rem 1.25rem', background: 'rgba(42,107,58,0.08)', color: '#aaa', border: '1.5px dashed rgba(42,107,58,0.25)', borderRadius: '8px', fontSize: '.875rem', fontWeight: 600, cursor: 'not-allowed', fontFamily: 'var(--font-body)' }} title="Available on organisation plans">
-                🔒 Generate staff onboarding links
-              </button>
-              <p style={{ fontSize: '.75rem', color: '#aaa', margin: 0, textAlign: 'center' }}>Staff link generation available on organisation plans</p>
+            <div role="progressbar" aria-valuenow={completedCount} aria-valuemin={0} aria-valuemax={totalModules} aria-label="Module completion" style={{ height: "8px", borderRadius: "999px", background: "var(--line)", overflow: "hidden" }}>
+              <div style={{ width: `${progressPct}%`, height: "100%", background: "var(--evergreen)", borderRadius: "999px", transition: "width 0.6s ease" }} />
             </div>
           </div>
-        </div>
-
-        {/* Section cards */}
-        <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--charcoal)", marginBottom: "0.75rem" }}>
-          Explore the platform
-        </h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem", marginBottom: "2rem" }}>
-          {sections.map((s) => (
-            <Link key={s.href} href={s.href} className="card" style={{ textDecoration: "none", display: "block" }} aria-label={`${s.title} ${s.subtitle}`}>
-              <div style={{ fontSize: "1.75rem", marginBottom: "0.625rem" }} aria-hidden="true">{s.icon}</div>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.2rem" }}>
-                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)" }}>{s.title}</span>
-                <span className="badge badge-sage" style={{ fontSize: "0.6rem" }}>{s.count}</span>
-              </div>
-              <div style={{ fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--sage-dark)", marginBottom: "0.5rem" }}>{s.subtitle}</div>
-              <p style={{ fontSize: "0.85rem", color: "var(--gray-soft)", lineHeight: 1.6, margin: 0 }}>{s.desc}</p>
-              <div style={{ marginTop: "0.875rem", fontSize: "0.85rem", fontFamily: "var(--font-heading)", fontWeight: 600, color: "var(--sage-dark)" }}>Explore →</div>
-            </Link>
-          ))}
-        </div>
-
-        {/* Inclusion Pulse CTA */}
-        <div style={{ background: "linear-gradient(135deg, var(--sage-dark) 0%, var(--sage-mid) 100%)", borderRadius: "12px", padding: "1.25rem 1.75rem", marginBottom: "2rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem" }}>
-          <div>
-            <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--white)", marginBottom: "0.2rem" }}>🌡 Take the Inclusion Pulse</div>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(255,255,255,0.8)", margin: 0 }}>5 quick questions to find your best starting point.</p>
-          </div>
-          <Link href="/dashboard/pulse" style={{ background: "var(--white)", color: "var(--sage-dark)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", padding: "0.6rem 1.25rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Start →</Link>
-        </div>
-
-        {/* Pinned summaries */}
-        <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--charcoal)", marginBottom: "0.75rem" }}>
-          📌 Pinned summaries
-        </h2>
-        {pinnedSummaries.length === 0 ? (
-          <div className="card" style={{ background: "var(--white)", border: "1px dashed var(--gray-border)", textAlign: "center", padding: "2.5rem" }}>
-            <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>📌</div>
-            <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.875rem", margin: "0 0 1rem" }}>Key learnings you pin after completing a module will appear here.</p>
-            <Link href="/dashboard/learn" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", color: "var(--sage-dark)", textDecoration: "none" }}>
-              Start your first module →
-            </Link>
-          </div>
-        ) : (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1rem" }}>
-            {pinnedSummaries.map((pin) => (
-              <div key={pin} className="card" style={{ borderLeft: "3px solid var(--sage)" }}>
-                <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--charcoal)" }}>{pin}</div>
-              </div>
+          <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}>
+            {[
+              { label: "CPD hours", value: String(completedCount), icon: "clock" },
+              { label: "Summaries pinned", value: String(pinnedSummaries.length), icon: "bookmark" },
+            ].map((s) => (
+              <span key={s.label} style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "var(--slate)" }}>
+                <Icon name={s.icon} size={17} color="var(--evergreen)" /> <strong style={{ fontFamily: "var(--font-heading)", color: "var(--ink)", fontVariantNumeric: "lining-nums" }}>{s.value}</strong> {s.label}
+              </span>
             ))}
           </div>
-        )}
-
-      {/* REQUEST A NEW RESOURCE */}
-      <section style={{ padding: "3rem 1.5rem", background: "var(--sage-xlight)" }}>
-        <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-          <div style={{
-            borderRadius: "18px", padding: "2.25rem 2.5rem",
-            background: "linear-gradient(135deg, #2A4A30 0%, #3D6142 100%)",
-            boxShadow: "0 6px 32px rgba(42,74,48,0.2)",
-            display: "flex", alignItems: "center", gap: "2rem", flexWrap: "wrap",
-          }}>
-            <div style={{ flex: 1, minWidth: "200px" }}>
-              <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.05rem", color: "var(--white)", marginBottom: "0.4rem" }}>
-                💡 Request a new resource
-              </div>
-              <div style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.6 }}>
-                Is there a topic, tool, or resource you&apos;d love to see on the platform? Let us know and we&apos;ll prioritise it.
-              </div>
-            </div>
-            <a href="mailto:info@theinclusionedit.com?subject=Resource%20Request"
-              style={{ flexShrink: 0, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", background: "var(--white)", color: "var(--sage-dark)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none" }}>
-              Send a request →
-            </a>
+          <div role="group" aria-label="Reading preferences" style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--slate)", marginRight: "0.2rem" }}>Reading</span>
+            {prefButton(largeText, () => setLargeText(!largeText), "Larger text", "Larger text")}
+            {prefButton(dyslexiaMode, () => setDyslexiaMode(!dyslexiaMode), "Dyslexia-friendly font", "Dyslexia font")}
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+            {[{ href: "/dashboard/saved", label: "Saved", icon: "bookmark" }, { href: "/dashboard/settings", label: "Settings", icon: "layers" }].map((l) => (
+              <Link key={l.href} href={l.href} style={{ display: "inline-flex", alignItems: "center", gap: "0.3rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--evergreen)", textDecoration: "none", minHeight: "36px" }}>
+                <Icon name={l.icon} size={15} color="var(--evergreen)" /> {l.label}
+              </Link>
+            ))}
           </div>
         </div>
-      </section>
+      </div>
+
+      <main id="main-content" style={{ maxWidth: "1200px", margin: "0 auto", padding: "2rem 1.5rem 4.5rem" }}>
+
+        {/* ORIENTATION ROW: Today's focus beside the Inclusion Pulse */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "1.5rem", marginBottom: "2.5rem" }}>
+          <section aria-labelledby="todays-focus" style={{ gridColumn: "span 2", minWidth: 0, borderRadius: "var(--radius-lg)", background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)", boxShadow: "var(--shadow-feature)", padding: "1.5rem 1.75rem", color: "var(--white)", display: "flex", flexDirection: "column" }} className="focus-panel">
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem" }}>
+              <h2 id="todays-focus" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--hero-cream)", margin: 0 }}>
+                <Icon name="target" size={15} color="var(--gold-light)" /> Today&apos;s focus
+              </h2>
+              <div style={{ display: "flex", gap: "0.35rem" }}>
+                {FEATURED_CONTENT.map((f, i) => (
+                  <button key={f.id} onClick={() => setFeaturedIdx(i)} aria-label={`Show focus ${i + 1}: ${f.title}`} aria-pressed={i === featuredIdx}
+                    style={{ width: i === featuredIdx ? "20px" : "8px", height: "8px", borderRadius: "999px", background: i === featuredIdx ? "var(--gold-light)" : "rgba(255,255,255,0.35)", border: "none", cursor: "pointer", transition: "all 0.3s ease", padding: 0 }} />
+                ))}
+              </div>
+            </div>
+            <div key={featured.id} style={{ animation: "fadeInUp 0.4s ease", margin: "0.9rem 0 1.1rem" }}>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--white)", border: "1.5px solid rgba(255,255,255,0.35)", borderRadius: "999px", padding: "0.25rem 0.75rem" }}>{featured.pathway}</span>
+              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 2.6vw, 1.9rem)", lineHeight: 1.15, color: "var(--hero-cream)", margin: "0.6rem 0 0.35rem" }}>{featured.title}</h3>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.98rem", lineHeight: 1.6, color: "rgba(255,255,255,0.88)", margin: 0 }}>{featured.tagline}</p>
+            </div>
+            <Link href={featured.href} style={{ marginTop: "auto", alignSelf: "flex-start", display: "inline-flex", alignItems: "center", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", padding: "0.75rem 1.5rem", minHeight: "44px", boxSizing: "border-box", borderRadius: "var(--radius-sm)", background: "var(--white)", color: "var(--evergreen)", textDecoration: "none" }}>
+              Start Here
+            </Link>
+          </section>
+
+          <section aria-labelledby="pulse" style={{ background: "var(--white)", border: "1px solid var(--line)", borderRadius: "var(--radius-lg)", boxShadow: "var(--shadow-sm)", padding: "1.5rem 1.6rem", display: "flex", flexDirection: "column" }}>
+            <span style={{ width: "44px", height: "44px", borderRadius: "50%", background: "var(--pale-sage)", display: "flex", alignItems: "center", justifyContent: "center" }}><Icon name="pulse" size={21} color="var(--evergreen)" /></span>
+            <h2 id="pulse" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.1rem", color: "var(--ink)", margin: "0.75rem 0 0.35rem" }}>Not sure where to start?</h2>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.6, color: "var(--slate)", margin: "0 0 1rem" }}>Take the Inclusion Pulse: five quick questions that point you to your best starting point.</p>
+            <Link href="/dashboard/pulse" style={{ marginTop: "auto", alignSelf: "flex-start", display: "inline-flex", alignItems: "center", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", padding: "0.75rem 1.5rem", minHeight: "44px", boxSizing: "border-box", borderRadius: "var(--radius-sm)", background: "var(--evergreen)", color: "var(--white)", textDecoration: "none" }}>
+              Take the Pulse
+            </Link>
+          </section>
+        </div>
+
+        {/* EXPLORE THE PLATFORM: photo cards, four across */}
+        <section aria-labelledby="explore" style={{ marginBottom: "2.5rem" }}>
+          <h2 id="explore" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 2.8vw, 1.85rem)", color: "var(--ink)", margin: "0 0 1rem", lineHeight: 1.2 }}>Explore the platform</h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1.25rem" }}>
+            {AREAS.map((a) => (
+              <Link key={a.href} href={a.href} style={{ display: "flex", flexDirection: "column", background: "var(--white)", borderRadius: "var(--radius-md)", overflow: "hidden", borderTop: "6px solid var(--evergreen)", borderRight: "1px solid var(--line)", borderBottom: "1px solid var(--line)", borderLeft: "1px solid var(--line)", boxShadow: "var(--shadow-sm)", textDecoration: "none" }}>
+                <div style={{ position: "relative", height: "120px", background: "var(--forest)" }}>
+                  <img src={a.image} alt="" loading="lazy" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+                  <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "var(--photo-tint)" }} />
+                  <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(20,40,25,0) 40%, rgba(20,40,25,0.7) 100%)" }} />
+                  <span style={{ position: "absolute", left: "0.85rem", bottom: "0.7rem", width: "36px", height: "36px", borderRadius: "50%", background: "var(--white)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <Icon name={a.icon} size={18} color={a.ai ? "var(--gold-deep)" : "var(--evergreen)"} strokeWidth={a.ai ? 2 : 1.75} />
+                  </span>
+                  {a.soon && <span style={{ position: "absolute", top: "0.6rem", right: "0.7rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", textTransform: "uppercase", letterSpacing: "0.08em", background: "var(--gold)", color: "var(--ink)", padding: "0.2rem 0.6rem", borderRadius: "999px" }}>Coming soon</span>}
+                </div>
+                <div style={{ padding: "0.85rem 1.05rem 1rem", flex: 1, display: "flex", flexDirection: "column", gap: "0.3rem" }}>
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: "0.3rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--evergreen)" }}>
+                    {a.ai && <Icon name="sparkle" size={12} color="var(--gold)" strokeWidth={2} />} {a.eyebrow}
+                  </span>
+                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.05rem", color: "var(--ink)" }}>{a.title}</span>
+                  <span style={{ fontFamily: "var(--font-body)", fontSize: "0.86rem", color: "var(--slate)", lineHeight: 1.5 }}>{a.desc}</span>
+                  <span style={{ marginTop: "auto", paddingTop: "0.5rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem" }}>
+                    <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--slate)" }}>{a.meta}</span>
+                    <span style={{ display: "inline-flex", alignItems: "center", gap: "0.15rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", color: "var(--evergreen)" }}>Explore <Icon name="chevron" size={15} color="var(--evergreen)" /></span>
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* PINNED SUMMARIES */}
+        <section aria-labelledby="pinned">
+          <h2 id="pinned" style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.1rem", color: "var(--ink)", margin: "0 0 0.85rem" }}>
+            <Icon name="bookmark" size={19} color="var(--evergreen)" /> Your pinned summaries
+          </h2>
+          {pinnedSummaries.length === 0 ? (
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.75rem 1.25rem", background: "var(--white)", border: "1.5px dashed var(--line)", borderRadius: "var(--radius-md)", padding: "1.1rem 1.35rem" }}>
+              <p style={{ flex: "1 1 300px", fontFamily: "var(--font-body)", fontSize: "0.92rem", color: "var(--slate)", margin: 0 }}>Key learnings you pin after completing a module will appear here, ready for your next meeting.</p>
+              <Link href="/dashboard/learn" style={{ display: "inline-flex", alignItems: "center", gap: "0.2rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--evergreen)", textDecoration: "none" }}>
+                Start your first module <Icon name="chevron" size={15} color="var(--evergreen)" />
+              </Link>
+            </div>
+          ) : (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1rem" }}>
+              {pinnedSummaries.map((pin) => (
+                <div key={pin} style={{ background: "var(--white)", borderRadius: "var(--radius-md)", borderLeft: "4px solid var(--evergreen)", borderTop: "1px solid var(--line)", borderRight: "1px solid var(--line)", borderBottom: "1px solid var(--line)", padding: "0.9rem 1.05rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--ink)" }}>{pin}</div>
+              ))}
+            </div>
+          )}
+        </section>
       </main>
 
+      <BottomBanner />
+
       <style>{`
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 760px) { .focus-panel { grid-column: auto !important; } }
       `}</style>
     </div>
   );
