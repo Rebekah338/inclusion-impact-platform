@@ -203,12 +203,14 @@ export default function DashboardPage() {
       <PlatformNav />
 
       {/* PHOTO HERO with search (platform page template, compact) */}
-      <header style={{ position: "relative", minHeight: "380px", display: "flex", alignItems: "center", background: "var(--forest)" }}>
+      <header style={{ position: "relative", minHeight: "400px", display: "flex", alignItems: "stretch", background: "var(--forest)" }}>
         <div aria-hidden="true" style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
           <img src="/dashboard-hero.jpg" alt="" style={{ position: "absolute", top: 0, bottom: 0, right: 0, left: "28%", width: "72%", height: "100%", objectFit: "cover", objectPosition: "center 35%" }} />
           <div style={{ position: "absolute", inset: 0, background: "var(--hero-overlay)" }} />
         </div>
-        <div style={{ position: "relative", zIndex: 1, maxWidth: "1200px", margin: "0 auto", padding: "2.25rem 1.5rem 1.75rem", width: "100%", boxSizing: "border-box" }}>
+        <div style={{ position: "relative", zIndex: 1, maxWidth: "1200px", margin: "0 auto", padding: "2.25rem 1.5rem 1.25rem", width: "100%", boxSizing: "border-box", display: "flex", flexDirection: "column" }}>
+          {/* Greeting sits in the space above; the glass bar sits on the bottom edge */}
+          <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "flex-start" }}>
           <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--white)", border: "1.5px solid rgba(255,255,255,0.4)", background: "rgba(255,255,255,0.08)", backdropFilter: "blur(4px)", borderRadius: "999px", padding: "0.4rem 1rem" }}>
             Impact Platform: Your dashboard
           </span>
@@ -218,9 +220,10 @@ export default function DashboardPage() {
           <p style={{ fontFamily: "var(--font-body)", fontSize: "clamp(1rem, 2vw, 1.15rem)", lineHeight: 1.7, color: "var(--white)", maxWidth: "540px", margin: 0 }}>
             Everything you need for your inclusion work, in one place.
           </p>
+          </div>
 
           {/* PROGRESS BAR: frosted glass along the bottom of the hero, high contrast for easy reading */}
-          <div aria-label="Your progress and reading preferences" style={{ marginTop: "2rem", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.75rem 1.75rem", padding: "0.85rem 1.25rem", borderRadius: "var(--radius-lg)", background: "rgba(20,40,25,0.72)", border: "1px solid rgba(255,255,255,0.3)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", boxShadow: "0 10px 30px rgba(0,0,0,0.25)" }}>
+          <div aria-label="Your progress and reading preferences" style={{ marginTop: "1.75rem", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.75rem 1.75rem", padding: "0.85rem 1.25rem", borderRadius: "var(--radius-lg)", background: "rgba(20,40,25,0.72)", border: "1px solid rgba(255,255,255,0.3)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", boxShadow: "0 10px 30px rgba(0,0,0,0.25)" }}>
             <div style={{ flex: "1 1 300px", minWidth: 0 }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "1rem", marginBottom: "0.4rem" }}>
                 <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--white)" }}>Your progress: {completedCount} of {totalModules} modules complete</span>
