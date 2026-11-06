@@ -21,12 +21,59 @@
   --font-heading: 'Raleway', system-ui, sans-serif;
   --font-body: 'Lato', system-ui, sans-serif;
 
-  /* Accessible contrast ratios enforced:
-     charcoal on white = 14:1 ✓
-     charcoal on cream = 12:1 ✓
-     sage-dark on white = 4.8:1 ✓ (AA)
-     white on sage-dark = 4.8:1 ✓ (AA)
-  */
+  /* Approved brand system tokens (Visual Brand Guide, 6 November 2026).
+     Added alongside the original names so nothing changes visually until each page is migrated.
+     Original names map as follows: sage-dark equals evergreen; sage equals sage-mid in the guide;
+     charcoal equals ink; gray-soft is replaced by slate; gray-border is replaced by line. */
+  --forest: #1A3220;
+  --deep-pine: #1E3624;
+  --pine: #2C4A31;
+  --fern: #3D6142;
+  --evergreen: #4A6347;
+  --logo-sage: #8DBF87;
+  --pale-sage: #E3F5E2;
+  --mist: #F4F7F4;
+  --linen: #FDFAF5;
+  --parchment: #FAF6EE;
+  --hero-cream: #F0E6C8;
+  --hero-mint: #A8D4B0;
+  --gold: #C9A84C;
+  --gold-light: #E2C265;
+  --gold-deep: #7A5200;
+  --gold-tint: #FBF6E8;
+  --ink: #1C1C1C;
+  --slate: #4B5B4E;
+  --line: #DCE5DE;
+  --success: #1D6B3A;
+  --warning: #B54708;
+  --error: #B42318;
+  --info: #1E4E8C;
+
+  /* Hub collection tones: rich (headers), tint (pale boxes), mid (decorative only) */
+  --coll-green: #2D5A3C;
+  --coll-green-tint: #E3F5E2;
+  --coll-green-mid: #8DBF87;
+  --coll-purple: #584477;
+  --coll-purple-tint: #EFE8F5;
+  --coll-purple-mid: #9E82B8;
+  --coll-amber: #7E4F1C;
+  --coll-amber-tint: #F8EDE0;
+  --coll-amber-mid: #D9A66A;
+  --coll-blue: #24497A;
+  --coll-blue-tint: #E8EDF7;
+  --coll-blue-mid: #7C93C4;
+
+  /* Shape and depth */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --shadow-sm: 0 1px 3px rgba(26,50,32,0.08);
+  --shadow-md: 0 4px 20px rgba(26,50,32,0.10);
+  --shadow-feature: 0 6px 28px rgba(42,74,48,0.22);
+  --hero-overlay: linear-gradient(100deg, rgba(20,40,25,0.95) 0%, rgba(20,40,25,0.85) 38%, rgba(20,40,25,0.3) 70%, rgba(20,40,25,0.05) 100%);
+  --photo-tint: linear-gradient(160deg, rgba(141,191,135,0.18) 0%, rgba(45,90,60,0.28) 100%);
+
+  /* Contrast: white on evergreen 6.6:1; ink on white 17:1; slate on white 7.2:1; gold-deep on white 6.9:1 */
 }
 
 /* OpenDyslexic font - loaded conditionally */
