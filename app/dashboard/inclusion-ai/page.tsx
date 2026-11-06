@@ -18,6 +18,8 @@ const SECTIONS = [
     tools: [
       {
         id: "evidence-argument-builder",
+        give: "What you are arguing and who you are presenting to",
+        get: "A tailored business case built from our research library",
         icon: "scale",
         name: "Evidence Argument Builder",
         tagline: "Build a structured, evidence-backed argument for EDI investment.",
@@ -26,6 +28,8 @@ const SECTIONS = [
       },
       {
         id: "research-interpreter",
+        give: "A research paper, report or article",
+        get: "Key findings, practical takeaways and how they apply to you",
         icon: "microscope",
         name: "Personalised Research Interpreter",
         tagline: "Turn academic research into actionable insight for your organisation.",
@@ -34,6 +38,8 @@ const SECTIONS = [
       },
       {
         id: "gender-pay-gap-statement-builder",
+        give: "Your gender pay gap figures",
+        get: "A clear statement with root causes and action commitments",
         icon: "chart",
         name: "Gender Pay Gap Statement Builder",
         tagline: "Turn your statutory figures into a clear, honest published statement.",
@@ -42,6 +48,8 @@ const SECTIONS = [
       },
       {
         id: "inclusion-strategy-builder",
+        give: "Where you are now and what matters most",
+        get: "A 12-month framework with objectives and a board-ready summary",
         icon: "map",
         name: "Inclusion Strategy Builder",
         tagline: "Turn your priorities into a 12-month strategy framework.",
@@ -61,6 +69,8 @@ const SECTIONS = [
     tools: [
       {
         id: "jd-equity-checker",
+        give: "A job description",
+        get: "An equity review with rewritten wording ready to use",
         icon: "briefcase",
         name: "Job Spec Equity Check",
         tagline: "Remove bias before your role goes live.",
@@ -69,6 +79,8 @@ const SECTIONS = [
       },
       {
         id: "interview-question-generator",
+        give: "The role and its competencies",
+        get: "A structured, bias-aware interview question set",
         icon: "target",
         name: "Interview Question Generator",
         tagline: "Structured, bias-aware questions for every role.",
@@ -88,6 +100,8 @@ const SECTIONS = [
     tools: [
       {
         id: "policy-equity-auditor",
+        give: "An existing policy",
+        get: "An equity audit and a prioritised improvement plan",
         icon: "clipboard",
         name: "Policy Equity Auditor",
         tagline: "Turn any policy into an equity action plan.",
@@ -96,6 +110,8 @@ const SECTIONS = [
       },
       {
         id: "inclusion-health-check",
+        give: "Answers to targeted questions about your organisation",
+        get: "An inclusion health score across six key areas",
         icon: "pulse",
         name: "Inclusion Health Check",
         tagline: "A rapid diagnostic for your inclusion culture.",
@@ -104,6 +120,8 @@ const SECTIONS = [
       },
       {
         id: "case-study-roadmap",
+        give: "A case study from another organisation",
+        get: "A step-by-step roadmap adapted to your context",
         icon: "book",
         name: "Case Study Replication Roadmap",
         tagline: "Turn someone else's success into your action plan.",
@@ -160,10 +178,29 @@ export default function InclusionAIPage() {
             Specialist tools built for the real complexity of inclusion work. Audit policies, build evidence, remove recruitment bias and analyse pay gaps.
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "1.5rem", fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--hero-cream)" }}>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem" }}><Icon name="sparkle" color="var(--hero-cream)" /> {ALL_TOOLS.length} AI tools</span>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem" }}><Icon name="layers" color="var(--hero-cream)" /> {SECTIONS.length} tool groups</span>
             <span style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem" }}><Icon name="people" color="var(--hero-cream)" /> Built for EDI practitioners</span>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem" }}><Icon name="book" color="var(--hero-cream)" /> Evidence-backed</span>
           </div>
+        </div>
+
+        {/* Glass badge (as the award card on the About page): gold ring with the tool count */}
+        <div className="ai-hero-badge" style={{ position: "absolute", right: "3.5rem", bottom: "2.75rem", zIndex: 1, width: "240px", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", padding: "1.5rem 1.25rem 1.25rem", borderRadius: "var(--radius-lg)", background: "rgba(26,50,32,0.45)", border: "1px solid rgba(255,255,255,0.28)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", boxShadow: "0 10px 30px rgba(0,0,0,0.25)" }}>
+          <span style={{ width: "64px", height: "64px", borderRadius: "50%", border: "2px solid var(--gold-light)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.6rem", color: "var(--gold-light)", fontVariantNumeric: "lining-nums", boxShadow: "0 0 18px rgba(226,194,101,0.35)" }}>
+            {ALL_TOOLS.length}
+          </span>
+          <span style={{ marginTop: "0.85rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--hero-cream)" }}>
+            Inclusion AI
+          </span>
+          <span style={{ marginTop: "0.3rem", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.2rem", color: "var(--white)", lineHeight: 1.2 }}>
+            Specialist AI Tools
+          </span>
+          <span style={{ marginTop: "0.3rem", fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(255,255,255,0.85)" }}>
+            Purpose-built for inclusion work
+          </span>
+          <span aria-hidden="true" style={{ width: "100%", height: "1px", background: "rgba(255,255,255,0.22)", margin: "0.9rem 0 0.75rem" }} />
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--gold-light)" }}>
+            <Icon name="sparkle" size={13} color="var(--gold-light)" /> Evidence-backed
+          </span>
         </div>
       </header>
 
@@ -194,6 +231,35 @@ export default function InclusionAIPage() {
 
       {/* TOOLS */}
       <main id="main-content" style={{ maxWidth: "1200px", margin: "0 auto", padding: "2.5rem 1.5rem 5rem" }}>
+
+        {/* HOW INCLUSION AI WORKS: dark card band (website treatment), shown once */}
+        {!search && (
+          <section aria-labelledby="how-it-works" style={{ marginBottom: "3rem", borderRadius: "var(--radius-lg)", background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)", boxShadow: "var(--shadow-feature)", padding: "2.25rem 2.25rem 2.5rem", color: "var(--white)" }}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--white)", border: "1.5px solid rgba(255,255,255,0.35)", background: "rgba(255,255,255,0.08)", borderRadius: "999px", padding: "0.35rem 0.9rem" }}>
+              <Icon name="sparkle" size={13} color="var(--gold-light)" /> How it works
+            </span>
+            <h2 id="how-it-works" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.6rem, 3vw, 2.1rem)", lineHeight: 1.15, margin: "0.9rem 0 1.75rem" }}>
+              <span style={{ color: "var(--hero-cream)" }}>How Inclusion AI</span> <span style={{ color: "var(--hero-mint)" }}>works.</span>
+            </h2>
+            <ol style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1.5rem" }}>
+              {[
+                { title: "Tell us your context", body: "Share your role, your organisation and what you need to achieve." },
+                { title: "The tool does the groundwork", body: "It applies EDI expertise and evidence to your situation." },
+                { title: "You get a draft to check and adapt", body: "Every result is a starting point: review it, edit it and make it yours." },
+              ].map((step, i) => (
+                <li key={step.title} style={{ display: "flex", gap: "0.9rem", alignItems: "flex-start" }}>
+                  <span style={{ flexShrink: 0, width: "42px", height: "42px", borderRadius: "50%", border: "2px solid var(--gold-light)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.15rem", color: "var(--gold-light)", fontVariantNumeric: "lining-nums" }}>
+                    {i + 1}
+                  </span>
+                  <div>
+                    <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.02rem", color: "var(--white)", margin: "0.35rem 0 0.3rem" }}>{step.title}</h3>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.6, color: "rgba(255,255,255,0.85)", margin: 0 }}>{step.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
 
         {search && (
           <p style={{ fontFamily: "var(--font-heading)", fontSize: "0.9rem", color: "var(--slate)", marginBottom: "1.5rem" }} aria-live="polite">
@@ -230,7 +296,7 @@ export default function InclusionAIPage() {
               </span>
             </div>
 
-            {/* Inclusion AI cards: the standard hub card in the collection tone, with a soft gold glow so AI tools stand out */}
+            {/* Inclusion AI cards: the standard hub card (as on Learn), marked only by the INCLUSION AI pill, with a You give / You get strip */}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1.5rem" }}>
               {section.tools.map((tool) => {
                 const isHover = hovered === tool.id;
@@ -242,7 +308,7 @@ export default function InclusionAIPage() {
                     onMouseLeave={() => setHovered(null)}
                     onFocus={() => setHovered(tool.id)}
                     onBlur={() => setHovered(null)}
-                    style={{ display: "flex", flexDirection: "column", background: "var(--white)", borderRadius: "var(--radius-md)", overflow: "hidden", borderTop: `6px solid ${section.color}`, boxShadow: isHover ? "var(--shadow-ai-hover)" : "var(--shadow-ai)", transform: isHover ? "translateY(-3px)" : "none", transition: "box-shadow 0.2s, transform 0.2s", textDecoration: "none" }}
+                    style={{ display: "flex", flexDirection: "column", background: "var(--white)", borderRadius: "var(--radius-md)", overflow: "hidden", border: `1.5px solid ${isHover ? section.color : section.mid}`, borderTop: `6px solid ${section.color}`, boxShadow: isHover ? "var(--shadow-md)" : "var(--shadow-sm)", transform: isHover ? "translateY(-2px)" : "none", transition: "box-shadow 0.15s, border-color 0.15s, transform 0.15s", textDecoration: "none" }}
                   >
                     {/* Pale header in the collection tint */}
                     <div style={{ background: section.bg, padding: "0.9rem 1.15rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem" }}>
@@ -262,9 +328,19 @@ export default function InclusionAIPage() {
                       <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", fontWeight: 700, color: section.color, lineHeight: 1.45, margin: 0 }}>
                         {tool.tagline}
                       </p>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.86rem", color: "var(--slate)", lineHeight: 1.6, margin: 0 }}>
-                        {tool.desc}
-                      </p>
+                      <dl style={{ margin: "0.2rem 0 0", display: "flex", flexDirection: "column", gap: "0.6rem", padding: "0.8rem 0 0", borderTop: "1px solid var(--line)" }}>
+                        {[{ label: "You give", value: tool.give, icon: "clipboard" }, { label: "You get", value: tool.get, icon: "sparkle" }].map((row) => (
+                          <div key={row.label} style={{ display: "flex", gap: "0.6rem", alignItems: "flex-start" }}>
+                            <span style={{ flexShrink: 0, width: "28px", height: "28px", borderRadius: "50%", background: section.bg, display: "flex", alignItems: "center", justifyContent: "center", marginTop: "0.1rem" }}>
+                              <Icon name={row.icon} size={15} color={section.color} />
+                            </span>
+                            <div>
+                              <dt style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--slate)" }}>{row.label}</dt>
+                              <dd style={{ margin: "0.1rem 0 0", fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "var(--ink)", lineHeight: 1.5 }}>{row.value}</dd>
+                            </div>
+                          </div>
+                        ))}
+                      </dl>
                       <span style={{ marginTop: "auto", paddingTop: "0.6rem", display: "inline-flex", alignItems: "center", gap: "0.3rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--evergreen)", textDecoration: isHover ? "underline" : "none" }}>
                         Open Tool <Icon name="chevron" size={16} color="var(--evergreen)" />
                       </span>

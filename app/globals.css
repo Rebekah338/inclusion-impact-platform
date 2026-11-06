@@ -70,9 +70,6 @@
   --shadow-sm: 0 1px 3px rgba(26,50,32,0.08);
   --shadow-md: 0 4px 20px rgba(26,50,32,0.10);
   --shadow-feature: 0 6px 28px rgba(42,74,48,0.22);
-  /* Inclusion AI: a soft gold glow around standard cards, so AI tools stand out without changing colour */
-  --shadow-ai: 0 0 18px rgba(201,168,76,0.28), 0 8px 28px rgba(201,168,76,0.3);
-  --shadow-ai-hover: 0 0 26px rgba(201,168,76,0.4), 0 14px 40px rgba(201,168,76,0.42);
   --hero-overlay: linear-gradient(100deg, rgba(20,40,25,0.95) 0%, rgba(20,40,25,0.85) 38%, rgba(20,40,25,0.3) 70%, rgba(20,40,25,0.05) 100%);
   --photo-tint: linear-gradient(160deg, rgba(141,191,135,0.18) 0%, rgba(45,90,60,0.28) 100%);
 
@@ -383,4 +380,9 @@ html {
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
+}
+
+/* Inclusion AI hero badge: hidden on smaller screens so it never covers the headline */
+@media (max-width: 1023px) {
+  .ai-hero-badge { display: none !important; }
 }
