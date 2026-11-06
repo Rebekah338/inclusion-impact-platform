@@ -386,3 +386,8 @@ html {
 @media (max-width: 1023px) {
   .ai-hero-badge { display: none !important; }
 }
+
+/* Inclusion Editors: sidebar drops below the feed on smaller screens */
+@media (max-width: 960px) {
+  .editors-layout { grid-template-columns: 1fr !important; }
+}
