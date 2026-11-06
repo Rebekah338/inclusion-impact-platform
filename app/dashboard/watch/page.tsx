@@ -19,6 +19,12 @@ const videoCollections = [
       { id: "inclusive-recruitment-video", image: "/watch-2-collaboration.jpg", title: "Inclusive Recruitment: Common Mistakes", duration: "20 min", tags: ["Recruitment", "Systems"] },
       { id: "edi-data-video", image: "/watch-3-team-review.jpg", title: "EDI Data: Collecting, Using and Communicating It", duration: "30 min", tags: ["Data & Evidence"] },
       { id: "disability-inclusion", image: "/watch-4-meeting-discussion.jpg", title: "Disability Inclusion in Practice", duration: "25 min", tags: ["Disability", "Policy"] },
+      { id: "equality-act", image: "/edi-training.jpg", title: "The Equality Act Explained for Managers", duration: "30 min", tags: ["Policy", "Foundations"] },
+      { id: "reasonable-adjustments", image: "/team-meeting.jpg", title: "Reasonable Adjustments: Getting Them Right", duration: "20 min", tags: ["Disability", "Policy"] },
+      { id: "unconscious-bias", image: "/workshop.jpg", title: "Understanding Bias in Everyday Decisions", duration: "25 min", tags: ["Foundations", "Culture"] },
+      { id: "inclusive-meetings", image: "/resources-meeting.jpg", title: "Running Inclusive Meetings", duration: "15 min", tags: ["Culture", "Belonging"] },
+      { id: "pay-gap", image: "/resources-strategy.jpg", title: "Reading Your Pay Gap Data", duration: "30 min", tags: ["Data & Evidence", "Strategy"] },
+      { id: "neurodiversity", image: "/coaching-people.jpg", title: "Neurodiversity at Work", duration: "25 min", tags: ["Disability", "Wellbeing"] },
     ],
   },
   {
@@ -34,6 +40,10 @@ const videoCollections = [
       { id: "edi-strategy-video", image: "/watch-6-strategy.jpg", title: "How to Build an EDI Strategy from Scratch", duration: "35 min", tags: ["Strategy", "Leadership"] },
       { id: "business-case-edi", image: "/watch-7-diverse-meeting.jpg", title: "Making the Business Case for EDI", duration: "30 min", tags: ["Strategy", "Data & Evidence"] },
       { id: "anti-racism-video", image: "/watch-8-working-together.jpg", title: "Anti-Racism at Work: Moving Beyond Awareness", duration: "40 min", tags: ["Race", "Culture"] },
+      { id: "board-governance", image: "/resources-strategy.jpg", title: "EDI at Board Level: Governance and Accountability", duration: "40 min", tags: ["Leadership", "Strategy"] },
+      { id: "inclusive-policy", image: "/edi-training.jpg", title: "Writing Policies People Actually Use", duration: "35 min", tags: ["Policy", "Systems"] },
+      { id: "hard-conversations", image: "/team-meeting.jpg", title: "Handling Difficult Conversations About Race", duration: "45 min", tags: ["Race", "Leadership"] },
+      { id: "measuring-impact", image: "/watch-3-team-review.jpg", title: "Measuring the Impact of Your EDI Work", duration: "35 min", tags: ["Data & Evidence", "Strategy"] },
     ],
   },
   {
@@ -45,8 +55,12 @@ const videoCollections = [
     mid: "var(--coll-amber-mid)",
     icon: "zap",
     videos: [
-      { id: "intersectionality-video", image: "/watch-masterclass.jpg", title: "Understanding Intersectionality", duration: "20 min", tags: ["Race", "Disability", "Culture"] },
-      { id: "psychological-safety-video", image: "/collaboration.jpg", title: "Psychological Safety in Teams", duration: "25 min", tags: ["Belonging", "Culture", "Wellbeing"] },
+      { id: "intersectionality-video", image: "/watch-masterclass.jpg", title: "Understanding Intersectionality", duration: "10 min", tags: ["Race", "Disability", "Culture"] },
+      { id: "psychological-safety-video", image: "/collaboration.jpg", title: "Psychological Safety in Teams", duration: "8 min", tags: ["Belonging", "Culture", "Wellbeing"] },
+      { id: "allyship", image: "/watch-nuggets.jpg", title: "Allyship in Five Minutes", duration: "5 min", tags: ["Belonging", "Culture"] },
+      { id: "microaggressions", image: "/watch-deep-dives.jpg", title: "Spotting Microaggressions", duration: "7 min", tags: ["Race", "Culture"] },
+      { id: "inclusive-language", image: "/workshop.jpg", title: "Inclusive Language: Quick Wins", duration: "6 min", tags: ["Foundations", "Culture"] },
+      { id: "job-adverts", image: "/watch-2-collaboration.jpg", title: "Three Fixes for Your Job Adverts", duration: "5 min", tags: ["Recruitment", "Systems"] },
     ],
   },
 ];
@@ -69,6 +83,9 @@ const chipStyle = (selected: boolean): React.CSSProperties => ({
 export default function WatchPage() {
   const [search, setSearch] = useState("");
   const [activeTag, setActiveTag] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const PREVIEW_COUNT = 4;
+  const isFiltering = Boolean(search || activeTag);
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase();
@@ -91,7 +108,7 @@ export default function WatchPage() {
 
       {/* PHOTO HERO (platform page template, compact) */}
       <header style={{ position: "relative", minHeight: "500px", display: "flex", alignItems: "center", overflow: "hidden", background: "var(--forest)" }}>
-        <img src="/watch-hero.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 44%" }} />
+        <img src="/watch-hero.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 62%" }} />
         <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "var(--hero-overlay)" }} />
         <div style={{ position: "relative", zIndex: 1, maxWidth: "1200px", margin: "0 auto", padding: "2.25rem 1.5rem 2.75rem", width: "100%", boxSizing: "border-box" }}>
           <Link href="/dashboard" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", textDecoration: "none", background: "rgba(255,255,255,0.12)", border: "1.5px solid rgba(255,255,255,0.4)", borderRadius: "var(--radius-sm)", padding: "0.45rem 0.9rem", backdropFilter: "blur(4px)" }}>
@@ -194,11 +211,14 @@ export default function WatchPage() {
                   {collection.description}
                 </span>
               </div>
+              <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: collection.color, whiteSpace: "nowrap" }}>
+                {collection.videos.length} video{collection.videos.length === 1 ? "" : "s"}
+              </span>
             </div>
 
             {/* Video cards: tinted photo thumbnails, one choice per row */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1.25rem" }}>
-              {collection.videos.map((video, idx) => {
+            <div id={`collection-videos-${collection.id}`} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1.25rem" }}>
+              {(isFiltering || expanded[collection.id] ? collection.videos : collection.videos.slice(0, PREVIEW_COUNT)).map((video, idx) => {
                 return (
                   <article
                     key={video.id}
@@ -244,6 +264,22 @@ export default function WatchPage() {
                 );
               })}
             </div>
+
+            {!isFiltering && collection.videos.length > PREVIEW_COUNT && (
+              <div style={{ display: "flex", justifyContent: "center", marginTop: "1.25rem" }}>
+                <button
+                  onClick={() => setExpanded((e) => ({ ...e, [collection.id]: !e[collection.id] }))}
+                  aria-expanded={Boolean(expanded[collection.id])}
+                  aria-controls={`collection-videos-${collection.id}`}
+                  style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: collection.color, background: "var(--white)", border: `1.5px solid ${collection.color}`, borderRadius: "999px", padding: "0.6rem 1.4rem", minHeight: "44px", cursor: "pointer" }}
+                >
+                  {expanded[collection.id] ? "Show fewer" : `Show all ${collection.videos.length} videos`}
+                  <span style={{ display: "flex", transform: expanded[collection.id] ? "rotate(-90deg)" : "rotate(90deg)", transition: "transform 0.2s" }}>
+                    <Icon name="chevron" size={16} color={collection.color} />
+                  </span>
+                </button>
+              </div>
+            )}
           </section>
         ))}
       </main>
