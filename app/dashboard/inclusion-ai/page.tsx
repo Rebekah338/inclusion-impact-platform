@@ -10,6 +10,9 @@ const SECTIONS = [
   {
     key: "making-the-case",
     heading: "Making the Case",
+    color: "var(--coll-green)",
+    bg: "var(--coll-green-tint)",
+    mid: "var(--coll-green-mid)",
     icon: "scale",
     subheading: "Tools to build the evidence, justify investment, and bring leadership with you.",
     tools: [
@@ -50,6 +53,9 @@ const SECTIONS = [
   {
     key: "recruiting-fairly",
     heading: "Recruiting and Hiring Fairly",
+    color: "var(--coll-purple)",
+    bg: "var(--coll-purple-tint)",
+    mid: "var(--coll-purple-mid)",
     icon: "briefcase",
     subheading: "Remove bias from your talent pipeline before it costs you candidates.",
     tools: [
@@ -74,6 +80,9 @@ const SECTIONS = [
   {
     key: "understanding-where-you-are",
     heading: "Understanding Where You Are",
+    color: "var(--coll-blue)",
+    bg: "var(--coll-blue-tint)",
+    mid: "var(--coll-blue-mid)",
     icon: "pulse",
     subheading: "Diagnostic and audit tools that tell you what to fix and where to start.",
     tools: [
@@ -140,7 +149,7 @@ export default function InclusionAIPage() {
             <Icon name="back" size={16} /> Back to dashboard
           </Link>
           <div style={{ marginTop: "1.5rem", display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap" }}>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--white)", border: "1.5px solid var(--gold)", background: "rgba(255,255,255,0.08)", backdropFilter: "blur(4px)", borderRadius: "999px", padding: "0.4rem 1rem" }}>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--white)", border: "1.5px solid rgba(255,255,255,0.4)", background: "rgba(255,255,255,0.08)", backdropFilter: "blur(4px)", borderRadius: "999px", padding: "0.4rem 1rem" }}>
               <Icon name="sparkle" size={14} color="var(--gold-light)" /> Impact Platform: Inclusion AI
             </span>
           </div>
@@ -163,8 +172,8 @@ export default function InclusionAIPage() {
         <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
           <div style={{ display: "flex", gap: "0.6rem", flexWrap: "wrap", marginBottom: "1.25rem" }} aria-label="Tool groups">
             {SECTIONS.map((s) => (
-              <a key={s.key} href={`#section-${s.key}`} style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", padding: "0.45rem 0.95rem", borderRadius: "999px", border: "1.5px solid var(--gold)", background: "var(--white)", fontSize: "0.85rem", fontFamily: "var(--font-heading)", fontWeight: 700, color: "var(--gold-deep)", whiteSpace: "nowrap", textDecoration: "none" }}>
-                <Icon name={s.icon} size={16} color="var(--gold-deep)" /> {s.heading}
+              <a key={s.key} href={`#section-${s.key}`} style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", padding: "0.45rem 0.95rem", borderRadius: "999px", border: `1.5px solid ${s.color}`, background: "var(--white)", fontSize: "0.85rem", fontFamily: "var(--font-heading)", fontWeight: 700, color: s.color, whiteSpace: "nowrap", textDecoration: "none" }}>
+                <Icon name={s.icon} size={16} color={s.color} /> {s.heading}
               </a>
             ))}
           </div>
@@ -205,24 +214,24 @@ export default function InclusionAIPage() {
 
         {filteredSections.map((section) => (
           <section key={section.key} id={`section-${section.key}`} style={{ marginBottom: "2.75rem", scrollMarginTop: "90px" }} aria-labelledby={`section-title-${section.key}`}>
-            {/* Section opener: Gold tint with a 4px Gold left border (Inclusion AI keeps Gold) */}
-            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.25rem", padding: "0.95rem 1.35rem", background: "var(--gold-tint)", borderRadius: "var(--radius-md)", borderLeft: "4px solid var(--gold)" }}>
-              <Icon name={section.icon} size={22} color="var(--gold-deep)" />
+            {/* Section opener: pale tint with a 4px left border in the collection tone (as on Learn and Watch) */}
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.25rem", padding: "0.95rem 1.35rem", background: section.bg, borderRadius: "var(--radius-md)", borderLeft: `4px solid ${section.color}` }}>
+              <Icon name={section.icon} size={22} color={section.color} />
               <div style={{ flex: 1, display: "flex", alignItems: "baseline", flexWrap: "wrap", gap: "0.25rem 0.75rem" }}>
-                <h2 id={`section-title-${section.key}`} style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.2rem", color: "var(--ink)", margin: 0 }}>
+                <h2 id={`section-title-${section.key}`} style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.2rem", color: section.color, margin: 0 }}>
                   {section.heading}
                 </h2>
                 <span style={{ fontSize: "0.9rem", color: "var(--slate)", fontFamily: "var(--font-body)" }}>
                   {section.subheading}
                 </span>
               </div>
-              <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--gold-deep)", whiteSpace: "nowrap" }}>
+              <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: section.color, whiteSpace: "nowrap" }}>
                 {section.tools.length} tool{section.tools.length === 1 ? "" : "s"}
               </span>
             </div>
 
-            {/* Inclusion AI cards: white content card, 1px Line, 3px Gold top rule, INCLUSION AI pill */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1.25rem" }}>
+            {/* Inclusion AI cards: the standard hub card in the collection tone, with a soft gold glow so AI tools stand out */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1.5rem" }}>
               {section.tools.map((tool) => {
                 const isHover = hovered === tool.id;
                 return (
@@ -233,28 +242,33 @@ export default function InclusionAIPage() {
                     onMouseLeave={() => setHovered(null)}
                     onFocus={() => setHovered(tool.id)}
                     onBlur={() => setHovered(null)}
-                    style={{ display: "flex", flexDirection: "column", gap: "0.6rem", background: "var(--white)", border: "1px solid var(--line)", borderTop: "3px solid var(--gold)", borderRadius: "var(--radius-md)", padding: "1.25rem 1.25rem 1.15rem", boxShadow: isHover ? "var(--shadow-md)" : "var(--shadow-sm)", transform: isHover ? "translateY(-2px)" : "none", transition: "box-shadow 0.15s, transform 0.15s", textDecoration: "none" }}
+                    style={{ display: "flex", flexDirection: "column", background: "var(--white)", borderRadius: "var(--radius-md)", overflow: "hidden", borderTop: `6px solid ${section.color}`, boxShadow: isHover ? "var(--shadow-ai-hover)" : "var(--shadow-ai)", transform: isHover ? "translateY(-3px)" : "none", transition: "box-shadow 0.2s, transform 0.2s", textDecoration: "none" }}
                   >
-                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem" }}>
-                      <span style={{ width: "42px", height: "42px", borderRadius: "50%", background: "var(--gold-tint)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <Icon name={tool.icon} size={20} color="var(--gold-deep)" />
+                    {/* Pale header in the collection tint */}
+                    <div style={{ background: section.bg, padding: "0.9rem 1.15rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem" }}>
+                      <span style={{ width: "44px", height: "44px", borderRadius: "50%", background: "var(--white)", boxShadow: "var(--shadow-sm)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                        <Icon name={tool.icon} size={21} color={section.color} />
                       </span>
-                      <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--gold-deep)", background: "var(--gold-tint)", border: "1px solid var(--gold)", padding: "0.2rem 0.6rem", borderRadius: "999px", whiteSpace: "nowrap" }}>
-                        Inclusion AI
+                      <span style={{ display: "inline-flex", alignItems: "center", gap: "0.3rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.08em", color: section.color, background: "var(--white)", padding: "0.25rem 0.65rem", borderRadius: "999px", whiteSpace: "nowrap" }}>
+                        <Icon name="sparkle" size={13} color="var(--gold)" strokeWidth={2} /> Inclusion AI
                       </span>
                     </div>
-                    <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--ink)", lineHeight: 1.3, margin: "0.15rem 0 0" }}>
-                      {tool.name}
-                    </h3>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", fontWeight: 700, color: "var(--evergreen)", lineHeight: 1.45, margin: 0 }}>
-                      {tool.tagline}
-                    </p>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.86rem", color: "var(--slate)", lineHeight: 1.6, margin: 0 }}>
-                      {tool.desc}
-                    </p>
-                    <span style={{ marginTop: "auto", paddingTop: "0.5rem", display: "inline-flex", alignItems: "center", gap: "0.3rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--evergreen)", textDecoration: isHover ? "underline" : "none" }}>
-                      Open Tool <Icon name="chevron" size={16} color="var(--evergreen)" />
-                    </span>
+
+                    {/* Card body */}
+                    <div style={{ padding: "1.05rem 1.15rem 1.15rem", flex: 1, display: "flex", flexDirection: "column", gap: "0.55rem" }}>
+                      <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.02rem", color: "var(--ink)", lineHeight: 1.3, margin: 0 }}>
+                        {tool.name}
+                      </h3>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", fontWeight: 700, color: section.color, lineHeight: 1.45, margin: 0 }}>
+                        {tool.tagline}
+                      </p>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.86rem", color: "var(--slate)", lineHeight: 1.6, margin: 0 }}>
+                        {tool.desc}
+                      </p>
+                      <span style={{ marginTop: "auto", paddingTop: "0.6rem", display: "inline-flex", alignItems: "center", gap: "0.3rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--evergreen)", textDecoration: isHover ? "underline" : "none" }}>
+                        Open Tool <Icon name="chevron" size={16} color="var(--evergreen)" />
+                      </span>
+                    </div>
                   </Link>
                 );
               })}
