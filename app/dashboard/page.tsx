@@ -30,9 +30,6 @@ function nextRoundUp(from = new Date()) {
 const dayMonth = (d: Date) => d.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
 const shortDate = (iso: string) => new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 
-/* Popular topics: quick searches (a fixed list, so it is labelled "popular", not "trending") */
-const POPULAR = ["psychological safety", "inclusive recruitment", "EDI strategy", "neurodiversity", "pay gap", "allyship"];
-
 const TYPE_ICON: Record<string, string> = { module: "book", masterclass: "video", tool: "wrench", resource: "chart" };
 
 /* The eight areas of the platform, each with its own page photo */
@@ -46,6 +43,51 @@ const AREAS = [
   { href: "/dashboard/support", image: "/get-support-hero.jpg", title: "Get Support", eyebrow: "Talk to a person", desc: "Office hours with an inclusion expert, twice a month.", meta: "30 minute calls", icon: "message" },
   { href: "/onboarding", image: "/onboarding-hero.jpg", title: "Inclusion Foundations", eyebrow: "Staff onboarding", desc: "A structured programme your whole team can work through.", meta: "Certificate", icon: "graduation" },
 ];
+
+/* What do you need to do today? Hand-picked paths: learn it, use it, do it */
+type Step = { kind: "Learn it" | "Use it" | "Do it"; title: string; why: string; href: string; icon: string; ai?: boolean };
+const GOALS: { key: string; label: string; icon: string; steps: Step[] }[] = [
+  { key: "case", label: "Make the case to leadership", icon: "chart", steps: [
+    { kind: "Learn it", title: "The Business Case for Inclusion", why: "Understand the arguments that land with decision makers.", href: "/dashboard/learn/business-case-inclusion", icon: "book" },
+    { kind: "Use it", title: "Business Case Essentials", why: "The research and real examples that make it convincing.", href: "/dashboard/evidence", icon: "chart" },
+    { kind: "Do it", title: "Evidence Argument Builder", why: "Build a tailored, evidence-backed argument for your audience.", href: "/dashboard/evidence?tab=evidence-builder", icon: "scale", ai: true },
+  ] },
+  { key: "hire", label: "Hire more fairly", icon: "briefcase", steps: [
+    { kind: "Learn it", title: "Recruit Inclusively", why: "Where bias creeps into hiring, and how to design it out.", href: "/dashboard/learn/recruit-inclusively", icon: "book" },
+    { kind: "Use it", title: "Diverse Recruitment Checklist", why: "Checkpoints for before you advertise, during and after.", href: "/dashboard/apply/diverse-recruitment-checklist", icon: "checklist" },
+    { kind: "Do it", title: "Job Spec Equity Check", why: "Get an equity review of your job description, with rewrites.", href: "/dashboard/inclusion-ai/jd-equity-checker", icon: "briefcase", ai: true },
+  ] },
+  { key: "policy", label: "Review or write a policy", icon: "clipboard", steps: [
+    { kind: "Learn it", title: "Policy Audit", why: "What makes a policy inclusive in practice, not just on paper.", href: "/dashboard/learn/policy-audit", icon: "book" },
+    { kind: "Use it", title: "Making Policies Inclusive", why: "Practical tips and a checklist for designing or auditing policies.", href: "/dashboard/apply/making-policies-inclusive", icon: "checklist" },
+    { kind: "Do it", title: "Policy Equity Auditor", why: "An equity audit of your policy and a prioritised plan.", href: "/dashboard/inclusion-ai/policy-equity-auditor", icon: "clipboard", ai: true },
+  ] },
+  { key: "strategy", label: "Shape our inclusion strategy", icon: "map", steps: [
+    { kind: "Learn it", title: "Building an EDI Strategy", why: "From aspiration to a plan your organisation can deliver.", href: "/dashboard/learn/edi-strategy", icon: "book" },
+    { kind: "Use it", title: "Getting Started with EDI Strategy", why: "A step-by-step guide from baseline to board sign-off.", href: "/dashboard/apply/edi-strategy-guide", icon: "map" },
+    { kind: "Do it", title: "Inclusion Strategy Builder", why: "Turn your priorities into a 12-month framework.", href: "/dashboard/inclusion-ai/inclusion-strategy-builder", icon: "map", ai: true },
+  ] },
+  { key: "difficult", label: "Handle a difficult situation", icon: "shield", steps: [
+    { kind: "Learn it", title: "Speaking Up", why: "How to respond in the moment, and how to follow up.", href: "/dashboard/learn/speaking-up", icon: "book" },
+    { kind: "Use it", title: "Challenging Non-Inclusive Behaviour", why: "Real language for real situations.", href: "/dashboard/apply/challenging-non-inclusive-behaviour", icon: "message" },
+    { kind: "Do it", title: "Talk it through", why: "Ask the Editors anonymously, or book office hours with an inclusion expert.", href: "/dashboard/support#office-hours", icon: "people" },
+  ] },
+  { key: "confidence", label: "Build my own confidence", icon: "award", steps: [
+    { kind: "Learn it", title: "Foundation lessons", why: "Short lessons you can finish in under 20 minutes.", href: "/dashboard/learn#foundation-lessons", icon: "book" },
+    { kind: "Use it", title: "The Basics videos", why: "Four short videos for a quick, clear start.", href: "/dashboard/watch#start-here", icon: "video" },
+    { kind: "Do it", title: "Take the Inclusion Pulse", why: "Five questions that point you to what to do next.", href: "/dashboard/pulse", icon: "pulse" },
+  ] },
+  { key: "team", label: "Support or onboard my team", icon: "people", steps: [
+    { kind: "Learn it", title: "Inclusion Foundations Programme", why: "A structured programme your whole team can work through.", href: "/onboarding", icon: "graduation" },
+    { kind: "Use it", title: "Inclusion Health Check", why: "See where your team or organisation is now.", href: "/dashboard/inclusion-ai/inclusion-health-check", icon: "pulse", ai: true },
+    { kind: "Do it", title: "Book a Free Inclusion Call", why: "Talk to us about training or support for your teams.", href: "/dashboard/support#more-support", icon: "message" },
+  ] },
+];
+
+function greeting(now = new Date()) {
+  const h = now.getHours();
+  return h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening";
+}
 
 export default function DashboardPage() {
   const [dyslexiaMode, setDyslexiaMode] = useState(false);
@@ -61,6 +103,23 @@ export default function DashboardPage() {
   const [pinnedSummaries, setPinnedSummaries] = useState<string[]>([]);
   const [certificates, setCertificates] = useState<Certificate[]>([]);
   const [certName, setCertName] = useState("");
+  const [goal, setGoal] = useState<string | null>(null);
+  const [lastLearning, setLastLearning] = useState<{ href: string; title: string; date: string } | null>(null);
+  const [hello, setHello] = useState("Welcome back");
+  const pathRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    setHello(greeting());
+    try {
+      const raw = localStorage.getItem("tie_last_learning");
+      if (raw) setLastLearning(JSON.parse(raw));
+    } catch { /* ignore */ }
+  }, []);
+
+  const chooseGoal = (key: string) => {
+    setGoal((g) => (g === key ? null : key));
+    setTimeout(() => pathRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 60);
+  };
 
   useEffect(() => {
     setCertificates(getCertificates());
@@ -154,16 +213,32 @@ export default function DashboardPage() {
             Impact Platform: Your dashboard
           </span>
           <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(2.4rem, 5.5vw, 3.75rem)", lineHeight: 1.05, color: "var(--white)", margin: "1rem 0 0.75rem", letterSpacing: "-0.01em" }}>
-            <span style={{ color: "var(--hero-cream)" }}>Welcome</span> <span style={{ color: "var(--hero-mint)" }}>back.</span>
+            <span style={{ color: "var(--hero-cream)" }}>{hello}{certName ? "," : "."}</span>{certName && <> <span style={{ color: "var(--hero-mint)" }}>{certName.split(" ")[0]}.</span></>}
           </h1>
           <p style={{ fontFamily: "var(--font-body)", fontSize: "clamp(1rem, 2vw, 1.15rem)", lineHeight: 1.7, color: "var(--white)", maxWidth: "540px", margin: "0 0 1.25rem" }}>
-            What would you like to work on today?
+            What do you need to do today?
           </p>
+
+          {/* Goals: each opens a hand-picked three-step path below */}
+          <div role="group" aria-label="Choose what you need to do" style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", maxWidth: "780px", marginBottom: "1.25rem" }}>
+            {GOALS.map((g) => {
+              const on = goal === g.key;
+              return (
+                <button key={g.key} onClick={() => chooseGoal(g.key)} aria-pressed={on} aria-controls="your-path"
+                  style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", padding: "0.55rem 1rem", minHeight: "44px", borderRadius: "999px", cursor: "pointer", border: `1.5px solid ${on ? "var(--white)" : "rgba(255,255,255,0.45)"}`, background: on ? "var(--white)" : "rgba(255,255,255,0.1)", color: on ? "var(--evergreen)" : "var(--white)", backdropFilter: "blur(4px)" }}>
+                  <Icon name={g.icon} size={16} color={on ? "var(--evergreen)" : "var(--hero-cream)"} /> {g.label}
+                </button>
+              );
+            })}
+            <Link href="/dashboard/pulse" style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", padding: "0.55rem 1rem", minHeight: "44px", boxSizing: "border-box", borderRadius: "999px", border: "1.5px dashed rgba(255,255,255,0.5)", color: "var(--hero-cream)", textDecoration: "none" }}>
+              <Icon name="pulse" size={16} color="var(--hero-cream)" /> Not sure? Take the Pulse
+            </Link>
+          </div>
 
           {/* Search across the whole platform */}
           <div ref={searchRef} style={{ position: "relative", maxWidth: "560px" }}>
             <span style={{ position: "absolute", left: "1.1rem", top: "50%", transform: "translateY(-50%)", display: "flex", zIndex: 1 }}><Icon name="search" color="var(--slate)" /></span>
-            <input type="search" placeholder="Search courses, tools and resources" value={searchQuery}
+            <input type="search" placeholder="Or search courses, tools and resources" value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)} onFocus={() => searchQuery.length >= 2 && setSearchOpen(true)} aria-label="Search platform content"
               style={{ width: "100%", padding: "0.95rem 1.25rem 0.95rem 3rem", borderRadius: "var(--radius-md)", border: "none", fontFamily: "var(--font-body)", fontSize: "1rem", background: "var(--white)", color: "var(--ink)", boxSizing: "border-box", boxShadow: "var(--shadow-md)" }} />
             {searchOpen && searchResults.length > 0 && (
@@ -181,15 +256,6 @@ export default function DashboardPage() {
                 ))}
               </div>
             )}
-          </div>
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.45rem", marginTop: "0.85rem" }}>
-            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--hero-cream)", marginRight: "0.25rem" }}>Popular</span>
-            {POPULAR.map((tag) => (
-              <button key={tag} onClick={() => setSearchQuery(tag)}
-                style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", padding: "0.35rem 0.8rem", minHeight: "32px", borderRadius: "999px", border: "1.5px solid rgba(255,255,255,0.4)", background: "rgba(255,255,255,0.1)", color: "var(--white)", cursor: "pointer", backdropFilter: "blur(4px)" }}>
-                {tag}
-              </button>
-            ))}
           </div>
         </div>
       </header>
@@ -234,43 +300,103 @@ export default function DashboardPage() {
 
       <main id="main-content" style={{ maxWidth: "1200px", margin: "0 auto", padding: "2rem 1.5rem 4.5rem" }}>
 
-        {/* ORIENTATION ROW: Today's focus beside the Inclusion Pulse */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "1.5rem", marginBottom: "2.5rem" }}>
-          <section aria-labelledby="todays-focus" style={{ gridColumn: "span 2", minWidth: 0, borderRadius: "var(--radius-lg)", background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)", boxShadow: "var(--shadow-feature)", padding: "1.5rem 1.75rem", color: "var(--white)", display: "flex", flexDirection: "column" }} className="focus-panel">
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem" }}>
-              <h2 id="todays-focus" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--hero-cream)", margin: 0 }}>
-                <Icon name="target" size={15} color="var(--gold-light)" /> Today&apos;s focus
-              </h2>
-              <div style={{ display: "flex", gap: "0.35rem" }}>
-                {FEATURED_CONTENT.map((f, i) => (
-                  <button key={f.id} onClick={() => setFeaturedIdx(i)} aria-label={`Show focus ${i + 1}: ${f.title}`} aria-pressed={i === featuredIdx}
-                    style={{ width: i === featuredIdx ? "20px" : "8px", height: "8px", borderRadius: "999px", background: i === featuredIdx ? "var(--gold-light)" : "rgba(255,255,255,0.35)", border: "none", cursor: "pointer", transition: "all 0.3s ease", padding: 0 }} />
-                ))}
+        {/* YOUR PATH: the three steps for the goal chosen in the hero */}
+        {goal && (() => {
+          const g = GOALS.find((x) => x.key === goal)!;
+          return (
+            <section id="your-path" ref={pathRef} aria-labelledby="your-path-title" style={{ marginBottom: "2rem", scrollMarginTop: "90px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem", padding: "0.85rem 1.25rem", background: "var(--pale-sage)", borderRadius: "var(--radius-md)", borderLeft: "4px solid var(--evergreen)" }}>
+                <Icon name={g.icon} size={22} color="var(--evergreen)" />
+                <h2 id="your-path-title" style={{ flex: 1, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.15rem", color: "var(--evergreen)", margin: 0 }}>Your path: {g.label}</h2>
+                <button onClick={() => setGoal(null)} aria-label="Close this path" style={{ display: "inline-flex", alignItems: "center", gap: "0.3rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--evergreen)", background: "none", border: "none", cursor: "pointer", minHeight: "40px" }}>
+                  Close
+                </button>
               </div>
-            </div>
-            <div key={featured.id} style={{ animation: "fadeInUp 0.4s ease", margin: "0.9rem 0 1.1rem" }}>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--white)", border: "1.5px solid rgba(255,255,255,0.35)", borderRadius: "999px", padding: "0.25rem 0.75rem" }}>{featured.pathway}</span>
-              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 2.6vw, 1.9rem)", lineHeight: 1.15, color: "var(--hero-cream)", margin: "0.6rem 0 0.35rem" }}>{featured.title}</h3>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.98rem", lineHeight: 1.6, color: "rgba(255,255,255,0.88)", margin: 0 }}>{featured.tagline}</p>
-            </div>
-            <Link href={featured.href} style={{ marginTop: "auto", alignSelf: "flex-start", display: "inline-flex", alignItems: "center", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", padding: "0.75rem 1.5rem", minHeight: "44px", boxSizing: "border-box", borderRadius: "var(--radius-sm)", background: "var(--white)", color: "var(--evergreen)", textDecoration: "none" }}>
-              Start Here
-            </Link>
-          </section>
+              <ol style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.25rem" }}>
+                {g.steps.map((st, i) => (
+                  <li key={st.title} style={{ display: "flex" }}>
+                    <Link href={st.href} style={{ flex: 1, display: "flex", flexDirection: "column", gap: "0.4rem", background: "var(--white)", borderRadius: "var(--radius-md)", borderTop: "6px solid var(--evergreen)", borderRight: "1px solid var(--line)", borderBottom: "1px solid var(--line)", borderLeft: "1px solid var(--line)", boxShadow: "var(--shadow-sm)", padding: "1rem 1.15rem 1.1rem", textDecoration: "none" }}>
+                      <span style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                        <span style={{ flexShrink: 0, width: "32px", height: "32px", borderRadius: "50%", border: "2px solid var(--gold)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "0.95rem", color: "var(--gold-deep)", fontVariantNumeric: "lining-nums" }}>{i + 1}</span>
+                        <span style={{ display: "inline-flex", alignItems: "center", gap: "0.3rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--evergreen)" }}>
+                          {st.kind}{st.ai && <><span aria-hidden="true">·</span><Icon name="sparkle" size={12} color="var(--gold)" strokeWidth={2} /> Inclusion AI</>}
+                        </span>
+                      </span>
+                      <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.02rem", color: "var(--ink)", lineHeight: 1.3, marginTop: "0.2rem" }}>{st.title}</span>
+                      <span style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "var(--slate)", lineHeight: 1.5 }}>{st.why}</span>
+                      <span style={{ marginTop: "auto", paddingTop: "0.4rem", display: "inline-flex", alignItems: "center", gap: "0.15rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", color: "var(--evergreen)" }}>
+                        {st.kind === "Learn it" ? "Start" : st.kind === "Use it" ? "Open" : "Go"} <Icon name="chevron" size={15} color="var(--evergreen)" />
+                      </span>
+                    </Link>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          );
+        })()}
 
-          <section aria-labelledby="pulse" style={{ background: "var(--white)", border: "1px solid var(--line)", borderRadius: "var(--radius-lg)", boxShadow: "var(--shadow-sm)", padding: "1.5rem 1.6rem", display: "flex", flexDirection: "column" }}>
-            <span style={{ width: "44px", height: "44px", borderRadius: "50%", background: "var(--pale-sage)", display: "flex", alignItems: "center", justifyContent: "center" }}><Icon name="pulse" size={21} color="var(--evergreen)" /></span>
-            <h2 id="pulse" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.1rem", color: "var(--ink)", margin: "0.75rem 0 0.35rem" }}>Not sure where to start?</h2>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.6, color: "var(--slate)", margin: "0 0 1rem" }}>Take the Inclusion Pulse: five quick questions that point you to your best starting point.</p>
-            <Link href="/dashboard/pulse" style={{ marginTop: "auto", alignSelf: "flex-start", display: "inline-flex", alignItems: "center", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", padding: "0.75rem 1.5rem", minHeight: "44px", boxSizing: "border-box", borderRadius: "var(--radius-sm)", background: "var(--evergreen)", color: "var(--white)", textDecoration: "none" }}>
-              Take the Pulse
-            </Link>
+        {/* CONTINUE (or Today's focus) beside COMING UP */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "1.5rem", marginBottom: "2rem" }}>
+          {lastLearning ? (
+            <section aria-labelledby="continue" className="focus-panel" style={{ gridColumn: "span 2", minWidth: 0, borderRadius: "var(--radius-lg)", background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)", boxShadow: "var(--shadow-feature)", padding: "1.5rem 1.75rem", color: "var(--white)", display: "flex", flexDirection: "column" }}>
+              <h2 id="continue" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--hero-cream)", margin: 0 }}>
+                <Icon name="play" size={15} color="var(--gold-light)" /> Continue where you left off
+              </h2>
+              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 2.6vw, 1.9rem)", lineHeight: 1.15, color: "var(--hero-cream)", margin: "0.75rem 0 0.35rem" }}>{lastLearning.title}</h3>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "rgba(255,255,255,0.85)", margin: "0 0 1.1rem" }}>Last opened {shortDate(lastLearning.date)}. Pick up right where you were.</p>
+              <Link href={lastLearning.href} style={{ marginTop: "auto", alignSelf: "flex-start", display: "inline-flex", alignItems: "center", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", padding: "0.75rem 1.5rem", minHeight: "44px", boxSizing: "border-box", borderRadius: "var(--radius-sm)", background: "var(--white)", color: "var(--evergreen)", textDecoration: "none" }}>
+                Continue Learning
+              </Link>
+            </section>
+          ) : (
+          <section aria-labelledby="todays-focus" style={{ gridColumn: "span 2", minWidth: 0, borderRadius: "var(--radius-lg)", background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)", boxShadow: "var(--shadow-feature)", padding: "1.5rem 1.75rem", color: "var(--white)", display: "flex", flexDirection: "column" }} className="focus-panel">
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem" }}>
+                <h2 id="todays-focus" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--hero-cream)", margin: 0 }}>
+                  <Icon name="target" size={15} color="var(--gold-light)" /> Today&apos;s focus
+                </h2>
+                <div style={{ display: "flex", gap: "0.35rem" }}>
+                  {FEATURED_CONTENT.map((f, i) => (
+                    <button key={f.id} onClick={() => setFeaturedIdx(i)} aria-label={`Show focus ${i + 1}: ${f.title}`} aria-pressed={i === featuredIdx}
+                      style={{ width: i === featuredIdx ? "20px" : "8px", height: "8px", borderRadius: "999px", background: i === featuredIdx ? "var(--gold-light)" : "rgba(255,255,255,0.35)", border: "none", cursor: "pointer", transition: "all 0.3s ease", padding: 0 }} />
+                  ))}
+                </div>
+              </div>
+              <div key={featured.id} style={{ animation: "fadeInUp 0.4s ease", margin: "0.9rem 0 1.1rem" }}>
+                <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--white)", border: "1.5px solid rgba(255,255,255,0.35)", borderRadius: "999px", padding: "0.25rem 0.75rem" }}>{featured.pathway}</span>
+                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.5rem, 2.6vw, 1.9rem)", lineHeight: 1.15, color: "var(--hero-cream)", margin: "0.6rem 0 0.35rem" }}>{featured.title}</h3>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.98rem", lineHeight: 1.6, color: "rgba(255,255,255,0.88)", margin: 0 }}>{featured.tagline}</p>
+              </div>
+              <Link href={featured.href} style={{ marginTop: "auto", alignSelf: "flex-start", display: "inline-flex", alignItems: "center", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", padding: "0.75rem 1.5rem", minHeight: "44px", boxSizing: "border-box", borderRadius: "var(--radius-sm)", background: "var(--white)", color: "var(--evergreen)", textDecoration: "none" }}>
+                Start Here
+              </Link>
+            </section>
+          )}
+
+          <section aria-labelledby="coming-up" style={{ background: "var(--white)", border: "1px solid var(--line)", borderRadius: "var(--radius-lg)", boxShadow: "var(--shadow-sm)", padding: "1.35rem 1.5rem" }}>
+            <h2 id="coming-up" style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.1rem", color: "var(--ink)", margin: "0 0 0.9rem" }}>
+              <Icon name="calendar" size={19} color="var(--evergreen)" /> Coming up
+            </h2>
+            <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+              {[
+                { icon: "message", title: "Office hours with an inclusion expert", when: `${dayMonth(nextOfficeHours())}, 2pm to 5pm UK`, href: "/dashboard/support#office-hours", cta: "Book a time" },
+                { icon: "book", title: "This Month in EDI", when: `Published ${dayMonth(nextRoundUp())}`, href: "/dashboard/community", cta: "Go to the Editors" },
+              ].map((i) => (
+                <li key={i.title} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
+                  <span style={{ flexShrink: 0, width: "36px", height: "36px", borderRadius: "50%", background: "var(--pale-sage)", display: "flex", alignItems: "center", justifyContent: "center" }}><Icon name={i.icon} size={17} color="var(--evergreen)" /></span>
+                  <div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--ink)", lineHeight: 1.35 }}>{i.title}</div>
+                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.84rem", color: "var(--slate)", margin: "0.1rem 0 0.2rem" }}>{i.when}</div>
+                    <Link href={i.href} style={{ display: "inline-flex", alignItems: "center", gap: "0.15rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.84rem", color: "var(--evergreen)", textDecoration: "none" }}>{i.cta} <Icon name="chevron" size={14} color="var(--evergreen)" /></Link>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </section>
         </div>
 
-        {/* CERTIFICATES beside COMING UP */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "1.5rem", marginBottom: "2.5rem" }}>
-          <section aria-labelledby="certificates" className="focus-panel" style={{ gridColumn: "span 2", minWidth: 0, background: "var(--white)", border: "1px solid var(--line)", borderRadius: "var(--radius-lg)", boxShadow: "var(--shadow-sm)", padding: "1.35rem 1.5rem" }}>
+        {/* YOUR CERTIFICATES */}
+        <div style={{ marginBottom: "2.5rem" }}>
+          <section aria-labelledby="certificates" style={{ background: "var(--white)", border: "1px solid var(--line)", borderRadius: "var(--radius-lg)", boxShadow: "var(--shadow-sm)", padding: "1.35rem 1.5rem" }}>
             <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "0.6rem 1rem", marginBottom: "0.9rem" }}>
               <h2 id="certificates" style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.1rem", color: "var(--ink)", margin: 0 }}>
                 <Icon name="award" size={20} color="var(--gold-deep)" /> Your certificates
@@ -313,27 +439,6 @@ export default function DashboardPage() {
                 </label>
               </>
             )}
-          </section>
-
-          <section aria-labelledby="coming-up" style={{ background: "var(--white)", border: "1px solid var(--line)", borderRadius: "var(--radius-lg)", boxShadow: "var(--shadow-sm)", padding: "1.35rem 1.5rem" }}>
-            <h2 id="coming-up" style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.1rem", color: "var(--ink)", margin: "0 0 0.9rem" }}>
-              <Icon name="calendar" size={19} color="var(--evergreen)" /> Coming up
-            </h2>
-            <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "0.85rem" }}>
-              {[
-                { icon: "message", title: "Office hours with an inclusion expert", when: `${dayMonth(nextOfficeHours())}, 2pm to 5pm UK`, href: "/dashboard/support#office-hours", cta: "Book a time" },
-                { icon: "book", title: "This Month in EDI", when: `Published ${dayMonth(nextRoundUp())}`, href: "/dashboard/community", cta: "Go to the Editors" },
-              ].map((i) => (
-                <li key={i.title} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
-                  <span style={{ flexShrink: 0, width: "36px", height: "36px", borderRadius: "50%", background: "var(--pale-sage)", display: "flex", alignItems: "center", justifyContent: "center" }}><Icon name={i.icon} size={17} color="var(--evergreen)" /></span>
-                  <div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--ink)", lineHeight: 1.35 }}>{i.title}</div>
-                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.84rem", color: "var(--slate)", margin: "0.1rem 0 0.2rem" }}>{i.when}</div>
-                    <Link href={i.href} style={{ display: "inline-flex", alignItems: "center", gap: "0.15rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.84rem", color: "var(--evergreen)", textDecoration: "none" }}>{i.cta} <Icon name="chevron" size={14} color="var(--evergreen)" /></Link>
-                  </div>
-                </li>
-              ))}
-            </ul>
           </section>
         </div>
 
