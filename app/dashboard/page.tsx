@@ -193,7 +193,7 @@ export default function DashboardPage() {
 
   const prefButton = (on: boolean, onClick: () => void, label: string, text: string) => (
     <button onClick={onClick} aria-pressed={on} aria-label={label} title={label}
-      style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", padding: "0.35rem 0.75rem", minHeight: "36px", borderRadius: "999px", cursor: "pointer", border: `1.5px solid ${on ? "var(--evergreen)" : "var(--line)"}`, background: on ? "var(--evergreen)" : "var(--white)", color: on ? "var(--white)" : "var(--ink)" }}>
+      style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", padding: "0.35rem 0.75rem", minHeight: "36px", borderRadius: "999px", cursor: "pointer", border: `1.5px solid ${on ? "var(--white)" : "rgba(255,255,255,0.55)"}`, background: on ? "var(--white)" : "transparent", color: on ? "var(--evergreen)" : "var(--white)" }}>
       {text}
     </button>
   );
@@ -208,7 +208,7 @@ export default function DashboardPage() {
           <img src="/dashboard-hero.jpg" alt="" style={{ position: "absolute", top: 0, bottom: 0, right: 0, left: "28%", width: "72%", height: "100%", objectFit: "cover", objectPosition: "center 35%" }} />
           <div style={{ position: "absolute", inset: 0, background: "var(--hero-overlay)" }} />
         </div>
-        <div style={{ position: "relative", zIndex: 1, maxWidth: "1200px", margin: "0 auto", padding: "2.5rem 1.5rem 2.75rem", width: "100%", boxSizing: "border-box" }}>
+        <div style={{ position: "relative", zIndex: 1, maxWidth: "1200px", margin: "0 auto", padding: "2.25rem 1.5rem 1.75rem", width: "100%", boxSizing: "border-box" }}>
           <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--white)", border: "1.5px solid rgba(255,255,255,0.4)", background: "rgba(255,255,255,0.08)", backdropFilter: "blur(4px)", borderRadius: "999px", padding: "0.4rem 1rem" }}>
             Impact Platform: Your dashboard
           </span>
@@ -218,48 +218,48 @@ export default function DashboardPage() {
           <p style={{ fontFamily: "var(--font-body)", fontSize: "clamp(1rem, 2vw, 1.15rem)", lineHeight: 1.7, color: "var(--white)", maxWidth: "540px", margin: 0 }}>
             Everything you need for your inclusion work, in one place.
           </p>
+
+          {/* PROGRESS BAR: frosted glass along the bottom of the hero, high contrast for easy reading */}
+          <div aria-label="Your progress and reading preferences" style={{ marginTop: "2rem", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.75rem 1.75rem", padding: "0.85rem 1.25rem", borderRadius: "var(--radius-lg)", background: "rgba(20,40,25,0.72)", border: "1px solid rgba(255,255,255,0.3)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", boxShadow: "0 10px 30px rgba(0,0,0,0.25)" }}>
+            <div style={{ flex: "1 1 300px", minWidth: 0 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "1rem", marginBottom: "0.4rem" }}>
+                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--white)" }}>Your progress: {completedCount} of {totalModules} modules complete</span>
+                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--hero-mint)", fontVariantNumeric: "lining-nums" }}>{progressPct}%</span>
+              </div>
+              <div role="progressbar" aria-valuenow={completedCount} aria-valuemin={0} aria-valuemax={totalModules} aria-label="Module completion" style={{ height: "8px", borderRadius: "999px", background: "rgba(255,255,255,0.25)", overflow: "hidden" }}>
+                <div style={{ width: `${progressPct}%`, height: "100%", background: "var(--hero-mint)", borderRadius: "999px", transition: "width 0.6s ease" }} />
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: "1.25rem", flexWrap: "wrap" }}>
+              {[
+                { label: "CPD hours", value: String(cpdHours), icon: "clock" },
+                { label: certificates.length === 1 ? "Certificate" : "Certificates", value: String(certificates.length), icon: "award" },
+                { label: "Summaries pinned", value: String(pinnedSummaries.length), icon: "bookmark" },
+              ].map((st) => (
+                <span key={st.label} style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--white)" }}>
+                  <Icon name={st.icon} size={16} color="var(--hero-cream)" /> <strong style={{ fontFamily: "var(--font-heading)", fontVariantNumeric: "lining-nums" }}>{st.value}</strong> {st.label}
+                </span>
+              ))}
+            </div>
+            <div role="group" aria-label="Reading preferences" style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+              <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--hero-cream)", marginRight: "0.2rem" }}>Reading</span>
+              {prefButton(largeText, () => setLargeText(!largeText), "Larger text", "Larger text")}
+              {prefButton(dyslexiaMode, () => setDyslexiaMode(!dyslexiaMode), "Dyslexia-friendly font", "Dyslexia font")}
+            </div>
+          </div>
         </div>
       </header>
 
-      {/* PROGRESS STRIP (as on Onboarding) with reading preferences */}
-      <div style={{ background: "var(--white)", borderBottom: "1px solid var(--line)", padding: "1.15rem 1.5rem" }}>
-        <div style={{ maxWidth: "1200px", margin: "0 auto", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "1rem 2rem" }}>
-          <div style={{ flex: "1 1 380px", minWidth: 0 }} aria-label="Your learning progress">
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.45rem", gap: "1rem" }}>
-              <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--ink)" }}>Your progress: {completedCount} of {totalModules} modules complete</span>
-              <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--evergreen)", fontVariantNumeric: "lining-nums" }}>{progressPct}%</span>
-            </div>
-            <div role="progressbar" aria-valuenow={completedCount} aria-valuemin={0} aria-valuemax={totalModules} aria-label="Module completion" style={{ height: "8px", borderRadius: "999px", background: "var(--line)", overflow: "hidden" }}>
-              <div style={{ width: `${progressPct}%`, height: "100%", background: "var(--evergreen)", borderRadius: "999px", transition: "width 0.6s ease" }} />
-            </div>
-          </div>
-          <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}>
-            {[
-              { label: "CPD hours", value: String(cpdHours), icon: "clock" },
-              { label: certificates.length === 1 ? "Certificate" : "Certificates", value: String(certificates.length), icon: "award" },
-              { label: "Summaries pinned", value: String(pinnedSummaries.length), icon: "bookmark" },
-            ].map((s) => (
-              <span key={s.label} style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "var(--slate)" }}>
-                <Icon name={s.icon} size={17} color="var(--evergreen)" /> <strong style={{ fontFamily: "var(--font-heading)", color: "var(--ink)", fontVariantNumeric: "lining-nums" }}>{s.value}</strong> {s.label}
-              </span>
-            ))}
-          </div>
-          <div role="group" aria-label="Reading preferences" style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
-            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--slate)", marginRight: "0.2rem" }}>Reading</span>
-            {prefButton(largeText, () => setLargeText(!largeText), "Larger text", "Larger text")}
-            {prefButton(dyslexiaMode, () => setDyslexiaMode(!dyslexiaMode), "Dyslexia-friendly font", "Dyslexia font")}
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-            {[{ href: "/dashboard/saved", label: "Saved", icon: "bookmark" }, { href: "/dashboard/settings", label: "Settings", icon: "layers" }].map((l) => (
-              <Link key={l.href} href={l.href} style={{ display: "inline-flex", alignItems: "center", gap: "0.3rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--evergreen)", textDecoration: "none", minHeight: "36px" }}>
-                <Icon name={l.icon} size={15} color="var(--evergreen)" /> {l.label}
-              </Link>
-            ))}
-          </div>
-        </div>
+      {/* Quick links under the hero */}
+      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0.75rem 1.5rem 0", display: "flex", justifyContent: "flex-end", gap: "1.25rem" }}>
+        {[{ href: "/dashboard/saved", label: "Saved", icon: "bookmark" }, { href: "/dashboard/settings", label: "Settings", icon: "layers" }].map((l) => (
+          <Link key={l.href} href={l.href} style={{ display: "inline-flex", alignItems: "center", gap: "0.3rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", color: "var(--evergreen)", textDecoration: "none", minHeight: "36px" }}>
+            <Icon name={l.icon} size={15} color="var(--evergreen)" /> {l.label}
+          </Link>
+        ))}
       </div>
 
-      <main id="main-content" style={{ maxWidth: "1200px", margin: "0 auto", padding: "2rem 1.5rem 4.5rem" }}>
+      <main id="main-content" style={{ maxWidth: "1200px", margin: "0 auto", padding: "1rem 1.5rem 4.5rem" }}>
 
         {/* WHAT DO YOU NEED TO DO TODAY? goals, then search */}
         <section aria-labelledby="what-today" style={{ marginBottom: "2rem" }}>
