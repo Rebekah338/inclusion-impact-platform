@@ -6,6 +6,29 @@ import PlatformNav from "@/app/components/PlatformNav";
 import BottomBanner from "@/app/components/BottomBanner";
 import Icon from "@/app/components/BrandIcon";
 import { searchContent, FEATURED_CONTENT, TYPE_LABELS } from "@/lib/content";
+import { type Certificate, getCertificates, getCertificateName, setCertificateName, openCertificate, openCpdRecord } from "@/lib/certificates";
+
+/* Dates that work themselves out: office hours (first Tuesday and third Thursday) and This Month in EDI (first Monday) */
+function nthWeekday(year: number, month: number, weekday: number, n: number) {
+  const d = new Date(year, month, 1);
+  while (d.getDay() !== weekday) d.setDate(d.getDate() + 1);
+  d.setDate(d.getDate() + 7 * (n - 1));
+  return d;
+}
+function nextOfficeHours(from = new Date()) {
+  const today = new Date(from.getFullYear(), from.getMonth(), from.getDate());
+  for (let m = 0; m < 3; m++) {
+    const y = from.getFullYear() + Math.floor((from.getMonth() + m) / 12), mo = (from.getMonth() + m) % 12;
+    const found = [nthWeekday(y, mo, 2, 1), nthWeekday(y, mo, 4, 3)].find((d) => d >= today);
+    if (found) return found;
+  }
+  return today;
+}
+function nextRoundUp(from = new Date()) {
+  return nthWeekday(from.getFullYear() + (from.getMonth() === 11 ? 1 : 0), (from.getMonth() + 1) % 12, 1, 1);
+}
+const dayMonth = (d: Date) => d.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
+const shortDate = (iso: string) => new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
 
 /* Popular topics: quick searches (a fixed list, so it is labelled "popular", not "trending") */
 const POPULAR = ["psychological safety", "inclusive recruitment", "EDI strategy", "neurodiversity", "pay gap", "allyship"];
@@ -36,6 +59,16 @@ export default function DashboardPage() {
   const [featuredIdx, setFeaturedIdx] = useState(0);
   const [completedModules, setCompletedModules] = useState<string[]>([]);
   const [pinnedSummaries, setPinnedSummaries] = useState<string[]>([]);
+  const [certificates, setCertificates] = useState<Certificate[]>([]);
+  const [certName, setCertName] = useState("");
+
+  useEffect(() => {
+    setCertificates(getCertificates());
+    setCertName(getCertificateName());
+    const onChange = () => setCertificates(getCertificates());
+    window.addEventListener("tie_certificates_changed", onChange);
+    return () => window.removeEventListener("tie_certificates_changed", onChange);
+  }, []);
 
   /* Saved preferences and progress */
   useEffect(() => {
@@ -97,6 +130,7 @@ export default function DashboardPage() {
   const totalModules = 31;
   const completedCount = completedModules.length;
   const progressPct = Math.min(100, Math.round((completedCount / totalModules) * 100));
+  const cpdHours = Math.round(certificates.reduce((sum, c) => sum + (c.cpdHours || 0), 0) * 100) / 100;
 
   const prefButton = (on: boolean, onClick: () => void, label: string, text: string) => (
     <button onClick={onClick} aria-pressed={on} aria-label={label} title={label}
@@ -174,7 +208,8 @@ export default function DashboardPage() {
           </div>
           <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}>
             {[
-              { label: "CPD hours", value: String(completedCount), icon: "clock" },
+              { label: "CPD hours", value: String(cpdHours), icon: "clock" },
+              { label: certificates.length === 1 ? "Certificate" : "Certificates", value: String(certificates.length), icon: "award" },
               { label: "Summaries pinned", value: String(pinnedSummaries.length), icon: "bookmark" },
             ].map((s) => (
               <span key={s.label} style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "var(--slate)" }}>
@@ -230,6 +265,75 @@ export default function DashboardPage() {
             <Link href="/dashboard/pulse" style={{ marginTop: "auto", alignSelf: "flex-start", display: "inline-flex", alignItems: "center", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", padding: "0.75rem 1.5rem", minHeight: "44px", boxSizing: "border-box", borderRadius: "var(--radius-sm)", background: "var(--evergreen)", color: "var(--white)", textDecoration: "none" }}>
               Take the Pulse
             </Link>
+          </section>
+        </div>
+
+        {/* CERTIFICATES beside COMING UP */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "1.5rem", marginBottom: "2.5rem" }}>
+          <section aria-labelledby="certificates" className="focus-panel" style={{ gridColumn: "span 2", minWidth: 0, background: "var(--white)", border: "1px solid var(--line)", borderRadius: "var(--radius-lg)", boxShadow: "var(--shadow-sm)", padding: "1.35rem 1.5rem" }}>
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "0.6rem 1rem", marginBottom: "0.9rem" }}>
+              <h2 id="certificates" style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.1rem", color: "var(--ink)", margin: 0 }}>
+                <Icon name="award" size={20} color="var(--gold-deep)" /> Your certificates
+              </h2>
+              {certificates.length > 0 && (
+                <button onClick={() => openCpdRecord(certificates, certName)} style={{ display: "inline-flex", alignItems: "center", gap: "0.35rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", padding: "0.5rem 1rem", minHeight: "40px", borderRadius: "var(--radius-sm)", border: "1.5px solid var(--evergreen)", background: "var(--white)", color: "var(--evergreen)", cursor: "pointer" }}>
+                  Download CPD Record
+                </button>
+              )}
+            </div>
+            {certificates.length === 0 ? (
+              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.75rem 1.25rem", background: "var(--linen)", border: "1.5px dashed var(--gold)", borderRadius: "var(--radius-md)", padding: "1rem 1.2rem" }}>
+                <p style={{ flex: "1 1 300px", fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.55, color: "var(--slate)", margin: 0 }}>
+                  Finish a course to earn your first certificate. Every certificate is kept here, ready to download for appraisals and your CPD record.
+                </p>
+                <Link href="/dashboard/learn" style={{ display: "inline-flex", alignItems: "center", gap: "0.2rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--evergreen)", textDecoration: "none" }}>
+                  Browse courses <Icon name="chevron" size={15} color="var(--evergreen)" />
+                </Link>
+              </div>
+            ) : (
+              <>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(230px, 1fr))", gap: "0.85rem" }}>
+                  {[...certificates].sort((a, b) => b.date.localeCompare(a.date)).map((c) => (
+                    <article key={c.id} style={{ display: "flex", flexDirection: "column", gap: "0.35rem", background: "var(--linen)", borderTop: "3px solid var(--gold)", borderRight: "1px solid var(--line)", borderBottom: "1px solid var(--line)", borderLeft: "1px solid var(--line)", borderRadius: "var(--radius-md)", padding: "0.9rem 1rem" }}>
+                      <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--gold-deep)" }}>{c.kind === "programme" ? "Programme" : c.pathway || "Course"}</span>
+                      <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.08rem", color: "var(--ink)", lineHeight: 1.25, margin: 0 }}>{c.title}</h3>
+                      <span style={{ fontFamily: "var(--font-body)", fontSize: "0.84rem", color: "var(--slate)" }}>
+                        Completed {shortDate(c.date)}{c.cpdHours ? ` · ${c.cpdHours} CPD ${c.cpdHours === 1 ? "hour" : "hours"}` : ""}
+                      </span>
+                      <button onClick={() => openCertificate(c, certName)} style={{ marginTop: "0.35rem", alignSelf: "flex-start", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.88rem", padding: "0.5rem 1rem", minHeight: "40px", borderRadius: "var(--radius-sm)", border: "none", background: "var(--evergreen)", color: "var(--white)", cursor: "pointer" }}>
+                        Download
+                      </button>
+                    </article>
+                  ))}
+                </div>
+                <label style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.5rem", marginTop: "0.9rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.85rem", color: "var(--ink)" }}>
+                  Name on your certificates
+                  <input value={certName} onChange={(e) => { setCertName(e.target.value); setCertificateName(e.target.value); }} placeholder="Your full name"
+                    style={{ flex: "0 1 260px", fontFamily: "var(--font-body)", fontSize: "0.92rem", padding: "0.45rem 0.7rem", minHeight: "38px", border: "1.5px solid var(--line)", borderRadius: "var(--radius-sm)", color: "var(--ink)" }} />
+                </label>
+              </>
+            )}
+          </section>
+
+          <section aria-labelledby="coming-up" style={{ background: "var(--white)", border: "1px solid var(--line)", borderRadius: "var(--radius-lg)", boxShadow: "var(--shadow-sm)", padding: "1.35rem 1.5rem" }}>
+            <h2 id="coming-up" style={{ display: "flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.1rem", color: "var(--ink)", margin: "0 0 0.9rem" }}>
+              <Icon name="calendar" size={19} color="var(--evergreen)" /> Coming up
+            </h2>
+            <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+              {[
+                { icon: "message", title: "Office hours with an inclusion expert", when: `${dayMonth(nextOfficeHours())}, 2pm to 5pm UK`, href: "/dashboard/support#office-hours", cta: "Book a time" },
+                { icon: "book", title: "This Month in EDI", when: `Published ${dayMonth(nextRoundUp())}`, href: "/dashboard/community", cta: "Go to the Editors" },
+              ].map((i) => (
+                <li key={i.title} style={{ display: "flex", gap: "0.75rem", alignItems: "flex-start" }}>
+                  <span style={{ flexShrink: 0, width: "36px", height: "36px", borderRadius: "50%", background: "var(--pale-sage)", display: "flex", alignItems: "center", justifyContent: "center" }}><Icon name={i.icon} size={17} color="var(--evergreen)" /></span>
+                  <div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--ink)", lineHeight: 1.35 }}>{i.title}</div>
+                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.84rem", color: "var(--slate)", margin: "0.1rem 0 0.2rem" }}>{i.when}</div>
+                    <Link href={i.href} style={{ display: "inline-flex", alignItems: "center", gap: "0.15rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.84rem", color: "var(--evergreen)", textDecoration: "none" }}>{i.cta} <Icon name="chevron" size={14} color="var(--evergreen)" /></Link>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </section>
         </div>
 

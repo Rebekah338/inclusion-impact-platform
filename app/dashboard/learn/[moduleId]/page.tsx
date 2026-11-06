@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { addCertificate, parseHours } from "@/lib/certificates";
 
 // Demo module content replaced per module when PDFs are uploaded
 const demoModule = {
@@ -197,6 +198,13 @@ export default function ModulePage() {
   const currentLesson = module.lessons[lessonIdx];
   const currentSlide: SlideType = currentLesson?.slides[slideIdx];
   const lessonQuiz = currentLesson?.quiz || [];
+
+  /* Save the certificate as soon as it is earned, so it appears on the dashboard */
+  useEffect(() => {
+    if (phase === "certificate") {
+      addCertificate({ id: module.id, title: module.title, kind: "course", pathway: module.pathway, cpdHours: parseHours(module.cpd) });
+    }
+  }, [phase, module.id, module.title, module.pathway, module.cpd]);
 
   // Total slides for progress calculation
   const totalSlides = module.lessons.reduce((acc, l) => acc + l.slides.length, 0);

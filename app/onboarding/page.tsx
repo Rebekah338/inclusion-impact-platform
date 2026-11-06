@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { addCertificate } from '@/lib/certificates';
 
 type ItemStatus = 'available' | 'coming_soon';
 type CompletedMap = Record<string, boolean>;
@@ -73,6 +74,7 @@ const SECTIONS = [
 ];
 
 function generateCertificate(name: string) {
+  addCertificate({ id: 'inclusion-foundations', title: 'Inclusion Foundations Programme', kind: 'programme' });
   const date = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
   const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Inclusion Foundations Certificate</title><style>@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap');body{margin:0;background:#fff;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:'Inter',sans-serif;}.cert{width:800px;padding:60px;border:3px solid #C9A84C;text-align:center;position:relative;}.cert::before{content:'';position:absolute;inset:8px;border:1px solid #C9A84C;opacity:.4;pointer-events:none;}.logo{font-family:'Playfair Display',serif;font-size:1.1rem;color:#2A6B3A;letter-spacing:.15em;text-transform:uppercase;margin-bottom:2rem;}h1{font-family:'Playfair Display',serif;font-size:2.4rem;color:#1a1a1a;margin:0 0 .5rem;}.sub{font-size:.9rem;color:#666;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2.5rem;}.awarded{font-size:.95rem;color:#555;margin-bottom:.5rem;}.name{font-family:'Playfair Display',serif;font-size:2rem;color:#2A6B3A;margin:.5rem 0 2rem;border-bottom:1px solid #C9A84C;padding-bottom:1rem;display:inline-block;}.desc{font-size:.9rem;color:#555;line-height:1.7;max-width:520px;margin:0 auto 2.5rem;}.date{font-size:.85rem;color:#888;margin-top:2rem;}</style></head><body><div class="cert"><div class="logo">The Inclusion Edit</div><h1>Certificate of Completion</h1><div class="sub">Inclusion Foundations Programme</div><div class="awarded">This certificate is awarded to</div><div class="name">${name}</div><div class="desc">For the successful completion of the Inclusion Foundations Programme, demonstrating commitment to inclusive workplace practice through engagement with video content, interactive lessons and reflective resources.</div><div class="date">Completed: ${date}</div></div></body></html>`;
   const blob = new Blob([html], { type: 'text/html' });
