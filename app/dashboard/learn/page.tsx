@@ -400,8 +400,8 @@ function LearnPageInner() {
       <PlatformNav />
 
       {/* PHOTO HERO (platform page template, compact) */}
-      <header style={{ position: "relative", minHeight: "340px", display: "flex", alignItems: "center", overflow: "hidden", background: "var(--forest)" }}>
-        <img src="/learn-hero.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 35%" }} />
+      <header style={{ position: "relative", minHeight: "400px", display: "flex", alignItems: "center", overflow: "hidden", background: "var(--forest)" }}>
+        <img src="/learn-hero.jpg" alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 48%" }} />
         <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "var(--hero-overlay)" }} />
         <div style={{ position: "relative", zIndex: 1, maxWidth: "1100px", margin: "0 auto", padding: "2.25rem 1.5rem 2.75rem", width: "100%", boxSizing: "border-box" }}>
           <Link href="/dashboard" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", textDecoration: "none", background: "rgba(255,255,255,0.12)", border: "1.5px solid rgba(255,255,255,0.4)", borderRadius: "var(--radius-sm)", padding: "0.45rem 0.9rem", backdropFilter: "blur(4px)" }}>
@@ -485,7 +485,7 @@ function LearnPageInner() {
             </p>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "1rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(255px, 1fr))", gap: "1rem" }}>
             {filteredFoundationLessons.map((lesson) => {
               const lp = pathwayById(lesson.pathwayId);
               const done = completedLessons.has(lesson.id);
@@ -498,13 +498,13 @@ function LearnPageInner() {
                 onMouseLeave={(e) => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "var(--shadow-sm)"; el.style.borderColor = lp.mid; el.style.borderTopColor = lp.color; el.style.transform = "translateY(0)"; }}
               >
                 {/* Pale header in the collection tint */}
-                <div style={{ background: lp.bg, padding: "0.75rem 1rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem" }}>
+                <div style={{ background: lp.bg, padding: "0.8rem 1rem", minHeight: "44px", boxSizing: "border-box", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.75rem" }}>
                   <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase", letterSpacing: "0.1em", color: lp.color, whiteSpace: "nowrap" }}>
                     <Icon name="book" size={16} color={lp.color} /> Foundation lesson
                   </span>
                   {done ? (
-                    <span style={{ display: "inline-flex", alignItems: "center", gap: "0.3rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: "var(--white)", background: "var(--evergreen)", borderRadius: "999px", padding: "0.2rem 0.55rem" }}>
-                      <Icon name="check" size={13} color="var(--white)" strokeWidth={2.5} /> Completed
+                    <span aria-label="Completed" style={{ display: "inline-flex", alignItems: "center", gap: "0.3rem", flexShrink: 0, whiteSpace: "nowrap", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", color: "var(--white)", background: "var(--evergreen)", borderRadius: "999px", padding: "0.25rem 0.65rem" }}>
+                      <Icon name="check" size={13} color="var(--white)" strokeWidth={2.5} /> Done
                     </span>
                   ) : null}
                 </div>
@@ -567,7 +567,7 @@ function LearnPageInner() {
             </div>
 
             {/* Course cards */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
               {pathway.courses.map((course) => {
                 const isExpanded = expandedCourses.has(course.id);
                 const lessonCount = course.modules.reduce((s, m) => s + m.lessons.length, 0);
@@ -575,9 +575,9 @@ function LearnPageInner() {
                   <div key={course.id} ref={(el) => { courseRefs.current[course.id] = el; }} style={{ background: "var(--white)", borderRadius: "var(--radius-lg)", border: `1.5px solid ${isExpanded ? pathway.color : "var(--line)"}`, overflow: "hidden", boxShadow: "var(--shadow-sm)", scrollMarginTop: "90px" }}>
 
                     {/* Course header: flat rich collection tone, solid white text */}
-                    <div style={{ background: pathway.color, padding: "1.35rem 1.6rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap" }}>
+                    <div style={{ background: pathway.color, padding: "1rem 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap" }}>
                       <div>
-                        <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.45rem", color: "var(--white)", margin: "0 0 0.3rem", lineHeight: 1.2 }}>
+                        <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.3rem", color: "var(--white)", margin: "0 0 0.2rem", lineHeight: 1.2 }}>
                           {course.title}
                         </h3>
                         <div style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", color: "var(--white)" }}>
@@ -594,15 +594,15 @@ function LearnPageInner() {
                     </div>
 
                     {/* Course body */}
-                    <div style={{ padding: "1.25rem 1.6rem" }}>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--slate)", lineHeight: 1.6, margin: "0 0 1rem 0" }}>
+                    <div style={{ padding: "0.85rem 1.5rem 0.6rem" }}>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--slate)", lineHeight: 1.6, margin: "0 0 0.25rem 0" }}>
                         {course.description}
                       </p>
 
                       {/* Expand/collapse modules */}
                       <button
                         onClick={() => toggleCourse(course.id)}
-                        style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: pathway.color, background: "none", border: "none", cursor: "pointer", padding: "0.4rem 0", minHeight: "44px", display: "flex", alignItems: "center", gap: "0.4rem" }}
+                        style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: pathway.color, background: "none", border: "none", cursor: "pointer", padding: 0, minHeight: "44px", display: "flex", alignItems: "center", gap: "0.4rem" }}
                         aria-expanded={isExpanded}
                       >
                         <span style={{ display: "inline-flex", transform: isExpanded ? "rotate(90deg)" : "rotate(0deg)", transition: "transform 0.2s" }}><Icon name="chevron" size={16} color={pathway.color} strokeWidth={2.25} /></span>
@@ -610,7 +610,7 @@ function LearnPageInner() {
                       </button>
 
                       {isExpanded && (
-                        <div style={{ marginTop: "1rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
+                        <div style={{ margin: "0.5rem 0 0.9rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
                           {course.modules.map((mod, modIdx) => (
                             <div key={mod.id} style={{ borderRadius: "var(--radius-md)", border: `1.5px solid ${pathway.mid}`, overflow: "hidden" }}>
 
@@ -655,8 +655,8 @@ function LearnPageInner() {
                                       </span>
                                     )}
                                     {completedLessons.has(lesson.id) && (
-                                      <span style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem", background: "var(--evergreen)", color: "var(--white)", borderRadius: "999px", padding: "0.15rem 0.5rem", fontFamily: "var(--font-heading)", fontSize: "0.7rem", fontWeight: 700, flexShrink: 0 }}>
-                                        <Icon name="check" size={12} color="var(--white)" strokeWidth={2.5} /> Completed
+                                      <span aria-label="Completed" style={{ display: "inline-flex", alignItems: "center", gap: "0.25rem", whiteSpace: "nowrap", background: "var(--evergreen)", color: "var(--white)", borderRadius: "999px", padding: "0.2rem 0.6rem", fontFamily: "var(--font-heading)", fontSize: "0.7rem", fontWeight: 700, flexShrink: 0 }}>
+                                        <Icon name="check" size={12} color="var(--white)" strokeWidth={2.5} /> Done
                                       </span>
                                     )}
                                   </Link>
