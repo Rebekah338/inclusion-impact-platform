@@ -554,7 +554,7 @@ function LearnPageInner() {
           <section key={pathway.id} id={`pathway-${pathway.id}`} style={{ marginBottom: "2.75rem", scrollMarginTop: "90px" }} aria-labelledby={`pathway-title-${pathway.id}`}>
 
             {/* Section opener: pale tint with a 4px left border in the collection tone */}
-            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem", padding: "0.6rem 1.25rem", background: pathway.bg, borderRadius: "var(--radius-md)", borderLeft: `4px solid ${pathway.color}` }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.25rem", padding: "0.95rem 1.35rem", background: pathway.bg, borderRadius: "var(--radius-md)", borderLeft: `4px solid ${pathway.color}` }}>
               <Icon name={pathway.icon} size={22} color={pathway.color} />
               <div style={{ flex: 1, display: "flex", alignItems: "baseline", flexWrap: "wrap", gap: "0.25rem 0.75rem" }}>
                 <h2 id={`pathway-title-${pathway.id}`} style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.2rem", color: pathway.color, margin: 0 }}>
@@ -567,7 +567,7 @@ function LearnPageInner() {
             </div>
 
             {/* Course cards */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "1.6rem" }}>
               {pathway.courses.map((course) => {
                 const isExpanded = expandedCourses.has(course.id);
                 const lessonCount = course.modules.reduce((s, m) => s + m.lessons.length, 0);
