@@ -236,44 +236,44 @@ export default function InclusionAIPage() {
         {!search && (
           <>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "1.5rem", marginBottom: "1.5rem" }}>
-              <section aria-labelledby="how-we-built" style={{ background: "var(--white)", border: "1px solid var(--line)", borderRadius: "var(--radius-lg)", boxShadow: "var(--shadow-sm)", padding: "2rem 2rem 1.75rem", display: "flex", flexDirection: "column" }}>
+              <section aria-labelledby="how-we-built" style={{ background: "var(--white)", border: "1px solid var(--line)", borderRadius: "var(--radius-lg)", boxShadow: "var(--shadow-sm)", padding: "1.5rem 1.75rem 1.35rem", display: "flex", flexDirection: "column" }}>
                 <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--evergreen)" }}>
                   A note from The Inclusion Edit
                 </div>
-                <h2 id="how-we-built" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.4rem, 2.4vw, 1.75rem)", lineHeight: 1.2, color: "var(--ink)", margin: "0.6rem 0 0.9rem" }}>
+                <h2 id="how-we-built" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.3rem, 2.2vw, 1.55rem)", lineHeight: 1.2, color: "var(--ink)", margin: "0.45rem 0 0.7rem" }}>
                   How we built Inclusion AI.
                 </h2>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", lineHeight: 1.7, color: "var(--slate)", margin: "0 0 0.9rem" }}>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.6, color: "var(--slate)", margin: "0 0 0.65rem" }}>
                   A general AI chatbot can answer almost anything, which means it is not built for any one job. Inclusion AI is different. Each tool was designed by our EDI specialists for people working in inclusion, HR and leadership, to do one specific task well, using instructions we have written and tested for that task.
                 </p>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", lineHeight: 1.7, color: "var(--slate)", margin: "0 0 1.25rem" }}>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.6, color: "var(--slate)", margin: "0 0 0.85rem" }}>
                   You do not need to know how to write a prompt. The tool asks the right questions, and you get a result shaped for the decision in front of you: a business case, an equity review, a set of interview questions.
                 </p>
-                <div style={{ marginTop: "auto", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--evergreen)" }}>
+                <div style={{ marginTop: "auto", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--evergreen)" }}>
                   The Inclusion Edit
                 </div>
               </section>
 
-              <section aria-labelledby="how-it-works" style={{ borderRadius: "var(--radius-lg)", background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)", boxShadow: "var(--shadow-feature)", padding: "2rem 2rem 1.75rem", color: "var(--white)" }}>
+              <section aria-labelledby="how-it-works" style={{ borderRadius: "var(--radius-lg)", background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)", boxShadow: "var(--shadow-feature)", padding: "1.5rem 1.75rem 1.35rem", color: "var(--white)" }}>
                 <div style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "var(--hero-cream)" }}>
                   <Icon name="sparkle" size={14} color="var(--gold-light)" /> How it works
                 </div>
-                <h2 id="how-it-works" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.4rem, 2.4vw, 1.75rem)", lineHeight: 1.2, margin: "0.6rem 0 1.25rem" }}>
+                <h2 id="how-it-works" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.3rem, 2.2vw, 1.55rem)", lineHeight: 1.2, margin: "0.45rem 0 0.9rem" }}>
                   <span style={{ color: "var(--hero-cream)" }}>Three steps to</span> <span style={{ color: "var(--hero-mint)" }}>a strong draft.</span>
                 </h2>
-                <ol style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "1.1rem" }}>
+                <ol style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                   {[
                     { title: "Tell us your context", body: "Share your role, your organisation and what you need to achieve." },
                     { title: "The tool does the groundwork", body: "It applies EDI expertise and evidence to your situation." },
                     { title: "You get a draft to check and adapt", body: "Every result is a starting point: review it, edit it and make it yours. It supports your judgement; it is not legal advice." },
                   ].map((step, i) => (
                     <li key={step.title} style={{ display: "flex", gap: "0.9rem", alignItems: "flex-start" }}>
-                      <span style={{ flexShrink: 0, width: "38px", height: "38px", borderRadius: "50%", border: "2px solid var(--gold-light)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.05rem", color: "var(--gold-light)", fontVariantNumeric: "lining-nums" }}>
+                      <span style={{ flexShrink: 0, width: "32px", height: "32px", borderRadius: "50%", border: "2px solid var(--gold-light)", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "0.95rem", color: "var(--gold-light)", fontVariantNumeric: "lining-nums" }}>
                         {i + 1}
                       </span>
                       <div>
-                        <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--white)", margin: "0.2rem 0 0.2rem" }}>{step.title}</h3>
-                        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", lineHeight: 1.6, color: "rgba(255,255,255,0.85)", margin: 0 }}>{step.body}</p>
+                        <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--white)", margin: "0.1rem 0 0.1rem" }}>{step.title}</h3>
+                        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.86rem", lineHeight: 1.5, color: "rgba(255,255,255,0.85)", margin: 0 }}>{step.body}</p>
                       </div>
                     </li>
                   ))}
