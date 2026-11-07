@@ -190,16 +190,18 @@ export default function InclusionBusinessCase() {
         </section>
 
         {/* FEATURED EVIDENCE */}
-        <section style={{ background: "var(--white)", padding: "4rem 1.5rem" }}>
-          <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
+        <section style={{ position: "relative", padding: "4rem 1.5rem", overflow: "hidden" }}>
+          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/watch-3-team-review.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 0 }} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(20,38,22,0.82)", zIndex: 1 }} />
+          <div style={{ position: "relative", zIndex: 2, maxWidth: "1060px", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.08)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.75rem" }}>Featured evidence</span>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", margin: "0 0 0.6rem" }}>The research and case studies that make the argument</h2>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--charcoal)", opacity: 0.65, lineHeight: 1.7, maxWidth: "560px", margin: "0 auto" }}>Real evidence. Real organisations. Click any card to read the original source.</p>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.65)", background: "rgba(255,255,255,0.1)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.75rem" }}>Featured evidence</span>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--white)", margin: "0 0 0.6rem" }}>The research and case studies that make the argument</h2>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "rgba(255,255,255,0.7)", lineHeight: 1.7, maxWidth: "560px", margin: "0 auto" }}>Real evidence. Real organisations. Click any card to read the original source.</p>
             </div>
 
             {/* Research row */}
-            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--charcoal)", opacity: 0.45, marginBottom: "0.9rem" }}>Research and data</p>
+            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: "0.9rem" }}>Research and data</p>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: "1rem", marginBottom: "2rem" }}>
               {[
                 {
@@ -227,7 +229,7 @@ export default function InclusionBusinessCase() {
                   url: "https://www.deloitte.com/content/dam/assets-shared/legacy/docs/insights/2022/DI_Diversity-and-inclusion-revolution.pdf",
                 },
               ].map((r) => (
-                <a key={r.title} href={r.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", display: "block", background: "rgba(248,247,244,0.9)", borderRadius: "14px", padding: "1.5rem 1.4rem", border: "1.5px solid rgba(26,50,32,0.1)", transition: "box-shadow 0.2s" }}>
+                <a key={r.title} href={r.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", display: "block", background: "var(--white)", borderRadius: "14px", padding: "1.5rem 1.4rem", border: "1.5px solid rgba(255,255,255,0.15)" }}>
                   <div style={{ marginBottom: "0.9rem" }}>
                     <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.9rem", color: "#1A3220", lineHeight: 1 }}>{r.stat}</span>
                     <span style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--charcoal)", opacity: 0.6, marginTop: "0.2rem" }}>{r.statLabel}</span>
@@ -245,7 +247,7 @@ export default function InclusionBusinessCase() {
             </div>
 
             {/* Case studies row */}
-            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--charcoal)", opacity: 0.45, marginBottom: "0.9rem" }}>Case studies</p>
+            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: "0.9rem" }}>Case studies</p>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: "1rem", marginBottom: "2.5rem" }}>
               {[
                 {
@@ -273,7 +275,7 @@ export default function InclusionBusinessCase() {
                   url: "https://www.cnbc.com/2015/03/10/vodafone-launches-new-policy-for-working-moms.html",
                 },
               ].map((cs) => (
-                <a key={cs.title} href={cs.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", display: "block", background: "#1A3220", borderRadius: "14px", padding: "1.5rem 1.4rem", border: "1.5px solid rgba(255,255,255,0.08)" }}>
+                <a key={cs.title} href={cs.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", display: "block", background: "rgba(74,99,71,0.9)", borderRadius: "14px", padding: "1.5rem 1.4rem", border: "1.5px solid rgba(255,255,255,0.18)" }}>
                   <div style={{ marginBottom: "0.9rem" }}>
                     <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.9rem", color: "var(--white)", lineHeight: 1 }}>{cs.stat}</span>
                     <span style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "rgba(255,255,255,0.6)", marginTop: "0.2rem" }}>{cs.statLabel}</span>
@@ -291,12 +293,12 @@ export default function InclusionBusinessCase() {
             </div>
 
             {/* Platform member callout */}
-            <div style={{ background: "rgba(74,99,71,0.07)", borderRadius: "14px", border: "1.5px solid rgba(26,50,32,0.12)", padding: "1.5rem 2rem", display: "flex", flexWrap: "wrap", gap: "1.5rem", alignItems: "center", justifyContent: "space-between" }}>
+            <div style={{ background: "rgba(255,255,255,0.08)", borderRadius: "14px", border: "1.5px solid rgba(255,255,255,0.15)", padding: "1.5rem 2rem", display: "flex", flexWrap: "wrap", gap: "1.5rem", alignItems: "center", justifyContent: "space-between" }}>
               <div style={{ flex: "1 1 320px" }}>
-                <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "#1A3220", margin: "0 0 0.4rem" }}>Platform members get more from every piece of evidence</p>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.825rem", color: "var(--charcoal)", opacity: 0.75, margin: 0, lineHeight: 1.7 }}>For each research piece: what it found, 5 arguments for senior leadership, key quotes, and related studies. For each case study: what they did, the key outcomes, and a planning tool to help you replicate results.</p>
+                <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", margin: "0 0 0.4rem" }}>Platform members get more from every piece of evidence</p>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.825rem", color: "rgba(255,255,255,0.7)", margin: 0, lineHeight: 1.7 }}>For each research piece: what it found, 5 arguments for senior leadership, key quotes, and related studies. For each case study: what they did, the key outcomes, and a planning tool to help you replicate results.</p>
               </div>
-              <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", background: "#1A3220", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap", flexShrink: 0 }}>Explore the platform</Link>
+              <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "#1A3220", background: "var(--white)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap", flexShrink: 0 }}>Explore the platform</Link>
             </div>
           </div>
         </section>
