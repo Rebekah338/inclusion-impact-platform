@@ -104,7 +104,7 @@ export default function InclusionBusinessCase() {
         <section style={{ background: "#1A3220", padding: "2.5rem 1.5rem" }}>
           <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(0,0,0,0.5)", background: "rgba(0,0,0,0.08)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.75rem" }}>The numbers</span>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.75rem" }}>The numbers</span>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.2rem, 2.5vw, 1.7rem)", color: "var(--white)", margin: 0 }}>Evidence you can take into any room.</h2>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem", marginBottom: "1.5rem" }}>
@@ -114,7 +114,7 @@ export default function InclusionBusinessCase() {
                 { stat: "87%", label: "Better decision-making in diverse teams", source: "Cloverpop / HBR (2017)" },
                 { stat: "2×", label: "More likely to meet financial targets", source: "Deloitte (2020)" },
               ].map((s) => (
-                <div key={s.stat} style={{ background: "rgba(255,255,255,0.07)", borderRadius: "12px", padding: "1.25rem", border: "1px solid rgba(255,255,255,0.12)" }}>
+                <div key={s.stat} style={{ background: "rgba(255,255,255,0.13)", borderRadius: "12px", padding: "1.25rem", border: "1px solid rgba(255,255,255,0.25)" }}>
                   <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2.25rem", color: "var(--white)", lineHeight: 1, marginBottom: "0.4rem" }}>{s.stat}</span>
                   <span style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "rgba(255,255,255,0.9)", marginBottom: "0.5rem", lineHeight: 1.4 }}>{s.label}</span>
                   <span style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", color: "rgba(255,255,255,0.45)", fontStyle: "italic" }}>{s.source}</span>
