@@ -122,7 +122,7 @@ export default function InclusionBusinessCase() {
 
         {/* MYTHS */}
         <section style={{ background: "var(--white)", padding: "4.5rem 1.5rem" }}>
-          <div style={{ maxWidth: "860px", margin: "0 auto" }}>
+          <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
 
             {/* Heading */}
             <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
@@ -144,7 +144,7 @@ export default function InclusionBusinessCase() {
             </div>
 
             {/* Table rows */}
-            <div style={{ borderRadius: "16px", overflow: "hidden", boxShadow: "0 2px 24px rgba(26,50,32,0.08), 0 1px 4px rgba(26,50,32,0.06)", border: "1px solid rgba(74,99,71,0.14)" }}>
+            <div style={{ borderRadius: "16px", overflow: "hidden", boxShadow: "0 2px 24px rgba(26,50,32,0.08), 0 1px 4px rgba(26,50,32,0.06)", border: "1.5px solid rgba(26,50,32,0.32)" }}>
               {[
                 {
                   myth: "We can't afford to invest in EDI right now.",
@@ -163,8 +163,8 @@ export default function InclusionBusinessCase() {
                   reality: "Real change requires a well-thought-out strategy, leadership accountability, training that is revisited over time, and ongoing measurement. A single workshop is a starting point; not a destination.",
                 },
               ].map((row, i, arr) => (
-                <div key={row.myth} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", borderBottom: i < arr.length - 1 ? "1px solid rgba(74,99,71,0.1)" : "none" }}>
-                  <div style={{ padding: "1.5rem 1.75rem", borderRight: "1px solid rgba(74,99,71,0.1)", background: i % 2 === 0 ? "rgba(248,247,244,0.9)" : "rgba(244,243,240,0.7)" }}>
+                <div key={row.myth} style={{ display: "grid", gridTemplateColumns: "2fr 3fr", borderBottom: i < arr.length - 1 ? "1px solid rgba(26,50,32,0.14)" : "none" }}>
+                  <div style={{ padding: "1.5rem 1.75rem", borderRight: "1.5px solid rgba(26,50,32,0.14)", background: i % 2 === 0 ? "rgba(248,247,244,0.9)" : "rgba(244,243,240,0.7)" }}>
                     <div style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem" }}>
                       <span style={{ fontSize: "0.75rem", marginTop: "0.25rem", opacity: 0.35, flexShrink: 0 }}>✕</span>
                       <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.65, margin: 0, opacity: 0.75 }}>{row.myth}</p>
