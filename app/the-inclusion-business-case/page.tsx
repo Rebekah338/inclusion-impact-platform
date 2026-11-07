@@ -120,26 +120,66 @@ export default function InclusionBusinessCase() {
           </div>
         </section>
 
-        {/* OBJECTIONS */}
+        {/* MYTHS */}
         <section style={{ background: "var(--white)", padding: "4.5rem 1.5rem" }}>
-          <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-            <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.08)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1rem" }}>Common pushbacks</span>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", margin: 0 }}>Heard these in the room?</h2>
+          <div style={{ maxWidth: "860px", margin: "0 auto" }}>
+
+            {/* Heading */}
+            <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.08)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1rem" }}>Myth busting</span>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", margin: "0 0 0.75rem" }}>The myths that are costing your organisation money</h2>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--charcoal)", opacity: 0.7, lineHeight: 1.7, maxWidth: "580px", margin: "0 auto" }}>These are the objections we hear most often. Here is what the evidence actually shows.</p>
             </div>
-            <div style={{ display: "flex", flexDirection: "column" }}>
+
+            {/* Column header chips */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "0.5rem", padding: "0 0.25rem" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <span style={{ fontSize: "1rem" }}>💬</span>
+                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--charcoal)", background: "rgba(44,44,44,0.07)", borderRadius: "999px", padding: "0.3rem 0.9rem" }}>The Myth</span>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <span style={{ fontSize: "1rem" }}>✓</span>
+                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--white)", background: "var(--sage-dark)", borderRadius: "999px", padding: "0.3rem 0.9rem" }}>The Reality</span>
+              </div>
+            </div>
+
+            {/* Table rows */}
+            <div style={{ border: "1px solid rgba(74,99,71,0.15)", borderRadius: "12px", overflow: "hidden" }}>
               {[
-                { q: "We can't afford to invest in EDI right now.", a: "The cost of not investing is higher: attrition, recruitment fees, discrimination claims and reputational damage all cost far more than a proactive inclusion strategy." },
-                { q: "We're too small to need this.", a: "Inclusion matters at every size. EDI does not require a dedicated HR department; it requires intention and the right tools." },
-                { q: "Our data doesn't show a problem.", a: "An absence of data is not evidence of inclusion. Pay gap analysis, recruitment funnel data and promotion rates often reveal patterns invisible to leadership." },
-                { q: "We tried something before and it didn't work.", a: "One-off training rarely sticks. Real change requires strategy, leadership accountability and ongoing measurement; not a single workshop." },
-              ].map((item, i, arr) => (
-                <div key={item.q} style={{ padding: "1.25rem 0", borderBottom: i < arr.length - 1 ? "1px solid rgba(74,99,71,0.15)" : "none" }}>
-                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", marginBottom: "0.35rem", margin: "0 0 0.35rem" }}>{item.q}</p>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.7, margin: 0, opacity: 0.8 }}>{item.a}</p>
+                {
+                  myth: "We can't afford to invest in EDI right now.",
+                  reality: "The cost of not investing is higher. Attrition, recruitment fees, discrimination claims and reputational damage all cost far more than a proactive inclusion strategy.",
+                },
+                {
+                  myth: "We're too small to need this.",
+                  reality: "Inclusion matters at every size. EDI does not require a dedicated HR department; it requires intention and the right tools.",
+                },
+                {
+                  myth: "Our data doesn't show a problem.",
+                  reality: "An absence of data is not evidence of inclusion. Pay gap analysis, recruitment funnel data and promotion rates often reveal patterns invisible to leadership.",
+                },
+                {
+                  myth: "We tried something before and it didn't work.",
+                  reality: "One-off training rarely sticks. Real change requires strategy, leadership accountability and ongoing measurement; not a single workshop.",
+                },
+              ].map((row, i, arr) => (
+                <div key={row.myth} style={{ display: "grid", gridTemplateColumns: "1fr 1fr", borderBottom: i < arr.length - 1 ? "1px solid rgba(74,99,71,0.12)" : "none" }}>
+                  <div style={{ padding: "1.25rem 1.5rem", borderRight: "1px solid rgba(74,99,71,0.12)", background: "rgba(44,44,44,0.02)" }}>
+                    <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.6, margin: 0 }}>{row.myth}</p>
+                  </div>
+                  <div style={{ padding: "1.25rem 1.5rem", background: "rgba(74,99,71,0.03)" }}>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "#1A3220", lineHeight: 1.75, margin: 0, fontWeight: 500 }}>{row.reality}</p>
+                  </div>
                 </div>
               ))}
             </div>
+
+            {/* Closing line */}
+            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", textAlign: "center", marginTop: "2rem", lineHeight: 1.7 }}>
+              The question is not whether your organisation can afford to invest in inclusion.<br />
+              <span style={{ color: "#1A3220" }}>The question is whether it can afford not to.</span>
+            </p>
+
           </div>
         </section>
 
