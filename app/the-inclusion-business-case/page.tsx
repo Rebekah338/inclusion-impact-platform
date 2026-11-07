@@ -103,7 +103,7 @@ export default function InclusionBusinessCase() {
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.65)", background: "rgba(255,255,255,0.1)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.75rem" }}>The numbers</span>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.2rem, 2.5vw, 1.7rem)", color: "var(--white)", margin: 0 }}>Evidence you can take into any room.</h2>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem", marginBottom: "1.5rem" }}>
               {[
                 { stat: "36%", label: "More likely to outperform", source: "McKinsey, Diversity Wins (2020)" },
                 { stat: "83%", label: "Of millennials more engaged in inclusive cultures", source: "Deloitte (2018)" },
