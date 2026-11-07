@@ -259,29 +259,23 @@ export default function InclusionBusinessCase() {
           </div>
         </section>
 
-        {/* PLATFORM STATS STRIP */}
-        <section style={{ background: "#1A3220", padding: "2.5rem 1.5rem" }}>
-          <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
-            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", textAlign: "center", marginBottom: "1.5rem" }}>Inside the Inclusion Impact Platform</p>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "1rem", marginBottom: "1.75rem" }}>
+        {/* COMBINED CTA */}
+        <section style={{ background: "var(--sage-xlight)", padding: "4rem 1.5rem", textAlign: "center" }}>
+          <div style={{ maxWidth: "760px", margin: "0 auto" }}>
+            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "1.5rem" }}>Inside the Inclusion Impact Platform</p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: "1rem", marginBottom: "3rem" }}>
               {[
                 { stat: "27", label: "Pieces of research and data" },
                 { stat: "20", label: "Case studies" },
                 { stat: "3", label: "AI evidence building tools" },
                 { stat: "10+", label: "Templates and resources" },
               ].map((s) => (
-                <div key={s.label} style={{ background: "rgba(255,255,255,0.07)", borderRadius: "12px", padding: "1.25rem", border: "1px solid rgba(255,255,255,0.1)", textAlign: "center" }}>
-                  <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2.25rem", color: "var(--white)", lineHeight: 1, marginBottom: "0.4rem" }}>{s.stat}</span>
-                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "rgba(255,255,255,0.6)", lineHeight: 1.4 }}>{s.label}</span>
+                <div key={s.label} style={{ textAlign: "center" }}>
+                  <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2.5rem", color: "#1A3220", lineHeight: 1, marginBottom: "0.4rem" }}>{s.stat}</span>
+                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "rgba(0,0,0,0.55)", lineHeight: 1.4 }}>{s.label}</span>
                 </div>
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* COMBINED CTA */}
-        <section style={{ background: "var(--sage-xlight)", padding: "4rem 1.5rem", textAlign: "center" }}>
-          <div style={{ maxWidth: "640px", margin: "0 auto" }}>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", marginBottom: "0.75rem" }}>Ready to build your case?</h2>
             <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--charcoal)", opacity: 0.75, lineHeight: 1.75, marginBottom: "2rem" }}>Whether you want the evidence at your fingertips or someone to guide the conversation: we have got you.</p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", justifyContent: "center" }}>
