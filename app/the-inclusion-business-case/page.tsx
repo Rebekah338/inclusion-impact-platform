@@ -6,14 +6,14 @@ export const metadata = { title: "The Inclusion Business Case | The Inclusion Ed
 
 export default function InclusionBusinessCase() {
   const pillars = [
-    { icon: "📈", title: "Profitability and financial performance", body: "Diverse leadership drives stronger bottom-line results." },
-    { icon: "💡", title: "Innovation and decision-making", body: "Diverse teams generate better ideas and fewer blind spots." },
-    { icon: "🔄", title: "Retention and reducing turnover costs", body: "Inclusion keeps people; and saves the cost of losing them." },
-    { icon: "🌟", title: "Talent attraction and workforce capability", body: "The best candidates choose employers with a genuine EDI track record." },
-    { icon: "⚡", title: "Productivity and team performance", body: "Belonging and psychological safety drive day-to-day output." },
-    { icon: "🛡️", title: "Reputation, risk and accountability", body: "Inclusion failures carry legal, financial and reputational consequences." },
-    { icon: "🌍", title: "ESG and stakeholder expectations", body: "Investors, funders and commissioners expect evidence of EDI commitment." },
-    { icon: "📣", title: "Customer reach and market growth", body: "Inclusive organisations understand and serve broader audiences." },
+    { icon: null, svgPath: "M3 17l4-8 4 4 4-6 4 10", title: "Profitability and financial performance", body: "Diverse leadership drives stronger bottom-line results." },
+    { icon: null, svgPath: "M12 2a7 7 0 0 1 7 7c0 3-1.5 5-3.5 6.5V17a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-1.5C6.5 14 5 12 5 9a7 7 0 0 1 7-7zM9 21h6", title: "Innovation and decision-making", body: "Diverse teams generate better ideas and fewer blind spots." },
+    { icon: null, svgPath: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75", title: "Retention and reducing turnover costs", body: "Inclusion keeps people; and saves the cost of losing them." },
+    { icon: null, svgPath: "M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3", title: "Talent attraction and workforce capability", body: "The best candidates choose employers with a genuine EDI track record." },
+    { icon: null, svgPath: "M13 2L3 14h9l-1 8 10-12h-9l1-8z", title: "Productivity and team performance", body: "Belonging and psychological safety drive day-to-day output." },
+    { icon: null, svgPath: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z", title: "Reputation, risk and accountability", body: "Inclusion failures carry legal, financial and reputational consequences." },
+    { icon: null, svgPath: "M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2zM2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z", title: "ESG and stakeholder expectations", body: "Investors, funders and commissioners expect evidence of EDI commitment." },
+    { icon: null, svgPath: "M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3", title: "Customer reach and market growth", body: "Inclusive organisations understand and serve broader audiences." },
   ];
 
   return (
@@ -87,7 +87,11 @@ export default function InclusionBusinessCase() {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "1rem" }}>
               {pillars.map((p) => (
                 <div key={p.title} style={{ background: "var(--sage-xlight)", border: "1px solid var(--gray-border)", borderRadius: "12px", padding: "1.25rem" }}>
-                  <div style={{ fontSize: "1.5rem", marginBottom: "0.5rem" }}>{p.icon}</div>
+                  <div style={{ marginBottom: "0.75rem" }}>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--sage-dark)" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                      <path d={p.svgPath} />
+                    </svg>
+                  </div>
                   <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--charcoal)", marginBottom: "0.4rem" }}>{p.title}</h3>
                   <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--charcoal)", lineHeight: 1.65, opacity: 0.8, margin: 0 }}>{p.body}</p>
                 </div>
@@ -223,11 +227,11 @@ export default function InclusionBusinessCase() {
         </section>
 
         {/* CASE STUDIES STRIP */}
-        <section style={{ background: "var(--sage-xlight)", padding: "4rem 1.5rem" }}>
+        <section style={{ background: "var(--sage-dark)", padding: "4rem 1.5rem" }}>
           <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", margin: "0 0 0.6rem" }}>Case studies</h2>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "rgba(0,0,0,0.6)", fontWeight: 600, lineHeight: 1.7, maxWidth: "560px", margin: "0 auto" }}>Real organisations. Real outcomes. Click any card to read the full case study.</p>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--white)", margin: "0 0 0.6rem" }}>Case studies</h2>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "rgba(255,255,255,0.8)", fontWeight: 600, lineHeight: 1.7, maxWidth: "560px", margin: "0 auto" }}>Real organisations. Real outcomes. Click any card to read the full case study.</p>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: "1rem", marginBottom: "2.5rem" }}>
               {[
@@ -249,7 +253,7 @@ export default function InclusionBusinessCase() {
                 </a>
               ))}
             </div>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", fontStyle: "italic", color: "rgba(0,0,0,0.5)", textAlign: "center", margin: 0 }}>Platform members get deeper analysis, key quotes and planning tools for every piece of evidence above: and more.</p>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", fontStyle: "italic", color: "rgba(255,255,255,0.6)", textAlign: "center", margin: 0 }}>Platform members get deeper analysis, key quotes and planning tools for every piece of evidence above: and more.</p>
           </div>
         </section>
 
