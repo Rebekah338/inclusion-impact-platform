@@ -162,7 +162,7 @@ export default function BespokeResources() {
         {/* CASE STUDIES */}
         <section style={{ position: "relative", padding: "3.5rem 1.5rem", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, backgroundImage: "url(/bespoke-resources.jpg)", backgroundSize: "cover", backgroundPosition: "center", zIndex: 0 }} />
-          <div style={{ position: "absolute", inset: 0, background: "rgba(255,252,245,0.88)", zIndex: 1 }} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(255,252,245,0.76)", zIndex: 1 }} />
           <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 2 }}>
             <span style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.5rem", textAlign: "center" }}>Our work</span>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.4rem, 2.6vw, 1.9rem)", color: "var(--charcoal)", textAlign: "center", marginBottom: "0.5rem" }}>Resources we have created</h2>
