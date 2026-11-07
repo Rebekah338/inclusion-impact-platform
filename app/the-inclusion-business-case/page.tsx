@@ -189,67 +189,148 @@ export default function InclusionBusinessCase() {
           </div>
         </section>
 
-        {/* PLATFORM TEASER */}
-        <section style={{ background: "linear-gradient(135deg, #1A3220 0%, #2C4A31 60%, #2E5235 100%)", padding: "4rem 1.5rem" }}>
-          <div style={{ maxWidth: "960px", margin: "0 auto" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "3rem", alignItems: "center" }}>
-              <div>
-                <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.65)", background: "rgba(255,255,255,0.1)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.25rem" }}>The Impact Platform</span>
-                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--white)", lineHeight: 1.2, marginBottom: "1rem" }}>Go deeper with the full evidence library.</h2>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.925rem", color: "rgba(255,255,255,0.8)", lineHeight: 1.75, marginBottom: "1.75rem" }}>Platform members get access to structured learning, research and tools built specifically for people driving inclusion in their organisations.</p>
-                <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "#1A3220", background: "var(--white)", padding: "0.75rem 1.75rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>Find out more</Link>
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
-                {[
-                  { icon: "📚", title: "Research and evidence bank", desc: "Curated studies, reports and data points organised by theme; ready to cite." },
-                  { icon: "💬", title: "Conversation guides", desc: "Structured prompts and frameworks for navigating difficult EDI conversations with confidence." },
-                  { icon: "📋", title: "Editable templates and toolkits", desc: "Ready-to-adapt resources your organisation can put to use immediately." },
-                  { icon: "🎓", title: "Structured learning modules", desc: "Self-paced courses that build knowledge and practical capability across your team." },
-                ].map((f) => (
-                  <div key={f.title} style={{ display: "flex", gap: "1rem", alignItems: "flex-start", background: "rgba(255,255,255,0.07)", borderRadius: "10px", padding: "1rem 1.25rem", border: "1px solid rgba(255,255,255,0.1)" }}>
-                    <span style={{ fontSize: "1.25rem", flexShrink: 0, marginTop: "0.1rem" }}>{f.icon}</span>
-                    <div>
-                      <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", margin: "0 0 0.25rem" }}>{f.title}</p>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "rgba(255,255,255,0.65)", lineHeight: 1.6, margin: 0 }}>{f.desc}</p>
-                    </div>
+        {/* FEATURED EVIDENCE */}
+        <section style={{ background: "var(--white)", padding: "4rem 1.5rem" }}>
+          <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
+            <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.08)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.75rem" }}>Featured evidence</span>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", margin: "0 0 0.6rem" }}>The research and case studies that make the argument</h2>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--charcoal)", opacity: 0.65, lineHeight: 1.7, maxWidth: "560px", margin: "0 auto" }}>Real evidence. Real organisations. Click any card to read the original source.</p>
+            </div>
+
+            {/* Research row */}
+            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--charcoal)", opacity: 0.45, marginBottom: "0.9rem" }}>Research and data</p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: "1rem", marginBottom: "2rem" }}>
+              {[
+                {
+                  stat: "42%",
+                  statLabel: "lower voluntary turnover",
+                  title: "ENEI TIDE Benchmarking",
+                  source: "Employers Network for Equality and Inclusion, 2023",
+                  tags: ["Retention", "Turnover", "Benchmarking"],
+                  url: "https://www.enei.org.uk/resources/tide/",
+                },
+                {
+                  stat: "UK fell",
+                  statLabel: "its largest drop on record",
+                  title: "PwC Women in Work Index 2024",
+                  source: "PwC, 2024",
+                  tags: ["Gender equity", "Pay gap", "Leadership"],
+                  url: "https://www.pwc.co.uk/press-room/press-releases/the-uk-suffers-the-largest-annual-fall-in-ranking-on-pwc-s-women.html",
+                },
+                {
+                  stat: "EDI blindspot",
+                  statLabel: "identified at leadership level",
+                  title: "Walking the Walk",
+                  source: "Chartered Management Institute, 2024",
+                  tags: ["Management", "Accountability", "Culture"],
+                  url: "https://www.managers.org.uk/wp-content/uploads/2024/07/Walking-The-Walk-Report.pdf",
+                },
+              ].map((r) => (
+                <a key={r.title} href={r.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", display: "block", background: "rgba(248,247,244,0.9)", borderRadius: "14px", padding: "1.5rem 1.4rem", border: "1.5px solid rgba(26,50,32,0.1)", transition: "box-shadow 0.2s" }}>
+                  <div style={{ marginBottom: "0.9rem" }}>
+                    <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.9rem", color: "#1A3220", lineHeight: 1 }}>{r.stat}</span>
+                    <span style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--charcoal)", opacity: 0.6, marginTop: "0.2rem" }}>{r.statLabel}</span>
                   </div>
-                ))}
+                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--charcoal)", margin: "0 0 0.3rem", lineHeight: 1.4 }}>{r.title}</p>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--charcoal)", opacity: 0.5, margin: "0 0 0.9rem", lineHeight: 1.5 }}>{r.source}</p>
+                  <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
+                    {r.tags.map((tag) => (
+                      <span key={tag} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#1A3220", background: "rgba(26,50,32,0.08)", borderRadius: "999px", padding: "0.2rem 0.6rem" }}>{tag}</span>
+                    ))}
+                  </div>
+                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "#1A3220", margin: "0.9rem 0 0", opacity: 0.8 }}>Read the research →</p>
+                </a>
+              ))}
+            </div>
+
+            {/* Case studies row */}
+            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--charcoal)", opacity: 0.45, marginBottom: "0.9rem" }}>Case studies</p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: "1rem", marginBottom: "2.5rem" }}>
+              {[
+                {
+                  stat: "50%",
+                  statLabel: "increase in Black senior representation",
+                  title: "Lloyds: Race Inclusion Programme",
+                  source: "CMI EDI in Action, 2022",
+                  tags: ["Race equity", "Leadership", "Representation"],
+                  url: "https://www.managers.org.uk/wp-content/uploads/2022/06/cmi-75th-report-edi-in-action-lloyds-case-study.pdf",
+                },
+                {
+                  stat: "40%",
+                  statLabel: "more innovations from neurodiverse teams",
+                  title: "SAP: Autism at Work Programme",
+                  source: "SAP programme data, via Dynseo",
+                  tags: ["Neurodiversity", "Innovation", "Retention"],
+                  url: "https://www.dynseo.com/en/roi-of-neurodiversity-in-business-studies-from-jpmorgan-sap-microsoft-and-2026-figures/",
+                },
+                {
+                  stat: "US$19bn",
+                  statLabel: "projected annual saving in talent costs",
+                  title: "Vodafone: Global Maternity Policy",
+                  source: "Vodafone, 2015",
+                  tags: ["Flexible working", "Retention", "Gender"],
+                  url: "https://www.cnbc.com/2015/03/10/vodafone-launches-new-policy-for-working-moms.html",
+                },
+              ].map((cs) => (
+                <a key={cs.title} href={cs.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", display: "block", background: "#1A3220", borderRadius: "14px", padding: "1.5rem 1.4rem", border: "1.5px solid rgba(255,255,255,0.08)" }}>
+                  <div style={{ marginBottom: "0.9rem" }}>
+                    <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.9rem", color: "var(--white)", lineHeight: 1 }}>{cs.stat}</span>
+                    <span style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "rgba(255,255,255,0.6)", marginTop: "0.2rem" }}>{cs.statLabel}</span>
+                  </div>
+                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", margin: "0 0 0.3rem", lineHeight: 1.4 }}>{cs.title}</p>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.45)", margin: "0 0 0.9rem", lineHeight: 1.5 }}>{cs.source}</p>
+                  <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
+                    {cs.tags.map((tag) => (
+                      <span key={tag} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "rgba(255,255,255,0.85)", background: "rgba(255,255,255,0.1)", borderRadius: "999px", padding: "0.2rem 0.6rem" }}>{tag}</span>
+                    ))}
+                  </div>
+                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "rgba(255,255,255,0.75)", margin: "0.9rem 0 0" }}>Read the case study →</p>
+                </a>
+              ))}
+            </div>
+
+            {/* Platform member callout */}
+            <div style={{ background: "rgba(74,99,71,0.07)", borderRadius: "14px", border: "1.5px solid rgba(26,50,32,0.12)", padding: "1.5rem 2rem", display: "flex", flexWrap: "wrap", gap: "1.5rem", alignItems: "center", justifyContent: "space-between" }}>
+              <div style={{ flex: "1 1 320px" }}>
+                <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "#1A3220", margin: "0 0 0.4rem" }}>Platform members get more from every piece of evidence</p>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.825rem", color: "var(--charcoal)", opacity: 0.75, margin: 0, lineHeight: 1.7 }}>For each research piece: what it found, 5 arguments for senior leadership, key quotes, and related studies. For each case study: what they did, the key outcomes, and a planning tool to help you replicate results.</p>
               </div>
+              <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", background: "#1A3220", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap", flexShrink: 0 }}>Explore the platform</Link>
             </div>
           </div>
         </section>
 
-        <section style={{ background: "var(--sage-xlight)", padding: "5rem 1.5rem" }}>
-          <div style={{ maxWidth: "700px", margin: "0 auto", textAlign: "center" }}>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.5rem, 3vw, 2rem)", color: "var(--charcoal)", marginBottom: "1.25rem" }}>The question is not whether to invest in inclusion.</h2>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "1.1rem", color: "var(--charcoal)", lineHeight: 1.8, marginBottom: "0.75rem", opacity: 0.85 }}>The question is whether your investment is driving real change; or staying at the surface.</p>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "1.1rem", color: "var(--charcoal)", lineHeight: 1.8, opacity: 0.85 }}>We help organisations move from intention to impact: with honest assessment, a clear strategy and the support to see it through.</p>
+        {/* PLATFORM STATS STRIP */}
+        <section style={{ background: "#1A3220", padding: "2.5rem 1.5rem" }}>
+          <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", textAlign: "center", marginBottom: "1.5rem" }}>Inside the Inclusion Impact Platform</p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "1rem", marginBottom: "1.75rem" }}>
+              {[
+                { stat: "27", label: "Pieces of research and data" },
+                { stat: "20", label: "Case studies" },
+                { stat: "3", label: "AI evidence building tools" },
+                { stat: "10+", label: "Templates and resources" },
+              ].map((s) => (
+                <div key={s.label} style={{ background: "rgba(255,255,255,0.07)", borderRadius: "12px", padding: "1.25rem", border: "1px solid rgba(255,255,255,0.1)", textAlign: "center" }}>
+                  <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2.25rem", color: "var(--white)", lineHeight: 1, marginBottom: "0.4rem" }}>{s.stat}</span>
+                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "rgba(255,255,255,0.65)", lineHeight: 1.4 }}>{s.label}</span>
+                </div>
+              ))}
+            </div>
+            <div style={{ textAlign: "center" }}>
+              <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "#1A3220", background: "var(--white)", padding: "0.8rem 2rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>Find out more about the platform</Link>
+            </div>
           </div>
         </section>
 
-        <section style={{ padding: "5rem 1.5rem", maxWidth: "860px", margin: "0 auto" }}>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.5rem, 3vw, 2rem)", color: "var(--charcoal)", marginBottom: "2.5rem", textAlign: "center" }}>Ready to build the case internally?</h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: "1.25rem" }}>
-            {[
-              { title: "EDI Consultancy", desc: "A full strategic engagement to assess where you are and build a plan that creates lasting change.", href: "/edi-consultancy-programmes" },
-              { title: "EDI Training", desc: "Programmes that equip your people; from senior leaders to all-staff; to understand and embed inclusion.", href: "/edi-training" },
-              { title: "Bespoke Resources", desc: "Materials built for your organisation: toolkits, guides, frameworks and more.", href: "/bespoke-inclusion-resources" },
-              { title: "The Impact Platform", desc: "Structured digital learning for individuals and teams who want to go deeper on inclusion.", href: "/about-our-impact-platform" },
-            ].map((item) => (
-              <Link key={item.title} href={item.href} style={{ background: "var(--sage-xlight)", border: "1px solid var(--gray-border)", borderRadius: "16px", padding: "1.75rem", textDecoration: "none", display: "block" }}>
-                <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "0.6rem" }}>{item.title} →</h3>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.7, opacity: 0.75, margin: 0 }}>{item.desc}</p>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        <section style={{ background: "#1A3220", padding: "3rem 1.5rem", textAlign: "center" }}>
+        {/* GET SUPPORT */}
+        <section style={{ background: "var(--sage-xlight)", padding: "4rem 1.5rem", textAlign: "center" }}>
           <div style={{ maxWidth: "600px", margin: "0 auto" }}>
-            <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.65)", background: "rgba(255,255,255,0.1)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.25rem" }}>Get support</span>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--white)", marginBottom: "0.75rem" }}>Need help getting buy-in internally?</h2>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "rgba(255,255,255,0.8)", lineHeight: 1.75, marginBottom: "1.75rem" }}>We work with EDI leads, HR teams and people managers to build a compelling case for inclusion investment. Whether you need data, a strategy or someone to help you make the argument; we can help.</p>
-            <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "#1A3220", background: "var(--white)", padding: "0.8rem 2rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>Talk to us about your situation</Link>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.1)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.75rem" }}>Get support</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", marginBottom: "0.75rem" }}>Need help getting buy-in internally?</h2>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", opacity: 0.75, lineHeight: 1.75, marginBottom: "1.75rem" }}>We work with EDI leads, HR teams and people managers to build a compelling case for inclusion investment. Whether you need data, a strategy, or someone to help you make the argument: we can help.</p>
+            <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--white)", background: "#1A3220", padding: "0.8rem 2rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>Talk to us about your situation</Link>
           </div>
         </section>
             <Footer />
