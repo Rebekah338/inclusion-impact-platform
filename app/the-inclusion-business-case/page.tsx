@@ -249,13 +249,7 @@ export default function InclusionBusinessCase() {
                 </a>
               ))}
             </div>
-            <div style={{ background: "rgba(255,255,255,0.08)", borderRadius: "14px", border: "1.5px solid rgba(255,255,255,0.15)", padding: "1.5rem 2rem", display: "flex", flexWrap: "wrap", gap: "1.5rem", alignItems: "center", justifyContent: "space-between" }}>
-              <div style={{ flex: "1 1 320px" }}>
-                <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", margin: "0 0 0.4rem" }}>Platform members get more from every piece of evidence</p>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.825rem", color: "rgba(255,255,255,0.7)", margin: 0, lineHeight: 1.7 }}>For each research piece: what it found, 5 arguments for senior leadership, key quotes, and related studies. For each case study: what they did, the key outcomes, and a planning tool to help you replicate results.</p>
-              </div>
-              <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "#1A3220", background: "var(--white)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap", flexShrink: 0, border: "1.5px solid #1A3220" }}>Explore the platform</Link>
-            </div>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", fontStyle: "italic", color: "rgba(255,255,255,0.6)", textAlign: "center", margin: 0 }}>Platform members get deeper analysis, key quotes and planning tools for every piece of evidence above: and more.</p>
           </div>
         </section>
 
