@@ -192,7 +192,7 @@ export default function InclusionBusinessCase() {
         {/* FEATURED EVIDENCE */}
         <section style={{ position: "relative", padding: "4rem 1.5rem", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/watch-3-team-review.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 0, filter: "blur(3px)", transform: "scale(1.04)" }} />
-          <div style={{ position: "absolute", inset: 0, background: "rgba(20,38,22,0.58)", zIndex: 1 }} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(20,38,22,0.42)", zIndex: 1 }} />
           <div style={{ position: "relative", zIndex: 2, maxWidth: "1060px", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.65)", background: "rgba(255,255,255,0.1)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.75rem" }}>Featured evidence</span>
