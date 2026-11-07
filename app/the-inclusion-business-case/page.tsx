@@ -227,7 +227,7 @@ export default function InclusionBusinessCase() {
         </section>
 
         {/* CASE STUDIES STRIP */}
-        <section style={{ background: "#1A3220", padding: "4rem 1.5rem" }}>
+        <section style={{ background: "linear-gradient(135deg, #1A3220 0%, #2C4A31 60%, #2E5235 100%)", padding: "4rem 1.5rem" }}>
           <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--white)", margin: "0 0 0.6rem" }}>Case studies</h2>
