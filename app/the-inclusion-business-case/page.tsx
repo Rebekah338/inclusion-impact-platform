@@ -272,23 +272,22 @@ export default function InclusionBusinessCase() {
               ].map((s) => (
                 <div key={s.label} style={{ background: "rgba(255,255,255,0.07)", borderRadius: "12px", padding: "1.25rem", border: "1px solid rgba(255,255,255,0.1)", textAlign: "center" }}>
                   <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2.25rem", color: "var(--white)", lineHeight: 1, marginBottom: "0.4rem" }}>{s.stat}</span>
-                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "rgba(0,0,0,0.5)", lineHeight: 1.4 }}>{s.label}</span>
+                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "rgba(255,255,255,0.6)", lineHeight: 1.4 }}>{s.label}</span>
                 </div>
               ))}
-            </div>
-            <div style={{ textAlign: "center" }}>
-              <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "#1A3220", background: "var(--white)", padding: "0.8rem 2rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>Find out more about the platform</Link>
             </div>
           </div>
         </section>
 
-        {/* GET SUPPORT */}
+        {/* COMBINED CTA */}
         <section style={{ background: "var(--sage-xlight)", padding: "4rem 1.5rem", textAlign: "center" }}>
-          <div style={{ maxWidth: "600px", margin: "0 auto" }}>
-            <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.1)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.75rem" }}>Get support</span>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", marginBottom: "0.75rem" }}>Need help getting buy-in internally?</h2>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", opacity: 0.75, lineHeight: 1.75, marginBottom: "1.75rem" }}>We work with EDI leads, HR teams and people managers to build a compelling case for inclusion investment. Whether you need data, a strategy, or someone to help you make the argument: we can help.</p>
-            <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--white)", background: "#1A3220", padding: "0.8rem 2rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>Talk to us about your situation</Link>
+          <div style={{ maxWidth: "640px", margin: "0 auto" }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", marginBottom: "0.75rem" }}>Ready to build your case?</h2>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--charcoal)", opacity: 0.75, lineHeight: 1.75, marginBottom: "2rem" }}>Whether you want the evidence at your fingertips or someone to guide the conversation: we have got you.</p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", justifyContent: "center" }}>
+              <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--white)", background: "#1A3220", padding: "0.8rem 2rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>Explore the platform</Link>
+              <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "#1A3220", background: "transparent", padding: "0.8rem 2rem", borderRadius: "8px", textDecoration: "none", display: "inline-block", border: "1.5px solid #1A3220" }}>Talk to us about your situation</Link>
+            </div>
           </div>
         </section>
             <Footer />
