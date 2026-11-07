@@ -6,6 +6,54 @@ import { useState } from "react";
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
+
+  const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
+
+  function NewsletterForm() {
+    if (newsletterSubmitted) {
+      return (
+        <div style={{ padding: "2rem", textAlign: "center" }}>
+          <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--sage-dark)" }}>You are signed up. Welcome to the community.</p>
+        </div>
+      );
+    }
+    return (
+      <form onSubmit={(e) => { e.preventDefault(); setNewsletterSubmitted(true); }} style={{ display: "flex", flexDirection: "column", gap: "1rem", textAlign: "left" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+          {[{ label: "First name", name: "nlFirst" }, { label: "Last name", name: "nlLast" }].map((f) => (
+            <div key={f.name}>
+              <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>{f.label}</label>
+              <input required name={f.name} type="text" style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--white)", boxSizing: "border-box" as const }} />
+            </div>
+          ))}
+        </div>
+        <div>
+          <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>Job title</label>
+          <input name="nlJob" type="text" style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--white)", boxSizing: "border-box" as const }} />
+        </div>
+        <div>
+          <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>Email address</label>
+          <input required name="nlEmail" type="email" style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--white)", boxSizing: "border-box" as const }} />
+        </div>
+        <div>
+          <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>How did you hear about us?</label>
+          <select name="nlSource" style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--white)", boxSizing: "border-box" as const }}>
+            <option value="">Please select</option>
+            <option>LinkedIn</option>
+            <option>Instagram</option>
+            <option>TikTok</option>
+            <option>Podcast</option>
+            <option>Word of mouth</option>
+            <option>Google search</option>
+            <option>An event</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <button type="submit" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "#1A3220", border: "none", padding: "0.875rem 2rem", borderRadius: "8px", cursor: "pointer", alignSelf: "center", minWidth: "200px" }}>Sign up</button>
+      </form>
+    );
+  }
+
   return (
     <div style={{ background: "var(--white)", minHeight: "100vh" }}>
       <SiteNav />
@@ -59,6 +107,17 @@ export default function Contact() {
         </div>
       </section>
 
+        {/* BOOK A CALL */}
+        <section style={{ background: "var(--sage-xlight)", padding: "3.5rem 1.5rem" }}>
+          <div style={{ maxWidth: "760px", margin: "0 auto", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.12)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "1rem" }}>Book a call</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", marginBottom: "0.75rem" }}>Book a curiosity call</h2>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--charcoal)", opacity: 0.75, lineHeight: 1.75, maxWidth: "520px", marginBottom: "2rem" }}>Have questions about our consultancy, training, bespoke resources or the platform? Book a free 30-minute call and we will help you work out the best next step for your organisation.</p>
+            <a href="https://calendly.com/theinclusionedit" target="_blank" rel="noopener noreferrer" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "#1A3220", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>Book now</a>
+          </div>
+        </section>
+
+
         <section id="contact-form" style={{ padding: "5rem 1.5rem", maxWidth: "640px", margin: "0 auto" }}>
           {submitted ? (
             <div style={{ textAlign: "center", padding: "4rem 2rem" }}>
@@ -102,6 +161,17 @@ export default function Contact() {
             </form>
           )}
         </section>
+
+        {/* NEWSLETTER */}
+        <section style={{ background: "var(--sage-xlight)", padding: "3.5rem 1.5rem" }}>
+          <div style={{ maxWidth: "640px", margin: "0 auto", textAlign: "center" }}>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.12)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "1rem" }}>Stay connected</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", marginBottom: "0.5rem" }}>Become part of The Inclusion Edit community</h2>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", opacity: 0.75, lineHeight: 1.75, marginBottom: "2rem" }}>Subscribe to hear about the latest updates, podcast episodes, blogs, free resources and upcoming events.</p>
+            <NewsletterForm />
+          </div>
+        </section>
+
             <Footer />
     </main>
     </div>
