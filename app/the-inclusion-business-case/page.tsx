@@ -270,7 +270,7 @@ export default function InclusionBusinessCase() {
                 { stat: "3", label: "AI evidence building tools" },
                 { stat: "10+", label: "Templates and resources" },
               ].map((s) => (
-                <div key={s.label} style={{ textAlign: "center", background: "#1A3220", borderRadius: "10px", padding: "1rem 0.75rem" }}>
+                <div key={s.label} style={{ textAlign: "center", background: "rgba(26,50,32,0.65)", borderRadius: "10px", padding: "1rem 0.75rem" }}>
                   <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2rem", color: "var(--white)", lineHeight: 1, marginBottom: "0.3rem" }}>{s.stat}</span>
                   <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.72rem", color: "rgba(255,255,255,0.8)", lineHeight: 1.4 }}>{s.label}</span>
                 </div>
