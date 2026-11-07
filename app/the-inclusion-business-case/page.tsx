@@ -194,11 +194,11 @@ export default function InclusionBusinessCase() {
         </section>
 
         {/* RESEARCH AND DATA STRIP */}
-        <section style={{ position: "relative", padding: "4rem 1.5rem", overflow: "hidden" }}>
+        <section style={{ position: "relative", padding: "2.5rem 1.5rem", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/watch-3-team-review.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 0, filter: "blur(3px)", transform: "scale(1.04)" }} />
           <div style={{ position: "absolute", inset: 0, background: "rgba(255,252,245,0.82)", zIndex: 1 }} />
           <div style={{ position: "relative", zIndex: 2, maxWidth: "1060px", margin: "0 auto" }}>
-            <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
+            <div style={{ textAlign: "center", marginBottom: "1.25rem" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.12)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.75rem" }}>Featured evidence</span>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", margin: "0 0 0.6rem" }}>Research and data</h2>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--charcoal)", fontWeight: 600, lineHeight: 1.7, maxWidth: "560px", margin: "0 auto" }}>Real evidence. Real organisations. Click any card to read the original source.</p>
@@ -209,12 +209,12 @@ export default function InclusionBusinessCase() {
                 { stat: "19 points", statLabel: "higher innovation revenue in companies with diverse management teams", title: "How Diverse Leadership Teams Boost Innovation", source: "Boston Consulting Group, 2018", tags: ["Innovation", "Leadership", "Revenue"], url: "https://www.bcg.com/publications/2018/how-diverse-leadership-teams-boost-innovation" },
                 { stat: "8x more", statLabel: "likely to achieve better business outcomes in genuinely inclusive cultures", title: "The Diversity and Inclusion Revolution", source: "Deloitte Insights, 2018", tags: ["Performance", "Culture", "Leadership"], url: "https://www.deloitte.com/content/dam/assets-shared/legacy/docs/insights/2022/DI_Diversity-and-inclusion-revolution.pdf" },
               ].map((r) => (
-                <a key={r.title} href={r.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", display: "block", background: "var(--white)", borderRadius: "16px", border: "1px solid rgba(0,0,0,0.07)", padding: "2rem", transition: "box-shadow 0.15s" }}>
-                  <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.9rem", color: "#1A3220", lineHeight: 1, marginBottom: "0.3rem" }}>{r.stat}</span>
-                  <span style={{ display: "block", fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--charcoal)", opacity: 0.7, marginBottom: "1rem", lineHeight: 1.5 }}>{r.statLabel}</span>
+                <a key={r.title} href={r.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", display: "block", background: "var(--white)", borderRadius: "16px", border: "1px solid rgba(0,0,0,0.07)", padding: "1.25rem 1.5rem", transition: "box-shadow 0.15s" }}>
+                  <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.5rem", color: "#1A3220", lineHeight: 1, marginBottom: "0.3rem" }}>{r.stat}</span>
+                  <span style={{ display: "block", fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--charcoal)", opacity: 0.7, marginBottom: "0.6rem", lineHeight: 1.4 }}>{r.statLabel}</span>
                   <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--charcoal)", margin: "0 0 0.3rem", lineHeight: 1.4 }}>{r.title}</p>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(0,0,0,0.6)", margin: "0 0 0.9rem", lineHeight: 1.5 }}>{r.source}</p>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "1rem" }}>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(0,0,0,0.6)", margin: "0 0 0.5rem", lineHeight: 1.5 }}>{r.source}</p>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "0.6rem" }}>
                     {r.tags.map((tag) => (
                       <span key={tag} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.1)", borderRadius: "999px", padding: "0.2rem 0.6rem" }}>{tag}</span>
                     ))}
@@ -227,24 +227,24 @@ export default function InclusionBusinessCase() {
         </section>
 
         {/* CASE STUDIES STRIP */}
-        <section style={{ background: "linear-gradient(135deg, #1A3220 0%, #2C4A31 60%, #2E5235 100%)", padding: "4rem 1.5rem" }}>
+        <section style={{ background: "linear-gradient(135deg, #1A3220 0%, #2C4A31 60%, #2E5235 100%)", padding: "2.5rem 1.5rem" }}>
           <div style={{ maxWidth: "1060px", margin: "0 auto" }}>
-            <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
+            <div style={{ textAlign: "center", marginBottom: "1.25rem" }}>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--white)", margin: "0 0 0.6rem" }}>Case studies</h2>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "rgba(255,255,255,0.8)", fontWeight: 600, lineHeight: 1.7, maxWidth: "560px", margin: "0 auto" }}>Real organisations. Real outcomes. Click any card to read the full case study.</p>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: "1rem", marginBottom: "2.5rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: "0.75rem", marginBottom: "1.5rem" }}>
               {[
                 { stat: "2x higher", statLabel: "net income growth in companies leading on disability inclusion", title: "Accenture: The Disability Inclusion Advantage", source: "Accenture, 2018", tags: ["Disability inclusion", "Financial performance", "Leadership"], url: "https://newsroom.accenture.com/news/2018/companies-leading-in-disability-inclusion-have-outperformed-peers-accenture-research-finds" },
                 { stat: "40%", statLabel: "more innovations generated by neurodiverse teams", title: "SAP: Autism at Work Programme", source: "SAP programme data, via Dynseo", tags: ["Neurodiversity", "Innovation", "Retention"], url: "https://www.dynseo.com/en/roi-of-neurodiversity-in-business-studies-from-jpmorgan-sap-microsoft-and-2026-figures/" },
                 { stat: "US$19bn", statLabel: "projected annual saving in talent costs", title: "Vodafone: Global Maternity Policy", source: "Vodafone, 2015", tags: ["Flexible working", "Retention", "Gender"], url: "https://www.cnbc.com/2015/03/10/vodafone-launches-new-policy-for-working-moms.html" },
               ].map((cs) => (
-                <a key={cs.title} href={cs.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", display: "block", background: "var(--white)", borderRadius: "16px", border: "1px solid rgba(0,0,0,0.07)", padding: "2rem" }}>
-                  <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.9rem", color: "#1A3220", lineHeight: 1 }}>{cs.stat}</span>
-                  <span style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--charcoal)", opacity: 0.7, marginTop: "0.2rem", marginBottom: "1rem" }}>{cs.statLabel}</span>
+                <a key={cs.title} href={cs.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", display: "block", background: "var(--white)", borderRadius: "16px", border: "1px solid rgba(0,0,0,0.07)", padding: "1.25rem 1.5rem" }}>
+                  <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.5rem", color: "#1A3220", lineHeight: 1 }}>{cs.stat}</span>
+                  <span style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--charcoal)", opacity: 0.7, marginTop: "0.1rem", marginBottom: "0.6rem" }}>{cs.statLabel}</span>
                   <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--charcoal)", margin: "0 0 0.3rem", lineHeight: 1.4 }}>{cs.title}</p>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(0,0,0,0.5)", margin: "0 0 0.9rem", lineHeight: 1.5 }}>{cs.source}</p>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "1rem" }}>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(0,0,0,0.5)", margin: "0 0 0.5rem", lineHeight: 1.5 }}>{cs.source}</p>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "0.6rem" }}>
                     {cs.tags.map((tag) => (
                       <span key={tag} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.1)", borderRadius: "999px", padding: "0.2rem 0.6rem" }}>{tag}</span>
                     ))}
