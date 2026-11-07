@@ -134,7 +134,7 @@ export default function InclusionBusinessCase() {
             {/* Column header chips */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginBottom: "0.5rem", padding: "0 0.25rem" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <span style={{ fontSize: "1rem" }}>💬</span>
+                <span style={{ fontSize: "0.8rem", fontWeight: 700, opacity: 0.5, fontFamily: "var(--font-heading)" }}>✕</span>
                 <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--charcoal)", background: "rgba(44,44,44,0.07)", borderRadius: "999px", padding: "0.3rem 0.9rem" }}>The Myth</span>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
@@ -166,7 +166,7 @@ export default function InclusionBusinessCase() {
                 <div key={row.myth} style={{ display: "grid", gridTemplateColumns: "2fr 3fr", borderBottom: i < arr.length - 1 ? "1px solid rgba(26,50,32,0.14)" : "none" }}>
                   <div style={{ padding: "1.5rem 1.75rem", borderRight: "1.5px solid rgba(26,50,32,0.14)", background: i % 2 === 0 ? "rgba(248,247,244,0.9)" : "rgba(244,243,240,0.7)" }}>
                     <div style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem" }}>
-                      <span style={{ fontSize: "0.75rem", marginTop: "0.25rem", opacity: 0.35, flexShrink: 0 }}>✕</span>
+                      <span style={{ fontSize: "0.8rem", marginTop: "0.2rem", opacity: 0.4, flexShrink: 0, fontWeight: 700, fontFamily: "var(--font-heading)" }}>✕</span>
                       <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.65, margin: 0, opacity: 0.75 }}>{row.myth}</p>
                     </div>
                   </div>
