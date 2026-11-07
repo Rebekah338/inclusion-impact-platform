@@ -191,12 +191,12 @@ export default function BespokeResources() {
         </section>
 
         {/* CTA */}
-        <section style={{ background: "#1A3220", padding: "2.5rem 1.5rem", textAlign: "center" }}>
+        <section style={{ background: "var(--white)", padding: "2.5rem 1.5rem", textAlign: "center" }}>
           <div style={{ maxWidth: "560px", margin: "0 auto" }}>
-            <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.65)", background: "rgba(255,255,255,0.1)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1rem" }}>Get started</span>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--white)", marginBottom: "0.75rem" }}>Commission a bespoke resource</h2>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "rgba(255,255,255,0.8)", maxWidth: "420px", margin: "0 auto 1.5rem", lineHeight: 1.7 }}>Tell us what you need and we will design something that works for your organisation.</p>
-            <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "#1A3220", background: "var(--white)", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none" }}>Get in touch</Link>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.1)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1rem" }}>Get started</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", marginBottom: "0.75rem" }}>Commission a bespoke resource</h2>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", opacity: 0.75, maxWidth: "420px", margin: "0 auto 1.5rem", lineHeight: 1.7 }}>Tell us what you need and we will design something that works for your organisation.</p>
+            <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "#1A3220", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none" }}>Get in touch</Link>
           </div>
         </section>
 
