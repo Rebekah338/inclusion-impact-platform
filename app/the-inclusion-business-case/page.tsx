@@ -121,12 +121,12 @@ export default function InclusionBusinessCase() {
         </section>
 
         {/* MYTHS */}
-        <section style={{ background: "var(--white)", padding: "4.5rem 1.5rem" }}>
+        <section style={{ background: "var(--white)", padding: "3rem 1.5rem" }}>
           <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
 
             {/* Heading */}
-            <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.08)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1rem" }}>Myth busting</span>
+            <div style={{ textAlign: "center", marginBottom: "1.1rem" }}>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.08)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.75rem" }}>Myth busting</span>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", margin: "0 0 0.75rem" }}>The myths that are costing your organisation money</h2>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--charcoal)", opacity: 0.7, lineHeight: 1.7, maxWidth: "580px", margin: "0 auto" }}>These are the objections we hear most often. Here is what the evidence actually shows.</p>
             </div>
@@ -164,13 +164,13 @@ export default function InclusionBusinessCase() {
                 },
               ].map((row, i, arr) => (
                 <div key={row.myth} style={{ display: "grid", gridTemplateColumns: "2fr 3fr", borderBottom: i < arr.length - 1 ? "1px solid rgba(26,50,32,0.14)" : "none" }}>
-                  <div style={{ padding: "1.5rem 1.75rem", borderRight: "1.5px solid rgba(26,50,32,0.14)", background: i % 2 === 0 ? "rgba(248,247,244,0.9)" : "rgba(244,243,240,0.7)" }}>
+                  <div style={{ padding: "1rem 1.4rem", borderRight: "1.5px solid rgba(26,50,32,0.14)", background: i % 2 === 0 ? "rgba(248,247,244,0.9)" : "rgba(244,243,240,0.7)" }}>
                     <div style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem" }}>
                       <span style={{ fontSize: "0.8rem", marginTop: "0.2rem", opacity: 0.4, flexShrink: 0, fontWeight: 700, fontFamily: "var(--font-heading)" }}>✕</span>
                       <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.65, margin: 0, opacity: 0.75 }}>{row.myth}</p>
                     </div>
                   </div>
-                  <div style={{ padding: "1.5rem 1.75rem", background: i % 2 === 0 ? "rgba(74,99,71,0.04)" : "rgba(74,99,71,0.06)" }}>
+                  <div style={{ padding: "1rem 1.4rem", background: i % 2 === 0 ? "rgba(74,99,71,0.04)" : "rgba(74,99,71,0.06)" }}>
                     <div style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem" }}>
                       <span style={{ fontSize: "0.85rem", marginTop: "0.1rem", color: "#1A3220", flexShrink: 0, fontWeight: 700 }}>✓</span>
                       <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "#1A3220", lineHeight: 1.8, margin: 0, fontWeight: 500 }}>{row.reality}</p>
@@ -181,7 +181,7 @@ export default function InclusionBusinessCase() {
             </div>
 
             {/* Closing line */}
-            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", textAlign: "center", marginTop: "2rem", lineHeight: 1.7 }}>
+            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--charcoal)", textAlign: "center", marginTop: "1.4rem", lineHeight: 1.7 }}>
               The question is not whether your organisation can afford to invest in inclusion.<br />
               <span style={{ color: "#1A3220" }}>The question is whether it can afford not to.</span>
             </p>
