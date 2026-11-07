@@ -203,28 +203,28 @@ export default function InclusionBusinessCase() {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: "1rem", marginBottom: "2rem" }}>
               {[
                 {
-                  stat: "42%",
-                  statLabel: "lower voluntary turnover",
+                  stat: "42% lower",
+                  statLabel: "staff turnover when organisations score highest for inclusion",
                   title: "ENEI TIDE Benchmarking",
                   source: "Employers Network for Equality and Inclusion, 2023",
-                  tags: ["Retention", "Turnover", "Benchmarking"],
+                  tags: ["Retention", "Culture", "Benchmarking"],
                   url: "https://www.enei.org.uk/resources/tide/",
                 },
                 {
-                  stat: "UK fell",
-                  statLabel: "its largest drop on record",
-                  title: "PwC Women in Work Index 2024",
-                  source: "PwC, 2024",
-                  tags: ["Gender equity", "Pay gap", "Leadership"],
-                  url: "https://www.pwc.co.uk/press-room/press-releases/the-uk-suffers-the-largest-annual-fall-in-ranking-on-pwc-s-women.html",
+                  stat: "19 points",
+                  statLabel: "higher innovation revenue in companies with diverse management teams",
+                  title: "How Diverse Leadership Teams Boost Innovation",
+                  source: "Boston Consulting Group, 2018",
+                  tags: ["Innovation", "Leadership", "Revenue"],
+                  url: "https://www.bcg.com/publications/2018/how-diverse-leadership-teams-boost-innovation",
                 },
                 {
-                  stat: "EDI blindspot",
-                  statLabel: "identified at leadership level",
-                  title: "Walking the Walk",
-                  source: "Chartered Management Institute, 2024",
-                  tags: ["Management", "Accountability", "Culture"],
-                  url: "https://www.managers.org.uk/wp-content/uploads/2024/07/Walking-The-Walk-Report.pdf",
+                  stat: "8x more",
+                  statLabel: "likely to achieve better business outcomes in genuinely inclusive cultures",
+                  title: "The Diversity and Inclusion Revolution",
+                  source: "Deloitte Insights, 2018",
+                  tags: ["Performance", "Culture", "Leadership"],
+                  url: "https://www.deloitte.com/content/dam/assets-shared/legacy/docs/insights/2022/DI_Diversity-and-inclusion-revolution.pdf",
                 },
               ].map((r) => (
                 <a key={r.title} href={r.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", display: "block", background: "rgba(248,247,244,0.9)", borderRadius: "14px", padding: "1.5rem 1.4rem", border: "1.5px solid rgba(26,50,32,0.1)", transition: "box-shadow 0.2s" }}>
@@ -249,12 +249,12 @@ export default function InclusionBusinessCase() {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))", gap: "1rem", marginBottom: "2.5rem" }}>
               {[
                 {
-                  stat: "50%",
-                  statLabel: "increase in Black senior representation",
-                  title: "Lloyds: Race Inclusion Programme",
-                  source: "CMI EDI in Action, 2022",
-                  tags: ["Race equity", "Leadership", "Representation"],
-                  url: "https://www.managers.org.uk/wp-content/uploads/2022/06/cmi-75th-report-edi-in-action-lloyds-case-study.pdf",
+                  stat: "2x higher",
+                  statLabel: "net income growth in companies leading on disability inclusion",
+                  title: "Accenture: The Disability Inclusion Advantage",
+                  source: "Accenture, 2018",
+                  tags: ["Disability inclusion", "Financial performance", "Leadership"],
+                  url: "https://newsroom.accenture.com/news/2018/companies-leading-in-disability-inclusion-have-outperformed-peers-accenture-research-finds",
                 },
                 {
                   stat: "40%",
