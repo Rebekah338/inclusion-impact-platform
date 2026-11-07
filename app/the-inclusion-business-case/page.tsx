@@ -262,22 +262,22 @@ export default function InclusionBusinessCase() {
         {/* COMBINED CTA */}
         <section style={{ background: "var(--sage-xlight)", padding: "4rem 1.5rem", textAlign: "center" }}>
           <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "1.5rem" }}>Inside the Inclusion Impact Platform</p>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: "1rem", marginBottom: "3rem" }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", marginBottom: "0.75rem" }}>Ready to build your case?</h2>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--charcoal)", opacity: 0.75, lineHeight: 1.75, marginBottom: "2rem" }}>Whether you want the evidence at your fingertips or someone to guide the conversation: we have got you.</p>
+            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "1rem" }}>Inside the Inclusion Impact Platform</p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: "0.75rem", marginBottom: "2rem" }}>
               {[
                 { stat: "27", label: "Pieces of research and data" },
                 { stat: "20", label: "Case studies" },
                 { stat: "3", label: "AI evidence building tools" },
                 { stat: "10+", label: "Templates and resources" },
               ].map((s) => (
-                <div key={s.label} style={{ textAlign: "center" }}>
-                  <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2.5rem", color: "#1A3220", lineHeight: 1, marginBottom: "0.4rem" }}>{s.stat}</span>
-                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "rgba(0,0,0,0.55)", lineHeight: 1.4 }}>{s.label}</span>
+                <div key={s.label} style={{ textAlign: "center", background: "rgba(74,99,71,0.08)", borderRadius: "10px", padding: "1rem 0.75rem" }}>
+                  <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2rem", color: "#1A3220", lineHeight: 1, marginBottom: "0.3rem" }}>{s.stat}</span>
+                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.72rem", color: "rgba(0,0,0,0.55)", lineHeight: 1.4 }}>{s.label}</span>
                 </div>
               ))}
             </div>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", marginBottom: "0.75rem" }}>Ready to build your case?</h2>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--charcoal)", opacity: 0.75, lineHeight: 1.75, marginBottom: "2rem" }}>Whether you want the evidence at your fingertips or someone to guide the conversation: we have got you.</p>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", justifyContent: "center" }}>
               <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--white)", background: "#1A3220", padding: "0.8rem 2rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>Explore the platform</Link>
               <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "#1A3220", background: "transparent", padding: "0.8rem 2rem", borderRadius: "8px", textDecoration: "none", display: "inline-block", border: "1.5px solid #1A3220" }}>Talk to us about your situation</Link>
