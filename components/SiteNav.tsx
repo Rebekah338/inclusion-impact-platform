@@ -116,8 +116,7 @@ export default function SiteNav() {
             >The Business Case</Link>
 
             {[
-              { href: "/podcast", label: "Podcast" },
-              { href: "/blog", label: "Blog" },
+              { href: "/listen-and-read", label: "Listen & Read" },
               { href: "/contact-us", label: "Contact" },
             ].map((l) => (
               <Link key={l.href} href={l.href} style={navLinkStyle(l.href)}
@@ -162,8 +161,7 @@ export default function SiteNav() {
             {[
               { href: "/about-our-impact-platform", label: "Impact Platform" },
               { href: "/the-inclusion-business-case", label: "The Business Case" },
-              { href: "/podcast", label: "Podcast" },
-              { href: "/blog", label: "Blog" },
+              { href: "/listen-and-read", label: "Listen & Read" },
               { href: "/contact-us", label: "Contact" },
             ].map((l) => (
               <Link key={l.href} href={l.href} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.9rem", color: "var(--charcoal)", textDecoration: "none", padding: "0.625rem 0.75rem", borderRadius: "8px", display: "block" }}>{l.label}</Link>
