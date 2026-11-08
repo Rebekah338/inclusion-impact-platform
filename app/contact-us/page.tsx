@@ -175,7 +175,7 @@ export default function Contact() {
           </div>
         </section>
 
-        {/* CONTACT FORM */
+        {/* CONTACT FORM */}
         <section id="contact-form" style={{ background: "var(--white)", padding: "2.5rem 1.5rem" }}>
           <div style={{ maxWidth: "960px", margin: "0 auto" }}>
 
