@@ -131,7 +131,7 @@ export default function Contact() {
         <section style={{ position: "relative", padding: "3rem 1.5rem", overflow: "hidden" }}>
           {/* Background image + overlay */}
           <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/Rebekah Presenting.jpg')", backgroundSize: "cover", backgroundPosition: "center 30%", zIndex: 0 }} />
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(20,42,24,0.92) 0%, rgba(30,60,34,0.88) 100%)", zIndex: 1 }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, rgba(20,42,24,0.72) 0%, rgba(30,60,34,0.68) 100%)", zIndex: 1 }} />
           <div style={{ maxWidth: "960px", margin: "0 auto", position: "relative", zIndex: 2 }}>
 
             {/* Header */}
