@@ -108,12 +108,21 @@ export default function Contact() {
       </section>
 
         {/* BOOK A CALL */}
-        <section style={{ background: "var(--sage-xlight)", padding: "3.5rem 1.5rem" }}>
-          <div style={{ maxWidth: "760px", margin: "0 auto", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
-            <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.12)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "1rem" }}>Book a call</span>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", marginBottom: "0.75rem" }}>Book a curiosity call</h2>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--charcoal)", opacity: 0.75, lineHeight: 1.75, maxWidth: "520px", marginBottom: "2rem" }}>Have questions about our Impact Platform, consultancy, training, or bespoke resources? Book a free 30-minute call and we will help you work out the best next step for your organisation.</p>
-            <a href="https://calendly.com/theinclusionedit" target="_blank" rel="noopener noreferrer" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "#1A3220", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>Book now</a>
+        <section style={{ background: "var(--sage-xlight)", padding: "2.5rem 1.5rem" }}>
+          <div style={{ maxWidth: "860px", margin: "0 auto" }}>
+            <div style={{ background: "linear-gradient(135deg, #1A3220 0%, #2C4A31 60%, #2E5235 100%)", borderRadius: "16px", padding: "2.5rem 2.5rem", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "2rem" }}>
+              {/* Left: text */}
+              <div style={{ flex: "1", minWidth: "260px" }}>
+                <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.65)", background: "rgba(255,255,255,0.12)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "1rem" }}>Book a call</span>
+                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.75rem)", color: "var(--white)", margin: "0 0 0.75rem", lineHeight: 1.15 }}>Book a curiosity call</h2>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.75, margin: 0 }}>Have questions about our Impact Platform, consultancy, training, or bespoke resources? Book a free 30-minute call and we will help you work out the best next step for your organisation.</p>
+              </div>
+              {/* Right: CTA */}
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.6rem", flexShrink: 0 }}>
+                <a href="https://calendly.com/theinclusionedit" target="_blank" rel="noopener noreferrer" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "#1A3220", background: "var(--white)", padding: "0.9rem 2rem", borderRadius: "8px", textDecoration: "none", display: "inline-block", whiteSpace: "nowrap" }}>Book now</a>
+                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.55)", textAlign: "center" }}>Free · 30 minutes · no obligation</span>
+              </div>
+            </div>
           </div>
         </section>
 
