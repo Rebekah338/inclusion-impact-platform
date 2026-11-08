@@ -235,7 +235,7 @@ export default function Contact() {
                   </form>
 
                   {/* Right: what happens next */}
-                  <div style={{ background: "rgba(255,255,255,0.1)", borderRadius: "16px", padding: "1.5rem", border: "1px solid rgba(255,255,255,0.15)" }}>
+                  <div style={{ background: "#1A3220", borderRadius: "16px", padding: "1.5rem", border: "1px solid rgba(255,255,255,0.1)" }}>
                     <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1rem", color: "var(--white)", margin: "0 0 1.5rem" }}>What happens next</h3>
                     {[
                       { step: "1", title: "You send your message", detail: "Fill in the form and hit send. It comes directly to Rebekah and the team." },
