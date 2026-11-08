@@ -143,7 +143,7 @@ export default function Contact() {
               {[
                 {
                   title: "Keynote and panel",
-                  detail: "We deliver talks and sit on panels for HR teams, education leads, people managers, and senior leaders — drawing on lived experience, research, and practical frameworks.",
+                  detail: "We deliver talks and sit on panels for HR teams, education leads, people managers, and senior leaders ; drawing on lived experience, research, and practical frameworks.",
                   audiences: "HR; leadership; education; public sector",
                 },
                 {
@@ -153,7 +153,7 @@ export default function Contact() {
                 },
                 {
                   title: "Online events",
-                  detail: "We host and co-host webinars, virtual roundtables, and online learning events — helping you reach audiences across geographies with focused, engaging content.",
+                  detail: "We host and co-host webinars, virtual roundtables, and online learning events ; helping you reach audiences across geographies with focused, engaging content.",
                   audiences: "Webinars; roundtables; virtual summits",
                 },
               ].map((card) => (
