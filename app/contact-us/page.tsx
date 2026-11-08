@@ -22,21 +22,21 @@ export default function Contact() {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
           {[{ label: "First name", name: "nlFirst" }, { label: "Last name", name: "nlLast" }].map((f) => (
             <div key={f.name}>
-              <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>{f.label}</label>
+              <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.3rem" }}>{f.label}</label>
               <input required name={f.name} type="text" style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--white)", boxSizing: "border-box" as const }} />
             </div>
           ))}
         </div>
         <div>
-          <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>Job title</label>
+          <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.3rem" }}>Job title</label>
           <input name="nlJob" type="text" style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--white)", boxSizing: "border-box" as const }} />
         </div>
         <div>
-          <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>Email address</label>
+          <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.3rem" }}>Email address</label>
           <input required name="nlEmail" type="email" style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--white)", boxSizing: "border-box" as const }} />
         </div>
         <div>
-          <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>How did you hear about us?</label>
+          <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.3rem" }}>How did you hear about us?</label>
           <select name="nlSource" style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--white)", boxSizing: "border-box" as const }}>
             <option value="">Please select</option>
             <option>LinkedIn</option>
@@ -128,11 +128,11 @@ export default function Contact() {
 
 
         {/* CONTACT FORM */}
-        <section id="contact-form" style={{ background: "var(--white)", padding: "4rem 1.5rem" }}>
+        <section id="contact-form" style={{ background: "var(--white)", padding: "2.5rem 1.5rem" }}>
           <div style={{ maxWidth: "960px", margin: "0 auto" }}>
 
             {/* Section header */}
-            <div style={{ marginBottom: "2.5rem" }}>
+            <div style={{ marginBottom: "1.5rem" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.1)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.9rem" }}>Send a message</span>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.75rem)", color: "var(--charcoal)", margin: "0 0 0.5rem", lineHeight: 1.15 }}>Prefer to inquire via message?</h2>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "rgba(0,0,0,0.6)", margin: 0, lineHeight: 1.7 }}>Fill in the form below and we will get back to you within two working days.</p>
@@ -150,24 +150,24 @@ export default function Contact() {
                 </div>
               ) : (
                 <>
-                  <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+                  <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} style={{ display: "flex", flexDirection: "column", gap: "0.875rem" }}>
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                       {[{ label: "First name", name: "firstName", type: "text" }, { label: "Last name", name: "lastName", type: "text" }].map((f) => (
                         <div key={f.name}>
-                          <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>{f.label}</label>
-                          <input required name={f.name} type={f.type} style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.13)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }} />
+                          <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.3rem" }}>{f.label}</label>
+                          <input required name={f.name} type={f.type} style={{ width: "100%", padding: "0.6rem 0.875rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.13)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }} />
                         </div>
                       ))}
                     </div>
                     {[{ label: "Email address", name: "email", type: "email" }, { label: "Organisation", name: "org", type: "text" }].map((f) => (
                       <div key={f.name}>
-                        <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>{f.label}</label>
-                        <input required={f.name === "email"} name={f.name} type={f.type} style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.13)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }} />
+                        <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.3rem" }}>{f.label}</label>
+                        <input required={f.name === "email"} name={f.name} type={f.type} style={{ width: "100%", padding: "0.6rem 0.875rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.13)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }} />
                       </div>
                     ))}
                     <div>
-                      <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>What are you interested in?</label>
-                      <select name="interest" style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.13)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }}>
+                      <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.3rem" }}>What are you interested in?</label>
+                      <select name="interest" style={{ width: "100%", padding: "0.6rem 0.875rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.13)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }}>
                         <option value="">Please select</option>
                         <option>Inclusion Consultancy</option>
                         <option>Inclusion Training</option>
@@ -178,21 +178,21 @@ export default function Contact() {
                       </select>
                     </div>
                     <div>
-                      <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>Tell us more</label>
-                      <textarea required name="message" rows={5} style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.13)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", resize: "vertical", boxSizing: "border-box" as const }} />
+                      <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.3rem" }}>Tell us more</label>
+                      <textarea required name="message" rows={5} style={{ width: "100%", padding: "0.6rem 0.875rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.13)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", resize: "vertical", boxSizing: "border-box" as const }} />
                     </div>
                     <button type="submit" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "#1A3220", border: "none", padding: "0.875rem 2rem", borderRadius: "8px", cursor: "pointer", alignSelf: "flex-start" }}>Send message</button>
                   </form>
 
                   {/* Right: what happens next */}
-                  <div style={{ background: "var(--sage-xlight)", borderRadius: "16px", padding: "2rem" }}>
+                  <div style={{ background: "var(--sage-xlight)", borderRadius: "16px", padding: "1.5rem" }}>
                     <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", margin: "0 0 1.5rem" }}>What happens next</h3>
                     {[
                       { step: "1", title: "You send your message", detail: "Fill in the form and hit send. It comes directly to Rebekah and the team." },
                       { step: "2", title: "We review your enquiry", detail: "We read every message carefully and make sure the right person picks it up." },
                       { step: "3", title: "We get back to you", detail: "You will hear from us within two working days with a helpful, considered response." },
                     ].map((item) => (
-                      <div key={item.step} style={{ display: "flex", gap: "1rem", marginBottom: "1.5rem" }}>
+                      <div key={item.step} style={{ display: "flex", gap: "0.75rem", marginBottom: "1rem" }}>
                         <div style={{ width: "28px", height: "28px", borderRadius: "50%", background: "#1A3220", color: "var(--white)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: "2px" }}>{item.step}</div>
                         <div>
                           <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--charcoal)", margin: "0 0 0.25rem" }}>{item.title}</p>
