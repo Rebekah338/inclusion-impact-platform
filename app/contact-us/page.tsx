@@ -127,48 +127,87 @@ export default function Contact() {
         </section>
 
 
-        <section id="contact-form" style={{ padding: "5rem 1.5rem", maxWidth: "640px", margin: "0 auto" }}>
-          {submitted ? (
-            <div style={{ textAlign: "center", padding: "4rem 2rem" }}>
-              <div style={{ fontSize: "2.5rem", marginBottom: "1.5rem" }}>✓</div>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.75rem", color: "var(--charcoal)", marginBottom: "1rem" }}>Message received</h2>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--charcoal)", lineHeight: 1.75, opacity: 0.8 }}>Thank you for getting in touch. We will be back to you within two working days.</p>
+        {/* CONTACT FORM */}
+        <section id="contact-form" style={{ background: "var(--white)", padding: "4rem 1.5rem" }}>
+          <div style={{ maxWidth: "960px", margin: "0 auto" }}>
+
+            {/* Section header */}
+            <div style={{ marginBottom: "2.5rem" }}>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.1)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.9rem" }}>Send a message</span>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.75rem)", color: "var(--charcoal)", margin: "0 0 0.5rem", lineHeight: 1.15 }}>Prefer to inquire via message?</h2>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "rgba(0,0,0,0.6)", margin: 0, lineHeight: 1.7 }}>Fill in the form below and we will get back to you within two working days.</p>
             </div>
-          ) : (
-            <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-                {[{ label: "First name", name: "firstName", type: "text" }, { label: "Last name", name: "lastName", type: "text" }].map((f) => (
-                  <div key={f.name}>
-                    <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.5rem" }}>{f.label}</label>
-                    <input required name={f.name} type={f.type} style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--white)", boxSizing: "border-box" as const }} />
-                  </div>
-                ))}
-              </div>
-              {[{ label: "Email address", name: "email", type: "email" }, { label: "Organisation", name: "org", type: "text" }].map((f) => (
-                <div key={f.name}>
-                  <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.5rem" }}>{f.label}</label>
-                  <input required={f.name === "email"} name={f.name} type={f.type} style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--white)", boxSizing: "border-box" as const }} />
+
+            {/* Two columns */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 380px", gap: "4rem", alignItems: "start" }}>
+
+              {/* Left: form */}
+              {submitted ? (
+                <div style={{ textAlign: "center", padding: "4rem 2rem", gridColumn: "1 / -1" }}>
+                  <div style={{ fontSize: "2.5rem", marginBottom: "1.5rem" }}>✓</div>
+                  <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.75rem", color: "var(--charcoal)", marginBottom: "1rem" }}>Message received</h2>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--charcoal)", lineHeight: 1.75, opacity: 0.8 }}>Thank you for getting in touch. We will be back to you within two working days.</p>
                 </div>
-              ))}
-              <div>
-                <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.5rem" }}>What are you interested in?</label>
-                <select name="interest" style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--white)", boxSizing: "border-box" as const }}>
-                  <option value="">Please select</option>
-                  <option>Inclusion Consultancy</option>
-                  <option>Inclusion Training</option>
-                  <option>Bespoke Inclusion Resources</option>
-                  <option>Impact Platform membership</option>
-                  <option>Speaking or events</option>
-                  <option>Something else</option>
-                </select>
-              </div>
-              <div>
-                <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.5rem" }}>Tell us more</label>
-                <textarea required name="message" rows={5} style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--white)", resize: "vertical", boxSizing: "border-box" as const }} />
-              </div>
-              <button type="submit" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "var(--sage-dark)", border: "none", padding: "0.875rem 2rem", borderRadius: "8px", cursor: "pointer" }}>Send message</button>
-            </form>
-          )}
+              ) : (
+                <>
+                  <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                      {[{ label: "First name", name: "firstName", type: "text" }, { label: "Last name", name: "lastName", type: "text" }].map((f) => (
+                        <div key={f.name}>
+                          <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>{f.label}</label>
+                          <input required name={f.name} type={f.type} style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.13)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }} />
+                        </div>
+                      ))}
+                    </div>
+                    {[{ label: "Email address", name: "email", type: "email" }, { label: "Organisation", name: "org", type: "text" }].map((f) => (
+                      <div key={f.name}>
+                        <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>{f.label}</label>
+                        <input required={f.name === "email"} name={f.name} type={f.type} style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.13)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }} />
+                      </div>
+                    ))}
+                    <div>
+                      <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>What are you interested in?</label>
+                      <select name="interest" style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.13)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }}>
+                        <option value="">Please select</option>
+                        <option>Inclusion Consultancy</option>
+                        <option>Inclusion Training</option>
+                        <option>Bespoke Inclusion Resources</option>
+                        <option>Impact Platform membership</option>
+                        <option>Speaking or events</option>
+                        <option>Something else</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>Tell us more</label>
+                      <textarea required name="message" rows={5} style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.13)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", resize: "vertical", boxSizing: "border-box" as const }} />
+                    </div>
+                    <button type="submit" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "#1A3220", border: "none", padding: "0.875rem 2rem", borderRadius: "8px", cursor: "pointer", alignSelf: "flex-start" }}>Send message</button>
+                  </form>
+
+                  {/* Right: what happens next */}
+                  <div style={{ background: "var(--sage-xlight)", borderRadius: "16px", padding: "2rem" }}>
+                    <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", margin: "0 0 1.5rem" }}>What happens next</h3>
+                    {[
+                      { step: "1", title: "You send your message", detail: "Fill in the form and hit send. It comes directly to Rebekah and the team." },
+                      { step: "2", title: "We review your enquiry", detail: "We read every message carefully and make sure the right person picks it up." },
+                      { step: "3", title: "We get back to you", detail: "You will hear from us within two working days with a helpful, considered response." },
+                    ].map((item) => (
+                      <div key={item.step} style={{ display: "flex", gap: "1rem", marginBottom: "1.5rem" }}>
+                        <div style={{ width: "28px", height: "28px", borderRadius: "50%", background: "#1A3220", color: "var(--white)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, marginTop: "2px" }}>{item.step}</div>
+                        <div>
+                          <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--charcoal)", margin: "0 0 0.25rem" }}>{item.title}</p>
+                          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(0,0,0,0.6)", margin: 0, lineHeight: 1.6 }}>{item.detail}</p>
+                        </div>
+                      </div>
+                    ))}
+                    <div style={{ borderTop: "1px solid rgba(0,0,0,0.08)", paddingTop: "1.25rem", marginTop: "0.5rem" }}>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(0,0,0,0.55)", margin: 0, lineHeight: 1.6 }}>Prefer to talk? <a href="https://calendly.com/theinclusionedit" target="_blank" rel="noopener noreferrer" style={{ color: "var(--sage-dark)", fontWeight: 600, textDecoration: "underline" }}>Book a curiosity call</a> instead.</p>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
         </section>
 
         {/* NEWSLETTER */}
