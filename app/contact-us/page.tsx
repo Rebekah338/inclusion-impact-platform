@@ -262,11 +262,11 @@ export default function Contact() {
         </section>
 
         {/* NEWSLETTER */}
-        <section style={{ background: "var(--sage-xlight)", padding: "3.5rem 1.5rem" }}>
+        <section style={{ background: "var(--sage-xlight)", padding: "2rem 1.5rem" }}>
           <div style={{ maxWidth: "640px", margin: "0 auto", textAlign: "center" }}>
-            <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.12)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "1rem" }}>Stay connected</span>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", marginBottom: "0.5rem" }}>Become part of The Inclusion Edit community</h2>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", opacity: 0.75, lineHeight: 1.75, marginBottom: "2rem" }}>Subscribe to hear about the latest updates, podcast episodes, blogs, free resources and upcoming events.</p>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.12)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.75rem" }}>Stay connected</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.1rem, 2vw, 1.4rem)", color: "var(--charcoal)", marginBottom: "0.4rem" }}>Become part of The Inclusion Edit community</h2>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--charcoal)", opacity: 0.7, lineHeight: 1.65, marginBottom: "1.25rem" }}>Subscribe to hear about the latest updates, podcast episodes, blogs, free resources and upcoming events.</p>
             <NewsletterForm />
           </div>
         </section>
