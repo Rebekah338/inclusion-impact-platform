@@ -127,7 +127,55 @@ export default function Contact() {
         </section>
 
 
-        {/* CONTACT FORM */}
+        {/* EVENTS */}
+        <section style={{ background: "var(--sage-xlight)", padding: "3rem 1.5rem" }}>
+          <div style={{ maxWidth: "960px", margin: "0 auto" }}>
+
+            {/* Header */}
+            <div style={{ marginBottom: "2rem" }}>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.12)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.9rem" }}>Speaking and events</span>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.75rem)", color: "var(--charcoal)", margin: "0 0 0.5rem", lineHeight: 1.15 }}>Bring The Inclusion Edit to your event</h2>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "rgba(0,0,0,0.6)", margin: 0, lineHeight: 1.7, maxWidth: "580px" }}>We help event organisers create moments that move people: not just tick a box. Whether you need a keynote speaker, a panel voice, an exhibition presence, or a partner to co-host, we show up with substance.</p>
+            </div>
+
+            {/* Format cards */}
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem", marginBottom: "2rem" }}>
+              {[
+                {
+                  title: "Keynote and panel",
+                  detail: "We deliver talks and sit on panels for HR teams, education leads, people managers, and senior leaders — drawing on lived experience, research, and practical frameworks.",
+                  audiences: "HR; leadership; education; public sector",
+                },
+                {
+                  title: "Exhibition and partnerships",
+                  detail: "We exhibit at EDI, education, and HR events, and partner with other organisations to co-create event experiences that go beyond a stand and a leaflet.",
+                  audiences: "Conferences; sector summits; trade events",
+                },
+                {
+                  title: "Online events",
+                  detail: "We host and co-host webinars, virtual roundtables, and online learning events — helping you reach audiences across geographies with focused, engaging content.",
+                  audiences: "Webinars; roundtables; virtual summits",
+                },
+              ].map((card) => (
+                <div key={card.title} style={{ background: "var(--white)", borderRadius: "12px", padding: "1.5rem", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                  <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--charcoal)", margin: 0, lineHeight: 1.3 }}>{card.title}</h3>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(0,0,0,0.65)", margin: 0, lineHeight: 1.65, flexGrow: 1 }}>{card.detail}</p>
+                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.72rem", letterSpacing: "0.06em", color: "var(--sage-dark)", margin: 0, textTransform: "uppercase" }}>{card.audiences}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA nudge */}
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(0,0,0,0.55)", margin: 0, lineHeight: 1.7 }}>
+              Interested in working with us at your event?{" "}
+              <a href="https://calendly.com/theinclusionedit" target="_blank" rel="noopener noreferrer" style={{ color: "var(--sage-dark)", fontWeight: 600, textDecoration: "underline" }}>Book a curiosity call</a>
+              {" "}or use the form below to send us the details.
+            </p>
+
+          </div>
+        </section>
+
+        {/* CONTACT FORM */
         <section id="contact-form" style={{ background: "var(--white)", padding: "2.5rem 1.5rem" }}>
           <div style={{ maxWidth: "960px", margin: "0 auto" }}>
 
