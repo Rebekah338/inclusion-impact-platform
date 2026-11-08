@@ -11,7 +11,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--white)", margin: "0 0 0.4rem" }}>The Inclusion Edit</p>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(255,255,255,0.7)", margin: "0 0 0.75rem", letterSpacing: "0.04em" }}>Capacity. Capability. Change.</p>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(255,255,255,0.7)", margin: "0 0 0.3rem", letterSpacing: "0.04em" }}>Capacity. Capability. Change.</p>
           </div>
 
           {/* Social icons */}
@@ -45,8 +45,8 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Award + newsletter row — aligns under LinkedIn (leftmost icon) */}
-        <div style={{ display: "flex", alignItems: "baseline", gap: "1.25rem", marginBottom: "0.75rem", flexWrap: "wrap" }}>
+        {/* Award + newsletter row */}
+        <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: "0.75rem", flexWrap: "wrap", gap: "0.5rem" }}>
           <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.5)", margin: 0, fontStyle: "italic" }}>Recognised as an award-winning EDI consultancy by Corporate Vision</p>
           <a href="/subscribe" style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.6)", textDecoration: "underline", textDecorationColor: "rgba(255,255,255,0.3)", whiteSpace: "nowrap" }}>Sign up to our newsletter</a>
         </div>
