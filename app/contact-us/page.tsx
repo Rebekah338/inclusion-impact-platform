@@ -89,18 +89,18 @@ export default function Contact() {
         <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.08) 35%, rgba(201,168,76,0.18) 55%, transparent 100%)", zIndex: 1, pointerEvents: "none" }} />
         <div style={{ maxWidth: "1100px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0", position: "relative", zIndex: 3 }}>
           {[
-            { icon: "in", label: "LinkedIn", sub: "Connect with us", href: "https://www.linkedin.com/company/the-inclusion-edit" },
-            { icon: "✉", label: "Email", sub: "info@theinclusionedit.com", href: "mailto:info@theinclusionedit.com" },
-            { icon: "📸", label: "Instagram", sub: "@theinclusionedit", href: "https://www.instagram.com/theinclusionedit" },
-            { icon: "♪", label: "TikTok", sub: "@theinclusionedit", href: "https://www.tiktok.com/@theinclusionedit" },
-            { icon: "🎙", label: "Podcast", sub: "Listen on Spotify", href: "https://open.spotify.com/show/theinclusionedit" },
+            { label: "LinkedIn", sub: "Connect with us", href: "https://www.linkedin.com/company/the-inclusion-edit" },
+            { label: "Email", sub: "info@theinclusionedit.com", href: "mailto:info@theinclusionedit.com" },
+            { label: "Instagram", sub: "@theinclusionedit", href: "https://www.instagram.com/theinclusionedit" },
+            { label: "TikTok", sub: "@theinclusionedit", href: "https://www.tiktok.com/@theinclusionedit" },
+            { label: "Podcast", sub: "Listen on Spotify", href: "https://open.spotify.com/show/theinclusionedit" },
           ].map((item) => (
             <a key={item.label} href={item.href} target={item.href.startsWith("mailto") ? undefined : "_blank"} rel="noopener noreferrer"
               style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "0.75rem 1rem", flex: "1", textAlign: "center", textDecoration: "none", transition: "opacity 0.15s" }}
               onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.7")}
               onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
             >
-              <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.15rem", color: "var(--sage-dark)", letterSpacing: "-0.01em", lineHeight: 1.1 }}>{item.icon} {item.label}</span>
+              <span style={{ fontFamily: "var(--font-heading)", fontWeight: 500, fontSize: "0.95rem", color: "var(--sage-dark)", letterSpacing: "0.01em", lineHeight: 1.1 }}>{item.label}</span>
               <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", color: "#4a6a4a", letterSpacing: "0.04em", marginTop: "0.2rem", textTransform: "uppercase" }}>{item.sub}</span>
             </a>
           ))}
