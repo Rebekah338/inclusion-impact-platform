@@ -100,7 +100,7 @@ export default function Contact() {
               onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.7")}
               onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
             >
-              <span style={{ fontFamily: "var(--font-heading)", fontWeight: 500, fontSize: "0.95rem", color: "var(--sage-dark)", letterSpacing: "0.01em", lineHeight: 1.1 }}>{item.label}</span>
+              <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--sage-dark)", letterSpacing: "0.01em", lineHeight: 1.1 }}>{item.label}</span>
               <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", color: "#4a6a4a", letterSpacing: "0.04em", marginTop: "0.2rem", textTransform: "uppercase" }}>{item.sub}</span>
             </a>
           ))}
