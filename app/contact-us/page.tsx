@@ -178,7 +178,7 @@ export default function Contact() {
         {/* CONTACT FORM */}
         <section id="contact-form" style={{ position: "relative", padding: "2.5rem 1.5rem", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/Rebekah Presenting.jpg')", backgroundSize: "cover", backgroundPosition: "center 30%", zIndex: 0 }} />
-          <div style={{ position: "absolute", inset: 0, background: "rgba(232,240,232,0.82)", zIndex: 1 }} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(42,74,46,0.78)", zIndex: 1 }} />
           <div style={{ maxWidth: "960px", margin: "0 auto", position: "relative", zIndex: 2 }}>
 
             {/* Section header */}
