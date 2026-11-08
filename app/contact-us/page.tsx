@@ -60,7 +60,7 @@ export default function Contact() {
       <main>
       <section style={{ position: "relative", minHeight: "600px", display: "flex", alignItems: "center", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, #1A3220 0%, #243D28 40%, #2E5235 65%, rgba(46,82,53,0.4) 100%)", zIndex: 0 }} />
-          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/hero-contact.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 1 }} />
+          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/contact-hero.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 1 }} />
           
           {/* Logo top-right of hero */}
           <div style={{ position: "absolute", top: "1.75rem", right: "2rem", zIndex: 3 }}>
