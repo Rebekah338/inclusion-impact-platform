@@ -7,11 +7,14 @@ export default function SubscribePage() {
   return (
     <main>
       {/* Hero */}
-      <section style={{ background: "linear-gradient(135deg, #1A3220 0%, #2C4A31 60%, #2E5235 100%)", padding: "4rem 1.5rem 3rem" }}>
-        <div style={{ maxWidth: "640px", margin: "0 auto", textAlign: "center" }}>
-          <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", padding: "0.35rem 1rem", borderRadius: "20px", marginBottom: "1.25rem" }}>Newsletter</span>
-          <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2rem, 5vw, 2.75rem)", color: "var(--white)", margin: "0 0 1rem", lineHeight: 1.1 }}>Become part of The Inclusion Edit community</h1>
-          <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", color: "rgba(255,255,255,0.8)", margin: 0, lineHeight: 1.7 }}>Subscribe to hear about the latest updates, podcast episodes, blogs, free resources and upcoming events.</p>
+      <section style={{ position: "relative", minHeight: "600px", display: "flex", alignItems: "center", overflow: "hidden" }}>
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, #1A3220 0%, #2C4A31 60%, #2E5235 100%)", zIndex: 1 }} />
+        <div style={{ position: "relative", zIndex: 2, width: "100%", padding: "4rem 1.5rem 3rem" }}>
+          <div style={{ maxWidth: "640px", margin: "0 auto", textAlign: "center" }}>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", padding: "0.35rem 1rem", borderRadius: "20px", marginBottom: "1.25rem" }}>Newsletter</span>
+            <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2rem, 5vw, 2.75rem)", color: "var(--white)", margin: "0 0 1rem", lineHeight: 1.1 }}>Become part of The Inclusion Edit community</h1>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", color: "rgba(255,255,255,0.8)", margin: 0, lineHeight: 1.7 }}>Subscribe to hear about the latest updates, podcast episodes, blogs, free resources and upcoming events.</p>
+          </div>
         </div>
       </section>
 
