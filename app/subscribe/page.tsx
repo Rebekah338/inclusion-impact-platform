@@ -14,11 +14,11 @@ export default function SubscribePage() {
       <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/newsletter 1.jpg')", backgroundSize: "cover", backgroundPosition: "center 30%", zIndex: 0 }} />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(100deg, rgba(20,40,25,0.95) 0%, rgba(20,40,25,0.85) 38%, rgba(20,40,25,0.3) 70%, rgba(20,40,25,0.05) 100%)", zIndex: 1 }} />
-        <div style={{ position: "relative", zIndex: 2, width: "100%", padding: "4rem 1.5rem 3rem" }}>
-          <div style={{ maxWidth: "640px", margin: "0 auto", textAlign: "center" }}>
-            <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", padding: "0.35rem 1rem", borderRadius: "20px", marginBottom: "1.25rem" }}>Newsletter</span>
-            <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2rem, 5vw, 2.75rem)", color: "var(--white)", margin: "0 0 1rem", lineHeight: 1.1 }}>Become part of The Inclusion Edit community</h1>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", color: "rgba(255,255,255,0.8)", margin: 0, lineHeight: 1.7 }}>Get the inclusion thinking your organisation needs, straight to your inbox. Each edition, one concept unpacked properly, with practical tips you can use straight away. The kind of thinking we bring to organisations we work with; completely free.</p>
+        <div style={{ position: "relative", zIndex: 3, maxWidth: "1100px", width: "100%", margin: "0 auto", padding: "5.5rem 2rem 5rem" }}>
+          <div style={{ maxWidth: "560px" }}>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>Newsletter</span>
+            <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2rem, 5vw, 3rem)", color: "var(--white)", margin: "0 0 1.25rem", lineHeight: 1.08 }}>Become part of The Inclusion Edit community</h1>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", color: "rgba(255,255,255,0.82)", margin: 0, lineHeight: 1.75, maxWidth: "480px" }}>Get the inclusion thinking your organisation needs, straight to your inbox. Each edition, one concept unpacked properly, with practical tips you can use straight away. The kind of thinking we bring to organisations we work with; completely free.</p>
           </div>
         </div>
       </section>
