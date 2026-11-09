@@ -11,7 +11,7 @@ export default function AboutUs() {
       <main>
 
         {/* HERO */}
-        <section style={{ position: "relative", minHeight: "600px", display: "flex", alignItems: "center", overflow: "hidden" }}>
+        <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, #1A3220 0%, #243D28 40%, #2E5235 65%, rgba(46,82,53,0.4) 100%)", zIndex: 0 }} />
           <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/about-page.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 1 }} />
           <div style={{ position: "absolute", top: "1.75rem", right: "2rem", zIndex: 3 }}>
@@ -22,10 +22,10 @@ export default function AboutUs() {
             <div style={{ maxWidth: "560px" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>About The Inclusion Edit</span>
               <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.4rem, 5.5vw, 3.6rem)", color: "var(--white)", lineHeight: 1.08, marginBottom: "1.5rem" }}>
-                Capacity.<br />Capability.<br />Change.
+                Where Inclusive Practice<br />Meets Business Impact.
               </h1>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "1.1rem", color: "rgba(255,255,255,0.88)", lineHeight: 1.8, marginBottom: "2.25rem" }}>
-                We are an award-winning EDI consultancy and learning platform helping organisations across the UK, Bermuda and beyond build genuinely inclusive cultures.
+                Consultancy, training and a learning platform built around one belief: that capacity, capability and change are possible for every organisation.
               </p>
               <div style={{ display: "flex", gap: "0.875rem", flexWrap: "wrap" }}>
                 <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Work with us</Link>
