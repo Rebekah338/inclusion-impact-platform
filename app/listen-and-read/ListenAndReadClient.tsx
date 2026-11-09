@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Footer from "../components/Footer";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
@@ -12,7 +12,6 @@ const episodes = [
     guest: "Jasmine Fluker",
     img: "/podcast-ep01.png",
     episodeId: "0w3t9zJ4Epus7De7f2qaEL",
-    spotifyUrl: "https://open.spotify.com/episode/0w3t9zJ4Epus7De7f2qaEL",
   },
   {
     num: "02",
@@ -20,7 +19,6 @@ const episodes = [
     guest: "Rachel Woodley",
     img: "/podcast-ep02.png",
     episodeId: "1Ao9VHC2nZNTlovV0aFR7F",
-    spotifyUrl: "https://open.spotify.com/episode/1Ao9VHC2nZNTlovV0aFR7F",
   },
   {
     num: "03",
@@ -28,15 +26,13 @@ const episodes = [
     guest: "Mikaela Ian",
     img: "/podcast-ep03.png",
     episodeId: "2EtDVK3bk2Pe0DZ5KLEs0Q",
-    spotifyUrl: "https://open.spotify.com/episode/2EtDVK3bk2Pe0DZ5KLEs0Q",
   },
   {
     num: "04",
     title: "Inclusive Leadership and Accountability: Beyond Guilt and Fragility",
     guest: "Audrey Pantelis",
-    img: "/podcast-ep04.jpg",
+    img: "/podcast-ep04.png",
     episodeId: "4FzxntJ6f6ETuJOcDCN6bW",
-    spotifyUrl: "https://open.spotify.com/episode/4FzxntJ6f6ETuJOcDCN6bW",
   },
   {
     num: "05",
@@ -44,7 +40,6 @@ const episodes = [
     guest: "Richard Etienne",
     img: "/podcast-ep05.png",
     episodeId: "10V3WmyfGoOXyYjGAwPKjv",
-    spotifyUrl: "https://open.spotify.com/episode/10V3WmyfGoOXyYjGAwPKjv",
   },
   {
     num: "06",
@@ -52,15 +47,13 @@ const episodes = [
     guest: "Vanity Jenkins",
     img: "/podcast-ep06.png",
     episodeId: "3qvYKEi9PzSneZLvO90JWz",
-    spotifyUrl: "https://open.spotify.com/episode/3qvYKEi9PzSneZLvO90JWz",
   },
   {
     num: "07",
     title: "The Business Case for Inclusion: Leading with Courage and Compassion",
     guest: "Aggie Mutuma",
-    img: "/podcast-ep07.png",
+    img: "/podcast-ep07.jpg",
     episodeId: "3N9ln1rl5mcyRpA0ftVxNR",
-    spotifyUrl: "https://open.spotify.com/episode/3N9ln1rl5mcyRpA0ftVxNR",
   },
 ];
 
@@ -119,7 +112,17 @@ const tagColours: Record<string, string> = {
 };
 
 export default function ListenAndReadClient() {
-  const [activeEpisodeId, setActiveEpisodeId] = useState<string>("0w3t9zJ4Epus7De7f2qaEL");
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const stripRef = useRef<HTMLDivElement>(null);
+
+  const activeEpisode = episodes[activeIndex];
+
+  const scrollStrip = (direction: "left" | "right") => {
+    if (!stripRef.current) return;
+    const cardWidth = stripRef.current.scrollWidth / episodes.length;
+    stripRef.current.scrollBy({ left: direction === "right" ? cardWidth * 2 : -cardWidth * 2, behavior: "smooth" });
+  };
+
   return (
     <div style={{ background: "var(--white)", minHeight: "100vh" }}>
       <SiteNav />
@@ -174,34 +177,82 @@ export default function ListenAndReadClient() {
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.75rem)", color: "var(--charcoal)", margin: "0 0 0.5rem" }}>Honest conversations about inclusion</h2>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "rgba(0,0,0,0.6)", margin: "0 0 1.75rem", lineHeight: 1.7 }}>Real talk with practitioners, leaders and thinkers doing the work; not just talking about it. Available on Spotify.</p>
             </div>
-            {/* Spotify embed */}
-            <div style={{ borderRadius: "16px", overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.08)" }}>
-              <iframe
-                src={`https://open.spotify.com/embed/episode/${activeEpisodeId}?utm_source=generator&theme=0`}
-                width="100%"
-                height="352"
-                frameBorder="0"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"
-                style={{ display: "block" }}
-              />
+
+            {/* SPOTIFY PLAYER in dark green branded frame */}
+            <div style={{ background: "var(--sage-dark)", borderRadius: "16px", padding: "1.25rem", boxShadow: "0 6px 32px rgba(26,50,32,0.18)" }}>
+              {/* Now playing label */}
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.875rem", flexWrap: "wrap", gap: "0.5rem" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <span style={{ display: "inline-block", width: "7px", height: "7px", borderRadius: "50%", background: "#6dbf7e", boxShadow: "0 0 6px #6dbf7e" }} />
+                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.65)" }}>Now playing</span>
+                </div>
+                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "rgba(255,255,255,0.5)" }}>
+                  Episode {activeEpisode.num} of {episodes.length}
+                </span>
+              </div>
+              <div style={{ marginBottom: "0.75rem" }}>
+                <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", margin: "0 0 0.2rem", lineHeight: 1.35 }}>{activeEpisode.title}</p>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "rgba(255,255,255,0.6)", margin: 0 }}>with {activeEpisode.guest}</p>
+              </div>
+              {/* Spotify embed */}
+              <div style={{ borderRadius: "10px", overflow: "hidden" }}>
+                <iframe
+                  key={activeEpisode.episodeId}
+                  src={`https://open.spotify.com/embed/episode/${activeEpisode.episodeId}?utm_source=generator&theme=0`}
+                  width="100%"
+                  height="152"
+                  frameBorder="0"
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy"
+                  style={{ display: "block" }}
+                />
+              </div>
             </div>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(0,0,0,0.45)", marginTop: "1rem", textAlign: "center" }}>
-              Listen directly above or{" "}
-              <a href="https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM" target="_blank" rel="noopener noreferrer" style={{ color: "var(--sage-dark)", fontWeight: 600 }}>open in Spotify</a>.
-              {" "}Want to be a guest?{" "}
-              <Link href="/contact-us" style={{ color: "var(--sage-dark)", fontWeight: 600 }}>Get in touch</Link>.
-            </p>
+
             {/* EPISODE STRIP */}
-            <div style={{ marginTop: "1.75rem" }}>
-              <div style={{ display: "flex", overflowX: "auto", gap: "0.75rem", paddingBottom: "0.5rem", scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch", msOverflowStyle: "none", scrollbarWidth: "none" }}>
-                {episodes.map((ep) => (
+            <div style={{ marginTop: "1.25rem", background: "var(--sage-dark)", borderRadius: "14px", padding: "1rem 1rem 0.875rem" }}>
+              {/* Strip header */}
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.75rem" }}>
+                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.6)" }}>All episodes — tap to switch</span>
+                <div style={{ display: "flex", gap: "0.4rem" }}>
+                  <button
+                    onClick={() => scrollStrip("left")}
+                    aria-label="Scroll left"
+                    style={{ width: "28px", height: "28px", borderRadius: "50%", border: "1.5px solid rgba(255,255,255,0.3)", background: "rgba(255,255,255,0.08)", color: "var(--white)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.75rem", transition: "background 0.15s" }}
+                  >‹</button>
+                  <button
+                    onClick={() => scrollStrip("right")}
+                    aria-label="Scroll right"
+                    style={{ width: "28px", height: "28px", borderRadius: "50%", border: "1.5px solid rgba(255,255,255,0.3)", background: "rgba(255,255,255,0.08)", color: "var(--white)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.75rem", transition: "background 0.15s" }}
+                  >›</button>
+                </div>
+              </div>
+
+              {/* Thumbnail strip */}
+              <div
+                ref={stripRef}
+                style={{ display: "flex", overflowX: "auto", gap: "0.6rem", paddingBottom: "0.75rem", scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch", msOverflowStyle: "none", scrollbarWidth: "none" }}
+              >
+                {episodes.map((ep, i) => (
                   <button
                     key={ep.num}
-                    onClick={() => setActiveEpisodeId(ep.episodeId)}
+                    onClick={() => setActiveIndex(i)}
                     className="episode-strip-card"
                     title={`Ep ${ep.num}: ${ep.title} with ${ep.guest}`}
-                    style={{ padding: 0, border: activeEpisodeId === ep.episodeId ? "2.5px solid var(--sage-dark)" : "2.5px solid transparent", flex: "0 0 calc(25% - 0.57rem)", scrollSnapAlign: "start", borderRadius: "10px", overflow: "hidden", boxShadow: activeEpisodeId === ep.episodeId ? "0 0 0 3px rgba(74,106,74,0.18)" : "0 1px 8px rgba(0,0,0,0.08)", display: "block", cursor: "pointer", background: "none" }}
+                    style={{
+                      padding: 0,
+                      border: activeIndex === i ? "2.5px solid var(--white)" : "2.5px solid rgba(255,255,255,0.15)",
+                      flex: "0 0 calc(25% - 0.45rem)",
+                      scrollSnapAlign: "start",
+                      borderRadius: "8px",
+                      overflow: "hidden",
+                      boxShadow: activeIndex === i ? "0 0 0 3px rgba(255,255,255,0.15)" : "none",
+                      display: "block",
+                      cursor: "pointer",
+                      background: "none",
+                      opacity: activeIndex === i ? 1 : 0.65,
+                      transition: "opacity 0.15s, border 0.15s",
+                    }}
                   >
                     <img
                       src={ep.img}
@@ -211,11 +262,30 @@ export default function ListenAndReadClient() {
                   </button>
                 ))}
               </div>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "rgba(0,0,0,0.42)", marginTop: "0.6rem", textAlign: "center" }}>
-                Prefer to watch the video?{" "}
-                <a href={`https://open.spotify.com/episode/${activeEpisodeId}`} target="_blank" rel="noopener noreferrer" style={{ color: "var(--sage-dark)", fontWeight: 600 }}>Open this episode on Spotify.</a>
-              </p>
+
+              {/* Counter and hint */}
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", paddingTop: "0.1rem" }}>
+                {episodes.map((_, i) => (
+                  <div
+                    key={i}
+                    style={{
+                      width: activeIndex === i ? "18px" : "6px",
+                      height: "6px",
+                      borderRadius: "3px",
+                      background: activeIndex === i ? "var(--white)" : "rgba(255,255,255,0.3)",
+                      transition: "width 0.2s, background 0.2s",
+                    }}
+                  />
+                ))}
+              </div>
             </div>
+
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(0,0,0,0.45)", marginTop: "1rem", textAlign: "center" }}>
+              Listen directly above or{" "}
+              <a href="https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM" target="_blank" rel="noopener noreferrer" style={{ color: "var(--sage-dark)", fontWeight: 600 }}>open in Spotify</a>.
+              {" "}Want to be a guest?{" "}
+              <Link href="/contact-us" style={{ color: "var(--sage-dark)", fontWeight: 600 }}>Get in touch</Link>.
+            </p>
           </div>
         </section>
 
