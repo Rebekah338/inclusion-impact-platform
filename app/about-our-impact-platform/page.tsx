@@ -192,15 +192,14 @@ export default function Home() {
             <h1 style={{
               fontFamily: "var(--font-display)",
               fontWeight: 700,
-              fontSize: "clamp(2.75rem, 5.5vw, 4.75rem)",
-              lineHeight: 1.05,
+              fontSize: "clamp(2.4rem, 5.5vw, 3.6rem)",
+              lineHeight: 1.08,
               color: "var(--white)",
               maxWidth: "780px",
-              marginBottom: "1.25rem",
-              letterSpacing: "-0.02em",
+              marginBottom: "1.5rem",
             }}>
               Your Best People Stay<br />
-              Where They Feel<br />They Belong.
+              Where They Feel They Belong.
             </h1>
 
             <p style={{
