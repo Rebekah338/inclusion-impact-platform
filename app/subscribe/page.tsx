@@ -43,20 +43,66 @@ export default function SubscribePage() {
       </section>
 
       {/* What you get */}
-      <section style={{ background: "var(--sage-xlight)", padding: "2.5rem 1.5rem" }}>
-        <div style={{ maxWidth: "640px", margin: "0 auto" }}>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.2rem", color: "var(--charcoal)", marginBottom: "1.25rem", textAlign: "center" }}>What you will get</h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1rem" }}>
+      <section style={{ background: "var(--sage-xlight)", padding: "3.5rem 1.5rem" }}>
+        <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
+            <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.12)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.875rem" }}>What you will get</span>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.5rem, 3vw, 2rem)", color: "var(--charcoal)", margin: "0 0 0.75rem", lineHeight: 1.15 }}>Everything you need to do inclusion better</h2>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "rgba(0,0,0,0.6)", margin: 0, lineHeight: 1.7, maxWidth: "560px", marginLeft: "auto", marginRight: "auto" }}>Each edition is built around one idea; unpacked properly, with the evidence, the application and the honest take. Here is what lands in your inbox.</p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1rem" }}>
             {[
-              { emoji: "🎙️", label: "Podcast episodes", detail: "New episodes straight to your inbox as soon as they go live" },
-              { emoji: "📖", label: "Blogs and insights", detail: "Practical EDI thinking you can use with your team right away" },
-              { emoji: "🎁", label: "Free resources", detail: "Templates, tools and guides shared first with the community" },
-              { emoji: "📅", label: "Events and opportunities", detail: "Webinars, workshops and ways to connect with the EDI community" },
+              {
+                icon: "M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5",
+                label: "One inclusion concept, unpacked",
+                detail: "Each edition we go deep on one idea; no surface-level takes, no jargon. Just clear, substantive thinking."
+              },
+              {
+                icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4",
+                label: "How to apply it in your organisation",
+                detail: "Practical steps you can actually use the week you read it; not theory, but action."
+              },
+              {
+                icon: "M13 10V3L4 14h7v7l9-11h-7z",
+                label: "Tips to shift your culture",
+                detail: "Small, specific changes that move the needle on inclusion; for managers, HR professionals and EDI leads alike."
+              },
+              {
+                icon: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z",
+                label: "Honest takes on what works",
+                detail: "What the evidence actually says; not what sounds good in a training room, but what creates real, lasting change."
+              },
+              {
+                icon: "M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z",
+                label: "Podcast episodes and blogs",
+                detail: "New content from For the Love of EDI and The Inclusion Edit blog; straight to you as soon as it goes live."
+              },
+              {
+                icon: "M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z",
+                label: "Free resources and tools",
+                detail: "Templates, guides and frameworks shared first with subscribers; practical tools you can put straight into practice."
+              },
+              {
+                icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z",
+                label: "Events and opportunities",
+                detail: "Webinars, workshops and ways to connect with the EDI community; subscriber access before anyone else."
+              },
+              {
+                icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z",
+                label: "Built for people doing the work",
+                detail: "Whether you are a lone EDI lead, a manager handed inclusion, or an HR professional seeking buy-in; this is for you."
+              },
             ].map((item) => (
-              <div key={item.label} style={{ background: "var(--white)", borderRadius: "12px", padding: "1.25rem", border: "1px solid rgba(0,0,0,0.07)" }}>
-                <span style={{ fontSize: "1.5rem", display: "block", marginBottom: "0.5rem" }}>{item.emoji}</span>
-                <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--charcoal)", margin: "0 0 0.3rem" }}>{item.label}</p>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.83rem", color: "rgba(0,0,0,0.6)", margin: 0, lineHeight: 1.5 }}>{item.detail}</p>
+              <div key={item.label} style={{ background: "var(--white)", borderRadius: "12px", padding: "1.5rem", border: "1.5px solid rgba(74,99,71,0.12)", boxShadow: "0 1px 3px rgba(26,50,32,0.08)", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+                <div style={{ width: "40px", height: "40px", borderRadius: "10px", background: "rgba(74,99,71,0.08)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--sage-dark)" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                    <path d={item.icon} />
+                  </svg>
+                </div>
+                <div>
+                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--charcoal)", margin: "0 0 0.35rem", lineHeight: 1.3 }}>{item.label}</p>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.83rem", color: "rgba(0,0,0,0.6)", margin: 0, lineHeight: 1.6 }}>{item.detail}</p>
+                </div>
               </div>
             ))}
           </div>
