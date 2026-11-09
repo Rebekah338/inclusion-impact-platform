@@ -110,7 +110,7 @@ export default function SubscribePage() {
       </section>
 
       {/* Form */}
-      <section style={{ background: "var(--white)", padding: "3rem 1.5rem" }}>
+      <section style={{ background: "var(--white)", padding: "2rem 1.5rem" }}>
         <div style={{ maxWidth: "560px", margin: "0 auto" }}>
           {submitted ? (
             <div style={{ textAlign: "center", padding: "3rem 1rem" }}>
@@ -121,54 +121,53 @@ export default function SubscribePage() {
           ) : (
             <>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.5rem", color: "var(--charcoal)", margin: "0 0 1.75rem", textAlign: "center" }}>Sign up</h2>
-              <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} style={{ display: "flex", flexDirection: "column", gap: "1.1rem" }}>
+              <form onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }} style={{ display: "flex", flexDirection: "column", gap: "0.85rem" }}>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                   {[{ label: "First name", name: "first", required: true }, { label: "Last name", name: "last", required: true }].map((f) => (
                     <div key={f.name}>
                       <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>{f.label} {f.required && <span style={{ color: "#b91c1c" }}>*</span>}</label>
-                      <input required={f.required} name={f.name} type="text" style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }} />
+                      <input required={f.required} name={f.name} type="text" style={{ width: "100%", padding: "0.65rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }} />
                     </div>
                   ))}
                 </div>
                 <div>
                   <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>Job title</label>
-                  <input name="job" type="text" style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }} />
+                  <input name="job" type="text" style={{ width: "100%", padding: "0.65rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }} />
                 </div>
                 <div>
                   <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>Email address <span style={{ color: "#b91c1c" }}>*</span></label>
-                  <input required name="email" type="email" style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }} />
+                  <input required name="email" type="email" style={{ width: "100%", padding: "0.65rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }} />
                 </div>
-                <div>
-                  <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.6rem" }}>What sector do you work in?</label>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-                    {["Education", "NHS / Health", "Corporate", "Charity / Third sector", "Public sector", "Consultancy", "Other"].map((s) => (
-                      <label key={s} style={{ cursor: "pointer" }}>
-                        <input type="radio" name="sector" value={s} style={{ display: "none" }} />
-                        <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", padding: "0.4rem 0.9rem", borderRadius: "999px", border: "1.5px solid rgba(74,99,71,0.3)", color: "var(--sage-dark)", background: "var(--white)", cursor: "pointer", transition: "all 0.15s" }}
-                          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(74,99,71,0.08)"; (e.currentTarget as HTMLElement).style.borderColor = "var(--sage-dark)"; }}
-                          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "var(--white)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(74,99,71,0.3)"; }}
-                        >{s}</span>
-                      </label>
-                    ))}
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                  <div>
+                    <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>Sector</label>
+                    <select name="sector" style={{ width: "100%", padding: "0.65rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }}>
+                      <option value="">Please select</option>
+                      <option>Education</option>
+                      <option>NHS / Health</option>
+                      <option>Corporate</option>
+                      <option>Charity / Third sector</option>
+                      <option>Public sector</option>
+                      <option>Consultancy</option>
+                      <option>Other</option>
+                    </select>
                   </div>
-                </div>
-                <div>
-                  <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.6rem" }}>I am a...</label>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-                    {["EDI Lead", "HR / People professional", "Manager or leader", "Consultant", "Educator", "Other"].map((r) => (
-                      <label key={r} style={{ cursor: "pointer" }}>
-                        <input type="radio" name="role" value={r} style={{ display: "none" }} />
-                        <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", padding: "0.4rem 0.9rem", borderRadius: "999px", border: "1.5px solid rgba(74,99,71,0.3)", color: "var(--sage-dark)", background: "var(--white)", cursor: "pointer", transition: "all 0.15s" }}
-                          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(74,99,71,0.08)"; (e.currentTarget as HTMLElement).style.borderColor = "var(--sage-dark)"; }}
-                          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "var(--white)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(74,99,71,0.3)"; }}
-                        >{r}</span>
-                      </label>
-                    ))}
+                  <div>
+                    <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>I am a...</label>
+                    <select name="role" style={{ width: "100%", padding: "0.65rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }}>
+                      <option value="">Please select</option>
+                      <option>EDI Lead</option>
+                      <option>HR / People professional</option>
+                      <option>Manager or leader</option>
+                      <option>Consultant</option>
+                      <option>Educator</option>
+                      <option>Other</option>
+                    </select>
                   </div>
                 </div>
                 <div>
                   <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>How did you hear about us?</label>
-                  <select name="source" style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }}>
+                  <select name="source" style={{ width: "100%", padding: "0.65rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }}>
                     <option value="">Please select</option>
                     <option>LinkedIn</option>
                     <option>Instagram</option>
