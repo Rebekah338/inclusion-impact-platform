@@ -119,7 +119,7 @@ export default function ListenAndReadPage() {
             {/* Spotify embed */}
             <div style={{ borderRadius: "16px", overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.08)" }}>
               <iframe
-                src="https://open.spotify.com/embed/show/theinclusionedit?utm_source=generator&theme=0"
+                src="https://open.spotify.com/embed/show/3CgmJvGUkTUOiKQN0UmJWM?utm_source=generator&theme=0"
                 width="100%"
                 height="352"
                 frameBorder="0"
@@ -130,7 +130,7 @@ export default function ListenAndReadPage() {
             </div>
             <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(0,0,0,0.45)", marginTop: "1rem", textAlign: "center" }}>
               Listen directly above or{" "}
-              <a href="https://open.spotify.com/show/theinclusionedit" target="_blank" rel="noopener noreferrer" style={{ color: "var(--sage-dark)", fontWeight: 600 }}>open in Spotify</a>.
+              <a href="https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM" target="_blank" rel="noopener noreferrer" style={{ color: "var(--sage-dark)", fontWeight: 600 }}>open in Spotify</a>.
               {" "}Want to be a guest?{" "}
               <Link href="/contact-us" style={{ color: "var(--sage-dark)", fontWeight: 600 }}>Get in touch</Link>.
             </p>
