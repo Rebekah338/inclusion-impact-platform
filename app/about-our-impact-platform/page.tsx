@@ -79,6 +79,279 @@ const WATCH_ITEMS = {
   ],
 } as const;
 
+function PricingSection() {
+  const [path, setPath] = useState<"individual" | "org" | null>(null);
+  const [orgSize, setOrgSize] = useState<"small" | "mid" | "large" | "enterprise" | null>(null);
+
+  const individualTiers = [
+    {
+      name: "Individual Practitioner",
+      price: "£249",
+      desc: "For EDI practitioners, HR professionals and people managers building their own capability.",
+      features: [
+        "1 named user account",
+        "Full access to all platform modules",
+        "Inclusion AI tools",
+        "CPD certificate on completion",
+        "Tools and frameworks library",
+        "Evidence and research library",
+      ],
+      cta: "Join today",
+      highlight: false,
+    },
+    {
+      name: "Practitioner Plus",
+      price: "£449",
+      desc: "Everything in Individual, plus live learning and expert access for practitioners who want more.",
+      features: [
+        "Everything in Individual Practitioner",
+        "Monthly live group coaching sessions",
+        "Access to the Inclusion Editors peer community",
+        "Priority support from The Inclusion Edit team",
+        "Early access to new modules and tools",
+        "Annual strategy review session (1:1)",
+      ],
+      cta: "Join today",
+      highlight: true,
+    },
+  ];
+
+  const orgBands: Record<string, { name: string; price: string; seats: string; desc: string; features: string[]; dark?: boolean }> = {
+    small: {
+      name: "Growing Teams",
+      price: "£2,400",
+      seats: "10 seats",
+      desc: "For organisations with up to 49 employees.",
+      features: [
+        "10 named user accounts",
+        "Full access to all platform modules",
+        "Inclusion AI tools",
+        "Unlimited new starter access across all onboarding modules",
+        "Team progress dashboard",
+        "Organisation-wide CPD certificates",
+        "Priority support",
+      ],
+    },
+    mid: {
+      name: "Established Organisations",
+      price: "£4,800",
+      seats: "25 seats",
+      desc: "For organisations with 50 to 250 employees.",
+      features: [
+        "25 named user accounts",
+        "Full access to all platform modules",
+        "Inclusion AI tools",
+        "Unlimited new starter access across all onboarding modules",
+        "Bespoke reporting and insights",
+        "Dedicated account support",
+        "Consultancy add-ons available",
+      ],
+    },
+    large: {
+      name: "Enterprise",
+      price: "From £7,500",
+      seats: "Unlimited seats",
+      desc: "For organisations with 251 to 1,000 employees.",
+      features: [
+        "Unlimited user accounts",
+        "Full access to all platform modules",
+        "Inclusion AI tools",
+        "Bespoke onboarding and implementation support",
+        "Custom reporting and analytics",
+        "Dedicated account director",
+        "Consultancy and training packages available",
+      ],
+      dark: true,
+    },
+    enterprise: {
+      name: "Enterprise Plus",
+      price: "Custom",
+      seats: "Unlimited seats",
+      desc: "For organisations with 1,000 or more employees.",
+      features: [
+        "Everything in Enterprise",
+        "Bespoke platform configuration",
+        "Custom content and modules",
+        "Executive briefings and board-level support",
+        "Multi-site and international capability",
+        "SLA-backed account management",
+      ],
+      dark: true,
+    },
+  };
+
+  const orgSizeOptions = [
+    { id: "small" as const, label: "1 to 49 people" },
+    { id: "mid" as const, label: "50 to 250 people" },
+    { id: "large" as const, label: "251 to 1,000 people" },
+    { id: "enterprise" as const, label: "1,000 or more" },
+  ];
+
+  const activeBand = orgSize ? orgBands[orgSize] : null;
+
+  return (
+    <section style={{ padding: "5rem 1.5rem", background: "var(--sage-xlight)" }} aria-label="Membership options">
+      <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+
+        {/* Section header */}
+        <div style={{ textAlign: "center", marginBottom: "3rem" }}>
+          <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase" as const, letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--white)", border: "1px solid var(--sage-light)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1rem" }}>
+            Pricing
+          </span>
+          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "0.75rem" }}>
+            Find your membership
+          </h2>
+          <p style={{ fontFamily: "var(--font-body)", color: "var(--slate)", fontSize: "1.05rem", maxWidth: "460px", margin: "0 auto" }}>
+            Annual membership. No per-seat charges on organisational plans. Cancel any time.
+          </p>
+        </div>
+
+        {/* Path selector buttons */}
+        <div style={{ display: "flex", gap: "1rem", justifyContent: "center", marginBottom: "3rem", flexWrap: "wrap" as const }}>
+          {[
+            { id: "individual" as const, label: "Just me, for now" },
+            { id: "org" as const, label: "Me and my organisation" },
+          ].map((btn) => (
+            <button
+              key={btn.id}
+              onClick={() => { setPath(btn.id); if (btn.id === "individual") setOrgSize(null); }}
+              style={{
+                fontFamily: "var(--font-heading)",
+                fontWeight: 700,
+                fontSize: "0.95rem",
+                padding: "0.875rem 2rem",
+                borderRadius: "10px",
+                border: path === btn.id ? "2px solid var(--evergreen)" : "2px solid var(--sage-mid)",
+                background: path === btn.id ? "var(--evergreen)" : "var(--white)",
+                color: path === btn.id ? "var(--white)" : "var(--evergreen)",
+                cursor: "pointer",
+                transition: "all 0.18s",
+                minWidth: "220px",
+              }}
+            >
+              {btn.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Individual path */}
+        {path === "individual" && (
+          <div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem", maxWidth: "760px", margin: "0 auto" }}>
+              {individualTiers.map((tier) => (
+                <div key={tier.name} style={{ background: "var(--white)", borderRadius: "18px", padding: "2.25rem", border: tier.highlight ? "2px solid var(--evergreen)" : "1.5px solid var(--line)", boxShadow: tier.highlight ? "0 8px 40px rgba(74,99,71,0.16)" : "0 2px 12px rgba(0,0,0,0.04)", position: "relative" as const }}>
+                  {tier.highlight && (
+                    <div style={{ position: "absolute" as const, top: "-1px", left: "50%", transform: "translateX(-50%)", background: "var(--evergreen)", color: "var(--white)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", padding: "0.3rem 1rem", borderRadius: "0 0 8px 8px", whiteSpace: "nowrap" as const }}>
+                      Most popular
+                    </div>
+                  )}
+                  <div style={{ marginTop: tier.highlight ? "0.75rem" : 0 }}>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", textTransform: "uppercase" as const, letterSpacing: "0.08em", color: "var(--sage-dark)", marginBottom: "0.5rem" }}>{tier.name}</div>
+                    <div style={{ display: "flex", alignItems: "baseline", gap: "0.25rem", marginBottom: "0.875rem" }}>
+                      <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2.25rem", color: "var(--charcoal)" }}>{tier.price}</span>
+                      <span style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--slate)" }}>/year</span>
+                    </div>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--slate)", lineHeight: 1.65, marginBottom: "1.5rem" }}>{tier.desc}</p>
+                    <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2rem 0", display: "flex", flexDirection: "column" as const, gap: "0.625rem" }}>
+                      {tier.features.map((f) => (
+                        <li key={f} style={{ display: "flex", alignItems: "flex-start", gap: "0.625rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--ink)" }}>
+                          <span style={{ color: "var(--evergreen)", fontWeight: 700, flexShrink: 0 }}>✓</span>
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link href="/pricing" style={{ display: "block", textAlign: "center" as const, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", background: tier.highlight ? "var(--evergreen)" : "transparent", color: tier.highlight ? "var(--white)" : "var(--evergreen)", border: tier.highlight ? "none" : "2px solid var(--evergreen)" }}>
+                      {tier.cta}
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Org path */}
+        {path === "org" && (
+          <div>
+            {/* Size selector */}
+            <div style={{ textAlign: "center" as const, marginBottom: "2rem" }}>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", color: "var(--slate)", marginBottom: "1rem", textTransform: "uppercase" as const, letterSpacing: "0.08em" }}>
+                How many people are in your organisation?
+              </p>
+              <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" as const }}>
+                {orgSizeOptions.map((opt) => (
+                  <button
+                    key={opt.id}
+                    onClick={() => setOrgSize(opt.id)}
+                    style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", padding: "0.6rem 1.25rem", borderRadius: "8px", border: orgSize === opt.id ? "2px solid var(--evergreen)" : "1.5px solid var(--line)", background: orgSize === opt.id ? "var(--pale-sage)" : "var(--white)", color: orgSize === opt.id ? "var(--evergreen)" : "var(--slate)", cursor: "pointer", transition: "all 0.15s" }}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Band reveal */}
+            {activeBand && (
+              <div style={{ maxWidth: "680px", margin: "0 auto 2rem" }}>
+                <div style={{ background: activeBand.dark ? "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)" : "var(--white)", borderRadius: "18px", padding: "2.5rem", border: activeBand.dark ? "none" : "1.5px solid var(--line)", boxShadow: activeBand.dark ? "0 12px 40px rgba(26,50,32,0.22)" : "0 4px 20px rgba(26,50,32,0.08)", position: "relative" as const, overflow: "hidden" as const }}>
+                  {activeBand.dark && (
+                    <div style={{ position: "absolute" as const, top: "-60px", right: "-60px", width: "200px", height: "200px", borderRadius: "50%", border: "1.5px solid rgba(255,255,255,0.08)", pointerEvents: "none" as const }} />
+                  )}
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap" as const, gap: "1rem", marginBottom: "1.5rem" }}>
+                    <div>
+                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", textTransform: "uppercase" as const, letterSpacing: "0.12em", color: activeBand.dark ? "rgba(255,255,255,0.65)" : "var(--sage-dark)", marginBottom: "0.4rem" }}>{activeBand.name}</div>
+                      <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem" }}>
+                        <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2.5rem", color: activeBand.dark ? "var(--white)" : "var(--charcoal)" }}>{activeBand.price}</span>
+                        <span style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: activeBand.dark ? "rgba(255,255,255,0.65)" : "var(--slate)" }}>/year</span>
+                      </div>
+                    </div>
+                    <div style={{ background: activeBand.dark ? "rgba(255,255,255,0.12)" : "var(--sage-xlight)", borderRadius: "8px", padding: "0.5rem 1rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: activeBand.dark ? "var(--white)" : "var(--evergreen)" }}>
+                      {activeBand.seats}
+                    </div>
+                  </div>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: activeBand.dark ? "rgba(255,255,255,0.8)" : "var(--slate)", lineHeight: 1.65, marginBottom: "1.5rem" }}>{activeBand.desc}</p>
+                  <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2rem 0", display: "flex", flexDirection: "column" as const, gap: "0.6rem" }}>
+                    {activeBand.features.map((f) => (
+                      <li key={f} style={{ display: "flex", alignItems: "flex-start", gap: "0.625rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: activeBand.dark ? "rgba(255,255,255,0.88)" : "var(--ink)" }}>
+                        <span style={{ color: activeBand.dark ? "rgba(168,212,176,0.9)" : "var(--evergreen)", fontWeight: 700, flexShrink: 0 }}>✓</span>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link
+                    href={activeBand.dark ? "/contact" : "/pricing"}
+                    style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", padding: "0.75rem 2rem", borderRadius: "8px", textDecoration: "none", background: activeBand.dark ? "var(--white)" : "var(--evergreen)", color: activeBand.dark ? "var(--evergreen)" : "var(--white)" }}
+                  >
+                    {activeBand.dark ? "Talk to us" : "Get started"}
+                  </Link>
+                </div>
+
+                {/* Approver panel */}
+                <div style={{ marginTop: "1.5rem", background: "linear-gradient(160deg, #1A3220 0%, #1E3624 100%)", borderRadius: "14px", padding: "1.75rem 2rem", display: "flex", alignItems: "flex-start", gap: "1.25rem" }}>
+                  <div style={{ flexShrink: 0, width: "40px", height: "40px", borderRadius: "50%", background: "rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.1rem" }}>👤</div>
+                  <div>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "rgba(255,255,255,0.65)", marginBottom: "0.4rem" }}>For the approver</div>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.85)", lineHeight: 1.65, margin: 0 }}>
+                      Need to share this with a budget holder or procurement team? <Link href="/pricing" style={{ color: "rgba(168,212,176,0.95)", textDecoration: "underline", fontWeight: 600 }}>Download our one-page pricing summary</Link> or <Link href="/contact" style={{ color: "rgba(168,212,176,0.95)", textDecoration: "underline", fontWeight: 600 }}>get in touch for a formal quote</Link>.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Footer note */}
+        <p style={{ textAlign: "center" as const, fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--slate)", marginTop: "2.5rem" }}>
+          Every price is annual. No per-seat charges on organisational memberships. Cancel any time.{" "}
+          <Link href="/pricing" style={{ color: "var(--evergreen)", fontWeight: 600, textDecoration: "underline" }}>View full pricing details</Link>
+        </p>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<ReturnType<typeof searchContent>>([]);
@@ -881,81 +1154,7 @@ export default function Home() {
       </main>
 
         {/* MEMBERSHIP / PRICING */}
-        <section style={{ padding: "3.5rem 1.5rem", background: "var(--sage-xlight)" }} aria-label="Membership options">
-          <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-            <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--white)", border: "1px solid var(--sage-light)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1rem" }}>
-                Pricing
-              </span>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "0.75rem" }}>
-                Choose your membership
-              </h2>
-              <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.05rem", maxWidth: "440px", margin: "0 auto" }}>
-                Annual membership. Cancel any time.
-              </p>
-            </div>
-
-            <div className="pricing-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
-              {[
-                {
-                  tier: "Individual Practitioner", price: "£249", period: "/year",
-                  desc: "For EDI practitioners, HR professionals, and people managers building their own capability.",
-                  features: ["1 named user account", "Full access to all platform modules", "Inclusion AI tools", "CPD certificate on completion", "Tools and frameworks library", "Evidence and research library"],
-                  cta: "Join today", highlight: false,
-                },
-                {
-                  tier: "Growing Teams", price: "£2,400", period: "/year",
-                  desc: "For organisations with up to 500 employees.",
-                  features: ["Access for up to 5 team members", "Full access to all platform modules", "Inclusion AI tools", "Unlimited new starter access across all onboarding modules", "Team progress dashboard", "Organisation-wide certificates", "Priority support"],
-                  cta: "Get started", highlight: true,
-                },
-                {
-                  tier: "Established Organisations", price: "£4,800", period: "/year",
-                  desc: "For organisations with 501 to 2,000 employees.",
-                  features: ["Access for up to 10 team members", "Full access to all platform modules", "Inclusion AI tools", "Unlimited new starter access across all onboarding modules", "Bespoke reporting", "Dedicated account support", "Consultancy add-ons available"],
-                  cta: "Get started", highlight: false,
-                },
-              ].map((t) => (
-                <div key={t.tier} style={{
-                  background: "var(--white)", borderRadius: "20px", padding: "2.25rem",
-                  border: t.highlight ? "2px solid var(--sage)" : "1.5px solid var(--gray-border)",
-                  boxShadow: t.highlight ? "0 8px 40px rgba(92,131,96,0.18)" : "0 2px 12px rgba(0,0,0,0.04)",
-                  position: "relative",
-                }}>
-                  {t.highlight && (
-                    <div style={{ position: "absolute", top: "-1px", left: "50%", transform: "translateX(-50%)", background: "var(--sage-dark)", color: "white", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", textTransform: "uppercase", letterSpacing: "0.1em", padding: "0.3rem 1rem", borderRadius: "0 0 8px 8px" }}>
-                      Most chosen
-                    </div>
-                  )}
-                  <div style={{ marginTop: t.highlight ? "0.75rem" : 0 }}>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--sage-dark)", marginBottom: "0.5rem" }}>{t.tier}</div>
-                    <div style={{ display: "flex", alignItems: "baseline", gap: "0.25rem", marginBottom: "0.875rem" }}>
-                      <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2.25rem", color: "var(--charcoal)" }}>{t.price}</span>
-                      {t.period && <span style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--gray-soft)" }}>{t.period}</span>}
-                    </div>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--gray-soft)", lineHeight: 1.65, marginBottom: "1.5rem" }}>{t.desc}</p>
-                    <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2rem 0", display: "flex", flexDirection: "column", gap: "0.625rem" }}>
-                      {t.features.map((f) => (
-                        <li key={f} style={{ display: "flex", alignItems: "flex-start", gap: "0.625rem", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)" }}>
-                          <span style={{ color: "var(--sage)", fontWeight: 700, flexShrink: 0 }}>✓</span>
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
-                    <Link href="/pricing" className={t.highlight ? "btn-primary" : "btn-secondary"} style={{ width: "100%", textAlign: "center", display: "block" }}>
-                      {t.cta}
-                    </Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Enterprise line */}
-            <div style={{ textAlign: "center", marginTop: "2rem", fontFamily: "var(--font-body)", fontSize: "0.92rem", color: "var(--gray-soft)" }}>
-              For organisations with over 2,000 employees: <Link href="/contact" style={{ color: "var(--sage-dark)", fontWeight: 600, textDecoration: "underline" }}>contact us for a custom quote</Link>.
-            </div>
-          </div>
-        </section>
+        <PricingSection />
 
 
       {/* FOOTER */}
