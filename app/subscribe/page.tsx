@@ -93,7 +93,7 @@ export default function SubscribePage() {
                 detail: "Whether you are a lone EDI lead, a manager handed inclusion, or an HR professional seeking buy-in; this is for you."
               },
             ].map((item) => (
-              <div key={item.label} style={{ background: "var(--white)", borderRadius: "12px", padding: "1.5rem", border: "1.5px solid rgba(74,99,71,0.12)", boxShadow: "0 1px 3px rgba(26,50,32,0.08)", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+              <div key={item.label} style={{ background: "var(--white)", borderRadius: "12px", padding: "1.5rem", border: "2px solid rgba(44,74,49,0.22)", boxShadow: "0 4px 20px rgba(26,50,32,0.10)", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
                 <div style={{ width: "40px", height: "40px", borderRadius: "10px", background: "rgba(74,99,71,0.08)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--sage-dark)" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
                     <path d={item.icon} />
@@ -139,6 +139,34 @@ export default function SubscribePage() {
                   <input required name="email" type="email" style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }} />
                 </div>
                 <div>
+                  <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.6rem" }}>What sector do you work in?</label>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+                    {["Education", "NHS / Health", "Corporate", "Charity / Third sector", "Public sector", "Consultancy", "Other"].map((s) => (
+                      <label key={s} style={{ cursor: "pointer" }}>
+                        <input type="radio" name="sector" value={s} style={{ display: "none" }} />
+                        <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", padding: "0.4rem 0.9rem", borderRadius: "999px", border: "1.5px solid rgba(74,99,71,0.3)", color: "var(--sage-dark)", background: "var(--white)", cursor: "pointer", transition: "all 0.15s" }}
+                          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(74,99,71,0.08)"; (e.currentTarget as HTMLElement).style.borderColor = "var(--sage-dark)"; }}
+                          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "var(--white)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(74,99,71,0.3)"; }}
+                        >{s}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.6rem" }}>I am a...</label>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+                    {["EDI Lead", "HR / People professional", "Manager or leader", "Consultant", "Educator", "Other"].map((r) => (
+                      <label key={r} style={{ cursor: "pointer" }}>
+                        <input type="radio" name="role" value={r} style={{ display: "none" }} />
+                        <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", padding: "0.4rem 0.9rem", borderRadius: "999px", border: "1.5px solid rgba(74,99,71,0.3)", color: "var(--sage-dark)", background: "var(--white)", cursor: "pointer", transition: "all 0.15s" }}
+                          onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "rgba(74,99,71,0.08)"; (e.currentTarget as HTMLElement).style.borderColor = "var(--sage-dark)"; }}
+                          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "var(--white)"; (e.currentTarget as HTMLElement).style.borderColor = "rgba(74,99,71,0.3)"; }}
+                        >{r}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+                <div>
                   <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>How did you hear about us?</label>
                   <select name="source" style={{ width: "100%", padding: "0.75rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }}>
                     <option value="">Please select</option>
@@ -148,6 +176,7 @@ export default function SubscribePage() {
                     <option>Podcast</option>
                     <option>Word of mouth</option>
                     <option>Google search</option>
+                    <option>AI search (ChatGPT, Claude, etc.)</option>
                     <option>An event</option>
                     <option>Other</option>
                   </select>
