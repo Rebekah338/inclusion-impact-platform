@@ -199,9 +199,8 @@ export default function ListenAndReadPage() {
                     href={ep.spotifyUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    style={{ textDecoration: "none", display: "block", borderRadius: "14px", overflow: "hidden", boxShadow: "0 2px 12px rgba(0,0,0,0.08)", background: "var(--white)", transition: "transform 0.18s, box-shadow 0.18s" }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-3px)"; (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 6px 24px rgba(0,0,0,0.13)"; }}
-                    onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.transform = ""; (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 2px 12px rgba(0,0,0,0.08)"; }}
+                    className="episode-card"
+                    style={{ textDecoration: "none", display: "block", borderRadius: "14px", overflow: "hidden", boxShadow: "0 2px 12px rgba(0,0,0,0.08)", background: "var(--white)" }}
                   >
                     <img
                       src={ep.img}
