@@ -160,7 +160,7 @@ function BlogModal({ post, onClose }: { post: Blog; onClose: () => void }) {
             <div style={{ flex: 1 }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--sage-dark)", background: tagColours[post.tag] || "#e8f0e8", borderRadius: "4px", padding: "0.2rem 0.6rem", marginBottom: "0.5rem" }}>{post.tag}</span>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.1rem", color: "var(--charcoal)", margin: 0, lineHeight: 1.3 }}>{post.title}</h2>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "rgba(0,0,0,0.4)", margin: "0.3rem 0 0" }}>The Inclusion Edit · {post.date}</p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "rgba(0,0,0,0.4)", margin: "0.3rem 0 0" }}>Written by Rebekah Hayward, The Inclusion Editor</p>
             </div>
             <button onClick={onClose} aria-label="Close" style={{ background: "rgba(0,0,0,0.06)", border: "none", borderRadius: "50%", width: "32px", height: "32px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", color: "var(--charcoal)", flexShrink: 0 }}>✕</button>
           </div>
@@ -315,7 +315,7 @@ export default function ListenAndReadClient() {
                   <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--charcoal)", margin: "0 0 0.4rem", lineHeight: 1.35, flexGrow: 1 }}>{post.title}</h3>
                   <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "rgba(0,0,0,0.6)", margin: "0 0 0.875rem", lineHeight: 1.55 }}>{post.excerpt}</p>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "auto" }}>
-                    <span style={{ fontFamily: "var(--font-body)", fontSize: "0.73rem", color: "rgba(0,0,0,0.4)" }}>{post.date}</span>
+                    
                     <button onClick={() => setOpenBlog(post)} style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.76rem", color: "var(--sage-dark)", padding: 0 }}>Read more →</button>
                   </div>
                 </div>
