@@ -365,24 +365,24 @@ export default function ListenAndReadClient() {
         </section>
 
         {/* CTA */}
-        <section style={{ background: "var(--sage-dark)", padding: "3.5rem 1.5rem" }}>
+        <section style={{ background: "var(--white)", padding: "4rem 1.5rem" }}>
           <div style={{ maxWidth: "860px", margin: "0 auto" }}>
-            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", textAlign: "center", marginBottom: "0.5rem" }}>Enjoyed what you found here?</p>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.4rem, 2.5vw, 1.9rem)", color: "var(--white)", textAlign: "center", marginBottom: "2rem", lineHeight: 1.2 }}>There's more where that came from</h2>
+            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", textAlign: "center", marginBottom: "0.5rem" }}>Enjoyed what you found here?</p>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.4rem, 2.5vw, 1.9rem)", color: "var(--charcoal)", textAlign: "center", marginBottom: "2.25rem", lineHeight: 1.2 }}>There's more where that came from</h2>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem" }}>
               {/* Newsletter card */}
-              <div style={{ background: "rgba(255,255,255,0.1)", borderRadius: "16px", padding: "1.75rem", border: "1px solid rgba(255,255,255,0.15)", display: "flex", flexDirection: "column" }}>
-                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.55)", marginBottom: "0.75rem", display: "block" }}>Newsletter</span>
-                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.2rem", color: "var(--white)", margin: "0 0 0.65rem", lineHeight: 1.25 }}>Get more like this</h3>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.7, margin: "0 0 1.5rem", flex: 1 }}>Fresh thinking on inclusion, straight to your inbox. New episodes, articles and resources; no noise, just value.</p>
-                <Link href="/subscribe" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", display: "inline-block", textAlign: "center" }}>Sign up free →</Link>
+              <div style={{ background: "rgba(74,99,71,0.05)", borderRadius: "16px", padding: "2rem", border: "1.5px solid rgba(74,99,71,0.15)", display: "flex", flexDirection: "column", boxShadow: "0 4px 24px rgba(74,99,71,0.08)" }}>
+                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.75rem", display: "block" }}>Newsletter</span>
+                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.25rem", color: "var(--charcoal)", margin: "0 0 0.65rem", lineHeight: 1.25 }}>Get more like this</h3>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "rgba(0,0,0,0.6)", lineHeight: 1.7, margin: "0 0 1.5rem", flex: 1 }}>Fresh thinking on inclusion, straight to your inbox. New episodes, articles and resources; no noise, just value.</p>
+                <Link href="/subscribe" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", display: "inline-block", textAlign: "center" }}>Sign up free →</Link>
               </div>
               {/* Platform card */}
-              <div style={{ background: "rgba(255,255,255,0.1)", borderRadius: "16px", padding: "1.75rem", border: "1px solid rgba(255,255,255,0.15)", display: "flex", flexDirection: "column" }}>
-                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.55)", marginBottom: "0.75rem", display: "block" }}>Impact Platform</span>
-                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.2rem", color: "var(--white)", margin: "0 0 0.65rem", lineHeight: 1.25 }}>Ready to go deeper?</h3>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.7, margin: "0 0 1.5rem", flex: 1 }}>The Impact Platform gives you tools, resources and community to put inclusion into practice; not just think about it.</p>
-                <Link href="/platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", background: "rgba(255,255,255,0.15)", border: "1.5px solid rgba(255,255,255,0.4)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", display: "inline-block", textAlign: "center" }}>Explore the platform →</Link>
+              <div style={{ background: "rgba(74,99,71,0.05)", borderRadius: "16px", padding: "2rem", border: "1.5px solid rgba(74,99,71,0.15)", display: "flex", flexDirection: "column", boxShadow: "0 4px 24px rgba(74,99,71,0.08)" }}>
+                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.75rem", display: "block" }}>Impact Platform</span>
+                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.25rem", color: "var(--charcoal)", margin: "0 0 0.65rem", lineHeight: 1.25 }}>Ready to go deeper?</h3>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "rgba(0,0,0,0.6)", lineHeight: 1.7, margin: "0 0 1.5rem", flex: 1 }}>The Impact Platform gives you tools, resources and community to put inclusion into practice; not just think about it.</p>
+                <Link href="/platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", background: "var(--white)", border: "1.5px solid var(--sage-dark)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", display: "inline-block", textAlign: "center" }}>Learn more →</Link>
               </div>
             </div>
           </div>
