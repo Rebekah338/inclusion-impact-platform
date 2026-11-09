@@ -56,7 +56,7 @@ export default function SiteNav() {
     textDecoration: "none",
     padding: "0.4rem 0.65rem",
     borderRadius: "6px",
-    background: pathname === href ? "var(--sage-xlight)" : "transparent",
+    background: pathname === href ? "#d4e4d6" : "transparent",
     letterSpacing: "0.01em",
     whiteSpace: "nowrap" as const,
   });
@@ -78,8 +78,8 @@ export default function SiteNav() {
       >
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem", height: "68px", display: "flex", alignItems: "center", gap: "0.125rem" }}>
 
-          <Link href="/" aria-label="The Inclusion Edit home" style={{ textDecoration: "none", flexShrink: 0, marginRight: "0.75rem", display: "flex", alignItems: "center", padding: "0.3rem", borderRadius: "8px", background: pathname === "/" ? "var(--sage-light)" : "transparent", transition: "background 0.15s" }}
-            onMouseEnter={(e) => { if (pathname !== "/") e.currentTarget.style.background = "var(--sage-xlight)"; }}
+          <Link href="/" aria-label="The Inclusion Edit home" style={{ textDecoration: "none", flexShrink: 0, marginRight: "0.75rem", display: "flex", alignItems: "center", padding: "0.3rem", borderRadius: "8px", background: pathname === "/" ? "#d4e4d6" : "transparent", transition: "background 0.15s" }}
+            onMouseEnter={(e) => { if (pathname !== "/") e.currentTarget.style.background = "#d4e4d6"; }}
             onMouseLeave={(e) => { if (pathname !== "/") e.currentTarget.style.background = "transparent"; }}
           >
             <img src="/logo-short.png" alt="The Inclusion Edit" style={{ height: "42px", width: "auto", display: "block" }} />
@@ -89,7 +89,7 @@ export default function SiteNav() {
           <div style={{ display: "flex", gap: "0.125rem", flex: 1, alignItems: "center" }} className="site-nav-desktop">
 
             <Link href="/about-us" style={navLinkStyle("/about-us")}
-              onMouseEnter={(e) => { if (pathname !== "/about-us") e.currentTarget.style.background = "var(--sage-xlight)"; }}
+              onMouseEnter={(e) => { if (pathname !== "/about-us") e.currentTarget.style.background = "#d4e4d6"; }}
               onMouseLeave={(e) => { if (pathname !== "/about-us") e.currentTarget.style.background = "transparent"; }}
             >About</Link>
 
@@ -98,8 +98,8 @@ export default function SiteNav() {
               <button
                 onClick={() => setOfferOpen(!offerOpen)}
                 aria-expanded={offerOpen}
-                style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: isOfferActive ? "var(--sage-dark)" : "var(--charcoal)", background: isOfferActive || offerOpen ? "var(--sage-xlight)" : "transparent", border: "none", cursor: "pointer", padding: "0.4rem 0.65rem", borderRadius: "6px", letterSpacing: "0.01em", whiteSpace: "nowrap" as const, display: "flex", alignItems: "center", gap: "0.3rem" }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = "var(--sage-xlight)"; }}
+                style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: isOfferActive ? "var(--sage-dark)" : "var(--charcoal)", background: isOfferActive || offerOpen ? "#d4e4d6" : "transparent", border: "none", cursor: "pointer", padding: "0.4rem 0.65rem", borderRadius: "6px", letterSpacing: "0.01em", whiteSpace: "nowrap" as const, display: "flex", alignItems: "center", gap: "0.3rem" }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = "#d4e4d6"; }}
                 onMouseLeave={(e) => { if (!isOfferActive && !offerOpen) e.currentTarget.style.background = "transparent"; }}
               >
                 What We Offer
@@ -109,8 +109,8 @@ export default function SiteNav() {
                 <div role="menu" style={{ position: "absolute", top: "calc(100% + 8px)", left: 0, background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: "12px", boxShadow: "0 12px 40px rgba(0,0,0,0.13)", minWidth: "240px", overflow: "hidden", zIndex: 200 }}>
                   {WHAT_WE_OFFER.map((item, i) => (
                     <Link key={item.href} href={item.href} role="menuitem"
-                      style={{ display: "block", padding: "0.75rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: pathname === item.href ? 700 : 600, fontSize: "0.82rem", color: pathname === item.href ? "var(--sage-dark)" : "var(--charcoal)", textDecoration: "none", background: pathname === item.href ? "var(--sage-xlight)" : "transparent", borderBottom: i < WHAT_WE_OFFER.length - 1 ? "1px solid var(--gray-border)" : "none" }}
-                      onMouseEnter={(e) => { e.currentTarget.style.background = "var(--sage-xlight)"; }}
+                      style={{ display: "block", padding: "0.75rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: pathname === item.href ? 700 : 600, fontSize: "0.82rem", color: pathname === item.href ? "var(--sage-dark)" : "var(--charcoal)", textDecoration: "none", background: pathname === item.href ? "#d4e4d6" : "transparent", borderBottom: i < WHAT_WE_OFFER.length - 1 ? "1px solid var(--gray-border)" : "none" }}
+                      onMouseEnter={(e) => { e.currentTarget.style.background = "#d4e4d6"; }}
                       onMouseLeave={(e) => { if (pathname !== item.href) e.currentTarget.style.background = "transparent"; }}
                     >{item.label}</Link>
                   ))}
@@ -120,18 +120,18 @@ export default function SiteNav() {
 
             {/* Impact Platform — own tab */}
             <Link href="/about-our-impact-platform" style={navLinkStyle("/about-our-impact-platform")}
-              onMouseEnter={(e) => { if (pathname !== "/about-our-impact-platform") e.currentTarget.style.background = "var(--sage-xlight)"; }}
+              onMouseEnter={(e) => { if (pathname !== "/about-our-impact-platform") e.currentTarget.style.background = "#d4e4d6"; }}
               onMouseLeave={(e) => { if (pathname !== "/about-our-impact-platform") e.currentTarget.style.background = "transparent"; }}
             >Impact Platform</Link>
 
             {/* The Inclusion Business Case — own tab */}
             <Link href="/the-inclusion-business-case" style={navLinkStyle("/the-inclusion-business-case")}
-              onMouseEnter={(e) => { if (pathname !== "/the-inclusion-business-case") e.currentTarget.style.background = "var(--sage-xlight)"; }}
+              onMouseEnter={(e) => { if (pathname !== "/the-inclusion-business-case") e.currentTarget.style.background = "#d4e4d6"; }}
               onMouseLeave={(e) => { if (pathname !== "/the-inclusion-business-case") e.currentTarget.style.background = "transparent"; }}
             >The Business Case</Link>
 
             <Link href="/listen-and-read" style={navLinkStyle("/listen-and-read")}
-              onMouseEnter={(e) => { if (pathname !== "/listen-and-read") e.currentTarget.style.background = "var(--sage-xlight)"; }}
+              onMouseEnter={(e) => { if (pathname !== "/listen-and-read") e.currentTarget.style.background = "#d4e4d6"; }}
               onMouseLeave={(e) => { if (pathname !== "/listen-and-read") e.currentTarget.style.background = "transparent"; }}
             >Listen &amp; Read</Link>
 
@@ -140,8 +140,8 @@ export default function SiteNav() {
               <button
                 onClick={() => setContactOpen(!contactOpen)}
                 aria-expanded={contactOpen}
-                style={{ fontFamily: "var(--font-heading)", fontWeight: isContactActive ? 700 : 600, fontSize: "0.78rem", color: isContactActive ? "var(--sage-dark)" : "var(--charcoal)", padding: "0.45rem 0.625rem", borderRadius: "8px", background: isContactActive ? "var(--sage-xlight)" : "transparent", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem", whiteSpace: "nowrap" as const }}
-                onMouseEnter={(e) => { if (!isContactActive) (e.currentTarget as HTMLButtonElement).style.background = "var(--sage-xlight)"; }}
+                style={{ fontFamily: "var(--font-heading)", fontWeight: isContactActive ? 700 : 600, fontSize: "0.78rem", color: isContactActive ? "var(--sage-dark)" : "var(--charcoal)", padding: "0.45rem 0.625rem", borderRadius: "8px", background: isContactActive ? "#d4e4d6" : "transparent", border: "none", cursor: "pointer", display: "flex", alignItems: "center", gap: "0.3rem", whiteSpace: "nowrap" as const }}
+                onMouseEnter={(e) => { if (!isContactActive) (e.currentTarget as HTMLButtonElement).style.background = "#d4e4d6"; }}
                 onMouseLeave={(e) => { if (!isContactActive) (e.currentTarget as HTMLButtonElement).style.background = "transparent"; }}
               >
                 Contact
@@ -153,8 +153,8 @@ export default function SiteNav() {
                 <div role="menu" style={{ position: "absolute", top: "calc(100% + 8px)", left: 0, background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: "12px", boxShadow: "0 12px 40px rgba(0,0,0,0.13)", minWidth: "200px", overflow: "hidden", zIndex: 200 }}>
                   {CONTACT_LINKS.map((item, i) => (
                     <Link key={item.href} href={item.href} role="menuitem"
-                      style={{ display: "block", padding: "0.75rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: pathname === item.href ? 700 : 600, fontSize: "0.82rem", color: pathname === item.href ? "var(--sage-dark)" : "var(--charcoal)", textDecoration: "none", background: pathname === item.href ? "var(--sage-xlight)" : "transparent", borderBottom: i < CONTACT_LINKS.length - 1 ? "1px solid var(--gray-border)" : "none" }}
-                      onMouseEnter={(e) => { if (pathname !== item.href) e.currentTarget.style.background = "var(--sage-xlight)"; }}
+                      style={{ display: "block", padding: "0.75rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: pathname === item.href ? 700 : 600, fontSize: "0.82rem", color: pathname === item.href ? "var(--sage-dark)" : "var(--charcoal)", textDecoration: "none", background: pathname === item.href ? "#d4e4d6" : "transparent", borderBottom: i < CONTACT_LINKS.length - 1 ? "1px solid var(--gray-border)" : "none" }}
+                      onMouseEnter={(e) => { if (pathname !== item.href) e.currentTarget.style.background = "#d4e4d6"; }}
                       onMouseLeave={(e) => { if (pathname !== item.href) e.currentTarget.style.background = "transparent"; }}
                     >{item.label}</Link>
                   ))}
