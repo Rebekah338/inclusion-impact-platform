@@ -151,7 +151,7 @@ export default function Home() {
         <section
           style={{
             position: "relative",
-            minHeight: "clamp(520px, 68vh, 780px)",
+            minHeight: "100vh",
             display: "flex",
             alignItems: "center",
             overflow: "hidden",
@@ -180,8 +180,9 @@ export default function Home() {
           }} aria-hidden="true" />
 
           {/* Logo top-right of hero */}
-          <div style={{ position: "relative", zIndex: 2, maxWidth: "1200px", margin: "0 auto", padding: "5rem 2rem", width: "100%" }}>
-            <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>
+          <div style={{ position: "relative", zIndex: 2, maxWidth: "1100px", margin: "0 auto", padding: "5rem 2rem", width: "100%" }}>
+            <div style={{ maxWidth: "560px" }}>
+          <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>
               Inclusion AI Platform · Build inclusive, high-performing cultures
             </span>
 
@@ -200,11 +201,11 @@ export default function Home() {
 
             <p style={{
               fontFamily: "var(--font-body)",
-              fontSize: "clamp(1rem, 1.8vw, 1.15rem)",
-              color: "rgba(255,255,255,0.85)",
-              maxWidth: "580px",
-              marginBottom: "2.5rem",
-              lineHeight: 1.7,
+              fontSize: "1.1rem",
+              color: "rgba(255,255,255,0.88)",
+              maxWidth: "560px",
+              marginBottom: "2.25rem",
+              lineHeight: 1.8,
             }}>
               The practical knowledge, tools and support for organisations serious about getting inclusion right.
             </p>
@@ -237,6 +238,7 @@ export default function Home() {
                 <span key={t} style={{ fontFamily: "var(--font-heading)", fontSize: "0.78rem", fontWeight: 600, color: "rgba(255,255,255,0.65)", letterSpacing: "0.04em" }}>{t}</span>
               ))}
             </div>
+          </div>{/* /inner column */}
           </div>
         </section>
 
