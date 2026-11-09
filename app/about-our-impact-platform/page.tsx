@@ -319,7 +319,7 @@ function PricingSection() {
                 How many people are in your organisation?
               </p>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--slate)", marginBottom: "1rem", opacity: 0.8 }}>
-                If you are fewer than 50 people, the Individual or Practitioner Plus membership is the right fit for now.
+                Fewer than 50 people? Practitioner Plus or the Expert Track are built for you: go back and take a look.
               </p>
               <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" as const }}>
                 {orgSizeOptions.map((opt) => (
