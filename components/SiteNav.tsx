@@ -78,7 +78,7 @@ export default function SiteNav() {
       >
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem", height: "68px", display: "flex", alignItems: "center", gap: "0.125rem" }}>
 
-          <Link href="/" aria-label="The Inclusion Edit home" style={{ textDecoration: "none", flexShrink: 0, marginRight: "0.75rem", display: "flex", alignItems: "center", padding: "0.3rem", borderRadius: "8px", background: pathname === "/" ? "var(--sage-xlight)" : "transparent", transition: "background 0.15s" }}
+          <Link href="/" aria-label="The Inclusion Edit home" style={{ textDecoration: "none", flexShrink: 0, marginRight: "0.75rem", display: "flex", alignItems: "center", padding: "0.3rem", borderRadius: "8px", background: pathname === "/" ? "var(--sage-light)" : "transparent", transition: "background 0.15s" }}
             onMouseEnter={(e) => { if (pathname !== "/") e.currentTarget.style.background = "var(--sage-xlight)"; }}
             onMouseLeave={(e) => { if (pathname !== "/") e.currentTarget.style.background = "transparent"; }}
           >
