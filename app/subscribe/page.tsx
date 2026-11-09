@@ -1,11 +1,15 @@
 "use client";
 import { useState } from "react";
+import SiteNav from "@/components/SiteNav";
+import Footer from "../components/Footer";
 
 export default function SubscribePage() {
   const [submitted, setSubmitted] = useState(false);
 
   return (
-    <main>
+    <div style={{ background: "var(--white)", minHeight: "100vh" }}>
+      <SiteNav />
+      <main>
       {/* Hero */}
       <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, #1A3220 0%, #2C4A31 60%, #2E5235 100%)", zIndex: 1 }} />
@@ -15,6 +19,24 @@ export default function SubscribePage() {
             <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2rem, 5vw, 2.75rem)", color: "var(--white)", margin: "0 0 1rem", lineHeight: 1.1 }}>Become part of The Inclusion Edit community</h1>
             <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", color: "rgba(255,255,255,0.8)", margin: 0, lineHeight: 1.7 }}>Get the inclusion thinking your organisation needs, straight to your inbox. Each edition, one concept unpacked properly, with practical tips you can use straight away. The kind of thinking we bring to organisations we work with; completely free.</p>
           </div>
+        </div>
+      </section>
+
+      {/* Trust strip */}
+      <section style={{ padding: "0.6rem 1.5rem", background: "var(--sage-xlight)", borderBottom: "1px solid rgba(74,99,71,0.12)" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap" }}>
+          {[
+            { label: "100+", sub: "Subscribers and growing" },
+            { label: "Free, always", sub: "No paywall, ever" },
+            { label: "UK · Bermuda · US", sub: "Readers worldwide" },
+            { label: "One concept", sub: "Per edition; properly unpacked" },
+            { label: "Practical", sub: "Tips you can use straight away" },
+          ].map((item) => (
+            <div key={item.label} style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "0.75rem 1rem", flex: "1", textAlign: "center" }}>
+              <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--sage-dark)" }}>{item.label}</span>
+              <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", color: "#4a6a4a", marginTop: "0.2rem", textTransform: "uppercase", letterSpacing: "0.04em" }}>{item.sub}</span>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -88,6 +110,8 @@ export default function SubscribePage() {
           )}
         </div>
       </section>
-    </main>
+      </main>
+      <Footer />
+    </div>
   );
 }
