@@ -165,9 +165,9 @@ export default function SiteNav() {
 
           {/* CTA buttons */}
           <div style={{ display: "flex", gap: "0.625rem", alignItems: "center", flexShrink: 0, marginLeft: "0.5rem" }} className="site-nav-desktop">
-            <Link href="/sign-in" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--charcoal)", padding: "0.45rem 0.875rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", textDecoration: "none", whiteSpace: "nowrap" as const }}>Sign in</Link>
-            <Link href="/dashboard" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--sage-dark)", padding: "0.45rem 0.875rem", borderRadius: "8px", border: "1.5px solid var(--sage-dark)", textDecoration: "none", whiteSpace: "nowrap" as const }}>Dashboard</Link>
             <Link href="/pricing" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.45rem 1rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" as const }}>Join now</Link>
+            <Link href="/sign-in" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--charcoal)", padding: "0.45rem 0.875rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", textDecoration: "none", whiteSpace: "nowrap" as const }}>Sign in</Link>
+            <Link href="/dashboard" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--sage-dark)", padding: "0.45rem 0.875rem", borderRadius: "8px", border: "1.5px solid var(--sage-dark)", textDecoration: "none", whiteSpace: "nowrap" as const }}>Members Dashboard</Link>
           </div>
 
           {/* Mobile hamburger */}
@@ -216,9 +216,9 @@ export default function SiteNav() {
             )}
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
-            <Link href="/dashboard" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "transparent", border: "1.5px solid var(--sage-dark)", textDecoration: "none", textAlign: "center", padding: "0.72rem", borderRadius: "8px", display: "block" }}>Dashboard</Link>
             <Link href="/pricing" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "var(--sage-dark)", textDecoration: "none", textAlign: "center", padding: "0.75rem", borderRadius: "8px", display: "block" }}>Join now</Link>
             <Link href="/sign-in" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", color: "var(--charcoal)", textDecoration: "none", textAlign: "center", padding: "0.5rem", display: "block" }}>Sign in</Link>
+            <Link href="/dashboard" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "transparent", border: "1.5px solid var(--sage-dark)", textDecoration: "none", textAlign: "center", padding: "0.72rem", borderRadius: "8px", display: "block" }}>Members Dashboard</Link>
           </div>
         </div>
       )}
