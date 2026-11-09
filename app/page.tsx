@@ -287,9 +287,6 @@ This is exactly the kind of work The Inclusion Edit supports. The right starting
           {/* Left-to-right dark gradient overlay — glossy effect */}
           
           {/* Logo top-right of hero */}
-          <div style={{ position: "absolute", top: "1.75rem", right: "2rem", zIndex: 3 }}>
-            <img src="/logo-short.png" alt="The Inclusion Edit" style={{ height: "110px", width: "auto", objectFit: "contain" }} />
-          </div>
 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(100deg, rgba(20,40,25,0.95) 0%, rgba(20,40,25,0.85) 38%, rgba(20,40,25,0.3) 70%, rgba(20,40,25,0.05) 100%)", zIndex: 2 }} />
           {/* Content: left aligned */}
           <div style={{ position: "relative", zIndex: 3, maxWidth: "1100px", width: "100%", margin: "0 auto", padding: "5.5rem 2rem 5rem" }}>

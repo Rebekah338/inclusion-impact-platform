@@ -180,10 +180,6 @@ export default function Home() {
           }} aria-hidden="true" />
 
           {/* Logo top-right of hero */}
-          <div style={{ position: "absolute", top: "1.75rem", right: "2rem", zIndex: 3 }}>
-            <img src="/logo-short.png" alt="The Inclusion Edit" style={{ height: "110px", width: "auto", objectFit: "contain" }} />
-          </div>
-
           <div style={{ position: "relative", zIndex: 2, maxWidth: "1200px", margin: "0 auto", padding: "5rem 2rem", width: "100%" }}>
             <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>
               Inclusion AI Platform · Build inclusive, high-performing cultures
