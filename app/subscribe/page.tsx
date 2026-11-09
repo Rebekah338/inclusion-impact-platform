@@ -12,7 +12,8 @@ export default function SubscribePage() {
       <main>
       {/* Hero */}
       <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg, #1A3220 0%, #2C4A31 60%, #2E5235 100%)", zIndex: 1 }} />
+        <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/newsletter 1.jpg')", backgroundSize: "cover", backgroundPosition: "center 30%", zIndex: 0 }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(100deg, rgba(20,40,25,0.95) 0%, rgba(20,40,25,0.85) 38%, rgba(20,40,25,0.3) 70%, rgba(20,40,25,0.05) 100%)", zIndex: 1 }} />
         <div style={{ position: "relative", zIndex: 2, width: "100%", padding: "4rem 1.5rem 3rem" }}>
           <div style={{ maxWidth: "640px", margin: "0 auto", textAlign: "center" }}>
             <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", padding: "0.35rem 1rem", borderRadius: "20px", marginBottom: "1.25rem" }}>Newsletter</span>
