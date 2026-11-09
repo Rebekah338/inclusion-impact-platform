@@ -51,6 +51,11 @@ export default function Footer() {
           <a href="/subscribe" style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.6)", textDecoration: "underline", textDecorationColor: "rgba(255,255,255,0.3)", whiteSpace: "nowrap", marginRight: "2rem" }}>Sign up to our newsletter</a>
         </div>
 
+        {/* Logo stamp */}
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
+          <img src="/logo-short.png" alt="The Inclusion Edit" style={{ height: "52px", width: "auto", opacity: 0.75 }} />
+        </div>
+
         {/* Bottom bar */}
         <div style={{ borderTop: "1px solid rgba(255,255,255,0.15)", paddingTop: "0.75rem", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0.75rem" }}>
           <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.45)", margin: 0 }}>© 2026 The Inclusion Edit. All rights reserved.</p>

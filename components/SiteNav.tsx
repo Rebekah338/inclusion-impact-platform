@@ -78,10 +78,8 @@ export default function SiteNav() {
       >
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 1.5rem", height: "68px", display: "flex", alignItems: "center", gap: "0.125rem" }}>
 
-          <Link href="/" aria-label="The Inclusion Edit home" style={{ textDecoration: "none", flexShrink: 0, marginRight: "0.5rem" }}>
-            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.82rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--charcoal)" }}>
-              THE INCLUSION EDIT
-            </span>
+          <Link href="/" aria-label="The Inclusion Edit home" style={{ textDecoration: "none", flexShrink: 0, marginRight: "0.75rem", display: "flex", alignItems: "center" }}>
+            <img src="/logo-short.png" alt="The Inclusion Edit" style={{ height: "42px", width: "auto", display: "block" }} />
           </Link>
 
           {/* Desktop nav */}
