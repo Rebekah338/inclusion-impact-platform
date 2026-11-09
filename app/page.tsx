@@ -297,7 +297,7 @@ This is exactly the kind of work The Inclusion Edit supports. The right starting
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>Award-winning EDI consultancy and learning platform</span>
               <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.75rem, 5.5vw, 4.75rem)", lineHeight: 1.05, marginBottom: "1.5rem" }}>
                 <span style={{ color: "#F0E6C8" }}>Your Culture Is</span><br />
-                <span style={{ color: "#A8D4B0" }}>Your Competitive Edge.</span>
+                <span style={{ color: "#A8D4B0" }}>Your Competitive<br />Edge.</span>
               </h1>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "1.1rem", color: "rgba(255,255,255,0.88)", lineHeight: 1.8, marginBottom: "2.25rem" }}>
                 We help organisations move from good intentions to lasting inclusion, through consultancy, training, bespoke resources and an Impact Platform built for the people doing the work.
