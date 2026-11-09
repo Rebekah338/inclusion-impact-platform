@@ -17,20 +17,6 @@ const episodes = [
 
 const blogs = [
   {
-    title: "EDI matters more than ever, and that's why it's under attack",
-    date: "April 2025",
-    tag: "EDI & Politics",
-    excerpt: "From US elections to corporate backpedalling, EDI is under fire. But the coordinated effort to dismantle it tells you everything: it works, it challenges power, and that makes some people very uncomfortable.",
-    body: [
-      "Let's talk. Because if you've been paying attention, you've probably noticed that Equity, Diversity, and Inclusion (EDI) is under fire. From US elections to government policies to public corporate backpedalling, it seems like every other day someone is out here trying to convince us that EDI is 'divisive' or 'no longer needed.' And yet, here we are in 2025, still seeing discrimination, exclusion, and systemic barriers playing out before our eyes.",
-      "To assume that we live in a world where EDI is not necessary is not even a possibility, especially given the current climate. The fact that there's a coordinated effort to dismantle EDI efforts tells you everything you need to know: EDI works. It challenges the status quo, shifts power, and forces accountability. It enables access to those who historically have not had it, and aims to bring justice to the playing field. And that makes some people uncomfortable.",
-      "The backlash against EDI is planned. It's part of a wider push to maintain power structures that benefit a select few. When organisations and institutions finally start to take inclusion seriously, it means redistributing resources, amplifying marginalised voices, and making space at the table. That threatens the privileged, so they label EDI as 'woke' and 'divisive,' defund initiatives, and spread misinformation about what EDI actually is.",
-      "Let's be clear: EDI is not about exclusion or favouritism. It's about breaking down the barriers that have excluded people for generations. It's about equity, not just equality. It's about creating environments where everyone can thrive. And the evidence backs this up: diverse teams drive better results, inclusive organisations perform better, innovate more, and are more resilient.",
-      "So what can we do? Don't panic; the 'anti-woke' narrative is being sensationalised intentionally. In reality, many organisations are sticking to their commitment to EDI. Keep doing the work, invest in it, and call out misinformation when you see it. Education is key to dismantling false narratives, and those false narratives are harmful.",
-      "We will not let the weaponisation of EDI stop us from continuing to do the necessary work to achieve social justice. EDI is essential for a better world for everyone. So tell us: how are you showing up for EDI today?",
-    ],
-  },
-  {
     title: "Autism Acceptance Month: intersectionality and the workplace",
     date: "April 2025",
     tag: "Neurodiversity",
@@ -95,8 +81,33 @@ const blogs = [
       "Some starting points for leaders: model fallibility by sharing when you don't know something or got something wrong; invite dissent deliberately by asking 'what am I missing?' in meetings; respond visibly when someone speaks up; pay attention to whose ideas get heard and who tends to stay silent; and address exclusion in the moment, not later. Silence signals acceptance.",
     ],
   },
+  {
+    title: "Intersectionality, Pride and allyship: why accompliceship is the real call to action",
+    date: "2025",
+    tag: "Intersectionality",
+    excerpt: "Allyship can become a label you adopt once and move on. Accompliceship asks what you're actually willing to risk; your comfort, your social capital, your standing in a room.",
+    body: [
+      "Pride and social justice are deeply interconnected. You can't pull them apart if you're serious about change, because Pride didn't emerge from nowhere. It emerged from people fighting systems that excluded them. When we talk about LGBTQ+ inclusion as if it's a single, neat category, we miss something important: identity doesn't work in isolated layers.",
+      "Black and brown LGBTQ+ people often experience several forms of marginalisation at once; not one identity stacked neatly on top of another, but overlapping pressures that show up differently depending on context. This is what intersectionality actually means in practice: the way race, sexuality, gender, religion, class and other characteristics overlap to shape a person's experience of discrimination, rather than acting as separate, isolated categories. One useful way to think about this: identity is like a pie. Different slices can be more raised than others depending on the room you're in, the system you're navigating, or the history behind it.",
+      "One of the more uncomfortable threads in this conversation is religion; specifically how belief systems can be used to justify both racial and sexual oppression. A theology that doesn't side with the oppressed isn't really living up to its own values. That's not an attack on faith. It's a challenge to anyone, religious or not, to ask whether the systems they're part of are actually doing what they claim to do. Safe spaces are fragile when the systems around them haven't changed. You can build a sanctuary inside a structure that's still doing harm.",
+      "It's tempting to treat visibility as the goal: more representation, more seats at the table, more faces that look different in leadership. That matters. But it's not enough on its own. Real progress means dismantling the structural barriers that kept people excluded in the first place; not just inviting people into rooms that weren't built with them in mind. Inclusion has to be structural, intentional, intersectional, equitable, and ongoing.",
+      "One word keeps coming up in inclusion forums: accomplice. Allyship can sometimes get treated as a label; something you adopt once and call yourself. Accompliceship is different. It asks what you're actually willing to risk; not just what you're willing to say. Being an ally is a starting point. Being an accomplice means putting something on the line; your comfort, your social capital, your standing in a room; to actually move the needle. It's the difference between agreeing privately and acting publicly.",
+    ],
+  },
+  {
+    title: "Intersectionality: why one size never fits all in inclusion",
+    date: "2025",
+    tag: "Intersectionality",
+    excerpt: "Race, gender, class, disability, sexuality; people don't experience just one of these at a time. If your inclusion strategy ignores how these identities overlap, it's leaving people behind.",
+    body: [
+      "Here's the thing about inclusion: it's not a one-size-fits-all proposition. And yet so many inclusion strategies are built as if it is. They focus on one characteristic at a time; a gender initiative here, a race equity programme there; without ever asking how those identities overlap in a single person's experience. That's where intersectionality comes in.",
+      "The term was coined by legal scholar Kimberlé Crenshaw in 1989 to describe how race and gender combined to shape the specific discrimination Black women faced in ways that neither race frameworks nor gender frameworks alone could capture. It's since become one of the most important concepts in EDI; and one of the most misunderstood. Intersectionality isn't a synonym for 'diversity.' It's a framework for understanding how different aspects of a person's identity interact to create unique experiences of privilege and oppression.",
+      "In practice, this means a Black woman in the workplace isn't just navigating racism, and she's not just navigating sexism; she's navigating both at the same time, and the combination creates something distinct. The same logic applies across any combination of identities: a disabled Latinx employee, a working-class LGBTQ+ person, an older woman of colour. Each experiences the workplace differently, and those differences matter.",
+      "So what does this mean for your inclusion strategy? It means single-axis approaches have limits. Training that focuses only on gender misses the experience of women of colour. Initiatives that centre race without considering disability, class, or sexuality will leave gaps. Inclusion data that isn't broken down intersectionally will show you an averaged picture that may not reflect anyone's actual experience.",
+      "Building an intersectional approach means asking deeper questions at every stage: who is affected by this policy, and in what ways? Whose experience is centred in this programme? Who is likely to be left out? It means collecting and disaggregating data, involving the people most affected in the design process, and being willing to revisit initiatives that looked good on paper but didn't account for complexity. Inclusion that only works for some people isn't really inclusion.",
+    ],
+  },
 ];
-
 const tagColours: Record<string, string> = {
   "EDI & Politics": "#f0e8e8",
   Neurodiversity: "#e8eef0",
@@ -104,6 +115,7 @@ const tagColours: Record<string, string> = {
   Strategy: "#f0ede8",
   "Law & Practice": "#eee8f0",
   Leadership: "#e8f0ec",
+  Intersectionality: "#f0e8f4",
 };
 
 type Blog = typeof blogs[0];
