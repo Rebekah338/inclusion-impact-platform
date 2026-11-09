@@ -218,7 +218,7 @@ export default function Contact() {
           <div style={{ maxWidth: "560px", margin: "0 auto", textAlign: "center" }}>
             <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.12)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.75rem" }}>Stay connected</span>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.65rem)", color: "var(--charcoal)", marginBottom: "0.65rem", lineHeight: 1.2 }}>Become part of The Inclusion Edit community</h2>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "rgba(0,0,0,0.6)", lineHeight: 1.7, marginBottom: "1.5rem" }}>Subscribe to hear about the latest updates, podcast episodes, blogs, free resources and upcoming events.</p>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "rgba(0,0,0,0.6)", lineHeight: 1.7, marginBottom: "1.5rem" }}>One inclusion concept, unpacked properly; practical tips you can use straight away. The kind of thinking we bring to organisations we work with; completely free.</p>
             <Link href="/subscribe" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>Sign up to the newsletter →</Link>
           </div>
         </section>

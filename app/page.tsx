@@ -279,7 +279,7 @@ This is exactly the kind of work The Inclusion Edit supports. The right starting
       <main>
 
         {/* ── HERO ── */}
-        <section style={{ position: "relative", minHeight: "700px", display: "flex", alignItems: "center", overflow: "hidden" }}>
+        <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
           {/* Deep green gradient base */}
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, #1A3220 0%, #243D28 40%, #2E5235 65%, rgba(46,82,53,0.4) 100%)", zIndex: 0 }} />
           {/* Hero photo */}
@@ -700,7 +700,7 @@ This is exactly the kind of work The Inclusion Edit supports. The right starting
             <div style={{ background: "var(--sage-xlight)", border: "2.5px solid var(--sage)", borderRadius: "20px", padding: "1.25rem 1.5rem", textAlign: "center" }}>
               <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.875rem" }}>Stay in the loop</p>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.2rem", color: "var(--charcoal)", lineHeight: 1.25, marginBottom: "1rem" }}>Get inclusion insights straight to your inbox.</h2>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.75, opacity: 0.7, marginBottom: "1.25rem" }}>Practical tools, resources and EDI updates. No noise, no fluff.</p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.75, opacity: 0.7, marginBottom: "1.25rem" }}>One inclusion concept per edition, unpacked properly; practical tips you can use straight away. Completely free.</p>
               <a href="mailto:info@theinclusionedit.com?subject=Please%20add%20me%20to%20the%20newsletter" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--charcoal)", background: "var(--sage-light)", padding: "0.8rem 1.75rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>Join the Newsletter</a>
             </div>
           </div>
