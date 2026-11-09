@@ -70,7 +70,7 @@ export default function ListenAndReadPage() {
         {/* HERO */}
         <section style={{ position: "relative", minHeight: "420px", display: "flex", alignItems: "center", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, #1A3220 0%, #243D28 40%, #2E5235 65%, rgba(46,82,53,0.4) 100%)", zIndex: 0 }} />
-          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/hero-podcast.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 1 }} />
+          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/listen%20and%20read%201.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 1 }} />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(100deg, rgba(20,40,25,0.95) 0%, rgba(20,40,25,0.85) 38%, rgba(20,40,25,0.3) 70%, rgba(20,40,25,0.05) 100%)", zIndex: 2 }} />
           <div style={{ position: "relative", zIndex: 3, maxWidth: "1100px", width: "100%", margin: "0 auto", padding: "5rem 2rem" }}>
             <div style={{ maxWidth: "560px" }}>
