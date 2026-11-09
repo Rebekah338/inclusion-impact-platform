@@ -78,8 +78,8 @@ export default function FAQsPage() {
     <div style={{ background: "var(--white)", minHeight: "100vh" }}>
       <SiteNav />
       <main>
-        <section style={{ position: "relative", minHeight: "480px", display: "flex", alignItems: "center", overflow: "hidden" }}>
-          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/contact hero.jpg')", backgroundSize: "cover", backgroundPosition: "center 30%", zIndex: 0 }} />
+        <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
+          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/question.jpg')", backgroundSize: "cover", backgroundPosition: "center 65%", zIndex: 0 }} />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(100deg, rgba(20,40,25,0.95) 0%, rgba(20,40,25,0.85) 38%, rgba(20,40,25,0.3) 70%, rgba(20,40,25,0.05) 100%)", zIndex: 1 }} />
           <div style={{ position: "relative", zIndex: 3, maxWidth: "1100px", width: "100%", margin: "0 auto", padding: "5.5rem 2rem 5rem" }}>
             <div style={{ maxWidth: "560px" }}>
