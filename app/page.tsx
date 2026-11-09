@@ -293,9 +293,9 @@ This is exactly the kind of work The Inclusion Edit supports. The right starting
 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(100deg, rgba(20,40,25,0.95) 0%, rgba(20,40,25,0.85) 38%, rgba(20,40,25,0.3) 70%, rgba(20,40,25,0.05) 100%)", zIndex: 2 }} />
           {/* Content: left aligned */}
           <div style={{ position: "relative", zIndex: 3, maxWidth: "1100px", width: "100%", margin: "0 auto", padding: "5.5rem 2rem 5rem" }}>
-            <div style={{ maxWidth: "560px" }}>
+            <div style={{ maxWidth: "680px" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>Award-winning EDI consultancy and learning platform</span>
-              <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.75rem, 5.5vw, 4.75rem)", lineHeight: 1.05, marginBottom: "1.5rem", maxWidth: "480px" }}>
+              <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.4rem, 4.5vw, 3.8rem)", lineHeight: 1.05, marginBottom: "1.5rem", maxWidth: "640px" }}>
                 <span style={{ color: "#F0E6C8" }}>Your Culture Is</span><br />
                 <span style={{ color: "#A8D4B0" }}>Your Competitive<br />Edge.</span>
               </h1>
