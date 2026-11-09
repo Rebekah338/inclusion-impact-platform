@@ -24,6 +24,8 @@ export default function SiteNav() {
   const [mobileContactOpen, setMobileContactOpen] = useState(false);
   const offerRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
+  const userRef = useRef<HTMLDivElement>(null);
+  const [userOpen, setUserOpen] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -34,6 +36,9 @@ export default function SiteNav() {
       if (contactRef.current && !contactRef.current.contains(e.target as Node)) {
         setContactOpen(false);
       }
+      if (userRef.current && !userRef.current.contains(e.target as Node)) {
+        setUserOpen(false);
+      }
     }
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
@@ -43,6 +48,7 @@ export default function SiteNav() {
     setMobileOpen(false);
     setOfferOpen(false);
     setContactOpen(false);
+    setUserOpen(false);
   }, [pathname]);
 
   const isOfferActive = WHAT_WE_OFFER.some(l => pathname === l.href);
@@ -167,7 +173,34 @@ export default function SiteNav() {
           <div style={{ display: "flex", gap: "0.625rem", alignItems: "center", flexShrink: 0, marginLeft: "0.5rem" }} className="site-nav-desktop">
             <Link href="/pricing" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.45rem 1rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" as const }}>Join now</Link>
             <Link href="/sign-in" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--charcoal)", padding: "0.45rem 0.875rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", textDecoration: "none", whiteSpace: "nowrap" as const }}>Sign in</Link>
-            <Link href="/dashboard" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--sage-dark)", padding: "0.45rem 0.875rem", borderRadius: "8px", border: "1.5px solid var(--sage-dark)", textDecoration: "none", whiteSpace: "nowrap" as const }}>Members Dashboard</Link>
+            {/* User dropdown */}
+            <div ref={userRef} style={{ position: "relative" }}>
+              <button
+                onClick={() => setUserOpen(!userOpen)}
+                aria-haspopup="true"
+                aria-expanded={userOpen}
+                style={{ display: "flex", alignItems: "center", gap: "0.35rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--sage-dark)", background: "transparent", border: "1.5px solid var(--sage-dark)", padding: "0.45rem 0.875rem", borderRadius: "8px", cursor: "pointer", whiteSpace: "nowrap" as const }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = "#d4e4d6"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+              >
+                Member
+                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true" style={{ transition: "transform 0.2s", transform: userOpen ? "rotate(180deg)" : "rotate(0deg)" }}>
+                  <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+              {userOpen && (
+                <div role="menu" style={{ position: "absolute", top: "calc(100% + 0.5rem)", right: 0, minWidth: "180px", background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: "10px", boxShadow: "0 4px 20px rgba(26,50,32,0.10)", overflow: "hidden", zIndex: 100 }}>
+                  <Link href="/dashboard" role="menuitem" style={{ display: "block", padding: "0.75rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", textDecoration: "none", borderBottom: "1px solid var(--gray-border)" }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = "#d4e4d6"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+                  >My Platform</Link>
+                  <button role="menuitem" style={{ display: "block", width: "100%", padding: "0.75rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", background: "transparent", border: "none", textAlign: "left" as const, cursor: "pointer" }}
+                    onMouseEnter={(e) => { e.currentTarget.style.background = "#d4e4d6"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+                  >Sign out</button>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Mobile hamburger */}
@@ -218,7 +251,11 @@ export default function SiteNav() {
           <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem" }}>
             <Link href="/pricing" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "var(--sage-dark)", textDecoration: "none", textAlign: "center", padding: "0.75rem", borderRadius: "8px", display: "block" }}>Join now</Link>
             <Link href="/sign-in" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", color: "var(--charcoal)", textDecoration: "none", textAlign: "center", padding: "0.5rem", display: "block" }}>Sign in</Link>
-            <Link href="/dashboard" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "transparent", border: "1.5px solid var(--sage-dark)", textDecoration: "none", textAlign: "center", padding: "0.72rem", borderRadius: "8px", display: "block" }}>Members Dashboard</Link>
+            <div style={{ borderTop: "1px solid var(--gray-border)", paddingTop: "0.5rem", marginTop: "0.25rem" }}>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--sage-dark)", padding: "0.25rem 0", margin: 0 }}>Member area</p>
+              <Link href="/dashboard" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", color: "var(--charcoal)", textDecoration: "none", padding: "0.5rem 0", display: "block" }}>My Platform</Link>
+              <button style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", color: "var(--charcoal)", background: "none", border: "none", padding: "0.5rem 0", display: "block", cursor: "pointer", width: "100%", textAlign: "left" as const }}>Sign out</button>
+            </div>
           </div>
         </div>
       )}
