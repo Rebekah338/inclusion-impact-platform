@@ -81,110 +81,97 @@ const WATCH_ITEMS = {
 
 function PricingSection() {
   const [path, setPath] = useState<"individual" | "org" | null>(null);
-  const [orgSize, setOrgSize] = useState<"small" | "mid" | "large" | "enterprise" | null>(null);
+  const [orgSize, setOrgSize] = useState<"small" | "mid" | "large" | null>(null);
 
   const individualTiers = [
     {
       name: "Individual Practitioner",
       price: "£249",
-      desc: "For EDI practitioners, HR professionals and people managers building their own capability.",
+      headline: "Everything you need to stop guessing.",
+      desc: "Full access to the resource library, every learning module across all three pathways, templates and guides you can use the same day, and a way to track your own progress. Built for the person doing this work without a team around her yet.",
       features: [
         "1 named user account",
-        "Full access to all platform modules",
-        "Inclusion AI tools",
-        "CPD certificate on completion",
-        "Tools and frameworks library",
-        "Evidence and research library",
+        "Full resource library",
+        "All learning modules across all three pathways",
+        "Templates and guides",
+        "Progress tracking",
+        "Self-service: no AI tools or human support included",
       ],
-      cta: "Join today",
+      cta: "Start Your Membership",
       highlight: false,
     },
     {
       name: "Practitioner Plus",
       price: "£449",
-      desc: "Everything in Individual, plus live learning and expert access for practitioners who want more.",
+      headline: "For when you already know what to do, you just need more hours in the day.",
+      desc: "Everything in Individual, plus Inclusion AI tools and a full health check and action plan. The work that used to take you an evening now takes you an hour, and you walk into every conversation with evidence already behind you.",
       features: [
         "Everything in Individual Practitioner",
-        "Monthly live group coaching sessions",
-        "Access to the Inclusion Editors peer community",
-        "Priority support from The Inclusion Edit team",
-        "Early access to new modules and tools",
-        "Annual strategy review session (1:1)",
+        "Inclusion AI tools: policy audits, business case building, fairer hiring and more",
+        "Full inclusion health check and action plan",
+        "Advanced resources",
+        "AI-assisted, self-service: no scheduled time with a human expert",
       ],
-      cta: "Join today",
+      cta: "Upgrade to Practitioner Plus",
       highlight: true,
     },
   ];
 
-  const orgBands: Record<string, { name: string; price: string; seats: string; desc: string; features: string[]; dark?: boolean }> = {
+  const orgBands: Record<string, { name: string; price: string; seats: string; band: string; headline: string; desc: string; features: string[]; cta: string; dark?: boolean }> = {
     small: {
       name: "Growing Teams",
       price: "£2,400",
-      seats: "10 seats",
-      desc: "For organisations with up to 49 employees.",
+      seats: "10 full seats",
+      band: "50 to 250 employees",
+      headline: "Enough seats for the people doing the work, unlimited onboarding for everyone who joins.",
+      desc: "10 full seats for your champion and her wider HR or People team, covering everything in Practitioner Plus plus scheduled time with a real inclusion expert. Every new starter gets a consistent, guided onboarding, with no limit on how many and no extra charge as your team grows.",
       features: [
-        "10 named user accounts",
-        "Full access to all platform modules",
-        "Inclusion AI tools",
-        "Unlimited new starter access across all onboarding modules",
-        "Team progress dashboard",
-        "Organisation-wide CPD certificates",
-        "Priority support",
+        "10 full seats: everything in Practitioner Plus for each",
+        "Scheduled time with a real inclusion expert (Get Support)",
+        "Unlimited new starter onboarding links: no cap, no extra charge",
+        "New starter access: onboarding module only (four lessons, four videos, a quiz, a certificate)",
+        "Completion reporting and downloadable certificates",
+        "Visibility over who has completed onboarding",
       ],
+      cta: "Start Your Organisation Membership",
     },
     mid: {
       name: "Established Organisations",
       price: "£4,800",
-      seats: "25 seats",
-      desc: "For organisations with 50 to 250 employees.",
+      seats: "25 full seats",
+      band: "250 to 1,000 employees",
+      headline: "The same support, sized for a bigger team.",
+      desc: "25 full seats, the same unlimited onboarding for every new starter, and everything in Growing Teams. Need more full seats as you grow? They are available any time.",
       features: [
-        "25 named user accounts",
-        "Full access to all platform modules",
-        "Inclusion AI tools",
-        "Unlimited new starter access across all onboarding modules",
-        "Bespoke reporting and insights",
-        "Dedicated account support",
-        "Consultancy add-ons available",
+        "25 full seats: everything in Practitioner Plus for each",
+        "Everything included in Growing Teams",
+        "Unlimited new starter onboarding links: no cap, no extra charge",
+        "Additional full seats available as an add-on",
       ],
+      cta: "Start Your Organisation Membership",
     },
     large: {
       name: "Enterprise",
       price: "From £7,500",
-      seats: "Unlimited seats",
-      desc: "For organisations with 251 to 1,000 employees.",
+      seats: "Seats by agreement",
+      band: "1,000 or more employees",
+      headline: "Built around your organisation, not a fixed band.",
+      desc: "Full seat count, pricing and entitlements agreed around your organisation's size and structure. Unlimited onboarding, as standard.",
       features: [
-        "Unlimited user accounts",
-        "Full access to all platform modules",
-        "Inclusion AI tools",
-        "Bespoke onboarding and implementation support",
-        "Custom reporting and analytics",
-        "Dedicated account director",
-        "Consultancy and training packages available",
+        "Full seat count agreed per deal",
+        "Everything in Established Organisations",
+        "Unlimited new starter onboarding links",
+        "Custom entitlements: dedicated contact, custom reporting and more by agreement",
       ],
-      dark: true,
-    },
-    enterprise: {
-      name: "Enterprise Plus",
-      price: "Custom",
-      seats: "Unlimited seats",
-      desc: "For organisations with 1,000 or more employees.",
-      features: [
-        "Everything in Enterprise",
-        "Bespoke platform configuration",
-        "Custom content and modules",
-        "Executive briefings and board-level support",
-        "Multi-site and international capability",
-        "SLA-backed account management",
-      ],
+      cta: "Talk to Us",
       dark: true,
     },
   };
 
   const orgSizeOptions = [
-    { id: "small" as const, label: "1 to 49 people" },
-    { id: "mid" as const, label: "50 to 250 people" },
-    { id: "large" as const, label: "251 to 1,000 people" },
-    { id: "enterprise" as const, label: "1,000 or more" },
+    { id: "small" as const, label: "50 to 250 people" },
+    { id: "mid" as const, label: "250 to 1,000 people" },
+    { id: "large" as const, label: "1,000 or more" },
   ];
 
   const activeBand = orgSize ? orgBands[orgSize] : null;
@@ -251,6 +238,7 @@ function PricingSection() {
                       <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2.25rem", color: "var(--charcoal)" }}>{tier.price}</span>
                       <span style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--slate)" }}>/year</span>
                     </div>
+                    <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--charcoal)", lineHeight: 1.4, marginBottom: "0.5rem" }}>{tier.headline}</p>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--slate)", lineHeight: 1.65, marginBottom: "1.5rem" }}>{tier.desc}</p>
                     <ul style={{ listStyle: "none", padding: 0, margin: "0 0 2rem 0", display: "flex", flexDirection: "column" as const, gap: "0.625rem" }}>
                       {tier.features.map((f) => (
@@ -275,8 +263,11 @@ function PricingSection() {
           <div>
             {/* Size selector */}
             <div style={{ textAlign: "center" as const, marginBottom: "2rem" }}>
-              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", color: "var(--slate)", marginBottom: "1rem", textTransform: "uppercase" as const, letterSpacing: "0.08em" }}>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", color: "var(--slate)", marginBottom: "0.5rem", textTransform: "uppercase" as const, letterSpacing: "0.08em" }}>
                 How many people are in your organisation?
+              </p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--slate)", marginBottom: "1rem", opacity: 0.8 }}>
+                If you are fewer than 50 people, the Individual or Practitioner Plus membership is the right fit for now.
               </p>
               <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" as const }}>
                 {orgSizeOptions.map((opt) => (
@@ -300,7 +291,8 @@ function PricingSection() {
                   )}
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap" as const, gap: "1rem", marginBottom: "1.5rem" }}>
                     <div>
-                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", textTransform: "uppercase" as const, letterSpacing: "0.12em", color: activeBand.dark ? "rgba(255,255,255,0.65)" : "var(--sage-dark)", marginBottom: "0.4rem" }}>{activeBand.name}</div>
+                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", textTransform: "uppercase" as const, letterSpacing: "0.12em", color: activeBand.dark ? "rgba(255,255,255,0.65)" : "var(--sage-dark)", marginBottom: "0.25rem" }}>{activeBand.name}</div>
+                      <div style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: activeBand.dark ? "rgba(255,255,255,0.5)" : "var(--slate)", marginBottom: "0.4rem" }}>{activeBand.band}</div>
                       <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem" }}>
                         <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2.5rem", color: activeBand.dark ? "var(--white)" : "var(--charcoal)" }}>{activeBand.price}</span>
                         <span style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: activeBand.dark ? "rgba(255,255,255,0.65)" : "var(--slate)" }}>/year</span>
@@ -323,7 +315,7 @@ function PricingSection() {
                     href={activeBand.dark ? "/contact" : "/pricing"}
                     style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", padding: "0.75rem 2rem", borderRadius: "8px", textDecoration: "none", background: activeBand.dark ? "var(--white)" : "var(--evergreen)", color: activeBand.dark ? "var(--evergreen)" : "var(--white)" }}
                   >
-                    {activeBand.dark ? "Talk to us" : "Get started"}
+                    {activeBand.cta}
                   </Link>
                 </div>
 
