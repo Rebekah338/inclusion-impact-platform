@@ -382,7 +382,7 @@ export default function ListenAndReadClient() {
                 <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.75rem", display: "block" }}>Impact Platform</span>
                 <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.25rem", color: "var(--charcoal)", margin: "0 0 0.65rem", lineHeight: 1.25 }}>Ready to go deeper?</h3>
                 <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "rgba(0,0,0,0.6)", lineHeight: 1.7, margin: "0 0 1.5rem", flex: 1 }}>The Impact Platform gives you tools, resources and community to put inclusion into practice; not just think about it.</p>
-                <Link href="/platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", background: "var(--white)", border: "1.5px solid var(--sage-dark)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", display: "inline-block", textAlign: "center" }}>Learn more →</Link>
+                <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", background: "var(--white)", border: "1.5px solid var(--sage-dark)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", display: "inline-block", textAlign: "center" }}>Learn more →</Link>
               </div>
             </div>
           </div>
