@@ -18,7 +18,7 @@ export default function SubscribePage() {
           <div style={{ maxWidth: "560px" }}>
             <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>Newsletter</span>
             <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.4rem, 5.5vw, 3.6rem)", color: "var(--white)", margin: "0 0 1.5rem", lineHeight: 1.08 }}>Inclusion insight worth making time for: straight to your inbox.</h1>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "1.1rem", color: "rgba(255,255,255,0.88)", margin: 0, lineHeight: 1.8, marginBottom: "2.25rem" }}>Get the inclusion thinking your organisation needs, straight to your inbox. Each edition, one concept unpacked properly, with practical tips you can use straight away. The kind of thinking we bring to organisations we work with; completely free.</p>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "1.1rem", color: "rgba(255,255,255,0.88)", margin: 0, lineHeight: 1.8, marginBottom: "2.25rem" }}>Get the inclusion thinking your organisation needs. Each edition, one concept unpacked properly, with practical tips you can use straight away. The kind of thinking we bring to organisations we work with; completely free.</p>
           </div>
         </div>
       </section>
