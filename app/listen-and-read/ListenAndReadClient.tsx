@@ -128,7 +128,7 @@ function BlogModal({ post, onClose }: { post: Blog; onClose: () => void }) {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        style={{ background: "var(--white)", borderRadius: "16px", width: "100%", maxWidth: "680px", maxHeight: "82vh", display: "flex", flexDirection: "column", boxShadow: "0 24px 64px rgba(0,0,0,0.22)", overflow: "hidden" }}
+        style={{ background: "var(--white)", borderRadius: "16px", width: "100%", maxWidth: "860px", maxHeight: "88vh", display: "flex", flexDirection: "column", boxShadow: "0 24px 64px rgba(0,0,0,0.22)", overflow: "hidden" }}
       >
         {/* Modal header */}
         <div style={{ padding: "1.25rem 1.5rem 1rem", borderBottom: "1px solid rgba(0,0,0,0.07)", flexShrink: 0 }}>
