@@ -9,9 +9,12 @@ export default function Footer() {
         <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", flexWrap: "wrap", gap: "1rem", marginBottom: "1rem" }}>
 
           {/* Brand */}
-          <div>
-            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--white)", margin: "0 0 0.4rem" }}>The Inclusion Edit</p>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(255,255,255,0.7)", margin: "0 0 0.3rem", letterSpacing: "0.04em" }}>Capacity. Capability. Change.</p>
+          <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+            <img src="/logo-short.png" alt="The Inclusion Edit" style={{ height: "48px", width: "auto", flexShrink: 0 }} />
+            <div>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--white)", margin: "0 0 0.4rem" }}>The Inclusion Edit</p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(255,255,255,0.7)", margin: "0 0 0.3rem", letterSpacing: "0.04em" }}>Capacity. Capability. Change.</p>
+            </div>
           </div>
 
           {/* Social icons */}
@@ -49,11 +52,6 @@ export default function Footer() {
         <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: "0.75rem", flexWrap: "wrap", gap: "0.5rem" }}>
           <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.5)", margin: 0, fontStyle: "italic" }}>Recognised as an award-winning EDI consultancy by Corporate Vision</p>
           <a href="/subscribe" style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.6)", textDecoration: "underline", textDecorationColor: "rgba(255,255,255,0.3)", whiteSpace: "nowrap", marginRight: "2rem" }}>Sign up to our newsletter</a>
-        </div>
-
-        {/* Logo stamp */}
-        <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem" }}>
-          <img src="/logo-short.png" alt="The Inclusion Edit" style={{ height: "52px", width: "auto", opacity: 0.75 }} />
         </div>
 
         {/* Bottom bar */}
