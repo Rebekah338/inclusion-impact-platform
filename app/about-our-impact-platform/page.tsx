@@ -272,6 +272,11 @@ function PricingSection() {
                     <Link href="/pricing" style={{ display: "block", textAlign: "center" as const, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", background: tier.highlight ? "var(--evergreen)" : "transparent", color: tier.highlight ? "var(--white)" : "var(--evergreen)", border: tier.highlight ? "none" : "2px solid var(--evergreen)" }}>
                       {tier.cta}
                     </Link>
+                    {tier.highlight && (
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)", lineHeight: 1.6, marginTop: "1rem", marginBottom: 0, textAlign: "center" as const }}>
+                        This one is worth asking your employer about. It qualifies as professional development spend and many organisations will cover it.
+                      </p>
+                    )}
                   </div>
                 </div>
               ))}
