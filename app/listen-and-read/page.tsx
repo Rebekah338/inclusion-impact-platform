@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Footer from "../components/Footer";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
@@ -13,49 +16,56 @@ const episodes = [
     title: "Who We Are: The Power of Identity, Culture and Experience",
     guest: "Jasmine Fluker",
     img: "/podcast-ep01.png",
-    spotifyUrl: "https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM",
+    episodeId: "0w3t9zJ4Epus7De7f2qaEL",
+    spotifyUrl: "https://open.spotify.com/episode/0w3t9zJ4Epus7De7f2qaEL",
   },
   {
     num: "02",
     title: "Rest as Resistance: Addressing Women of Colour's Mental Health in the Workplace",
     guest: "Rachel Woodley",
     img: "/podcast-ep02.png",
-    spotifyUrl: "https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM",
+    episodeId: "1Ao9VHC2nZNTlovV0aFR7F",
+    spotifyUrl: "https://open.spotify.com/episode/1Ao9VHC2nZNTlovV0aFR7F",
   },
   {
     num: "03",
     title: "To Be Audacious: Women of Colour Moving Through Systems That Were Built Against Us",
     guest: "Mikaela Ian",
     img: "/podcast-ep03.png",
-    spotifyUrl: "https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM",
+    episodeId: "2EtDVK3bk2Pe0DZ5KLEs0Q",
+    spotifyUrl: "https://open.spotify.com/episode/2EtDVK3bk2Pe0DZ5KLEs0Q",
   },
   {
     num: "04",
     title: "Inclusive Leadership and Accountability: Beyond Guilt and Fragility",
     guest: "Audrey Pantelis",
     img: "/podcast-ep04.jpg",
-    spotifyUrl: "https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM",
+    episodeId: "4FzxntJ6f6ETuJOcDCN6bW",
+    spotifyUrl: "https://open.spotify.com/episode/4FzxntJ6f6ETuJOcDCN6bW",
   },
   {
     num: "05",
     title: "Listening to the Often Unheard: Introversion, Intersectionality and Inclusion",
     guest: "Richard Etienne",
     img: "/podcast-ep05.png",
-    spotifyUrl: "https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM",
+    episodeId: "10V3WmyfGoOXyYjGAwPKjv",
+    spotifyUrl: "https://open.spotify.com/episode/10V3WmyfGoOXyYjGAwPKjv",
   },
   {
     num: "06",
     title: "Beyond Diversity: Uprooting Anti-Blackness in Our Systems",
     guest: "Vanity Jenkins",
     img: "/podcast-ep06.png",
-    spotifyUrl: "https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM",
+    episodeId: "3qvYKEi9PzSneZLvO90JWz",
+    spotifyUrl: "https://open.spotify.com/episode/3qvYKEi9PzSneZLvO90JWz",
   },
   {
     num: "07",
     title: "The Business Case for Inclusion: Leading with Courage and Compassion",
     guest: "Aggie Mutuma",
     img: "/podcast-ep07.png",
-    spotifyUrl: "https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM",
+    episodeId: "3N9ln1rl5mcyRpA0ftVxNR",
+    spotifyUrl: "https://open.spotify.com/episode/3N9ln1rl5mcyRpA0ftVxNR",
   },
 ];
 
@@ -114,6 +124,7 @@ const tagColours: Record<string, string> = {
 };
 
 export default function ListenAndReadPage() {
+  const [activeEpisodeId, setActiveEpisodeId] = useState<string>("0w3t9zJ4Epus7De7f2qaEL");
   return (
     <div style={{ background: "var(--white)", minHeight: "100vh" }}>
       <SiteNav />
@@ -171,7 +182,7 @@ export default function ListenAndReadPage() {
             {/* Spotify embed */}
             <div style={{ borderRadius: "16px", overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.08)" }}>
               <iframe
-                src="https://open.spotify.com/embed/show/3CgmJvGUkTUOiKQN0UmJWM?utm_source=generator&theme=0"
+                src={`https://open.spotify.com/embed/episode/${activeEpisodeId}?utm_source=generator&theme=0`}
                 width="100%"
                 height="352"
                 frameBorder="0"
@@ -190,26 +201,24 @@ export default function ListenAndReadPage() {
             <div style={{ marginTop: "1.75rem" }}>
               <div style={{ display: "flex", overflowX: "auto", gap: "0.75rem", paddingBottom: "0.5rem", scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch", msOverflowStyle: "none", scrollbarWidth: "none" }}>
                 {episodes.map((ep) => (
-                  <a
+                  <button
                     key={ep.num}
-                    href={ep.spotifyUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    onClick={() => setActiveEpisodeId(ep.episodeId)}
                     className="episode-strip-card"
                     title={`Ep ${ep.num}: ${ep.title} — with ${ep.guest}`}
-                    style={{ textDecoration: "none", flex: "0 0 calc(25% - 0.57rem)", scrollSnapAlign: "start", borderRadius: "10px", overflow: "hidden", boxShadow: "0 1px 8px rgba(0,0,0,0.08)", display: "block" }}
+                    style={{ padding: 0, border: activeEpisodeId === ep.episodeId ? "2.5px solid var(--sage-dark)" : "2.5px solid transparent", flex: "0 0 calc(25% - 0.57rem)", scrollSnapAlign: "start", borderRadius: "10px", overflow: "hidden", boxShadow: activeEpisodeId === ep.episodeId ? "0 0 0 3px rgba(74,106,74,0.18)" : "0 1px 8px rgba(0,0,0,0.08)", display: "block", cursor: "pointer", background: "none" }}
                   >
                     <img
                       src={ep.img}
                       alt={`Episode ${ep.num}: ${ep.title}`}
                       style={{ width: "100%", display: "block", aspectRatio: "1 / 1", objectFit: "cover" }}
                     />
-                  </a>
+                  </button>
                 ))}
               </div>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "rgba(0,0,0,0.42)", marginTop: "0.6rem", textAlign: "center" }}>
                 Prefer to watch the video?{" "}
-                <a href="https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM" target="_blank" rel="noopener noreferrer" style={{ color: "var(--sage-dark)", fontWeight: 600 }}>View all episodes on Spotify.</a>
+<a href={`https://open.spotify.com/episode/${activeEpisodeId}`} target="_blank" rel="noopener noreferrer" style={{ color: "var(--sage-dark)", fontWeight: 600 }}>Open this episode on Spotify.</a>
               </p>
             </div>
           </div>
