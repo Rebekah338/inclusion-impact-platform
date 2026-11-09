@@ -169,19 +169,20 @@ export default function ListenAndReadClient() {
           </div>
         </section>
 
-        {/* PODCAST */}
-        <section id="podcast" style={{ background: "var(--white)", padding: "4rem 1.5rem" }}>
+        {/* PODCAST — tighter padding */}
+        <section id="podcast" style={{ background: "var(--white)", padding: "2.5rem 1.5rem 2rem" }}>
           <div style={{ maxWidth: "860px", margin: "0 auto" }}>
-            <div style={{ marginBottom: "2rem" }}>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.1)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.75rem" }}>The podcast</span>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.75rem)", color: "var(--charcoal)", margin: "0 0 0.5rem" }}>Honest conversations about inclusion</h2>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "rgba(0,0,0,0.6)", margin: "0 0 1.75rem", lineHeight: 1.7 }}>Real talk with practitioners, leaders and thinkers doing the work; not just talking about it. Available on Spotify.</p>
+            {/* Section header — compact */}
+            <div style={{ marginBottom: "1.25rem" }}>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.1)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.5rem" }}>The podcast</span>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.75rem)", color: "var(--charcoal)", margin: "0 0 0.35rem" }}>Honest conversations about inclusion</h2>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "rgba(0,0,0,0.6)", margin: 0, lineHeight: 1.6 }}>Real talk with practitioners, leaders and thinkers doing the work; not just talking about it. Available on Spotify.</p>
             </div>
 
             {/* SPOTIFY PLAYER in dark green branded frame */}
             <div style={{ background: "var(--forest)", borderRadius: "16px", padding: "1.25rem", boxShadow: "0 6px 32px rgba(26,50,32,0.18)" }}>
               {/* Now playing label */}
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.875rem", flexWrap: "wrap", gap: "0.5rem" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.75rem", flexWrap: "wrap", gap: "0.5rem" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                   <span style={{ display: "inline-block", width: "7px", height: "7px", borderRadius: "50%", background: "#6dbf7e", boxShadow: "0 0 6px #6dbf7e" }} />
                   <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.65)" }}>Now playing</span>
@@ -210,9 +211,9 @@ export default function ListenAndReadClient() {
             </div>
 
             {/* EPISODE STRIP */}
-            <div style={{ marginTop: "1.25rem", background: "var(--forest)", borderRadius: "14px", padding: "1rem 1rem 0.875rem" }}>
+            <div style={{ marginTop: "0.875rem", background: "var(--forest)", borderRadius: "14px", padding: "0.875rem 1rem 0.75rem" }}>
               {/* Strip header */}
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.75rem" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.65rem" }}>
                 <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.6)" }}>All episodes — tap to switch</span>
                 <div style={{ display: "flex", gap: "0.4rem" }}>
                   <button
@@ -231,7 +232,7 @@ export default function ListenAndReadClient() {
               {/* Thumbnail strip */}
               <div
                 ref={stripRef}
-                style={{ display: "flex", overflowX: "auto", gap: "0.6rem", paddingBottom: "0.75rem", scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch", msOverflowStyle: "none", scrollbarWidth: "none" }}
+                style={{ display: "flex", overflowX: "auto", gap: "0.6rem", paddingBottom: "0.65rem", scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch", msOverflowStyle: "none", scrollbarWidth: "none" }}
               >
                 {episodes.map((ep, i) => (
                   <button
@@ -263,8 +264,8 @@ export default function ListenAndReadClient() {
                 ))}
               </div>
 
-              {/* Counter and hint */}
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem", paddingTop: "0.1rem" }}>
+              {/* Dot-pill progress */}
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}>
                 {episodes.map((_, i) => (
                   <div
                     key={i}
@@ -280,37 +281,35 @@ export default function ListenAndReadClient() {
               </div>
             </div>
 
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(0,0,0,0.45)", marginTop: "1rem", textAlign: "center" }}>
+            {/* Footer note — no guest CTA */}
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(0,0,0,0.45)", marginTop: "0.875rem", textAlign: "center" }}>
               Listen directly above or{" "}
               <a href="https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM" target="_blank" rel="noopener noreferrer" style={{ color: "var(--sage-dark)", fontWeight: 600 }}>open in Spotify</a>.
-              {" "}Want to be a guest?{" "}
-              <Link href="/contact-us" style={{ color: "var(--sage-dark)", fontWeight: 600 }}>Get in touch</Link>.
             </p>
           </div>
         </section>
 
-        {/* DIVIDER */}
-        <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 1.5rem" }}>
-          <hr style={{ border: "none", borderTop: "1px solid rgba(0,0,0,0.08)", margin: 0 }} />
-        </div>
+        {/* BLOG — image background, low opacity */}
+        <section id="blogs" style={{ position: "relative", padding: "2.5rem 1.5rem 3rem", overflow: "hidden" }}>
+          {/* Background image at low opacity */}
+          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/team-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "center 30%", zIndex: 0 }} />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(244,247,244,0.92)", zIndex: 1 }} />
 
-        {/* BLOG */}
-        <section id="blogs" style={{ background: "var(--white)", padding: "4rem 1.5rem" }}>
-          <div style={{ maxWidth: "860px", margin: "0 auto" }}>
-            <div style={{ marginBottom: "2rem" }}>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.1)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.75rem" }}>The blog</span>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.75rem)", color: "var(--charcoal)", margin: "0 0 0.5rem" }}>Practical thinking on inclusion</h2>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "rgba(0,0,0,0.6)", margin: 0, lineHeight: 1.7 }}>Articles for HR professionals, people managers and leaders who want to do this well. Full articles on LinkedIn.</p>
+          <div style={{ maxWidth: "860px", margin: "0 auto", position: "relative", zIndex: 2 }}>
+            <div style={{ marginBottom: "1.25rem" }}>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.12)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.5rem" }}>The blog</span>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.75rem)", color: "var(--charcoal)", margin: "0 0 0.35rem" }}>Practical thinking on inclusion</h2>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "rgba(0,0,0,0.6)", margin: 0, lineHeight: 1.6 }}>Articles for HR professionals, people managers and leaders who want to do this well. Full articles on LinkedIn.</p>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1.25rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1rem" }}>
               {blogs.map((post) => (
-                <a key={post.title} href={post.href} target="_blank" rel="noopener noreferrer" style={{ display: "flex", flexDirection: "column", background: "var(--white)", border: "1px solid rgba(0,0,0,0.09)", borderRadius: "12px", padding: "1.5rem", textDecoration: "none", transition: "box-shadow 0.15s" }}>
-                  <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--sage-dark)", background: tagColours[post.tag] || "var(--sage-xlight)", borderRadius: "4px", padding: "0.2rem 0.6rem", marginBottom: "0.75rem", alignSelf: "flex-start" }}>{post.tag}</span>
-                  <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--charcoal)", margin: "0 0 0.5rem", lineHeight: 1.35, flexGrow: 1 }}>{post.title}</h3>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(0,0,0,0.6)", margin: "0 0 1rem", lineHeight: 1.6 }}>{post.excerpt}</p>
+                <a key={post.title} href={post.href} target="_blank" rel="noopener noreferrer" style={{ display: "flex", flexDirection: "column", background: "rgba(255,255,255,0.92)", border: "1px solid rgba(0,0,0,0.07)", borderRadius: "12px", padding: "1.25rem", textDecoration: "none", transition: "box-shadow 0.15s", backdropFilter: "blur(4px)" }}>
+                  <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--sage-dark)", background: tagColours[post.tag] || "var(--sage-xlight)", borderRadius: "4px", padding: "0.2rem 0.6rem", marginBottom: "0.65rem", alignSelf: "flex-start" }}>{post.tag}</span>
+                  <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--charcoal)", margin: "0 0 0.4rem", lineHeight: 1.35, flexGrow: 1 }}>{post.title}</h3>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "rgba(0,0,0,0.6)", margin: "0 0 0.875rem", lineHeight: 1.55 }}>{post.excerpt}</p>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <span style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(0,0,0,0.4)" }}>{post.date}</span>
-                    <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "var(--sage-dark)" }}>Read on LinkedIn →</span>
+                    <span style={{ fontFamily: "var(--font-body)", fontSize: "0.73rem", color: "rgba(0,0,0,0.4)" }}>{post.date}</span>
+                    <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.76rem", color: "var(--sage-dark)" }}>Read on LinkedIn →</span>
                   </div>
                 </a>
               ))}
