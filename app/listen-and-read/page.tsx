@@ -7,6 +7,58 @@ export const metadata = {
   description: "Podcast episodes and blog articles on equity, diversity and inclusion; from The Inclusion Edit.",
 };
 
+const episodes = [
+  {
+    num: "01",
+    title: "Who We Are: The Power of Identity, Culture and Experience",
+    guest: "Jasmine Fluker",
+    img: "/podcast-ep01.png",
+    spotifyUrl: "https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM",
+  },
+  {
+    num: "02",
+    title: "Rest as Resistance: Addressing Women of Colour's Mental Health in the Workplace",
+    guest: "Rachel Woodley",
+    img: "/podcast-ep02.png",
+    spotifyUrl: "https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM",
+  },
+  {
+    num: "03",
+    title: "To Be Audacious: Women of Colour Moving Through Systems That Were Built Against Us",
+    guest: "Mikaela Ian",
+    img: "/podcast-ep03.png",
+    spotifyUrl: "https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM",
+  },
+  {
+    num: "04",
+    title: "Inclusive Leadership and Accountability: Beyond Guilt and Fragility",
+    guest: "Audrey Pantelis",
+    img: "/podcast-ep04.jpg",
+    spotifyUrl: "https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM",
+  },
+  {
+    num: "05",
+    title: "Listening to the Often Unheard: Introversion, Intersectionality and Inclusion",
+    guest: "Richard Etienne",
+    img: "/podcast-ep05.png",
+    spotifyUrl: "https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM",
+  },
+  {
+    num: "06",
+    title: "Beyond Diversity: Uprooting Anti-Blackness in Our Systems",
+    guest: "Vanity Jenkins",
+    img: "/podcast-ep06.png",
+    spotifyUrl: "https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM",
+  },
+  {
+    num: "07",
+    title: "The Business Case for Inclusion: Leading with Courage and Compassion",
+    guest: "Aggie Mutuma",
+    img: "/podcast-ep07.png",
+    spotifyUrl: "https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM",
+  },
+];
+
 const blogs = [
   {
     title: "Why inclusion training fails: and what to do instead",
@@ -134,6 +186,37 @@ export default function ListenAndReadPage() {
               {" "}Want to be a guest?{" "}
               <Link href="/contact-us" style={{ color: "var(--sage-dark)", fontWeight: 600 }}>Get in touch</Link>.
             </p>
+            {/* EPISODE GRID */}
+            <div style={{ marginTop: "2.5rem" }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "rgba(0,0,0,0.5)", textAlign: "center", marginBottom: "1.5rem" }}>
+                Prefer to watch the video?{" "}
+                <a href="https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM" target="_blank" rel="noopener noreferrer" style={{ color: "var(--sage-dark)", fontWeight: 600 }}>View all episodes on Spotify.</a>
+              </p>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "1.25rem" }}>
+                {episodes.map((ep) => (
+                  <a
+                    key={ep.num}
+                    href={ep.spotifyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textDecoration: "none", display: "block", borderRadius: "14px", overflow: "hidden", boxShadow: "0 2px 12px rgba(0,0,0,0.08)", background: "var(--white)", transition: "transform 0.18s, box-shadow 0.18s" }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-3px)"; (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 6px 24px rgba(0,0,0,0.13)"; }}
+                    onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.transform = ""; (e.currentTarget as HTMLAnchorElement).style.boxShadow = "0 2px 12px rgba(0,0,0,0.08)"; }}
+                  >
+                    <img
+                      src={ep.img}
+                      alt={`Episode ${ep.num}: ${ep.title}`}
+                      style={{ width: "100%", display: "block", aspectRatio: "1 / 1", objectFit: "cover" }}
+                    />
+                    <div style={{ padding: "0.9rem 1rem 1.1rem" }}>
+                      <span style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--sage-dark)", opacity: 0.7 }}>Ep {ep.num}</span>
+                      <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--charcoal)", margin: "0.3rem 0 0.2rem", lineHeight: 1.35 }}>{ep.title}</p>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "#4a6a4a", margin: 0 }}>with {ep.guest}</p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
