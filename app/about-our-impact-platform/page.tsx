@@ -199,8 +199,8 @@ export default function Home() {
               marginBottom: "1.25rem",
               letterSpacing: "-0.02em",
             }}>
-              <span style={{ color: "#F0E6C8" }}>Your Culture Is</span><br />
-              <span style={{ color: "#A8D4B0" }}>Your Competitive<br />Edge.</span>
+              <span style={{ color: "#F0E6C8" }}>Your Best People Stay</span><br />
+              <span style={{ color: "#A8D4B0" }}>Where They Feel<br />They Belong.</span>
             </h1>
 
             <p style={{
@@ -211,7 +211,7 @@ export default function Home() {
               marginBottom: "2.5rem",
               lineHeight: 1.7,
             }}>
-              Where inclusive practice meets business impact.
+              The practical knowledge, tools and support for organisations serious about getting inclusion right.
             </p>
 
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.875rem", marginBottom: "2.5rem" }}>
