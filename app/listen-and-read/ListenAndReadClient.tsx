@@ -90,7 +90,7 @@ const blogs = [
       "Psychological safety is not the same as comfort. This is one of the most important distinctions to make, particularly for leaders. Psychological safety doesn't mean avoiding difficult conversations or protecting people from challenge. In fact, Edmondson's research shows that psychologically safe teams tend to report more errors; not because they make more, but because people feel safe enough to name them. A truly safe environment is one where challenge is welcomed, disagreement is heard, and accountability is possible without threat.",
       "It's also important to name that psychological safety is not equally distributed across teams. The experience of speaking up is shaped by identity: race, gender, disability, sexuality, seniority; all of these intersect to determine how risky it feels to raise your hand, challenge a decision, or flag a concern. A white male senior leader might experience the same team meeting very differently to a junior woman of colour. Building psychological safety means actively addressing those inequalities, not assuming safety exists because no one is visibly struggling.",
       "Building psychological safety isn't a one-off exercise; it's a leadership practice. Model fallibility by sharing when you don't know something or got something wrong; it gives others permission to do the same. Invite dissent deliberately; in meetings, actively ask what am I missing or who disagrees and why. Respond visibly when someone speaks up; whether you agree or not, acknowledge the contribution, because the response is what others are watching. Pay attention to whose ideas get heard, who tends to stay silent, where the energy in a room changes. Address exclusion when you see it; not later, not privately; in the moment. Silence signals acceptance.",
-      "If this resonated, we'd love to hear what it's bringing up for you. Book a call, or share it with someone who'd find it useful.",
+      "If this resonated with you, let's talk. We'd love to hear what it's bringing up for you. Or share it with someone who'd find this useful.",
     ],
   },
   {
@@ -175,10 +175,10 @@ function BlogModal({ post, onClose }: { post: Blog; onClose: () => void }) {
           {/* CTA block */}
           <div style={{ marginTop: "1.5rem", padding: "1.25rem", background: "rgba(74,99,71,0.07)", borderRadius: "10px", borderLeft: "3px solid var(--sage-dark)" }}>
             <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "rgba(0,0,0,0.7)", lineHeight: 1.65, margin: "0 0 0.875rem" }}>
-              If this resonated, we'd love to hear what it's bringing up for you. Book a call, or share it with someone who'd find it useful.
+              If this resonated with you, let's talk. We'd love to hear what it's bringing up for you. Or share it with someone who'd find this useful.
             </p>
             <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-              <Link href="/contact" onClick={onClose} style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.55rem 1.1rem", borderRadius: "7px", textDecoration: "none" }}>Book a call</Link>
+              <Link href="/contact" onClick={onClose} style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.55rem 1.1rem", borderRadius: "7px", textDecoration: "none" }}>Let's talk</Link>
               <a href={linkedInUrl} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--white)", background: "#0A66C2", padding: "0.55rem 1.1rem", borderRadius: "7px", textDecoration: "none" }}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
                 Share on LinkedIn
