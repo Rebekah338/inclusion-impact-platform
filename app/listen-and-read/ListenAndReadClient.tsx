@@ -134,6 +134,11 @@ type Blog = typeof blogs[0];
 
 function BlogModal({ post, onClose }: { post: Blog; onClose: () => void }) {
   const linkedInUrl = "https://www.linkedin.com/company/the-inclusion-edit";
+  const pageUrl = typeof window !== "undefined" ? window.location.href : "https://www.theinclusionedit.com/listen-and-read";
+  const shareText = encodeURIComponent(`"${post.title}" via The Inclusion Edit`);
+  const shareUrl = encodeURIComponent(pageUrl);
+  const emailSubject = encodeURIComponent(`Thought you'd find this useful: ${post.title}`);
+  const emailBody = encodeURIComponent(`Hi,\n\nI came across this article from The Inclusion Edit and thought you might find it interesting.\n\n"${post.title}"\n\nRead it here: ${pageUrl}\n\nHope it's useful!`);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -182,6 +187,10 @@ function BlogModal({ post, onClose }: { post: Blog; onClose: () => void }) {
               <a href={linkedInUrl} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--white)", background: "#0A66C2", padding: "0.55rem 1.1rem", borderRadius: "7px", textDecoration: "none" }}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
                 Share on LinkedIn
+              </a>
+              <a href={`mailto:?subject=${emailSubject}&body=${emailBody}`} style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--charcoal)", background: "rgba(0,0,0,0.07)", padding: "0.55rem 1.1rem", borderRadius: "7px", textDecoration: "none" }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                Share via email
               </a>
             </div>
           </div>
@@ -295,6 +304,27 @@ export default function ListenAndReadClient() {
               Listen directly above or{" "}
               <a href="https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM" target="_blank" rel="noopener noreferrer" style={{ color: "var(--sage-dark)", fontWeight: 600 }}>open in Spotify</a>.
             </p>
+            {/* Share bar */}
+            <div style={{ marginTop: "0.75rem", padding: "0.875rem 1rem", background: "rgba(74,99,71,0.07)", borderRadius: "12px", textAlign: "center" }}>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.45)", margin: "0 0 0.65rem" }}>Love this episode? Share it</p>
+              <div style={{ display: "flex", justifyContent: "center", gap: "0.6rem", flexWrap: "wrap" }}>
+                <a
+                  href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://open.spotify.com/episode/${activeEpisode.episodeId}`)}`}
+                  target="_blank" rel="noopener noreferrer"
+                  style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "var(--white)", background: "#0A66C2", padding: "0.5rem 1rem", borderRadius: "7px", textDecoration: "none" }}
+                >
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                  Share on LinkedIn
+                </a>
+                <a
+                  href={`mailto:?subject=${encodeURIComponent(`Podcast episode: ${activeEpisode.title}`)}&body=${encodeURIComponent(`Hi,\n\nI thought you might enjoy this episode of The Inclusion Edit podcast.\n\n"${activeEpisode.title}" with ${activeEpisode.guest}\n\nListen here: https://open.spotify.com/episode/${activeEpisode.episodeId}\n\nHope you find it useful!`)}`}
+                  style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "var(--charcoal)", background: "rgba(0,0,0,0.08)", padding: "0.5rem 1rem", borderRadius: "7px", textDecoration: "none" }}
+                >
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                  Share via email
+                </a>
+              </div>
+            </div>
           </div>
         </section>
 
