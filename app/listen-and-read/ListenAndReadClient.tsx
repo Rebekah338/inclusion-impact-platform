@@ -59,56 +59,56 @@ const episodes = [
 
 const blogs = [
   {
-    title: "Why inclusion training fails: and what to do instead",
-    date: "October 2024",
-    excerpt: "Most inclusion training ticks a box and changes nothing. Here is what the evidence says about what actually works.",
+    title: "EDI matters more than ever, and that\'s why it\'s under attack",
+    date: "April 2025",
+    excerpt: "From US elections to corporate backpedalling, EDI is under fire. But the coordinated effort to dismantle it tells you everything: it works, it challenges power, and that makes some people very uncomfortable.",
+    tag: "EDI & Politics",
+    href: "https://www.theinclusionedit.com/post/equity-diversity-inclusion-edi-matters-more-than-ever-that-s-why-it-s-under-attack-part-1",
+  },
+  {
+    title: "Autism Acceptance Month: why intersectionality matters",
+    date: "April 2025",
+    excerpt: "Black children are 2.6 times more likely to be misdiagnosed before receiving an autism diagnosis. Celebrating autism while ignoring racism and ableism isn\'t real acceptance; here are three workplace edits to change that.",
+    tag: "Neurodiversity",
+    href: "https://www.theinclusionedit.com/post/autism-acceptance-month-why-intersectionality-matters-pt-1",
+  },
+  {
+    title: "Why your inclusion training isn\'t working; and what to do about it",
+    date: "2025",
+    excerpt: "Training alone will not change your culture. When the session ends and people go back to their desks, the conditions that created the problem remain unchanged. Here is what embedding inclusion actually looks like.",
     tag: "Training",
-    href: "https://www.linkedin.com/company/the-inclusion-edit",
+    href: "https://www.theinclusionedit.com/blog",
   },
   {
-    title: "The business case for inclusion: beyond the stats",
-    date: "September 2024",
-    excerpt: "Everyone quotes the McKinsey report. Here is how to make the case in a way that actually lands with your leadership team.",
+    title: "Inclusion isn\'t failing; it\'s under-resourced",
+    date: "2025",
+    excerpt: "Intent makes people try, but good intentions without structure are useless. Lean teams stretched across HR, compliance, and inclusion need frameworks and tools; not just hope and heroics.",
+    tag: "Strategy",
+    href: "https://www.theinclusionedit.com/blog",
+  },
+  {
+    title: "Myth-busting: positive discrimination vs positive action",
+    date: "February 2025",
+    excerpt: "Confusing the two can land your business in hot water fast. Positive discrimination is legally risky and rarely sustainable; positive action removes barriers and creates equitable opportunities that actually stick.",
+    tag: "Law & Practice",
+    href: "https://www.theinclusionedit.com/blog",
+  },
+  {
+    title: "Psychological safety: the foundation your inclusion strategy is missing",
+    date: "2025",
+    excerpt: "You\'ve updated policies, run training, and put values on the wall. And yet people still aren\'t speaking up. Psychological safety is the missing piece; and it is not the same as making everyone comfortable.",
     tag: "Leadership",
-    href: "https://www.linkedin.com/company/the-inclusion-edit",
-  },
-  {
-    title: "What does psychological safety actually mean at work?",
-    date: "August 2024",
-    excerpt: "The term gets used a lot. This is what it means in practice and how you build it in teams that are under pressure.",
-    tag: "Culture",
-    href: "https://www.linkedin.com/company/the-inclusion-edit",
-  },
-  {
-    title: "EDI legislation update: what UK employers need to know",
-    date: "July 2024",
-    excerpt: "A plain-English guide to the latest changes and what they mean for your organisation's policies and practices.",
-    tag: "Legislation",
-    href: "https://www.linkedin.com/company/the-inclusion-edit",
-  },
-  {
-    title: "Five questions to ask before you commission an EDI audit",
-    date: "June 2024",
-    excerpt: "Not all EDI audits are equal. These questions will help you commission one that leads to real change rather than a report that sits on a shelf.",
-    tag: "Consultancy",
-    href: "https://www.linkedin.com/company/the-inclusion-edit",
-  },
-  {
-    title: "Inclusion in Bermuda: the context UK organisations often miss",
-    date: "May 2024",
-    excerpt: "Working across the UK and Bermuda has shown us how much context shapes inclusion work. Here is what transfers and what does not.",
-    tag: "Global",
-    href: "https://www.linkedin.com/company/the-inclusion-edit",
+    href: "https://www.theinclusionedit.com/blog",
   },
 ];
 
 const tagColours: Record<string, string> = {
+  "EDI & Politics": "#f0e8e8",
+  Neurodiversity: "#e8eef0",
   Training: "#e8f0e8",
-  Leadership: "#f0ede8",
-  Culture: "#e8eef0",
-  Legislation: "#f0e8e8",
-  Consultancy: "#eee8f0",
-  Global: "#e8f0ec",
+  Strategy: "#f0ede8",
+  "Law & Practice": "#eee8f0",
+  Leadership: "#e8f0ec",
 };
 
 export default function ListenAndReadClient() {
