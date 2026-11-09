@@ -295,7 +295,7 @@ This is exactly the kind of work The Inclusion Edit supports. The right starting
           <div style={{ position: "relative", zIndex: 3, maxWidth: "1100px", width: "100%", margin: "0 auto", padding: "5.5rem 2rem 5rem" }}>
             <div style={{ maxWidth: "680px" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>Award-winning EDI consultancy and learning platform</span>
-              <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(3rem, 5.5vw, 5rem)", lineHeight: 1.05, marginBottom: "1.5rem", maxWidth: "640px" }}>
+              <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(3rem, 5.5vw, 5rem)", lineHeight: 1.05, marginBottom: "1.5rem", maxWidth: "760px" }}>
                 <span style={{ color: "#F0E6C8" }}>Your Culture Is</span><br />
                 <span style={{ color: "#A8D4B0" }}>Your Competitive<br />Edge.</span>
               </h1>
