@@ -186,35 +186,31 @@ export default function ListenAndReadPage() {
               {" "}Want to be a guest?{" "}
               <Link href="/contact-us" style={{ color: "var(--sage-dark)", fontWeight: 600 }}>Get in touch</Link>.
             </p>
-            {/* EPISODE GRID */}
-            <div style={{ marginTop: "2.5rem" }}>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "rgba(0,0,0,0.5)", textAlign: "center", marginBottom: "1.5rem" }}>
-                Prefer to watch the video?{" "}
-                <a href="https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM" target="_blank" rel="noopener noreferrer" style={{ color: "var(--sage-dark)", fontWeight: 600 }}>View all episodes on Spotify.</a>
-              </p>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "1.25rem" }}>
+            {/* EPISODE STRIP */}
+            <div style={{ marginTop: "1.75rem" }}>
+              <div style={{ display: "flex", overflowX: "auto", gap: "0.75rem", paddingBottom: "0.5rem", scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch", msOverflowStyle: "none", scrollbarWidth: "none" }}>
                 {episodes.map((ep) => (
                   <a
                     key={ep.num}
                     href={ep.spotifyUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="episode-card"
-                    style={{ textDecoration: "none", display: "block", borderRadius: "14px", overflow: "hidden", boxShadow: "0 2px 12px rgba(0,0,0,0.08)", background: "var(--white)" }}
+                    className="episode-strip-card"
+                    title={`Ep ${ep.num}: ${ep.title} — with ${ep.guest}`}
+                    style={{ textDecoration: "none", flex: "0 0 calc(25% - 0.57rem)", scrollSnapAlign: "start", borderRadius: "10px", overflow: "hidden", boxShadow: "0 1px 8px rgba(0,0,0,0.08)", display: "block" }}
                   >
                     <img
                       src={ep.img}
                       alt={`Episode ${ep.num}: ${ep.title}`}
                       style={{ width: "100%", display: "block", aspectRatio: "1 / 1", objectFit: "cover" }}
                     />
-                    <div style={{ padding: "0.9rem 1rem 1.1rem" }}>
-                      <span style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--sage-dark)", opacity: 0.7 }}>Ep {ep.num}</span>
-                      <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--charcoal)", margin: "0.3rem 0 0.2rem", lineHeight: 1.35 }}>{ep.title}</p>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "#4a6a4a", margin: 0 }}>with {ep.guest}</p>
-                    </div>
                   </a>
                 ))}
               </div>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "rgba(0,0,0,0.42)", marginTop: "0.6rem", textAlign: "center" }}>
+                Prefer to watch the video?{" "}
+                <a href="https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM" target="_blank" rel="noopener noreferrer" style={{ color: "var(--sage-dark)", fontWeight: 600 }}>View all episodes on Spotify.</a>
+              </p>
             </div>
           </div>
         </section>
