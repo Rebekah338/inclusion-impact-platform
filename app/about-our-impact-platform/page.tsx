@@ -115,6 +115,22 @@ function PricingSection() {
       cta: "Upgrade to Practitioner Plus",
       highlight: true,
     },
+    {
+      name: "The Expert Track",
+      price: "£1,200",
+      headline: "For the practitioner who doesn\'t want to figure this out alone.",
+      desc: "Everything in Practitioner Plus, plus a guaranteed monthly 1:1 with an inclusion expert, yours for the full year. The same expert, every month, focused entirely on your context and your organisation. No booking required: the session is already yours.",
+      features: [
+        "Everything in Practitioner Plus",
+        "12 guaranteed monthly 1:1 sessions with an inclusion expert",
+        "Dedicated to your context: your organisation, your challenges, your progress",
+        "Same expert throughout: continuity across the full year",
+        "No booking required: your session is secured for the year",
+      ],
+      cta: "Apply for the Expert Track",
+      highlight: false,
+      limited: true,
+    },
   ];
 
   const orgBands: Record<string, { name: string; price: string; seats: string; band: string; headline: string; desc: string; features: string[]; cta: string; dark?: boolean }> = {
@@ -133,7 +149,7 @@ function PricingSection() {
         "Inclusion AI tools: policy audits, business case building, fairer hiring and more",
         "Full inclusion health check and action plan",
         "Advanced resources",
-        "Scheduled time with a real inclusion expert through Get Support",
+        "Access to scheduled expert sessions through Get Support",
         "Unlimited new starter onboarding links: no cap, no extra charge",
         "New starter access: onboarding module only (four lessons, four videos, a quiz, a certificate)",
         "Completion reporting and downloadable certificates",
@@ -155,7 +171,7 @@ function PricingSection() {
         "Inclusion AI tools: policy audits, business case building, fairer hiring and more",
         "Full inclusion health check and action plan",
         "Advanced resources",
-        "Scheduled time with a real inclusion expert through Get Support",
+        "Access to scheduled expert sessions through Get Support",
         "Unlimited new starter onboarding links: no cap, no extra charge",
         "New starter access: onboarding module only",
         "Completion reporting and downloadable certificates",
@@ -178,7 +194,7 @@ function PricingSection() {
         "Inclusion AI tools: policy audits, business case building, fairer hiring and more",
         "Full inclusion health check and action plan",
         "Advanced resources",
-        "Scheduled time with a real inclusion expert through Get Support",
+        "Access to scheduled expert sessions through Get Support",
         "Unlimited new starter onboarding links",
         "New starter access: onboarding module only, unless otherwise agreed",
         "Completion reporting and downloadable certificates",
@@ -245,12 +261,17 @@ function PricingSection() {
         {/* Individual path */}
         {path === "individual" && (
           <div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem", maxWidth: "760px", margin: "0 auto" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem", maxWidth: "1100px", margin: "0 auto" }}>
               {individualTiers.map((tier) => (
-                <div key={tier.name} style={{ background: "var(--white)", borderRadius: "18px", padding: "2.25rem", border: tier.highlight ? "2px solid var(--evergreen)" : "1.5px solid var(--line)", boxShadow: tier.highlight ? "0 8px 40px rgba(74,99,71,0.16)" : "0 2px 12px rgba(0,0,0,0.04)", position: "relative" as const }}>
+                <div key={tier.name} style={{ background: "var(--white)", borderRadius: "18px", padding: "2.25rem", border: (tier as typeof tier & { limited?: boolean }).limited ? "1.5px solid #C9A84C" : tier.highlight ? "2px solid var(--evergreen)" : "1.5px solid var(--line)", boxShadow: (tier as typeof tier & { limited?: boolean }).limited ? "0 8px 32px rgba(201,168,76,0.14)" : tier.highlight ? "0 8px 40px rgba(74,99,71,0.16)" : "0 2px 12px rgba(0,0,0,0.04)", position: "relative" as const }}>
                   {tier.highlight && (
                     <div style={{ position: "absolute" as const, top: "-1px", left: "50%", transform: "translateX(-50%)", background: "var(--evergreen)", color: "var(--white)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", padding: "0.3rem 1rem", borderRadius: "0 0 8px 8px", whiteSpace: "nowrap" as const }}>
                       Most popular
+                    </div>
+                  )}
+                  {(tier as typeof tier & { limited?: boolean }).limited && (
+                    <div style={{ position: "absolute" as const, top: "-1px", left: "50%", transform: "translateX(-50%)", background: "var(--gold-deep, #7A5200)", color: "var(--white)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", padding: "0.3rem 1rem", borderRadius: "0 0 8px 8px", whiteSpace: "nowrap" as const }}>
+                      Limited places
                     </div>
                   )}
                   <div style={{ marginTop: tier.highlight ? "0.75rem" : 0 }}>
@@ -275,6 +296,11 @@ function PricingSection() {
                     {tier.highlight && (
                       <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)", lineHeight: 1.6, marginTop: "1rem", marginBottom: 0, textAlign: "center" as const }}>
                         This one is worth asking your employer about. It qualifies as professional development spend and many organisations will cover it.
+                      </p>
+                    )}
+                    {(tier as typeof tier & { limited?: boolean }).limited && (
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)", lineHeight: 1.6, marginTop: "1rem", marginBottom: 0, textAlign: "center" as const }}>
+                        Places are limited and released quarterly. If the current cohort is full, you can join the waitlist.
                       </p>
                     )}
                   </div>
