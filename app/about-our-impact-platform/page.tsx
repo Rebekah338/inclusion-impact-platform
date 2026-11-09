@@ -199,8 +199,8 @@ export default function Home() {
               marginBottom: "1.25rem",
               letterSpacing: "-0.02em",
             }}>
-              <span style={{ color: "#F0E6C8" }}>Your Best People Stay</span><br />
-              <span style={{ color: "#A8D4B0" }}>Where They Feel<br />They Belong.</span>
+              Your Best People Stay<br />
+              Where They Feel<br />They Belong.
             </h1>
 
             <p style={{
