@@ -90,18 +90,19 @@ export default function ListenAndReadPage() {
         </section>
 
         {/* STATS STRIP */}
-        <section style={{ background: "var(--sage-dark)", padding: "0.85rem 1.5rem" }}>
-          <div style={{ maxWidth: "960px", margin: "0 auto", display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "0.5rem 2.5rem", alignItems: "center" }}>
+        <section style={{ padding: "0.6rem 1.5rem", position: "relative", overflow: "hidden", background: "linear-gradient(105deg, rgba(107,143,113,0.18) 0%, rgba(107,143,113,0.10) 50%, rgba(107,143,113,0.18) 100%)", backgroundColor: "#f4f7f4" }}>
+          <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.08) 35%, rgba(201,168,76,0.18) 55%, transparent 100%)", zIndex: 1, pointerEvents: "none" }} />
+          <div style={{ maxWidth: "1100px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0", position: "relative", zIndex: 3 }}>
             {[
-              { icon: "🎙", text: "Honest conversations, no jargon" },
-              { icon: "📍", text: "Listeners across the UK, Bermuda and the US" },
-              { icon: "✉", text: "100+ newsletter subscribers" },
-              { icon: "🎧", text: "Free on Spotify" },
-              { icon: "📝", text: "New articles every month on LinkedIn" },
+              { label: "Honest", sub: "Conversations, no jargon" },
+              { label: "UK · Bermuda · US", sub: "Listeners worldwide" },
+              { label: "100+", sub: "Newsletter subscribers" },
+              { label: "Spotify", sub: "Free to listen" },
+              { label: "LinkedIn", sub: "New articles monthly" },
             ].map((item) => (
-              <div key={item.text} style={{ display: "flex", alignItems: "center", gap: "0.4rem", whiteSpace: "nowrap" }}>
-                <span style={{ fontSize: "0.9rem" }}>{item.icon}</span>
-                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "rgba(255,255,255,0.88)", letterSpacing: "0.02em" }}>{item.text}</span>
+              <div key={item.label} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "0.75rem 1rem", flex: "1", textAlign: "center" }}>
+                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--sage-dark)", letterSpacing: "0.01em", lineHeight: 1.1 }}>{item.label}</span>
+                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", color: "#4a6a4a", letterSpacing: "0.04em", marginTop: "0.2rem", textTransform: "uppercase" }}>{item.sub}</span>
               </div>
             ))}
           </div>
