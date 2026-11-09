@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Footer from "../components/Footer";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
@@ -27,6 +27,7 @@ const blogs = [
       "The backlash against EDI is planned. It's part of a wider push to maintain power structures that benefit a select few. When organisations and institutions finally start to take inclusion seriously, it means redistributing resources, amplifying marginalised voices, and making space at the table. That threatens the privileged, so they label EDI as 'woke' and 'divisive,' defund initiatives, and spread misinformation about what EDI actually is.",
       "Let's be clear: EDI is not about exclusion or favouritism. It's about breaking down the barriers that have excluded people for generations. It's about equity, not just equality. It's about creating environments where everyone can thrive. And the evidence backs this up: diverse teams drive better results, inclusive organisations perform better, innovate more, and are more resilient.",
       "So what can we do? Don't panic; the 'anti-woke' narrative is being sensationalised intentionally. In reality, many organisations are sticking to their commitment to EDI. Keep doing the work, invest in it, and call out misinformation when you see it. Education is key to dismantling false narratives, and those false narratives are harmful.",
+      "We will not let the weaponisation of EDI stop us from continuing to do the necessary work to achieve social justice. EDI is essential for a better world for everyone. So tell us: how are you showing up for EDI today?",
     ],
   },
   {
@@ -38,8 +39,8 @@ const blogs = [
       "April marks Autism Acceptance Month, a time to celebrate neurodivergent voices and push for real inclusion beyond awareness. But while conversations around autism have grown, they still often leave out a crucial factor: intersectionality.",
       "The experiences of autistic people aren't one size fits all. Race, gender, and class all shape how autism is understood, diagnosed, and supported. Black children are 2.6 times more likely to receive a misdiagnosis (often for behavioural disorders) before getting an autism diagnosis, compared to their white peers. Latinx and Black children are diagnosed later than white children, meaning they miss out on early interventions that can be life-changing. These disparities are rooted in systemic biases that infiltrate the medical and educational sectors.",
       "For Black autistic women and girls, the challenges multiply. Historically, autism research and diagnostic criteria were based on white, cisgender boys, which meant that women and non-binary people have often been overlooked. Girls are diagnosed later than boys on average, often masking their traits due to societal expectations of behaviour. Black girls are especially underdiagnosed because their traits may be misunderstood as 'defiance' rather than neurodivergence.",
-      "Real autism acceptance means tackling the barriers that marginalised autistic people face. Here are three edits you can make in your workplace: first, ditch 'culture fit' and focus on 'culture add'; use interview formats that don't rely on small talk and unwritten social rules, and offer structured interviews or work trials instead. Second, review your workplace policies for hidden barriers and ensure they take an intersectional approach. Third, recognise autism as a spectrum and reject harmful stereotypes; Autism presents differently in women, and trans and non-binary autistic people are often erased from both gender inclusion and neurodiversity conversations entirely.",
-      "As we move forward, we must ensure that marginalised, intersectional autistic voices aren't just included, but centred. Real inclusion means making space for the voices that have been left out for too long.",
+      "Real autism acceptance means tackling the barriers that marginalised autistic people face. Here are three edits you can make in your workplace: first, ditch 'culture fit' and focus on 'culture add'; use interview formats that don't rely on small talk and unwritten social rules, and offer structured interviews or work trials instead. Second, review your workplace policies for hidden barriers and ensure they take an intersectional approach. Third, recognise autism as a spectrum and reject harmful stereotypes; autism presents differently in women, and trans and non-binary autistic people are often erased from both gender inclusion and neurodiversity conversations entirely.",
+      "As we move forward, we must ensure that marginalised, intersectional autistic voices aren't just included, but centred. Real inclusion means making space for the voices that have been left out for too long. So how are you going to challenge and change a structure or barrier in your workplace?",
     ],
   },
   {
@@ -52,7 +53,7 @@ const blogs = [
       "But a catalyst is only useful if there's something for it to react with. In too many organisations, the training session ends, people go back to their desks, and the conditions that created the problem in the first place remain completely unchanged. Six months later, little has changed; the same voices dominate meetings, the same promotion decisions get made in the same ways, and the same people feel unseen.",
       "Lasting inclusion isn't an event. It lives in how meetings are run; who gets airtime, whose ideas get credited, who tends to be interrupted. It lives in how feedback is given; research consistently shows that women and people of colour are more likely to receive vague, personality-focused feedback rather than specific, skills-based feedback, and that gap directly impacts progression. It lives in how decisions are made around hiring, promotion, and project allocation. And it lives in what gets measured; you cannot improve what you don't track.",
       "The organisations that make the most meaningful progress treat training as one consistent thread in a much larger piece of work. They invest in understanding their current culture before designing interventions. They build internal capacity and outsource support where they lack it. They revisit, reflect, and adjust. That kind of work takes time, commitment, and genuine leadership.",
-      "Inclusion isn't something you add into your organisation one time. It's something you build consistently, over time.",
+      "Inclusion isn't something you add into your organisation one time. It's something you build consistently, over time. If this resonated, we'd love to hear how you're approaching this in your organisation.",
     ],
   },
   {
@@ -105,38 +106,62 @@ const tagColours: Record<string, string> = {
   Leadership: "#e8f0ec",
 };
 
-function BlogCard({ post }: { post: typeof blogs[0] }) {
-  const [expanded, setExpanded] = useState(false);
+type Blog = typeof blogs[0];
+
+function BlogModal({ post, onClose }: { post: Blog; onClose: () => void }) {
   const linkedInUrl = "https://www.linkedin.com/company/the-inclusion-edit";
 
-  return (
-    <div style={{ display: "flex", flexDirection: "column", background: "rgba(255,255,255,0.92)", border: "1px solid rgba(0,0,0,0.07)", borderRadius: "12px", padding: "1.25rem", backdropFilter: "blur(4px)", transition: "box-shadow 0.15s" }}>
-      <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--sage-dark)", background: tagColours[post.tag] || "#e8f0e8", borderRadius: "4px", padding: "0.2rem 0.6rem", marginBottom: "0.65rem", alignSelf: "flex-start" }}>{post.tag}</span>
-      <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--charcoal)", margin: "0 0 0.4rem", lineHeight: 1.35 }}>{post.title}</h3>
-      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "rgba(0,0,0,0.6)", margin: "0 0 0.75rem", lineHeight: 1.55 }}>{post.excerpt}</p>
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    const handleKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", handleKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKey);
+    };
+  }, [onClose]);
 
-      {expanded && (
-        <div style={{ marginBottom: "0.875rem" }}>
-          {post.body.map((para, i) => (
-            <p key={i} style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(0,0,0,0.75)", lineHeight: 1.7, margin: "0 0 0.75rem" }}>{para}</p>
-          ))}
-          <div style={{ borderTop: "1px solid rgba(0,0,0,0.07)", paddingTop: "0.875rem", marginTop: "0.25rem" }}>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(0,0,0,0.6)", lineHeight: 1.6, margin: "0 0 0.75rem" }}>
-              If this resonated with you, please share it with a colleague who needs to hear it. Have questions about how this applies to your organisation? <a href="/contact" style={{ color: "var(--sage-dark)", fontWeight: 600, textDecoration: "none" }}>Book a call with us</a> or <a href="/contact" style={{ color: "var(--sage-dark)", fontWeight: 600, textDecoration: "none" }}>get in touch</a>.
-            </p>
-            <a href={linkedInUrl} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.76rem", color: "var(--white)", background: "#0A66C2", padding: "0.45rem 0.9rem", borderRadius: "6px", textDecoration: "none" }}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-              Share on LinkedIn
-            </a>
+  return (
+    <div
+      onClick={onClose}
+      style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.55)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: "1.5rem" }}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        style={{ background: "var(--white)", borderRadius: "16px", width: "100%", maxWidth: "680px", maxHeight: "82vh", display: "flex", flexDirection: "column", boxShadow: "0 24px 64px rgba(0,0,0,0.22)", overflow: "hidden" }}
+      >
+        {/* Modal header */}
+        <div style={{ padding: "1.25rem 1.5rem 1rem", borderBottom: "1px solid rgba(0,0,0,0.07)", flexShrink: 0 }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "1rem" }}>
+            <div style={{ flex: 1 }}>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--sage-dark)", background: tagColours[post.tag] || "#e8f0e8", borderRadius: "4px", padding: "0.2rem 0.6rem", marginBottom: "0.5rem" }}>{post.tag}</span>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.1rem", color: "var(--charcoal)", margin: 0, lineHeight: 1.3 }}>{post.title}</h2>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "rgba(0,0,0,0.4)", margin: "0.3rem 0 0" }}>The Inclusion Edit · {post.date}</p>
+            </div>
+            <button onClick={onClose} aria-label="Close" style={{ background: "rgba(0,0,0,0.06)", border: "none", borderRadius: "50%", width: "32px", height: "32px", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", color: "var(--charcoal)", flexShrink: 0 }}>✕</button>
           </div>
         </div>
-      )}
 
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "auto" }}>
-        <span style={{ fontFamily: "var(--font-body)", fontSize: "0.73rem", color: "rgba(0,0,0,0.4)" }}>{post.date}</span>
-        <button onClick={() => setExpanded(!expanded)} style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.76rem", color: "var(--sage-dark)", padding: 0, display: "flex", alignItems: "center", gap: "0.3rem" }}>
-          {expanded ? "Read less ↑" : "Read more ↓"}
-        </button>
+        {/* Scrollable body */}
+        <div style={{ overflowY: "auto", padding: "1.25rem 1.5rem", flex: 1 }}>
+          {post.body.map((para, i) => (
+            <p key={i} style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "rgba(0,0,0,0.78)", lineHeight: 1.75, margin: "0 0 1rem" }}>{para}</p>
+          ))}
+
+          {/* CTA block */}
+          <div style={{ marginTop: "1.5rem", padding: "1.25rem", background: "rgba(74,99,71,0.07)", borderRadius: "10px", borderLeft: "3px solid var(--sage-dark)" }}>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "rgba(0,0,0,0.7)", lineHeight: 1.65, margin: "0 0 0.875rem" }}>
+              If this resonated, please share it with a colleague who needs to hear it. Have questions about how this applies to your organisation?
+            </p>
+            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+              <Link href="/contact" onClick={onClose} style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.55rem 1.1rem", borderRadius: "7px", textDecoration: "none" }}>Book a call</Link>
+              <a href={linkedInUrl} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--white)", background: "#0A66C2", padding: "0.55rem 1.1rem", borderRadius: "7px", textDecoration: "none" }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                Share on LinkedIn
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -144,6 +169,7 @@ function BlogCard({ post }: { post: typeof blogs[0] }) {
 
 export default function ListenAndReadClient() {
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [openBlog, setOpenBlog] = useState<Blog | null>(null);
   const stripRef = useRef<HTMLDivElement>(null);
   const activeEpisode = episodes[activeIndex];
 
@@ -156,8 +182,10 @@ export default function ListenAndReadClient() {
   return (
     <div style={{ background: "var(--white)", minHeight: "100vh" }}>
       <SiteNav />
-      <main>
 
+      {openBlog && <BlogModal post={openBlog} onClose={() => setOpenBlog(null)} />}
+
+      <main>
         {/* HERO */}
         <section style={{ position: "relative", minHeight: "420px", display: "flex", alignItems: "center", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, #1A3220 0%, #243D28 40%, #2E5235 65%, rgba(46,82,53,0.4) 100%)", zIndex: 0 }} />
@@ -177,8 +205,8 @@ export default function ListenAndReadClient() {
         </section>
 
         {/* STATS STRIP */}
-        <section style={{ padding: "0.6rem 1.5rem", position: "relative", overflow: "hidden", background: "linear-gradient(105deg, rgba(107,143,113,0.18) 0%, rgba(107,143,113,0.10) 50%, rgba(107,143,113,0.18) 100%)", backgroundColor: "#f4f7f4" }}>
-          <div style={{ maxWidth: "1100px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0" }}>
+        <section style={{ padding: "0.6rem 1.5rem", background: "#f4f7f4" }}>
+          <div style={{ maxWidth: "1100px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap" }}>
             {[
               { label: "Honest", sub: "Conversations, no jargon" },
               { label: "UK · Bermuda · US", sub: "Listeners worldwide" },
@@ -186,9 +214,9 @@ export default function ListenAndReadClient() {
               { label: "Spotify", sub: "Free to listen" },
               { label: "LinkedIn", sub: "New articles monthly" },
             ].map((item) => (
-              <div key={item.label} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "0.75rem 1rem", flex: "1", textAlign: "center" }}>
-                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--sage-dark)", letterSpacing: "0.01em", lineHeight: 1.1 }}>{item.label}</span>
-                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", color: "#4a6a4a", letterSpacing: "0.04em", marginTop: "0.2rem", textTransform: "uppercase" }}>{item.sub}</span>
+              <div key={item.label} style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "0.75rem 1rem", flex: "1", textAlign: "center" }}>
+                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--sage-dark)" }}>{item.label}</span>
+                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", color: "#4a6a4a", marginTop: "0.2rem", textTransform: "uppercase", letterSpacing: "0.04em" }}>{item.sub}</span>
               </div>
             ))}
           </div>
@@ -202,7 +230,6 @@ export default function ListenAndReadClient() {
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.75rem)", color: "var(--charcoal)", margin: "0 0 0.35rem" }}>Honest conversations about inclusion</h2>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "rgba(0,0,0,0.6)", margin: 0, lineHeight: 1.6 }}>Real talk with practitioners, leaders and thinkers doing the work; not just talking about it. Available on Spotify.</p>
             </div>
-
             <div style={{ background: "var(--forest)", borderRadius: "16px", padding: "1.25rem", boxShadow: "0 6px 32px rgba(26,50,32,0.18)" }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.75rem", flexWrap: "wrap", gap: "0.5rem" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
@@ -219,7 +246,6 @@ export default function ListenAndReadClient() {
                 <iframe key={activeEpisode.episodeId} src={`https://open.spotify.com/embed/episode/${activeEpisode.episodeId}?utm_source=generator&theme=0`} width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" style={{ display: "block" }} />
               </div>
             </div>
-
             <div style={{ marginTop: "0.875rem", background: "var(--forest)", borderRadius: "14px", padding: "0.875rem 1rem 0.75rem" }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.65rem" }}>
                 <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.6)" }}>All episodes — tap to switch</span>
@@ -241,7 +267,6 @@ export default function ListenAndReadClient() {
                 ))}
               </div>
             </div>
-
             <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(0,0,0,0.45)", marginTop: "0.875rem", textAlign: "center" }}>
               Listen directly above or{" "}
               <a href="https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM" target="_blank" rel="noopener noreferrer" style={{ color: "var(--sage-dark)", fontWeight: 600 }}>open in Spotify</a>.
@@ -257,11 +282,19 @@ export default function ListenAndReadClient() {
             <div style={{ marginBottom: "1.25rem" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.12)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.5rem" }}>The blog</span>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.75rem)", color: "var(--charcoal)", margin: "0 0 0.35rem" }}>Practical thinking on inclusion</h2>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "rgba(0,0,0,0.6)", margin: 0, lineHeight: 1.6 }}>Articles for HR professionals, people managers and leaders who want to do this well. Tap any card to read in full.</p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "rgba(0,0,0,0.6)", margin: 0, lineHeight: 1.6 }}>Articles for HR professionals, people managers and leaders who want to do this well. Click any card to read in full.</p>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1rem" }}>
               {blogs.map((post) => (
-                <BlogCard key={post.title} post={post} />
+                <div key={post.title} style={{ display: "flex", flexDirection: "column", background: "rgba(255,255,255,0.92)", border: "1px solid rgba(0,0,0,0.07)", borderRadius: "12px", padding: "1.25rem", backdropFilter: "blur(4px)" }}>
+                  <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--sage-dark)", background: tagColours[post.tag] || "#e8f0e8", borderRadius: "4px", padding: "0.2rem 0.6rem", marginBottom: "0.65rem", alignSelf: "flex-start" }}>{post.tag}</span>
+                  <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--charcoal)", margin: "0 0 0.4rem", lineHeight: 1.35, flexGrow: 1 }}>{post.title}</h3>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "rgba(0,0,0,0.6)", margin: "0 0 0.875rem", lineHeight: 1.55 }}>{post.excerpt}</p>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "auto" }}>
+                    <span style={{ fontFamily: "var(--font-body)", fontSize: "0.73rem", color: "rgba(0,0,0,0.4)" }}>{post.date}</span>
+                    <button onClick={() => setOpenBlog(post)} style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.76rem", color: "var(--sage-dark)", padding: 0 }}>Read more →</button>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
