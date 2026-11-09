@@ -89,6 +89,24 @@ export default function ListenAndReadPage() {
           </div>
         </section>
 
+        {/* STATS STRIP */}
+        <section style={{ background: "var(--sage-dark)", padding: "0.85rem 1.5rem" }}>
+          <div style={{ maxWidth: "960px", margin: "0 auto", display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "0.5rem 2.5rem", alignItems: "center" }}>
+            {[
+              { icon: "🎙", text: "Honest conversations, no jargon" },
+              { icon: "📍", text: "Listeners across the UK, Bermuda and the US" },
+              { icon: "✉", text: "100+ newsletter subscribers" },
+              { icon: "🎧", text: "Free on Spotify" },
+              { icon: "📝", text: "New articles every month on LinkedIn" },
+            ].map((item) => (
+              <div key={item.text} style={{ display: "flex", alignItems: "center", gap: "0.4rem", whiteSpace: "nowrap" }}>
+                <span style={{ fontSize: "0.9rem" }}>{item.icon}</span>
+                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "rgba(255,255,255,0.88)", letterSpacing: "0.02em" }}>{item.text}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* PODCAST */}
         <section id="podcast" style={{ background: "var(--white)", padding: "4rem 1.5rem" }}>
           <div style={{ maxWidth: "860px", margin: "0 auto" }}>
