@@ -25,7 +25,7 @@ export default function AboutUs() {
                 Where Inclusive Practice<br />Meets Business Impact.
               </h1>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "1.1rem", color: "rgba(255,255,255,0.88)", lineHeight: 1.8, marginBottom: "2.25rem" }}>
-                Consultancy, training and a learning platform built around one belief: that capacity, capability and change are possible for every organisation.
+                Consultancy, training and a learning platform built on one belief: that every organisation can build real inclusion capacity, capability and change.
               </p>
               <div style={{ display: "flex", gap: "0.875rem", flexWrap: "wrap" }}>
                 <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Work with us</Link>
