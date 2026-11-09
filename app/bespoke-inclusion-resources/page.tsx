@@ -11,7 +11,7 @@ export default function BespokeResources() {
       <main>
 
         {/* HERO */}
-        <section style={{ position: "relative", minHeight: "600px", display: "flex", alignItems: "center", overflow: "hidden" }}>
+        <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, #1A3220 0%, #243D28 40%, #2E5235 65%, rgba(46,82,53,0.4) 100%)", zIndex: 0 }} />
           <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/bespoke-resources.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 1 }} />
           <div style={{ position: "absolute", top: "1.75rem", right: "2rem", zIndex: 3 }}>
@@ -22,7 +22,7 @@ export default function BespokeResources() {
             <div style={{ maxWidth: "560px" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>Bespoke Inclusion Resources</span>
               <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.4rem, 5.5vw, 3.6rem)", color: "var(--white)", lineHeight: 1.08, marginBottom: "1.5rem" }}>
-                Resources built for your organisation; not someone else&apos;s.
+                Resources Built for Your Organisation; Not Someone Else&apos;s.
               </h1>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "1.1rem", color: "rgba(255,255,255,0.88)", lineHeight: 1.8, marginBottom: "2.25rem" }}>
                 Off-the-shelf resources rarely drive real change. We create custom toolkits, guides and frameworks designed around your people, your sector, and the outcomes you are working towards.

@@ -12,7 +12,7 @@ export default function Consultancy() {
       <main>
 
       {/* HERO */}
-      <section style={{ position: "relative", minHeight: "600px", display: "flex", alignItems: "center", overflow: "hidden" }}>
+      <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, #1A3220 0%, #243D28 40%, #2E5235 65%, rgba(46,82,53,0.4) 100%)", zIndex: 0 }} />
           <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/watch-7-diverse-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 1 }} />
           <div style={{ position: "absolute", top: "1.75rem", right: "2rem", zIndex: 3 }}>
@@ -23,7 +23,7 @@ export default function Consultancy() {
             <div style={{ maxWidth: "560px" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.9)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.3)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>Inclusion Consultancy</span>
               <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.4rem, 5.5vw, 3.6rem)", color: "var(--white)", lineHeight: 1.08, marginBottom: "1.5rem" }}>
-                EDI consultancy that creates lasting change.
+                EDI Consultancy That Creates Lasting Change.
               </h1>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "1.1rem", color: "rgba(255,255,255,0.85)", lineHeight: 1.8, marginBottom: "2.25rem" }}>
                 We partner with organisations to design and deliver bespoke consultancy programmes that audit where you are, advise on where to go, and embed the changes that matter.
