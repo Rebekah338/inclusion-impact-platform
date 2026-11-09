@@ -179,7 +179,7 @@ export default function ListenAndReadClient() {
             </div>
 
             {/* SPOTIFY PLAYER in dark green branded frame */}
-            <div style={{ background: "var(--sage-dark)", borderRadius: "16px", padding: "1.25rem", boxShadow: "0 6px 32px rgba(26,50,32,0.18)" }}>
+            <div style={{ background: "var(--forest)", borderRadius: "16px", padding: "1.25rem", boxShadow: "0 6px 32px rgba(26,50,32,0.18)" }}>
               {/* Now playing label */}
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.875rem", flexWrap: "wrap", gap: "0.5rem" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
@@ -210,7 +210,7 @@ export default function ListenAndReadClient() {
             </div>
 
             {/* EPISODE STRIP */}
-            <div style={{ marginTop: "1.25rem", background: "var(--sage-dark)", borderRadius: "14px", padding: "1rem 1rem 0.875rem" }}>
+            <div style={{ marginTop: "1.25rem", background: "var(--forest)", borderRadius: "14px", padding: "1rem 1rem 0.875rem" }}>
               {/* Strip header */}
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.75rem" }}>
                 <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.6)" }}>All episodes — tap to switch</span>
