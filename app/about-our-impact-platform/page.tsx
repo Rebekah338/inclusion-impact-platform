@@ -226,7 +226,7 @@ function PricingSection() {
             Find your membership
           </h2>
           <p style={{ fontFamily: "var(--font-body)", color: "var(--slate)", fontSize: "1.05rem", maxWidth: "460px", margin: "0 auto" }}>
-            Annual membership. No per-seat charges on organisational plans. Cancel any time.
+            Annual memberships. Everything your team needs, one licence. Cancel any time.
           </p>
         </div>
 
@@ -337,6 +337,15 @@ function PricingSection() {
             {/* Band reveal */}
             {activeBand && (
               <div style={{ maxWidth: "680px", margin: "0 auto 2rem" }}>
+                {/* Turnover callout */}
+                <div style={{ background: "var(--white)", border: "1.5px solid var(--line)", borderRadius: "12px", padding: "1rem 1.5rem", marginBottom: "1.5rem", display: "flex", alignItems: "flex-start", gap: "0.875rem" }}>
+                  <span style={{ fontSize: "1.1rem", flexShrink: 0, marginTop: "0.1rem" }}>📊</span>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--slate)", lineHeight: 1.65, margin: 0 }}>
+                    {orgSize === "small" && "At your size, you are likely onboarding around 22 new starters a year. Every one of them is included in your membership."}
+                    {orgSize === "mid" && "At your size, you are likely onboarding around 90 new starters a year. Every one of them is included in your membership."}
+                    {orgSize === "large" && "However many people you hire this year, every new starter gets a consistent, guided introduction to inclusion — included in your membership, at no extra charge."}
+                  </p>
+                </div>
                 <div style={{ background: activeBand.dark ? "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)" : "var(--white)", borderRadius: "18px", padding: "2.5rem", border: activeBand.dark ? "none" : "1.5px solid var(--line)", boxShadow: activeBand.dark ? "0 12px 40px rgba(26,50,32,0.22)" : "0 4px 20px rgba(26,50,32,0.08)", position: "relative" as const, overflow: "hidden" as const }}>
                   {activeBand.dark && (
                     <div style={{ position: "absolute" as const, top: "-60px", right: "-60px", width: "200px", height: "200px", borderRadius: "50%", border: "1.5px solid rgba(255,255,255,0.08)", pointerEvents: "none" as const }} />
@@ -388,7 +397,7 @@ function PricingSection() {
 
         {/* Footer note */}
         <p style={{ textAlign: "center" as const, fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--slate)", marginTop: "2.5rem" }}>
-          Every price is annual. No per-seat charges on organisational memberships. Cancel any time.{" "}
+          Every price is annual. Cancel any time.{" "}
           <Link href="/pricing" style={{ color: "var(--evergreen)", fontWeight: 600, textDecoration: "underline" }}>View full pricing details</Link>
         </p>
       </div>
