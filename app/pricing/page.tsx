@@ -79,7 +79,7 @@ export default function PricingPage() {
             Find the right level of support for where you are.
           </h1>
           <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", lineHeight: 1.8, color: "rgba(255,255,255,0.82)", maxWidth: "560px" }}>
-            Whether you are working this out largely on your own, or you are ready to bring your whole organisation with you, there is a membership built for exactly where you are standing.
+            Whether you're largely working this out on your own, or ready to bring your whole organisation with you, there's a membership built for exactly where you are.
           </p>
         </div>
       </section>
