@@ -150,7 +150,7 @@ function PricingSection() {
         "Full inclusion health check and action plan",
         "Advanced resources",
         "Access to scheduled expert sessions through Get Support",
-        "Unlimited new starter onboarding links: no cap, no extra charge",
+        "At your size you are likely onboarding around 22 new starters a year: every one of them is included, at no extra charge",
         "New starter access: onboarding module only (four lessons, four videos, a quiz, a certificate)",
         "Completion reporting and downloadable certificates",
       ],
@@ -172,7 +172,7 @@ function PricingSection() {
         "Full inclusion health check and action plan",
         "Advanced resources",
         "Access to scheduled expert sessions through Get Support",
-        "Unlimited new starter onboarding links: no cap, no extra charge",
+        "At your size you are likely onboarding around 90 new starters a year: every one of them is included, at no extra charge",
         "New starter access: onboarding module only",
         "Completion reporting and downloadable certificates",
         "Additional full seats available as an add-on",
@@ -195,7 +195,7 @@ function PricingSection() {
         "Full inclusion health check and action plan",
         "Advanced resources",
         "Access to scheduled expert sessions through Get Support",
-        "Unlimited new starter onboarding links",
+        "However many people you hire this year, every new starter is included at no extra charge",
         "New starter access: onboarding module only, unless otherwise agreed",
         "Completion reporting and downloadable certificates",
         "Custom entitlements by agreement: dedicated contact, custom reporting and more",
@@ -337,15 +337,7 @@ function PricingSection() {
             {/* Band reveal */}
             {activeBand && (
               <div style={{ maxWidth: "680px", margin: "0 auto 2rem" }}>
-                {/* Turnover callout */}
-                <div style={{ background: "var(--white)", border: "1.5px solid var(--line)", borderRadius: "12px", padding: "1rem 1.5rem", marginBottom: "1.5rem", display: "flex", alignItems: "flex-start", gap: "0.875rem" }}>
-                  <span style={{ fontSize: "1.1rem", flexShrink: 0, marginTop: "0.1rem" }}>📊</span>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--slate)", lineHeight: 1.65, margin: 0 }}>
-                    {orgSize === "small" && "At your size, you are likely onboarding around 22 new starters a year. Every one of them is included in your membership."}
-                    {orgSize === "mid" && "At your size, you are likely onboarding around 90 new starters a year. Every one of them is included in your membership."}
-                    {orgSize === "large" && "However many people you hire this year, every new starter gets a consistent, guided introduction to inclusion — included in your membership, at no extra charge."}
-                  </p>
-                </div>
+
                 <div style={{ background: activeBand.dark ? "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)" : "var(--white)", borderRadius: "18px", padding: "2.5rem", border: activeBand.dark ? "none" : "1.5px solid var(--line)", boxShadow: activeBand.dark ? "0 12px 40px rgba(26,50,32,0.22)" : "0 4px 20px rgba(26,50,32,0.08)", position: "relative" as const, overflow: "hidden" as const }}>
                   {activeBand.dark && (
                     <div style={{ position: "absolute" as const, top: "-60px", right: "-60px", width: "200px", height: "200px", borderRadius: "50%", border: "1.5px solid rgba(255,255,255,0.08)", pointerEvents: "none" as const }} />
