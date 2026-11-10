@@ -68,7 +68,7 @@ export default function PricingPage() {
       <main style={{ background: "var(--white)", minHeight: "100vh" }}>
 
       {/* PAGE HEADER */}
-      <section style={{ background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", padding: "5rem 2rem 4rem" }}>
+      <section style={{ background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", padding: "3rem 2rem 2.5rem" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase" as const, color: "var(--evergreen)", background: "rgba(74,99,71,0.08)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.5rem" }}>
             Membership
