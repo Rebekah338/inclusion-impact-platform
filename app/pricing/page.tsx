@@ -68,7 +68,13 @@ export default function PricingPage() {
       <main style={{ background: "var(--white)", minHeight: "100vh" }}>
 
       {/* PAGE HEADER */}
-      <section style={{ background: "linear-gradient(160deg, #162b1c 0%, #1a2f20 100%)", padding: "3rem 2rem 2.5rem", position: "relative", overflow: "hidden" }}>
+      <section style={{ position: "relative", overflow: "hidden", minHeight: "320px", display: "flex", alignItems: "center" }}>
+        {/* Photo */}
+        <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url(/resources-meeting.jpg)", backgroundSize: "cover", backgroundPosition: "center 30%", backgroundRepeat: "no-repeat" }} />
+        {/* Forest overlay */}
+        <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(100deg, rgba(20,40,25,0.95) 0%, rgba(20,40,25,0.85) 38%, rgba(20,40,25,0.3) 70%, rgba(20,40,25,0.05) 100%)" }} />
+        {/* Content wrapper */}
+        <div style={{ position: "relative", width: "100%", padding: "3rem 2rem 2.5rem" }}>
         {/* Subtle top-edge gloss line */}
         <div aria-hidden="true" style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.18) 30%, rgba(255,255,255,0.28) 50%, rgba(255,255,255,0.18) 70%, transparent 100%)", pointerEvents: "none" }} />
         <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative" }}>
@@ -81,6 +87,7 @@ export default function PricingPage() {
           <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", lineHeight: 1.8, color: "rgba(255,255,255,0.82)", maxWidth: "680px" }}>
             Whether you're largely working this out on your own, or ready to bring your whole organisation with you, there's a membership built for exactly where you are.
           </p>
+        </div>
         </div>
       </section>
 
