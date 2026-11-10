@@ -68,22 +68,22 @@ export default function PricingPage() {
       <main style={{ background: "var(--white)", minHeight: "100vh" }}>
 
       {/* PAGE HEADER */}
-      <section style={{ background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", padding: "5rem 2rem 4rem", textAlign: "center" }}>
-        <div style={{ maxWidth: "680px", margin: "0 auto" }}>
+      <section style={{ background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", padding: "5rem 2rem 4rem" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
           <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase" as const, color: "var(--evergreen)", background: "rgba(74,99,71,0.08)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.5rem" }}>
             Membership
           </span>
-          <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2rem, 5vw, 3rem)", lineHeight: 1.1, color: "var(--forest)", marginBottom: "1.25rem" }}>
+          <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2rem, 5vw, 3rem)", lineHeight: 1.1, color: "var(--forest)", marginBottom: "1.25rem", maxWidth: "680px" }}>
             Find the right level of support for where you are.
           </h1>
-          <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", lineHeight: 1.8, color: "var(--slate)", maxWidth: "560px", margin: "0 auto" }}>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", lineHeight: 1.8, color: "var(--slate)", maxWidth: "560px" }}>
             Whether you are working this out largely on your own, or you are ready to bring your whole organisation with you, there is a membership built for exactly where you are standing.
           </p>
         </div>
       </section>
 
       {/* INDIVIDUAL TABLE */}
-      <section id="individual" style={{ padding: "4rem 1.5rem 3rem", background: "var(--white)" }}>
+      <section id="individual" style={{ padding: "4rem 1.5rem 3rem", background: "var(--mist)" }}>
         <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
 
           <div style={{ marginBottom: "2.5rem" }}>
@@ -98,7 +98,7 @@ export default function PricingPage() {
             </p>
           </div>
 
-          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" as unknown as undefined, borderRadius: "16px", boxShadow: "0 4px 20px rgba(26,50,32,0.08)", border: "1px solid var(--line)" }}>
+          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" as unknown as undefined, borderRadius: "18px", boxShadow: "0 8px 36px rgba(26,50,32,0.13)", border: "1.5px solid #c8d9cb", background: "var(--white)" }}>
             <table style={{ width: "100%", minWidth: "640px", borderCollapse: "collapse" as const }}>
               <thead>
                 <tr>
@@ -170,12 +170,12 @@ export default function PricingPage() {
       </section>
 
       {/* SECTION DIVIDER */}
-      <div style={{ padding: "1rem 1.5rem 0" }}>
+      <div style={{ padding: "1rem 1.5rem 0", background: "var(--mist)" }}>
         <div style={{ maxWidth: "1000px", margin: "0 auto", borderTop: "1px solid var(--line)" }} />
       </div>
 
       {/* ORG TABLE */}
-      <section id="organisation" style={{ padding: "4rem 1.5rem 5rem", background: "var(--white)" }}>
+      <section id="organisation" style={{ padding: "4rem 1.5rem 5rem", background: "var(--mist)" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
 
           <div style={{ marginBottom: "2.5rem" }}>
@@ -190,7 +190,7 @@ export default function PricingPage() {
             </p>
           </div>
 
-          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" as unknown as undefined, borderRadius: "16px", boxShadow: "0 4px 20px rgba(26,50,32,0.08)", border: "1px solid var(--line)" }}>
+          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" as unknown as undefined, borderRadius: "18px", boxShadow: "0 8px 36px rgba(26,50,32,0.13)", border: "1.5px solid #c8d9cb", background: "var(--white)" }}>
             <table style={{ width: "100%", minWidth: "700px", borderCollapse: "collapse" as const }}>
               <thead>
                 <tr>
@@ -272,7 +272,7 @@ export default function PricingPage() {
       </section>
 
       {/* FOOTER NOTE */}
-      <div style={{ textAlign: "center", padding: "0 1.5rem 4rem" }}>
+      <div style={{ textAlign: "center", padding: "2rem 1.5rem 4rem", background: "var(--mist)" }}>
         <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--slate)", margin: 0 }}>
           Every price is annual. No per seat charges on organisation memberships. Cancel any time.
         </p>
