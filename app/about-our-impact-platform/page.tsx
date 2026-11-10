@@ -293,7 +293,7 @@ function PricingSection() {
                         </li>
                       ))}
                     </ul>
-                    <Link href="/pricing" style={{ display: "block", textAlign: "center" as const, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", background: tier.highlight ? "var(--evergreen)" : "transparent", color: tier.highlight ? "var(--white)" : "var(--evergreen)", border: tier.highlight ? "none" : "2px solid var(--evergreen)" }}>
+                    <Link href="/pricing#individual" style={{ display: "block", textAlign: "center" as const, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", background: tier.highlight ? "var(--evergreen)" : "transparent", color: tier.highlight ? "var(--white)" : "var(--evergreen)", border: tier.highlight ? "none" : "2px solid var(--evergreen)" }}>
                       {tier.cta}
                     </Link>
                     {tier.highlight && (
@@ -375,7 +375,7 @@ function PricingSection() {
                     ))}
                   </ul>
                   <Link
-                    href={activeBand.dark ? "/contact" : "/pricing"}
+                    href={activeBand.dark ? "/contact" : "/pricing#organisation"}
                     style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", padding: "0.75rem 2rem", borderRadius: "8px", textDecoration: "none", background: activeBand.dark ? "var(--white)" : "var(--evergreen)", color: activeBand.dark ? "var(--evergreen)" : "var(--white)" }}
                   >
                     {activeBand.cta}
@@ -388,7 +388,7 @@ function PricingSection() {
                   <div>
                     <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "rgba(255,255,255,0.65)", marginBottom: "0.4rem" }}>For the approver</div>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.85)", lineHeight: 1.65, margin: 0 }}>
-                      Need to share this with a budget holder or procurement team? <Link href="/pricing" style={{ color: "rgba(168,212,176,0.95)", textDecoration: "underline", fontWeight: 600 }}>Download our one-page pricing summary</Link> or <Link href="/contact" style={{ color: "rgba(168,212,176,0.95)", textDecoration: "underline", fontWeight: 600 }}>get in touch for a formal quote</Link>.
+                      Need to share this with a budget holder or procurement team? <Link href="/pricing#individual" style={{ color: "rgba(168,212,176,0.95)", textDecoration: "underline", fontWeight: 600 }}>Download our one-page pricing summary</Link> or <Link href="/contact" style={{ color: "rgba(168,212,176,0.95)", textDecoration: "underline", fontWeight: 600 }}>get in touch for a formal quote</Link>.
                     </p>
                   </div>
                 </div>
