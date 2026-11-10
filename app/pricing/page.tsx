@@ -64,6 +64,13 @@ export default function PricingPage() {
   return (
     <main style={{ background: "var(--white)", minHeight: "100vh" }}>
 
+      {/* BACK NAVIGATION */}
+      <div style={{ padding: "1.25rem 2rem 0", maxWidth: "1100px", margin: "0 auto" }}>
+        <a href="/about-our-impact-platform" style={{ display: "inline-flex", alignItems: "center", gap: "0.375rem", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", color: "var(--evergreen)", textDecoration: "none" }}>
+          <span style={{ fontSize: "1rem", lineHeight: 1 }}>      {/* PAGE HEADER */}#8592;</span> Back to the Impact Platform
+        </a>
+      </div>
+
       {/* PAGE HEADER */}
       <section style={{ background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", padding: "5rem 2rem 4rem", textAlign: "center" }}>
         <div style={{ maxWidth: "680px", margin: "0 auto" }}>
