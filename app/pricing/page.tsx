@@ -189,6 +189,34 @@ export default function PricingPage() {
       </section>
 
       {/* SECTION DIVIDER */}
+      {/* SOCIAL PROOF STRIP */}
+      <section style={{ background: "var(--mist)", padding: "3rem 1.5rem" }}>
+        <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
+
+            {/* Quote: Cristina */}
+            <div style={{ background: "var(--white)", borderRadius: "16px", padding: "2rem", border: "1.5px solid var(--line)", boxShadow: "0 2px 12px rgba(26,50,32,0.06)" }}>
+              <div style={{ fontFamily: "var(--font-display)", fontSize: "2.5rem", lineHeight: 1, color: "var(--sage-mid)", marginBottom: "1rem" }}>&ldquo;&rdquo;</div>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", lineHeight: 1.75, color: "var(--charcoal)", margin: "0 0 1.5rem", fontStyle: "italic" }}>
+                &ldquo;I find the resources an excellent tool to fall back on and a great reminder of how we can handle inclusion better in our settings.&rdquo;
+              </p>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--charcoal)", margin: 0 }}>Cristina Portius-Capeo</p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--slate)", margin: "0.2rem 0 0" }}>MSA</p>
+            </div>
+
+            {/* Stat: 93% survey */}
+            <div style={{ background: "linear-gradient(160deg, #2C4A31 0%, #1A3220 100%)", borderRadius: "16px", padding: "2rem", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center" }}>
+              <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "3.5rem", lineHeight: 1, color: "var(--white)", marginBottom: "1rem" }}>93%</div>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", lineHeight: 1.7, color: "rgba(255,255,255,0.85)", margin: "0 0 1.25rem", maxWidth: "240px" }}>
+                of those who have used our resources said they were &ldquo;very helpful in developing their inclusion knowledge.&rdquo;
+              </p>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.55)", margin: 0 }}>The Inclusion Edit Survey</p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       <div style={{ padding: "1rem 1.5rem 0", background: "var(--mist)" }}>
         <div style={{ maxWidth: "1000px", margin: "0 auto", borderTop: "1px solid var(--line)" }} />
       </div>
