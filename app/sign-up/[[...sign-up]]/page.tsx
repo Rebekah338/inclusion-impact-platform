@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation';
 const INDIVIDUAL_TIERS = [
   { id: 'individual', label: 'Individual Practitioner', price: '£249/year', desc: '1 named user account; self-service access' },
   { id: 'practitioner-plus', label: 'Practitioner Plus', price: '£499/year', desc: '1 named user account; AI-assisted support' },
-  { id: 'expert-track', label: 'Expert Track', price: '£999/year', desc: '1 named user account; 12 expert sessions per year' },
+  { id: 'expert-track', label: 'Expert Track', price: '£1,200/year', desc: '1 named user account; 12 expert sessions per year' },
 ];
 
 const ORG_TIERS = [
