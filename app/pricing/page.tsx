@@ -88,6 +88,16 @@ export default function PricingPage() {
             Whether you're largely working this out on your own, or ready to bring your whole organisation with you, there's a membership built for exactly where you are.
           </p>
         </div>
+          {/* Award badge — bottom right of hero */}
+          <div style={{ position: "absolute", bottom: "2rem", right: "2rem", zIndex: 4, background: "linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.08) 100%)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.35)", borderRadius: "16px", padding: "1.25rem 1.5rem", textAlign: "center", maxWidth: "200px", boxShadow: "0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1) inset" }}>
+            <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: "linear-gradient(135deg, #f5c842 0%, #e8a820 100%)", margin: "0 auto 0.75rem", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 12px rgba(232,168,32,0.5)", fontSize: "1.1rem", lineHeight: 1 }}>🏆</div>
+            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.58rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.55)", margin: "0 0 0.35rem" }}>Corporate Vision</p>
+            <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "0.95rem", color: "var(--white)", lineHeight: 1.15, margin: "0 0 0.35rem" }}>Best EDI Consultancy</p>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.62rem", color: "rgba(255,255,255,0.55)", margin: "0 0 0.6rem", lineHeight: 1.4 }}>HR &amp; Employment Awards 2026 · London</p>
+            <div style={{ borderTop: "1px solid rgba(255,255,255,0.15)", paddingTop: "0.6rem" }}>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.68rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#f5c842", margin: 0 }}>Award Winner</p>
+            </div>
+          </div>
         </div>
       </section>
 
