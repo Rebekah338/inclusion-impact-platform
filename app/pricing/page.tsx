@@ -190,34 +190,34 @@ export default function PricingPage() {
 
       {/* SECTION DIVIDER */}
       {/* SOCIAL PROOF STRIP */}
-      <section style={{ background: "var(--mist)", padding: "3rem 1.5rem" }}>
+      <section style={{ background: "linear-gradient(160deg, #2C4A31 0%, #1A3220 100%)", padding: "2rem 1.5rem" }}>
         <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1.5rem" }}>
 
             {/* Quote: Cristina */}
-            <div style={{ background: "var(--white)", borderRadius: "16px", padding: "2rem", border: "1.5px solid var(--line)", boxShadow: "0 2px 12px rgba(26,50,32,0.06)" }}>
-              <div style={{ fontFamily: "var(--font-display)", fontSize: "2.5rem", lineHeight: 1, color: "var(--sage-mid)", marginBottom: "1rem" }}>&ldquo;&rdquo;</div>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", lineHeight: 1.75, color: "var(--charcoal)", margin: "0 0 1.5rem", fontStyle: "italic" }}>
+            <div style={{ background: "rgba(255,255,255,0.08)", borderRadius: "14px", padding: "1.5rem", border: "1px solid rgba(255,255,255,0.15)" }}>
+              <div style={{ fontFamily: "var(--font-display)", fontSize: "2rem", lineHeight: 1, color: "rgba(255,255,255,0.4)", marginBottom: "0.75rem" }}>&ldquo;&rdquo;</div>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", lineHeight: 1.7, color: "rgba(255,255,255,0.88)", margin: "0 0 1.25rem", fontStyle: "italic" }}>
                 &ldquo;The resources have become something I genuinely rely on. A practical reminder of how to handle inclusion better, right when I need it.&rdquo;
               </p>
-              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--charcoal)", margin: 0 }}>Cristina Portius-Capeo</p>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--slate)", margin: "0.2rem 0 0" }}>MSA</p>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "var(--white)", margin: 0 }}>Cristina Portius-Capeo</p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.73rem", color: "rgba(255,255,255,0.55)", margin: "0.2rem 0 0" }}>MSA</p>
             </div>
 
             {/* Quote: Tiona — placeholder until quote received */}
-            <div style={{ background: "var(--white)", borderRadius: "16px", padding: "2rem", border: "1.5px dashed var(--line)", boxShadow: "none", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center", minHeight: "200px" }}>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--slate)", fontStyle: "italic", marginBottom: "1rem" }}>Quote from Tiona Knight coming soon.</p>
-              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--charcoal)", margin: 0 }}>Tiona Knight</p>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--slate)", margin: "0.2rem 0 0" }}>Mentivity</p>
+            <div style={{ background: "rgba(255,255,255,0.05)", borderRadius: "14px", padding: "1.5rem", border: "1px dashed rgba(255,255,255,0.2)", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center" }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "rgba(255,255,255,0.45)", fontStyle: "italic", marginBottom: "1rem" }}>Quote from Tiona Knight coming soon.</p>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "rgba(255,255,255,0.7)", margin: 0 }}>Tiona Knight</p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.73rem", color: "rgba(255,255,255,0.4)", margin: "0.2rem 0 0" }}>Mentivity</p>
             </div>
 
             {/* Stat: 93% survey */}
-            <div style={{ background: "linear-gradient(160deg, #2C4A31 0%, #1A3220 100%)", borderRadius: "16px", padding: "2rem", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center" }}>
-              <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "3.5rem", lineHeight: 1, color: "var(--white)", marginBottom: "1rem" }}>93%</div>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", lineHeight: 1.7, color: "rgba(255,255,255,0.85)", margin: "0 0 1.25rem", maxWidth: "240px" }}>
+            <div style={{ background: "rgba(255,255,255,0.12)", borderRadius: "14px", padding: "1.5rem", border: "1px solid rgba(255,255,255,0.2)", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center" }}>
+              <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "3rem", lineHeight: 1, color: "var(--white)", marginBottom: "0.75rem" }}>93%</div>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", lineHeight: 1.65, color: "rgba(255,255,255,0.85)", margin: "0 0 1rem", maxWidth: "200px" }}>
                 of those who have used our resources said they were &ldquo;very helpful in developing their inclusion knowledge.&rdquo;
               </p>
-              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.55)", margin: 0 }}>The Inclusion Edit Survey</p>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", margin: 0 }}>The Inclusion Edit Survey</p>
             </div>
 
           </div>
