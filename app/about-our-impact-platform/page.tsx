@@ -88,7 +88,7 @@ function PricingSection() {
       name: "Individual Practitioner",
       price: "£249",
       headline: "Everything you need to stop guessing.",
-      desc: "Full access to the resource library, every learning module across all three pathways, templates and guides you can use the same day, and a way to track your own progress. Built for the person doing this work without a team around her yet.",
+      desc: "Full access to the resource library, every learning module across all three pathways, templates and guides you can use the same day, and a way to track your own progress. Built for the person doing this work without the team around them yet.",
       features: [
         "1 named user account",
         "Full resource library",
@@ -220,12 +220,15 @@ function PricingSection() {
         {/* Section header */}
         <div style={{ textAlign: "center", marginBottom: "3rem" }}>
           <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase" as const, letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--white)", border: "1px solid var(--sage-light)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1rem" }}>
-            Pricing
+            Join today
           </span>
           <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "0.75rem" }}>
-            Find your membership
+            Ready to build inclusion that lasts?
           </h2>
-          <p style={{ fontFamily: "var(--font-body)", color: "var(--slate)", fontSize: "1.05rem", maxWidth: "460px", margin: "0 auto" }}>
+          <p style={{ fontFamily: "var(--font-body)", color: "var(--slate)", fontSize: "1.05rem", maxWidth: "520px", margin: "0 auto 0.625rem" }}>
+            Join practitioners, HR leaders, and people managers across the UK building their EDI capability backed by real expertise, not just content.
+          </p>
+          <p style={{ fontFamily: "var(--font-body)", color: "var(--slate)", fontSize: "0.875rem", maxWidth: "460px", margin: "0 auto", opacity: 0.75 }}>
             Annual memberships. Everything your team needs, one licence. Cancel any time.
           </p>
         </div>
@@ -1178,28 +1181,9 @@ export default function Home() {
           </div>
         </section>
 
-        {/* FINAL CTA */}
-        <section style={{ padding: "4rem 1.5rem", textAlign: "center", background: "var(--white)" }}>
-          <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--sage-xlight)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1.5rem" }}>
-            Join today
-          </span>
-          <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(2rem, 5vw, 3.25rem)", color: "var(--charcoal)", marginBottom: "1rem" }}>
-            Ready to build inclusion that lasts?
-          </h2>
-          <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.1rem", maxWidth: "36rem", margin: "0 auto 2.5rem", lineHeight: 1.7 }}>
-            Join practitioners, HR leaders, and people managers across the UK building their EDI capability backed by real expertise, not just content.
-          </p>
-          <Link href="/sign-up" className="btn-primary" style={{ fontSize: "1.05rem", padding: "1rem 2.75rem" }}>
-            Start your membership →
-          </Link>
-          <p style={{ marginTop: "1.25rem", fontFamily: "var(--font-heading)", fontSize: "0.78rem", color: "var(--gray-soft)", letterSpacing: "0.04em" }}>
-            CPD content · WCAG 2.1 AA · Cancel any time
-          </p>
-        </section>
-      </main>
-
         {/* MEMBERSHIP / PRICING */}
         <PricingSection />
+      </main>
 
 
       {/* FOOTER */}
