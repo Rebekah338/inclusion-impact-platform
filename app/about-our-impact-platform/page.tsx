@@ -228,7 +228,7 @@ function PricingSection() {
           <p style={{ fontFamily: "var(--font-body)", color: "var(--slate)", fontSize: "1.05rem", maxWidth: "520px", margin: "0 auto 0.625rem" }}>
             Join practitioners, HR leaders, and people managers across the UK building their EDI capability backed by real expertise, not just content.
           </p>
-          <p style={{ fontFamily: "var(--font-body)", color: "var(--slate)", fontSize: "0.875rem", maxWidth: "460px", margin: "0 auto", opacity: 0.75 }}>
+          <p style={{ fontFamily: "var(--font-body)", color: "var(--slate)", fontSize: "0.875rem", maxWidth: "700px", margin: "0 auto", opacity: 0.75, whiteSpace: "nowrap" as const }}>
             Annual memberships. Everything your team needs, one licence. Cancel any time.
           </p>
         </div>
@@ -397,11 +397,7 @@ function PricingSection() {
           </div>
         )}
 
-        {/* Footer note */}
-        <p style={{ textAlign: "center" as const, fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--slate)", marginTop: "2.5rem" }}>
-          Every price is annual. Cancel any time.{" "}
-          <Link href="/pricing" style={{ color: "var(--evergreen)", fontWeight: 600, textDecoration: "underline" }}>View full pricing details</Link>
-        </p>
+
       </div>
     </section>
   );
