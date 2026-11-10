@@ -192,7 +192,7 @@ export default function PricingPage() {
       {/* SOCIAL PROOF STRIP */}
       <section style={{ background: "var(--mist)", padding: "3rem 1.5rem" }}>
         <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1.5rem" }}>
 
             {/* Quote: Cristina */}
             <div style={{ background: "var(--white)", borderRadius: "16px", padding: "2rem", border: "1.5px solid var(--line)", boxShadow: "0 2px 12px rgba(26,50,32,0.06)" }}>
@@ -202,6 +202,13 @@ export default function PricingPage() {
               </p>
               <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--charcoal)", margin: 0 }}>Cristina Portius-Capeo</p>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--slate)", margin: "0.2rem 0 0" }}>MSA</p>
+            </div>
+
+            {/* Quote: Tiona — placeholder until quote received */}
+            <div style={{ background: "var(--white)", borderRadius: "16px", padding: "2rem", border: "1.5px dashed var(--line)", boxShadow: "none", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center", minHeight: "200px" }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--slate)", fontStyle: "italic", marginBottom: "1rem" }}>Quote from Tiona Knight coming soon.</p>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--charcoal)", margin: 0 }}>Tiona Knight</p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--slate)", margin: "0.2rem 0 0" }}>Mentivity</p>
             </div>
 
             {/* Stat: 93% survey */}
