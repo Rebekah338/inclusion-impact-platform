@@ -78,7 +78,7 @@ export default function PricingPage() {
           <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2rem, 5vw, 3rem)", lineHeight: 1.1, color: "var(--white)", marginBottom: "1.25rem", maxWidth: "680px" }}>
             Find the right level of support for where you are.
           </h1>
-          <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", lineHeight: 1.8, color: "rgba(255,255,255,0.82)", maxWidth: "560px" }}>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", lineHeight: 1.8, color: "rgba(255,255,255,0.82)", maxWidth: "680px" }}>
             Whether you're largely working this out on your own, or ready to bring your whole organisation with you, there's a membership built for exactly where you are.
           </p>
         </div>
