@@ -68,7 +68,7 @@ export default function PricingPage() {
       <main style={{ background: "var(--white)", minHeight: "100vh" }}>
 
       {/* PAGE HEADER */}
-      <section style={{ background: "linear-gradient(160deg, #121f17 0%, #162219 100%)", padding: "3rem 2rem 2.5rem", position: "relative", overflow: "hidden" }}>
+      <section style={{ background: "linear-gradient(160deg, #162b1c 0%, #1a2f20 100%)", padding: "3rem 2rem 2.5rem", position: "relative", overflow: "hidden" }}>
         {/* Subtle top-edge gloss line */}
         <div aria-hidden="true" style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.18) 30%, rgba(255,255,255,0.28) 50%, rgba(255,255,255,0.18) 70%, transparent 100%)", pointerEvents: "none" }} />
         <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative" }}>
