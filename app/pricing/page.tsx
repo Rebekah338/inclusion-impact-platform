@@ -198,7 +198,7 @@ export default function PricingPage() {
             <div style={{ background: "var(--white)", borderRadius: "16px", padding: "2rem", border: "1.5px solid var(--line)", boxShadow: "0 2px 12px rgba(26,50,32,0.06)" }}>
               <div style={{ fontFamily: "var(--font-display)", fontSize: "2.5rem", lineHeight: 1, color: "var(--sage-mid)", marginBottom: "1rem" }}>&ldquo;&rdquo;</div>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", lineHeight: 1.75, color: "var(--charcoal)", margin: "0 0 1.5rem", fontStyle: "italic" }}>
-                &ldquo;I find the resources an excellent tool to fall back on and a great reminder of how we can handle inclusion better in our settings.&rdquo;
+                &ldquo;The resources have become something I genuinely rely on. A practical reminder of how to handle inclusion better, right when I need it.&rdquo;
               </p>
               <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--charcoal)", margin: 0 }}>Cristina Portius-Capeo</p>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--slate)", margin: "0.2rem 0 0" }}>MSA</p>
