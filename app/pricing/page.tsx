@@ -68,8 +68,12 @@ export default function PricingPage() {
       <main style={{ background: "var(--white)", minHeight: "100vh" }}>
 
       {/* PAGE HEADER */}
-      <section style={{ background: "linear-gradient(160deg, #1A3220 0%, #1E3624 100%)", padding: "3rem 2rem 2.5rem" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+      <section style={{ background: "linear-gradient(160deg, #1A3220 0%, #1E3624 100%)", padding: "3rem 2rem 2.5rem", position: "relative", overflow: "hidden" }}>
+        {/* Radial glow */}
+        <div aria-hidden="true" style={{ position: "absolute", top: "-60px", left: "-80px", width: "520px", height: "360px", background: "radial-gradient(ellipse at 30% 40%, rgba(201,168,76,0.18) 0%, rgba(201,168,76,0.06) 45%, transparent 70%)", pointerEvents: "none" }} />
+        {/* Subtle top-edge gloss line */}
+        <div aria-hidden="true" style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.18) 30%, rgba(255,255,255,0.28) 50%, rgba(255,255,255,0.18) 70%, transparent 100%)", pointerEvents: "none" }} />
+        <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative" }}>
           <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase" as const, color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.5rem" }}>
             Membership
           </span>
