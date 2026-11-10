@@ -261,11 +261,6 @@ function PricingSection() {
           ))}
         </div>
 
-        {/* Nudge toward org path */}
-        <p style={{ textAlign: "center", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--slate)", maxWidth: "480px", margin: "-1.5rem auto 2.5rem", lineHeight: 1.6, opacity: 0.85 }}>
-          Research consistently shows that inclusion work has more lasting impact when the whole organisation is involved, not just one person carrying it alone.
-        </p>
-
         {/* Individual path */}
         {path === "individual" && (
           <div>
@@ -315,6 +310,13 @@ function PricingSection() {
                 </div>
               ))}
             </div>
+            {/* Org nudge: shown after viewing individual options */}
+            <p style={{ textAlign: "center", fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--slate)", maxWidth: "480px", margin: "2rem auto 0", lineHeight: 1.65, opacity: 0.85 }}>
+              Research consistently shows that inclusion work has more lasting impact when the whole organisation is involved, not just one person carrying it alone.{" "}
+              <button onClick={() => setPath("org")} style={{ background: "none", border: "none", padding: 0, fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--evergreen)", fontWeight: 700, cursor: "pointer", textDecoration: "underline" }}>
+                See organisation memberships.
+              </button>
+            </p>
           </div>
         )}
 
