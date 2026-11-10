@@ -261,6 +261,11 @@ function PricingSection() {
           ))}
         </div>
 
+        {/* Nudge toward org path */}
+        <p style={{ textAlign: "center", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--slate)", maxWidth: "480px", margin: "-1.5rem auto 2.5rem", lineHeight: 1.6, opacity: 0.85 }}>
+          Research consistently shows that inclusion work has more lasting impact when the whole organisation is involved, not just one person carrying it alone.
+        </p>
+
         {/* Individual path */}
         {path === "individual" && (
           <div>
@@ -319,7 +324,7 @@ function PricingSection() {
             {/* Size selector */}
             <div style={{ textAlign: "center" as const, marginBottom: "2rem" }}>
               <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", color: "var(--slate)", marginBottom: "0.5rem", textTransform: "uppercase" as const, letterSpacing: "0.08em" }}>
-                How many people are in your organisation?
+                How many people are you responsible for bringing along?
               </p>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--slate)", marginBottom: "1rem", opacity: 0.8 }}>
                 Fewer than 50 people? Practitioner Plus or the Expert Track are built for you: go back and take a look.
