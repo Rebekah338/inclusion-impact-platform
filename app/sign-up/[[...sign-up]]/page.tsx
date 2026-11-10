@@ -4,11 +4,19 @@ import Link from 'next/link';
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-const TIERS = [
-  { id: 'individual', label: 'Individual Practitioner', price: '£249/year', desc: '1 named user account' },
-  { id: 'growing-teams', label: 'Growing Teams', price: '£2,400/year', desc: 'Up to 5 team members; up to 500 employees' },
-  { id: 'established-organisations', label: 'Established Organisations', price: '£4,800/year', desc: 'Up to 10 team members; 501 to 2,000 employees' },
+const INDIVIDUAL_TIERS = [
+  { id: 'individual', label: 'Individual Practitioner', price: '£249/year', desc: '1 named user account; self-service access' },
+  { id: 'practitioner-plus', label: 'Practitioner Plus', price: '£499/year', desc: '1 named user account; AI-assisted support' },
+  { id: 'expert-track', label: 'Expert Track', price: '£999/year', desc: '1 named user account; 12 expert sessions per year' },
 ];
+
+const ORG_TIERS = [
+  { id: 'growing-teams', label: 'Growing Teams', price: '£2,400/year', desc: 'Up to 5 team members; up to 500 employees' },
+  { id: 'established', label: 'Established Organisations', price: '£4,800/year', desc: 'Up to 10 team members; 501 to 2,000 employees' },
+  { id: 'enterprise', label: 'Enterprise', price: 'Contact us', desc: 'Unlimited team members; over 2,000 employees' },
+];
+
+const ORG_IDS = new Set(ORG_TIERS.map(t => t.id));
 
 const ORG_SIZES = [
   'Up to 50 employees',
@@ -22,11 +30,14 @@ const ORG_SIZES = [
 function SignUpForm() {
   const searchParams = useSearchParams();
   const tierParam = searchParams.get('tier') ?? 'individual';
-  const [selectedTier, setSelectedTier] = useState(tierParam);
+  const isOrg = ORG_IDS.has(tierParam);
+  const activeTiers = isOrg ? ORG_TIERS : INDIVIDUAL_TIERS;
+  const defaultTier = activeTiers.find(t => t.id === tierParam)?.id ?? activeTiers[0].id;
+  const [selectedTier, setSelectedTier] = useState(defaultTier);
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ firstName: '', lastName: '', jobTitle: '', orgName: '', email: '', orgSize: '' });
 
-  useEffect(() => { setSelectedTier(tierParam); }, [tierParam]);
+  useEffect(() => { setSelectedTier(defaultTier); }, [tierParam]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -66,7 +77,7 @@ function SignUpForm() {
       <div>
         <p style={{ ...labelStyle, marginBottom: '0.75rem' }}>Select your membership</p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.625rem' }}>
-          {TIERS.map((t) => {
+          {activeTiers.map((t) => {
             const active = selectedTier === t.id;
             return (
               <button type="button" key={t.id} onClick={() => setSelectedTier(t.id)}
@@ -88,7 +99,7 @@ function SignUpForm() {
       </div>
       <div><label htmlFor="email" style={labelStyle}>Work email</label><input id="email" name="email" type="email" required value={form.email} onChange={handleChange} style={inputStyle} /></div>
       <div><label htmlFor="jobTitle" style={labelStyle}>Job title</label><input id="jobTitle" name="jobTitle" type="text" required value={form.jobTitle} onChange={handleChange} style={inputStyle} /></div>
-      {selectedTier !== 'individual' && (
+      {isOrg && (
         <>
           <div><label htmlFor="orgName" style={labelStyle}>Organisation name</label><input id="orgName" name="orgName" type="text" required value={form.orgName} onChange={handleChange} style={inputStyle} /></div>
           <div>
