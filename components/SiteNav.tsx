@@ -10,6 +10,11 @@ const WHAT_WE_OFFER = [
   { href: "/bespoke-inclusion-resources", label: "Bespoke Inclusion Resources" },
 ];
 
+const IMPACT_PLATFORM_LINKS = [
+  { href: "/about-our-impact-platform", label: "About the Platform" },
+  { href: "/pricing", label: "Pricing" },
+];
+
 const CONTACT_LINKS = [
   { href: "/contact-us", label: "Contact Us" },
   { href: "/faqs", label: "FAQs" },
@@ -19,10 +24,13 @@ const CONTACT_LINKS = [
 export default function SiteNav() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [offerOpen, setOfferOpen] = useState(false);
+  const [platformOpen, setPlatformOpen] = useState(false);
+  const [mobilePlatformOpen, setMobilePlatformOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const [mobileOfferOpen, setMobileOfferOpen] = useState(false);
   const [mobileContactOpen, setMobileContactOpen] = useState(false);
   const offerRef = useRef<HTMLDivElement>(null);
+  const platformRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
   const userRef = useRef<HTMLDivElement>(null);
   const [userOpen, setUserOpen] = useState(false);
@@ -32,6 +40,9 @@ export default function SiteNav() {
     function handleClick(e: MouseEvent) {
       if (offerRef.current && !offerRef.current.contains(e.target as Node)) {
         setOfferOpen(false);
+      }
+      if (platformRef.current && !platformRef.current.contains(e.target as Node)) {
+        setPlatformOpen(false);
       }
       if (contactRef.current && !contactRef.current.contains(e.target as Node)) {
         setContactOpen(false);
@@ -47,11 +58,13 @@ export default function SiteNav() {
   useEffect(() => {
     setMobileOpen(false);
     setOfferOpen(false);
+    setPlatformOpen(false);
     setContactOpen(false);
     setUserOpen(false);
   }, [pathname]);
 
   const isOfferActive = WHAT_WE_OFFER.some(l => pathname === l.href);
+  const isImpactActive = IMPACT_PLATFORM_LINKS.some(l => pathname === l.href);
   const isContactActive = CONTACT_LINKS.some(l => pathname === l.href);
 
   const navLinkStyle = (href: string) => ({
@@ -124,11 +137,30 @@ export default function SiteNav() {
               )}
             </div>
 
-            {/* Impact Platform — own tab */}
-            <Link href="/about-our-impact-platform" style={navLinkStyle("/about-our-impact-platform")}
-              onMouseEnter={(e) => { if (pathname !== "/about-our-impact-platform") e.currentTarget.style.background = "#d4e4d6"; }}
-              onMouseLeave={(e) => { if (pathname !== "/about-our-impact-platform") e.currentTarget.style.background = "transparent"; }}
-            >Impact Platform</Link>
+            {/* Impact Platform dropdown */}
+            <div ref={platformRef} style={{ position: "relative" }}>
+              <button
+                onClick={() => setPlatformOpen(!platformOpen)}
+                aria-expanded={platformOpen}
+                style={{ fontFamily: "var(--font-heading)", fontWeight: isImpactActive ? 700 : 600, fontSize: "0.78rem", color: isImpactActive ? "var(--sage-dark)" : "var(--charcoal)", background: isImpactActive || platformOpen ? "#d4e4d6" : "transparent", border: "none", cursor: "pointer", padding: "0.4rem 0.65rem", borderRadius: "6px", letterSpacing: "0.01em", whiteSpace: "nowrap" as const, display: "flex", alignItems: "center", gap: "0.3rem" }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = "#d4e4d6"; }}
+                onMouseLeave={(e) => { if (!isImpactActive && !platformOpen) e.currentTarget.style.background = "transparent"; }}
+              >
+                Impact Platform
+                <span style={{ fontSize: "0.6rem", display: "inline-block", transform: platformOpen ? "rotate(180deg)" : "rotate(0deg)", transition: "transform 0.2s" }}>▼</span>
+              </button>
+              {platformOpen && (
+                <div role="menu" style={{ position: "absolute", top: "calc(100% + 8px)", left: 0, background: "var(--white)", border: "1px solid var(--gray-border)", borderRadius: "12px", boxShadow: "0 12px 40px rgba(0,0,0,0.13)", minWidth: "220px", overflow: "hidden", zIndex: 200 }}>
+                  {IMPACT_PLATFORM_LINKS.map((item, i) => (
+                    <Link key={item.href} href={item.href} role="menuitem"
+                      style={{ display: "block", padding: "0.75rem 1.25rem", fontFamily: "var(--font-heading)", fontWeight: pathname === item.href ? 700 : 600, fontSize: "0.82rem", color: pathname === item.href ? "var(--sage-dark)" : "var(--charcoal)", textDecoration: "none", background: pathname === item.href ? "#d4e4d6" : "transparent", borderBottom: i < IMPACT_PLATFORM_LINKS.length - 1 ? "1px solid var(--gray-border)" : "none" }}
+                      onMouseEnter={(e) => { e.currentTarget.style.background = "#d4e4d6"; }}
+                      onMouseLeave={(e) => { if (pathname !== item.href) e.currentTarget.style.background = "transparent"; }}
+                    >{item.label}</Link>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* The Inclusion Business Case — own tab */}
             <Link href="/the-inclusion-business-case" style={navLinkStyle("/the-inclusion-business-case")}
@@ -228,8 +260,19 @@ export default function SiteNav() {
                 ))}
               </div>
             )}
+            <button onClick={() => setMobilePlatformOpen(!mobilePlatformOpen)}
+              style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.9rem", color: "var(--charcoal)", background: "none", border: "none", cursor: "pointer", padding: "0.625rem 0.75rem", borderRadius: "8px", textAlign: "left", display: "flex", alignItems: "center", justifyContent: "space-between", width: "100%" }}>
+              Impact Platform
+              <span style={{ fontSize: "0.6rem", transform: mobilePlatformOpen ? "rotate(180deg)" : "rotate(0deg)", display: "inline-block", transition: "transform 0.2s" }}>▼</span>
+            </button>
+            {mobilePlatformOpen && (
+              <div style={{ paddingLeft: "1rem", display: "flex", flexDirection: "column", gap: "0.125rem" }}>
+                {IMPACT_PLATFORM_LINKS.map((item) => (
+                  <Link key={item.href} href={item.href} style={{ fontFamily: "var(--font-heading)", fontWeight: 500, fontSize: "0.85rem", color: "var(--charcoal)", textDecoration: "none", padding: "0.5rem 0.75rem", borderRadius: "8px", display: "block" }}>{item.label}</Link>
+                ))}
+              </div>
+            )}
             {[
-              { href: "/about-our-impact-platform", label: "Impact Platform" },
               { href: "/the-inclusion-business-case", label: "The Business Case" },
               { href: "/listen-and-read", label: "Listen & Read" },
             ].map((l) => (
