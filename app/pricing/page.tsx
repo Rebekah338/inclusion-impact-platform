@@ -70,7 +70,7 @@ export default function PricingPage() {
       {/* PAGE HEADER */}
       <section style={{ position: "relative", overflow: "hidden", minHeight: "320px", display: "flex", alignItems: "center" }}>
         {/* Photo */}
-        <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url(/resources-meeting.jpg)", backgroundSize: "cover", backgroundPosition: "center 30%", backgroundRepeat: "no-repeat" }} />
+        <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url(/pricing-team.jpg)", backgroundSize: "cover", backgroundPosition: "center 30%", backgroundRepeat: "no-repeat" }} />
         {/* Forest overlay */}
         <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(100deg, rgba(20,40,25,0.95) 0%, rgba(20,40,25,0.85) 38%, rgba(20,40,25,0.3) 70%, rgba(20,40,25,0.05) 100%)" }} />
         {/* Content wrapper */}
