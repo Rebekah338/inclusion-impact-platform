@@ -68,15 +68,15 @@ export default function PricingPage() {
       <main style={{ background: "var(--white)", minHeight: "100vh" }}>
 
       {/* PAGE HEADER */}
-      <section style={{ background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", padding: "3rem 2rem 2.5rem" }}>
+      <section style={{ background: "linear-gradient(160deg, #1A3220 0%, #1E3624 100%)", padding: "3rem 2rem 2.5rem" }}>
         <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-          <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase" as const, color: "var(--evergreen)", background: "rgba(74,99,71,0.08)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.5rem" }}>
+          <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase" as const, color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.5rem" }}>
             Membership
           </span>
-          <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2rem, 5vw, 3rem)", lineHeight: 1.1, color: "var(--forest)", marginBottom: "1.25rem", maxWidth: "680px" }}>
+          <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2rem, 5vw, 3rem)", lineHeight: 1.1, color: "var(--white)", marginBottom: "1.25rem", maxWidth: "680px" }}>
             Find the right level of support for where you are.
           </h1>
-          <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", lineHeight: 1.8, color: "var(--slate)", maxWidth: "560px" }}>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", lineHeight: 1.8, color: "rgba(255,255,255,0.82)", maxWidth: "560px" }}>
             Whether you are working this out largely on your own, or you are ready to bring your whole organisation with you, there is a membership built for exactly where you are standing.
           </p>
         </div>
