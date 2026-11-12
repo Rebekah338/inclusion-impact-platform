@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { FINDER_STEPS } from "@/lib/finder-content";
 import { useState } from "react";
 import SiteNav from "@/components/SiteNav";
 
@@ -107,9 +108,18 @@ const STATS = [
   { number: "40+", label: "Years combined experience" },
   { number: "1,000+", label: "Practitioners reached" },
   { number: "100+", label: "Platform resources" },
-  { number: "15+", label: "AI tools" },
+  { number: "10+", label: "AI tools" },
   { number: "25+", label: "Organisations supported" },
 ];
+
+const STARTER_RESOURCES: Record<string, string> = {
+  policy: "Making Policies Inclusive",
+  training: "the Inclusive Leadership Self-Assessment",
+  "business-case": "Talking to Sceptical Stakeholders",
+  strategy: "the 30/60/90 Day Action Planner",
+  data: "the Inclusive Data Collection guide",
+  general: "the Inclusion Maturity Framework",
+};
 
 export default function Home() {
   const [activeTile, setActiveTile] = useState<string | null>(null);
@@ -129,10 +139,22 @@ export default function Home() {
   const [starterResourceLink, setStarterResourceLink] = useState({ label: "", href: "" });
   const [testimonialIdx, setTestimonialIdx] = useState(0);
   const [starterResourceOpen, setStarterResourceOpen] = useState(false);
+  const [starterRoute, setStarterRoute] = useState("general");
+  const [starterNewsletter, setStarterNewsletter] = useState(false);
+  const [starterEmailError, setStarterEmailError] = useState("");
+  const [starterHoney, setStarterHoney] = useState("");
 
-  function getStarterOutput(q1: string, q2: string, q3: string, q4: string): { text: string; cta: { label: string; href: string }; resource: { label: string; href: string } } {
+  function getStarterOutput(q1: string, q2: string, q3: string, q4: string): { text: string; cta: { label: string; href: string }; resource: { label: string; href: string }; route: string } {
     const who = q1 === "Individual" ? "You are working on this as an individual" : "You are approaching this as an organisation or team";
-    const sector = q2 ? q2.toLowerCase() : "your sector";
+    const sectorPhrase: Record<string, string> = {
+      "Corporate or private sector": "in the corporate or private sector",
+      "Public sector": "in the public sector",
+      "Education": "in education",
+      "Charity or third sector": "in the charity or third sector",
+      "Healthcare": "in healthcare",
+      "Other": "in your sector",
+    };
+    const sector = sectorPhrase[q2] || "in your sector";
     const challenge = q3 ? q3.trim() : "";
     const stage = q4;
 
@@ -171,79 +193,40 @@ export default function Home() {
 
     // Build steps based on challenge keyword
     let steps = "";
+    let route = "general";
     if (cl.includes("policy") || cl.includes("policies")) {
-      steps = `When working on inclusion policy, a strong foundation makes everything else easier. Here are five steps to get you started:
-
-1. Review two or three example policies from organisations in your sector; look at structure, language and scope rather than copying content.
-2. Gather your own organisational data first: demographics, pay gaps, recruitment and retention figures, exit interview themes. Your policy needs to reflect your actual context.
-3. Consult with your people before drafting; run listening sessions or a short survey to surface what staff actually need the policy to address.
-4. Map your legal obligations: Equality Act 2010 requirements, any sector-specific duties, and any contractual commitments to clients or funders.
-5. Draft in plain language with clear ownership: who is responsible for each commitment, how it will be monitored, and when it will be reviewed.
-
-Once you have those foundations, you are in a much stronger position to build a policy that actually lands.`;
+      route = "policy";
+      steps = FINDER_STEPS["policy"];
     } else if (cl.includes("train") || cl.includes("stuck") || cl.includes("learn")) {
-      steps = `When inclusion training is not sticking, the problem is rarely the training itself. Here are five steps to diagnose and fix it:
-
-1. Audit what has already been delivered: what was the content, who attended, and what behaviour change was expected afterwards?
-2. Identify the gap between training and practice; talk to managers and ask what gets in the way of applying what they learned.
-3. Check whether leadership models the behaviours the training asks of others; culture follows leaders, not slide decks.
-4. Build in accountability: make inclusion commitments part of performance conversations, not a separate project.
-5. Consider whether your training content reflects your specific context; generic content rarely drives specific change.
-
-Once you have that picture, the right next step becomes much clearer.`;
+      route = "training";
+      steps = FINDER_STEPS["training"];
     } else if (cl.includes("business case") || cl.includes("leadership") || cl.includes("board")) {
-      steps = `Making the business case for inclusion is one of the most important and most winnable conversations you can have. Here are five steps:
-
-1. Lead with data that speaks your leadership's language: financial performance, staff retention costs, recruitment reach, client expectations.
-2. Benchmark against your sector: what are comparable organisations doing and what outcomes are they reporting?
-3. Quantify the cost of inaction: calculate turnover costs, absence rates linked to belonging, and any reputational or regulatory risk.
-4. Frame inclusion as a business enabler, not a compliance requirement; use the language of opportunity, not obligation.
-5. Prepare for objections: know the two or three most likely pushbacks and have evidence-based responses ready.
-
-A well-constructed business case does not just win the argument once; it creates the mandate for everything that follows.`;
+      route = "business-case";
+      steps = FINDER_STEPS["business-case"];
     } else if (cl.includes("strategy") || cl.includes("plan") || cl.includes("roadmap")) {
-      steps = `Building an inclusion strategy that actually drives change takes more than a document. Here are five steps to get it right:
-
-1. Start with a diagnostic: before setting priorities, understand where you actually are through data, listening and an honest audit of current activity.
-2. Define what success looks like in your context; vague aspirations do not drive accountability.
-3. Set time-bound priorities rather than trying to tackle everything; three well-executed commitments create more impact than ten aspirational ones.
-4. Build in governance: who owns each priority, what resources are allocated, and how will progress be reported?
-5. Communicate the strategy in a way that makes it real for different audiences; what it means for a team manager is different from what it means for a board member.
-
-A strategy is only as strong as the infrastructure that supports it.`;
+      route = "strategy";
+      steps = FINDER_STEPS["strategy"];
     } else if (cl.includes("data") || cl.includes("audit") || cl.includes("measure")) {
-      steps = `Getting your data and measurement right is one of the highest-leverage things you can do for inclusion. Here are five steps:
-
-1. Start with what you already collect: HR data, engagement survey results, exit interview themes, recruitment funnel data.
-2. Identify the gaps: what protected characteristics do you have data on, and what are you missing entirely?
-3. Run a voluntary declaration exercise with clear communication about why you are collecting data and how it will be used.
-4. Analyse intersectionally where possible; averages can hide significant disparities within groups.
-5. Decide how you will report: internally to leadership, externally to stakeholders, and to your own workforce.
-
-Good data does not just tell you where you are; it gives you the mandate to act.`;
+      route = "data";
+      steps = FINDER_STEPS["data"];
     } else {
-      steps = `Wherever you are starting from, a few things make the biggest difference early on:
-
-1. Get clear on your current baseline: what do you know about where you are, and what data or evidence do you have to support that picture?
-2. Talk to your people before making decisions; the best inclusion strategies are built from listening, not assumption.
-3. Identify one or two priorities rather than trying to do everything at once; focus creates momentum.
-4. Map what resources, time and budget are actually available; an ambitious plan with no resource behind it stalls quickly.
-5. Find out what already exists in your organisation that could be built on; you rarely need to start from scratch.
-
-Starting well sets the tone for everything that follows.`;
+      steps = FINDER_STEPS["general"];
     }
 
-    const opener = `${who}, working in the ${sector}, and you are ${stageText}. That is a common place to be.
+    const opener = `${who} ${sector}, and you are ${stageText}. That is a common place to be.
 
 ${steps}
 
-This is exactly the kind of work The Inclusion Edit supports. The right starting point depends on your context, and a short conversation can help you find it. You do not need to have it all worked out before you get in touch; the earlier, the better.`;
+You do not have to work through these on your own. Members get the templates, evidence and expert support behind each step, and a free 30 minute call can help you choose where to begin.`;
 
-    return { text: opener, cta, resource };
+    return { text: opener, cta, resource, route };
   }
 
   function handleStarterSubmit() {
-    const { text, cta, resource } = getStarterOutput(starterQ1, starterQ2, starterQ3, starterQ4);
+    const { text, cta, resource, route } = getStarterOutput(starterQ1, starterQ2, starterQ3, starterQ4);
+    setStarterRoute(route);
+    setStarterNewsletter(false);
+    setStarterEmailError("");
     setStarterCTA1(cta);
     setStarterResourceLink(resource);
     setStarterResultText(text);
@@ -267,9 +250,22 @@ This is exactly the kind of work The Inclusion Edit supports. The right starting
   async function handleStarterEmail() {
     if (!starterEmail || starterEmailSending) return;
     setStarterEmailSending(true);
-    // BEFORE LAUNCH: connect this to the mailing tool so the steps are emailed and the address is captured
-    await new Promise(r => setTimeout(r, 900));
-    setStarterEmailSent(true);
+    setStarterEmailError("");
+    try {
+      const res = await fetch("/api/finder-signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: starterEmail, route: starterRoute, sector: starterQ2, stage: starterQ4, who: starterQ1, need: starterQ3, newsletter: starterNewsletter, website: starterHoney }),
+      });
+      if (res.ok) {
+        setStarterEmailSent(true);
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setStarterEmailError(data.error === "invalid_email" ? "Please check your email address and try again." : data.error === "busy" ? "We have had a lot of requests today. Please try again tomorrow, or email info@theinclusionedit.com and we will send your steps." : "Sorry, we could not send your steps just now. Please try again, or email info@theinclusionedit.com.");
+      }
+    } catch {
+      setStarterEmailError("Sorry, we could not send your steps just now. Please try again, or email info@theinclusionedit.com.");
+    }
     setStarterEmailSending(false);
   }
 
@@ -291,17 +287,17 @@ This is exactly the kind of work The Inclusion Edit supports. The right starting
           {/* Content: left aligned */}
           <div style={{ position: "relative", zIndex: 3, maxWidth: "1100px", width: "100%", margin: "0 auto", padding: "5.5rem 2rem 5rem" }}>
             <div style={{ maxWidth: "820px" }}>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>Award-winning EDI consultancy and learning platform</span>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>Award-winning inclusion consultancy and learning platform</span>
               <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(3rem, 5.5vw, 5rem)", lineHeight: 1.05, marginBottom: "1.5rem", maxWidth: "760px" }}>
                 <span style={{ color: "#F0E6C8" }}>Your Culture Is</span><br />
                 <span style={{ color: "#A8D4B0" }}>Your Competitive<br />Edge.</span>
               </h1>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "1.1rem", color: "rgba(255,255,255,0.88)", lineHeight: 1.8, marginBottom: "2.25rem" }}>
-                We help organisations move from good intentions to lasting inclusion, through consultancy, training, bespoke resources and an Impact Platform built for the people doing the work.
+                Building that culture often falls to one person, without the team, time or budget it needs. If that&apos;s you, you&apos;re not meant to do it alone: we give you practical tools, evidence to take to your leaders and a real person beside you.
               </p>
               <div style={{ display: "flex", gap: "0.875rem", flexWrap: "wrap" }}>
-                <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Book a Free Inclusion Call</Link>
-                <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "rgba(255,255,255,0.12)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid rgba(255,255,255,0.4)", whiteSpace: "nowrap", backdropFilter: "blur(4px)" }}>Explore the Platform</Link>
+                <Link href="/pricing" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Start Your Membership</Link>
+                <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "rgba(255,255,255,0.12)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid rgba(255,255,255,0.4)", whiteSpace: "nowrap", backdropFilter: "blur(4px)" }}>Book a Free Inclusion Call</Link>
               </div>
             </div>
           </div>
@@ -335,10 +331,10 @@ This is exactly the kind of work The Inclusion Edit supports. The right starting
             <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.16em", color: "#8B6914", background: "rgba(201,168,76,0.18)", border: "1px solid rgba(201,168,76,0.4)", padding: "0.35rem 1rem", borderRadius: "999px", marginBottom: "1.1rem" }}>Inclusion Starting Point Finder</span>
 
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.4rem, 3vw, 1.85rem)", color: "var(--charcoal)", margin: "0 0 0.4rem", lineHeight: 1.1 }}>
-              Every organisation starts somewhere.<br />
+              You do not need it all worked out.<br />
               <span style={{ background: "linear-gradient(135deg, #C9A84C 0%, #E2C265 50%, #A8741A 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Find your starting point.</span>
             </h2>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "#6b5a3a", margin: "0 0 1.5rem", lineHeight: 1.5 }}>Answer four quick questions and we will suggest practical first steps and where to go next.</p>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "#6b5a3a", margin: "0 0 1.5rem", lineHeight: 1.5 }}>Answer four quick questions and get five practical steps you can act on this week.</p>
 
             {!starterSubmitted ? (
               <div style={{ display: "flex", flexDirection: "column", gap: "0.7rem", textAlign: "left" }}>
@@ -427,10 +423,10 @@ This is exactly the kind of work The Inclusion Edit supports. The right starting
                             >{starterResourceLink.label}</button>
                             {starterResourceOpen && (
                               <div style={{ position: "absolute", top: "calc(100% + 0.5rem)", left: 0, zIndex: 10, background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", border: "1.5px solid rgba(201,168,76,0.45)", borderRadius: "12px", padding: "1rem 1.25rem", boxShadow: "0 8px 30px rgba(0,0,0,0.12), 0 0 0 3px rgba(201,168,76,0.12)", minWidth: "260px", maxWidth: "320px" }}>
-                                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--charcoal)", margin: "0 0 0.6rem", lineHeight: 1.5 }}>🔒 This resource is available exclusively to Impact Platform members.</p>
+                                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--charcoal)", margin: "0 0 0.6rem", lineHeight: 1.5 }}>🔒 This toolkit is part of the Impact Platform, ready to use the day you join.</p>
                                 <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--sage-dark)", textDecoration: "none", borderBottom: "1px solid var(--sage-dark)" }}
                                   onClick={() => setStarterResourceOpen(false)}
-                                >Become an Impact Platform member →</Link>
+                                >Start Your Membership →</Link>
                               </div>
                             )}
                           </div>
@@ -441,7 +437,7 @@ This is exactly the kind of work The Inclusion Edit supports. The right starting
                       <div style={{ borderTop: "1px solid rgba(201,168,76,0.2)", paddingTop: "0.75rem", marginTop: "0.25rem" }}>
                         {!starterEmailSent ? (
                           <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-                            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "#6b5a3a" }}>Want to save these steps? We'll email them to you.</span>
+                            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "#6b5a3a" }}>Save your steps, plus a free copy of {STARTER_RESOURCES[starterRoute] || STARTER_RESOURCES.general}. We&apos;ll email both to you.</span>
                             <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
                               <input type="email" value={starterEmail} onChange={(e) => setStarterEmail(e.target.value)} placeholder="Your email address"
                                 style={{ flex: 1, minWidth: "200px", padding: "0.5rem 1rem", borderRadius: "10px", border: "1.5px solid rgba(201,168,76,0.45)", background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", fontFamily: "var(--font-body)", fontSize: "0.83rem", color: "var(--charcoal)", outline: "none" }}
@@ -452,9 +448,15 @@ This is exactly the kind of work The Inclusion Edit supports. The right starting
                                 style={{ padding: "0.5rem 1.25rem", borderRadius: "10px", background: (!starterEmail || starterEmailSending) ? "rgba(201,168,76,0.15)" : "linear-gradient(135deg, #C9A84C 0%, #E2C265 100%)", border: "1.5px solid rgba(201,168,76,0.45)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.83rem", color: (!starterEmail || starterEmailSending) ? "#9a8060" : "var(--charcoal)", cursor: (!starterEmail || starterEmailSending) ? "not-allowed" : "pointer", transition: "all 0.2s", whiteSpace: "nowrap" }}
                               >{starterEmailSending ? "Sending..." : "Email me these steps →"}</button>
                             </div>
+                            <input type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" value={starterHoney} onChange={(e) => setStarterHoney(e.target.value)} name="website" style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", opacity: 0 }} />
+                            <label style={{ display: "flex", alignItems: "flex-start", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "#6b5a3a", lineHeight: 1.5, cursor: "pointer" }}>
+                              <input type="checkbox" checked={starterNewsletter} onChange={(e) => setStarterNewsletter(e.target.checked)} style={{ marginTop: "0.15rem", accentColor: "#7A5200", width: "1rem", height: "1rem", flexShrink: 0 }} />
+                              <span>Also send me The Inclusion Edit newsletter: one practical inclusion idea per edition. Unsubscribe at any time. <Link href="/privacy" style={{ color: "#7A5200", textDecoration: "underline" }}>Privacy Policy</Link></span>
+                            </label>
+                            {starterEmailError && <p role="alert" style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "#B42318", margin: 0 }}>{starterEmailError}</p>}
                           </div>
                         ) : (
-                          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.83rem", color: "var(--sage-dark)", margin: 0 }}>✓ On its way to your inbox.</p>
+                          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.83rem", color: "var(--sage-dark)", margin: 0 }}>✓ On its way to your inbox. If it has not arrived in a few minutes, check your spam or promotions folder.</p>
                         )}
                       </div>
 

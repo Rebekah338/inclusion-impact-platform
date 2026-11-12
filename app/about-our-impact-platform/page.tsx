@@ -574,7 +574,7 @@ export default function Home() {
             {[
               { value: "31", label: "EDI modules", ai: false },
               { value: "50+", label: "Practical tools", ai: false },
-              { value: "15", label: "AI tools", ai: true },
+              { value: "10", label: "AI tools", ai: true },
               { value: "87%", label: "Better decisions", ai: false },
               { value: "35%", label: "Outperform competitors", ai: false },
               { value: "WCAG 2.1", label: "Accessibility", ai: false },
@@ -832,7 +832,7 @@ export default function Home() {
           const totalSlides = Math.ceil(AI_TOOLS_CAROUSEL.length / 3);
           const visibleTools = AI_TOOLS_CAROUSEL.slice(aiCarouselIdx * 3, aiCarouselIdx * 3 + 3);
           return (
-            <section style={{ padding: "4.5rem 1.5rem", position: "relative", overflow: "hidden" }}>
+            <section id="ai" style={{ padding: "4.5rem 1.5rem", position: "relative", overflow: "hidden" }}>
               {/* Background: same faded photo technique as Learning Pathways */}
               <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/team-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 0 }} aria-hidden="true" />
               <div style={{ position: "absolute", inset: 0, background: "rgba(232, 238, 230, 0.93)", backdropFilter: "blur(2px)", zIndex: 1 }} aria-hidden="true" />
@@ -973,7 +973,7 @@ export default function Home() {
                   <div style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(201,168,76,0.1)" }} />
                   <div style={{ fontSize: "1.75rem", marginBottom: "0.75rem" }} aria-hidden="true">✨</div>
                   <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "0.2rem" }}>Inclusion AI</div>
-                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "#8B6914", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.625rem" }}>15 AI Tools</div>
+                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "#8B6914", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.625rem" }}>10 AI Tools</div>
                   <div style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--gray-soft)", lineHeight: 1.55 }}>AI-powered tools built for inclusion practitioners; fast, evidence-based and actionable.</div>
                 </div>
               </Link>
