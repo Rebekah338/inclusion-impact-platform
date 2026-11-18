@@ -1,6 +1,7 @@
 import SiteNav from "@/components/SiteNav";
 import Footer from "../components/Footer";
 import Link from "next/link";
+import TrustStrip from "../components/TrustStrip";
 
 export const metadata = { title: "About Us | The Inclusion Edit", description: "We are an award-winning EDI consultancy and learning platform helping organisations build capacity, capability and lasting change." };
 
@@ -25,8 +26,8 @@ export default function AboutUs() {
                 Consultancy, training and a learning platform built on one belief: that every organisation can build real inclusion capacity, capability and change.
               </p>
               <div style={{ display: "flex", gap: "0.875rem", flexWrap: "wrap" }}>
-                <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Work with us</Link>
-                <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "rgba(255,255,255,0.12)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid rgba(255,255,255,0.4)", whiteSpace: "nowrap", backdropFilter: "blur(4px)" }}>Explore the platform</Link>
+                <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Work With Us</Link>
+                <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "rgba(255,255,255,0.12)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid rgba(255,255,255,0.4)", whiteSpace: "nowrap", backdropFilter: "blur(4px)" }}>Explore the Platform</Link>
               </div>
             </div>
           </div>
@@ -43,25 +44,14 @@ export default function AboutUs() {
         </section>
 
         {/* STATS STRIP */}
-        <section style={{ padding: "0.6rem 1.5rem", position: "relative", overflow: "hidden", background: "linear-gradient(105deg, rgba(107,143,113,0.18) 0%, rgba(107,143,113,0.10) 50%, rgba(107,143,113,0.18) 100%)", backgroundColor: "#f4f7f4" }}>
-          <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.08) 35%, rgba(201,168,76,0.18) 55%, transparent 100%)", zIndex: 1, pointerEvents: "none" }} />
-          <div style={{ maxWidth: "1100px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0", position: "relative", zIndex: 3 }}>
-            {[
-              { icon: "🏆", label: "Award-winning", sub: "EDI consultancy" },
-              { icon: "🌍", label: "3 jurisdictions", sub: "UK · Bermuda · US" },
-              { icon: "📊", label: "Research-led", sub: "evidence-based practice" },
-              { icon: "🌱", label: "Capacity", sub: "built to last" },
-              { icon: "🎓", label: "Capability", sub: "not just awareness" },
-              { icon: "✨", label: "Change", sub: "measurable outcomes" },
-            ].map((s) => (
-              <div key={s.label} style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "0.75rem 1rem", flex: "1", textAlign: "center" }}>
-                <span style={{ fontSize: "1.25rem", lineHeight: 1, marginBottom: "0.3rem" }}>{s.icon}</span>
-                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--sage-dark)", lineHeight: 1.2 }}>{s.label}</span>
-                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", color: "#4a6a4a", letterSpacing: "0.03em", marginTop: "0.15rem" }}>{s.sub}</span>
-              </div>
-            ))}
-          </div>
-        </section>
+        <TrustStrip items={[
+            { value: "Worldwide", label: "organisations in every sector" },
+            { value: "Award-winning", label: "EDI consultancy" },
+            { value: "Capacity", label: "built to last" },
+            { value: "Capability", label: "not just awareness" },
+            { value: "Change", label: "measurable outcomes" },
+            { value: "Research-led", label: "evidence-based practice" },
+          ]} />
 
         {/* MISSION + VISION */}
         <section style={{ background: "linear-gradient(135deg, #1A3220 0%, #2C4A31 60%, #2E5235 100%)", padding: "4rem 1.5rem" }}>
@@ -70,7 +60,7 @@ export default function AboutUs() {
             <div>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.6)", background: "rgba(255,255,255,0.1)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.25rem" }}>Our mission</span>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", color: "rgba(255,255,255,0.88)", lineHeight: 1.85, margin: 0 }}>
-                The Inclusion Edit exists to empower organisations worldwide to build meaningful, sustainable and exceptional EDI practice. We work with schools, businesses and organisations to build the knowledge, tools and confidence they need to create real, lasting change; through education via our accessible resources, alongside tailored consultancy and strategic training.
+                The Inclusion Edit exists to help organisations worldwide build meaningful, lasting inclusion. We work with businesses, public bodies, charities and schools, giving the people leading inclusion the knowledge, tools and confidence to make real change: through practical resources, tailored consultancy and strategic training.
               </p>
             </div>
             {/* Vision: right side inset box */}
@@ -98,7 +88,7 @@ export default function AboutUs() {
                 That curiosity became a commitment. I built my academic and professional journey around it; completing a Master&apos;s in Education: International Development and Social Justice, alongside a CMI Level 7 qualification in Strategic Approaches to Equity, Diversity and Inclusion. Combined with years of hands-on EDI practice and primary school teaching, this has shaped both my thinking and my purpose.
               </p>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--charcoal)", lineHeight: 1.75, marginBottom: "0.75rem", opacity: 0.85 }}>
-                That purpose is simple: to make inclusion practical, actionable and meaningful; not just something organisations talk about, but something they embed and live. The Inclusion Edit is the embodiment of that journey. Through training, consultancy and practical resources, I help organisations move from intention to impact; building workplaces and communities where everyone can truly belong.
+                That purpose is simple: to make inclusion practical, actionable and meaningful; not just something organisations talk about, but something they embed and live. The Inclusion Edit is the embodiment of that journey. Through training, consultancy and practical resources, I help organisations move from intention to impact; building workplaces and communities where everyone can truly belong. And I make sure the people leading inclusion never have to do it alone.
               </p>
               <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", margin: 0 }}>Rebekah Hayward, Founder</p>
             </div>
@@ -232,10 +222,10 @@ export default function AboutUs() {
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1.5rem" }}>
               {[
-                { icon: "💡", title: "Impact Platform", desc: "A membership hub with 31 CPD modules, AI tools and evidence resources; available anytime, anywhere.", href: "/about-our-impact-platform", cta: "Explore the platform" },
-                { icon: "🤝", title: "Inclusion Consultancy", desc: "Bespoke consultancy programmes designed to audit, advise and embed equity, diversity and inclusion at every level of your organisation.", href: "/edi-consultancy-programmes", cta: "Explore consultancy" },
-                { icon: "🎓", title: "Inclusion Training", desc: "High-impact training for teams, managers and leaders; built around your context, your challenges and your goals.", href: "/edi-training", cta: "Explore training" },
-                { icon: "✏️", title: "Bespoke Resources", desc: "Custom-designed inclusion resources: toolkits, guides and frameworks created specifically for your organisation.", href: "/bespoke-inclusion-resources", cta: "Find out more" },
+                { icon: "💡", title: "Impact Platform", desc: "40 lessons, 45 practical tools, 10 Inclusion AI tools and 47 research reports and case studies, all in one place. Join the early access list to be first in.", href: "/about-our-impact-platform", cta: "Explore the Platform" },
+                { icon: "🤝", title: "Inclusion Consultancy", desc: "Bespoke consultancy programmes designed to audit, advise and embed equity, diversity and inclusion at every level of your organisation.", href: "/edi-consultancy-programmes", cta: "Explore Consultancy" },
+                { icon: "🎓", title: "Inclusion Training", desc: "High-impact training for teams, managers and leaders; built around your context, your challenges and your goals.", href: "/edi-training", cta: "Explore Training" },
+                { icon: "✏️", title: "Bespoke Resources", desc: "Custom-designed inclusion resources: toolkits, guides and frameworks created specifically for your organisation.", href: "/bespoke-inclusion-resources", cta: "Explore Resources" },
               ].map((item) => (
                 <div key={item.href} style={{ background: "linear-gradient(160deg, #f7fbf7 0%, #eef6ee 55%, #e2efe2 100%)", borderRadius: "18px", border: "1.5px solid rgba(107,143,113,0.35)", display: "flex", flexDirection: "column", overflow: "hidden", boxShadow: "0 16px 48px rgba(20,50,25,0.28), 0 4px 14px rgba(20,50,25,0.16)" }}>
                   <div style={{ padding: "2.1rem", display: "flex", flexDirection: "column", flexGrow: 1 }}>
@@ -253,10 +243,10 @@ export default function AboutUs() {
         {/* CTA */}
         <section style={{ background: "var(--white)", padding: "2.5rem 1.5rem", textAlign: "center" }}>
           <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.4rem, 2.8vw, 2.1rem)", color: "var(--charcoal)", marginBottom: "0.6rem", whiteSpace: "nowrap" }}>Ready to build a more inclusive organisation?</h2>
-          <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--charcoal)", opacity: 0.7, whiteSpace: "nowrap", marginTop: 0, marginRight: "auto", marginBottom: "2rem", marginLeft: "auto" }}>Whether you are just getting started or looking to go deeper; we will meet you where you are and help you make lasting change.</p>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--charcoal)", opacity: 0.7, whiteSpace: "nowrap", marginTop: 0, marginRight: "auto", marginBottom: "2rem", marginLeft: "auto" }}>Whether you are just getting started or ready to go deeper, we will meet you where you are and help you make lasting change.</p>
           <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-            <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none" }}>Get in touch</Link>
-            <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "transparent", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none", border: "2px solid var(--sage-dark)" }}>Explore the platform</Link>
+            <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none" }}>Get in Touch</Link>
+            <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "transparent", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none", border: "2px solid var(--sage-dark)" }}>Explore the Platform</Link>
           </div>
         </section>
 

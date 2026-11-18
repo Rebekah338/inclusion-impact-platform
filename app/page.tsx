@@ -1,34 +1,35 @@
 "use client";
 
 import Link from "next/link";
-import { FINDER_STEPS } from "@/lib/finder-content";
 import { useState } from "react";
 import SiteNav from "@/components/SiteNav";
+import StartingPointFinder from "@/components/StartingPointFinder";
+import TrustStrip from "./components/TrustStrip";
 
 const NAV_TILES = [
-  { label: "Consultancy", href: "/edi-consultancy-programmes", icon: "🤝" },
-  { label: "Impact Platform", href: "/about-our-impact-platform", icon: "💡" },
-  { label: "Training", href: "/edi-training", icon: "🎓" },
-  { label: "Bespoke Resources", href: "/bespoke-inclusion-resources", icon: "✏️" },
-  { label: "Podcast and Blog", href: "/podcast", icon: "🎙" },
-  { label: "Inclusion AI", href: "/about-our-impact-platform#ai", icon: "✨" },
+  { label: "Consultancy", href: "/edi-consultancy-programmes", icon: "", sub: "See our programmes" },
+  { label: "Impact Platform", href: "/about-our-impact-platform", icon: "", sub: "Join early access" },
+  { label: "Training", href: "/edi-training", icon: "", sub: "Book training" },
+  { label: "Bespoke Resources", href: "/bespoke-inclusion-resources", icon: "", sub: "Commission a resource" },
+  { label: "Podcast and Blog", href: "/podcast", icon: "", sub: "Listen and read" },
+  { label: "Inclusion AI", href: "/about-our-impact-platform#ai", icon: "", sub: "Explore the tools" },
 ];
 
 const TESTIMONIALS = [
   {
-    quote: "Rebekah was an excellent facilitator. She created a welcoming environment that encouraged honest reflection and meaningful discussion. Her approach was both professional and personal; she encouraged us to think deeply without judgment, which made it easier to be honest about where we are and where we can grow.",
-    name: "EDI Lead",
-    org: "Higher Education",
+    quote: "Thanks to The Inclusion Edit’s EDI Hub, I’m navigating EDI with more intention, bandwidth and knowledge. Their library has saved me a tremendous amount of time, and I feed what I learn back into training and team upskilling. They’re super communicative, responsive and clearly passionate, which shines through in the quality of their resources.",
+    name: "Tiona Knight",
+    org: "EDI Lead, Mentivity",
   },
   {
-    quote: "The Inclusion Edit gave us a clear framework and the practical tools to actually use it. It didn't feel like a tick-box exercise; it felt like real, supported change. We came away knowing exactly what to do next.",
-    name: "HR Director",
-    org: "Mid-size UK charity",
+    quote: "I’d definitely recommend this inclusion training with Rebekah. There was so much valuable information, shared in a way that was relatable and easy to understand. Our team came away with practical ideas we could put into practice straight away.",
+    name: "Corinne Wolstenholme",
+    org: "Network Plus",
   },
   {
-    quote: "Working with The Inclusion Edit changed how we think about inclusion entirely. It was the first time a consultant had come in and made the work feel genuinely achievable rather than overwhelming. The team left energised and with a real plan.",
-    name: "People & Culture Lead",
-    org: "International professional services firm",
+    quote: "Rebekah was an excellent facilitator. She created a welcoming environment that encouraged honest reflection and meaningful discussion. Her approach was both professional and personal: she encouraged us to think deeply without judgement, which made it easier to be honest about where we are and where we can grow.",
+    name: "Kerryann Wynter",
+    org: "The Berkeley School",
   },
 ];
 
@@ -36,24 +37,24 @@ const LOGOS = ["Network Plus", "Hospice UK", "Project Free", "The Berkeley Schoo
 
 const PILLARS = [
   {
-    title: "You gain confidence, not just knowledge.",
-    body: "We make inclusion practical for real teams facing real challenges. Whether you are just beginning or strengthening work already under way, you leave with the clarity and tools to move forward, not just a certificate.",
+    title: "You get time back, not more to do.",
+    body: "Ready-to-use tools, templates and an inclusion expert to check your thinking with, so you can move the work forward this week instead of starting every piece from scratch.",
   },
   {
     title: "You get clarity, not complexity.",
-    body: "We turn complex EDI concepts into clear, practical steps, grounded in lived experience and research, so your team feels equipped rather than overwhelmed.",
+    body: "We turn complex inclusion ideas into clear, practical steps, grounded in lived experience and research, so you and your team feel equipped rather than overwhelmed.",
   },
   {
-    title: "You get support built for your context.",
-    body: "Schools, charities, public bodies and corporate teams: every piece of our work is shaped around the people you serve and the organisation you are building.",
+    title: "You get backup, and a case to take upward.",
+    body: "Evidence and business cases your leaders will recognise, shaped around your sector, whether that's a corporate team, public body, charity or school. You are not making the case alone.",
   },
 ];
 
 const PLATFORM_FEATURES = [
-  { icon: "📚", title: "31 structured modules", desc: "Across three learning pathways: People and Culture, Systems and Processes, Leadership and Strategy." },
-  { icon: "🛠", title: "50+ practical tools", desc: "Templates, frameworks, guides and checklists you can use the same day." },
-  { icon: "🎬", title: "Video masterclasses", desc: "Deep dives, quick wins and expert sessions at your own pace. Coming soon." },
-  { icon: "✨", title: "Inclusion AI", desc: "Specialist AI tools for inclusion work: policy audits, business cases, fairer hiring and more." },
+  { icon: "📚", title: "40 lessons", desc: "Across three learning pathways: People and Culture, Systems and Processes, Leadership and Strategy." },
+  { icon: "🛠", title: "45 practical tools", desc: "Templates, toolkits, guides and checklists you can use the same day, plus 47 research reports and case studies to take to leadership." },
+  { icon: "🎬", title: "28 expert videos", desc: "Deep dives, quick wins and expert sessions at your own pace." },
+  { icon: "✨", title: "10 Inclusion AI tools", desc: "Specialist AI tools for inclusion work: policy audits, business cases, fairer hiring and more." },
 ];
 
 const SERVICES = [
@@ -62,12 +63,12 @@ const SERVICES = [
     href: "/about-our-impact-platform",
     icon: "💡",
     image: "/images/card-impact-platform.jpg",
-    heading: "A platform built for the people doing the real inclusion work.",
-    body: "31 CPD-certified modules, 9 AI tools, evidence resources, office hours with an inclusion expert and a growing community of members. Everything you need to build lasting inclusion.",
+    heading: "Built for people leading inclusion, so you're not carrying it alone.",
+    body: "40 lessons, 10 specialist AI tools, evidence you can take to leadership, office hours with an inclusion expert, and room to bring your team in when you're ready.",
     cta: "Explore the Platform",
   },
   {
-    label: "EDI Consultancy",
+    label: "Inclusion Consultancy",
     href: "/edi-consultancy-programmes",
     icon: "🤝",
     image: "/images/card-consultancy.jpg",
@@ -76,7 +77,7 @@ const SERVICES = [
     cta: "Explore Consultancy",
   },
   {
-    label: "EDI Training",
+    label: "Inclusion Training",
     href: "/edi-training",
     icon: "🎓",
     image: "/images/card-training.jpg",
@@ -91,7 +92,7 @@ const SERVICES = [
     image: "/images/card-bespoke.jpg",
     heading: "Custom tools and content built for your organisation.",
     body: "Need something that does not exist yet? We design toolkits, guides and e-learning modules tailored to your team, your language and your goals.",
-    cta: "Find Out More",
+    cta: "See What We Can Build",
   },
 ];
 
@@ -106,167 +107,48 @@ const WHO_WE_WORK_WITH = [
 
 const STATS = [
   { number: "40+", label: "Years combined experience" },
-  { number: "1,000+", label: "Practitioners reached" },
-  { number: "100+", label: "Platform resources" },
+  { number: "1,000+", label: "People reached" },
+  { number: "140+", label: "Platform resources" },
   { number: "10+", label: "AI tools" },
   { number: "25+", label: "Organisations supported" },
 ];
 
-const STARTER_RESOURCES: Record<string, string> = {
-  policy: "Making Policies Inclusive",
-  training: "the Inclusive Leadership Self-Assessment",
-  "business-case": "Talking to Sceptical Stakeholders",
-  strategy: "the 30/60/90 Day Action Planner",
-  data: "the Inclusive Data Collection guide",
-  general: "the Inclusion Maturity Framework",
-};
 
 export default function Home() {
   const [activeTile, setActiveTile] = useState<string | null>(null);
-  // Inclusion starting point finder
-  const [starterQ1, setStarterQ1] = useState("");
-  const [starterQ2, setStarterQ2] = useState("");
-  const [starterQ3, setStarterQ3] = useState("");
-  const [starterQ4, setStarterQ4] = useState("");
-  const [starterSubmitted, setStarterSubmitted] = useState(false);
-  const [starterTyped, setStarterTyped] = useState("");
-  const [starterTyping, setStarterTyping] = useState(false);
-  const [starterCTA1, setStarterCTA1] = useState({ label: "Explore our services →", href: "/edi-consultancy-programmes" });
-  const [starterEmail, setStarterEmail] = useState("");
-  const [starterEmailSent, setStarterEmailSent] = useState(false);
-  const [starterEmailSending, setStarterEmailSending] = useState(false);
-  const [starterResultText, setStarterResultText] = useState("");
-  const [starterResourceLink, setStarterResourceLink] = useState({ label: "", href: "" });
   const [testimonialIdx, setTestimonialIdx] = useState(0);
-  const [starterResourceOpen, setStarterResourceOpen] = useState(false);
-  const [starterRoute, setStarterRoute] = useState("general");
-  const [starterNewsletter, setStarterNewsletter] = useState(false);
-  const [starterEmailError, setStarterEmailError] = useState("");
-  const [starterHoney, setStarterHoney] = useState("");
+  const [nlEmail, setNlEmail] = useState("");
+  const [nlHoney, setNlHoney] = useState("");
+  const [nlStatus, setNlStatus] = useState<"idle" | "sending" | "done">("idle");
+  const [nlError, setNlError] = useState("");
 
-  function getStarterOutput(q1: string, q2: string, q3: string, q4: string): { text: string; cta: { label: string; href: string }; resource: { label: string; href: string }; route: string } {
-    const who = q1 === "Individual" ? "You are working on this as an individual" : "You are approaching this as an organisation or team";
-    const sectorPhrase: Record<string, string> = {
-      "Corporate or private sector": "in the corporate or private sector",
-      "Public sector": "in the public sector",
-      "Education": "in education",
-      "Charity or third sector": "in the charity or third sector",
-      "Healthcare": "in healthcare",
-      "Other": "in your sector",
-    };
-    const sector = sectorPhrase[q2] || "in your sector";
-    const challenge = q3 ? q3.trim() : "";
-    const stage = q4;
-
-    const stageLabel: Record<string, string> = {
-      "Just starting": "just starting out",
-      "In progress": "already under way",
-      "Want to go deeper": "ready to go deeper",
-    };
-    const stageText = stageLabel[stage] || "at an early stage";
-
-    // Default CTA and resource
-    let cta = { label: "Explore our consultancy →", href: "/edi-consultancy-programmes" };
-    let resource = { label: "Explore our resources →", href: "/bespoke-inclusion-resources" };
-
-    // Keyword routing for CTA
-    const cl = challenge.toLowerCase();
-    if (cl.includes("train") || cl.includes("stuck") || cl.includes("learn")) {
-      cta = { label: "Explore our training →", href: "/edi-training" };
-      resource = { label: "Browse training resources 🔒", href: "/about-our-impact-platform" };
-    } else if (cl.includes("resource") || cl.includes("material") || cl.includes("tool")) {
-      cta = { label: "See bespoke resources →", href: "/bespoke-inclusion-resources" };
-      resource = { label: "Browse our resource library 🔒", href: "/about-our-impact-platform" };
-    } else if (cl.includes("business case") || cl.includes("leadership") || cl.includes("board")) {
-      cta = { label: "Read the business case →", href: "/the-inclusion-business-case" };
-      resource = { label: "Business case toolkit 🔒", href: "/about-our-impact-platform" };
-    } else if (cl.includes("policy") || cl.includes("policies")) {
-      cta = { label: "Talk to us about policy →", href: "/contact-us" };
-      resource = { label: "Policy writing guide 🔒", href: "/about-our-impact-platform" };
-    } else if (cl.includes("strategy") || cl.includes("plan") || cl.includes("roadmap")) {
-      cta = { label: "Explore our consultancy →", href: "/edi-consultancy-programmes" };
-      resource = { label: "EDI strategy toolkit 🔒", href: "/about-our-impact-platform" };
-    } else if (cl.includes("data") || cl.includes("audit") || cl.includes("measure")) {
-      cta = { label: "Talk to us about auditing →", href: "/contact-us" };
-      resource = { label: "EDI data and audit guide 🔒", href: "/about-our-impact-platform" };
-    }
-
-    // Build steps based on challenge keyword
-    let steps = "";
-    let route = "general";
-    if (cl.includes("policy") || cl.includes("policies")) {
-      route = "policy";
-      steps = FINDER_STEPS["policy"];
-    } else if (cl.includes("train") || cl.includes("stuck") || cl.includes("learn")) {
-      route = "training";
-      steps = FINDER_STEPS["training"];
-    } else if (cl.includes("business case") || cl.includes("leadership") || cl.includes("board")) {
-      route = "business-case";
-      steps = FINDER_STEPS["business-case"];
-    } else if (cl.includes("strategy") || cl.includes("plan") || cl.includes("roadmap")) {
-      route = "strategy";
-      steps = FINDER_STEPS["strategy"];
-    } else if (cl.includes("data") || cl.includes("audit") || cl.includes("measure")) {
-      route = "data";
-      steps = FINDER_STEPS["data"];
-    } else {
-      steps = FINDER_STEPS["general"];
-    }
-
-    const opener = `${who} ${sector}, and you are ${stageText}. That is a common place to be.
-
-${steps}
-
-You do not have to work through these on your own. Members get the templates, evidence and expert support behind each step, and a free 30 minute call can help you choose where to begin.`;
-
-    return { text: opener, cta, resource, route };
-  }
-
-  function handleStarterSubmit() {
-    const { text, cta, resource, route } = getStarterOutput(starterQ1, starterQ2, starterQ3, starterQ4);
-    setStarterRoute(route);
-    setStarterNewsletter(false);
-    setStarterEmailError("");
-    setStarterCTA1(cta);
-    setStarterResourceLink(resource);
-    setStarterResultText(text);
-    setStarterSubmitted(true);
-    setStarterTyping(true);
-    setStarterTyped("");
-    setStarterEmail("");
-    setStarterEmailSent(false);
-    setStarterResourceOpen(false);
-    let i = 0;
-    const interval = setInterval(() => {
-      i++;
-      setStarterTyped(text.slice(0, i));
-      if (i >= text.length) {
-        clearInterval(interval);
-        setStarterTyping(false);
-      }
-    }, 18);
-  }
-
-  async function handleStarterEmail() {
-    if (!starterEmail || starterEmailSending) return;
-    setStarterEmailSending(true);
-    setStarterEmailError("");
+  async function handleNewsletter(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (nlStatus === "sending") return;
+    setNlError("");
+    setNlStatus("sending");
     try {
-      const res = await fetch("/api/finder-signup", {
+      const res = await fetch("/api/newsletter-signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: starterEmail, route: starterRoute, sector: starterQ2, stage: starterQ4, who: starterQ1, need: starterQ3, newsletter: starterNewsletter, website: starterHoney }),
+        body: JSON.stringify({ email: nlEmail, origin: "homepage", website: nlHoney }),
       });
-      if (res.ok) {
-        setStarterEmailSent(true);
-      } else {
-        const data = await res.json().catch(() => ({}));
-        setStarterEmailError(data.error === "invalid_email" ? "Please check your email address and try again." : data.error === "busy" ? "We have had a lot of requests today. Please try again tomorrow, or email info@theinclusionedit.com and we will send your steps." : "Sorry, we could not send your steps just now. Please try again, or email info@theinclusionedit.com.");
+      const result = await res.json().catch(() => ({}));
+      if (res.ok && result.ok) {
+        setNlStatus("done");
+        return;
       }
+      setNlError(
+        result.error === "invalid_email"
+          ? "Please check your email address and try again."
+          : result.error === "compliance"
+          ? "This email unsubscribed in the past. Email info@theinclusionedit.com and we will add you back."
+          : "Something went wrong. Please try again, or email info@theinclusionedit.com."
+      );
     } catch {
-      setStarterEmailError("Sorry, we could not send your steps just now. Please try again, or email info@theinclusionedit.com.");
+      setNlError("Something went wrong. Please try again, or email info@theinclusionedit.com.");
     }
-    setStarterEmailSending(false);
+    setNlStatus("idle");
   }
 
   return (
@@ -296,7 +178,7 @@ You do not have to work through these on your own. Members get the templates, ev
                 Building that culture often falls to one person, without the team, time or budget it needs. If that&apos;s you, you&apos;re not meant to do it alone: we give you practical tools, evidence to take to your leaders and a real person beside you.
               </p>
               <div style={{ display: "flex", gap: "0.875rem", flexWrap: "wrap" }}>
-                <Link href="/pricing" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Start Your Membership</Link>
+                <Link href="/early-access" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Get Early Access</Link>
                 <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "rgba(255,255,255,0.12)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid rgba(255,255,255,0.4)", whiteSpace: "nowrap", backdropFilter: "blur(4px)" }}>Book a Free Inclusion Call</Link>
               </div>
             </div>
@@ -304,172 +186,10 @@ You do not have to work through these on your own. Members get the templates, ev
         </section>
 
         {/* ── NAV TILES ── */}
-        <section style={{ padding: "0.6rem 1.5rem 0", position: "relative", overflow: "hidden", background: "linear-gradient(105deg, rgba(107,143,113,0.18) 0%, rgba(107,143,113,0.10) 50%, rgba(107,143,113,0.18) 100%)", backgroundColor: "#f4f7f4" }}>
-          {/* gold shimmer sweep */}
-          <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.08) 35%, rgba(201,168,76,0.18) 55%, transparent 100%)", zIndex: 1, pointerEvents: "none" }} />
-          <div style={{ maxWidth: "1100px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(6, 1fr)", position: "relative", zIndex: 3 }} className="nav-tiles-grid">
-            {NAV_TILES.map((tile) => (
-              <Link key={tile.href} href={tile.href}
-                style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "0.4rem", padding: "1.35rem 0.5rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.06em", textTransform: "uppercase", color: activeTile === tile.label ? "var(--sage-dark)" : "#3a5a3a", textDecoration: "none", transition: "color 0.15s, background 0.15s", background: activeTile === tile.label ? "rgba(107,143,113,0.12)" : "transparent", textShadow: "0 1px 1px rgba(255,255,255,0.8)" }}
-                onMouseEnter={() => setActiveTile(tile.label)}
-                onMouseLeave={() => setActiveTile(null)}
-              >
-                <span style={{ fontSize: "1.25rem", filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.15))" }}>{tile.icon}</span>
-                {tile.label}
-              </Link>
-            ))}
-          </div>
-        </section>
+        <TrustStrip variant="links" ariaLabel="Explore The Inclusion Edit" items={NAV_TILES.map((t) => ({ value: t.label, label: t.sub, href: t.href }))} />
 
-                                                {/* ── INCLUSION STARTING POINT FINDER ── */}
-        <section style={{ padding: "2.5rem 1.5rem", position: "relative", overflow: "hidden", background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)" }}>
-          {/* Radial gold glow behind heading */}
-          <div aria-hidden="true" style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: "700px", height: "350px", background: "radial-gradient(ellipse at 50% 30%, rgba(201,168,76,0.13) 0%, rgba(201,168,76,0.05) 45%, transparent 70%)", pointerEvents: "none", zIndex: 0 }} />
-          <div style={{ maxWidth: "900px", margin: "0 auto", position: "relative", zIndex: 1, textAlign: "center" }}>
-
-            {/* Label chip */}
-            <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.16em", color: "#8B6914", background: "rgba(201,168,76,0.18)", border: "1px solid rgba(201,168,76,0.4)", padding: "0.35rem 1rem", borderRadius: "999px", marginBottom: "1.1rem" }}>Inclusion Starting Point Finder</span>
-
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.4rem, 3vw, 1.85rem)", color: "var(--charcoal)", margin: "0 0 0.4rem", lineHeight: 1.1 }}>
-              You do not need it all worked out.<br />
-              <span style={{ background: "linear-gradient(135deg, #C9A84C 0%, #E2C265 50%, #A8741A 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Find your starting point.</span>
-            </h2>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "#6b5a3a", margin: "0 0 1.5rem", lineHeight: 1.5 }}>Answer four quick questions and get five practical steps you can act on this week.</p>
-
-            {!starterSubmitted ? (
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.7rem", textAlign: "left" }}>
-
-                {/* Q1 */}
-                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
-                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", whiteSpace: "nowrap", minWidth: "220px" }}>Who is the support for?</span>
-                  <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-                    {[{ label: "👤 Myself", val: "Individual" }, { label: "🏢 My organisation or team", val: "Organisation" }].map(({ label, val }) => (
-                      <button key={val} onClick={() => setStarterQ1(val)}
-                        style={{ padding: "0.5rem 1rem", borderRadius: "10px", border: `1.5px solid ${starterQ1 === val ? "var(--sage-dark)" : "rgba(201,168,76,0.45)"}`, background: starterQ1 === val ? "var(--sage-xlight)" : "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.83rem", color: starterQ1 === val ? "var(--sage-dark)" : "#7A5200", cursor: "pointer", transition: "all 0.15s", boxShadow: starterQ1 === val ? "none" : "0 0 0 3px rgba(201,168,76,0.12)" }}
-                      >{label}</button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Q2 */}
-                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
-                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", whiteSpace: "nowrap", minWidth: "110px" }}>Sector</span>
-                  <select value={starterQ2} onChange={(e) => setStarterQ2(e.target.value)}
-                    style={{ flex: 1, padding: "0.5rem 1rem", borderRadius: "10px", border: `1.5px solid ${starterQ2 ? "var(--sage-dark)" : "rgba(201,168,76,0.45)"}`, background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", fontFamily: "var(--font-body)", fontSize: "0.83rem", color: starterQ2 ? "var(--sage-dark)" : "#9a8060", cursor: "pointer", minWidth: "200px", outline: "none", boxShadow: "0 0 0 3px rgba(201,168,76,0.12)" }}
-                  >
-                    <option value="" disabled>Choose your sector</option>
-                    {["Corporate or private sector", "Public sector", "Education", "Charity or third sector", "Healthcare", "Other"].map(opt => (
-                      <option key={opt} value={opt}>{opt}</option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Q3 */}
-                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
-                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", whiteSpace: "nowrap", minWidth: "220px" }}>Where are you with inclusion?</span>
-                  <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-                    {[{ label: "🌱 Just starting", val: "Just starting" }, { label: "⚙️ In progress", val: "In progress" }, { label: "🚀 Want to go deeper", val: "Want to go deeper" }].map(({ label, val }) => (
-                      <button key={val} onClick={() => setStarterQ4(val)}
-                        style={{ padding: "0.4rem 0.875rem", borderRadius: "999px", border: `1.5px solid ${starterQ4 === val ? "var(--sage-dark)" : "rgba(201,168,76,0.45)"}`, background: starterQ4 === val ? "var(--sage-xlight)" : "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: starterQ4 === val ? "var(--sage-dark)" : "#7A5200", cursor: "pointer", transition: "all 0.15s", boxShadow: starterQ4 === val ? "none" : "0 0 0 2px rgba(201,168,76,0.12)" }}
-                      >{label}</button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Q4 */}
-                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
-                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", whiteSpace: "nowrap", minWidth: "110px" }}>I need help with</span>
-                  <input type="text" value={starterQ3} onChange={(e) => setStarterQ3(e.target.value)} placeholder="For example: building a strategy, making training stick, writing a policy"
-                    style={{ flex: 1, padding: "0.5rem 1rem", borderRadius: "10px", border: "1.5px solid rgba(201,168,76,0.45)", background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", fontFamily: "var(--font-body)", fontSize: "0.83rem", color: "var(--charcoal)", outline: "none", minWidth: "200px", transition: "border-color 0.15s, box-shadow 0.15s" }}
-                    onFocus={(e) => { e.target.style.borderColor = "#C9A84C"; e.target.style.boxShadow = "0 0 0 3px rgba(201,168,76,0.18), 0 0 12px rgba(201,168,76,0.15)"; }}
-                    onBlur={(e) => { e.target.style.borderColor = "rgba(201,168,76,0.45)"; e.target.style.boxShadow = "none"; }}
-                  />
-                </div>
-
-                {/* Submit */}
-                <div style={{ paddingTop: "0.4rem", display: "flex", justifyContent: "center" }}>
-                  <button
-                    onClick={handleStarterSubmit}
-                    disabled={!starterQ1 || !starterQ2 || !starterQ4}
-                    style={{ padding: "0.75rem 2.25rem", borderRadius: "12px", background: (!starterQ1 || !starterQ2 || !starterQ4) ? "linear-gradient(160deg, #FDFAF5 0%, #FAF6EE 100%)" : "linear-gradient(135deg, #C9A84C 0%, #E2C265 100%)", border: `1.5px solid ${(!starterQ1 || !starterQ2 || !starterQ4) ? "rgba(201,168,76,0.3)" : "#C9A84C"}`, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: (!starterQ1 || !starterQ2 || !starterQ4) ? "#9a8060" : "var(--charcoal)", cursor: (!starterQ1 || !starterQ2 || !starterQ4) ? "not-allowed" : "pointer", transition: "all 0.2s", boxShadow: (!starterQ1 || !starterQ2 || !starterQ4) ? "none" : "0 0 0 3px rgba(201,168,76,0.25), 0 0 20px rgba(201,168,76,0.35), 0 4px 16px rgba(201,168,76,0.2)" }}
-                  >Find My Starting Point →</button>
-                </div>
-
-              </div>
-            ) : (
-              <div style={{ background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 50%, #FAF6EE 100%)", border: "1px solid rgba(201,168,76,0.25)", borderRadius: "16px", padding: "1.75rem", boxShadow: "0 0 0 3px rgba(201,168,76,0.12), 0 0 18px 4px rgba(201,168,76,0.13), 0 4px 20px rgba(0,0,0,0.06)", textAlign: "left", position: "relative", overflow: "hidden" }}>
-                <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.1) 0%, transparent 70%)", pointerEvents: "none" }} />
-                <div style={{ position: "relative", zIndex: 1 }}>
-                  <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.16em", color: "#8B6914", background: "rgba(201,168,76,0.18)", border: "1px solid rgba(201,168,76,0.4)", padding: "0.35rem 1rem", borderRadius: "999px", marginBottom: "1rem" }}>Your inclusion starting point</span>
-                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", lineHeight: 1.65, color: "var(--charcoal)", margin: "0 0 1.35rem" }}>
-                    {starterTyped}
-                    {starterTyping && <span style={{ display: "inline-block", width: "2px", height: "1em", background: "#C9A84C", marginLeft: "2px", verticalAlign: "text-bottom", animation: "blink 0.8s step-end infinite" }} />}
-                  </div>
-                  {!starterTyping && (
-                    <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-
-                      {/* Primary CTAs */}
-                      <div style={{ display: "flex", gap: "0.65rem", flexWrap: "wrap" }}>
-                        <Link href={starterCTA1.href} style={{ padding: "0.7rem 1.5rem", borderRadius: "10px", background: "var(--sage-dark)", color: "var(--white)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", textDecoration: "none", boxShadow: "0 4px 14px rgba(42,74,48,0.25)" }}
-                          onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.85")} onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-                        >{starterCTA1.label}</Link>
-                        <Link href="/contact-us" style={{ padding: "0.7rem 1.5rem", borderRadius: "10px", background: "rgba(255,255,255,0.7)", color: "var(--sage-dark)", border: "1.5px solid rgba(42,74,48,0.35)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", textDecoration: "none" }}
-                          onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.7")} onMouseLeave={(e) => (e.currentTarget.style.opacity = "1")}
-                        >Book a Free Inclusion Call →</Link>
-                        {starterResourceLink.label && (
-                          <div style={{ position: "relative" }}>
-                            <button onClick={() => setStarterResourceOpen(v => !v)}
-                              style={{ padding: "0.7rem 1.5rem", borderRadius: "10px", background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", color: "#7A5200", border: "1.5px solid rgba(201,168,76,0.45)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", cursor: "pointer", boxShadow: "0 0 0 3px rgba(201,168,76,0.12)" }}
-                            >{starterResourceLink.label}</button>
-                            {starterResourceOpen && (
-                              <div style={{ position: "absolute", top: "calc(100% + 0.5rem)", left: 0, zIndex: 10, background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", border: "1.5px solid rgba(201,168,76,0.45)", borderRadius: "12px", padding: "1rem 1.25rem", boxShadow: "0 8px 30px rgba(0,0,0,0.12), 0 0 0 3px rgba(201,168,76,0.12)", minWidth: "260px", maxWidth: "320px" }}>
-                                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--charcoal)", margin: "0 0 0.6rem", lineHeight: 1.5 }}>🔒 This toolkit is part of the Impact Platform, ready to use the day you join.</p>
-                                <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--sage-dark)", textDecoration: "none", borderBottom: "1px solid var(--sage-dark)" }}
-                                  onClick={() => setStarterResourceOpen(false)}
-                                >Start Your Membership →</Link>
-                              </div>
-                            )}
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Email capture */}
-                      <div style={{ borderTop: "1px solid rgba(201,168,76,0.2)", paddingTop: "0.75rem", marginTop: "0.25rem" }}>
-                        {!starterEmailSent ? (
-                          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-                            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "#6b5a3a" }}>Save your steps, plus a free copy of {STARTER_RESOURCES[starterRoute] || STARTER_RESOURCES.general}. We&apos;ll email both to you.</span>
-                            <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-                              <input type="email" value={starterEmail} onChange={(e) => setStarterEmail(e.target.value)} placeholder="Your email address"
-                                style={{ flex: 1, minWidth: "200px", padding: "0.5rem 1rem", borderRadius: "10px", border: "1.5px solid rgba(201,168,76,0.45)", background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", fontFamily: "var(--font-body)", fontSize: "0.83rem", color: "var(--charcoal)", outline: "none" }}
-                                onFocus={(e) => { e.target.style.borderColor = "#C9A84C"; e.target.style.boxShadow = "0 0 0 3px rgba(201,168,76,0.18)"; }}
-                                onBlur={(e) => { e.target.style.borderColor = "rgba(201,168,76,0.45)"; e.target.style.boxShadow = "none"; }}
-                              />
-                              <button onClick={handleStarterEmail} disabled={!starterEmail || starterEmailSending}
-                                style={{ padding: "0.5rem 1.25rem", borderRadius: "10px", background: (!starterEmail || starterEmailSending) ? "rgba(201,168,76,0.15)" : "linear-gradient(135deg, #C9A84C 0%, #E2C265 100%)", border: "1.5px solid rgba(201,168,76,0.45)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.83rem", color: (!starterEmail || starterEmailSending) ? "#9a8060" : "var(--charcoal)", cursor: (!starterEmail || starterEmailSending) ? "not-allowed" : "pointer", transition: "all 0.2s", whiteSpace: "nowrap" }}
-                              >{starterEmailSending ? "Sending..." : "Email me these steps →"}</button>
-                            </div>
-                            <input type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" value={starterHoney} onChange={(e) => setStarterHoney(e.target.value)} name="website" style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", opacity: 0 }} />
-                            <label style={{ display: "flex", alignItems: "flex-start", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "#6b5a3a", lineHeight: 1.5, cursor: "pointer" }}>
-                              <input type="checkbox" checked={starterNewsletter} onChange={(e) => setStarterNewsletter(e.target.checked)} style={{ marginTop: "0.15rem", accentColor: "#7A5200", width: "1rem", height: "1rem", flexShrink: 0 }} />
-                              <span>Also send me The Inclusion Edit newsletter: one practical inclusion idea per edition. Unsubscribe at any time. <Link href="/privacy" style={{ color: "#7A5200", textDecoration: "underline" }}>Privacy Policy</Link></span>
-                            </label>
-                            {starterEmailError && <p role="alert" style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "#B42318", margin: 0 }}>{starterEmailError}</p>}
-                          </div>
-                        ) : (
-                          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.83rem", color: "var(--sage-dark)", margin: 0 }}>✓ On its way to your inbox. If it has not arrived in a few minutes, check your spam or promotions folder.</p>
-                        )}
-                      </div>
-
-                      <button onClick={() => { setStarterSubmitted(false); setStarterTyped(""); setStarterQ1(""); setStarterQ2(""); setStarterQ3(""); setStarterQ4(""); setStarterEmail(""); setStarterEmailSent(false); setStarterResourceOpen(false); }}
-                        style={{ alignSelf: "flex-start", background: "none", border: "none", fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "#9a8060", cursor: "pointer", padding: "0.15rem 0", textDecoration: "underline" }}
-                      >Start again</button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-          </div>
-        </section>
+        {/* ── INCLUSION STARTING POINT FINDER ── */}
+        <StartingPointFinder />
 
 {/* ── POSITIONING + STATS (combined, photo-background) ── */}
         <section style={{ position: "relative", overflow: "hidden", padding: "2.5rem 1.5rem" }}>
@@ -481,13 +201,13 @@ You do not have to work through these on your own. Members get the templates, ev
           <div style={{ position: "relative", zIndex: 2 }}>
             {/* Text */}
             <div style={{ maxWidth: "600px", margin: "0 auto", textAlign: "center", marginBottom: "2rem" }}>
-              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.75rem" }}>Why organisations come to us</p>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.75rem" }}>Why people carrying inclusion come to us</p>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.25rem, 2.8vw, 1.85rem)", color: "var(--charcoal)", lineHeight: 1.5, marginBottom: "1rem" }}>
-                <span style={{ display: "block", whiteSpace: "nowrap" }}>Most organisations want to be inclusive.</span>
-                <span style={{ display: "block", whiteSpace: "nowrap" }}>Few have the support to get there.</span>
+                <span style={{ display: "block", whiteSpace: "nowrap" }}>Most organisations want inclusion.</span>
+                <span style={{ display: "block", whiteSpace: "nowrap" }}>Few give it the capacity it needs.</span>
               </h2>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "var(--charcoal)", lineHeight: 1.7, opacity: 0.8, margin: 0 }}>
-                The problem is rarely commitment. It is the lack of practical tools, a clear structure and sustained support to turn good intentions into lasting change. That is what we built The Inclusion Edit to provide.
+                The problem is rarely commitment. It is one person, or a very small team, asked to carry it without the time, tools, budget or backing it needs. We built The Inclusion Edit to give you that capacity.
               </p>
             </div>
 
@@ -552,13 +272,13 @@ You do not have to work through these on your own. Members get the templates, ev
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "center" }} className="platform-split">
               <div>
                 <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "1rem" }}>The Impact Platform</p>
-                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.5rem, 3vw, 2.25rem)", color: "var(--charcoal)", lineHeight: 1.2, marginBottom: "1.25rem" }}>The tools, learning and support to make inclusion part of everyday work.</h2>
+                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.5rem, 3vw, 2.25rem)", color: "var(--charcoal)", lineHeight: 1.2, marginBottom: "1.25rem" }}>The tools, learning and expert support to make inclusion part of everyday work.</h2>
                 <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.7, opacity: 0.8, marginBottom: "1.5rem" }}>
                   A digital learning and development space for inclusion practitioners and the organisations they serve: structured modules, practical tools, video masterclasses and specialist AI tools, all built around real inclusion work.
                 </p>
                 <div style={{ display: "flex", gap: "0.875rem", flexWrap: "wrap" }}>
                   <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none" }}>Explore the Platform</Link>
-                  <Link href="/pricing" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--sage-dark)", background: "transparent", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid var(--sage-dark)" }}>See Membership Options</Link>
+                  <Link href="/early-access" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--sage-dark)", background: "transparent", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid var(--sage-dark)" }}>Get Early Access</Link>
                 </div>
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
@@ -587,7 +307,7 @@ You do not have to work through these on your own. Members get the templates, ev
                 {/* Header */}
                 <div style={{ textAlign: "center", marginBottom: "3rem" }}>
                   <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.16em", color: "#1E3624", background: "rgba(44,74,49,0.12)", border: "1px solid rgba(44,74,49,0.4)", padding: "0.35rem 1rem", borderRadius: "999px", marginBottom: "1.25rem" }}>
-                    Trusted across the UK, Bermuda and the US
+                    Trusted by organisations worldwide
                   </span>
                   <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "1rem", letterSpacing: "-0.01em" }}>
                     What people say about working with us.
@@ -604,7 +324,7 @@ You do not have to work through these on your own. Members get the templates, ev
                     onClick={() => setTestimonialIdx((i) => Math.max(0, i - 1))}
                     disabled={testimonialIdx === 0}
                     aria-label="Previous testimonials"
-                    style={{ position: "absolute", left: "-1.75rem", top: "50%", transform: "translateY(-50%)", zIndex: 10, width: "2.5rem", height: "2.5rem", borderRadius: "50%", border: "1.5px solid rgba(42,74,48,0.25)", background: "var(--white)", cursor: testimonialIdx === 0 ? "default" : "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", color: testimonialIdx === 0 ? "rgba(42,74,48,0.2)" : "var(--sage-dark)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)", transition: "all 0.15s" }}
+                    style={{ position: "absolute", left: "-1.75rem", top: "50%", transform: "translateY(-50%)", zIndex: 10, width: "2.5rem", height: "2.5rem", borderRadius: "50%", border: "1.5px solid rgba(42,74,48,0.25)", background: "var(--white)", cursor: testimonialIdx === 0 ? "default" : "pointer", display: totalTestimonialSlides > 1 ? "flex" : "none", alignItems: "center", justifyContent: "center", fontSize: "1rem", color: testimonialIdx === 0 ? "rgba(42,74,48,0.2)" : "var(--sage-dark)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)", transition: "all 0.15s" }}
                   >&#8249;</button>
 
                   {/* Cards */}
@@ -642,13 +362,13 @@ You do not have to work through these on your own. Members get the templates, ev
                     onClick={() => setTestimonialIdx((i) => Math.min(totalTestimonialSlides - 1, i + 1))}
                     disabled={testimonialIdx === totalTestimonialSlides - 1}
                     aria-label="Next testimonials"
-                    style={{ position: "absolute", right: "-1.75rem", top: "50%", transform: "translateY(-50%)", zIndex: 10, width: "2.5rem", height: "2.5rem", borderRadius: "50%", border: "1.5px solid rgba(42,74,48,0.25)", background: "var(--white)", cursor: testimonialIdx === totalTestimonialSlides - 1 ? "default" : "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem", color: testimonialIdx === totalTestimonialSlides - 1 ? "rgba(42,74,48,0.2)" : "var(--sage-dark)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)", transition: "all 0.15s" }}
+                    style={{ position: "absolute", right: "-1.75rem", top: "50%", transform: "translateY(-50%)", zIndex: 10, width: "2.5rem", height: "2.5rem", borderRadius: "50%", border: "1.5px solid rgba(42,74,48,0.25)", background: "var(--white)", cursor: testimonialIdx === totalTestimonialSlides - 1 ? "default" : "pointer", display: totalTestimonialSlides > 1 ? "flex" : "none", alignItems: "center", justifyContent: "center", fontSize: "1rem", color: testimonialIdx === totalTestimonialSlides - 1 ? "rgba(42,74,48,0.2)" : "var(--sage-dark)", boxShadow: "0 2px 8px rgba(0,0,0,0.08)", transition: "all 0.15s" }}
                   >&#8250;</button>
                 </div>
 
                 {/* Dot indicators */}
                 <div style={{ display: "flex", justifyContent: "center", gap: "0.5rem", marginTop: "0.5rem" }}>
-                  {Array.from({ length: totalTestimonialSlides }).map((_, i) => (
+                  {totalTestimonialSlides > 1 && Array.from({ length: totalTestimonialSlides }).map((_, i) => (
                     <button
                       key={i}
                       onClick={() => setTestimonialIdx(i)}
@@ -669,10 +389,10 @@ You do not have to work through these on your own. Members get the templates, ev
               <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "1rem" }}>Why our approach works</p>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.5rem, 3vw, 2rem)", color: "var(--charcoal)", lineHeight: 1.2, marginBottom: "1.25rem" }}>Inclusion expertise that moves organisations from intention to impact.</h2>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.7, opacity: 0.8, marginBottom: "0.75rem" }}>
-                I&apos;m Rebekah, founder of The Inclusion Edit. That means practical, evidence-informed support from someone who has sat in the meetings, navigated the politics and knows what it takes to build inclusion that lasts. My work draws on lived experience as well as professional expertise, so it is grounded in the realities your people face, not just theory.
+                I&apos;m Rebekah, founder of The Inclusion Edit. You get practical, evidence-informed support from someone who has sat in the meetings, navigated the politics and knows what it takes to build inclusion that lasts. My work draws on lived experience as well as professional expertise, so it is grounded in the realities your people face, not just theory.
               </p>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.7, opacity: 0.8, marginBottom: "1.5rem" }}>
-                I hold a Master&apos;s in Education: International Development and Social Justice, and a CMI Level 7 Qualification in Strategic Approaches to EDI. Across consultancy, training and the Impact Platform, everything we create is designed to give your organisation the clarity, confidence and tools to make inclusion stick.
+                I hold a Master&apos;s in Education: International Development and Social Justice, and a CMI Level 7 Qualification in Strategic Approaches to EDI. Across consultancy, training and the Impact Platform, everything we create is designed to give you the time, tools and backing to make inclusion stick.
               </p>
               <Link href="/about-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--sage-dark)", textDecoration: "none" }}>About The Inclusion Edit →</Link>
             </div>
@@ -685,23 +405,33 @@ You do not have to work through these on your own. Members get the templates, ev
         {/* ── DUAL CTA ── */}
         <section style={{ background: "linear-gradient(135deg, #f0f5f0 0%, #e8f0e9 100%)", padding: "5rem 1.5rem" }}>
           <div style={{ maxWidth: "860px", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1.5rem" }} className="cta-split">
-            <div style={{ background: "var(--white)", borderRadius: "20px", padding: "1.25rem 1.5rem", textAlign: "center", border: "2.5px solid var(--sage)" }}>
-              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.875rem" }}>For organisations</p>
+            <div style={{ background: "var(--white)", borderRadius: "20px", padding: "1.25rem 1.5rem", textAlign: "center", border: "2.5px solid var(--sage)", display: "flex", flexDirection: "column" }}>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.875rem" }}>For leaders and organisations</p>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.2rem", color: "var(--charcoal)", lineHeight: 1.25, marginBottom: "1rem" }}>Ready to build inclusion that sticks?</h2>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.75, opacity: 0.75, marginBottom: "1.25rem" }}>Book a free call to explore how consultancy, training or bespoke resources could work for you.</p>
-              <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.8rem 1.75rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>Book a Free Inclusion Call</Link>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.75, opacity: 0.75, marginBottom: "1.25rem" , flexGrow: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>Book a free 30 minute call to talk through what your organisation needs, whether that&apos;s consultancy, training or bespoke resources.</p>
+              <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.8rem 1rem", borderRadius: "8px", textDecoration: "none", display: "block", width: "100%", boxSizing: "border-box", marginTop: "auto" }}>Book a Free Inclusion Call</Link>
             </div>
-            <div style={{ background: "var(--white)", borderRadius: "20px", padding: "1.25rem 1.5rem", textAlign: "center", border: "2.5px solid var(--sage)" }}>
+            <div style={{ background: "var(--white)", borderRadius: "20px", padding: "1.25rem 1.5rem", textAlign: "center", border: "2.5px solid var(--sage)", display: "flex", flexDirection: "column" }}>
               <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.875rem" }}>For individuals and teams</p>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.2rem", color: "var(--charcoal)", lineHeight: 1.25, marginBottom: "1rem" }}>Join the Impact Platform and start today.</h2>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.75, opacity: 0.75, marginBottom: "1.25rem" }}>31 modules, 50+ practical tools and specialist AI tools for inclusion work.</p>
-              <Link href="/pricing" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.8rem 1.75rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>Start Your Membership</Link>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.2rem", color: "var(--charcoal)", lineHeight: 1.25, marginBottom: "1rem" }}>Be first to join the Impact Platform.</h2>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.75, opacity: 0.75, marginBottom: "1.25rem" , flexGrow: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>40 lessons, 45 practical tools, 47 research reports and case studies, and 10 Inclusion AI tools.</p>
+              <Link href="/early-access" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.8rem 1rem", borderRadius: "8px", textDecoration: "none", display: "block", width: "100%", boxSizing: "border-box", marginTop: "auto" }}>Get Early Access</Link>
             </div>
-            <div style={{ background: "var(--sage-xlight)", border: "2.5px solid var(--sage)", borderRadius: "20px", padding: "1.25rem 1.5rem", textAlign: "center" }}>
+            <div style={{ background: "var(--sage-xlight)", border: "2.5px solid var(--sage)", borderRadius: "20px", padding: "1.25rem 1.5rem", textAlign: "center", display: "flex", flexDirection: "column" }}>
               <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.875rem" }}>Stay in the loop</p>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.2rem", color: "var(--charcoal)", lineHeight: 1.25, marginBottom: "1rem" }}>Get inclusion insights straight to your inbox.</h2>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.75, opacity: 0.7, marginBottom: "1.25rem" }}>One inclusion concept per edition, unpacked properly; practical tips you can use straight away. Completely free.</p>
-              <a href="mailto:info@theinclusionedit.com?subject=Please%20add%20me%20to%20the%20newsletter" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--charcoal)", background: "var(--sage-light)", padding: "0.8rem 1.75rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>Join the Newsletter</a>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.75, opacity: 0.7, marginBottom: "1.25rem" , flexGrow: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>One practical inclusion idea per edition, with tips you can use straight away. Free, and you can unsubscribe at any time.</p>
+              {nlStatus === "done" ? (
+                <p role="status" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--sage-dark)", margin: 0, marginTop: "auto", padding: "0.8rem 0" }}>✓ You&apos;re on the list. Look out for the next edition.</p>
+              ) : (
+                <form onSubmit={handleNewsletter} style={{ marginTop: "auto", display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+                  <label htmlFor="home-newsletter-email" style={{ position: "absolute", width: "1px", height: "1px", overflow: "hidden", clip: "rect(0 0 0 0)", whiteSpace: "nowrap" }}>Email address</label>
+                  <input id="home-newsletter-email" type="email" required autoComplete="email" placeholder="Your email address" value={nlEmail} onChange={(e) => setNlEmail(e.target.value)} style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--white)", border: "1.5px solid var(--sage)", borderRadius: "8px", padding: "0.75rem 1rem", width: "100%", boxSizing: "border-box", textAlign: "center" }} />
+                  <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" value={nlHoney} onChange={(e) => setNlHoney(e.target.value)} style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", opacity: 0 }} />
+                  <button type="submit" disabled={nlStatus === "sending"} style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--charcoal)", background: "var(--sage-light)", padding: "0.8rem 1rem", borderRadius: "8px", textDecoration: "none", display: "block", width: "100%", boxSizing: "border-box", border: "none", cursor: nlStatus === "sending" ? "wait" : "pointer", opacity: nlStatus === "sending" ? 0.75 : 1 }}>{nlStatus === "sending" ? "Subscribing..." : "Subscribe"}</button>
+                  {nlError && <p role="alert" style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "#B42318", margin: 0, lineHeight: 1.5 }}>{nlError}</p>}
+                </form>
+              )}
             </div>
           </div>
         </section>
@@ -738,7 +468,7 @@ You do not have to work through these on your own. Members get the templates, ev
               </a>
 
               {/* Spotify podcast */}
-              <a href="https://open.spotify.com/show/theinclusionedit" target="_blank" rel="noopener noreferrer" aria-label="Podcast on Spotify" style={{ color: "rgba(255,255,255,0.7)", transition: "color 0.15s" }}
+              <a href="https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM" target="_blank" rel="noopener noreferrer" aria-label="Podcast on Spotify" style={{ color: "rgba(255,255,255,0.7)", transition: "color 0.15s" }}
                 onMouseEnter={e => e.currentTarget.style.color = "var(--white)"}
                 onMouseLeave={e => e.currentTarget.style.color = "rgba(255,255,255,0.7)"}>
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>

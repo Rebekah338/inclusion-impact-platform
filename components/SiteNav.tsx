@@ -17,8 +17,8 @@ const IMPACT_PLATFORM_LINKS = [
 
 const CONTACT_LINKS = [
   { href: "/contact-us", label: "Contact Us" },
+  { href: "/subscribe", label: "Newsletter Sign Up" },
   { href: "/faqs", label: "FAQs" },
-  { href: "/subscribe", label: "Newsletter" },
 ];
 
 export default function SiteNav() {
@@ -203,7 +203,7 @@ export default function SiteNav() {
 
           {/* CTA buttons */}
           <div style={{ display: "flex", gap: "0.625rem", alignItems: "center", flexShrink: 0, marginLeft: "0.5rem" }} className="site-nav-desktop">
-            <Link href="/pricing" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.45rem 1rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" as const }}>Join now</Link>
+            <Link href="/early-access" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.45rem 1rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" as const }}>Get Early Access</Link>
             <Link href="/sign-in" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--charcoal)", padding: "0.45rem 0.875rem", borderRadius: "8px", border: "1.5px solid var(--gray-border)", textDecoration: "none", whiteSpace: "nowrap" as const }}>Sign in</Link>
             {/* User dropdown */}
             <div ref={userRef} style={{ position: "relative" }}>

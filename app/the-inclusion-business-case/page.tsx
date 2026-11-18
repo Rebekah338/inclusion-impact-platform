@@ -1,6 +1,7 @@
 import SiteNav from "@/components/SiteNav";
 import Footer from "../components/Footer";
 import Link from "next/link";
+import TrustStrip from "../components/TrustStrip";
 
 export const metadata = { title: "The Inclusion Business Case | The Inclusion Edit", description: "The evidence-based case for equity, diversity and inclusion as a strategic and commercial imperative for every organisation." };
 
@@ -8,7 +9,7 @@ export default function InclusionBusinessCase() {
   const pillars = [
     { icon: null, svgPath: "M3 17l4-8 4 4 4-6 4 10", title: "Profitability and financial performance", body: "Diverse leadership drives stronger bottom-line results." },
     { icon: null, svgPath: "M12 2a7 7 0 0 1 7 7c0 3-1.5 5-3.5 6.5V17a1 1 0 0 1-1 1h-5a1 1 0 0 1-1-1v-1.5C6.5 14 5 12 5 9a7 7 0 0 1 7-7zM9 21h6", title: "Innovation and decision-making", body: "Diverse teams generate better ideas and fewer blind spots." },
-    { icon: null, svgPath: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75", title: "Retention and reducing turnover costs", body: "Inclusion keeps people; and saves the cost of losing them." },
+    { icon: null, svgPath: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75", title: "Retention and reducing turnover costs", body: "Inclusion keeps people, and saves the cost of losing them." },
     { icon: null, svgPath: "M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3", title: "Talent attraction and workforce capability", body: "The best candidates choose employers with a genuine EDI track record." },
     { icon: null, svgPath: "M13 2L3 14h9l-1 8 10-12h-9l1-8z", title: "Productivity and team performance", body: "Belonging and psychological safety drive day-to-day output." },
     { icon: null, svgPath: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z", title: "Reputation, risk and accountability", body: "Inclusion failures carry legal, financial and reputational consequences." },
@@ -33,53 +34,30 @@ export default function InclusionBusinessCase() {
                 Inclusion Is Not a Nice-to-Have. It Is a Business Imperative.
               </h1>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "1.1rem", color: "rgba(255,255,255,0.88)", lineHeight: 1.8, marginBottom: "2.25rem" }}>
-                The evidence is clear: organisations that invest in genuine equity, diversity and inclusion perform better on every measure that matters; from profitability and retention to wellbeing and trust.
+                The evidence is clear: organisations that invest in genuine equity, diversity and inclusion perform better on the measures that matter most: from profitability and retention to wellbeing and trust.
               </p>
               <div style={{ display: "flex", gap: "0.875rem", flexWrap: "wrap" }}>
-                <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Talk to us</Link>
-                <Link href="#the-evidence" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "rgba(255,255,255,0.12)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid rgba(255,255,255,0.4)", whiteSpace: "nowrap", backdropFilter: "blur(4px)" }}>See the evidence</Link>
+                <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Talk to Us</Link>
+                <Link href="#the-evidence" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "rgba(255,255,255,0.12)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid rgba(255,255,255,0.4)", whiteSpace: "nowrap", backdropFilter: "blur(4px)" }}>See the Evidence</Link>
               </div>
             </div>
           </div>
         </section>
 
       {/* Stats strip */}
-      <section style={{ padding: "0.6rem 1.5rem", position: "relative", overflow: "hidden", background: "linear-gradient(105deg, rgba(107,143,113,0.18) 0%, rgba(107,143,113,0.10) 50%, rgba(107,143,113,0.18) 100%)", backgroundColor: "#f4f7f4" }}>
-        <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.08) 35%, rgba(201,168,76,0.18) 55%, transparent 100%)", zIndex: 1, pointerEvents: "none" }} />
-        <div style={{ maxWidth: "1100px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0", position: "relative", zIndex: 3 }}>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "0.75rem 1rem", flex: "1", textAlign: "center" }}>
-            <span style={{ fontSize: "1.25rem", lineHeight: 1, marginBottom: "0.3rem" }}>📊</span>
-            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--sage-dark)", lineHeight: 1.2 }}>The evidence</span>
-            <span style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", color: "#4a6a4a", letterSpacing: "0.03em", marginTop: "0.15rem" }}>is clear</span>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "0.75rem 1rem", flex: "1", textAlign: "center" }}>
-            <span style={{ fontSize: "1.25rem", lineHeight: 1, marginBottom: "0.3rem" }}>💼</span>
-            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--sage-dark)", lineHeight: 1.2 }}>Retention</span>
-            <span style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", color: "#4a6a4a", letterSpacing: "0.03em", marginTop: "0.15rem" }}>inclusion reduces turnover</span>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "0.75rem 1rem", flex: "1", textAlign: "center" }}>
-            <span style={{ fontSize: "1.25rem", lineHeight: 1, marginBottom: "0.3rem" }}>💡</span>
-            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--sage-dark)", lineHeight: 1.2 }}>Innovation</span>
-            <span style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", color: "#4a6a4a", letterSpacing: "0.03em", marginTop: "0.15rem" }}>diverse teams outperform</span>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "0.75rem 1rem", flex: "1", textAlign: "center" }}>
-            <span style={{ fontSize: "1.25rem", lineHeight: 1, marginBottom: "0.3rem" }}>👁</span>
-            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--sage-dark)", lineHeight: 1.2 }}>Reputation</span>
-            <span style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", color: "#4a6a4a", letterSpacing: "0.03em", marginTop: "0.15rem" }}>clients and talent are watching</span>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "0.75rem 1rem", flex: "1", textAlign: "center" }}>
-            <span style={{ fontSize: "1.25rem", lineHeight: 1, marginBottom: "0.3rem" }}>⚖️</span>
-            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--sage-dark)", lineHeight: 1.2 }}>Legal duty</span>
-            <span style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", color: "#4a6a4a", letterSpacing: "0.03em", marginTop: "0.15rem" }}>it's not optional</span>
-          </div>
-        </div>
-      </section>
+      <TrustStrip items={[
+            { value: "The evidence", label: "is clear" },
+            { value: "Retention", label: "inclusion reduces turnover" },
+            { value: "Innovation", label: "diverse teams outperform" },
+            { value: "Reputation", label: "clients and talent are watching" },
+            { value: "Legal duty", label: "it’s not optional" },
+          ]} />
 
         <section id="the-evidence" style={{ padding: "2.5rem 1.5rem", background: "var(--white)" }}>
           <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
             <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
               <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.5rem" }}>The evidence</p>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", margin: 0 }}>Six reasons inclusion makes business sense.</h2>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", margin: 0 }}>Eight reasons inclusion makes business sense.</h2>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "1rem" }}>
               {pillars.map((p) => (
@@ -106,10 +84,10 @@ export default function InclusionBusinessCase() {
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1rem", marginBottom: "1.5rem" }}>
               {[
-                { stat: "36%", label: "More likely to outperform", source: "McKinsey, Diversity Wins (2020)" },
-                { stat: "83%", label: "Of millennials more engaged in inclusive cultures", source: "Deloitte (2018)" },
-                { stat: "87%", label: "Better decision-making in diverse teams", source: "Cloverpop / HBR (2017)" },
-                { stat: "2×", label: "More likely to meet financial targets", source: "Deloitte (2020)" },
+                { stat: "39%", label: "More likely to outperform financially", source: "McKinsey, Diversity Matters Even More (2023)" },
+                { stat: "83%", label: "Of millennials are actively engaged when their organisation is inclusive", source: "Deloitte (2015)" },
+                { stat: "87%", label: "Of decisions were better when made by diverse teams", source: "Cloverpop (2017)" },
+                { stat: "2×", label: "More likely to meet financial targets", source: "Deloitte (2018)" },
               ].map((s) => (
                 <div key={s.stat} style={{ background: "rgba(255,255,255,0.13)", borderRadius: "12px", padding: "1.25rem", border: "1px solid rgba(255,255,255,0.25)" }}>
                   <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2.25rem", color: "var(--white)", lineHeight: 1, marginBottom: "0.4rem" }}>{s.stat}</span>
@@ -161,7 +139,7 @@ export default function InclusionBusinessCase() {
                 },
                 {
                   myth: "We tried something before and it didn't work.",
-                  reality: "Real change requires a well-thought-out strategy, leadership accountability, training that is revisited over time, and ongoing measurement. A single workshop is a starting point; not a destination.",
+                  reality: "Real change requires a well-thought-out strategy, leadership accountability, training that is revisited over time, and ongoing measurement. A single workshop is a starting point, not a destination.",
                 },
               ].map((row, i, arr) => (
                 <div key={row.myth} style={{ display: "grid", gridTemplateColumns: "2fr 3fr", borderBottom: i < arr.length - 1 ? "1px solid rgba(26,50,32,0.14)" : "none" }}>
@@ -216,7 +194,7 @@ export default function InclusionBusinessCase() {
                       <span key={tag} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.1)", borderRadius: "999px", padding: "0.2rem 0.6rem" }}>{tag}</span>
                     ))}
                   </div>
-                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "var(--sage-dark)", margin: 0 }}>Read the research →</p>
+                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "var(--sage-dark)", margin: 0 }}>Read the Research →</p>
                 </a>
               ))}
             </div>
@@ -246,11 +224,11 @@ export default function InclusionBusinessCase() {
                       <span key={tag} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.1)", borderRadius: "999px", padding: "0.2rem 0.6rem" }}>{tag}</span>
                     ))}
                   </div>
-                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "#1A3220", margin: 0 }}>Read the case study →</p>
+                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "#1A3220", margin: 0 }}>Read the Case Study →</p>
                 </a>
               ))}
             </div>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", fontStyle: "italic", color: "rgba(255,255,255,0.6)", textAlign: "center", margin: 0 }}>Platform members get deeper analysis, key quotes and planning tools for every piece of evidence above: and more.</p>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", fontStyle: "italic", color: "rgba(255,255,255,0.6)", textAlign: "center", margin: 0 }}>Platform members get deeper analysis, key quotes and planning tools for every piece of evidence above, and much more.</p>
           </div>
         </section>
 
@@ -258,7 +236,7 @@ export default function InclusionBusinessCase() {
         <section style={{ background: "var(--sage-xlight)", padding: "4rem 1.5rem", textAlign: "center" }}>
           <div style={{ maxWidth: "760px", margin: "0 auto" }}>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", marginBottom: "0.75rem" }}>Ready to build your case?</h2>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--charcoal)", opacity: 0.75, lineHeight: 1.75, marginBottom: "2rem" }}>Whether you want the evidence at your fingertips or someone to guide the conversation: we have got you.</p>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--charcoal)", opacity: 0.75, lineHeight: 1.75, marginBottom: "2rem" }}>Whether you want the evidence at your fingertips or someone to guide the conversation, we can help.</p>
             <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "1rem" }}>Inside the Inclusion Impact Platform</p>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: "0.75rem", marginBottom: "2rem" }}>
               {[
@@ -274,8 +252,8 @@ export default function InclusionBusinessCase() {
               ))}
             </div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", justifyContent: "center" }}>
-              <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--white)", background: "#1A3220", padding: "0.8rem 2rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>Explore the platform</Link>
-              <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "#1A3220", background: "transparent", padding: "0.8rem 2rem", borderRadius: "8px", textDecoration: "none", display: "inline-block", border: "1.5px solid #1A3220" }}>Talk to us about your situation</Link>
+              <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--white)", background: "#1A3220", padding: "0.8rem 2rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>Explore the Platform</Link>
+              <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "#1A3220", background: "transparent", padding: "0.8rem 2rem", borderRadius: "8px", textDecoration: "none", display: "inline-block", border: "1.5px solid #1A3220" }}>Talk to Us About Your Situation</Link>
             </div>
           </div>
         </section>

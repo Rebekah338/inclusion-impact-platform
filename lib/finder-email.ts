@@ -10,10 +10,17 @@ const esc = (s: string) =>
 
 export function buildFinderEmail(opts: { route: FinderRoute; who: string; sector: string; stage: string; siteUrl: string }) {
   const e = FINDER_EMAILS[opts.route];
-  const whoText = opts.who === "Individual" ? "working on this as an individual" : "approaching this as an organisation or team";
-  const sectorText = SECTOR_PHRASE[opts.sector] || "in your sector";
-  const stageText = STAGE_LABEL[opts.stage] || "at an early stage";
-  const context = `You told us you are ${whoText} ${sectorText}, and you are ${stageText}.`;
+  // Sector and stage are optional (asked after the steps are shown), so only
+  // mention what the person actually told us
+  const sectorText = SECTOR_PHRASE[opts.sector] || "";
+  const stageText = STAGE_LABEL[opts.stage] || "";
+  const context = sectorText && stageText
+    ? `You told us you are working ${sectorText}, and you are ${stageText}.`
+    : sectorText
+    ? `You told us you are working ${sectorText}.`
+    : stageText
+    ? `You told us you are ${stageText}.`
+    : "";
 
   // Split the steps text into its intro line, the five numbered steps and the closing line
   const lines = FINDER_STEPS[opts.route].split("\n").map((l) => l.trim()).filter(Boolean);
@@ -30,8 +37,7 @@ export function buildFinderEmail(opts: { route: FinderRoute; who: string; sector
     "",
     `Thank you for using the Starting Point Finder. Here are your five steps, as promised, plus a free copy of ${e.resource}.`,
     "",
-    context,
-    "",
+    ...(context ? [context, ""] : []),
     "YOUR FIVE STEPS",
     "",
     intro,
@@ -79,7 +85,7 @@ export function buildFinderEmail(opts: { route: FinderRoute; who: string; sector
 <tr><td style="padding:30px 32px 8px">
 <p style="${p}">Hello,</p>
 <p style="${p}">Thank you for using the Starting Point Finder. Here are your five steps, as promised, plus a free copy of <strong>${esc(e.resource)}</strong>.</p>
-<p style="${p}color:#4B5B4E">${esc(context)}</p>
+${context ? `<p style="${p}color:#4B5B4E">${esc(context)}</p>` : ""}
 <h2 style="${h}">Your five steps</h2>
 <p style="${p}">${esc(intro)}</p>
 <ol style="margin:0 0 16px;padding-left:22px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.6;color:#1C1C1C">

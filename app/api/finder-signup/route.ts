@@ -2,6 +2,7 @@ import { createHash } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 import { FINDER_EMAILS, type FinderRoute } from "@/lib/finder-content";
 import { buildFinderEmail } from "@/lib/finder-email";
+import { backupSubmission } from "@/lib/backup";
 
 // Starting Point Finder: emails the visitor their five steps and free resource
 // through Resend, and adds them to Mailchimp with tags so they can be followed up.
@@ -123,6 +124,11 @@ export async function POST(req: NextRequest) {
   if (stage) tags.push(`Stage: ${stage}`);
   if (who) tags.push(`For: ${who}`);
   await addToMailchimp(email, tags, clean(body.need, 500));
+  await backupSubmission({
+    form: "starting-point-finder",
+    email,
+    details: { route, sector, stage, who, need: clean(body.need, 500), newsletter },
+  });
 
   return NextResponse.json({ ok: true });
 }

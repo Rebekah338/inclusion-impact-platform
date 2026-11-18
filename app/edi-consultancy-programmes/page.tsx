@@ -2,8 +2,9 @@ import SiteNav from "@/components/SiteNav";
 import Footer from "../components/Footer";
 import Link from "next/link";
 import ProgrammeFinder from "@/components/ProgrammeFinder";
+import TrustStrip from "../components/TrustStrip";
 
-export const metadata = { title: "Inclusion Consultancy | The Inclusion Edit", description: "Bespoke EDI consultancy programmes for schools, businesses and organisations. Audit, advise and embed equity, diversity and inclusion." };
+export const metadata = { title: "Inclusion Consultancy | The Inclusion Edit", description: "Bespoke EDI consultancy programmes for businesses, public bodies, charities and schools. Audit, advise and embed equity, diversity and inclusion." };
 
 export default function Consultancy() {
   return (
@@ -26,44 +27,21 @@ export default function Consultancy() {
                 We partner with organisations to design and deliver bespoke consultancy programmes that audit where you are, advise on where to go, and embed the changes that matter.
               </p>
               <div style={{ display: "flex", gap: "0.875rem", flexWrap: "wrap" }}>
-                <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Enquire now</Link>
-                <Link href="/the-inclusion-business-case" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "rgba(255,255,255,0.12)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid rgba(255,255,255,0.4)", whiteSpace: "nowrap", backdropFilter: "blur(4px)" }}>Explore our approach</Link>
+                <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Enquire About Consultancy</Link>
+                <Link href="/the-inclusion-business-case" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "rgba(255,255,255,0.12)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid rgba(255,255,255,0.4)", whiteSpace: "nowrap", backdropFilter: "blur(4px)" }}>See the Business Case</Link>
               </div>
             </div>
           </div>
         </section>
 
       {/* STATS STRIP */}
-      <section style={{ padding: "0.6rem 1.5rem", position: "relative", overflow: "hidden", background: "linear-gradient(105deg, rgba(107,143,113,0.18) 0%, rgba(107,143,113,0.10) 50%, rgba(107,143,113,0.18) 100%)", backgroundColor: "#f4f7f4" }}>
-        <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.08) 35%, rgba(201,168,76,0.18) 55%, transparent 100%)", zIndex: 1, pointerEvents: "none" }} />
-        <div style={{ maxWidth: "1100px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0", position: "relative", zIndex: 3 }}>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "0.75rem 1rem", flex: "1", textAlign: "center" }}>
-            <span style={{ fontSize: "1.25rem", lineHeight: 1, marginBottom: "0.3rem" }}>🎯</span>
-            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--sage-dark)", lineHeight: 1.2 }}>Bespoke</span>
-            <span style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", color: "#4a6a4a", letterSpacing: "0.03em", marginTop: "0.15rem" }}>to every organisation</span>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "0.75rem 1rem", flex: "1", textAlign: "center" }}>
-            <span style={{ fontSize: "1.25rem", lineHeight: 1, marginBottom: "0.3rem" }}>🌍</span>
-            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--sage-dark)", lineHeight: 1.2 }}>3 jurisdictions</span>
-            <span style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", color: "#4a6a4a", letterSpacing: "0.03em", marginTop: "0.15rem" }}>UK · Bermuda · US</span>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "0.75rem 1rem", flex: "1", textAlign: "center" }}>
-            <span style={{ fontSize: "1.25rem", lineHeight: 1, marginBottom: "0.3rem" }}>📋</span>
-            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--sage-dark)", lineHeight: 1.2 }}>12+ projects</span>
-            <span style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", color: "#4a6a4a", letterSpacing: "0.03em", marginTop: "0.15rem" }}>research directed</span>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "0.75rem 1rem", flex: "1", textAlign: "center" }}>
-            <span style={{ fontSize: "1.25rem", lineHeight: 1, marginBottom: "0.3rem" }}>💡</span>
-            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--sage-dark)", lineHeight: 1.2 }}>Strategic</span>
-            <span style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", color: "#4a6a4a", letterSpacing: "0.03em", marginTop: "0.15rem" }}>not tick-box</span>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "0.75rem 1rem", flex: "1", textAlign: "center" }}>
-            <span style={{ fontSize: "1.25rem", lineHeight: 1, marginBottom: "0.3rem" }}>🌱</span>
-            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--sage-dark)", lineHeight: 1.2 }}>Lasting change</span>
-            <span style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", color: "#4a6a4a", letterSpacing: "0.03em", marginTop: "0.15rem" }}>built in from day one</span>
-          </div>
-        </div>
-      </section>
+      <TrustStrip items={[
+            { value: "Bespoke", label: "to every organisation" },
+            { value: "Worldwide", label: "organisations in every sector" },
+            { value: "12+ projects", label: "research directed" },
+            { value: "Strategic", label: "not tick-box" },
+            { value: "Lasting change", label: "built in from day one" },
+          ]} />
 
       <ProgrammeFinder />
 
@@ -74,7 +52,7 @@ export default function Consultancy() {
         <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 2 }}>
           <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap", marginBottom: "2.5rem" }}>
             <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(40,60,45,0.7)", background: "rgba(40,60,45,0.08)", borderRadius: "999px", padding: "0.35rem 1rem", flexShrink: 0 }}>Our programmes</span>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.1rem, 2vw, 1.35rem)", color: "var(--charcoal)", margin: 0 }}>Three flagship programmes; one clear goal</h2>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.1rem, 2vw, 1.35rem)", color: "var(--charcoal)", margin: 0 }}>Three flagship programmes, one clear goal</h2>
           </div>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
@@ -94,7 +72,7 @@ export default function Consultancy() {
               </div>
               <div style={{ padding: "1.25rem 2rem 0" }}>
                 <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(30,40,30,0.82)", lineHeight: 1.65, marginBottom: "1rem" }}>
-                  2027 brings new expectations for employers: from preventing sexual harassment to pay gap and menopause action plans. This programme gives you a clear picture of where you are now, where you want to be, and exactly how you will get there; with your legal duties built in from the start.
+                  2027 brings new expectations for employers: from preventing sexual harassment to pay gap and menopause action plans. This programme gives you a clear picture of where you are now, where you want to be, and exactly how you will get there, with your legal duties built in from the start.
                 </p>
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "0", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
@@ -115,16 +93,16 @@ export default function Consultancy() {
                   <ul style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(30,40,30,0.82)", lineHeight: 1.6, margin: 0, paddingLeft: "1.1rem" }}>
                     <li>A leadership team aligned behind a single, credible plan they own and can act on</li>
                     <li>Clarity on where your inclusion gaps sit: in policy, practice, data or culture</li>
-                    <li>Confidence that your duties under current and incoming employment law are met</li>
+                    <li>Clarity on what current and incoming employment law asks of you, and a plan to meet it</li>
                     <li>A live roadmap with named actions, owners and measurable KPIs</li>
-                    <li>Staff who feel heard; because their voice shaped the plan</li>
+                    <li>Staff who feel heard, because their voice shaped the plan</li>
                     <li>Six-month pulse data to show progress to your board and stakeholders</li>
                     <li>A foundation that makes every year after easier</li>
                   </ul>
                 </div>
               </div>
               <div style={{ padding: "1.25rem 2rem" }}>
-                <Link href="/contact-us" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none" }}>Book a 2027 planning call →</Link>
+                <Link href="/contact-us" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none" }}>Book a 2027 Planning Call →</Link>
               </div>
             </div>
 
@@ -143,7 +121,7 @@ export default function Consultancy() {
               </div>
               <div style={{ padding: "1.25rem 2rem 0" }}>
                 <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(30,40,30,0.82)", lineHeight: 1.65, marginBottom: "1rem" }}>
-                  For organisations with teams across sites, regions or time zones. Inclusion depends on managers: when your people are spread across locations, consistency matters. This programme gives every manager the same confidence, language and tools; wherever they work.
+                  For organisations with teams across sites, regions or time zones. Inclusion depends on managers: when your people are spread across locations, consistency matters. This programme gives every manager the same confidence, language and tools, wherever they work.
                 </p>
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "0", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
@@ -154,9 +132,9 @@ export default function Consultancy() {
                     <li>Content tailored to your sector, culture and current priorities</li>
                     <li>Practical tools for inclusive meetings, recruitment, feedback and handling conduct concerns</li>
                     <li>A branded manager toolkit your leaders can use day to day</li>
-                    <li>A confidence survey before and after; plus an impact report at the end</li>
+                    <li>A confidence survey before and after, plus an impact report at the end</li>
                     <li style={{ listStyle: "none", marginTop: "0.75rem", paddingLeft: 0 }}><span style={{ fontWeight: 700, color: "var(--charcoal)" }}>Optional add-on:</span> train-the-trainer to equip your own people to keep delivering the programme</li>
-                    <li style={{ listStyle: "none", marginTop: "0.5rem", paddingLeft: 0 }}><span style={{ fontWeight: 700, color: "var(--charcoal)" }}>Financial services edition:</span> covers FCA rules on non-financial misconduct, including bullying and harassment from September 2026</li>
+                    <li style={{ listStyle: "none", marginTop: "0.5rem", paddingLeft: 0 }}><span style={{ fontWeight: 700, color: "var(--charcoal)" }}>Financial services edition:</span> covers the FCA&#39;s non-financial misconduct rules on bullying and harassment, in force since September 2026</li>
                   </ul>
                 </div>
                 <div style={{ padding: "1rem 1.4rem" }}>
@@ -173,7 +151,7 @@ export default function Consultancy() {
                 </div>
               </div>
               <div style={{ padding: "1.25rem 2rem" }}>
-                <Link href="/contact-us" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none" }}>Book an inclusive leadership enquiry call →</Link>
+                <Link href="/contact-us" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none" }}>Book an Inclusive Leadership Call →</Link>
               </div>
             </div>
 
@@ -192,7 +170,7 @@ export default function Consultancy() {
               </div>
               <div style={{ padding: "1.25rem 2rem 0" }}>
                 <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(30,40,30,0.82)", lineHeight: 1.65, marginBottom: "1rem" }}>
-                  For businesses certifying or recertifying against B Lab&#39;s new standards. Under B Lab&#39;s new standards, Justice, Equity, Diversity and Inclusion (JEDI) is a mandatory, pass or fail topic. It asks for real data and real action; not just a policy. We help you meet it with evidence that stands up to verification.
+                  For businesses certifying or recertifying against B Lab&#39;s new standards. Under B Lab&#39;s new standards, Justice, Equity, Diversity and Inclusion (JEDI) is a mandatory, pass or fail topic. It asks for real data and real action, not just a policy. We help you meet it with evidence that stands up to verification.
                 </p>
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "0", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
@@ -206,13 +184,13 @@ export default function Consultancy() {
                     <li>An evidence pack and a mock review of the JEDI topic</li>
                   </ul>
                   <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(30,40,30,0.65)", lineHeight: 1.6, marginTop: "1rem", marginBottom: 0 }}>
-                    Recertifying in 2027? There are no extensions for 2027 recertification dates; now is the time to prepare.
+                    Recertifying in 2027? There are no extensions for 2027 recertification dates: now is the time to prepare.
                   </p>
                 </div>
                 <div style={{ padding: "1rem 1.4rem" }}>
                   <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(30,40,30,0.55)", marginBottom: "0.5rem" }}>What you&#39;ll walk away with</p>
                   <ul style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(30,40,30,0.82)", lineHeight: 1.6, margin: 0, paddingLeft: "1.1rem" }}>
-                    <li>A verified, evidence-based JEDI submission; not a policy that raises more questions than it answers</li>
+                    <li>An evidence-based JEDI submission built to stand up to verification, not a policy that raises more questions than it answers</li>
                     <li>Demographic data collected and analysed in a privacy-compliant, usable way</li>
                     <li>Leadership clarity on which JEDI actions are right for your size and stage</li>
                     <li>A multi-year action plan assessors can follow across Years 0, 3 and 5</li>
@@ -221,7 +199,7 @@ export default function Consultancy() {
                 </div>
               </div>
               <div style={{ padding: "1.25rem 2rem" }}>
-                <Link href="/contact-us" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none" }}>Book a B Corp JEDI call →</Link>
+                <Link href="/contact-us" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none" }}>Book a B Corp JEDI Call →</Link>
               </div>
             </div>
 
@@ -249,7 +227,7 @@ export default function Consultancy() {
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.83rem", color: "var(--charcoal)", opacity: 0.65, lineHeight: 1.65, marginBottom: "1rem" }}>
                 You can also add bespoke inclusion resources or fully branded e-learning modules to any programme: guides, toolkits and learning content designed in your look and your language.
               </p>
-              <Link href="/contact-us" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.7rem 1.4rem", borderRadius: "8px", textDecoration: "none" }}>Tell us what you need →</Link>
+              <Link href="/contact-us" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.7rem 1.4rem", borderRadius: "8px", textDecoration: "none" }}>Tell Us What You Need →</Link>
             </div>
 
             <div style={{ background: "#1A3220", borderRadius: "14px", padding: "1.1rem 1.4rem" }}>
@@ -258,12 +236,12 @@ export default function Consultancy() {
               </div>
               <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.05rem", color: "var(--white)", marginBottom: "0.5rem" }}>Build a programme from scratch</h3>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "rgba(255,255,255,0.85)", lineHeight: 1.7, marginBottom: "0.75rem" }}>
-                None of our existing programmes quite fit? No problem. We design consultancy programmes from the ground up; shaped entirely around your organisation&#39;s specific challenges, goals and context.
+                None of our existing programmes quite fit? No problem. We design consultancy programmes from the ground up, shaped entirely around your organisation&#39;s specific challenges, goals and context.
               </p>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.83rem", color: "rgba(255,255,255,0.65)", lineHeight: 1.65, marginBottom: "1rem" }}>
                 Whether you need a single focused intervention or a multi-strand programme spanning months, we scope it together and build exactly what will make a difference for your people.
               </p>
-              <Link href="/contact-us" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "#1A3220", background: "var(--white)", padding: "0.7rem 1.4rem", borderRadius: "8px", textDecoration: "none" }}>Start the conversation →</Link>
+              <Link href="/contact-us" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "#1A3220", background: "var(--white)", padding: "0.7rem 1.4rem", borderRadius: "8px", textDecoration: "none" }}>Start the Conversation →</Link>
             </div>
 
           </div>
@@ -276,11 +254,10 @@ export default function Consultancy() {
           <div style={{ display: "flex", alignItems: "center", gap: "1rem", flexWrap: "wrap", marginBottom: "2rem" }}>
             <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(107,143,113,0.15)", borderRadius: "999px", padding: "0.35rem 1rem", flexShrink: 0 }}>What clients say</span>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1.5rem" }}>
             {[
-              { quote: "Rebekah is a well-organised, methodical instructor; her approach is warm and friendly. The sequence of the session was clear and each section built on the last; with some great practical tips.", name: "", org: "Project Free" },
-              { quote: "Rebekah demonstrated strong facilitation skills throughout the session. She created a safe and inclusive learning environment where participants felt comfortable sharing their perspectives. Her communication style was clear, respectful, and she maintained excellent energy and focus across all discussions.", name: "", org: "Network Plus" },
-              { quote: "Rebekah is very knowledgeable on inclusion topics and good at explaining ideas and connecting to comments made by participants. Rebekah is always great at making participants feel comfortable.", name: "", org: "Hospice UK" },
+              { quote: "Rebekah was an excellent facilitator. She created a welcoming environment that encouraged honest reflection and meaningful discussion. Her approach was both professional and personal: she encouraged us to think deeply without judgement, which made it easier to be honest about where we are and where we can grow.", name: "Kerryann Wynter", org: "Kerryann Wynter, The Berkeley School" },
+              { quote: "The Inclusion Edit are super communicative and responsive, and clearly very passionate about the work they do, which shines through in the quality of their discussions and everything they deliver.", name: "Tiona Knight", org: "Tiona Knight, EDI Lead, Mentivity" },
             ].map((t) => (
               <div key={t.org} style={{ background: "var(--white)", borderRadius: "16px", padding: "1.75rem", border: "1px solid var(--gray-border)", boxShadow: "0 4px 16px rgba(20,50,25,0.07)" }}>
                 <span style={{ fontSize: "1.75rem", color: "var(--sage)", display: "block", marginBottom: "0.75rem", lineHeight: 1 }}>&ldquo;</span>
@@ -297,8 +274,8 @@ export default function Consultancy() {
         <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.4rem, 2.8vw, 2.1rem)", color: "var(--charcoal)", marginBottom: "0.6rem" }}>Ready to build something that lasts?</h2>
         <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--charcoal)", opacity: 0.7, maxWidth: "500px", margin: "0 auto 2rem" }}>Every engagement starts with a conversation. Tell us about your organisation and we will come back with how we can help.</p>
         <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-          <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none" }}>Start the conversation</Link>
-          <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", border: "2px solid var(--sage-dark)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", background: "transparent" }}>Explore the platform</Link>
+          <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none" }}>Start the Conversation</Link>
+          <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", border: "2px solid var(--sage-dark)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", background: "transparent" }}>Explore the Platform</Link>
         </div>
       </section>
 

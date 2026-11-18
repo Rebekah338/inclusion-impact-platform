@@ -1,6 +1,11 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+
+// Programme Finder (consultancy page).
+// Staggered: one question gives an instant recommendation; two optional
+// questions then sharpen it; the ask (book a call) comes last.
 import Link from "next/link";
+import { TOOL_CSS, Reveal, Preparing, TickList, ExpertSignature, ShareWithLeader, SITE_URL, logToolEvent, contactWithContext } from "@/components/ToolExtras";
 
 type Result = {
   label: string;
@@ -143,213 +148,190 @@ export default function ProgrammeFinder() {
   const [q1, setQ1] = useState("");
   const [q2, setQ2] = useState("");
   const [q3, setQ3] = useState("");
-  const [submitted, setSubmitted] = useState(false);
   const [result, setResult] = useState<Result | null>(null);
+  const [preparing, setPreparing] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [changed, setChanged] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
 
-  // Typing effect state
-  const [typed, setTyped] = useState("");
-  const [typed2, setTyped2] = useState("");
-  const [isTyping, setIsTyping] = useState(false);
-  const [isTyping2, setIsTyping2] = useState(false);
-  const [showOutcomes, setShowOutcomes] = useState(false);
-  const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+  useEffect(() => () => { if (timer.current) clearTimeout(timer.current); }, []);
 
-  const canSubmit = !!q1 && !!q2 && !!q3;
-
-  function clearTimeouts() {
-    timeoutsRef.current.forEach(clearTimeout);
-    timeoutsRef.current = [];
+  // A brief "matching" moment, then the recommendation fades in
+  function reveal() {
+    if (timer.current) clearTimeout(timer.current);
+    const reduce = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) { setPreparing(false); setReady(true); return; }
+    setPreparing(true);
+    timer.current = setTimeout(() => { setPreparing(false); setReady(true); }, 450);
   }
 
-  function handleSubmit() {
-    const r = getResult(q1, q2, q3);
+  function chooseDriver(val: string) {
+    setQ1(val);
+    const r = getResult(val, q2, q3);
     setResult(r);
-    setSubmitted(true);
-    setTyped("");
-    setTyped2("");
-    setShowOutcomes(false);
-    setIsTyping(true);
-    setIsTyping2(false);
-    clearTimeouts();
-
-    // Type first why sentence
-    let i = 0;
-    const speed = 18;
-    function typeChar() {
-      if (i < r.why.length) {
-        const idx = i;
-        const t = setTimeout(() => {
-          setTyped(r.why.slice(0, idx + 1));
-          i++;
-          typeChar();
-        }, speed);
-        timeoutsRef.current.push(t);
-        i++;
-      } else {
-        // Pause then type second sentence
-        setIsTyping(false);
-        const pause = setTimeout(() => {
-          setIsTyping2(true);
-          let j = 0;
-          function typeChar2() {
-            if (j < r.why2.length) {
-              const jdx = j;
-              const t2 = setTimeout(() => {
-                setTyped2(r.why2.slice(0, jdx + 1));
-                j++;
-                typeChar2();
-              }, speed);
-              timeoutsRef.current.push(t2);
-              j++;
-            } else {
-              setIsTyping2(false);
-              const showT = setTimeout(() => setShowOutcomes(true), 200);
-              timeoutsRef.current.push(showT);
-            }
-          }
-          typeChar2();
-        }, 400);
-        timeoutsRef.current.push(pause);
-      }
-    }
-    typeChar();
+    setChanged(false);
+    reveal();
+    logToolEvent("programme-finder", "result", { driver: label(DRIVERS, val), recommended: r.name });
+    setTimeout(() => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" }), 80);
   }
 
-  function handleReset() {
-    clearTimeouts();
+  function sharpen(nextQ2: string, nextQ3: string) {
+    setQ2(nextQ2);
+    setQ3(nextQ3);
+    const r = getResult(q1, nextQ2, nextQ3);
+    const isNew = r.name !== result?.name || r.why !== result?.why;
+    setResult(r);
+    setChanged(isNew);
+    if (isNew) reveal();
+    logToolEvent("programme-finder", "sharpened", { driver: label(DRIVERS, q1), organisation: label(ORGS, nextQ2), success: label(SUCCESS, nextQ3), recommended: r.name });
+  }
+
+  const label = (list: { label: string; val: string }[], val: string) => list.find((x) => x.val === val)?.label || "";
+
+  function reset() {
+    if (timer.current) clearTimeout(timer.current);
     setQ1(""); setQ2(""); setQ3("");
-    setSubmitted(false);
     setResult(null);
-    setTyped(""); setTyped2("");
-    setIsTyping(false); setIsTyping2(false);
-    setShowOutcomes(false);
+    setPreparing(false);
+    setReady(false);
+    setChanged(false);
   }
 
-  useEffect(() => () => clearTimeouts(), []);
+  const font = { display: "var(--font-display)", heading: "var(--font-heading)", body: "var(--font-body)" };
+  const goldEdge = "#A8741A";
+  const warm = "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)";
+  const darkChip = (selected: boolean): React.CSSProperties => ({
+    fontFamily: font.heading, fontWeight: 600, fontSize: "0.84rem", color: selected ? "var(--forest)" : "var(--white)",
+    background: selected ? "#E3F5E2" : "rgba(255,255,255,0.08)", border: `1.5px solid ${selected ? "#E3F5E2" : "rgba(226,194,101,0.6)"}`,
+    borderRadius: "999px", padding: "0.5rem 1rem", cursor: "pointer", minHeight: "38px",
+  });
+  const chip = (selected: boolean): React.CSSProperties => ({
+    fontFamily: font.heading, fontWeight: 600, fontSize: "0.84rem", color: "var(--forest)",
+    background: selected ? "#E3F5E2" : warm, border: `1.5px solid ${selected ? "var(--evergreen)" : goldEdge}`,
+    borderRadius: "999px", padding: "0.5rem 1rem", cursor: "pointer", minHeight: "38px",
+  });
+
+  const DRIVERS = [
+    { label: "Legislation and legal duties", val: "legislation" },
+    { label: "Strategic planning", val: "strategic" },
+    { label: "Culture and behaviour change", val: "culture" },
+    { label: "Not sure yet", val: "unsure" },
+  ];
+  const ORGS = [
+    { label: "Single site", val: "single" },
+    { label: "Multiple sites or teams", val: "multisite" },
+    { label: "Pursuing B Corp certification", val: "bcorp" },
+    { label: "Financial services", val: "financial" },
+  ];
+  const SUCCESS = [
+    { label: "A plan the whole organisation owns", val: "plan" },
+    { label: "Leadership and team alignment", val: "alignment" },
+    { label: "Behaviour change that actually sticks", val: "behaviour" },
+  ];
 
   return (
-    <section style={{ padding: "1.75rem 1.5rem", position: "relative", overflow: "hidden", background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)" }}>
-      <div aria-hidden="true" style={{ position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)", width: "700px", height: "350px", background: "radial-gradient(ellipse at 50% 30%, rgba(201,168,76,0.13) 0%, rgba(201,168,76,0.05) 45%, transparent 70%)", pointerEvents: "none", zIndex: 0 }} />
+    <section style={{ padding: "2.85rem 1.5rem", background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #F3E9DD 100%)", position: "relative", overflow: "hidden" }}>
+      <style>{`
+        .pf-chip:hover { border-color: #7A5200 !important; box-shadow: 0 0 0 3px rgba(201,168,76,0.18); }
+        .pf-go { transition: transform 0.15s ease, box-shadow 0.2s ease; }
+        .pf-go:hover { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(26,50,32,0.45), 0 0 0 3px rgba(226,194,101,0.35), inset 0 1px 0 rgba(255,255,255,0.18); }
+        @keyframes pfBlink { 50% { opacity: 0; } }
+        ${TOOL_CSS}
+      `}</style>
 
-      <div style={{ maxWidth: "900px", margin: "0 auto", position: "relative", zIndex: 1, textAlign: "center" }}>
-        <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.16em", color: "#8B6914", background: "rgba(201,168,76,0.18)", border: "1px solid rgba(201,168,76,0.4)", padding: "0.35rem 1rem", borderRadius: "999px", marginBottom: "0.75rem" }}>Inclusion AI: Programme Finder</span>
+      <div style={{ maxWidth: "960px", margin: "0 auto", position: "relative", background: "linear-gradient(160deg, #2C4A31 0%, #1E3624 55%, #142A1A 100%)", border: "1px solid rgba(226,194,101,0.25)", borderRadius: "18px", boxShadow: "0 20px 50px rgba(26,50,32,0.35)", overflow: "hidden", padding: "1.4rem 2rem 1.3rem" }}>
+        <div aria-hidden="true" style={{ position: "absolute", top: "-130px", right: "-100px", width: "320px", height: "320px", borderRadius: "50%", border: "1px solid rgba(255,255,255,0.08)", background: "rgba(255,255,255,0.03)", pointerEvents: "none" }} />
+        {/* Header */}
+        <div style={{ textAlign: "center", marginBottom: "1rem" }}>
+          <span style={{ display: "inline-block", fontFamily: font.heading, fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.16em", color: "#E2C265", background: "rgba(226,194,101,0.12)", border: "1px solid rgba(226,194,101,0.45)", borderRadius: "999px", padding: "0.3rem 0.85rem", marginBottom: "0.6rem" }}>
+            Interactive Tool: Programme Finder
+          </span>
+          <h2 style={{ fontFamily: font.display, fontWeight: 700, fontSize: "clamp(1.5rem, 3vw, 1.95rem)", color: "var(--white)", margin: "0 0 0.3rem", lineHeight: 1.15 }}>
+            Three programmes. One right fit.<br />
+            <span style={{ whiteSpace: "nowrap", background: "linear-gradient(135deg, #C9A84C 0%, #E2C265 50%, #C9A84C 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Find yours in 60 seconds.</span>
+          </h2>
+          <p style={{ fontFamily: font.body, fontSize: "1rem", color: "rgba(255,255,255,0.85)", margin: "0 auto", maxWidth: "760px", lineHeight: 1.5 }}>
+            Answer one question for an instant recommendation, then sharpen it if you like.
+          </p>
+        </div>
 
-        <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.2rem, 2.5vw, 1.55rem)", color: "var(--charcoal)", margin: "0 0 0.25rem", lineHeight: 1.1 }}>
-          Not sure where to start?<br />
-          <span style={{ background: "linear-gradient(135deg, #C9A84C 0%, #E2C265 50%, #A8741A 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>Find your programme in 60 seconds.</span>
-        </h2>
-        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "#6b5a3a", margin: "0 0 1.1rem", lineHeight: 1.5 }}>Answer three questions and we will recommend the right starting point for your organisation.</p>
+        {/* Step 1: one question */}
+        <p style={{ fontFamily: font.heading, fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", textAlign: "center", margin: "0 0 0.6rem" }}>What is driving this work right now?</p>
+        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "0.5rem" }}>
+          {DRIVERS.map((d) => (
+            <button key={d.val} type="button" className="tool-chip-dark" aria-pressed={q1 === d.val} onClick={() => chooseDriver(d.val)} style={darkChip(q1 === d.val)}>{d.label}</button>
+          ))}
+        </div>
+        {!result && (
+          <p style={{ fontFamily: font.heading, fontWeight: 600, fontSize: "0.86rem", color: "var(--white)", textAlign: "center", margin: "0.9rem 0 0" }}>
+            One tap for an instant recommendation. No details needed.
+          </p>
+        )}
 
-        {!submitted ? (
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", textAlign: "left" }}>
-
-            <div style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", flexWrap: "wrap" }}>
-              <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", minWidth: "200px", flexShrink: 0 }}>What is driving this work right now?</span>
-              <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-                {[
-                  { label: "📋 Legislation and legal duties", val: "legislation" },
-                  { label: "🧭 Strategic planning", val: "strategic" },
-                  { label: "🌱 Culture and behaviour change", val: "culture" },
-                  { label: "🤷 Not sure yet", val: "unsure" },
-                ].map(({ label, val }) => (
-                  <button key={val} onClick={() => setQ1(val)}
-                    style={{ padding: "0.5rem 1rem", borderRadius: "10px", border: `1.5px solid ${q1 === val ? "var(--sage-dark)" : "rgba(201,168,76,0.45)"}`, background: q1 === val ? "var(--sage-xlight)" : "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.83rem", color: q1 === val ? "var(--sage-dark)" : "#7A5200", cursor: "pointer", transition: "all 0.15s", boxShadow: q1 === val ? "none" : "0 0 0 3px rgba(201,168,76,0.12)" }}
-                  >{label}</button>
-                ))}
-              </div>
+        {/* Step 2: the recommendation, straight away */}
+        {result && (
+          <div ref={resultRef} aria-live="polite" style={{ marginTop: "1.25rem", background: "var(--white)", border: "1.5px solid rgba(107,143,113,0.3)", borderRadius: "14px", padding: "1.35rem 1.5rem", boxShadow: "0 4px 20px rgba(26,50,32,0.08)" }}>
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.6rem", marginBottom: "0.5rem" }}>
+              <span style={{ fontFamily: font.heading, fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase", letterSpacing: "0.16em", color: "var(--evergreen)" }}>{result.label}</span>
+              {changed && (
+                <span style={{ fontFamily: font.heading, fontWeight: 700, fontSize: "0.7rem", color: "#7A5200", background: "rgba(201,168,76,0.18)", border: "1px solid rgba(168,116,26,0.55)", borderRadius: "999px", padding: "0.15rem 0.6rem" }}>Updated for your answers</span>
+              )}
             </div>
-
-            <div style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", flexWrap: "wrap" }}>
-              <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", minWidth: "200px", flexShrink: 0 }}>How would you describe your organisation?</span>
-              <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-                {[
-                  { label: "🏢 Single site", val: "single" },
-                  { label: "🏙 Multiple sites or teams", val: "multisite" },
-                  { label: "🌱 Pursuing B Corp certification", val: "bcorp" },
-                  { label: "💼 Financial services", val: "financial" },
-                ].map(({ label, val }) => (
-                  <button key={val} onClick={() => setQ2(val)}
-                    style={{ padding: "0.5rem 1rem", borderRadius: "10px", border: `1.5px solid ${q2 === val ? "var(--sage-dark)" : "rgba(201,168,76,0.45)"}`, background: q2 === val ? "var(--sage-xlight)" : "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.83rem", color: q2 === val ? "var(--sage-dark)" : "#7A5200", cursor: "pointer", transition: "all 0.15s", boxShadow: q2 === val ? "none" : "0 0 0 3px rgba(201,168,76,0.12)" }}
-                  >{label}</button>
-                ))}
-              </div>
+            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "baseline", gap: "0.75rem", marginBottom: "0.6rem" }}>
+              <h3 style={{ fontFamily: font.display, fontWeight: 700, fontSize: "1.45rem", color: "var(--deep-pine)", margin: 0, lineHeight: 1.2 }}>{result.name}</h3>
+              <span style={{ fontFamily: font.heading, fontWeight: 600, fontSize: "0.78rem", color: "var(--forest)", background: "#E3F5E2", borderRadius: "999px", padding: "0.2rem 0.75rem" }}>{result.timeline}</span>
             </div>
-
-            <div style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", flexWrap: "wrap" }}>
-              <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "var(--charcoal)", minWidth: "200px", flexShrink: 0 }}>What does success look like for you?</span>
-              <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
-                {[
-                  { label: "📐 A plan the whole organisation owns", val: "plan" },
-                  { label: "🤝 Leadership and team alignment", val: "alignment" },
-                  { label: "🌱 Behaviour change that actually sticks", val: "behaviour" },
-                ].map(({ label, val }) => (
-                  <button key={val} onClick={() => setQ3(val)}
-                    style={{ padding: "0.5rem 1rem", borderRadius: "10px", border: `1.5px solid ${q3 === val ? "var(--sage-dark)" : "rgba(201,168,76,0.45)"}`, background: q3 === val ? "var(--sage-xlight)" : "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.83rem", color: q3 === val ? "var(--sage-dark)" : "#7A5200", cursor: "pointer", transition: "all 0.15s", boxShadow: q3 === val ? "none" : "0 0 0 3px rgba(201,168,76,0.12)" }}
-                  >{label}</button>
-                ))}
+            {preparing ? (
+              <Preparing label="Matching your programme..." lines={4} />
+            ) : (
+              <div key={result.name + result.why}>
+                <Reveal i={0}><p style={{ fontFamily: font.body, fontSize: "0.92rem", color: "var(--ink)", lineHeight: 1.7, margin: "0 0 0.5rem" }}>{result.why}</p></Reveal>
+                <Reveal i={1}><p style={{ fontFamily: font.body, fontSize: "0.92rem", color: "var(--ink)", lineHeight: 1.7, margin: "0 0 0.6rem" }}>{result.why2}</p></Reveal>
+                <div style={{ marginBottom: "1rem" }}><TickList items={result.outcomes} startDelay={2} /></div>
               </div>
-            </div>
-
-            <div style={{ paddingTop: "0.2rem", display: "flex", justifyContent: "center" }}>
-              <button onClick={handleSubmit} disabled={!canSubmit}
-                style={{ padding: "0.75rem 2.25rem", borderRadius: "12px", background: !canSubmit ? "linear-gradient(160deg, #FDFAF5 0%, #FAF6EE 100%)" : "linear-gradient(135deg, #C9A84C 0%, #E2C265 100%)", border: `1.5px solid ${!canSubmit ? "rgba(201,168,76,0.3)" : "#C9A84C"}`, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: !canSubmit ? "#9a8060" : "var(--charcoal)", cursor: !canSubmit ? "not-allowed" : "pointer", transition: "all 0.2s", boxShadow: !canSubmit ? "none" : "0 0 0 3px rgba(201,168,76,0.25), 0 0 20px rgba(201,168,76,0.35), 0 4px 16px rgba(201,168,76,0.2)" }}
-              >Find my programme →</button>
-            </div>
-          </div>
-        ) : result && (
-          <div style={{ background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 50%, #FAF6EE 100%)", border: "1px solid rgba(201,168,76,0.25)", borderRadius: "16px", padding: "1.75rem", boxShadow: "0 0 0 3px rgba(201,168,76,0.12), 0 0 18px 4px rgba(201,168,76,0.13), 0 4px 20px rgba(0,0,0,0.06)", textAlign: "left", position: "relative", overflow: "hidden" }}>
-            <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.1) 0%, transparent 70%)", pointerEvents: "none" }} />
-            <div style={{ position: "relative", zIndex: 1 }}>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.16em", color: "#8B6914", background: "rgba(201,168,76,0.18)", border: "1px solid rgba(201,168,76,0.4)", padding: "0.35rem 1rem", borderRadius: "999px", marginBottom: "1rem" }}>{result.label}</span>
-
-              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.2rem, 2.5vw, 1.55rem)", color: "var(--charcoal)", margin: "0 0 0.6rem", lineHeight: 1.15 }}>{result.name}</h3>
-
-              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, color: "var(--sage-dark)", background: "var(--sage-xlight)", borderRadius: "999px", padding: "0.25rem 0.875rem", marginBottom: "1.1rem" }}>{result.timeline}</span>
-
-              {/* Typing area */}
-              <div style={{ minHeight: "4rem", marginBottom: "0.75rem" }}>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "#4a3a20", lineHeight: 1.75, margin: "0 0 0.6rem" }}>
-                  {typed}
-                  {isTyping && <span style={{ display: "inline-block", width: "2px", height: "1em", background: "#C9A84C", marginLeft: "2px", verticalAlign: "text-bottom", animation: "blink 0.8s step-end infinite" }} />}
-                </p>
-                {typed2 && (
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "#4a3a20", lineHeight: 1.75, margin: 0 }}>
-                    {typed2}
-                    {isTyping2 && <span style={{ display: "inline-block", width: "2px", height: "1em", background: "#C9A84C", marginLeft: "2px", verticalAlign: "text-bottom", animation: "blink 0.8s step-end infinite" }} />}
-                  </p>
-                )}
-              </div>
-
-              {/* Outcomes + CTAs fade in after typing */}
-              <div style={{ transition: "opacity 0.4s, transform 0.4s", opacity: showOutcomes ? 1 : 0, transform: showOutcomes ? "translateY(0)" : "translateY(8px)", pointerEvents: showOutcomes ? "auto" : "none" }}>
-                <ul style={{ margin: "0 0 1.5rem", padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                  {result.outcomes.map((o, i) => (
-                    <li key={i} style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem", fontFamily: "var(--font-body)", fontSize: "0.84rem", color: "var(--charcoal)", lineHeight: 1.55 }}>
-                      <span style={{ color: "#C9A84C", fontWeight: 700, flexShrink: 0, marginTop: "0.05rem" }}>✓</span>
-                      {o}
-                    </li>
-                  ))}
-                </ul>
-
-                <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
-                  <Link href={result.ctaHref}
-                    style={{ padding: "0.7rem 1.5rem", borderRadius: "10px", background: "var(--sage-dark)", color: "var(--white)", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", textDecoration: "none", boxShadow: "0 4px 14px rgba(42,74,48,0.25)" }}
-                  >{result.ctaLabel}</Link>
-                  <button onClick={handleReset}
-                    style={{ background: "none", border: "none", fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "#8B6914", cursor: "pointer", textDecoration: "underline", textUnderlineOffset: "3px" }}
-                  >Start again</button>
+            )}
+            {ready && (
+              <Reveal i={5}>
+                {/* Step 3: optional, sharper */}
+                <div style={{ paddingTop: "1rem", borderTop: "1px solid var(--line)" }}>
+                  <p style={{ fontFamily: font.heading, fontWeight: 700, fontSize: "0.86rem", color: "var(--forest)", margin: "0 0 0.5rem" }}>Sharpen your recommendation (optional)</p>
+                  <p style={{ fontFamily: font.body, fontSize: "0.82rem", color: "var(--slate)", margin: "0 0 0.4rem" }}>How would you describe your organisation?</p>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.45rem", marginBottom: "0.7rem" }}>
+                    {ORGS.map((o) => (
+                      <button key={o.val} type="button" className="pf-chip" aria-pressed={q2 === o.val} onClick={() => sharpen(q2 === o.val ? "" : o.val, q3)} style={chip(q2 === o.val)}>{o.label}</button>
+                    ))}
+                  </div>
+                  <p style={{ fontFamily: font.body, fontSize: "0.82rem", color: "var(--slate)", margin: "0 0 0.4rem" }}>What does success look like for you?</p>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.45rem" }}>
+                    {SUCCESS.map((o) => (
+                      <button key={o.val} type="button" className="pf-chip" aria-pressed={q3 === o.val} onClick={() => sharpen(q2, q3 === o.val ? "" : o.val)} style={chip(q3 === o.val)}>{o.label}</button>
+                    ))}
+                  </div>
                 </div>
 
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "#9a8060", margin: "1rem 0 0", lineHeight: 1.5 }}>
-                  Not quite right? <Link href="/contact-us" style={{ color: "#7A5200", textDecoration: "underline", textUnderlineOffset: "3px" }}>Want to talk it through first?</Link> We are happy to help you find the right fit before you commit to anything.
-                </p>
-              </div>
-            </div>
+                {/* Step 4: then the ask */}
+                <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.9rem", marginTop: "1.1rem" }}>
+                  <Link href={contactWithContext(
+                    `Programme Finder: recommended ${result.name}; driving the work: ${label(DRIVERS, q1).toLowerCase() || "not given"}${q2 ? `; organisation: ${label(ORGS, q2).toLowerCase()}` : ""}${q3 ? `; success looks like: ${label(SUCCESS, q3).toLowerCase()}` : ""}`,
+                    "Inclusion Consultancy"
+                  )} className="pf-go" style={{ padding: "0.75rem 1.6rem", borderRadius: "10px", border: "1px solid rgba(226,194,101,0.35)", background: "linear-gradient(160deg, #2C4A31 0%, #1E3624 55%, #142A1A 100%)", color: "var(--white)", fontFamily: font.heading, fontWeight: 700, fontSize: "0.92rem", textDecoration: "none", boxShadow: "0 6px 20px rgba(26,50,32,0.35), inset 0 1px 0 rgba(255,255,255,0.14)" }}>
+                    <span aria-hidden="true" style={{ color: "#E2C265", marginRight: "0.45rem" }}>✦</span>{result.ctaLabel.replace(/\s*→$/, "")}
+                  </Link>
+                  <ShareWithLeader
+                    subject={`A programme we could consider: ${result.name}`}
+                    body={`Hi,\n\nI used The Inclusion Edit's Programme Finder to look at where we could focus our inclusion work. It recommended the ${result.name} (${result.timeline.toLowerCase()}).\n\n${result.why}\n\nWhat it would give us:\n${result.outcomes.map((o) => `\u2022 ${o}`).join("\n")}\n\nI think this is worth a conversation. More detail here: ${SITE_URL}/edi-consultancy-programmes\n`}
+                  />
+                  <button type="button" onClick={reset} style={{ background: "none", border: "none", padding: 0, fontFamily: font.heading, fontWeight: 600, fontSize: "0.82rem", color: "var(--evergreen)", textDecoration: "underline", cursor: "pointer" }}>
+                    Start again
+                  </button>
+                </div>
+                <ExpertSignature />
+              </Reveal>
+            )}
           </div>
         )}
       </div>
-
-      <style>{`@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }`}</style>
     </section>
   );
 }

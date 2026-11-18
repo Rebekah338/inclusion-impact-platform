@@ -4,6 +4,8 @@ import { useState, useRef, useEffect } from "react";
 import Footer from "../components/Footer";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
+import TrustStrip from "../components/TrustStrip";
+import { BOOKING_URL } from "../../lib/booking";
 
 const episodes = [
   { num: "01", title: "Who We Are: The Power of Identity, Culture and Experience", guest: "Jasmine Fluker", img: "/podcast-ep01.png", episodeId: "0w3t9zJ4Epus7De7f2qaEL" },
@@ -54,8 +56,8 @@ const blogs = [
     tag: "Strategy",
     excerpt: "Intent makes people try, but good intentions without structure are useless. Lean teams stretched across HR, compliance, and inclusion need frameworks and tools; not just hope and heroics.",
     body: [
-      "You know the feeling. You're full of intention, you've been working on a few inclusion initiatives at work, but things don't seem to be changing. There's staff turnover whispers, morale dips, and small incidents are escalating. Your inclusion strategy is under-resourced.",
-      "Intent is great. Intent makes people try. It sparks curiosity, gets them to sign up for inclusion training sessions, but here's the catch: good intentions and initiatives without structure are useless. You can want inclusion all you like, but if your team doesn't have the time, guidance, and tools to act on that intent, things slip through the cracks. And when things slip, inclusion fails.",
+      "You know the feeling. You're full of intention, you've been working on a few inclusion projects at work, but things don't seem to be changing. There's staff turnover whispers, morale dips, and small incidents are escalating. Your inclusion strategy is under-resourced.",
+      "Intent is great. Intent makes people try. It sparks curiosity, gets them to sign up for inclusion training sessions, but here's the catch: good intentions and plans without structure are useless. You can want inclusion all you like, but if your team doesn't have the time, guidance, and tools to act on that intent, things slip through the cracks. And when things slip, inclusion fails.",
       "This is not a lack of intention; it's a lack of capacity, framework, and actionable practices. The good news? It's fixable, once we stop confusing hope with strategy. Mid-sized organisations and schools often care deeply about inclusion, but they're stretched thin. They're small enough to care personally, big enough to have layers of responsibility, and too lean to do everything alone.",
       "Often, one person is tasked with HR, compliance, staff wellbeing, and inclusion. They end up responding to fires and checking boxes rather than taking a bird's-eye view, developing a strategy, and allocating resources to inclusion. When your inclusion lead is stretched this thin, it's hard to get inclusion right. The intention is there, but the capacity isn't, and that's when inequities creep in. Informal inclusion practices; those things you hope people just get; often backfire. Assumptions are made, staff feel unsupported, microaggressions go unnoticed, and organisational risk grows.",
       "Shared tools and systems are your secret weapon. Frameworks, toolkits, and repeatable processes create consistency so everyone is on the same page. They reduce burnout so inclusion doesn't rest on one heroic individual. They mitigate risk so policies are backed up by action and guidance. They build capability so staff have a point of reference and know what to do without guessing.",
@@ -112,11 +114,11 @@ const blogs = [
     tag: "Intersectionality",
     excerpt: "Race, gender, class, disability, sexuality; people don't experience just one of these at a time. If your inclusion strategy ignores how these identities overlap, it's leaving people behind.",
     body: [
-      "Here's the thing about inclusion: it's not a one-size-fits-all proposition. And yet so many inclusion strategies are built as if it is. They focus on one characteristic at a time; a gender initiative here, a race equity programme there; without ever asking how those identities overlap in a single person's experience. That's where intersectionality comes in.",
+      "Here's the thing about inclusion: it's not a one-size-fits-all proposition. And yet so many inclusion strategies are built as if it is. They focus on one characteristic at a time; a gender project here, a race equity programme there; without ever asking how those identities overlap in a single person's experience. That's where intersectionality comes in.",
       "The term was coined by legal scholar Kimberlé Crenshaw in 1989 to describe how race and gender combined to shape the specific discrimination Black women faced in ways that neither race frameworks nor gender frameworks alone could capture. It's since become one of the most important concepts in EDI; and one of the most misunderstood. Intersectionality isn't a synonym for 'diversity.' It's a framework for understanding how different aspects of a person's identity interact to create unique experiences of privilege and oppression.",
       "In practice, this means a Black woman in the workplace isn't just navigating racism, and she's not just navigating sexism; she's navigating both at the same time, and the combination creates something distinct. The same logic applies across any combination of identities: a disabled Latinx employee, a working-class LGBTQ+ person, an older woman of colour. Each experiences the workplace differently, and those differences matter.",
-      "So what does this mean for your inclusion strategy? It means single-axis approaches have limits. Training that focuses only on gender misses the experience of women of colour. Initiatives that centre race without considering disability, class, or sexuality will leave gaps. Inclusion data that isn't broken down intersectionally will show you an averaged picture that may not reflect anyone's actual experience.",
-      "Building an intersectional approach means asking deeper questions at every stage: who is affected by this policy, and in what ways? Whose experience is centred in this programme? Who is likely to be left out? It means collecting and disaggregating data, involving the people most affected in the design process, and being willing to revisit initiatives that looked good on paper but didn't account for complexity. Inclusion that only works for some people isn't really inclusion.",
+      "So what does this mean for your inclusion strategy? It means single-axis approaches have limits. Training that focuses only on gender misses the experience of women of colour. Projects that centre race without considering disability, class, or sexuality will leave gaps. Inclusion data that isn't broken down intersectionally will show you an averaged picture that may not reflect anyone's actual experience.",
+      "Building an intersectional approach means asking deeper questions at every stage: who is affected by this policy, and in what ways? Whose experience is centred in this programme? Who is likely to be left out? It means collecting and disaggregating data, involving the people most affected in the design process, and being willing to revisit projects that looked good on paper but didn't account for complexity. Inclusion that only works for some people isn't really inclusion.",
     ],
   },
 ];
@@ -183,7 +185,7 @@ function BlogModal({ post, onClose }: { post: Blog; onClose: () => void }) {
               If this resonated with you, let's talk. We'd love to hear what it's bringing up for you. Or share it with your network or someone who'd find this useful.
             </p>
             <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-              <Link href="/contact" onClick={onClose} style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.55rem 1.1rem", borderRadius: "7px", textDecoration: "none" }}>Let's talk</Link>
+              <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" onClick={onClose} style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.55rem 1.1rem", borderRadius: "7px", textDecoration: "none" }}>Let&apos;s Talk</a>
               <a href={linkedInUrl} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--white)", background: "#2a2a2a", padding: "0.55rem 1.1rem", borderRadius: "7px", textDecoration: "none" }}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
                 Share on LinkedIn
@@ -228,32 +230,23 @@ export default function ListenAndReadClient() {
             <div style={{ maxWidth: "560px" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>Podcast and blog</span>
               <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.4rem, 5.5vw, 3.6rem)", color: "var(--white)", lineHeight: 1.08, marginBottom: "1.5rem" }}>Inclusion Insight Worth Making Time For.</h1>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "1.1rem", color: "rgba(255,255,255,0.88)", lineHeight: 1.8, marginBottom: "2.25rem" }}>Because good intentions need good thinking behind them. Honest conversations, practical thinking and real insight on equity, diversity and inclusion; from The Inclusion Edit.</p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "1.1rem", color: "rgba(255,255,255,0.88)", lineHeight: 1.8, marginBottom: "2.25rem" }}>Because good intentions need good thinking behind them. Honest conversations, practical thinking and real insight on equity, diversity and inclusion.</p>
               <div style={{ display: "flex", gap: "0.875rem", flexWrap: "wrap" }}>
-                <a href="#podcast" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.75rem 1.75rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Listen to the podcast</a>
-                <a href="#blogs" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "rgba(255,255,255,0.12)", padding: "0.75rem 1.75rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid rgba(255,255,255,0.4)", whiteSpace: "nowrap", backdropFilter: "blur(4px)" }}>Read the blog</a>
+                <a href="#podcast" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.75rem 1.75rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Listen to the Podcast</a>
+                <a href="#blogs" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "rgba(255,255,255,0.12)", padding: "0.75rem 1.75rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid rgba(255,255,255,0.4)", whiteSpace: "nowrap", backdropFilter: "blur(4px)" }}>Read the Blog</a>
               </div>
             </div>
           </div>
         </section>
 
         {/* STATS STRIP */}
-        <section style={{ padding: "0.6rem 1.5rem", background: "#f4f7f4" }}>
-          <div style={{ maxWidth: "1100px", margin: "0 auto", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap" }}>
-            {[
-              { label: "Honest", sub: "Conversations, no jargon" },
-              { label: "UK · Bermuda · US", sub: "Listeners worldwide" },
-              { label: "100+", sub: "Newsletter subscribers" },
-              { label: "Spotify", sub: "Free to listen" },
-              { label: "LinkedIn", sub: "New articles monthly" },
-            ].map((item) => (
-              <div key={item.label} style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "0.75rem 1rem", flex: "1", textAlign: "center" }}>
-                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--sage-dark)" }}>{item.label}</span>
-                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", color: "#4a6a4a", marginTop: "0.2rem", textTransform: "uppercase", letterSpacing: "0.04em" }}>{item.sub}</span>
-              </div>
-            ))}
-          </div>
-        </section>
+        <TrustStrip items={[
+            { value: "Honest", label: "real conversations" },
+            { value: "Worldwide", label: "listeners and readers" },
+            { value: "100+", label: "Newsletter subscribers" },
+            { value: "Spotify", label: "Free to listen" },
+            { value: "LinkedIn", label: "New articles monthly" },
+          ]} />
 
         {/* PODCAST */}
         <section id="podcast" style={{ background: "var(--white)", padding: "2.5rem 1.5rem 2rem" }}>
@@ -261,7 +254,7 @@ export default function ListenAndReadClient() {
             <div style={{ marginBottom: "1.25rem" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.1)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.5rem" }}>The podcast</span>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.75rem)", color: "var(--charcoal)", margin: "0 0 0.35rem" }}>Honest conversations about inclusion</h2>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "rgba(0,0,0,0.6)", margin: 0, lineHeight: 1.6 }}>Real talk with practitioners, leaders and thinkers doing the work; not just talking about it. Available on Spotify.</p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "rgba(0,0,0,0.6)", margin: 0, lineHeight: 1.6 }}>Real conversations with leaders, experts and people doing the work, about what actually works. Available on Spotify.</p>
             </div>
             <div style={{ background: "var(--forest)", borderRadius: "16px", padding: "1.25rem", boxShadow: "0 6px 32px rgba(26,50,32,0.18)" }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.75rem", flexWrap: "wrap", gap: "0.5rem" }}>
@@ -281,7 +274,7 @@ export default function ListenAndReadClient() {
             </div>
             <div style={{ marginTop: "0.875rem", background: "var(--forest)", borderRadius: "14px", padding: "0.875rem 1rem 0.75rem" }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.65rem" }}>
-                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.6)" }}>All episodes — tap to switch</span>
+                <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.6)" }}>All episodes: tap to switch</span>
                 <div style={{ display: "flex", gap: "0.4rem" }}>
                   <button onClick={() => scrollStrip("left")} aria-label="Scroll left" style={{ width: "28px", height: "28px", borderRadius: "50%", border: "1.5px solid rgba(255,255,255,0.3)", background: "rgba(255,255,255,0.08)", color: "var(--white)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.75rem" }}>‹</button>
                   <button onClick={() => scrollStrip("right")} aria-label="Scroll right" style={{ width: "28px", height: "28px", borderRadius: "50%", border: "1.5px solid rgba(255,255,255,0.3)", background: "rgba(255,255,255,0.08)", color: "var(--white)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "0.75rem" }}>›</button>
@@ -346,7 +339,7 @@ export default function ListenAndReadClient() {
             <div style={{ marginBottom: "1.25rem" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.12)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "0.5rem" }}>The blog</span>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.75rem)", color: "var(--charcoal)", margin: "0 0 0.35rem" }}>Practical thinking on inclusion</h2>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "rgba(0,0,0,0.6)", margin: 0, lineHeight: 1.6 }}>Articles for HR professionals, people managers and leaders who want to do this well. Click any card to read in full.</p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "rgba(0,0,0,0.6)", margin: 0, lineHeight: 1.6 }}>Articles for HR professionals, people managers and leaders who want to do this well. Choose any article to read it in full.</p>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: "1rem" }}>
               {blogs.map((post) => (
@@ -356,7 +349,7 @@ export default function ListenAndReadClient() {
                   <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "rgba(0,0,0,0.6)", margin: "0 0 0.875rem", lineHeight: 1.55 }}>{post.excerpt}</p>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "auto" }}>
                     
-                    <button onClick={() => setOpenBlog(post)} style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.76rem", color: "var(--sage-dark)", padding: 0 }}>Read more →</button>
+                    <button onClick={() => setOpenBlog(post)} style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.76rem", color: "var(--sage-dark)", padding: 0 }}>Read the Article →</button>
                   </div>
                 </div>
               ))}
@@ -374,15 +367,15 @@ export default function ListenAndReadClient() {
               <div style={{ background: "rgba(74,99,71,0.05)", borderRadius: "16px", padding: "2rem", border: "1.5px solid rgba(74,99,71,0.15)", display: "flex", flexDirection: "column", boxShadow: "0 4px 24px rgba(74,99,71,0.08)" }}>
                 <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.75rem", display: "block" }}>Newsletter</span>
                 <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.25rem", color: "var(--charcoal)", margin: "0 0 0.65rem", lineHeight: 1.25 }}>Get more like this</h3>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "rgba(0,0,0,0.6)", lineHeight: 1.7, margin: "0 0 1.5rem", flex: 1 }}>One inclusion concept, unpacked properly; practical tips you can use straight away. The kind of thinking we bring to organisations we work with; completely free.</p>
-                <Link href="/subscribe" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", display: "inline-block", textAlign: "center" }}>Sign up free →</Link>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "rgba(0,0,0,0.6)", lineHeight: 1.7, margin: "0 0 1.5rem", flex: 1 }}>One inclusion idea each month, unpacked properly, with practical tips you can use straight away. The kind of thinking we bring to organisations we work with, completely free.</p>
+                <Link href="/subscribe" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", display: "inline-block", textAlign: "center" }}>Sign Up Free →</Link>
               </div>
               {/* Platform card */}
               <div style={{ background: "rgba(74,99,71,0.05)", borderRadius: "16px", padding: "2rem", border: "1.5px solid rgba(74,99,71,0.15)", display: "flex", flexDirection: "column", boxShadow: "0 4px 24px rgba(74,99,71,0.08)" }}>
                 <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.75rem", display: "block" }}>Impact Platform</span>
                 <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.25rem", color: "var(--charcoal)", margin: "0 0 0.65rem", lineHeight: 1.25 }}>Ready to go deeper?</h3>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "rgba(0,0,0,0.6)", lineHeight: 1.7, margin: "0 0 1.5rem", flex: 1 }}>The Impact Platform gives you tools, resources and community to put inclusion into practice; not just think about it.</p>
-                <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", background: "var(--white)", border: "1.5px solid var(--sage-dark)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", display: "inline-block", textAlign: "center" }}>Learn more →</Link>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "rgba(0,0,0,0.6)", lineHeight: 1.7, margin: "0 0 1.5rem", flex: 1 }}>The Impact Platform gives you tools, resources and community to put inclusion into practice, not just think about it.</p>
+                <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", background: "var(--white)", border: "1.5px solid var(--sage-dark)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", display: "inline-block", textAlign: "center" }}>Explore the Platform →</Link>
               </div>
             </div>
           </div>

@@ -68,13 +68,13 @@ export default function PricingPage() {
       <main style={{ background: "var(--white)", minHeight: "100vh" }}>
 
       {/* PAGE HEADER */}
-      <section style={{ position: "relative", overflow: "hidden", minHeight: "320px", display: "flex", alignItems: "center" }}>
+      <section style={{ position: "relative", overflow: "hidden", minHeight: "440px", display: "flex", alignItems: "center" }}>
         {/* Photo */}
         <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url(/pricing-team.jpg)", backgroundSize: "cover", backgroundPosition: "center 30%", backgroundRepeat: "no-repeat" }} />
         {/* Forest overlay */}
         <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(100deg, rgba(20,40,25,0.95) 0%, rgba(20,40,25,0.85) 38%, rgba(20,40,25,0.3) 70%, rgba(20,40,25,0.05) 100%)" }} />
         {/* Content wrapper */}
-        <div style={{ position: "relative", width: "100%", padding: "3rem 2rem 2.5rem" }}>
+        <div style={{ position: "relative", width: "100%", padding: "2.25rem 2rem" }}>
         {/* Subtle top-edge gloss line */}
         <div aria-hidden="true" style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.18) 30%, rgba(255,255,255,0.28) 50%, rgba(255,255,255,0.18) 70%, transparent 100%)", pointerEvents: "none" }} />
         <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative" }}>
@@ -87,9 +87,11 @@ export default function PricingPage() {
           <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", lineHeight: 1.8, color: "rgba(255,255,255,0.82)", maxWidth: "680px" }}>
             Whether you're largely working this out on your own, or ready to bring your whole organisation with you, there's a membership built for exactly where you are.
           </p>
+          <Link href="/early-access#join" style={{ display: "inline-block", lineHeight: 1.4, marginTop: "1.75rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Join Early Access</Link>
         </div>
-          {/* Award badge — bottom right of hero */}
-          <div style={{ position: "absolute", bottom: "2rem", right: "2rem", zIndex: 4, background: "linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.08) 100%)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.35)", borderRadius: "16px", padding: "1.25rem 1.5rem", textAlign: "center", maxWidth: "200px", boxShadow: "0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1) inset" }}>
+          {/* Award badge: bottom right of hero; sits under the button on small screens */}
+          <style>{`@media (max-width: 760px) { .pricing-award { position: static !important; display: inline-block; margin-top: 1.75rem; } }`}</style>
+          <div className="pricing-award" style={{ position: "absolute", bottom: "2rem", right: "2rem", zIndex: 4, background: "linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.08) 100%)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.35)", borderRadius: "16px", padding: "1.25rem 1.5rem", textAlign: "center", maxWidth: "200px", boxShadow: "0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1) inset" }}>
             <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: "linear-gradient(135deg, #f5c842 0%, #e8a820 100%)", margin: "0 auto 0.75rem", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 12px rgba(232,168,32,0.5)", fontSize: "1.1rem", lineHeight: 1 }}>🏆</div>
             <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.58rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.55)", margin: "0 0 0.35rem" }}>Corporate Vision</p>
             <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "0.95rem", color: "var(--white)", lineHeight: 1.15, margin: "0 0 0.35rem" }}>Best EDI Consultancy</p>
@@ -113,7 +115,7 @@ export default function PricingPage() {
               Individual memberships
             </h2>
             <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", lineHeight: 1.75, color: "var(--slate)", maxWidth: "520px" }}>
-              No sign-off needed, no waiting on anyone else. These memberships are yours to start today.
+              No sign-off needed, no waiting on anyone else. Join the early access list and these memberships are yours as soon as the platform goes live.
             </p>
           </div>
 
@@ -126,21 +128,18 @@ export default function PricingPage() {
                   </th>
                   <th style={{ width: "22%", padding: "1.25rem 1rem 1rem", textAlign: "center" as const, borderBottom: "2px solid var(--line)", background: "var(--white)", verticalAlign: "top" as const }}>
                     <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "var(--sage-mid)", margin: "0 0 0.375rem" }}>Individual</p>
-                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.75rem", color: "var(--forest)", margin: "0 0 0.125rem", lineHeight: 1 }}>&#163;249</p>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)", margin: 0 }}>per year</p>
+                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.15rem", color: "var(--forest)", margin: "0 0 0.5rem", lineHeight: 1 }}>£249 <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.8rem", color: "var(--slate)" }}>/year</span></p>
                   </th>
                   <th style={{ width: "22%", padding: "1.25rem 1rem 1rem", textAlign: "center" as const, borderBottom: "2px solid var(--evergreen)", background: "rgba(74,99,71,0.04)", verticalAlign: "top" as const, position: "relative" as const }}>
                     <div style={{ position: "absolute" as const, top: 0, left: 0, right: 0, height: "3px", background: "var(--evergreen)", borderRadius: "16px 16px 0 0" }} />
                     <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "var(--evergreen)", margin: "0 0 0.375rem" }}>Practitioner Plus</p>
-                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.75rem", color: "var(--forest)", margin: "0 0 0.125rem", lineHeight: 1 }}>&#163;449</p>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)", margin: "0 0 0.375rem" }}>per year</p>
-                    <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", textTransform: "uppercase" as const, letterSpacing: "0.08em", color: "var(--white)", background: "var(--evergreen)", borderRadius: "999px", padding: "0.2rem 0.6rem" }}>Most popular</span>
+                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.15rem", color: "var(--forest)", margin: "0 0 0.5rem", lineHeight: 1 }}>£449 <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.8rem", color: "var(--slate)" }}>/year</span></p>
+                    <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", textTransform: "uppercase" as const, letterSpacing: "0.08em", color: "var(--white)", background: "var(--evergreen)", borderRadius: "999px", padding: "0.2rem 0.6rem" }}>Recommended</span>
                   </th>
                   <th style={{ width: "22%", padding: "1.25rem 1rem 1rem", textAlign: "center" as const, borderBottom: "2px solid #C9A84C", background: "var(--white)", verticalAlign: "top" as const, position: "relative" as const }}>
                     <div style={{ position: "absolute" as const, top: 0, left: 0, right: 0, height: "3px", background: "#C9A84C", borderRadius: "16px 16px 0 0" }} />
                     <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "#7A5200", margin: "0 0 0.375rem" }}>The Expert Track</p>
-                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.75rem", color: "var(--forest)", margin: "0 0 0.125rem", lineHeight: 1 }}>&#163;1,200</p>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)", margin: "0 0 0.375rem" }}>per year</p>
+                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.15rem", color: "var(--forest)", margin: "0 0 0.5rem", lineHeight: 1 }}>£1,200 <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.8rem", color: "var(--slate)" }}>/year</span></p>
                     <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", textTransform: "uppercase" as const, letterSpacing: "0.08em", color: "#7A5200", background: "rgba(201,168,76,0.15)", borderRadius: "999px", padding: "0.2rem 0.6rem" }}>Limited places</span>
                   </th>
                 </tr>
@@ -161,21 +160,21 @@ export default function PricingPage() {
                 <tr>
                   <td style={{ padding: "1.5rem 1.25rem" }} />
                   <td style={{ padding: "1.5rem 1rem", textAlign: "center" as const, background: "var(--white)" }}>
-                    <Link href="/sign-up?tier=individual" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", padding: "0.75rem 1.25rem", borderRadius: "8px", textDecoration: "none", border: "2px solid var(--evergreen)", color: "var(--evergreen)", whiteSpace: "nowrap" as const }}>
-                      Start Your Membership
+                    <Link href="/early-access?tier=individual#join" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", padding: "0.75rem 1.25rem", borderRadius: "8px", textDecoration: "none", border: "2px solid var(--evergreen)", color: "var(--evergreen)", whiteSpace: "nowrap" as const }}>
+                      Get Early Access
                     </Link>
                   </td>
                   <td style={{ padding: "1.5rem 1rem", textAlign: "center" as const, background: "rgba(74,99,71,0.04)" }}>
-                    <Link href="/sign-up?tier=practitioner-plus" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", padding: "0.75rem 1.25rem", borderRadius: "8px", textDecoration: "none", background: "var(--evergreen)", color: "var(--white)", whiteSpace: "nowrap" as const }}>
-                      Upgrade to Practitioner Plus
+                    <Link href="/early-access?tier=practitioner-plus#join" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", padding: "0.75rem 1.25rem", borderRadius: "8px", textDecoration: "none", background: "var(--evergreen)", color: "var(--white)", whiteSpace: "nowrap" as const }}>
+                      Get Early Access
                     </Link>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--slate)", marginTop: "0.625rem", marginBottom: 0, lineHeight: 1.5 }}>
                       Worth asking your employer: qualifies as professional development spend.
                     </p>
                   </td>
                   <td style={{ padding: "1.5rem 1rem", textAlign: "center" as const, background: "var(--white)" }}>
-                    <Link href="/sign-up?tier=expert-track" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", padding: "0.75rem 1.25rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid #C9A84C", color: "#7A5200", whiteSpace: "nowrap" as const }}>
-                      Apply for the Expert Track
+                    <Link href="/early-access?tier=expert-track#join" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", padding: "0.75rem 1.25rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid #C9A84C", color: "#7A5200", whiteSpace: "nowrap" as const }}>
+                      Get Early Access
                     </Link>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--slate)", marginTop: "0.625rem", marginBottom: 0, lineHeight: 1.5 }}>
                       Places are limited and released quarterly.
@@ -194,21 +193,24 @@ export default function PricingPage() {
         <div style={{ maxWidth: "1000px", margin: "0 auto" }}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1.5rem" }}>
 
-            {/* Quote: Cristina */}
+            {/* Quote: Tiona Knight */}
             <div style={{ background: "linear-gradient(160deg, #2C4A31 0%, #1A3220 100%)", borderRadius: "14px", padding: "1.5rem", border: "none" }}>
               <div style={{ fontFamily: "var(--font-display)", fontSize: "2rem", lineHeight: 1, color: "rgba(255,255,255,0.4)", marginBottom: "0.75rem" }}>&ldquo;&rdquo;</div>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", lineHeight: 1.7, color: "rgba(255,255,255,0.88)", margin: "0 0 1.25rem", fontStyle: "italic" }}>
-                &ldquo;The resources have become something I genuinely rely on. A practical reminder of how to handle inclusion better, right when I need it.&rdquo;
+                &ldquo;Thanks to The Inclusion Edit’s EDI Hub, I’m now navigating EDI with more intention, bandwidth and knowledge. Having access to their library of content has saved me a tremendous amount of time.&rdquo;
               </p>
-              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "var(--white)", margin: 0 }}>Cristina Portius-Capeo</p>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.73rem", color: "rgba(255,255,255,0.55)", margin: "0.2rem 0 0" }}>MSA</p>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "var(--white)", margin: 0 }}>Tiona Knight</p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.73rem", color: "rgba(255,255,255,0.55)", margin: "0.2rem 0 0" }}>EDI Lead, Mentivity</p>
             </div>
 
-            {/* Quote: Tiona — placeholder until quote received */}
-            <div style={{ background: "linear-gradient(160deg, #2C4A31 0%, #1A3220 100%)", borderRadius: "14px", padding: "1.5rem", border: "1px dashed rgba(255,255,255,0.25)", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center" }}>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "rgba(255,255,255,0.45)", fontStyle: "italic", marginBottom: "1rem" }}>Quote from Tiona Knight coming soon.</p>
-              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "rgba(255,255,255,0.7)", margin: 0 }}>Tiona Knight</p>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.73rem", color: "rgba(255,255,255,0.4)", margin: "0.2rem 0 0" }}>Mentivity</p>
+            {/* Quote: Adlyn Walton */}
+            <div style={{ background: "linear-gradient(160deg, #2C4A31 0%, #1A3220 100%)", borderRadius: "14px", padding: "1.5rem", border: "none" }}>
+              <div style={{ fontFamily: "var(--font-display)", fontSize: "2rem", lineHeight: 1, color: "rgba(255,255,255,0.4)", marginBottom: "0.75rem" }}>&ldquo;&rdquo;</div>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", lineHeight: 1.7, color: "rgba(255,255,255,0.88)", margin: "0 0 1.25rem", fontStyle: "italic" }}>
+                &ldquo;I personally found the online materials on The Inclusion Edit’s website helpful when creating ArtsEd resources and training programmes for both students and staff.&rdquo;
+              </p>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", color: "var(--white)", margin: 0 }}>Adlyn Walton</p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.73rem", color: "rgba(255,255,255,0.55)", margin: "0.2rem 0 0" }}>Diversity, Equity, Inclusion and Belonging Partner, ArtsEd</p>
             </div>
 
             {/* Stat: 93% survey */}
@@ -217,7 +219,7 @@ export default function PricingPage() {
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", lineHeight: 1.65, color: "rgba(255,255,255,0.85)", margin: "0 0 1rem", maxWidth: "200px" }}>
                 of those who have used our resources said they were &ldquo;very helpful in developing their inclusion knowledge.&rdquo;
               </p>
-              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", margin: 0 }}>The Inclusion Edit Survey</p>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", margin: 0 }}>Survey of 60+ users, February 2026</p>
             </div>
 
           </div>
@@ -255,20 +257,17 @@ export default function PricingPage() {
                     <div style={{ position: "absolute" as const, top: 0, left: 0, right: 0, height: "3px", background: "var(--evergreen)", borderRadius: "16px 16px 0 0" }} />
                     <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "var(--evergreen)", margin: "0 0 0.25rem" }}>Growing Teams</p>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--slate)", margin: "0 0 0.375rem" }}>50 to 250 employees</p>
-                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.75rem", color: "var(--forest)", margin: "0 0 0.125rem", lineHeight: 1 }}>&#163;2,400</p>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)", margin: 0 }}>per year</p>
+                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.15rem", color: "var(--forest)", margin: "0 0 0.5rem", lineHeight: 1 }}>£2,400 <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.8rem", color: "var(--slate)" }}>/year</span></p>
                   </th>
                   <th style={{ width: "23%", padding: "1.25rem 1rem 1rem", textAlign: "center" as const, borderBottom: "2px solid var(--line)", background: "var(--white)", verticalAlign: "top" as const }}>
                     <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "var(--sage-mid)", margin: "0 0 0.25rem" }}>Established Orgs</p>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--slate)", margin: "0 0 0.375rem" }}>250 to 1,000 employees</p>
-                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.75rem", color: "var(--forest)", margin: "0 0 0.125rem", lineHeight: 1 }}>&#163;4,800</p>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)", margin: 0 }}>per year</p>
+                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.15rem", color: "var(--forest)", margin: "0 0 0.5rem", lineHeight: 1 }}>£4,800 <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.8rem", color: "var(--slate)" }}>/year</span></p>
                   </th>
                   <th style={{ width: "22%", padding: "1.25rem 1rem 1rem", textAlign: "center" as const, borderBottom: "2px solid var(--line)", background: "var(--white)", verticalAlign: "top" as const }}>
                     <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "var(--sage-mid)", margin: "0 0 0.25rem" }}>Enterprise</p>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--slate)", margin: "0 0 0.375rem" }}>1,000 or more employees</p>
-                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.75rem", color: "var(--forest)", margin: "0 0 0.125rem", lineHeight: 1 }}>From &#163;7,500</p>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)", margin: 0 }}>per year, by custom quote</p>
+                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.15rem", color: "var(--forest)", margin: "0 0 0.5rem", lineHeight: 1 }}>From £7,500 <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.8rem", color: "var(--slate)" }}>/year</span></p>
                   </th>
                 </tr>
               </thead>
@@ -288,17 +287,17 @@ export default function PricingPage() {
                 <tr>
                   <td style={{ padding: "1.5rem 1.25rem" }} />
                   <td style={{ padding: "1.5rem 1rem", textAlign: "center" as const, background: "rgba(74,99,71,0.04)" }}>
-                    <Link href="/sign-up?tier=growing-teams" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", padding: "0.75rem 1.25rem", borderRadius: "8px", textDecoration: "none", background: "var(--evergreen)", color: "var(--white)", whiteSpace: "nowrap" as const }}>
-                      Start Your Organisation Membership
+                    <Link href="/early-access?tier=growing-teams#join" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", padding: "0.75rem 1.25rem", borderRadius: "8px", textDecoration: "none", background: "var(--evergreen)", color: "var(--white)", whiteSpace: "nowrap" as const }}>
+                      Get Early Access
                     </Link>
                   </td>
                   <td style={{ padding: "1.5rem 1rem", textAlign: "center" as const }}>
-                    <Link href="/sign-up?tier=established" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", padding: "0.75rem 1.25rem", borderRadius: "8px", textDecoration: "none", border: "2px solid var(--evergreen)", color: "var(--evergreen)", whiteSpace: "nowrap" as const }}>
-                      Start Your Organisation Membership
+                    <Link href="/early-access?tier=established#join" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", padding: "0.75rem 1.25rem", borderRadius: "8px", textDecoration: "none", border: "2px solid var(--evergreen)", color: "var(--evergreen)", whiteSpace: "nowrap" as const }}>
+                      Get Early Access
                     </Link>
                   </td>
                   <td style={{ padding: "1.5rem 1rem", textAlign: "center" as const }}>
-                    <Link href="/contact" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", padding: "0.75rem 1.25rem", borderRadius: "8px", textDecoration: "none", border: "2px solid var(--evergreen)", color: "var(--evergreen)", whiteSpace: "nowrap" as const }}>
+                    <Link href="/contact-us" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", padding: "0.75rem 1.25rem", borderRadius: "8px", textDecoration: "none", border: "2px solid var(--evergreen)", color: "var(--evergreen)", whiteSpace: "nowrap" as const }}>
                       Talk to Us
                     </Link>
                   </td>
@@ -318,7 +317,7 @@ export default function PricingPage() {
             <p style={{ fontFamily: "var(--font-body)", fontSize: "0.975rem", lineHeight: 1.8, color: "rgba(255,255,255,0.82)", maxWidth: "680px", marginBottom: "1.75rem" }}>
               An organisation membership gives them, and everyone they work with, full access to evidence, practical tools, AI-powered support and expert-led sessions, at a price point that makes a retained expert resource possible for organisations that cannot yet afford a full-time EDI hire. No per seat charges as your team grows. You get visible, reportable progress and a consistent onboarding experience for every new starter, with no risk of outgrowing it.
             </p>
-            <Link href="/contact" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none", background: "var(--white)", color: "var(--forest)", whiteSpace: "nowrap" as const }}>
+            <Link href="/contact-us" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none", background: "var(--white)", color: "var(--forest)", whiteSpace: "nowrap" as const }}>
               Book a Call to Discuss Your Organisation
             </Link>
           </div>
@@ -328,7 +327,7 @@ export default function PricingPage() {
       {/* FOOTER NOTE */}
       <div style={{ textAlign: "center", padding: "2rem 1.5rem 4rem", background: "var(--mist)" }}>
         <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--slate)", margin: 0 }}>
-          Every price is annual. No per seat charges on organisation memberships. Cancel any time.
+          Prices will be confirmed when the Impact Platform goes live. Join the early access list to hear first.
         </p>
       </div>
 
