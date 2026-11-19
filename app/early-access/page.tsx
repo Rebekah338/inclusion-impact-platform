@@ -16,19 +16,19 @@ const MEMBER_GETS = [
   { image: "/images/early-access/make-the-case.jpg", number: "47", title: "research reports and case studies", desc: "Evidence you can take to leadership, so you are not making the case alone." },
   { image: "/images/early-access/inclusion-ai.jpg", number: "10", title: "Inclusion AI tools", desc: "Specialist tools for policy audits, business cases, fairer hiring and more." },
   { image: "/images/early-access/get-support.jpg", number: "", title: "Office hours with an inclusion expert", desc: "A real person to check your thinking with, on selected memberships, so you are not working it out alone." },
-  { image: "/images/early-access/onboarding.jpg", number: "", title: "Onboarding for every new starter", desc: "Inclusion Foundations for everyone you hire, so inclusion starts from day one. Included with organisation memberships." },
+  { image: "/images/early-access/onboarding.jpg", number: "", title: "Onboarding for new starters", desc: "Inclusion Foundations for the people you hire, so inclusion starts from day one. Included with organisation memberships." },
 ];
 
 const TIERS_FOR_YOU = [
-  { name: "Individual", desc: "the full resource library, all three learning pathways, templates and progress tracking." },
-  { name: "Practitioner Plus", desc: "everything in Individual, plus the Inclusion AI tools and a full inclusion health check and action plan." },
-  { name: "Expert Track", desc: "everything in Practitioner Plus, plus a monthly 1:1 with the same inclusion expert all year. Limited places." },
+  { name: "Individual", price: "£295 a year", desc: "the full resource library, all three learning pathways, templates and progress tracking." },
+  { name: "Practitioner Plus", price: "£495 a year", desc: "everything in Individual, plus the Inclusion AI tools and a full inclusion health check and action plan." },
+  { name: "Expert Track", price: "£1,800 a year", desc: "everything in Practitioner Plus, plus a monthly 1:1 with Rebekah all year. Limited places." },
 ];
 
 const TIERS_FOR_ORGS = [
-  { name: "Growing Teams", size: "50 to 250 employees", desc: "10 full seats, Inclusion AI tools, expert sessions and onboarding for every new starter." },
-  { name: "Established Organisations", size: "250 to 1,000 employees", desc: "25 full seats and everything in Growing Teams." },
-  { name: "Enterprise", size: "1,000 or more employees", desc: "built around your organisation, by custom quote." },
+  { name: "Growing Teams", price: "£2,950 a year", size: "50 to 250 employees", desc: "10 full seats, Inclusion AI tools, expert sessions and onboarding for up to 50 new starters a year." },
+  { name: "Established Organisations", price: "£5,500 a year", size: "250 to 1,000 employees", desc: "25 full seats and everything in Growing Teams." },
+  { name: "Enterprise", price: "From £8,500", size: "1,000 or more employees", desc: "built around your organisation, by custom quote." },
 ];
 
 const EARLY_ACCESS_POINTS = [
@@ -180,8 +180,8 @@ export default function EarlyAccessPage() {
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.5rem" }}>
               {[
-                { heading: "For you", tiers: TIERS_FOR_YOU as { name: string; size?: string; desc: string }[] },
-                { heading: "For your organisation", tiers: TIERS_FOR_ORGS as { name: string; size?: string; desc: string }[] },
+                { heading: "For you", tiers: TIERS_FOR_YOU as { name: string; price: string; size?: string; desc: string }[] },
+                { heading: "For your organisation", tiers: TIERS_FOR_ORGS as { name: string; price: string; size?: string; desc: string }[] },
               ].map((group) => (
                 <div key={group.heading} style={{ display: "flex", flexDirection: "column" }}>
                 <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.3rem", color: "var(--deep-pine)", margin: "0 0 0.6rem 0.25rem" }}>{group.heading}</h3>
@@ -191,6 +191,7 @@ export default function EarlyAccessPage() {
                       <div key={t.name} style={{ padding: "0.55rem 0", borderTop: idx === 0 ? "none" : "1px solid var(--line)" }}>
                         <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.5rem", marginBottom: "0.1rem" }}>
                           <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--forest)" }}>{t.name}</span>
+                          <span style={{ marginLeft: "auto", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "0.95rem", color: "var(--forest)", order: 3 }}>{t.price}</span>
                           {t.size ? <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.72rem", color: "#1E3624", background: "#E3F5E2", border: "1px solid rgba(107,143,113,0.35)", borderRadius: "999px", padding: "0.1rem 0.55rem" }}>{t.size}</span> : null}
                         </div>
                         <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--slate)", margin: 0, lineHeight: 1.5 }}>{t.desc.charAt(0).toUpperCase() + t.desc.slice(1)}</p>
@@ -330,7 +331,7 @@ export default function EarlyAccessPage() {
             <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase", letterSpacing: "0.14em", color: "rgba(255,255,255,0.6)", marginBottom: "0.75rem" }}>For leaders and decision makers</p>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.75rem)", color: "var(--white)", marginBottom: "1rem", lineHeight: 1.2 }}>Thinking about membership for your whole organisation?</h2>
             <p style={{ fontFamily: "var(--font-body)", fontSize: "0.975rem", lineHeight: 1.8, color: "rgba(255,255,255,0.85)", maxWidth: "680px", marginBottom: "1.75rem" }}>
-              Organisation memberships give the people leading inclusion the tools, evidence and expert support to make progress you can report on. Every new starter also gets Inclusion Foundations onboarding, so inclusion is part of joining your organisation from day one. Book a free call and we will talk through what would work for your organisation.
+              Organisation memberships give the people leading inclusion the tools, evidence and expert support to make progress you can report on. New starters also get Inclusion Foundations onboarding, so inclusion is part of joining your organisation from day one. Book a free call and we will talk through what would work for your organisation.
             </p>
             <a href={bookingLink("An organisation membership")} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none", background: "var(--white)", color: "var(--forest)" }}>Book a Call to Discuss Your Organisation<span className="a11y-sr"> (opens in a new tab)</span></a>
           </div>

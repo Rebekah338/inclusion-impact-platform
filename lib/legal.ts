@@ -183,8 +183,8 @@ export const POLICIES: Policy[] = [
     summary: "Billing, cancellation and what is included in your Impact Platform membership.",
     updated: LEGAL_UPDATED,
     glance: [
-      "Memberships are billed yearly and renew each year unless you cancel.",
-      "You can cancel at the end of each membership year; just email us before your renewal date.",
+      "Memberships are billed yearly, or monthly for Individual and Practitioner Plus, and renew unless you cancel.",
+      "Yearly memberships: cancel any time before your renewal date. Monthly memberships: cancel any time, and your access continues until the end of the month you’ve paid for.",
       "If you are buying as an individual consumer, you can cancel within 14 days of joining. See section 5.",
       "We will remind you before your membership renews.",
     ],
@@ -198,26 +198,29 @@ export const POLICIES: Policy[] = [
         { list: [
           "Individual: one named account with the resource library, all lessons, templates, guides and progress tracking.",
           "Practitioner Plus: everything in Individual, plus the Inclusion AI tools, advanced resources and the full inclusion health check and action plan.",
-          "The Expert Track: everything in Practitioner Plus, plus a guaranteed monthly 1:1 with the same inclusion expert throughout the year. Places are limited.",
-          "Organisation memberships (Growing Teams, Established Organisations and Enterprise): the number of named full seats for your membership, plus onboarding access for new starters.",
+          "The Expert Track: everything in Practitioner Plus, plus a guaranteed monthly 1:1 with Rebekah throughout the year. Places are limited.",
+          "Organisation memberships (Growing Teams, Established Organisations and Enterprise): the number of named full seats for your membership, plus onboarding access for new starters: up to 50 a year on Growing Teams, up to 200 a year on Established Organisations, and unlimited on Enterprise.",
         ] },
         "We add new content regularly and may update or replace content to keep it accurate. We will not remove the main features of your membership during your membership year.",
       ] },
       { id: "accounts-and-seats", heading: "3. Accounts and seats", body: [
         "Each named seat is for one person and must not be shared. An organisation can move a seat to a new person when someone leaves. New starter access gives the onboarding module only, unless the person is added as a named seat.",
         "Your organisation's administrator is responsible for who has a seat and for keeping the list up to date.",
+        "Organisation memberships are based on your organisation's total number of employees. We check this when you join and at each renewal. If your organisation has moved into a different membership band, we will tell you in your renewal reminder.",
+        "Each membership includes a set number of seats and new starter onboarding. If you need more, you can add seats (£295 a person a year on Growing Teams, £250 on Established Organisations), or move to the next membership at renewal.",
       ] },
       { id: "price-and-payment", heading: "4. Price and payment", body: [
-        "The price is shown on our Pricing page and confirmed before you pay. Prices include [VAT where applicable: to confirm].",
-        "Memberships are paid yearly in advance by card through Stripe. Organisations can ask to pay by invoice; invoices are due within [30] days.",
-        "Your membership renews automatically at the end of each year. We will email you at least [30] days before it renews, with the renewal price. We may change prices for future years; any change will be in that reminder.",
+        "The price is shown on our Pricing page and confirmed before you pay. We are not currently registered for VAT, so no VAT is added. If we register in future, VAT may be added from your next renewal, and we will tell you in your renewal reminder.",
+        "Memberships are paid yearly in advance by card through Stripe. Individual and Practitioner Plus can also be paid monthly by card. If you pay monthly, you can cancel any time. Your access continues until the end of the month you’ve paid for, and you won’t be charged again. Organisations can ask to pay by invoice; invoices are due within [30] days.",
+        "Your membership renews automatically at the end of each year. We will email you at least [30] days before it renews, with the renewal price. We may change prices for future years; any change will be in that reminder. If you joined through early access, your price will not change at your first two renewals.",
       ] },
       { id: "cooling-off", heading: "5. Your 14 day right to cancel (individual consumers)", body: [
         "If you are buying as an individual consumer rather than for a business, you have the right to cancel within 14 days of joining and receive a refund.",
         "When you join, you can choose to start using the platform straight away. If you do, we will ask you to confirm that you understand you will lose this right to cancel once you start accessing the platform's content. If you do not start using it, you can still cancel within the 14 days for a full refund.",
         "To cancel, email " + CONTACT_EMAIL + ".",
       ] },
-      { id: "cancelling", heading: "6. Cancelling at the end of your membership year", body: [
+      { id: "cancelling", heading: "6. Cancelling your membership", body: [
+        "If you pay monthly, you can cancel any time. Your access continues until the end of the month you’ve paid for, and you won’t be charged again.",
         "You can cancel at any time before your renewal date by emailing " + CONTACT_EMAIL + ". Your membership then ends at the end of your current year, and you keep full access until then. We do not refund part years, except as set out in section 5 or where the law requires.",
       ] },
       { id: "using-the-platform", heading: "7. Using the platform", body: [

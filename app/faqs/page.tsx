@@ -35,7 +35,7 @@ const FAQS: FaqGroup[] = [
       },
       {
         q: "Who is the membership for?",
-        a: "The platform is built for the people leading inclusion in their organisation: the person responsible for it, or carrying most of the work, whether it is in their job title or something they do alongside the day job. That includes inclusion leads and specialists, HR and People professionals, employee network and ERG leads, managers and senior leaders. Individual memberships are for one person. Organisation memberships give your team named full seats, plus onboarding for every new starter. You can share resources internally for training and development; external sharing or resale is not permitted.",
+        a: "The platform is built for the people leading inclusion in their organisation: the person responsible for it, or carrying most of the work, whether it is in their job title or something they do alongside the day job. That includes inclusion leads and specialists, HR and People professionals, employee network and ERG leads, managers and senior leaders. Individual memberships are for one person. Organisation memberships give your team named full seats, plus onboarding for your new starters. You can share resources internally for training and development; external sharing or resale is not permitted.",
         links: [{ label: "Compare Memberships", href: "/pricing" }],
       },
       {
@@ -54,12 +54,12 @@ const FAQS: FaqGroup[] = [
     questions: [
       {
         q: "What is included in my membership?",
-        a: "It depends on your membership. Individual includes the full resource library, all lessons across the three pathways, templates and guides, and progress tracking. Practitioner Plus adds the Inclusion AI tools, advanced resources and a full inclusion health check and action plan. The Expert Track adds a guaranteed monthly 1:1 with the same inclusion expert all year. Organisation memberships include named full seats with everything in Practitioner Plus, scheduled expert sessions, completion reporting and certificates, and onboarding for every new starter at no extra charge.",
+        a: "It depends on your membership. Individual includes the full resource library, all lessons across the three pathways, templates and guides, and progress tracking. Practitioner Plus adds the Inclusion AI tools, advanced resources and a full inclusion health check and action plan. The Expert Track adds a guaranteed monthly 1:1 with the same inclusion expert all year. Organisation memberships include named full seats with everything in Practitioner Plus, scheduled expert sessions, completion reporting and certificates, and onboarding for new starters at no extra charge: up to 50 a year on Growing Teams, up to 200 on Established Organisations and unlimited on Enterprise.",
         links: [{ label: "Compare Memberships", href: "/pricing" }],
       },
       {
         q: "How much does membership cost?",
-        a: "Individual membership is £249 a year, Practitioner Plus is £449 and the Expert Track is £1,200. Growing Teams is £2,400 a year with 10 full seats, Established Organisations is £4,800 with 25 full seats, and Enterprise starts from £7,500. All memberships are billed yearly, and new starters are included at no extra charge. See our pricing page for a full comparison of what is included at each level.",
+        a: "Individual membership is £295 a year or £29 a month, Practitioner Plus is £495 a year or £49 a month, and the Expert Track is £1,800 a year. Growing Teams is £2,950 a year with 10 full seats, Established Organisations is £5,500 with 25 full seats, and Enterprise starts from £8,500. Organisation memberships are billed yearly, and new starters are included at no extra charge. Join through early access and your price stays the same for your first two renewals. See our pricing page for a full comparison of what is included at each level.",
         links: [{ label: "Compare Memberships", href: "/pricing" }],
       },
       {

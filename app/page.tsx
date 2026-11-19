@@ -34,7 +34,7 @@ const TESTIMONIALS = [
   },
 ];
 
-const LOGOS = ["Network Plus", "Hospice UK", "Project Free", "The Berkeley School"];
+const LOGOS = ["Network Plus", "Hospice UK", "Project FREE", "The Berkeley School"];
 
 const PILLARS = [
   {

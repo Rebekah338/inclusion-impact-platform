@@ -15,10 +15,10 @@ const individualFeatures = [
   { label: "Inclusion AI tools", individual: false, plus: true, expert: true },
   { label: "Full inclusion health check and action plan", individual: false, plus: true, expert: true },
   { label: "Advanced resources", individual: false, plus: true, expert: true },
-  { label: "Guaranteed monthly 1:1 with an inclusion expert", individual: false, plus: false, expert: "12 per year" },
-  { label: "Same expert throughout: continuity across the full year", individual: false, plus: false, expert: true },
+  { label: "Guaranteed monthly 1:1 with Rebekah", individual: false, plus: false, expert: "12 per year" },
+  { label: "The same person all year: continuity from start to finish", individual: false, plus: false, expert: true },
   { label: "No booking required: your session is secured for the year", individual: false, plus: false, expert: true },
-  { label: "Human or AI support", individual: "Self-service only", plus: "AI-assisted", expert: "AI + 1:1 expert" },
+  { label: "Human or AI support", individual: "Self-service only", plus: "AI-assisted", expert: "AI + 1:1 with Rebekah" },
 ];
 
 const orgFeatures = [
@@ -31,9 +31,9 @@ const orgFeatures = [
   { label: "Advanced resources", growing: true, established: true, enterprise: true },
   { label: "Scheduled expert sessions (Get Support)", growing: true, established: true, enterprise: true },
   { label: "New starter access: onboarding module", growing: true, established: true, enterprise: true },
-  { label: "New starters included at no extra charge", growing: "~22 per year", established: "~90 per year", enterprise: "Unlimited" },
+  { label: "New starters included at no extra charge", growing: "Up to 50 a year", established: "Up to 200 a year", enterprise: "Unlimited" },
   { label: "Completion reporting and downloadable certificates", growing: true, established: true, enterprise: true },
-  { label: "Additional full seats available", growing: "Add-on", established: "Add-on", enterprise: "By agreement" },
+  { label: "Additional full seats available", growing: "£295 a seat a year", established: "£250 a seat a year", enterprise: "By agreement" },
   { label: "Custom entitlements", growing: false, established: false, enterprise: "Dedicated contact, custom reporting and more" },
 ];
 
@@ -64,19 +64,19 @@ function Cell({ value, highlight }: { value: boolean | string; highlight?: boole
 
 type Tier = {
   key: string; name: string; sub?: string; price: string; badge?: string; gold?: boolean; recommended?: boolean;
-  href: string; cta: string; note?: string;
+  href: string; cta: string; note?: string; extra?: string;
 };
 
 const individualTiers: Tier[] = [
-  { key: "individual", name: "Individual", price: "£249", href: "/early-access?tier=individual#join", cta: "Get Early Access" },
-  { key: "plus", name: "Practitioner Plus", price: "£449", badge: "Recommended", recommended: true, href: "/early-access?tier=practitioner-plus#join", cta: "Get Early Access", note: "Worth asking your employer: qualifies as professional development spend." },
-  { key: "expert", name: "The Expert Track", price: "£1,200", badge: "Limited places", gold: true, href: "/early-access?tier=expert-track#join", cta: "Get Early Access", note: "Places are limited and released quarterly." },
+  { key: "individual", name: "Individual", price: "£295", extra: "or £29 a month", href: "/early-access?tier=individual#join", cta: "Get Early Access" },
+  { key: "plus", name: "Practitioner Plus", price: "£495", extra: "or £49 a month", badge: "Recommended", recommended: true, href: "/early-access?tier=practitioner-plus#join", cta: "Get Early Access", note: "No inclusion budget? You may not need one. Most organisations fund this from learning and development or professional development budgets, because it builds your skills. We can send a quote or invoice your organisation directly." },
+  { key: "expert", name: "The Expert Track", price: "£1,800", badge: "Limited places", gold: true, href: "/early-access?tier=expert-track#join", cta: "Get Early Access", note: "Places are limited and released quarterly." },
 ];
 
 const orgTiers: Tier[] = [
-  { key: "growing", name: "Growing Teams", sub: "50 to 250 employees", price: "£2,400", href: "/early-access?tier=growing-teams#join", cta: "Get Early Access" },
-  { key: "established", name: "Established Orgs", sub: "250 to 1,000 employees", price: "£4,800", href: "/early-access?tier=established#join", cta: "Get Early Access" },
-  { key: "enterprise", name: "Enterprise", sub: "1,000 or more employees", price: "From £7,500", href: "/contact-us", cta: "Talk to Us" },
+  { key: "growing", name: "Growing Teams", sub: "50 to 250 employees", price: "£2,950", extra: "10 seats: £295 a person", href: "/early-access?tier=growing-teams#join", cta: "Get Early Access" },
+  { key: "established", name: "Established Orgs", sub: "250 to 1,000 employees", price: "£5,500", extra: "25 seats: £220 a person", href: "/early-access?tier=established#join", cta: "Get Early Access" },
+  { key: "enterprise", name: "Enterprise", sub: "1,000 or more employees", price: "From £8,500", href: "/contact-us", cta: "Talk to Us" },
 ];
 
 function TierCards({ tiers, features }: { tiers: Tier[]; features: Array<{ label: string } & Record<string, string | boolean>> }) {
@@ -99,6 +99,7 @@ function TierCards({ tiers, features }: { tiers: Tier[]; features: Array<{ label
               <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.9rem", color: "var(--forest)", margin: "0 0 1.1rem", lineHeight: 1 }}>
                 {t.price} <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.9rem", color: "var(--slate)" }}>/year</span>
               </p>
+              {t.extra && <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--slate)", margin: "-0.6rem 0 1.1rem" }}>{t.extra}</p>}
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.4rem", display: "flex", flexDirection: "column", gap: "0.55rem" }}>
                 {included.map((f) => (
                   <li key={f.label} style={{ display: "flex", gap: "0.6rem", alignItems: "flex-start", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--ink)", lineHeight: 1.5 }}>
@@ -184,7 +185,7 @@ export default function PricingPage() {
               Individual memberships
             </h2>
             <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", lineHeight: 1.75, color: "var(--slate)", maxWidth: "520px" }}>
-              No sign-off needed, no waiting on anyone else. Join the early access list and these memberships are yours as soon as the platform goes live.
+              No sign-off needed, no waiting on anyone else. Join the early access list and these memberships are yours as soon as the platform goes live. Your price then stays the same for your first two renewals.
             </p>
           </div>
 
@@ -197,18 +198,20 @@ export default function PricingPage() {
                   </th>
                   <th style={{ width: "22%", padding: "1.25rem 1rem 1rem", textAlign: "center" as const, borderBottom: "2px solid var(--line)", background: "var(--white)", verticalAlign: "top" as const }}>
                     <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "var(--evergreen)", margin: "0 0 0.375rem" }}>Individual</p>
-                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.15rem", color: "var(--forest)", margin: "0 0 0.5rem", lineHeight: 1 }}>£249 <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.8rem", color: "var(--slate)" }}>/year</span></p>
+                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.15rem", color: "var(--forest)", margin: "0 0 0.5rem", lineHeight: 1 }}>£295 <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.8rem", color: "var(--slate)" }}>/year</span></p>
+                    <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.75rem", color: "var(--slate)", margin: "-0.2rem 0 0.5rem" }}>or £29 a month</p>
                   </th>
                   <th style={{ width: "22%", padding: "1.25rem 1rem 1rem", textAlign: "center" as const, borderBottom: "2px solid var(--evergreen)", background: "rgba(74,99,71,0.04)", verticalAlign: "top" as const, position: "relative" as const }}>
                     <div style={{ position: "absolute" as const, top: 0, left: 0, right: 0, height: "3px", background: "var(--evergreen)", borderRadius: "16px 16px 0 0" }} />
                     <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "var(--evergreen)", margin: "0 0 0.375rem" }}>Practitioner Plus</p>
-                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.15rem", color: "var(--forest)", margin: "0 0 0.5rem", lineHeight: 1 }}>£449 <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.8rem", color: "var(--slate)" }}>/year</span></p>
+                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.15rem", color: "var(--forest)", margin: "0 0 0.5rem", lineHeight: 1 }}>£495 <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.8rem", color: "var(--slate)" }}>/year</span></p>
+                    <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.75rem", color: "var(--slate)", margin: "-0.2rem 0 0.5rem" }}>or £49 a month</p>
                     <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", textTransform: "uppercase" as const, letterSpacing: "0.08em", color: "var(--white)", background: "var(--evergreen)", borderRadius: "999px", padding: "0.2rem 0.6rem" }}>Recommended</span>
                   </th>
                   <th style={{ width: "22%", padding: "1.25rem 1rem 1rem", textAlign: "center" as const, borderBottom: "2px solid #C9A84C", background: "var(--white)", verticalAlign: "top" as const, position: "relative" as const }}>
                     <div style={{ position: "absolute" as const, top: 0, left: 0, right: 0, height: "3px", background: "#C9A84C", borderRadius: "16px 16px 0 0" }} />
                     <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "#7A5200", margin: "0 0 0.375rem" }}>The Expert Track</p>
-                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.15rem", color: "var(--forest)", margin: "0 0 0.5rem", lineHeight: 1 }}>£1,200 <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.8rem", color: "var(--slate)" }}>/year</span></p>
+                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.15rem", color: "var(--forest)", margin: "0 0 0.5rem", lineHeight: 1 }}>£1,800 <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.8rem", color: "var(--slate)" }}>/year</span></p>
                     <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", textTransform: "uppercase" as const, letterSpacing: "0.08em", color: "#7A5200", background: "rgba(201,168,76,0.15)", borderRadius: "999px", padding: "0.2rem 0.6rem" }}>Limited places</span>
                   </th>
                 </tr>
@@ -238,7 +241,7 @@ export default function PricingPage() {
                       Get Early Access
                     </Link>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--slate)", marginTop: "0.625rem", marginBottom: 0, lineHeight: 1.5 }}>
-                      Worth asking your employer: qualifies as professional development spend.
+                      No inclusion budget? You may not need one. Most organisations fund this from learning and development or professional development budgets, because it builds your skills. We can send a quote or invoice your organisation directly.
                     </p>
                   </td>
                   <td style={{ padding: "1.5rem 1rem", textAlign: "center" as const, background: "var(--white)" }}>
@@ -312,7 +315,7 @@ export default function PricingPage() {
               Organisation memberships
             </h2>
             <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", lineHeight: 1.75, color: "var(--slate)", maxWidth: "560px" }}>
-              One licence, a set of full seats for the people doing the work, and new starter onboarding included for everyone you hire.
+              One licence, a set of full seats for the people doing the work, and onboarding for your new starters every year. Your price then stays the same for your first two renewals.
             </p>
           </div>
 
@@ -327,17 +330,19 @@ export default function PricingPage() {
                     <div style={{ position: "absolute" as const, top: 0, left: 0, right: 0, height: "3px", background: "var(--evergreen)", borderRadius: "16px 16px 0 0" }} />
                     <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "var(--evergreen)", margin: "0 0 0.25rem" }}>Growing Teams</p>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--slate)", margin: "0 0 0.375rem" }}>50 to 250 employees</p>
-                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.15rem", color: "var(--forest)", margin: "0 0 0.5rem", lineHeight: 1 }}>£2,400 <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.8rem", color: "var(--slate)" }}>/year</span></p>
+                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.15rem", color: "var(--forest)", margin: "0 0 0.5rem", lineHeight: 1 }}>£2,950 <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.8rem", color: "var(--slate)" }}>/year</span></p>
+                    <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.75rem", color: "var(--slate)", margin: "-0.2rem 0 0.5rem" }}>10 seats: £295 a person</p>
                   </th>
                   <th style={{ width: "23%", padding: "1.25rem 1rem 1rem", textAlign: "center" as const, borderBottom: "2px solid var(--line)", background: "var(--white)", verticalAlign: "top" as const }}>
                     <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "var(--evergreen)", margin: "0 0 0.25rem" }}>Established Orgs</p>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--slate)", margin: "0 0 0.375rem" }}>250 to 1,000 employees</p>
-                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.15rem", color: "var(--forest)", margin: "0 0 0.5rem", lineHeight: 1 }}>£4,800 <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.8rem", color: "var(--slate)" }}>/year</span></p>
+                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.15rem", color: "var(--forest)", margin: "0 0 0.5rem", lineHeight: 1 }}>£5,500 <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.8rem", color: "var(--slate)" }}>/year</span></p>
+                    <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.75rem", color: "var(--slate)", margin: "-0.2rem 0 0.5rem" }}>25 seats: £220 a person</p>
                   </th>
                   <th style={{ width: "22%", padding: "1.25rem 1rem 1rem", textAlign: "center" as const, borderBottom: "2px solid var(--line)", background: "var(--white)", verticalAlign: "top" as const }}>
                     <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "var(--evergreen)", margin: "0 0 0.25rem" }}>Enterprise</p>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--slate)", margin: "0 0 0.375rem" }}>1,000 or more employees</p>
-                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.15rem", color: "var(--forest)", margin: "0 0 0.5rem", lineHeight: 1 }}>From £7,500 <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.8rem", color: "var(--slate)" }}>/year</span></p>
+                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.15rem", color: "var(--forest)", margin: "0 0 0.5rem", lineHeight: 1 }}>From £8,500 <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.8rem", color: "var(--slate)" }}>/year</span></p>
                   </th>
                 </tr>
               </thead>
@@ -376,6 +381,8 @@ export default function PricingPage() {
             </table>
           </div>
           <TierCards tiers={orgTiers} features={orgFeatures} />
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--slate)", textAlign: "center" as const, margin: "1.75rem auto 0", maxWidth: "640px", lineHeight: 1.6 }}>Where the budget can come from: learning and development, people and culture, leadership development, onboarding or employee engagement. One membership covers your team’s development and your new starters’ onboarding, so it often replaces costs you already have.</p>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--slate)", textAlign: "center" as const, margin: "1.25rem auto 0", maxWidth: "640px", lineHeight: 1.6 }}>Organisation memberships are based on your total number of employees. We check this when you join and at each renewal. Each membership includes a set number of seats and new starter onboarding. If you need more, you can add seats (£295 a person a year on Growing Teams, £250 on Established Organisations), or move to the next membership at renewal.</p>
 
           {/* Approver panel */}
           <div style={{ marginTop: "3rem", background: "linear-gradient(160deg, #1A3220 0%, #1E3624 100%)", borderRadius: "18px", padding: "2.5rem 2.5rem 2.25rem" }}>
@@ -386,7 +393,10 @@ export default function PricingPage() {
               Your organisation already has someone carrying inclusion forward.
             </h3>
             <p style={{ fontFamily: "var(--font-body)", fontSize: "0.975rem", lineHeight: 1.8, color: "rgba(255,255,255,0.82)", maxWidth: "680px", marginBottom: "1.75rem" }}>
-              An organisation membership gives them, and everyone they work with, full access to evidence, practical tools, AI-powered support and expert-led sessions, at a price point that makes a retained expert resource possible for organisations that cannot yet afford a full-time EDI hire. No per seat charges as your team grows. You get visible, reportable progress and a consistent onboarding experience for every new starter, with no risk of outgrowing it.
+              An organisation membership gives them, and everyone they work with, full access to evidence, practical tools, AI-powered support and expert-led sessions, at a price point that makes a retained expert resource possible for organisations that cannot yet afford a full-time EDI hire. You get visible, reportable progress and a consistent onboarding experience for your new starters. Most organisations fund this from existing learning, people or onboarding budgets, not a separate inclusion line. Every membership sits well below formal tender thresholds, and we can provide a quote, accept a purchase order or invoice you directly.
+            </p>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", lineHeight: 1.7, color: "rgba(255,255,255,0.82)", maxWidth: "680px", marginBottom: "1.5rem" }}>
+              Need sign-off? <a href="/downloads/impact-platform-organisation-summary.pdf" download style={{ color: "rgba(168,212,176,0.95)", textDecoration: "underline", fontWeight: 600 }}>Download a one-page summary</a> to forward to whoever approves the spend.
             </p>
             <a href={bookingLink("An organisation membership")} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none", background: "var(--white)", color: "var(--forest)", whiteSpace: "nowrap" as const }}>
               Book a Call to Discuss Your Organisation<span className="a11y-sr"> (opens in a new tab)</span>

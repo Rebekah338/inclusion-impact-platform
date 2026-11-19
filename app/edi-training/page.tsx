@@ -213,9 +213,10 @@ export default function Training() {
           <div style={{ position: "absolute", inset: 0, background: "rgba(232,238,230,0.93)", zIndex: 1 }} />
           <div style={{ position: "relative", zIndex: 2, maxWidth: "1100px", margin: "0 auto" }}>
             <span style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.5rem", textAlign: "center" }}>What people say</span>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.4rem, 2.5vw, 1.9rem)", color: "var(--charcoal)", textAlign: "center", marginBottom: "1.5rem" }}>Participant feedback</h2>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.4rem, 2.5vw, 1.9rem)", color: "var(--charcoal)", textAlign: "center", marginBottom: "1.5rem" }}>Client and participant feedback</h2>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1rem" }}>
               {[
+              { quote: "Working with Rebekah was a thoroughly positive experience, from our first conversation through planning to the final session. Communication was responsive and detailed throughout. Working with Rebekah and everyone at The Inclusion Edit was extremely valuable, and I would recommend their services to everyone.", role: "Ruth Sinhal, Managing Director, Project FREE" },
               { quote: "The training session was highly informative and provided valuable insights that helped me recognise some of my own biases. Rebekah was engaging, knowledgeable, and created a safe, reflective space that encouraged honest self-awareness and meaningful discussion.", role: "Safiya Dyer, Saltus" },
               { quote: "Rebekah demonstrated strong facilitation skills throughout the session. She created a safe and inclusive learning environment where participants felt comfortable sharing their perspectives. Her communication style was clear and respectful, and she maintained excellent energy and focus across all discussions.", role: "Portia Slater, The Berkeley School" },
               ].map((t) => (

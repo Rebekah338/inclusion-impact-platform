@@ -5,15 +5,15 @@ import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 const INDIVIDUAL_TIERS = [
-  { id: 'individual', label: 'Individual Practitioner', price: '£249/year', desc: '1 named user account; self-service access' },
-  { id: 'practitioner-plus', label: 'Practitioner Plus', price: '£499/year', desc: '1 named user account; AI-assisted support' },
-  { id: 'expert-track', label: 'Expert Track', price: '£1,200/year', desc: '1 named user account; 12 expert sessions per year' },
+  { id: 'individual', label: 'Individual', price: '£295/year', desc: '1 named user account; self-service access' },
+  { id: 'practitioner-plus', label: 'Practitioner Plus', price: '£495/year', desc: '1 named user account; AI-assisted support' },
+  { id: 'expert-track', label: 'Expert Track', price: '£1,800/year', desc: '1 named user account; 12 expert sessions per year' },
 ];
 
 const ORG_TIERS = [
-  { id: 'growing-teams', label: 'Growing Teams', price: '£2,400/year', desc: 'Up to 5 team members; up to 500 employees' },
-  { id: 'established', label: 'Established Organisations', price: '£4,800/year', desc: 'Up to 10 team members; 501 to 2,000 employees' },
-  { id: 'enterprise', label: 'Enterprise', price: 'Contact us', desc: 'Unlimited team members; over 2,000 employees' },
+  { id: 'growing-teams', label: 'Growing Teams', price: '£2,950/year', desc: '10 full seats; 50 to 250 employees' },
+  { id: 'established', label: 'Established Organisations', price: '£5,500/year', desc: '25 full seats; 250 to 1,000 employees' },
+  { id: 'enterprise', label: 'Enterprise', price: 'Contact us', desc: 'Seats by agreement; 1,000 or more employees' },
 ];
 
 const ORG_IDS = new Set(ORG_TIERS.map(t => t.id));

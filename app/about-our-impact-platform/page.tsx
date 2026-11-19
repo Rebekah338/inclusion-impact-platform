@@ -88,7 +88,8 @@ function PricingSection() {
   const individualTiers = [
     {
       name: "Individual",
-      price: "£249",
+      price: "£295",
+      monthly: "£29",
       headline: "Everything you need to stop guessing.",
       desc: "Full access to the resource library, every learning module across all three pathways, templates and guides you can use the same day, and a way to track your own progress. Built for the person doing this work without the team around them yet.",
       features: [
@@ -104,7 +105,8 @@ function PricingSection() {
     },
     {
       name: "Practitioner Plus",
-      price: "£449",
+      price: "£495",
+      monthly: "£49",
       headline: "For when you already know what to do, you just need more hours in the day.",
       desc: "Everything in Individual, plus Inclusion AI tools and a full health check and action plan. The work that used to take you an evening now takes you an hour, and you walk into every conversation with evidence already behind you.",
       features: [
@@ -119,14 +121,14 @@ function PricingSection() {
     },
     {
       name: "The Expert Track",
-      price: "£1,200",
+      price: "£1,800",
       headline: "For the person leading inclusion who doesn\'t want to figure this out alone.",
-      desc: "Everything in Practitioner Plus, plus a guaranteed monthly 1:1 with an inclusion expert, yours for the full year. The same expert, every month, focused entirely on your context and your organisation. No booking required: the session is already yours.",
+      desc: "Everything in Practitioner Plus, plus a guaranteed monthly 1:1 with Rebekah, yours for the full year. The same person, every month, focused entirely on your context and your organisation. No booking required: the session is already yours.",
       features: [
         "Everything in Practitioner Plus",
-        "12 guaranteed monthly 1:1 sessions with an inclusion expert",
+        "12 guaranteed monthly 1:1 sessions with Rebekah",
         "Dedicated to your context: your organisation, your challenges, your progress",
-        "Same expert throughout: continuity across the full year",
+        "The same person all year: continuity from start to finish",
         "No booking required: your session is secured for the year",
       ],
       cta: "Compare Memberships",
@@ -138,11 +140,11 @@ function PricingSection() {
   const orgBands: Record<string, { name: string; price: string; seats: string; band: string; headline: string; desc: string; features: string[]; cta: string; dark?: boolean }> = {
     small: {
       name: "Growing Teams",
-      price: "£2,400",
-      seats: "10 full seats",
+      price: "£2,950",
+      seats: "10 full seats: £295 a person",
       band: "50 to 250 employees",
-      headline: "Enough seats for the people doing the work, unlimited onboarding for everyone who joins.",
-      desc: "10 full seats for the person leading inclusion and their wider HR or People team, covering everything in Practitioner Plus plus scheduled time with a real inclusion expert. Every new starter gets a consistent, guided introduction to inclusion: included in your membership at no extra charge.",
+      headline: "Enough seats for the people doing the work, and onboarding for up to 50 new starters a year.",
+      desc: "10 full seats for the person leading inclusion and their wider HR or People team, covering everything in Practitioner Plus plus scheduled time with a real inclusion expert. Up to 50 new starters a year get a consistent, guided introduction to inclusion: included in your membership at no extra charge.",
       features: [
         "10 full seats for the person leading inclusion, your HR or People team, and relevant leadership",
         "Full resource library",
@@ -153,18 +155,18 @@ function PricingSection() {
         "Advanced resources",
         "Access to scheduled expert sessions through Get Support",
         "New starter access: onboarding module only, unless otherwise agreed",
-        "At your size you are likely onboarding around 22 new starters a year: every one of them is included, at no extra charge",
+        "Onboarding for up to 50 new starters a year, enough for any organisation your size, at no extra charge",
         "Completion reporting and downloadable certificates",
       ],
       cta: "Compare Memberships",
     },
     mid: {
       name: "Established Organisations",
-      price: "£4,800",
-      seats: "25 full seats",
+      price: "£5,500",
+      seats: "25 full seats: £220 a person",
       band: "250 to 1,000 employees",
       headline: "The same support, sized for a bigger team.",
-      desc: "25 full seats and everything in Growing Teams, sized for a bigger team. Need more full seats as you grow? They are available any time.",
+      desc: "25 full seats and everything in Growing Teams, sized for a bigger team. Need more full seats as you grow? Add them any time at £250 a person a year.",
       features: [
         "25 full seats for the person leading inclusion, your HR or People team, and relevant leadership",
         "Full resource library",
@@ -175,15 +177,15 @@ function PricingSection() {
         "Advanced resources",
         "Access to scheduled expert sessions through Get Support",
         "New starter access: onboarding module only, unless otherwise agreed",
-        "At your size you are likely onboarding around 90 new starters a year: every one of them is included, at no extra charge",
+        "Onboarding for up to 200 new starters a year, enough for any organisation your size, at no extra charge",
         "Completion reporting and downloadable certificates",
-        "Additional full seats available as an add-on",
+        "Extra full seats at £250 a person a year",
       ],
       cta: "Compare Memberships",
     },
     large: {
       name: "Enterprise",
-      price: "From £7,500",
+      price: "From £8,500",
       seats: "Seats by agreement",
       band: "1,000 or more employees",
       headline: "Built around your organisation, not a fixed band.",
@@ -288,6 +290,7 @@ function PricingSection() {
                       <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2.25rem", color: "var(--charcoal)" }}>{tier.price}</span>
                       <span style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--slate)" }}>/year</span>
                     </div>
+                    {tier.monthly && <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--slate)", margin: "-0.6rem 0 0.875rem" }}>or {tier.monthly} a month</p>}
                     <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--charcoal)", lineHeight: 1.4, marginBottom: "1rem" }}>{tier.headline}</p>
                     <Link href={`/early-access?tier=${TIER_IDS[tier.name]}#join`} style={earlyBtn()}>
                       Sign Up for Early Access
@@ -306,7 +309,7 @@ function PricingSection() {
                     </Link>
                     {tier.highlight && (
                       <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)", lineHeight: 1.6, marginTop: "1rem", marginBottom: 0, textAlign: "center" as const }}>
-                        It can often be covered by a professional development budget, so it is worth asking your employer.
+                        No inclusion budget? You may not need one. Most organisations fund this from learning and development or professional development budgets, because it builds your skills. We can send a quote or invoice your organisation directly.
                       </p>
                     )}
                     {(tier as typeof tier & { limited?: boolean }).limited && (
@@ -334,10 +337,16 @@ function PricingSection() {
             {/* Size selector */}
             <div style={{ textAlign: "center" as const, marginBottom: "2rem" }}>
               <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", color: "var(--slate)", marginBottom: "0.5rem", textTransform: "uppercase" as const, letterSpacing: "0.08em" }}>
-                How many people are you responsible for bringing along?
+                How many people work at your organisation?
               </p>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--slate)", marginBottom: "1rem", opacity: 0.8 }}>
                 Fewer than 50 people? Practitioner Plus or the Expert Track are built for you: go back and take a look.
+              </p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--slate)", marginBottom: "1rem" }}>
+                Organisation memberships are based on your total number of employees. We check this when you join and at each renewal. Each membership includes a set number of seats and new starter onboarding. If you need more, you can add seats (£295 a person a year on Growing Teams, £250 on Established Organisations), or move to the next membership at renewal.
+              </p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--slate)", marginBottom: "1rem" }}>
+                Where the budget can come from: learning and development, people and culture, leadership development, onboarding or employee engagement. One membership covers your team’s development and your new starters’ onboarding, so it often replaces costs you already have.
               </p>
               <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" as const }}>
                 {orgSizeOptions.map((opt) => (
@@ -399,7 +408,7 @@ function PricingSection() {
                   <div>
                     <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "rgba(255,255,255,0.65)", marginBottom: "0.4rem" }}>For the approver</div>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.85)", lineHeight: 1.65, margin: 0 }}>
-                      Need to share this with a budget holder or procurement team? <Link href="/pricing#individual" style={{ color: "rgba(168,212,176,0.95)", textDecoration: "underline", fontWeight: 600 }}>Download our one-page pricing summary</Link> or <Link href="/contact-us" style={{ color: "rgba(168,212,176,0.95)", textDecoration: "underline", fontWeight: 600 }}>get in touch for a formal quote</Link>.
+                      Most organisations fund this from existing learning, people or onboarding budgets, not a separate inclusion line. Every membership sits well below formal tender thresholds, and we can provide a quote, accept a purchase order or invoice you directly. Need sign-off? <a href="/downloads/impact-platform-organisation-summary.pdf" download style={{ color: "rgba(168,212,176,0.95)", textDecoration: "underline", fontWeight: 600 }}>Download a one-page summary</a> to forward to whoever approves the spend, or <Link href="/contact-us" style={{ color: "rgba(168,212,176,0.95)", textDecoration: "underline", fontWeight: 600 }}>get in touch for a formal quote</Link>.
                     </p>
                   </div>
                 </div>
