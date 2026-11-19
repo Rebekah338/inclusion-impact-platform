@@ -175,27 +175,28 @@ export default function BespokeResources() {
                 </div>
               ))}
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1.25rem", maxWidth: "1000px", margin: "0 auto", alignItems: "stretch" }}>
-            <figure style={{ position: "relative", margin: 0, display: "flex", flexDirection: "column", background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)", borderRadius: "18px", padding: "1.75rem 1.75rem 1.5rem", border: "1px solid rgba(255,255,255,0.12)", boxShadow: "0 12px 40px rgba(26,50,32,0.28)", overflow: "hidden" }}>
+            <span style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", margin: "0.25rem 0 0.75rem", textAlign: "center" }}>In their own words</span>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "1rem", maxWidth: "940px", margin: "0 auto", alignItems: "stretch" }}>
+            <figure style={{ position: "relative", margin: 0, display: "flex", flexDirection: "column", background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)", borderRadius: "18px", padding: "1.1rem 1.5rem 1rem", border: "1px solid rgba(255,255,255,0.12)", boxShadow: "0 12px 40px rgba(26,50,32,0.28)", overflow: "hidden" }}>
               <div aria-hidden="true" style={{ position: "absolute", top: "-70px", right: "-70px", width: "220px", height: "220px", borderRadius: "50%", border: "1.5px solid rgba(255,255,255,0.10)", background: "rgba(255,255,255,0.03)", pointerEvents: "none" }} />
-              <div aria-hidden="true" style={{ fontFamily: "Georgia, serif", fontSize: "3rem", lineHeight: 1, color: "rgba(255,255,255,0.45)", marginBottom: "0.25rem" }}>&ldquo;</div>
-              <blockquote style={{ position: "relative", margin: "0 0 1.25rem", flex: 1, fontFamily: "var(--font-body)", fontSize: "0.94rem", lineHeight: 1.7, color: "rgba(255,255,255,0.92)", fontStyle: "italic" }}>
+              <div aria-hidden="true" style={{ fontFamily: "Georgia, serif", fontSize: "1.9rem", lineHeight: 1, height: "0.95rem", color: "rgba(255,255,255,0.45)", marginBottom: "0.35rem" }}>&ldquo;</div>
+              <blockquote style={{ position: "relative", margin: "0 0 0.75rem", flex: 1, fontFamily: "var(--font-body)", fontSize: "0.86rem", lineHeight: 1.6, color: "rgba(255,255,255,0.92)", fontStyle: "italic" }}>
                 Rebekah created a set of resources for Black Inclusion Week that took schools and workplaces from good intentions to practical action. They gave staff an honest starting point, clear next steps and a way into conversations that can feel difficult. They are well researched, practical and easy to pick up and use, and Rebekah gave her time and expertise generously.
               </blockquote>
               <figcaption style={{ position: "relative" }}>
-                <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", margin: 0 }}>Aggie Yemurai Mutuma</p>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "rgba(255,255,255,0.72)", margin: "0.2rem 0 0" }}>Co Founder, Black Inclusion Week</p>
+                <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "var(--white)", margin: 0 }}>Aggie Yemurai Mutuma</p>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.74rem", color: "rgba(255,255,255,0.72)", margin: "0.15rem 0 0" }}>Co Founder, Black Inclusion Week</p>
               </figcaption>
             </figure>
-            <figure style={{ position: "relative", margin: 0, display: "flex", flexDirection: "column", background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)", borderRadius: "18px", padding: "1.75rem 1.75rem 1.5rem", border: "1px solid rgba(255,255,255,0.12)", boxShadow: "0 12px 40px rgba(26,50,32,0.28)", overflow: "hidden" }}>
+            <figure style={{ position: "relative", margin: 0, display: "flex", flexDirection: "column", background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)", borderRadius: "18px", padding: "1.1rem 1.5rem 1rem", border: "1px solid rgba(255,255,255,0.12)", boxShadow: "0 12px 40px rgba(26,50,32,0.28)", overflow: "hidden" }}>
               <div aria-hidden="true" style={{ position: "absolute", top: "-70px", right: "-70px", width: "220px", height: "220px", borderRadius: "50%", border: "1.5px solid rgba(255,255,255,0.10)", background: "rgba(255,255,255,0.03)", pointerEvents: "none" }} />
-              <div aria-hidden="true" style={{ fontFamily: "Georgia, serif", fontSize: "3rem", lineHeight: 1, color: "rgba(255,255,255,0.45)", marginBottom: "0.25rem" }}>&ldquo;</div>
-              <blockquote style={{ position: "relative", margin: "0 0 1.25rem", flex: 1, fontFamily: "var(--font-body)", fontSize: "0.94rem", lineHeight: 1.7, color: "rgba(255,255,255,0.92)", fontStyle: "italic" }}>
+              <div aria-hidden="true" style={{ fontFamily: "Georgia, serif", fontSize: "1.9rem", lineHeight: 1, height: "0.95rem", color: "rgba(255,255,255,0.45)", marginBottom: "0.35rem" }}>&ldquo;</div>
+              <blockquote style={{ position: "relative", margin: "0 0 0.75rem", flex: 1, fontFamily: "var(--font-body)", fontSize: "0.86rem", lineHeight: 1.6, color: "rgba(255,255,255,0.92)", fontStyle: "italic" }}>
                 The Windrush resources were informative and detailed, delivered with professionalism, depth of understanding and a real expression of joy. They struck a perfect balance between addressing the realities of racism and the Windrush generation’s resistance to it, while celebrating their incredible achievements and significant contributions to British society.
               </blockquote>
               <figcaption style={{ position: "relative" }}>
-                <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", margin: 0 }}>Ruth Sinhal</p>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "rgba(255,255,255,0.72)", margin: "0.2rem 0 0" }}>Managing Director, Project FREE</p>
+                <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "var(--white)", margin: 0 }}>Ruth Sinhal</p>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.74rem", color: "rgba(255,255,255,0.72)", margin: "0.15rem 0 0" }}>Managing Director, Project FREE</p>
               </figcaption>
             </figure>
             </div>
