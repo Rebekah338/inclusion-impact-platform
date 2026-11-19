@@ -10,6 +10,12 @@ const nextConfig: NextConfig = {
       // Old Wix addresses, so links in past emails, social posts and Google still work
       { source: "/subscribe-here", destination: "/subscribe", permanent: true },
       { source: "/faq", destination: "/faqs", permanent: true },
+      // Policies now live under /legal
+      { source: "/privacy", destination: "/legal/privacy", permanent: true },
+      { source: "/privacy-policy", destination: "/legal/privacy", permanent: true },
+      { source: "/accessibility", destination: "/legal/accessibility", permanent: true },
+      { source: "/terms", destination: "/legal/terms", permanent: true },
+      { source: "/cookies", destination: "/legal/cookies", permanent: true },
     ];
   },
 };

@@ -276,7 +276,7 @@ export default function DashboardPage() {
             <div role="group" aria-label="Reading preferences" style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
               <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--hero-cream)", marginRight: "0.2rem" }}>Reading</span>
               {prefButton(largeText, () => setLargeText(!largeText), "Larger text", "Larger text")}
-              {prefButton(dyslexiaMode, () => setDyslexiaMode(!dyslexiaMode), "Dyslexia-friendly font", "Dyslexia font")}
+              {prefButton(dyslexiaMode, () => setDyslexiaMode(!dyslexiaMode), "Easy to read font", "Easy to read font")}
             </div>
           </div>
         </div>

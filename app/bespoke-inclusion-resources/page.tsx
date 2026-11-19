@@ -9,7 +9,7 @@ export default function BespokeResources() {
   return (
     <div style={{ background: "var(--white)", minHeight: "100vh" }}>
       <SiteNav />
-      <main>
+      <main id="main-content">
 
         {/* HERO */}
         <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
@@ -88,7 +88,7 @@ export default function BespokeResources() {
               ].map((s) => (
                 <div key={s.step} style={{ borderRadius: "12px", overflow: "hidden", background: "var(--white)", border: "1px solid rgba(0,0,0,0.06)" }}>
                   <div style={{ padding: "1.6rem 1.5rem" }}>
-                    <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2rem", color: "#2C4A31", opacity: 0.45, lineHeight: 1, marginBottom: "0.5rem" }}>{s.step}</span>
+                    <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2rem", color: "#2C4A31", opacity: 0.75, lineHeight: 1, marginBottom: "0.5rem" }}>{s.step}</span>
                     <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--charcoal)", marginBottom: "0.5rem" }}>{s.title}</h3>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "var(--charcoal)", lineHeight: 1.7, opacity: 0.8, margin: 0 }}>{s.body}</p>
                   </div>
@@ -169,7 +169,7 @@ export default function BespokeResources() {
                 <div key={p.title} style={{ background: "var(--sage-xlight)", borderRadius: "14px", padding: "1.35rem 1.5rem", border: "1px solid rgba(74,138,92,0.15)", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                     <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--white)", background: "var(--sage-dark)", borderRadius: "999px", padding: "0.2rem 0.7rem" }}>{p.tag}</span>
-                    <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--sage-dark)", opacity: 0.75 }}>{p.org}</span>
+                    <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--sage-dark)" }}>{p.org}</span>
                   </div>
                   <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--charcoal)", margin: 0, lineHeight: 1.4 }}>{p.title}</p>
                 </div>

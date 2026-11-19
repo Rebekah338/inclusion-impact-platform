@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
-import { BOOKING_URL } from "@/lib/booking";
+import { BOOKING_URL, bookingLink } from "@/lib/booking";
 import TrustStrip from "../components/TrustStrip";
 import Footer from "../components/Footer";
 
@@ -141,7 +141,7 @@ export default function FAQsPage() {
   return (
     <div style={{ background: "var(--white)", minHeight: "100vh" }}>
       <SiteNav />
-      <main>
+      <main id="main-content">
         <section style={{ position: "relative", minHeight: "440px", display: "flex", alignItems: "center", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/question.jpg')", backgroundSize: "cover", backgroundPosition: "center 65%", zIndex: 0 }} />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(100deg, rgba(20,40,25,0.95) 0%, rgba(20,40,25,0.85) 38%, rgba(20,40,25,0.3) 70%, rgba(20,40,25,0.05) 100%)", zIndex: 1 }} />
@@ -230,7 +230,7 @@ export default function FAQsPage() {
             <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", color: "var(--slate, #4B5B4E)", lineHeight: 1.8, margin: "0 0 2.5rem" }}>Send us a message and we will get back to you shortly. Or if you'd like to talk through whether the platform or our consultancy is right for your organisation, book a free inclusion call.</p>
             <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
               <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "var(--forest)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Send Us a Message</Link>
-              <Link href="/contact-us#book-a-call" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--forest)", background: "transparent", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid var(--forest)", whiteSpace: "nowrap" }}>Book a Free Inclusion Call</Link>
+              <a href={bookingLink()} target="_blank" rel="noopener noreferrer" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--forest)", background: "transparent", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid var(--forest)", whiteSpace: "nowrap" }}>Book a Free Inclusion Call<span className="a11y-sr"> (opens in a new tab)</span></a>
             </div>
           </div>
         </section>

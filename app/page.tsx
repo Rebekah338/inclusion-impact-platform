@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { bookingLink } from "@/lib/booking";
 import { useState } from "react";
 import SiteNav from "@/components/SiteNav";
 import StartingPointFinder from "@/components/StartingPointFinder";
@@ -154,7 +155,7 @@ export default function Home() {
   return (
     <div style={{ background: "var(--white)", minHeight: "100vh" }}>
       <SiteNav />
-      <main>
+      <main id="main-content">
 
         {/* ── HERO ── */}
         <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
@@ -179,7 +180,7 @@ export default function Home() {
               </p>
               <div style={{ display: "flex", gap: "0.875rem", flexWrap: "wrap" }}>
                 <Link href="/early-access" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Get Early Access</Link>
-                <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "rgba(255,255,255,0.12)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid rgba(255,255,255,0.4)", whiteSpace: "nowrap", backdropFilter: "blur(4px)" }}>Book a Free Inclusion Call</Link>
+                <a href={bookingLink()} target="_blank" rel="noopener noreferrer" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "rgba(255,255,255,0.12)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid rgba(255,255,255,0.4)", whiteSpace: "nowrap", backdropFilter: "blur(4px)" }}>Book a Free Inclusion Call<span className="a11y-sr"> (opens in a new tab)</span></a>
               </div>
             </div>
           </div>
@@ -409,7 +410,7 @@ export default function Home() {
               <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.875rem" }}>For leaders and organisations</p>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.2rem", color: "var(--charcoal)", lineHeight: 1.25, marginBottom: "1rem" }}>Ready to build inclusion that sticks?</h2>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.75, opacity: 0.75, marginBottom: "1.25rem" , flexGrow: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>Book a free 30 minute call to talk through what your organisation needs, whether that&apos;s consultancy, training or bespoke resources.</p>
-              <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.8rem 1rem", borderRadius: "8px", textDecoration: "none", display: "block", width: "100%", boxSizing: "border-box", marginTop: "auto" }}>Book a Free Inclusion Call</Link>
+              <a href={bookingLink()} target="_blank" rel="noopener noreferrer" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.8rem 1rem", borderRadius: "8px", textDecoration: "none", display: "block", width: "100%", boxSizing: "border-box", marginTop: "auto" }}>Book a Free Inclusion Call<span className="a11y-sr"> (opens in a new tab)</span></a>
             </div>
             <div style={{ background: "var(--white)", borderRadius: "20px", padding: "1.25rem 1.5rem", textAlign: "center", border: "2.5px solid var(--sage)", display: "flex", flexDirection: "column" }}>
               <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.875rem" }}>For individuals and teams</p>
@@ -493,16 +494,20 @@ export default function Home() {
 
           {/* Award + newsletter row */}
           <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: "0.75rem", flexWrap: "wrap", gap: "0.5rem" }}>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.5)", margin: 0, fontStyle: "italic" }}>Recognised as an award-winning EDI consultancy by Corporate Vision</p>
-            <a href="/subscribe" style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.6)", textDecoration: "underline", textDecorationColor: "rgba(255,255,255,0.3)", whiteSpace: "nowrap", marginRight: "2rem" }}>Sign up to our newsletter</a>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.8)", margin: 0, fontStyle: "italic" }}>Recognised as an award-winning EDI consultancy by Corporate Vision</p>
+            <a href="/subscribe" style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.8)", textDecoration: "underline", textDecorationColor: "rgba(255,255,255,0.3)", whiteSpace: "nowrap", marginRight: "2rem" }}>Sign up to our newsletter</a>
           </div>
 
           {/* Bottom bar */}
           <div style={{ borderTop: "1px solid rgba(255,255,255,0.15)", paddingTop: "0.75rem", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0.75rem" }}>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.45)", margin: 0 }}>© 2026 The Inclusion Edit. All rights reserved.</p>
-            <div style={{ display: "flex", gap: "1.5rem" }}>
-              <Link href="/privacy" style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.45)", textDecoration: "none" }}>Privacy Policy</Link>
-            </div>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.8)", margin: 0 }}>© 2026 The Inclusion Edit. All rights reserved.</p>
+            <nav aria-label="Policies" style={{ display: "flex", gap: "0.5rem 1.25rem", flexWrap: "wrap" }}>
+              <Link href="/legal/privacy" style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.8)", textDecoration: "none" }}>Privacy</Link>
+              <Link href="/legal/cookies" style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.8)", textDecoration: "none" }}>Cookies</Link>
+              <Link href="/legal/terms" style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.8)", textDecoration: "none" }}>Terms</Link>
+              <Link href="/legal/accessibility" style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.8)", textDecoration: "none" }}>Accessibility</Link>
+              <Link href="/legal" style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.8)", textDecoration: "none" }}>All Policies</Link>
+            </nav>
           </div>
 
         </div>

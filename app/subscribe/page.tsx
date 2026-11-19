@@ -41,7 +41,7 @@ export default function SubscribePage() {
   return (
     <div style={{ background: "var(--white)", minHeight: "100vh" }}>
       <SiteNav />
-      <main>
+      <main id="main-content">
       {/* Hero */}
       <section style={{ position: "relative", minHeight: "440px", display: "flex", alignItems: "center", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/newsletter 1.jpg')", backgroundSize: "cover", backgroundPosition: "center 30%", zIndex: 0 }} />
@@ -149,23 +149,23 @@ export default function SubscribePage() {
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                   {[{ label: "First name", name: "first", required: true }, { label: "Last name", name: "last", required: true }].map((f) => (
                     <div key={f.name}>
-                      <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>{f.label} {f.required && <span style={{ color: "#b91c1c" }}>*</span>}</label>
-                      <input required={f.required} name={f.name} type="text" style={{ width: "100%", padding: "0.65rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }} />
+                      <label htmlFor={`sub-${f.name}`} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>{f.label} {f.required && <span style={{ color: "#b91c1c" }}>*</span>}</label>
+                      <input id={`sub-${f.name}`} required={f.required} name={f.name} type="text" style={{ width: "100%", padding: "0.65rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }} />
                     </div>
                   ))}
                 </div>
                 <div>
-                  <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>Job title</label>
-                  <input name="job" type="text" style={{ width: "100%", padding: "0.65rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }} />
+                  <label htmlFor="sub-job" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>Job title</label>
+                  <input id="sub-job" name="job" type="text" style={{ width: "100%", padding: "0.65rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }} />
                 </div>
                 <div>
-                  <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>Email address <span style={{ color: "#b91c1c" }}>*</span></label>
-                  <input required name="email" type="email" style={{ width: "100%", padding: "0.65rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }} />
+                  <label htmlFor="sub-email" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>Email address <span style={{ color: "#b91c1c" }}>*</span></label>
+                  <input id="sub-email" required name="email" type="email" style={{ width: "100%", padding: "0.65rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }} />
                 </div>
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                   <div>
-                    <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>Sector</label>
-                    <select name="sector" style={{ width: "100%", padding: "0.65rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }}>
+                    <label htmlFor="sub-sector" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>Sector</label>
+                    <select id="sub-sector" name="sector" style={{ width: "100%", padding: "0.65rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }}>
                       <option value="">Please select</option>
                       <option>Corporate</option>
                       <option>Public sector</option>
@@ -177,8 +177,8 @@ export default function SubscribePage() {
                     </select>
                   </div>
                   <div>
-                    <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>I am a...</label>
-                    <select name="role" style={{ width: "100%", padding: "0.65rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }}>
+                    <label htmlFor="sub-role" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>I am a...</label>
+                    <select id="sub-role" name="role" style={{ width: "100%", padding: "0.65rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }}>
                       <option value="">Please select</option>
                       <option>EDI Lead</option>
                       <option>HR / People professional</option>
@@ -190,8 +190,8 @@ export default function SubscribePage() {
                   </div>
                 </div>
                 <div>
-                  <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>How did you hear about us?</label>
-                  <select name="source" style={{ width: "100%", padding: "0.65rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }}>
+                  <label htmlFor="sub-source" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" }}>How did you hear about us?</label>
+                  <select id="sub-source" name="source" style={{ width: "100%", padding: "0.65rem 1rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.15)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "var(--sage-xlight)", boxSizing: "border-box" as const }}>
                     <option value="">Please select</option>
                     <option>LinkedIn</option>
                     <option>Instagram</option>

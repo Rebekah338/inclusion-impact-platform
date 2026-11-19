@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { bookingLink } from "@/lib/booking";
 import SiteNav from "@/components/SiteNav";
 import Footer from "../components/Footer";
 import TrustStrip from "../components/TrustStrip";
@@ -113,7 +114,7 @@ export default function EarlyAccessPage() {
   return (
     <div style={{ background: "var(--white)", minHeight: "100vh" }}>
       <SiteNav />
-      <main>
+      <main id="main-content">
         {/* HERO */}
         <section style={{ position: "relative", overflow: "hidden", minHeight: "560px", display: "flex", alignItems: "center" }}>
           <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url('/early-access-hero.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%" }} />
@@ -331,7 +332,7 @@ export default function EarlyAccessPage() {
             <p style={{ fontFamily: "var(--font-body)", fontSize: "0.975rem", lineHeight: 1.8, color: "rgba(255,255,255,0.85)", maxWidth: "680px", marginBottom: "1.75rem" }}>
               Organisation memberships give the people leading inclusion the tools, evidence and expert support to make progress you can report on. Every new starter also gets Inclusion Foundations onboarding, so inclusion is part of joining your organisation from day one. Book a free call and we will talk through what would work for your organisation.
             </p>
-            <Link href="/contact-us" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none", background: "var(--white)", color: "var(--forest)" }}>Book a Call to Discuss Your Organisation</Link>
+            <a href={bookingLink("An organisation membership")} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none", background: "var(--white)", color: "var(--forest)" }}>Book a Call to Discuss Your Organisation<span className="a11y-sr"> (opens in a new tab)</span></a>
           </div>
         </section>
       </main>

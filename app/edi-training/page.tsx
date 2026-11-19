@@ -1,6 +1,7 @@
 import SiteNav from "@/components/SiteNav";
 import Footer from "../components/Footer";
 import Link from "next/link";
+import { bookingLink } from "@/lib/booking";
 import TrustStrip from "../components/TrustStrip";
 
 export const metadata = { title: "Inclusion Training | The Inclusion Edit", description: "High-impact EDI training for teams, managers and leaders. Built around your context, your challenges and your goals." };
@@ -9,7 +10,7 @@ export default function Training() {
   return (
     <div style={{ background: "var(--white)", minHeight: "100vh" }}>
       <SiteNav />
-      <main>
+      <main id="main-content">
 
         {/* HERO */}
         <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
@@ -234,7 +235,7 @@ export default function Training() {
           <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.5rem, 3vw, 2.1rem)", color: "var(--white)", marginBottom: "0.75rem" }}>Ready to book training for your team?</h2>
           <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "rgba(255,255,255,0.8)", maxWidth: "500px", margin: "0 auto 1.75rem", lineHeight: 1.7 }}>Tell us about your team and your goals and we will design a training programme that fits.</p>
           <div style={{ display: "flex", gap: "0.875rem", justifyContent: "center", flexWrap: "wrap" }}>
-            <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "#1A3220", background: "var(--white)", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Book a Call</Link>
+            <a href={bookingLink("Training for my organisation")} target="_blank" rel="noopener noreferrer" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "#1A3220", background: "var(--white)", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Book a Call<span className="a11y-sr"> (opens in a new tab)</span></a>
             <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "rgba(255,255,255,0.12)", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid rgba(255,255,255,0.4)", whiteSpace: "nowrap" }}>Request a Training Quote</Link>
           </div>
         </section>

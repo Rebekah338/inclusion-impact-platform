@@ -220,7 +220,7 @@ export default function ListenAndReadClient() {
 
       {openBlog && <BlogModal post={openBlog} onClose={() => setOpenBlog(null)} />}
 
-      <main>
+      <main id="main-content">
         {/* HERO */}
         <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, #1A3220 0%, #243D28 40%, #2E5235 65%, rgba(46,82,53,0.4) 100%)", zIndex: 0 }} />
@@ -269,7 +269,7 @@ export default function ListenAndReadClient() {
                 <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "rgba(255,255,255,0.6)", margin: 0 }}>with {activeEpisode.guest}</p>
               </div>
               <div style={{ borderRadius: "10px", overflow: "hidden" }}>
-                <iframe key={activeEpisode.episodeId} src={`https://open.spotify.com/embed/episode/${activeEpisode.episodeId}?utm_source=generator&theme=0`} width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" style={{ display: "block" }} />
+                <iframe key={activeEpisode.episodeId} title={`Podcast player: For the Love of EDI, episode ${activeEpisode.num}`} src={`https://open.spotify.com/embed/episode/${activeEpisode.episodeId}?utm_source=generator&theme=0`} width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" style={{ display: "block" }} />
               </div>
             </div>
             <div style={{ marginTop: "0.875rem", background: "var(--forest)", borderRadius: "14px", padding: "0.875rem 1rem 0.75rem" }}>
@@ -293,13 +293,13 @@ export default function ListenAndReadClient() {
                 ))}
               </div>
             </div>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(0,0,0,0.45)", marginTop: "0.875rem", textAlign: "center" }}>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--slate)", marginTop: "0.875rem", textAlign: "center" }}>
               Listen directly above or{" "}
               <a href="https://open.spotify.com/show/3CgmJvGUkTUOiKQN0UmJWM" target="_blank" rel="noopener noreferrer" style={{ color: "var(--sage-dark)", fontWeight: 600 }}>open in Spotify</a>.
             </p>
             {/* Share bar */}
             <div style={{ marginTop: "0.75rem", padding: "0.875rem 1rem", background: "rgba(74,99,71,0.07)", borderRadius: "12px", textAlign: "center" }}>
-              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.45)", margin: "0 0 0.65rem" }}>Love this episode? Share it</p>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--slate)", margin: "0 0 0.65rem" }}>Love this episode? Share it</p>
               <div style={{ display: "flex", justifyContent: "center", gap: "0.6rem", flexWrap: "wrap" }}>
                 <a
                   href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://open.spotify.com/episode/${activeEpisode.episodeId}`)}`}

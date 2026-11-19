@@ -20,7 +20,7 @@ export default function InclusionBusinessCase() {
   return (
     <div style={{ background: "var(--white)", minHeight: "100vh" }}>
       <SiteNav />
-      <main>
+      <main id="main-content">
       <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, #1A3220 0%, #243D28 40%, #2E5235 65%, rgba(46,82,53,0.4) 100%)", zIndex: 0 }} />
           <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/watch-3-team-review.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 1 }} />
@@ -92,7 +92,7 @@ export default function InclusionBusinessCase() {
                 <div key={s.stat} style={{ background: "rgba(255,255,255,0.13)", borderRadius: "12px", padding: "1.25rem", border: "1px solid rgba(255,255,255,0.25)" }}>
                   <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2.25rem", color: "var(--white)", lineHeight: 1, marginBottom: "0.4rem" }}>{s.stat}</span>
                   <span style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "rgba(255,255,255,0.9)", marginBottom: "0.5rem", lineHeight: 1.4 }}>{s.label}</span>
-                  <span style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", color: "rgba(255,255,255,0.45)", fontStyle: "italic" }}>{s.source}</span>
+                  <span style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", color: "rgba(255,255,255,0.8)", fontStyle: "italic" }}>{s.source}</span>
                 </div>
               ))}
             </div>
@@ -218,7 +218,7 @@ export default function InclusionBusinessCase() {
                   <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.5rem", color: "#1A3220", lineHeight: 1 }}>{cs.stat}</span>
                   <span style={{ display: "block", fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.78rem", color: "var(--charcoal)", opacity: 0.7, marginTop: "0.1rem", marginBottom: "0.6rem" }}>{cs.statLabel}</span>
                   <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--charcoal)", margin: "0 0 0.3rem", lineHeight: 1.4 }}>{cs.title}</p>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(0,0,0,0.5)", margin: "0 0 0.5rem", lineHeight: 1.5 }}>{cs.source}</p>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--slate)", margin: "0 0 0.5rem", lineHeight: 1.5 }}>{cs.source}</p>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "0.6rem" }}>
                     {cs.tags.map((tag) => (
                       <span key={tag} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.65rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.1)", borderRadius: "999px", padding: "0.2rem 0.6rem" }}>{tag}</span>

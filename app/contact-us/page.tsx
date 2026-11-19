@@ -49,7 +49,7 @@ export default function Contact() {
   return (
     <div style={{ background: "var(--white)", minHeight: "100vh" }}>
       <SiteNav />
-      <main>
+      <main id="main-content">
       <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, #1A3220 0%, #243D28 40%, #2E5235 65%, rgba(46,82,53,0.4) 100%)", zIndex: 0 }} />
           <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/contact-hero.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 1 }} />
@@ -187,20 +187,20 @@ export default function Contact() {
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
                       {[{ label: "First name", name: "firstName", type: "text" }, { label: "Last name", name: "lastName", type: "text" }].map((f) => (
                         <div key={f.name}>
-                          <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "rgba(255,255,255,0.85)", display: "block", marginBottom: "0.3rem" }}>{f.label}</label>
-                          <input required name={f.name} type={f.type} style={{ width: "100%", padding: "0.6rem 0.875rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.13)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "rgba(255,255,255,0.85)", boxSizing: "border-box" as const }} />
+                          <label htmlFor={`contact-${f.name}`} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "rgba(255,255,255,0.85)", display: "block", marginBottom: "0.3rem" }}>{f.label}</label>
+                          <input id={`contact-${f.name}`} required name={f.name} type={f.type} style={{ width: "100%", padding: "0.6rem 0.875rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.13)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "rgba(255,255,255,0.85)", boxSizing: "border-box" as const }} />
                         </div>
                       ))}
                     </div>
                     {[{ label: "Email address", name: "email", type: "email" }, { label: "Organisation", name: "org", type: "text" }].map((f) => (
                       <div key={f.name}>
-                        <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "rgba(255,255,255,0.85)", display: "block", marginBottom: "0.3rem" }}>{f.label}</label>
-                        <input required={f.name === "email"} name={f.name} type={f.type} style={{ width: "100%", padding: "0.6rem 0.875rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.13)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "rgba(255,255,255,0.85)", boxSizing: "border-box" as const }} />
+                        <label htmlFor={`contact-${f.name}`} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "rgba(255,255,255,0.85)", display: "block", marginBottom: "0.3rem" }}>{f.label}</label>
+                        <input id={`contact-${f.name}`} required={f.name === "email"} name={f.name} type={f.type} style={{ width: "100%", padding: "0.6rem 0.875rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.13)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "rgba(255,255,255,0.85)", boxSizing: "border-box" as const }} />
                       </div>
                     ))}
                     <div>
-                      <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "rgba(255,255,255,0.85)", display: "block", marginBottom: "0.3rem" }}>What are you interested in?</label>
-                      <select name="interest" key={preInterest} defaultValue={preInterest} style={{ width: "100%", padding: "0.6rem 0.875rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.13)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "rgba(255,255,255,0.85)", boxSizing: "border-box" as const }}>
+                      <label htmlFor="contact-interest" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "rgba(255,255,255,0.85)", display: "block", marginBottom: "0.3rem" }}>What are you interested in?</label>
+                      <select id="contact-interest" name="interest" key={preInterest} defaultValue={preInterest} style={{ width: "100%", padding: "0.6rem 0.875rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.13)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "rgba(255,255,255,0.85)", boxSizing: "border-box" as const }}>
                         <option value="">Please select</option>
                         <option>Inclusion Consultancy</option>
                         <option>Inclusion Training</option>
@@ -211,8 +211,8 @@ export default function Contact() {
                       </select>
                     </div>
                     <div>
-                      <label style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "rgba(255,255,255,0.85)", display: "block", marginBottom: "0.3rem" }}>Tell us more</label>
-                      <textarea required name="message" rows={5} style={{ width: "100%", padding: "0.6rem 0.875rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.13)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "rgba(255,255,255,0.85)", resize: "vertical", boxSizing: "border-box" as const }} />
+                      <label htmlFor="contact-message" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "rgba(255,255,255,0.85)", display: "block", marginBottom: "0.3rem" }}>Tell us more</label>
+                      <textarea id="contact-message" required name="message" rows={5} style={{ width: "100%", padding: "0.6rem 0.875rem", borderRadius: "8px", border: "1.5px solid rgba(0,0,0,0.13)", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", background: "rgba(255,255,255,0.85)", resize: "vertical", boxSizing: "border-box" as const }} />
                     </div>
                     <button type="submit" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "#1A3220", border: "none", padding: "0.875rem 2rem", borderRadius: "8px", cursor: sending ? "wait" : "pointer", alignSelf: "flex-start", opacity: sending ? 0.75 : 1 }} disabled={sending}>{sending ? "Sending..." : "Send Message"}</button>
                     {error && <p role="alert" style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "#FFD7D2", margin: 0, lineHeight: 1.5 }}>{error}</p>}

@@ -233,7 +233,7 @@ function PricingSection() {
           <p style={{ fontFamily: "var(--font-body)", color: "var(--slate)", fontSize: "1.05rem", maxWidth: "520px", margin: "0 auto 0.625rem" }}>
             Join HR leaders, people managers and everyone responsible for inclusion, building capability backed by real expertise, not just content.
           </p>
-          <p style={{ fontFamily: "var(--font-body)", color: "var(--slate)", fontSize: "0.875rem", maxWidth: "700px", margin: "0 auto", opacity: 0.75, whiteSpace: "nowrap" as const }}>
+          <p style={{ fontFamily: "var(--font-body)", color: "var(--slate)", fontSize: "0.875rem", maxWidth: "700px", margin: "0 auto", whiteSpace: "nowrap" as const }}>
             Annual memberships, billed yearly. Cancel at the end of any year if you wish.
           </p>
         </div>
@@ -363,7 +363,7 @@ function PricingSection() {
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap" as const, gap: "1rem", marginBottom: "1.5rem" }}>
                     <div>
                       <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", textTransform: "uppercase" as const, letterSpacing: "0.12em", color: activeBand.dark ? "rgba(255,255,255,0.65)" : "var(--sage-dark)", marginBottom: "0.25rem" }}>{activeBand.name}</div>
-                      <div style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: activeBand.dark ? "rgba(255,255,255,0.5)" : "var(--slate)", marginBottom: "0.4rem" }}>{activeBand.band}</div>
+                      <div style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: activeBand.dark ? "rgba(255,255,255,0.8)" : "var(--slate)", marginBottom: "0.4rem" }}>{activeBand.band}</div>
                       <div style={{ display: "flex", alignItems: "baseline", gap: "0.5rem" }}>
                         <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2.5rem", color: activeBand.dark ? "var(--white)" : "var(--charcoal)" }}>{activeBand.price}</span>
                         <span style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: activeBand.dark ? "rgba(255,255,255,0.65)" : "var(--slate)" }}>/year</span>
@@ -676,13 +676,13 @@ export default function Home() {
                 </div>
 
                 {/* Dot indicators */}
-                <div style={{ display: "flex", justifyContent: "center", gap: "0.5rem", marginBottom: "2.5rem" }}>
+                <div style={{ display: "flex", justifyContent: "center", gap: 0, marginBottom: "2.5rem" }}>
                   {Array.from({ length: totalSlides }).map((_, i) => (
                     <button
                       key={i}
                       onClick={() => setAiCarouselIdx(i)}
                       aria-label={`Go to slide ${i + 1}`}
-                      style={{ width: i === aiCarouselIdx ? "1.5rem" : "0.5rem", height: "0.5rem", borderRadius: "999px", border: "none", background: i === aiCarouselIdx ? "#C9A84C" : "rgba(42,74,48,0.2)", cursor: "pointer", padding: 0, transition: "all 0.2s" }}
+                      style={{ width: i === aiCarouselIdx ? "1.5rem" : "0.5rem", height: "0.5rem", borderRadius: "999px", border: "none", background: i === aiCarouselIdx ? "#C9A84C" : "rgba(42,74,48,0.2)", cursor: "pointer", padding: "8px", boxSizing: "content-box", backgroundClip: "content-box", transition: "all 0.2s" }}
                     />
                   ))}
                 </div>
@@ -856,7 +856,7 @@ export default function Home() {
                     <div style={{ height: "110px", backgroundImage: `url('${w.img}')`, backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
                       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.55) 100%)" }} />
                       <div style={{ position: "absolute", bottom: "0.6rem", left: "0.875rem", right: "0.875rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                        <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.82rem", color: "white" }}>{w.icon} {w.label}</span>
+                        <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.82rem", color: "white" }}><span aria-hidden="true">{w.icon}</span> {w.label}</span>
                         <span style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", color: "rgba(255,255,255,0.85)", whiteSpace: "nowrap" }}>{w.sub}</span>
                       </div>
                     </div>
@@ -944,7 +944,7 @@ export default function Home() {
                     { icon: "💡", text: "Bring a challenge and get an expert perspective" },
                   ].map((item) => (
                     <div key={item.text} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
-                      <span style={{ fontSize: "1rem", flexShrink: 0 }}>{item.icon}</span>
+                      <span style={{ fontSize: "1rem", flexShrink: 0 }} aria-hidden="true">{item.icon}</span>
                       <span style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.9)", lineHeight: 1.5 }}>{item.text}</span>
                     </div>
                   ))}
@@ -1000,14 +1000,15 @@ export default function Home() {
           </span>
           <div style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--gray-soft)", display: "flex", gap: "1.5rem" }}>
             <span>© {new Date().getFullYear()} The Inclusion Edit</span>
-            <Link href="/accessibility" style={{ color: "var(--gray-soft)", textDecoration: "none" }}>Accessibility</Link>
-            <Link href="/privacy" style={{ color: "var(--gray-soft)", textDecoration: "none" }}>Privacy</Link>
+            <Link href="/legal/accessibility" style={{ color: "var(--gray-soft)", textDecoration: "none" }}>Accessibility</Link>
+            <Link href="/legal/privacy" style={{ color: "var(--gray-soft)", textDecoration: "none" }}>Privacy</Link>
+            <Link href="/legal" style={{ color: "var(--gray-soft)", textDecoration: "none" }}>All Policies</Link>
           </div>
         </div>
       </footer>
 
       {/* STICKY JOIN BANNER */}
-      <div role="complementary" aria-label="Membership call to action" style={{
+      <div role="complementary" aria-label="Membership call to action" data-sticky-banner="" style={{
         position: "fixed", bottom: 0, left: 0, right: 0,
         background: "rgba(30,40,32,0.97)", backdropFilter: "blur(8px)",
         color: "var(--white)", padding: "0.875rem 1.5rem",

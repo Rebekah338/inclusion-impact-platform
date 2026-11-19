@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { bookingLink } from '@/lib/booking';
 import SiteNav from '@/components/SiteNav';
 
 /* ─── Data ─────────────────────────────────────────────────────────────── */
@@ -59,13 +60,81 @@ function Cell({ value, highlight }: { value: boolean | string; highlight?: boole
   return <td style={{ ...base, color: "var(--slate)", lineHeight: 1.5 }}>{value as string}</td>;
 }
 
+/* ─── Phone layout: one card per membership ───────────────────────────── */
+
+type Tier = {
+  key: string; name: string; sub?: string; price: string; badge?: string; gold?: boolean; recommended?: boolean;
+  href: string; cta: string; note?: string;
+};
+
+const individualTiers: Tier[] = [
+  { key: "individual", name: "Individual", price: "£249", href: "/early-access?tier=individual#join", cta: "Get Early Access" },
+  { key: "plus", name: "Practitioner Plus", price: "£449", badge: "Recommended", recommended: true, href: "/early-access?tier=practitioner-plus#join", cta: "Get Early Access", note: "Worth asking your employer: qualifies as professional development spend." },
+  { key: "expert", name: "The Expert Track", price: "£1,200", badge: "Limited places", gold: true, href: "/early-access?tier=expert-track#join", cta: "Get Early Access", note: "Places are limited and released quarterly." },
+];
+
+const orgTiers: Tier[] = [
+  { key: "growing", name: "Growing Teams", sub: "50 to 250 employees", price: "£2,400", href: "/early-access?tier=growing-teams#join", cta: "Get Early Access" },
+  { key: "established", name: "Established Orgs", sub: "250 to 1,000 employees", price: "£4,800", href: "/early-access?tier=established#join", cta: "Get Early Access" },
+  { key: "enterprise", name: "Enterprise", sub: "1,000 or more employees", price: "From £7,500", href: "/contact-us", cta: "Talk to Us" },
+];
+
+function TierCards({ tiers, features }: { tiers: Tier[]; features: Array<{ label: string } & Record<string, string | boolean>> }) {
+  return (
+    <div className="pricing-cards" style={{ display: "none", flexDirection: "column", gap: "1.25rem" }}>
+      {tiers.map((t) => {
+        const included = features.filter((f) => f[t.key] !== false);
+        const accent = t.gold ? "#C9A84C" : "var(--evergreen)";
+        return (
+          <div key={t.key} style={{ position: "relative", background: t.recommended ? "rgba(74,99,71,0.04)" : "var(--white)", borderRadius: "18px", border: t.recommended ? "2px solid var(--evergreen)" : "1.5px solid #c8d9cb", boxShadow: "0 8px 36px rgba(26,50,32,0.10)", overflow: "hidden" }}>
+            {(t.recommended || t.gold) && <div aria-hidden="true" style={{ height: "4px", background: accent }} />}
+            <div style={{ padding: "1.5rem 1.4rem 1.6rem" }}>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.75rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
+                <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", textTransform: "uppercase", letterSpacing: "0.1em", color: t.gold ? "#7A5200" : "var(--evergreen)", margin: 0 }}>{t.name}</h3>
+                {t.badge && (
+                  <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: "0.08em", borderRadius: "999px", padding: "0.25rem 0.65rem", color: t.gold ? "#7A5200" : "var(--white)", background: t.gold ? "rgba(201,168,76,0.15)" : "var(--evergreen)" }}>{t.badge}</span>
+                )}
+              </div>
+              {t.sub && <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--slate)", margin: "0 0 0.4rem" }}>{t.sub}</p>}
+              <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.9rem", color: "var(--forest)", margin: "0 0 1.1rem", lineHeight: 1 }}>
+                {t.price} <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.9rem", color: "var(--slate)" }}>/year</span>
+              </p>
+              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.4rem", display: "flex", flexDirection: "column", gap: "0.55rem" }}>
+                {included.map((f) => (
+                  <li key={f.label} style={{ display: "flex", gap: "0.6rem", alignItems: "flex-start", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--ink)", lineHeight: 1.5 }}>
+                    <span aria-hidden="true" style={{ color: "var(--evergreen)", fontWeight: 700, flexShrink: 0 }}>&#10003;</span>
+                    <span>{f.label}{typeof f[t.key] === "string" ? <span style={{ color: "var(--slate)" }}>: {f[t.key] as string}</span> : null}</span>
+                  </li>
+                ))}
+              </ul>
+              <Link href={t.href} style={{ display: "block", textAlign: "center", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", padding: "0.875rem 1rem", borderRadius: "8px", textDecoration: "none", ...(t.recommended ? { background: "var(--evergreen)", color: "var(--white)" } : t.gold ? { border: "1.5px solid #C9A84C", color: "#7A5200" } : { border: "2px solid var(--evergreen)", color: "var(--evergreen)" }) }}>
+                {t.cta}<span className="sr-only">: {t.name}</span>
+              </Link>
+              {t.note && <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)", margin: "0.7rem 0 0", lineHeight: 1.5, textAlign: "center" }}>{t.note}</p>}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+const PRICING_CSS = `
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+  @media (max-width: 760px) {
+    .pricing-table { display: none !important; }
+    .pricing-cards { display: flex !important; }
+  }
+`;
+
 /* ─── Page ──────────────────────────────────────────────────────────────── */
 
 export default function PricingPage() {
   return (
     <>
       <SiteNav />
-      <main style={{ background: "var(--white)", minHeight: "100vh" }}>
+      <main id="main-content" style={{ background: "var(--white)", minHeight: "100vh" }}>
+      <style>{PRICING_CSS}</style>
 
       {/* PAGE HEADER */}
       <section style={{ position: "relative", overflow: "hidden", minHeight: "440px", display: "flex", alignItems: "center" }}>
@@ -119,7 +188,7 @@ export default function PricingPage() {
             </p>
           </div>
 
-          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" as unknown as undefined, borderRadius: "18px", boxShadow: "0 8px 36px rgba(26,50,32,0.13)", border: "1.5px solid #c8d9cb", background: "var(--white)" }}>
+          <div className="pricing-table" style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" as unknown as undefined, borderRadius: "18px", boxShadow: "0 8px 36px rgba(26,50,32,0.13)", border: "1.5px solid #c8d9cb", background: "var(--white)" }}>
             <table style={{ width: "100%", minWidth: "640px", borderCollapse: "collapse" as const }}>
               <thead>
                 <tr>
@@ -127,7 +196,7 @@ export default function PricingPage() {
                     What you get
                   </th>
                   <th style={{ width: "22%", padding: "1.25rem 1rem 1rem", textAlign: "center" as const, borderBottom: "2px solid var(--line)", background: "var(--white)", verticalAlign: "top" as const }}>
-                    <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "var(--sage-mid)", margin: "0 0 0.375rem" }}>Individual</p>
+                    <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "var(--evergreen)", margin: "0 0 0.375rem" }}>Individual</p>
                     <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.15rem", color: "var(--forest)", margin: "0 0 0.5rem", lineHeight: 1 }}>£249 <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.8rem", color: "var(--slate)" }}>/year</span></p>
                   </th>
                   <th style={{ width: "22%", padding: "1.25rem 1rem 1rem", textAlign: "center" as const, borderBottom: "2px solid var(--evergreen)", background: "rgba(74,99,71,0.04)", verticalAlign: "top" as const, position: "relative" as const }}>
@@ -184,6 +253,7 @@ export default function PricingPage() {
               </tfoot>
             </table>
           </div>
+          <TierCards tiers={individualTiers} features={individualFeatures} />
         </div>
       </section>
 
@@ -246,7 +316,7 @@ export default function PricingPage() {
             </p>
           </div>
 
-          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" as unknown as undefined, borderRadius: "18px", boxShadow: "0 8px 36px rgba(26,50,32,0.13)", border: "1.5px solid #c8d9cb", background: "var(--white)" }}>
+          <div className="pricing-table" style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" as unknown as undefined, borderRadius: "18px", boxShadow: "0 8px 36px rgba(26,50,32,0.13)", border: "1.5px solid #c8d9cb", background: "var(--white)" }}>
             <table style={{ width: "100%", minWidth: "700px", borderCollapse: "collapse" as const }}>
               <thead>
                 <tr>
@@ -260,12 +330,12 @@ export default function PricingPage() {
                     <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.15rem", color: "var(--forest)", margin: "0 0 0.5rem", lineHeight: 1 }}>£2,400 <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.8rem", color: "var(--slate)" }}>/year</span></p>
                   </th>
                   <th style={{ width: "23%", padding: "1.25rem 1rem 1rem", textAlign: "center" as const, borderBottom: "2px solid var(--line)", background: "var(--white)", verticalAlign: "top" as const }}>
-                    <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "var(--sage-mid)", margin: "0 0 0.25rem" }}>Established Orgs</p>
+                    <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "var(--evergreen)", margin: "0 0 0.25rem" }}>Established Orgs</p>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--slate)", margin: "0 0 0.375rem" }}>250 to 1,000 employees</p>
                     <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.15rem", color: "var(--forest)", margin: "0 0 0.5rem", lineHeight: 1 }}>£4,800 <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.8rem", color: "var(--slate)" }}>/year</span></p>
                   </th>
                   <th style={{ width: "22%", padding: "1.25rem 1rem 1rem", textAlign: "center" as const, borderBottom: "2px solid var(--line)", background: "var(--white)", verticalAlign: "top" as const }}>
-                    <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "var(--sage-mid)", margin: "0 0 0.25rem" }}>Enterprise</p>
+                    <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "var(--evergreen)", margin: "0 0 0.25rem" }}>Enterprise</p>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--slate)", margin: "0 0 0.375rem" }}>1,000 or more employees</p>
                     <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.15rem", color: "var(--forest)", margin: "0 0 0.5rem", lineHeight: 1 }}>From £7,500 <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.8rem", color: "var(--slate)" }}>/year</span></p>
                   </th>
@@ -305,6 +375,7 @@ export default function PricingPage() {
               </tfoot>
             </table>
           </div>
+          <TierCards tiers={orgTiers} features={orgFeatures} />
 
           {/* Approver panel */}
           <div style={{ marginTop: "3rem", background: "linear-gradient(160deg, #1A3220 0%, #1E3624 100%)", borderRadius: "18px", padding: "2.5rem 2.5rem 2.25rem" }}>
@@ -317,9 +388,9 @@ export default function PricingPage() {
             <p style={{ fontFamily: "var(--font-body)", fontSize: "0.975rem", lineHeight: 1.8, color: "rgba(255,255,255,0.82)", maxWidth: "680px", marginBottom: "1.75rem" }}>
               An organisation membership gives them, and everyone they work with, full access to evidence, practical tools, AI-powered support and expert-led sessions, at a price point that makes a retained expert resource possible for organisations that cannot yet afford a full-time EDI hire. No per seat charges as your team grows. You get visible, reportable progress and a consistent onboarding experience for every new starter, with no risk of outgrowing it.
             </p>
-            <Link href="/contact-us" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none", background: "var(--white)", color: "var(--forest)", whiteSpace: "nowrap" as const }}>
-              Book a Call to Discuss Your Organisation
-            </Link>
+            <a href={bookingLink("An organisation membership")} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none", background: "var(--white)", color: "var(--forest)", whiteSpace: "nowrap" as const }}>
+              Book a Call to Discuss Your Organisation<span className="a11y-sr"> (opens in a new tab)</span>
+            </a>
           </div>
         </div>
       </section>

@@ -1,6 +1,7 @@
 import SiteNav from "@/components/SiteNav";
 import Footer from "../components/Footer";
 import Link from "next/link";
+import { bookingLink } from "@/lib/booking";
 import ProgrammeFinder from "@/components/ProgrammeFinder";
 import TrustStrip from "../components/TrustStrip";
 
@@ -10,7 +11,7 @@ export default function Consultancy() {
   return (
     <div style={{ background: "var(--white)", minHeight: "100vh" }}>
       <SiteNav />
-      <main>
+      <main id="main-content">
 
       {/* HERO */}
       <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
@@ -77,7 +78,7 @@ export default function Consultancy() {
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "0", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
                 <div style={{ padding: "1rem 1.4rem", borderRight: "1px solid rgba(0,0,0,0.08)" }}>
-                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(30,40,30,0.55)", marginBottom: "0.5rem" }}>What&#39;s included</p>
+                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--slate)", marginBottom: "0.5rem" }}>What&#39;s included</p>
                   <ul style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(30,40,30,0.82)", lineHeight: 1.6, margin: 0, paddingLeft: "1.1rem" }}>
                     <li>An inclusion and culture audit of your policies, processes and practices</li>
                     <li>Staff voice: a baseline pulse survey and focus groups</li>
@@ -89,7 +90,7 @@ export default function Consultancy() {
                   </ul>
                 </div>
                 <div style={{ padding: "1rem 1.4rem" }}>
-                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(30,40,30,0.55)", marginBottom: "0.5rem" }}>What you&#39;ll walk away with</p>
+                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--slate)", marginBottom: "0.5rem" }}>What you&#39;ll walk away with</p>
                   <ul style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(30,40,30,0.82)", lineHeight: 1.6, margin: 0, paddingLeft: "1.1rem" }}>
                     <li>A leadership team aligned behind a single, credible plan they own and can act on</li>
                     <li>Clarity on where your inclusion gaps sit: in policy, practice, data or culture</li>
@@ -102,7 +103,7 @@ export default function Consultancy() {
                 </div>
               </div>
               <div style={{ padding: "1.25rem 2rem" }}>
-                <Link href="/contact-us" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none" }}>Book a 2027 Planning Call →</Link>
+                <a href={bookingLink("2027 planning")} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none" }}>Book a 2027 Planning Call →<span className="a11y-sr"> (opens in a new tab)</span></a>
               </div>
             </div>
 
@@ -126,7 +127,7 @@ export default function Consultancy() {
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "0", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
                 <div style={{ padding: "1rem 1.4rem", borderRight: "1px solid rgba(0,0,0,0.08)" }}>
-                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(30,40,30,0.55)", marginBottom: "0.5rem" }}>What&#39;s included</p>
+                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--slate)", marginBottom: "0.5rem" }}>What&#39;s included</p>
                   <ul style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(30,40,30,0.82)", lineHeight: 1.6, margin: 0, paddingLeft: "1.1rem" }}>
                     <li>A live roadshow or webinar series delivered across your locations and time zones</li>
                     <li>Content tailored to your sector, culture and current priorities</li>
@@ -138,7 +139,7 @@ export default function Consultancy() {
                   </ul>
                 </div>
                 <div style={{ padding: "1rem 1.4rem" }}>
-                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(30,40,30,0.55)", marginBottom: "0.5rem" }}>What you&#39;ll walk away with</p>
+                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--slate)", marginBottom: "0.5rem" }}>What you&#39;ll walk away with</p>
                   <ul style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(30,40,30,0.82)", lineHeight: 1.6, margin: 0, paddingLeft: "1.1rem" }}>
                     <li>Managers across every location using the same language, tools and standards</li>
                     <li>A measurable shift in confidence: tracked before and after</li>
@@ -151,7 +152,7 @@ export default function Consultancy() {
                 </div>
               </div>
               <div style={{ padding: "1.25rem 2rem" }}>
-                <Link href="/contact-us" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none" }}>Book an Inclusive Leadership Call →</Link>
+                <a href={bookingLink("Inclusive leadership programme")} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none" }}>Book an Inclusive Leadership Call →<span className="a11y-sr"> (opens in a new tab)</span></a>
               </div>
             </div>
 
@@ -175,7 +176,7 @@ export default function Consultancy() {
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "0", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
                 <div style={{ padding: "1rem 1.4rem", borderRight: "1px solid rgba(0,0,0,0.08)" }}>
-                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(30,40,30,0.55)", marginBottom: "0.5rem" }}>What&#39;s included</p>
+                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--slate)", marginBottom: "0.5rem" }}>What&#39;s included</p>
                   <ul style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(30,40,30,0.82)", lineHeight: 1.6, margin: 0, paddingLeft: "1.1rem" }}>
                     <li>Privacy-compliant demographic data collection and analysis</li>
                     <li>A leadership workshop to choose the right JEDI actions for your size from B Lab&#39;s menu</li>
@@ -188,7 +189,7 @@ export default function Consultancy() {
                   </p>
                 </div>
                 <div style={{ padding: "1rem 1.4rem" }}>
-                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(30,40,30,0.55)", marginBottom: "0.5rem" }}>What you&#39;ll walk away with</p>
+                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--slate)", marginBottom: "0.5rem" }}>What you&#39;ll walk away with</p>
                   <ul style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(30,40,30,0.82)", lineHeight: 1.6, margin: 0, paddingLeft: "1.1rem" }}>
                     <li>An evidence-based JEDI submission built to stand up to verification, not a policy that raises more questions than it answers</li>
                     <li>Demographic data collected and analysed in a privacy-compliant, usable way</li>
@@ -199,7 +200,7 @@ export default function Consultancy() {
                 </div>
               </div>
               <div style={{ padding: "1.25rem 2rem" }}>
-                <Link href="/contact-us" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none" }}>Book a B Corp JEDI Call →</Link>
+                <a href={bookingLink("B Corp JEDI programme")} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none" }}>Book a B Corp JEDI Call →<span className="a11y-sr"> (opens in a new tab)</span></a>
               </div>
             </div>
 
@@ -262,7 +263,7 @@ export default function Consultancy() {
               <div key={t.org} style={{ background: "var(--white)", borderRadius: "16px", padding: "1.75rem", border: "1px solid var(--gray-border)", boxShadow: "0 4px 16px rgba(20,50,25,0.07)" }}>
                 <span style={{ fontSize: "1.75rem", color: "var(--sage)", display: "block", marginBottom: "0.75rem", lineHeight: 1 }}>&ldquo;</span>
                 <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "var(--charcoal)", lineHeight: 1.75, marginBottom: "1.25rem", opacity: 0.85, fontStyle: "italic" }}>{t.quote}</p>
-                <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "var(--sage-dark)", margin: 0 }}><span style={{ fontWeight: 400, color: "var(--charcoal)", opacity: 0.6 }}>{t.org}</span></p>
+                <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "var(--sage-dark)", margin: 0 }}><span style={{ fontWeight: 400, color: "var(--slate)" }}>{t.org}</span></p>
               </div>
             ))}
           </div>

@@ -9,7 +9,7 @@ export default function AboutUs() {
   return (
     <div style={{ background: "var(--white)", minHeight: "100vh" }}>
       <SiteNav />
-      <main>
+      <main id="main-content">
 
         {/* HERO */}
         <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
@@ -119,7 +119,7 @@ export default function AboutUs() {
                 { icon: "✏️", label: "Creativity", text: "We make EDI engaging, accessible and easy to understand. We bring fresh, creative ways to share insights and are always exploring new ideas and collaborations." },
               ].map((v) => (
                 <div key={v.label} style={{ position: "relative", overflow: "hidden", background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)", borderRadius: "18px", padding: "2rem", boxShadow: "0 6px 28px rgba(42,74,48,0.22)" }}>
-                  <span style={{ fontSize: "2rem", display: "block", marginBottom: "1rem" }}>{v.icon}</span>
+                  <span style={{ fontSize: "2rem", display: "block", marginBottom: "1rem" }} aria-hidden="true">{v.icon}</span>
                   <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--sage-xlight)", marginBottom: "0.75rem" }}>{v.label}</h3>
                   <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "rgba(255,255,255,0.82)", lineHeight: 1.75, margin: 0 }}>{v.text}</p>
                 </div>
@@ -197,7 +197,7 @@ export default function AboutUs() {
               ].map((v) => (
                 <div key={v.label} style={{ borderRadius: "20px", border: "2px solid rgba(255,255,255,0.15)", overflow: "hidden", boxShadow: "0 16px 48px rgba(10,30,15,0.35), 0 4px 14px rgba(10,30,15,0.2)", background: "linear-gradient(145deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.07) 100%)" }}>
                   <div style={{ padding: "2rem", height: "100%", boxSizing: "border-box" }}>
-                    <span style={{ fontSize: "2rem", display: "block", marginBottom: "1rem" }}>{v.icon}</span>
+                    <span style={{ fontSize: "2rem", display: "block", marginBottom: "1rem" }} aria-hidden="true">{v.icon}</span>
                     <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--white)", marginBottom: "0.75rem" }}>{v.label}</h3>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.75, margin: 0 }}>{v.text}</p>
                   </div>
@@ -229,7 +229,7 @@ export default function AboutUs() {
               ].map((item) => (
                 <div key={item.href} style={{ background: "linear-gradient(160deg, #f7fbf7 0%, #eef6ee 55%, #e2efe2 100%)", borderRadius: "18px", border: "1.5px solid rgba(107,143,113,0.35)", display: "flex", flexDirection: "column", overflow: "hidden", boxShadow: "0 16px 48px rgba(20,50,25,0.28), 0 4px 14px rgba(20,50,25,0.16)" }}>
                   <div style={{ padding: "2.1rem", display: "flex", flexDirection: "column", flexGrow: 1 }}>
-                    <span style={{ fontSize: "1.75rem", display: "block", marginBottom: "1rem" }}>{item.icon}</span>
+                    <span style={{ fontSize: "1.75rem", display: "block", marginBottom: "1rem" }} aria-hidden="true">{item.icon}</span>
                     <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--charcoal)", lineHeight: 1.4, marginBottom: "0.75rem" }}>{item.title}</h3>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--charcoal)", lineHeight: 1.75, opacity: 0.8, margin: "0 0 1.5rem", flexGrow: 1 }}>{item.desc}</p>
                     <Link href={item.href} style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "var(--sage-dark)", textDecoration: "none", alignSelf: "flex-start" }}>{item.cta} →</Link>
