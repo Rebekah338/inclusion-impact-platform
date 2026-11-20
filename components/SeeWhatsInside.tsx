@@ -7,6 +7,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Icon from "@/app/components/BrandIcon";
 import { TOOL_CSS, ExpertSignature, ShareWithLeader, SITE_URL, logToolEvent } from "@/components/ToolExtras";
 
 type Card = {
@@ -31,12 +32,12 @@ const EXAMPLES = [
 const TOPICS = ["Business case", "Recruitment", "Pay gap", "Policy", "Leadership buy-in", "Psychological safety"];
 
 const KIND: Record<Card["kind"], { label: string; icon: string; locked: string }> = {
-  research: { label: "Research", icon: "📊", locked: "" },
-  case: { label: "Case study", icon: "🏢", locked: "" },
-  resource: { label: "Resource", icon: "📄", locked: "" },
-  lesson: { label: "Lesson", icon: "🎓", locked: "Saved to your dashboard when you join." },
-  video: { label: "Video", icon: "🎬", locked: "Saved to your dashboard when you join." },
-  ai: { label: "Inclusion AI tool", icon: "✨", locked: "Saved to your dashboard when you join." },
+  research: { label: "Research", icon: "chart", locked: "" },
+  case: { label: "Case study", icon: "briefcase", locked: "" },
+  resource: { label: "Resource", icon: "clipboard", locked: "" },
+  lesson: { label: "Lesson", icon: "graduation", locked: "Saved to your dashboard when you join." },
+  video: { label: "Video", icon: "video", locked: "Saved to your dashboard when you join." },
+  ai: { label: "Inclusion AI tool", icon: "sparkle", locked: "Saved to your dashboard when you join." },
 };
 
 const font = {
@@ -214,7 +215,7 @@ export default function SeeWhatsInside() {
               disabled={query.trim().length < 2 || loading}
               className="swi-go" style={{ padding: "0.75rem 1.6rem", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.35)", background: "linear-gradient(135deg, #C9A84C 0%, #E2C265 100%)", color: "#1A3220", fontFamily: font.heading, fontWeight: 700, fontSize: "0.95rem", cursor: query.trim().length < 2 || loading ? "default" : "pointer", whiteSpace: "nowrap", minHeight: "44px", boxShadow: "0 6px 20px rgba(26,50,32,0.35), inset 0 1px 0 rgba(255,255,255,0.14)" }}
             >
-              {loading ? "Finding..." : <><span aria-hidden="true" style={{ marginRight: "0.45rem" }}>✦</span>Show Me What’s Inside</>}
+              {loading ? "Finding..." : <><span style={{ marginRight: "0.45rem", display: "inline-flex", verticalAlign: "-3px" }}><Icon name="sparkle" size={16} /></span>Show Me What’s Inside</>}
             </button>
           </form>
         </div>
@@ -278,11 +279,11 @@ export default function SeeWhatsInside() {
                   >
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem", marginBottom: "0.75rem" }}>
                       <span style={{ fontFamily: font.heading, fontWeight: 700, fontSize: "0.7rem", textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--evergreen)" }}>
-                        <span aria-hidden="true">{k.icon}</span>&nbsp; {k.label}
+                        <span style={{ display: "inline-flex", verticalAlign: "-3px" }}><Icon name={k.icon} size={15} /></span>&nbsp; {k.label}
                       </span>
                       {!c.sendable && (
                         <span style={{ fontFamily: font.heading, fontWeight: 700, fontSize: "0.68rem", color: "var(--forest)", background: "var(--white)", border: "1px solid rgba(107,143,113,0.35)", borderRadius: "999px", padding: "0.15rem 0.55rem", whiteSpace: "nowrap" }}>
-                          <span aria-hidden="true">🔒</span> Members Only
+                          Included in membership
                         </span>
                       )}
                     </div>

@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import Footer from "../components/Footer";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
+import HeroSideCard from "@/components/HeroSideCard";
 import TrustStrip from "../components/TrustStrip";
 import { BOOKING_URL } from "../../lib/booking";
 
@@ -204,6 +205,7 @@ function BlogModal({ post, onClose }: { post: Blog; onClose: () => void }) {
 
 export default function ListenAndReadClient() {
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [playerOn, setPlayerOn] = useState(false);
   const [openBlog, setOpenBlog] = useState<Blog | null>(null);
   const stripRef = useRef<HTMLDivElement>(null);
   const activeEpisode = episodes[activeIndex];
@@ -227,6 +229,7 @@ export default function ListenAndReadClient() {
           <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/listen%20and%20read%201.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 1 }} />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(100deg, rgba(20,40,25,0.95) 0%, rgba(20,40,25,0.85) 38%, rgba(20,40,25,0.3) 70%, rgba(20,40,25,0.05) 100%)", zIndex: 2 }} />
           <div style={{ position: "relative", zIndex: 3, maxWidth: "1100px", width: "100%", margin: "0 auto", padding: "5rem 2rem" }}>
+            <HeroSideCard kind="episode" num={episodes[episodes.length - 1].num} title={episodes[episodes.length - 1].title} guest={episodes[episodes.length - 1].guest} href="#podcast" />
             <div style={{ maxWidth: "560px" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>Podcast and blog</span>
               <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.4rem, 5.5vw, 3.6rem)", color: "var(--white)", lineHeight: 1.08, marginBottom: "1.5rem" }}>Inclusion Insight Worth Making Time For.</h1>
@@ -269,7 +272,21 @@ export default function ListenAndReadClient() {
                 <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "rgba(255,255,255,0.6)", margin: 0 }}>with {activeEpisode.guest}</p>
               </div>
               <div style={{ borderRadius: "10px", overflow: "hidden" }}>
-                <iframe key={activeEpisode.episodeId} title={`Podcast player: For the Love of EDI, episode ${activeEpisode.num}`} src={`https://open.spotify.com/embed/episode/${activeEpisode.episodeId}?utm_source=generator&theme=0`} width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" style={{ display: "block" }} />
+                {playerOn ? (
+                  <iframe key={activeEpisode.episodeId} title={`Podcast player: For the Love of EDI, episode ${activeEpisode.num}`} src={`https://open.spotify.com/embed/episode/${activeEpisode.episodeId}?utm_source=generator&theme=0`} width="100%" height="152" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" style={{ display: "block" }} />
+                ) : (
+                  <button type="button" onClick={() => setPlayerOn(true)} aria-label={`Play episode ${activeEpisode.num}: ${activeEpisode.title}, with ${activeEpisode.guest}. This loads the Spotify player.`} className="lr-play-card" style={{ width: "100%", minHeight: "152px", display: "flex", alignItems: "center", gap: "1.1rem", padding: "1rem", textAlign: "left", background: "linear-gradient(135deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.06) 100%)", border: "1px solid rgba(255,255,255,0.28)", borderRadius: "12px", cursor: "pointer", color: "var(--white)", boxShadow: "0 8px 28px rgba(0,0,0,0.18)" }}>
+                    <img src={activeEpisode.img} alt="" aria-hidden="true" style={{ width: "120px", height: "120px", borderRadius: "10px", objectFit: "cover", flexShrink: 0, boxShadow: "0 4px 14px rgba(0,0,0,0.25)" }} />
+                    <span style={{ display: "flex", flexDirection: "column", gap: "0.3rem", flex: 1, minWidth: 0 }}>
+                      <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#E2C265" }}>Episode {activeEpisode.num}</span>
+                      <span style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.05rem", lineHeight: 1.3, color: "var(--white)" }}>{activeEpisode.title}</span>
+                      <span style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(255,255,255,0.8)" }}>with {activeEpisode.guest}</span>
+                      <span style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", marginTop: "0.2rem" }}>Plays here through Spotify, which may set its own cookies.</span>
+                    </span>
+                    <span aria-hidden="true" className="lr-play-btn" style={{ width: "56px", height: "56px", borderRadius: "50%", background: "#E2C265", color: "#1A3220", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: "1.3rem", paddingLeft: "4px", boxShadow: "0 0 0 6px rgba(226,194,101,0.18)", transition: "transform 0.2s ease" }}>&#9654;</span>
+                    <style>{`.lr-play-card:hover .lr-play-btn { transform: scale(1.08); } @media (max-width: 480px) { .lr-play-card img { width: 84px !important; height: 84px !important; } }`}</style>
+                  </button>
+                )}
               </div>
             </div>
             <div style={{ marginTop: "0.875rem", background: "var(--forest)", borderRadius: "14px", padding: "0.875rem 1rem 0.75rem" }}>

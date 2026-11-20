@@ -1,4 +1,5 @@
 import SiteNav from "@/components/SiteNav";
+import HeroSideCard from "@/components/HeroSideCard";
 import Footer from "../components/Footer";
 import Link from "next/link";
 import TrustStrip from "../components/TrustStrip";
@@ -28,6 +29,7 @@ export default function InclusionBusinessCase() {
           {/* Logo top-right of hero */}
 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(100deg, rgba(20,40,25,0.95) 0%, rgba(20,40,25,0.85) 38%, rgba(20,40,25,0.3) 70%, rgba(20,40,25,0.05) 100%)", zIndex: 2 }} />
           <div style={{ position: "relative", zIndex: 3, maxWidth: "1100px", width: "100%", margin: "0 auto", padding: "5rem 2rem" }}>
+            <HeroSideCard kind="stat" stat="42% lower" label="staff turnover when organisations score highest for inclusion." source="ENEI TIDE Benchmarking, 2023" />
             <div style={{ maxWidth: "560px" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>Why inclusion matters</span>
               <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.4rem, 5.5vw, 3.6rem)", color: "var(--white)", lineHeight: 1.08, marginBottom: "1.5rem" }}>
@@ -243,7 +245,7 @@ export default function InclusionBusinessCase() {
                 { stat: "27", label: "Pieces of research and data" },
                 { stat: "20", label: "Case studies" },
                 { stat: "3", label: "AI evidence building tools" },
-                { stat: "10+", label: "Templates and resources" },
+                { stat: "45", label: "Practical tools" },
               ].map((s) => (
                 <div key={s.label} style={{ textAlign: "center", background: "rgba(26,50,32,0.82)", borderRadius: "10px", padding: "1rem 0.75rem" }}>
                   <span style={{ display: "block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2rem", color: "var(--white)", lineHeight: 1, marginBottom: "0.3rem" }}>{s.stat}</span>
@@ -254,6 +256,11 @@ export default function InclusionBusinessCase() {
             <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", justifyContent: "center" }}>
               <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--white)", background: "#1A3220", padding: "0.8rem 2rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>Explore the Platform</Link>
               <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "#1A3220", background: "transparent", padding: "0.8rem 2rem", borderRadius: "8px", textDecoration: "none", display: "inline-block", border: "1.5px solid #1A3220" }}>Talk to Us About Your Situation</Link>
+            </div>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", opacity: 0.8, lineHeight: 1.7, margin: "1.75rem 0 0" }}>
+              Approving the spend? <Link href="/pricing" style={{ color: "var(--evergreen)", fontWeight: 700 }}>See membership prices</Link> or <a href="/downloads/impact-platform-organisation-summary.pdf" download style={{ color: "var(--evergreen)", fontWeight: 700 }}>download a one-page summary</a> to share.
+            </p>
+            <div>
             </div>
           </div>
         </section>

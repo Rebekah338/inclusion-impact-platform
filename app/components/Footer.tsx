@@ -54,6 +54,20 @@ export default function Footer() {
           <a href="/subscribe" style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.8)", textDecoration: "underline", textDecorationColor: "rgba(255,255,255,0.3)", whiteSpace: "nowrap", marginRight: "2rem" }}>Sign up to our newsletter</a>
         </div>
 
+        {/* Site links */}
+        <nav aria-label="Footer" style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem 1.5rem", marginBottom: "0.9rem" }}>
+          {[
+            { href: "/about-our-impact-platform", label: "Impact Platform" },
+            { href: "/pricing", label: "Pricing" },
+            { href: "/early-access", label: "Get Early Access" },
+            { href: "/faqs", label: "FAQs" },
+            { href: "/contact-us", label: "Contact Us" },
+          ].map((l) => (
+            <a key={l.href} href={l.href} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "rgba(255,255,255,0.92)", textDecoration: "none" }}>{l.label}</a>
+          ))}
+          <a href="https://calendly.com/theinclusionedit/free-inclusion-call" target="_blank" rel="noopener noreferrer" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "rgba(255,255,255,0.92)", textDecoration: "none" }}>Book a Free Call<span className="a11y-sr"> (opens in a new tab)</span></a>
+        </nav>
+
         {/* Bottom bar */}
         <div style={{ borderTop: "1px solid rgba(255,255,255,0.15)", paddingTop: "0.75rem", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0.75rem" }}>
           <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.8)", margin: 0 }}>© 2026 The Inclusion Edit. All rights reserved.</p>

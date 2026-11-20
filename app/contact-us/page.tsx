@@ -1,5 +1,6 @@
 "use client";
 import SiteNav from "@/components/SiteNav";
+import HeroSideCard from "@/components/HeroSideCard";
 import Footer from "../components/Footer";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -52,11 +53,12 @@ export default function Contact() {
       <main id="main-content">
       <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, #1A3220 0%, #243D28 40%, #2E5235 65%, rgba(46,82,53,0.4) 100%)", zIndex: 0 }} />
-          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/contact-hero.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 1 }} />
+          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/get-support-hero.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 1 }} />
           
           {/* Logo top-right of hero */}
 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(100deg, rgba(20,40,25,0.95) 0%, rgba(20,40,25,0.85) 38%, rgba(20,40,25,0.3) 70%, rgba(20,40,25,0.05) 100%)", zIndex: 2 }} />
           <div style={{ position: "relative", zIndex: 3, maxWidth: "1100px", width: "100%", margin: "0 auto", padding: "5rem 2rem" }}>
+            <HeroSideCard kind="steps" eyebrow="What happens next" title="Simple, and no obligation." steps={["Send us a message using the form.", "We get back to you within 48 hours to arrange a free call.", <>Prefer to pick a time now? <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" style={{ color: "#A8D4B0", fontWeight: 700 }}>Book a call<span className="a11y-sr"> (opens in a new tab)</span></a> and your call link arrives straight away.</>]} />
             <div style={{ maxWidth: "560px" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>Get in touch</span>
               <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.4rem, 5.5vw, 3.6rem)", color: "var(--white)", lineHeight: 1.08, marginBottom: "1.5rem" }}>
@@ -90,7 +92,7 @@ export default function Contact() {
               <div style={{ flex: "1", minWidth: "260px" }}>
                 <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.65)", background: "rgba(255,255,255,0.12)", borderRadius: "999px", padding: "0.3rem 0.9rem", marginBottom: "1rem" }}>Book a call</span>
                 <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.75rem)", color: "var(--white)", margin: "0 0 0.75rem", lineHeight: 1.15 }}>Book a Free Inclusion Call</h2>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.75, margin: 0 }}>Have questions about our Impact Platform, consultancy, training, or bespoke resources? Book a free 30-minute call and we will help you work out the best next step for your organisation.</p>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", color: "rgba(255,255,255,0.75)", lineHeight: 1.75, margin: 0 }}>Have questions about our Impact Platform, consultancy, training, or bespoke resources? Book a free 30 minute video call: tell us what you are working on, and we will suggest the right next step for your organisation, with no obligation.</p>
               </div>
               {/* Right: CTA */}
               <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.6rem", flexShrink: 0 }}>

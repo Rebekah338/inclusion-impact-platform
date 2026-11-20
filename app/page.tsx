@@ -1,19 +1,21 @@
 "use client";
 
 import Link from "next/link";
+import { preload } from "react-dom";
 import { bookingLink } from "@/lib/booking";
 import { useState } from "react";
 import SiteNav from "@/components/SiteNav";
+import HeroSideCard from "@/components/HeroSideCard";
 import StartingPointFinder from "@/components/StartingPointFinder";
 import TrustStrip from "./components/TrustStrip";
 
 const NAV_TILES = [
-  { label: "Consultancy", href: "/edi-consultancy-programmes", icon: "", sub: "See our programmes" },
-  { label: "Impact Platform", href: "/about-our-impact-platform", icon: "", sub: "Join early access" },
-  { label: "Training", href: "/edi-training", icon: "", sub: "Book training" },
-  { label: "Bespoke Resources", href: "/bespoke-inclusion-resources", icon: "", sub: "Commission a resource" },
-  { label: "Podcast and Blog", href: "/podcast", icon: "", sub: "Listen and read" },
+  { label: "Impact Platform", href: "/about-our-impact-platform", icon: "", sub: "Explore the platform" },
   { label: "Inclusion AI", href: "/about-our-impact-platform#ai", icon: "", sub: "Explore the tools" },
+  { label: "Pricing", href: "/pricing", icon: "", sub: "See memberships" },
+  { label: "Consultancy", href: "/edi-consultancy-programmes", icon: "", sub: "See our programmes" },
+  { label: "Training", href: "/edi-training", icon: "", sub: "See our training" },
+  { label: "Bespoke Resources", href: "/bespoke-inclusion-resources", icon: "", sub: "Commission a resource" },
 ];
 
 const TESTIMONIALS = [
@@ -36,74 +38,52 @@ const TESTIMONIALS = [
 
 const LOGOS = ["Network Plus", "Hospice UK", "Project FREE", "The Berkeley School"];
 
-const PILLARS = [
-  {
-    title: "You get time back, not more to do.",
-    body: "Ready-to-use tools, templates and an inclusion expert to check your thinking with, so you can move the work forward this week instead of starting every piece from scratch.",
-  },
-  {
-    title: "You get clarity, not complexity.",
-    body: "We turn complex inclusion ideas into clear, practical steps, grounded in lived experience and research, so you and your team feel equipped rather than overwhelmed.",
-  },
-  {
-    title: "You get backup, and a case to take upward.",
-    body: "Evidence and business cases your leaders will recognise, shaped around your sector, whether that's a corporate team, public body, charity or school. You are not making the case alone.",
-  },
-];
-
 const PLATFORM_FEATURES = [
-  { icon: "📚", title: "40 lessons", desc: "Across three learning pathways: People and Culture, Systems and Processes, Leadership and Strategy." },
-  { icon: "🛠", title: "45 practical tools", desc: "Templates, toolkits, guides and checklists you can use the same day, plus 47 research reports and case studies to take to leadership." },
-  { icon: "🎬", title: "28 expert videos", desc: "Deep dives, quick wins and expert sessions at your own pace." },
-  { icon: "✨", title: "10 Inclusion AI tools", desc: "Specialist AI tools for inclusion work: policy audits, business cases, fairer hiring and more." },
+  { num: "40", title: "Lessons", desc: "Across three learning pathways: People and Culture, Systems and Processes, Leadership and Strategy." },
+  { num: "45", title: "Practical tools", desc: "Templates, toolkits, guides and checklists you can use the same day, plus 47 research reports and case studies to take to leadership." },
+  { num: "28", title: "Expert videos", desc: "Masterclasses, Skills Sessions and Quick Takes, at your own pace." },
+  { num: "10", title: "Inclusion AI tools", desc: "Specialist AI tools for inclusion work: policy audits, business cases, fairer hiring and more." },
 ];
 
 const SERVICES = [
   {
-    label: "Impact Platform",
-    href: "/about-our-impact-platform",
-    icon: "💡",
-    image: "/images/card-impact-platform.jpg",
-    heading: "Built for people leading inclusion, so you're not carrying it alone.",
-    body: "40 lessons, 10 specialist AI tools, evidence you can take to leadership, expert support on selected memberships, and room to bring your team in when you're ready.",
-    cta: "Explore the Platform",
-  },
-  {
     label: "Inclusion Consultancy",
     href: "/edi-consultancy-programmes",
-    icon: "🤝",
-    image: "/images/card-consultancy.jpg",
+    icon: "target",
+    image: "/consultancy-hero.jpg",
     heading: "Strategic inclusion support that goes deeper than a single session.",
-    body: "We work alongside your organisation to audit, advise and build inclusion strategies grounded in your context and designed to last. From culture audits to policy reviews, we support the work behind the work.",
+    body: "Audits, strategy and policy reviews that go deeper than a single session, grounded in your context and built to last.",
     cta: "Explore Consultancy",
+    note: "Programmes over 6 to 12 weeks, for 2027 planning, inclusive leadership and B Corp.",
+    call: "2027 planning",
   },
   {
     label: "Inclusion Training",
     href: "/edi-training",
-    icon: "🎓",
-    image: "/images/card-training.jpg",
+    icon: "graduation",
+    image: "/training-team-hero.jpg",
     heading: "Training that moves teams from awareness to action.",
-    body: "Workshops and programmes built around the challenges your teams actually face: unconscious bias, psychological safety, inclusive leadership or something bespoke. Practical, participatory and ready to use.",
+    body: "Practical, participatory workshops on the challenges your teams actually face, from inclusive leadership to psychological safety.",
     cta: "Explore Training",
   },
   {
     label: "Bespoke Resources",
     href: "/bespoke-inclusion-resources",
-    icon: "✏️",
-    image: "/images/card-bespoke.jpg",
+    icon: "clipboard",
+    image: "/bespoke-hero.jpg",
     heading: "Custom tools and content built for your organisation.",
-    body: "Need something that does not exist yet? We design toolkits, guides and e-learning modules tailored to your team, your language and your goals.",
+    body: "Toolkits, guides and e-learning designed for your team, your language and your goals.",
     cta: "See What We Can Build",
   },
 ];
 
 const WHO_WE_WORK_WITH = [
-  { icon: "🏫", label: "Schools and MATs" },
-  { icon: "🏥", label: "NHS and healthcare" },
-  { icon: "🏛", label: "Public sector bodies" },
-  { icon: "💼", label: "Corporate organisations" },
-  { icon: "❤️", label: "Charities and nonprofits" },
-  { icon: "🎓", label: "Universities and HE" },
+  { icon: "graduation", label: "Schools and MATs" },
+  { icon: "heart", label: "NHS and healthcare" },
+  { icon: "scale", label: "Public sector bodies" },
+  { icon: "briefcase", label: "Corporate organisations" },
+  { icon: "heart", label: "Charities and nonprofits" },
+  { icon: "graduation", label: "Universities and HE" },
 ];
 
 const STATS = [
@@ -116,6 +96,7 @@ const STATS = [
 
 
 export default function Home() {
+  preload("/homepage-hero.jpg", { as: "image", fetchPriority: "high" });
   const [activeTile, setActiveTile] = useState<string | null>(null);
   const [testimonialIdx, setTestimonialIdx] = useState(0);
   const [nlEmail, setNlEmail] = useState("");
@@ -169,19 +150,23 @@ export default function Home() {
 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(100deg, rgba(20,40,25,0.95) 0%, rgba(20,40,25,0.85) 38%, rgba(20,40,25,0.3) 70%, rgba(20,40,25,0.05) 100%)", zIndex: 2 }} />
           {/* Content: left aligned */}
           <div style={{ position: "relative", zIndex: 3, maxWidth: "1100px", width: "100%", margin: "0 auto", padding: "5.5rem 2rem 5rem" }}>
-            <div style={{ maxWidth: "820px" }}>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>Award-winning inclusion consultancy and learning platform</span>
+            <HeroSideCard kind="awardQuote" quote="Thanks to The Inclusion Edit’s EDI Hub, I’m now navigating EDI with more intention, bandwidth and knowledge." name="Tiona Knight" role="EDI Lead, Mentivity" />
+            <div style={{ maxWidth: "660px" }}>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>The Impact Platform: launching January 2027</span>
               <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(3rem, 5.5vw, 5rem)", lineHeight: 1.05, marginBottom: "1.5rem", maxWidth: "760px" }}>
                 <span style={{ color: "#F0E6C8" }}>Your Culture Is</span><br />
                 <span style={{ color: "#A8D4B0" }}>Your Competitive<br />Edge.</span>
               </h1>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "1.1rem", color: "rgba(255,255,255,0.88)", lineHeight: 1.8, marginBottom: "2.25rem" }}>
-                Building that culture often falls to one person, without the team, time or budget it needs. If that&apos;s you, you&apos;re not meant to do it alone: we give you practical tools, evidence to take to your leaders and a real person beside you.
+                Building that culture often falls to one person, without the team, time or budget it needs. If that&apos;s you, you&apos;re not meant to do it alone. The Impact Platform from our award-winning inclusion consultancy gives you practical tools, evidence to take to your leaders and a real person beside you.
               </p>
               <div style={{ display: "flex", gap: "0.875rem", flexWrap: "wrap" }}>
                 <Link href="/early-access" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Get Early Access</Link>
-                <a href={bookingLink()} target="_blank" rel="noopener noreferrer" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "rgba(255,255,255,0.12)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid rgba(255,255,255,0.4)", whiteSpace: "nowrap", backdropFilter: "blur(4px)" }}>Book a Free Inclusion Call<span className="a11y-sr"> (opens in a new tab)</span></a>
+                <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "rgba(255,255,255,0.12)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid rgba(255,255,255,0.4)", whiteSpace: "nowrap", backdropFilter: "blur(4px)" }}>See Inside the Platform</Link>
               </div>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "rgba(255,255,255,0.8)", margin: "1.1rem 0 0" }}>
+                Or <a href={bookingLink()} target="_blank" rel="noopener noreferrer" style={{ color: "#F0E6C8", fontWeight: 700, textDecoration: "underline" }}>book a free inclusion call<span className="a11y-sr"> (opens in a new tab)</span></a> to talk it through.
+              </p>
             </div>
           </div>
         </section>
@@ -189,10 +174,48 @@ export default function Home() {
         {/* ── NAV TILES ── */}
         <TrustStrip variant="links" ariaLabel="Explore The Inclusion Edit" items={NAV_TILES.map((t) => ({ value: t.label, label: t.sub, href: t.href }))} />
 
-        {/* ── INCLUSION STARTING POINT FINDER ── */}
-        <StartingPointFinder />
+        {/* ── PLATFORM SPOTLIGHT ── */}
+        <section style={{ position: "relative", overflow: "hidden", padding: "5.5rem 1.5rem", background: "var(--white)" }}>
+          <div aria-hidden="true" style={{ position: "absolute", top: "-180px", left: "-140px", width: "560px", height: "560px", borderRadius: "50%", background: "radial-gradient(circle, rgba(201,168,76,0.10) 0%, rgba(201,168,76,0.03) 45%, transparent 70%)", pointerEvents: "none" }} />
+          <div aria-hidden="true" style={{ position: "absolute", bottom: "-200px", right: "-160px", width: "520px", height: "520px", borderRadius: "50%", background: "radial-gradient(circle, rgba(141,191,135,0.12) 0%, transparent 70%)", pointerEvents: "none" }} />
+          <div style={{ position: "relative", maxWidth: "1100px", margin: "0 auto" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1.15fr", gap: "3.5rem", alignItems: "center" }} className="platform-split">
+              <div>
+                <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.7rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "#7A5200", background: "rgba(201,168,76,0.14)", border: "1px solid rgba(201,168,76,0.45)", borderRadius: "999px", padding: "0.4rem 1rem", marginBottom: "1.25rem" }}>The Impact Platform · January 2027</span>
+                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.75rem, 3.4vw, 2.6rem)", color: "var(--forest)", lineHeight: 1.12, marginBottom: "1.25rem" }}>
+                  The tools, learning and expert support to make inclusion part of <span style={{ color: "#7A5200" }}>everyday work.</span>
+                </h2>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--slate)", lineHeight: 1.75, marginBottom: "1.5rem" }}>
+                  One place for the person carrying inclusion, and the people they bring with them: structured lessons, practical tools, expert videos and specialist AI, with a real inclusion expert and a community of peers behind you.
+                </p>
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "0.75rem", background: "var(--white)", border: "1.5px solid rgba(107,143,113,0.35)", borderRadius: "12px", padding: "0.8rem 1.1rem", marginBottom: "1.75rem", boxShadow: "0 4px 20px rgba(26,50,32,0.08)" }}>
+                  <span aria-hidden="true" style={{ width: "10px", height: "10px", borderRadius: "50%", background: "#C9A84C", flexShrink: 0, boxShadow: "0 0 0 4px rgba(201,168,76,0.18)" }} />
+                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--forest)", margin: 0, lineHeight: 1.45 }}>From £34 a month for individuals, or £1,750 a year for 5 users at your organisation.</p>
+                </div>
+                <div style={{ display: "flex", gap: "0.875rem", flexWrap: "wrap" }}>
+                  <Link href="/early-access" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none" }}>Get Early Access</Link>
+                  <Link href="/pricing" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--sage-dark)", background: "transparent", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid var(--sage-dark)" }}>See Pricing</Link>
+                </div>
+              </div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.1rem" }} className="platform-cards">
+                {PLATFORM_FEATURES.map((f) => (
+                  <div key={f.title} className="platform-card" style={{ position: "relative", overflow: "hidden", background: "linear-gradient(160deg, #F7FBF7 0%, #EEF6EE 55%, #E2EFE2 100%)", borderRadius: "18px", padding: "1.6rem 1.5rem 1.5rem", border: "1.5px solid rgba(107,143,113,0.35)", boxShadow: "0 4px 20px rgba(26,50,32,0.10)", transition: "transform 0.2s ease, box-shadow 0.2s ease" }}>
+                    <div aria-hidden="true" style={{ position: "absolute", top: "-28px", right: "-28px", width: "96px", height: "96px", borderRadius: "50%", border: "1.5px solid rgba(74,99,71,0.12)" }} />
+                    <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "2.6rem", color: "var(--forest)", lineHeight: 1, margin: "0 0 0.35rem", fontVariantNumeric: "lining-nums" }}>{f.num}</p>
+                    <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--evergreen)", margin: "0 0 0.65rem" }}>{f.title}</h3>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--slate)", lineHeight: 1.6, margin: 0 }}>{f.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <style>{`
+            .platform-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(26,50,32,0.16) !important; }
+            @media (max-width: 520px) { .platform-cards { grid-template-columns: 1fr !important; } }
+          `}</style>
+        </section>
 
-{/* ── POSITIONING + STATS (combined, photo-background) ── */}
+        {/* ── POSITIONING + STATS (combined, photo-background) ── */}
         <section style={{ position: "relative", overflow: "hidden", padding: "2.5rem 1.5rem" }}>
           {/* Photo layer */}
           <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url('/team-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 0 }} />
@@ -224,76 +247,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ── SERVICES ── */}
-        <section style={{ background: "var(--white)", padding: "5rem 1.5rem" }}>
-          <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "1rem", textAlign: "center" }}>How we work with you</p>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.5rem, 3vw, 2rem)", color: "var(--charcoal)", marginBottom: "3rem", textAlign: "center" }}>Four ways to build lasting inclusion.</h2>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem" }} className="services-grid">
-              {SERVICES.map((s) => (
-                <div key={s.label} style={{ background: "var(--white)", borderRadius: "16px", border: "1.5px solid rgba(107,143,113,0.3)", display: "flex", flexDirection: "column", overflow: "hidden", boxShadow: "0 4px 16px rgba(42,74,48,0.08), 0 1px 4px rgba(42,74,48,0.06)" }}>
-                  <div style={{ width: "100%", height: "160px", overflow: "hidden", flexShrink: 0, background: "linear-gradient(160deg, #c8dbc9 0%, #a8c4aa 100%)" }}>
-                    {s.image && <img src={s.image} alt={s.label} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />}
-                  </div>
-                  <div style={{ padding: "1.5rem", display: "flex", flexDirection: "column", flexGrow: 1, background: "linear-gradient(160deg, #f7fbf7 0%, #eef6ee 60%, #e4f0e4 100%)" }}>
-                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.75rem" }}>{s.label}</p>
-                  <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--charcoal)", lineHeight: 1.4, marginBottom: "0.875rem" }}>{s.heading}</h3>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--charcoal)", lineHeight: 1.75, opacity: 0.8, margin: "0 0 1.5rem", flexGrow: 1 }}>{s.body}</p>
-                  <Link href={s.href} style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--sage-dark)", textDecoration: "none", alignSelf: "flex-start" }}>{s.cta} →</Link>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── VALUE PILLARS ── */}
-        <section style={{ position: "relative", overflow: "hidden", padding: "5rem 1.5rem" }}>
-          <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url('/team-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 0 }} />
-          <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "rgba(232,238,230,0.82)", backdropFilter: "blur(4px)", zIndex: 1 }} />
-          <div style={{ position: "relative", zIndex: 2, maxWidth: "980px", margin: "0 auto" }}>
-            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "#2C4A31", marginBottom: "1rem", textAlign: "center" }}>What working with us gives you</p>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.5rem, 3vw, 2rem)", color: "#1E3624", marginBottom: "3rem", textAlign: "center" }}>From knowledge to action to measurable change.</h2>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.5rem" }}>
-              {PILLARS.map((p) => (
-                <div key={p.title} style={{ position: "relative", overflow: "hidden", background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)", borderRadius: "18px", padding: "2rem", boxShadow: "0 6px 28px rgba(42,74,48,0.22)" }}>
-                  <div aria-hidden="true" style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
-                  <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--white)", lineHeight: 1.4, marginBottom: "0.875rem", position: "relative" }}>{p.title}</h3>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.8, margin: 0, position: "relative" }}>{p.body}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-
-        {/* ── PLATFORM SPOTLIGHT ── */}
-        <section style={{ padding: "5rem 1.5rem", background: "var(--white)" }}>
-          <div style={{ maxWidth: "980px", margin: "0 auto" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "4rem", alignItems: "center" }} className="platform-split">
-              <div>
-                <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "1rem" }}>The Impact Platform</p>
-                <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.5rem, 3vw, 2.25rem)", color: "var(--charcoal)", lineHeight: 1.2, marginBottom: "1.25rem" }}>The tools, learning and expert support to make inclusion part of everyday work.</h2>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.7, opacity: 0.8, marginBottom: "1.5rem" }}>
-                  A digital learning and development space for people leading inclusion and the organisations they serve: structured modules, practical tools, video masterclasses and specialist AI tools, all built around real inclusion work.
-                </p>
-                <div style={{ display: "flex", gap: "0.875rem", flexWrap: "wrap" }}>
-                  <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none" }}>Explore the Platform</Link>
-                  <Link href="/early-access" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--sage-dark)", background: "transparent", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid var(--sage-dark)" }}>Get Early Access</Link>
-                </div>
-              </div>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
-                {PLATFORM_FEATURES.map((f) => (
-                  <div key={f.title} style={{ background: "var(--sage-xlight)", borderRadius: "14px", padding: "1.5rem", border: "1px solid var(--gray-border)" }}>
-                    <div style={{ fontSize: "1.5rem", marginBottom: "0.6rem" }}>{f.icon}</div>
-                    <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--charcoal)", marginBottom: "0.5rem", lineHeight: 1.3 }}>{f.title}</h3>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--charcoal)", lineHeight: 1.65, opacity: 0.75, margin: 0 }}>{f.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* ── INCLUSION STARTING POINT FINDER ── */}
+        <StartingPointFinder />
 
         {/* ── SOCIAL PROOF ── */}
         {(() => {
@@ -383,6 +338,36 @@ export default function Home() {
           );
         })()}
 
+        {/* ── SERVICES ── */}
+        <section style={{ background: "var(--white)", padding: "5rem 1.5rem" }}>
+          <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "1rem", textAlign: "center" }}>Prefer us to work with you directly?</p>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.5rem, 3vw, 2rem)", color: "var(--charcoal)", marginBottom: "3rem", textAlign: "center" }}>Consultancy, training and bespoke resources.</h2>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem" }} className="services-grid">
+              {SERVICES.map((s) => (
+                <div key={s.label} style={{ background: "var(--white)", borderRadius: "16px", border: "1.5px solid rgba(107,143,113,0.3)", display: "flex", flexDirection: "column", overflow: "hidden", boxShadow: "0 4px 16px rgba(42,74,48,0.08), 0 1px 4px rgba(42,74,48,0.06)" }}>
+                  <div style={{ width: "100%", height: "160px", overflow: "hidden", flexShrink: 0, background: "linear-gradient(160deg, #c8dbc9 0%, #a8c4aa 100%)" }}>
+                    {s.image && <img src={s.image} alt={s.label} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />}
+                  </div>
+                  <div style={{ padding: "1.5rem", display: "flex", flexDirection: "column", flexGrow: 1, background: "linear-gradient(160deg, #f7fbf7 0%, #eef6ee 60%, #e4f0e4 100%)" }}>
+                  <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.75rem" }}>{s.label}</p>
+                  <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--charcoal)", lineHeight: 1.4, marginBottom: "0.875rem" }}>{s.heading}</h3>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--charcoal)", lineHeight: 1.75, opacity: 0.8, margin: "0 0 1.5rem", flexGrow: 1 }}>{s.body}</p>
+                  {"note" in s && s.note && <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.8rem", color: "var(--forest)", lineHeight: 1.5, margin: "-0.75rem 0 1.1rem" }}>{s.note}</p>}
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem 1.25rem", alignItems: "center" }}>
+                    <Link href={s.href} style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--sage-dark)", textDecoration: "none", alignSelf: "flex-start" }}>{s.cta} →</Link>
+                    {"call" in s && s.call && <a href={bookingLink(s.call)} target="_blank" rel="noopener noreferrer" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.5rem 0.9rem", borderRadius: "8px", textDecoration: "none" }}>Book a Planning Call<span className="a11y-sr"> (opens in a new tab)</span></a>}
+                  </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--slate)", textAlign: "center", margin: "2rem 0 0" }}>
+              Planning a bigger inclusion project for 2027? <a href={bookingLink("2027 planning")} target="_blank" rel="noopener noreferrer" style={{ color: "var(--sage-dark)", fontWeight: 700 }}>Book a free planning call<span className="a11y-sr"> (opens in a new tab)</span></a>.
+            </p>
+          </div>
+        </section>
+
         {/* ── FOUNDER ── */}
         <section style={{ padding: "5rem 1.5rem", background: "var(--white)" }}>
           <div style={{ maxWidth: "860px", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 340px", gap: "4rem", alignItems: "center" }} className="founder-split">
@@ -407,16 +392,17 @@ export default function Home() {
         <section style={{ background: "linear-gradient(135deg, #f0f5f0 0%, #e8f0e9 100%)", padding: "5rem 1.5rem" }}>
           <div style={{ maxWidth: "860px", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1.5rem" }} className="cta-split">
             <div style={{ background: "var(--white)", borderRadius: "20px", padding: "1.25rem 1.5rem", textAlign: "center", border: "2.5px solid var(--sage)", display: "flex", flexDirection: "column" }}>
-              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.875rem" }}>For leaders and organisations</p>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.2rem", color: "var(--charcoal)", lineHeight: 1.25, marginBottom: "1rem" }}>Ready to build inclusion that sticks?</h2>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.75, opacity: 0.75, marginBottom: "1.25rem" , flexGrow: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>Book a free 30 minute call to talk through what your organisation needs, whether that&apos;s consultancy, training or bespoke resources.</p>
-              <a href={bookingLink()} target="_blank" rel="noopener noreferrer" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.8rem 1rem", borderRadius: "8px", textDecoration: "none", display: "block", width: "100%", boxSizing: "border-box", marginTop: "auto" }}>Book a Free Inclusion Call<span className="a11y-sr"> (opens in a new tab)</span></a>
-            </div>
-            <div style={{ background: "var(--white)", borderRadius: "20px", padding: "1.25rem 1.5rem", textAlign: "center", border: "2.5px solid var(--sage)", display: "flex", flexDirection: "column" }}>
               <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.875rem" }}>For individuals and teams</p>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.2rem", color: "var(--charcoal)", lineHeight: 1.25, marginBottom: "1rem" }}>Be first to join the Impact Platform.</h2>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.75, opacity: 0.75, marginBottom: "1.25rem" , flexGrow: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>40 lessons, 45 practical tools, 47 research reports and case studies, and 10 Inclusion AI tools.</p>
               <Link href="/early-access" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.8rem 1rem", borderRadius: "8px", textDecoration: "none", display: "block", width: "100%", boxSizing: "border-box", marginTop: "auto" }}>Get Early Access</Link>
+              <Link href="/pricing#organisation" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--sage-dark)", textDecoration: "underline", marginTop: "0.7rem" }}>See team packs</Link>
+            </div>
+            <div style={{ background: "var(--white)", borderRadius: "20px", padding: "1.25rem 1.5rem", textAlign: "center", border: "2.5px solid var(--sage)", display: "flex", flexDirection: "column" }}>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.875rem" }}>For leaders and organisations</p>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.2rem", color: "var(--charcoal)", lineHeight: 1.25, marginBottom: "1rem" }}>Ready to build inclusion that sticks?</h2>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.75, opacity: 0.75, marginBottom: "1.25rem" , flexGrow: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>Book a free 30 minute call to talk through what your organisation needs, whether that&apos;s consultancy, training or bespoke resources.</p>
+              <a href={bookingLink()} target="_blank" rel="noopener noreferrer" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.8rem 1rem", borderRadius: "8px", textDecoration: "none", display: "block", width: "100%", boxSizing: "border-box", marginTop: "auto" }}>Book a Free Inclusion Call<span className="a11y-sr"> (opens in a new tab)</span></a>
             </div>
             <div style={{ background: "var(--sage-xlight)", border: "2.5px solid var(--sage)", borderRadius: "20px", padding: "1.25rem 1.5rem", textAlign: "center", display: "flex", flexDirection: "column" }}>
               <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.875rem" }}>Stay in the loop</p>
@@ -497,6 +483,20 @@ export default function Home() {
             <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.8)", margin: 0, fontStyle: "italic" }}>Recognised as an award-winning EDI consultancy by Corporate Vision</p>
             <a href="/subscribe" style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.8)", textDecoration: "underline", textDecorationColor: "rgba(255,255,255,0.3)", whiteSpace: "nowrap", marginRight: "2rem" }}>Sign up to our newsletter</a>
           </div>
+
+          {/* Site links */}
+          <nav aria-label="Footer" style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem 1.5rem", marginBottom: "0.9rem" }}>
+            {[
+              { href: "/about-our-impact-platform", label: "Impact Platform" },
+              { href: "/pricing", label: "Pricing" },
+              { href: "/early-access", label: "Get Early Access" },
+              { href: "/faqs", label: "FAQs" },
+              { href: "/contact-us", label: "Contact Us" },
+            ].map((l) => (
+              <a key={l.href} href={l.href} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "rgba(255,255,255,0.92)", textDecoration: "none" }}>{l.label}</a>
+            ))}
+            <a href="https://calendly.com/theinclusionedit/free-inclusion-call" target="_blank" rel="noopener noreferrer" style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "rgba(255,255,255,0.92)", textDecoration: "none" }}>Book a Free Call<span className="a11y-sr"> (opens in a new tab)</span></a>
+          </nav>
 
           {/* Bottom bar */}
           <div style={{ borderTop: "1px solid rgba(255,255,255,0.15)", paddingTop: "0.75rem", display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0.75rem" }}>

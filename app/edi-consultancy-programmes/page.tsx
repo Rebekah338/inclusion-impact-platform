@@ -1,4 +1,5 @@
 import SiteNav from "@/components/SiteNav";
+import HeroSideCard from "@/components/HeroSideCard";
 import Footer from "../components/Footer";
 import Link from "next/link";
 import { bookingLink } from "@/lib/booking";
@@ -16,9 +17,10 @@ export default function Consultancy() {
       {/* HERO */}
       <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, #1A3220 0%, #243D28 40%, #2E5235 65%, rgba(46,82,53,0.4) 100%)", zIndex: 0 }} />
-          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/watch-7-diverse-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 1 }} />
+          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/consultancy-hero.jpg')", backgroundSize: "cover", backgroundPosition: "center 20%", zIndex: 1 }} />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(100deg, rgba(20,40,25,0.95) 0%, rgba(20,40,25,0.85) 38%, rgba(20,40,25,0.3) 70%, rgba(20,40,25,0.05) 100%)", zIndex: 2 }} />
           <div style={{ position: "relative", zIndex: 3, maxWidth: "1100px", width: "100%", margin: "0 auto", padding: "5rem 2rem" }}>
+            <HeroSideCard kind="quote" quote="Rebekah was an excellent facilitator. She created a welcoming environment that encouraged honest reflection and meaningful discussion." name="Kerryann Wynter" role="The Berkeley School" />
             <div style={{ maxWidth: "560px" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.9)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.3)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>Inclusion Consultancy</span>
               <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.4rem, 5.5vw, 3.6rem)", color: "var(--white)", lineHeight: 1.08, marginBottom: "1.5rem" }}>
@@ -28,7 +30,7 @@ export default function Consultancy() {
                 We partner with organisations to design and deliver bespoke consultancy programmes that audit where you are, advise on where to go, and embed the changes that matter.
               </p>
               <div style={{ display: "flex", gap: "0.875rem", flexWrap: "wrap" }}>
-                <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Enquire About Consultancy</Link>
+                <Link href="/contact-us?interest=Inclusion%20Consultancy#contact-form" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Enquire About Consultancy</Link>
                 <Link href="/the-inclusion-business-case" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "rgba(255,255,255,0.12)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid rgba(255,255,255,0.4)", whiteSpace: "nowrap", backdropFilter: "blur(4px)" }}>See the Business Case</Link>
               </div>
             </div>
@@ -61,7 +63,7 @@ export default function Consultancy() {
             {/* PROGRAMME 1: 2027 Roadmap */}
             <div style={{ borderRadius: "16px", overflow: "hidden", boxShadow: "0 20px 60px rgba(0,0,0,0.12), 0 8px 20px rgba(0,0,0,0.08)", background: "#ffffff", borderTop: "5px solid #C9A84C", border: "1px solid rgba(201,168,76,0.3)", borderTopWidth: "5px" }}>
               <div style={{ position: "relative", height: "160px", overflow: "hidden" }}>
-                <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url('/watch-6-strategy.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%" }} />
+                <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url('/consultancy-roadmap.jpg')", backgroundSize: "cover", backgroundPosition: "center 50%" }} />
                 <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.1) 100%)" }} />
                 <div style={{ position: "absolute", inset: 0, padding: "1.25rem 1.5rem", display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
                   <span style={{ display: "inline-block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.1rem, 2.2vw, 1.4rem)", letterSpacing: "0", textTransform: "none", color: "var(--white)", marginBottom: "0.35rem" }}>2027 Inclusion &amp; Culture Roadmap</span>
@@ -104,6 +106,7 @@ export default function Consultancy() {
               </div>
               <div style={{ padding: "1.25rem 2rem" }}>
                 <a href={bookingLink("2027 planning")} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none" }}>Book a 2027 Planning Call →<span className="a11y-sr"> (opens in a new tab)</span></a>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)", margin: "0.6rem 0 0", lineHeight: 1.55 }}>A free 30 minute video call. Tell us what you are working on and we will suggest the right next step, with no obligation.</p>
               </div>
             </div>
 
@@ -153,13 +156,14 @@ export default function Consultancy() {
               </div>
               <div style={{ padding: "1.25rem 2rem" }}>
                 <a href={bookingLink("Inclusive leadership programme")} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none" }}>Book an Inclusive Leadership Call →<span className="a11y-sr"> (opens in a new tab)</span></a>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)", margin: "0.6rem 0 0", lineHeight: 1.55 }}>A free 30 minute video call. Tell us what you are working on and we will suggest the right next step, with no obligation.</p>
               </div>
             </div>
 
             {/* PROGRAMME 3: B Corp JEDI */}
             <div style={{ borderRadius: "16px", overflow: "hidden", boxShadow: "0 20px 60px rgba(0,0,0,0.12), 0 8px 20px rgba(0,0,0,0.08)", background: "#ffffff", borderTop: "5px solid #4a6080", border: "1px solid rgba(74,96,128,0.3)", borderTopWidth: "5px" }}>
               <div style={{ position: "relative", height: "160px", overflow: "hidden" }}>
-                <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url('/watch-2-collaboration.jpg')", backgroundSize: "cover", backgroundPosition: "center 35%" }} />
+                <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: "url('/hero.jpg')", backgroundSize: "cover", backgroundPosition: "center 30%" }} />
                 <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.1) 100%)" }} />
                 <div style={{ position: "absolute", inset: 0, padding: "1.25rem 1.5rem", display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
                   <span style={{ display: "inline-block", fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.1rem, 2.2vw, 1.4rem)", letterSpacing: "0", textTransform: "none", color: "var(--white)", marginBottom: "0.35rem" }}>B Corp JEDI Readiness</span>
@@ -201,6 +205,7 @@ export default function Consultancy() {
               </div>
               <div style={{ padding: "1.25rem 2rem" }}>
                 <a href={bookingLink("B Corp JEDI programme")} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none" }}>Book a B Corp JEDI Call →<span className="a11y-sr"> (opens in a new tab)</span></a>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--slate)", margin: "0.6rem 0 0", lineHeight: 1.55 }}>A free 30 minute video call. Tell us what you are working on and we will suggest the right next step, with no obligation.</p>
               </div>
             </div>
 
@@ -228,7 +233,7 @@ export default function Consultancy() {
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.83rem", color: "var(--charcoal)", opacity: 0.65, lineHeight: 1.65, marginBottom: "1rem" }}>
                 You can also add bespoke inclusion resources or fully branded e-learning modules to any programme: guides, toolkits and learning content designed in your look and your language.
               </p>
-              <Link href="/contact-us" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.7rem 1.4rem", borderRadius: "8px", textDecoration: "none" }}>Tell Us What You Need →</Link>
+              <Link href="/contact-us?interest=Inclusion%20Consultancy#contact-form" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.7rem 1.4rem", borderRadius: "8px", textDecoration: "none" }}>Tell Us What You Need →</Link>
             </div>
 
             <div style={{ background: "#1A3220", borderRadius: "14px", padding: "1.1rem 1.4rem" }}>
@@ -242,7 +247,7 @@ export default function Consultancy() {
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.83rem", color: "rgba(255,255,255,0.65)", lineHeight: 1.65, marginBottom: "1rem" }}>
                 Whether you need a single focused intervention or a multi-strand programme spanning months, we scope it together and build exactly what will make a difference for your people.
               </p>
-              <Link href="/contact-us" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "#1A3220", background: "var(--white)", padding: "0.7rem 1.4rem", borderRadius: "8px", textDecoration: "none" }}>Start the Conversation →</Link>
+              <Link href="/contact-us?interest=Inclusion%20Consultancy#contact-form" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "#1A3220", background: "var(--white)", padding: "0.7rem 1.4rem", borderRadius: "8px", textDecoration: "none" }}>Start the Conversation →</Link>
             </div>
 
           </div>
@@ -275,7 +280,7 @@ export default function Consultancy() {
         <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.4rem, 2.8vw, 2.1rem)", color: "var(--charcoal)", marginBottom: "0.6rem" }}>Ready to build something that lasts?</h2>
         <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--charcoal)", opacity: 0.7, maxWidth: "500px", margin: "0 auto 2rem" }}>Every engagement starts with a conversation. Tell us about your organisation and we will come back with how we can help.</p>
         <div style={{ display: "flex", gap: "1rem", justifyContent: "center", flexWrap: "wrap" }}>
-          <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none" }}>Start the Conversation</Link>
+          <Link href="/contact-us?interest=Inclusion%20Consultancy#contact-form" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none" }}>Start the Conversation</Link>
           <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", border: "2px solid var(--sage-dark)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", background: "transparent" }}>Explore the Platform</Link>
         </div>
       </section>

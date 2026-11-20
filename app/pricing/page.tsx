@@ -3,6 +3,8 @@
 import Link from 'next/link';
 import { bookingLink } from '@/lib/booking';
 import SiteNav from '@/components/SiteNav';
+import HeroSideCard from "@/components/HeroSideCard";
+import Footer from '../components/Footer';
 
 /* ─── Data ─────────────────────────────────────────────────────────────── */
 
@@ -24,7 +26,7 @@ const individualFeatures = [
 
 const orgFeatures = [
   { label: "Full seats included", small: "5", growing: "10", established: "25", enterprise: "50 or more" },
-  { label: "Every seat has Practitioner Plus access", small: true, growing: true, established: true, enterprise: true },
+  { label: "Every seat has Practitioner Plus access (AI tools, health check, advanced resources)", small: true, growing: true, established: true, enterprise: true },
   { label: "Full resource library", small: true, growing: true, established: true, enterprise: true },
   { label: "All learning modules (3 pathways)", small: true, growing: true, established: true, enterprise: true },
   { label: "Templates, guides and progress tracking", small: true, growing: true, established: true, enterprise: true },
@@ -66,7 +68,7 @@ function Cell({ value, highlight }: { value: boolean | string; highlight?: boole
 
 type Tier = {
   key: string; name: string; sub?: string; price: string; badge?: string; gold?: boolean; recommended?: boolean;
-  href: string; cta: string; note?: string; extra?: string;
+  href: string; cta: string; note?: string; extra?: string; saving?: string;
 };
 
 const individualTiers: Tier[] = [
@@ -76,9 +78,9 @@ const individualTiers: Tier[] = [
 ];
 
 const orgTiers: Tier[] = [
-  { key: "small", name: "Small Teams", sub: "5 full seats", price: "£1,750", extra: "£350 a seat", href: "/early-access?tier=small-teams#join", cta: "Get Early Access" },
-  { key: "growing", name: "Growing Teams", sub: "10 full seats", price: "£2,950", extra: "£295 a seat", recommended: true, href: "/early-access?tier=growing-teams#join", cta: "Get Early Access" },
-  { key: "established", name: "Established Teams", sub: "25 full seats", price: "£5,500", extra: "£220 a seat", href: "/early-access?tier=established#join", cta: "Get Early Access" },
+  { key: "small", name: "Small Teams", sub: "5 full seats", price: "£1,750", extra: "£350 a seat", saving: "£725 less than 5 Practitioner Plus memberships", href: "/early-access?tier=small-teams#join", cta: "Get Early Access" },
+  { key: "growing", name: "Growing Teams", sub: "10 full seats", price: "£2,950", extra: "£295 a seat", saving: "£2,000 less than 10 Practitioner Plus memberships", recommended: true, href: "/early-access?tier=growing-teams#join", cta: "Get Early Access" },
+  { key: "established", name: "Established Teams", sub: "25 full seats", price: "£5,500", extra: "£220 a seat", saving: "£6,875 less than 25 Practitioner Plus memberships", href: "/early-access?tier=established#join", cta: "Get Early Access" },
 ];
 
 function TierCards({ tiers, features }: { tiers: Tier[]; features: Array<{ label: string } & Record<string, string | boolean>> }) {
@@ -102,6 +104,7 @@ function TierCards({ tiers, features }: { tiers: Tier[]; features: Array<{ label
                 {t.price} <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.9rem", color: "var(--slate)" }}>/year</span>
               </p>
               {t.extra && <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--slate)", margin: "-0.6rem 0 1.1rem" }}>{t.extra}</p>}
+              {t.saving && <p style={{ fontFamily: "var(--font-body)", fontWeight: 700, fontSize: "0.85rem", color: "var(--evergreen)", margin: "-0.8rem 0 1.1rem" }}>{t.saving}</p>}
               <ul style={{ listStyle: "none", padding: 0, margin: "0 0 1.4rem", display: "flex", flexDirection: "column", gap: "0.55rem" }}>
                 {included.map((f) => (
                   <li key={f.label} style={{ display: "flex", gap: "0.6rem", alignItems: "flex-start", fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--ink)", lineHeight: 1.5 }}>
@@ -150,6 +153,7 @@ export default function PricingPage() {
         {/* Subtle top-edge gloss line */}
         <div aria-hidden="true" style={{ position: "absolute", top: 0, left: 0, right: 0, height: "1px", background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.18) 30%, rgba(255,255,255,0.28) 50%, rgba(255,255,255,0.18) 70%, transparent 100%)", pointerEvents: "none" }} />
         <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative" }}>
+            <HeroSideCard kind="cta" eyebrow="Need sign off?" title="Give your approver everything in one page." text="The seat packs, what every seat includes and what it costs, ready to forward to whoever approves the spend." href="/downloads/impact-platform-organisation-summary.pdf" label="Download the Summary (PDF)" />
           <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase" as const, color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.5rem" }}>
             Membership
           </span>
@@ -161,17 +165,6 @@ export default function PricingPage() {
           </p>
           <Link href="/early-access#join" style={{ display: "inline-block", lineHeight: 1.4, marginTop: "1.75rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Join Early Access</Link>
         </div>
-          {/* Award badge: bottom right of hero; sits under the button on small screens */}
-          <style>{`@media (max-width: 760px) { .pricing-award { position: static !important; display: inline-block; margin-top: 1.75rem; } }`}</style>
-          <div className="pricing-award" style={{ position: "absolute", bottom: "2rem", right: "2rem", zIndex: 4, background: "linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.08) 100%)", backdropFilter: "blur(16px)", border: "1px solid rgba(255,255,255,0.35)", borderRadius: "16px", padding: "1.25rem 1.5rem", textAlign: "center", maxWidth: "200px", boxShadow: "0 8px 32px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.1) inset" }}>
-            <div style={{ width: "36px", height: "36px", borderRadius: "50%", background: "linear-gradient(135deg, #f5c842 0%, #e8a820 100%)", margin: "0 auto 0.75rem", display: "flex", alignItems: "center", justifyContent: "center", boxShadow: "0 4px 12px rgba(232,168,32,0.5)", fontSize: "1.1rem", lineHeight: 1 }}>🏆</div>
-            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.58rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.55)", margin: "0 0 0.35rem" }}>Corporate Vision</p>
-            <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "0.95rem", color: "var(--white)", lineHeight: 1.15, margin: "0 0 0.35rem" }}>Best EDI Consultancy</p>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.62rem", color: "rgba(255,255,255,0.55)", margin: "0 0 0.6rem", lineHeight: 1.4 }}>HR &amp; Employment Awards 2026 · London</p>
-            <div style={{ borderTop: "1px solid rgba(255,255,255,0.15)", paddingTop: "0.6rem" }}>
-              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.68rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#f5c842", margin: 0 }}>Award Winner</p>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -187,7 +180,7 @@ export default function PricingPage() {
               Individual memberships
             </h2>
             <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", lineHeight: 1.75, color: "var(--slate)", margin: 0 }}>
-              No sign-off needed, no waiting on anyone else. Join the early access list and these memberships are yours as soon as the platform goes live. Your price then stays the same for your first two renewals.
+              No sign-off needed, no waiting on anyone else. Join the early access list and these memberships are yours as soon as the platform goes live. Your price then stays the same for your first two renewals. No VAT is added.
             </p>
           </div>
 
@@ -338,7 +331,8 @@ export default function PricingPage() {
                       <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "var(--evergreen)", margin: "0 0 0.25rem" }}>{t.name}</p>
                       <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--slate)", margin: "0 0 0.375rem" }}>{t.sub}</p>
                       <p style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.15rem", color: "var(--forest)", margin: "0 0 0.5rem", lineHeight: 1 }}>{t.price} <span style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.8rem", color: "var(--slate)" }}>/year</span></p>
-                      {t.extra && <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.75rem", color: "var(--slate)", margin: "-0.2rem 0 0.5rem" }}>{t.extra}</p>}
+                      {t.extra && <p style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontSize: "0.75rem", color: "var(--slate)", margin: "-0.2rem 0 0.35rem" }}>{t.extra}</p>}
+                      {t.saving && <p style={{ fontFamily: "var(--font-body)", fontWeight: 700, fontSize: "0.72rem", color: "var(--evergreen)", margin: "0 0 0.5rem", lineHeight: 1.4 }}>{t.saving}</p>}
                     </th>
                   ))}
                 </tr>
@@ -370,6 +364,7 @@ export default function PricingPage() {
             </table>
           </div>
           <TierCards tiers={orgTiers} features={orgFeatures} />
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "var(--slate)", lineHeight: 1.65, margin: "1.25rem 0 0" }}><strong style={{ color: "var(--forest)" }}>Full seat:</strong> full access for one named person. <strong style={{ color: "var(--forest)" }}>New starter:</strong> Inclusion Foundations, our onboarding module, for people joining your organisation. Prices are per year, and no VAT is added.</p>
           <div style={{ maxWidth: "760px", margin: "1.75rem auto 0", background: "var(--white)", borderRadius: "14px", border: "1.5px solid #c8d9cb", padding: "1.1rem 1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap" as const }}>
             <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--slate)", lineHeight: 1.6, margin: 0, flex: "1 1 360px" }}><strong style={{ color: "var(--forest)" }}>Need 50 or more seats?</strong> Talk to us about Enterprise: from £8,500 a year, with unlimited new starter onboarding, custom reporting and a dedicated contact.</p>
             <Link href="/contact-us" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", padding: "0.7rem 1.25rem", borderRadius: "8px", textDecoration: "none", border: "2px solid var(--evergreen)", color: "var(--evergreen)", whiteSpace: "nowrap" as const }}>Talk to Us<span className="sr-only"> about Enterprise</span></Link>
@@ -426,6 +421,7 @@ export default function PricingPage() {
             <a href={bookingLink("An organisation membership")} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none", background: "var(--white)", color: "var(--forest)", whiteSpace: "nowrap" as const }}>
               Book a Call to Discuss Your Organisation<span className="a11y-sr"> (opens in a new tab)</span>
             </a>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "rgba(255,255,255,0.7)", margin: "0.85rem 0 0", lineHeight: 1.6 }}>A free 30 minute video call. Tell us what you are working on and we will suggest the right next step, with no obligation.</p>
           </div>
         </div>
       </section>
@@ -438,6 +434,7 @@ export default function PricingPage() {
       </div>
 
     </main>
+    <Footer />
     </>
   );
 }

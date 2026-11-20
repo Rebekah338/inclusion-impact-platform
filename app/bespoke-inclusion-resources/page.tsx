@@ -1,4 +1,5 @@
 import SiteNav from "@/components/SiteNav";
+import HeroSideCard from "@/components/HeroSideCard";
 import Footer from "../components/Footer";
 import Link from "next/link";
 import TrustStrip from "../components/TrustStrip";
@@ -14,9 +15,10 @@ export default function BespokeResources() {
         {/* HERO */}
         <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(105deg, #1A3220 0%, #243D28 40%, #2E5235 65%, rgba(46,82,53,0.4) 100%)", zIndex: 0 }} />
-          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/bespoke-resources.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 1 }} />
+          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/bespoke-hero.jpg')", backgroundSize: "cover", backgroundPosition: "center 30%", zIndex: 1 }} />
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(100deg, rgba(20,40,25,0.95) 0%, rgba(20,40,25,0.85) 38%, rgba(20,40,25,0.3) 70%, rgba(20,40,25,0.05) 100%)", zIndex: 2 }} />
           <div style={{ position: "relative", zIndex: 3, maxWidth: "1100px", width: "100%", margin: "0 auto", padding: "5rem 2rem" }}>
+            <HeroSideCard place="bottom" kind="quote" quote="The Windrush resources were informative and detailed, delivered with professionalism, depth of understanding and a real expression of joy." name="Ruth Sinhal" role="Managing Director, Project FREE" />
             <div style={{ maxWidth: "560px" }}>
               <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>Bespoke Inclusion Resources</span>
               <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2.4rem, 5.5vw, 3.6rem)", color: "var(--white)", lineHeight: 1.08, marginBottom: "1.5rem" }}>
@@ -26,7 +28,7 @@ export default function BespokeResources() {
                 Off-the-shelf resources rarely drive real change. We create custom toolkits, guides and frameworks designed around your people, your sector and your goals, so you get something ready to use straight away, without having to find the time to build it yourself.
               </p>
               <div style={{ display: "flex", gap: "0.875rem", flexWrap: "wrap" }}>
-                <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Commission a Resource</Link>
+                <Link href="/contact-us?interest=Bespoke%20Inclusion%20Resources#contact-form" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Commission a Resource</Link>
                 <Link href="#what-we-create" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "rgba(255,255,255,0.12)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", border: "1.5px solid rgba(255,255,255,0.4)", whiteSpace: "nowrap", backdropFilter: "blur(4px)" }}>See What We Create</Link>
               </div>
             </div>
@@ -140,7 +142,7 @@ export default function BespokeResources() {
                       <span key={label} style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--sage-dark)", background: "rgba(74,138,92,0.1)", border: "1px solid rgba(74,138,92,0.25)", borderRadius: "999px", padding: "0.3rem 0.85rem", whiteSpace: "nowrap" }}>{label}</span>
                     ))}
                   </div>
-                  <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.75rem 1.75rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>Commission a Bespoke Resource</Link>
+                  <Link href="/contact-us?interest=Bespoke%20Inclusion%20Resources#contact-form" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.75rem 1.75rem", borderRadius: "8px", textDecoration: "none", display: "inline-block" }}>Commission a Bespoke Resource</Link>
                 </div>
               </div>
             </div>
@@ -209,7 +211,7 @@ export default function BespokeResources() {
             <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", background: "rgba(74,99,71,0.1)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1rem" }}>Get started</span>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.3rem, 2.5vw, 1.8rem)", color: "var(--charcoal)", marginBottom: "0.75rem" }}>Commission a Bespoke Resource</h2>
             <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", opacity: 0.75, maxWidth: "420px", margin: "0 auto 1.5rem", lineHeight: 1.7 }}>Tell us what you need and we will design something that works for your organisation.</p>
-            <Link href="/contact-us" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "#1A3220", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none" }}>Get in Touch</Link>
+            <Link href="/contact-us?interest=Bespoke%20Inclusion%20Resources#contact-form" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--white)", background: "#1A3220", padding: "0.875rem 2rem", borderRadius: "8px", textDecoration: "none" }}>Get in Touch</Link>
           </div>
         </section>
 

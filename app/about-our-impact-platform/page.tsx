@@ -4,8 +4,12 @@ import Link from "next/link";
 import { useState, useEffect, useRef } from "react";
 import { searchContent, CONTENT, FEATURED_CONTENT, TYPE_ICONS, TYPE_LABELS } from "@/lib/content";
 import SiteNav from "@/components/SiteNav";
+import HeroSideCard from "@/components/HeroSideCard";
 import SeeWhatsInside from "@/components/SeeWhatsInside";
+import PlatformPreview from "@/components/PlatformPreview";
+import Icon from "@/app/components/BrandIcon";
 import TrustStrip from "../components/TrustStrip";
+import Footer from "../components/Footer";
 
 const PULSE_QUESTIONS = [
   { id: "role", question: "What best describes your role?", options: ["EDI / D&I Lead or Manager", "HR Professional", "People Manager", "Senior Leader / Executive", "Consultant or Trainer", "Other"] },
@@ -33,7 +37,7 @@ const modulesByPathway = {
 const PATHWAY_INFO = [
   {
     key: "People & Culture",
-    icon: "🤝",
+    icon: "people",
     color: "var(--sage-dark)",
     bg: "var(--sage-xlight)",
     border: "var(--sage-light)",
@@ -43,7 +47,7 @@ const PATHWAY_INFO = [
   },
   {
     key: "Systems & Processes",
-    icon: "⚙️",
+    icon: "systems",
     color: "#5B6E5F",
     bg: "#F0F4F1",
     border: "#C8D9CB",
@@ -53,13 +57,13 @@ const PATHWAY_INFO = [
   },
   {
     key: "Leadership & Strategy",
-    icon: "🎯",
+    icon: "leadership",
     color: "#4A5E4E",
     bg: "#EEF3EF",
     border: "#BDD0C0",
     desc: "Strategy, governance, stakeholder engagement, and leading inclusion at scale.",
     count: modulesByPathway["Leadership & Strategy"].length,
-    img: "/workshop.jpg",
+    img: "/learn-hero.jpg",
   },
 ];
 
@@ -67,17 +71,17 @@ const WATCH_ITEMS = {
   "deep-dives": [
     { title: "What is EDI and Why Does It Matter?", duration: "~25 min", img: "/collaboration.jpg" },
     { title: "Leading with Inclusion: A Framework for Managers", duration: "~30 min", img: "/team-meeting.jpg" },
-    { title: "How to Build an EDI Strategy from Scratch", duration: "~35 min", img: "/workshop.jpg" },
+    { title: "How to Build an EDI Strategy from Scratch", duration: "~35 min", img: "/watch-4-meeting-discussion.jpg" },
   ],
   "masterclasses": [
     { title: "Understanding Intersectionality", duration: "~20 min", img: "/team-meeting.jpg" },
     { title: "Psychological Safety in Teams", duration: "~25 min", img: "/collaboration.jpg" },
-    { title: "Making the Business Case for EDI", duration: "~30 min", img: "/workshop.jpg" },
+    { title: "Making the Business Case for EDI", duration: "~30 min", img: "/watch-4-meeting-discussion.jpg" },
   ],
   "quick-wins": [
     { title: "Running an Inclusive Meeting", duration: "~6 min", img: "/collaboration.jpg" },
     { title: "Reading Your EDI Data", duration: "~10 min", img: "/team-meeting.jpg" },
-    { title: "Anti-Racism at Work: Quick Wins", duration: "~8 min", img: "/workshop.jpg" },
+    { title: "Anti-Racism at Work: Quick Wins", duration: "~8 min", img: "/watch-4-meeting-discussion.jpg" },
   ],
 } as const;
 
@@ -250,7 +254,7 @@ function PricingSection() {
   const activeBand = orgSize ? orgBands[orgSize] : null;
 
   return (
-    <section style={{ padding: "5rem 1.5rem", background: "var(--sage-xlight)" }} aria-label="Membership options">
+    <section style={{ padding: "5rem 1.5rem", background: "var(--white)" }} aria-label="Membership options">
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
 
         {/* Section header */}
@@ -429,7 +433,7 @@ function PricingSection() {
 
                 {/* Approver panel */}
                 <div style={{ marginTop: "1.5rem", background: "linear-gradient(160deg, #1A3220 0%, #1E3624 100%)", borderRadius: "14px", padding: "1.75rem 2rem", display: "flex", alignItems: "flex-start", gap: "1.25rem" }}>
-                  <div style={{ flexShrink: 0, width: "40px", height: "40px", borderRadius: "50%", background: "rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.1rem" }}>👤</div>
+                  <div style={{ flexShrink: 0, width: "40px", height: "40px", borderRadius: "50%", background: "rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.1rem", color: "#E2C265" }}><Icon name="briefcase" size={20} /></div>
                   <div>
                     <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "rgba(255,255,255,0.65)", marginBottom: "0.4rem" }}>For whoever approves the spend</div>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.85)", lineHeight: 1.65, margin: "0 0 0.6rem" }}><strong style={{ color: "var(--white)" }}>Where the budget can come from:</strong> learning and development, people and culture, leadership development, onboarding or employee engagement, not a separate inclusion line. One membership covers your team&rsquo;s development and your new starters&rsquo; onboarding, so it often replaces costs you already have.</p>
@@ -476,6 +480,7 @@ export default function Home() {
   const [platformTab, setPlatformTab] = useState<"pathways" | "watch" | "resources">("pathways");
   const [aiCarouselIdx, setAiCarouselIdx] = useState(0);
   const [joinModalOpen, setJoinModalOpen] = useState(false);
+  const [preview, setPreview] = useState<{ area?: string; tool?: string } | null>(null);
   const [joinModalItem, setJoinModalItem] = useState("");
   const [challengeText, setChallengeText] = useState("");
   const [challengeSubmitted, setChallengeSubmitted] = useState(false);
@@ -534,11 +539,9 @@ export default function Home() {
           {/* Hero photo overlay */}
           <div style={{
             position: "absolute", inset: 0,
-            backgroundImage: "url('/hero-people.jpg')",
+            backgroundImage: "url('/platform-hero.jpg')",
             backgroundSize: "cover",
-            backgroundPosition: "center 30%",
-            opacity: 0.35,
-            mixBlendMode: "luminosity",
+            backgroundPosition: "center 25%",
           }} aria-hidden="true" />
 
           {/* Fade left so text stays readable */}
@@ -549,6 +552,7 @@ export default function Home() {
 
           {/* Logo top-right of hero */}
           <div style={{ position: "relative", zIndex: 2, maxWidth: "1100px", margin: "0 auto", padding: "5rem 2rem", width: "100%" }}>
+            <HeroSideCard kind="facts" eyebrow="Launching January 2027" title="Be one of the first members." points={["Welcomed in small groups of 10, in the order people join", "160 resources and 10 Inclusion AI tools", "From £34 a month for individuals"]} />
             <div style={{ maxWidth: "560px" }}>
           <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>
               The Impact Platform · Tools, learning and expert support
@@ -622,38 +626,97 @@ export default function Home() {
 
         {/* SEE WHAT'S INSIDE FOR YOU */}
         <SeeWhatsInside />
+        {/* INSIDE THE PLATFORM: one overview of every area, each opens a preview */}
+        <section id="inside" style={{ padding: "4rem 1.5rem", position: "relative", overflow: "hidden", scrollMarginTop: "80px" }}>
+          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/team-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 0 }} aria-hidden="true" />
+          <div style={{ position: "absolute", inset: 0, background: "rgba(240, 244, 241, 0.92)", backdropFilter: "blur(2px)", zIndex: 1 }} aria-hidden="true" />
+          <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 2 }}>
+            <div style={{ textAlign: "center", marginBottom: "2.25rem" }}>
+              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "rgba(107,143,113,0.14)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1rem" }}>Inside the Impact Platform</span>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", margin: "0 0 0.6rem", letterSpacing: "-0.01em" }}>Learn it, apply it, prove it: all in one place.</h2>
+              <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.02rem", maxWidth: "600px", margin: "0 auto", lineHeight: 1.65 }}>Seven areas built for the person carrying inclusion.</p>
+              <p style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.92rem", color: "var(--forest)", background: "#E3F5E2", border: "1.5px solid rgba(107,143,113,0.45)", borderRadius: "999px", padding: "0.5rem 1.1rem", margin: "1rem 0 0" }}>
+                <span style={{ display: "inline-flex", color: "var(--evergreen)" }}><Icon name="pointer" size={18} /></span>
+                Tap any area to open a preview, then scroll to see what&apos;s inside
+              </p>
+            </div>
+            {(() => {
+              const AREA_CARDS = [
+                { area: "learn", icon: "book", label: "Learn", sub: "Learning pathways", img: "/learn-hero.jpg", desc: "Courses that build knowledge and confidence, one practical lesson at a time.", facts: "3 pathways · 15 modules · CPD certificates" },
+                { area: "watch", icon: "video", label: "Watch", sub: "Expert videos", img: "/watch-5-team-presentation.jpg", desc: "Expert insight you can apply the same week, in the time you have.", facts: "Masterclasses, skills sessions and quick takes" },
+                { area: "ai", icon: "sparkle", label: "Inclusion AI", sub: "Specialist AI tools", img: "/inclusion-ai-hero.jpg", desc: "Tools that do the heavy lifting: fast, evidence based and ready to use.", facts: "10 tools · more time for what matters", gold: true },
+                { area: "apply", icon: "wrench", label: "Apply", sub: "Practical tools", img: "/resources-template.jpg", desc: "Turn good intentions into documented, defensible action.", facts: "Checklists, guides, toolkits and frameworks" },
+                { area: "case", icon: "chart", label: "Make the Case", sub: "Research and case studies", img: "/make-the-case-hero.jpg", desc: "The data and evidence your leadership team needs.", facts: "27 research summaries · 20 case studies" },
+                { area: "editors", icon: "people", label: "The Inclusion Editors", sub: "Community", img: "/inclusion-editors-hero.jpg", desc: "Share what works with others carrying inclusion, and know you are not alone.", facts: "A peer community, worldwide" },
+                { area: "support", icon: "message", label: "Get Support", sub: "Office hours", img: "/get-support-hero.jpg", desc: "A real person to check your thinking with, when you need it.", facts: "Office hours with an inclusion expert" },
+              ];
+              const card = (c: (typeof AREA_CARDS)[number]) => (
+                <button type="button" key={c.area} onClick={() => setPreview({ area: c.area })} aria-label={`Preview ${c.label}`} className="pp-card" style={{ display: "flex", flexDirection: "column", width: "100%", padding: 0, font: "inherit", textAlign: "left", cursor: "pointer", background: c.gold ? "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 60%, #FAF6EE 100%)" : "var(--white)", borderRadius: "16px", overflow: "hidden", border: c.gold ? "2px solid rgba(201,168,76,0.6)" : "1.5px solid var(--gray-border)", boxShadow: c.gold ? "0 6px 26px rgba(201,168,76,0.18)" : "0 4px 18px rgba(26,50,32,0.08)" }}>
+                  <div style={{ height: "150px", width: "100%", backgroundImage: `url('${c.img}')`, backgroundSize: "cover", backgroundPosition: "center 35%", position: "relative" }}>
+                    <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 35%, rgba(0,0,0,0.55) 100%)" }} />
+                    <div style={{ position: "absolute", left: "0.9rem", bottom: "0.6rem", display: "flex", alignItems: "center", gap: "0.45rem", color: "var(--white)" }}>
+                      <Icon name={c.icon} size={20} />
+                      <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1.08rem" }}>{c.label}</span>
+                    </div>
+                  </div>
+                  <div style={{ padding: "1rem 1.15rem 1.1rem", display: "flex", flexDirection: "column", gap: "0.45rem", flex: 1 }}>
+                    <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.66rem", letterSpacing: "0.12em", textTransform: "uppercase", color: c.gold ? "#7A5200" : "var(--sage-dark)" }}>{c.sub}</span>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--gray-soft)", lineHeight: 1.55, margin: 0 }}>{c.desc}</p>
+                    <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--forest)", margin: "0.15rem 0 0.35rem", lineHeight: 1.4 }}>{c.facts}</p>
+                    <div style={{ marginTop: "auto", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.76rem", color: "var(--sage-dark)" }}>
+                      <span>Included in membership</span>
+                      <span style={{ display: "inline-flex", alignItems: "center", gap: "0.3rem", color: "var(--evergreen)" }}><Icon name="eye" size={14} /> Preview</span>
+                    </div>
+                  </div>
+                </button>
+              );
+              return (
+                <>
+                  <div className="inside-top" style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0,1fr))", gap: "1.25rem", marginBottom: "1.25rem" }}>{AREA_CARDS.slice(0, 4).map(card)}</div>
+                  <div className="inside-bottom" style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0,1fr))", gap: "1.25rem", maxWidth: "840px", margin: "0 auto" }}>{AREA_CARDS.slice(4).map(card)}</div>
+                </>
+              );
+            })()}
+            <div style={{ textAlign: "center", marginTop: "2rem" }}>
+              <Link href="/early-access#join" className="btn-primary" style={{ fontSize: "0.95rem", padding: "0.875rem 2rem" }}>Get Early Access</Link>
+            </div>
+          </div>
+          <style>{`@media (max-width: 960px) { .inside-top, .inside-bottom { grid-template-columns: repeat(2, minmax(0,1fr)) !important; max-width: none !important; } } @media (max-width: 560px) { .inside-top, .inside-bottom { grid-template-columns: 1fr !important; } }`}</style>
+        </section>
+
         {/* INCLUSION AI SECTION */}
         {(() => {
           const AI_TOOLS_CAROUSEL = [
-            { icon: "⚖️", name: "Evidence Argument Builder", desc: "Build a compelling, evidence-backed business case for EDI investment tailored to your organisation.", href: "/early-access", badge: "Available now", badgeColor: "#3D6142" },
-            { icon: "🔬", name: "Research Interpreter", desc: "Paste any research paper or report and get an inclusion-focused summary with practical takeaways.", href: "/early-access", badge: "Available now", badgeColor: "#3D6142" },
-            { icon: "📖", name: "Case Study Roadmap", desc: "Turn an external case study into a step-by-step replication roadmap for your own organisation.", href: "/early-access", badge: "Available now", badgeColor: "#3D6142" },
-            { icon: "📋", name: "Policy Equity Auditor", desc: "Upload any policy and get a detailed equity audit: inclusive language, missing provisions, legal framework alignment and action points.", href: "/early-access", badge: "Coming soon", badgeColor: "#C9A84C" },
-            { icon: "💼", name: "Job Description Equity Checker", desc: "Identify biased language, gendered wording and barriers to diverse applicants before your role goes live.", href: "/early-access", badge: "Coming soon", badgeColor: "#C9A84C" },
-            { icon: "🎯", name: "Interview Question Generator", desc: "Generate structured, bias-aware interview questions aligned to your role competencies and inclusion values.", href: "/early-access", badge: "Coming soon", badgeColor: "#C9A84C" },
-            { icon: "🏥", name: "Inclusion Health Check", desc: "A rapid diagnostic that surfaces your organisation's inclusion strengths, gaps and priority actions.", href: "/early-access", badge: "Coming soon", badgeColor: "#C9A84C" },
-            { icon: "📊", name: "Pay Gap Narrative Generator", desc: "Turn your gender pay gap data into a clear, compliant and compelling narrative for your annual report.", href: "/early-access", badge: "Coming soon", badgeColor: "#C9A84C" },
-            { icon: "🔍", name: "Gender Pay Gap Analysis Tool", desc: "Input your pay data and receive a full analysis with root cause indicators and recommended actions.", href: "/early-access", badge: "Coming soon", badgeColor: "#C9A84C" },
+            { icon: "scale", name: "Evidence Argument Builder", desc: "Build a compelling, evidence-backed business case for EDI investment tailored to your organisation.", href: "/early-access", badge: "Available now", badgeColor: "#3D6142" },
+            { icon: "microscope", name: "Research Interpreter", desc: "Paste any research paper or report and get an inclusion-focused summary with practical takeaways.", href: "/early-access", badge: "Available now", badgeColor: "#3D6142" },
+            { icon: "book", name: "Case Study Roadmap", desc: "Turn an external case study into a step-by-step replication roadmap for your own organisation.", href: "/early-access", badge: "Available now", badgeColor: "#3D6142" },
+            { icon: "clipboard", name: "Policy Equity Auditor", desc: "Upload any policy and get a detailed equity audit: inclusive language, missing provisions, legal framework alignment and action points.", href: "/early-access", badge: "Coming soon", badgeColor: "#C9A84C" },
+            { icon: "briefcase", name: "Job Description Equity Checker", desc: "Identify biased language, gendered wording and barriers to diverse applicants before your role goes live.", href: "/early-access", badge: "Coming soon", badgeColor: "#C9A84C" },
+            { icon: "target", name: "Interview Question Generator", desc: "Generate structured, bias-aware interview questions aligned to your role competencies and inclusion values.", href: "/early-access", badge: "Coming soon", badgeColor: "#C9A84C" },
+            { icon: "pulse", name: "Inclusion Health Check", desc: "A rapid diagnostic that surfaces your organisation's inclusion strengths, gaps and priority actions.", href: "/early-access", badge: "Coming soon", badgeColor: "#C9A84C" },
+            { icon: "chart", name: "Pay Gap Narrative Generator", desc: "Turn your gender pay gap data into a clear, compliant and compelling narrative for your annual report.", href: "/early-access", badge: "Coming soon", badgeColor: "#C9A84C" },
+            { icon: "search", name: "Gender Pay Gap Analysis Tool", desc: "Input your pay data and receive a full analysis with root cause indicators and recommended actions.", href: "/early-access", badge: "Coming soon", badgeColor: "#C9A84C" },
           ];
           const totalSlides = Math.ceil(AI_TOOLS_CAROUSEL.length / 3);
           const visibleTools = AI_TOOLS_CAROUSEL.slice(aiCarouselIdx * 3, aiCarouselIdx * 3 + 3);
           return (
             <section id="ai" style={{ padding: "4.5rem 1.5rem", position: "relative", overflow: "hidden" }}>
-              {/* Background: same faded photo technique as Learning Pathways */}
-              <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/team-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 0 }} aria-hidden="true" />
-              <div style={{ position: "absolute", inset: 0, background: "rgba(232, 238, 230, 0.93)", backdropFilter: "blur(2px)", zIndex: 1 }} aria-hidden="true" />
+              {/* Deep forest ground with a soft gold glow: the standout feature gets the most elevated section */}
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg, #1A3220 0%, #1E3624 55%, #2C4A31 100%)", zIndex: 0 }} aria-hidden="true" />
+              <div style={{ position: "absolute", top: "-140px", left: "50%", transform: "translateX(-50%)", width: "820px", height: "460px", background: "radial-gradient(ellipse at center, rgba(201,168,76,0.20) 0%, rgba(201,168,76,0.07) 40%, transparent 70%)", zIndex: 1, pointerEvents: "none" }} aria-hidden="true" />
+              <div style={{ position: "absolute", bottom: "-160px", right: "-120px", width: "420px", height: "420px", borderRadius: "50%", border: "1px solid rgba(255,255,255,0.07)", zIndex: 1 }} aria-hidden="true" />
 
               <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 2 }}>
                 {/* Header */}
                 <div style={{ textAlign: "center", marginBottom: "3rem" }}>
-                  <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.16em", color: "#8B6914", background: "rgba(201,168,76,0.18)", border: "1px solid rgba(201,168,76,0.4)", padding: "0.35rem 1rem", borderRadius: "999px", marginBottom: "1.25rem" }}>
-                    Inclusion AI
+                  <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.16em", color: "#E2C265", background: "rgba(201,168,76,0.14)", border: "1px solid rgba(226,194,101,0.45)", padding: "0.35rem 1rem", borderRadius: "999px", marginBottom: "1.25rem" }}>
+                    A closer look: Inclusion AI
                   </span>
-                  <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "1rem", letterSpacing: "-0.01em" }}>
-                    AI tools that turn hours of inclusion work into minutes.
+                  <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--white)", marginBottom: "1rem", letterSpacing: "-0.01em" }}>
+                    AI tools that give you time back for the work only you can do.
                   </h2>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", color: "var(--gray-soft)", maxWidth: "620px", margin: "0 auto", lineHeight: 1.7 }}>
-                    Audit policies, build your business case, check job descriptions and analyse pay gaps, with tools built for the real complexity of inclusion work.
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", color: "rgba(255,255,255,0.82)", maxWidth: "620px", margin: "0 auto", lineHeight: 1.7 }}>
+                    Let Inclusion AI take on the first draft, the research and the checking, so you can spend your time on the conversations and decisions that make inclusion last.
                   </p>
                 </div>
 
@@ -670,7 +733,7 @@ export default function Home() {
                   {/* Cards */}
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", marginBottom: "2rem" }}>
                     {visibleTools.map((tool) => (
-                      <Link key={tool.name} href={tool.href} style={{ textDecoration: "none" }}>
+                      <button type="button" key={tool.name} onClick={() => setPreview({ tool: tool.name })} aria-label={`Preview ${tool.name}`} className="pp-card" style={{ background: "none", border: "none", padding: 0, font: "inherit", textAlign: "left", cursor: "pointer", width: "100%" }}>
                         <div
                           style={{ position: "relative", background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 50%, #FAF6EE 100%)", border: "1px solid rgba(201,168,76,0.25)", borderRadius: "16px", padding: "1.75rem", height: "100%", cursor: "pointer", transition: "box-shadow 0.2s, transform 0.2s", boxSizing: "border-box", boxShadow: "0 0 0 3px rgba(201,168,76,0.12), 0 0 18px 4px rgba(201,168,76,0.13), 0 4px 20px rgba(0,0,0,0.06)", overflow: "hidden" }}
                           onMouseEnter={(e) => { const el = e.currentTarget as HTMLElement; el.style.boxShadow = "0 0 0 3px rgba(201,168,76,0.22), 0 0 32px 8px rgba(201,168,76,0.22), 0 8px 32px rgba(0,0,0,0.09)"; el.style.transform = "translateY(-4px)"; }}
@@ -687,7 +750,7 @@ export default function Home() {
                             <circle cx="60" cy="60" r="38" stroke="#C9A84C" strokeWidth="1"/>
                           </svg>
                           <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: "1rem", gap: "0.5rem" }}>
-                            <span style={{ fontSize: "1.75rem" }} aria-hidden="true">{tool.icon}</span>
+                            <span style={{ color: "#8B6914" }}><Icon name={tool.icon} size={28} /></span>
                             <span style={{ fontFamily: "var(--font-heading)", fontSize: "0.62rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: tool.badge === "Available now" ? "#2C4A31" : "#7A5200", background: tool.badge === "Available now" ? "rgba(61,97,66,0.12)" : "rgba(255,255,255,0.6)", border: `1px solid ${tool.badge === "Available now" ? "rgba(61,97,66,0.3)" : "rgba(180,130,20,0.4)"}`, padding: "0.2rem 0.55rem", borderRadius: "999px", flexShrink: 0, whiteSpace: "nowrap" }}>
                               {tool.badge}
                             </span>
@@ -695,7 +758,7 @@ export default function Home() {
                           <div style={{ position: "relative", zIndex: 1, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "0.5rem", lineHeight: 1.3 }}>{tool.name}</div>
                           <div style={{ position: "relative", zIndex: 1, fontFamily: "var(--font-body)", fontSize: "0.84rem", color: "#4A4A4A", lineHeight: 1.65 }}>{tool.desc}</div>
                         </div>
-                      </Link>
+                      </button>
                     ))}
                   </div>
 
@@ -715,15 +778,15 @@ export default function Home() {
                       key={i}
                       onClick={() => setAiCarouselIdx(i)}
                       aria-label={`Go to slide ${i + 1}`}
-                      style={{ width: i === aiCarouselIdx ? "1.5rem" : "0.5rem", height: "0.5rem", borderRadius: "999px", border: "none", background: i === aiCarouselIdx ? "#C9A84C" : "rgba(42,74,48,0.2)", cursor: "pointer", padding: "8px", boxSizing: "content-box", backgroundClip: "content-box", transition: "all 0.2s" }}
+                      style={{ width: i === aiCarouselIdx ? "1.5rem" : "0.5rem", height: "0.5rem", borderRadius: "999px", border: "none", backgroundColor: i === aiCarouselIdx ? "#E2C265" : "rgba(255,255,255,0.3)", cursor: "pointer", padding: "8px", boxSizing: "content-box", backgroundClip: "content-box", transition: "all 0.2s" }}
                     />
                   ))}
                 </div>
 
                 {/* CTA */}
                 <div style={{ textAlign: "center" }}>
-                  <Link href="/early-access" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--white)", background: "linear-gradient(135deg, #3D6142 0%, #2C4A31 100%)", padding: "0.875rem 2.25rem", borderRadius: "10px", textDecoration: "none", boxShadow: "0 4px 16px rgba(42,74,48,0.25)" }}>
-                    Explore all 10 Inclusion AI tools →
+                  <Link href="/early-access" style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--forest)", background: "var(--white)", padding: "0.875rem 2.25rem", borderRadius: "10px", textDecoration: "none", boxShadow: "0 4px 16px rgba(42,74,48,0.25)" }}>
+                    Get early access to all 10 tools →
                   </Link>
                 </div>
               </div>
@@ -731,214 +794,6 @@ export default function Home() {
           );
         })()}
 
-        {/* EVERYTHING YOU NEED */}
-        <section style={{ padding: "4rem 1.5rem 5rem", background: "var(--white)" }}>
-          <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-            <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--sage-xlight)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "1rem" }}>
-                The platform
-              </span>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "0.75rem", letterSpacing: "-0.01em" }}>
-                Learn it, apply it, prove it: all in one place.
-              </h2>
-              <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1.05rem", maxWidth: "640px", margin: "0 auto", lineHeight: 1.65, whiteSpace: "nowrap" }}>
-                The tools, training and evidence to build a culture that performs.
-              </p>
-            </div>
-
-            {/* Top row: Learn, Watch, Inclusion AI, Apply — all equal height via grid rows */}
-            <div className="platform-cards-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "1.25rem", marginBottom: "1.25rem", gridAutoRows: "1fr" }}>
-              {[
-                { href: "/early-access", icon: "📚", label: "Learn", sub: "Learning Pathways", desc: "Build the knowledge base that reduces risk and drives performance." },
-                { href: "/early-access", icon: "🎥", label: "Watch", sub: "Expert Videos", desc: "Expert insight you can apply the same week." },
-              ].map((f) => (
-                <Link key={f.label} href={f.href} style={{ textDecoration: "none", display: "flex" }}>
-                  <div style={{
-                    background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)",
-                    borderRadius: "18px", padding: "1.5rem 1.25rem",
-                    boxShadow: "0 6px 28px rgba(42,74,48,0.22)",
-                    cursor: "pointer", flex: 1, position: "relative", overflow: "hidden",
-                  }}>
-                    <div style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
-                    <div style={{ fontSize: "1.75rem", marginBottom: "0.75rem" }} aria-hidden="true">{f.icon}</div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1rem", color: "white", marginBottom: "0.2rem" }}>{f.label}</div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.625rem" }}>{f.sub}</div>
-                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.55 }}>{f.desc}</div>
-                  </div>
-                </Link>
-              ))}
-              {/* Inclusion AI card — gold bordered */}
-              <Link href="/early-access" style={{ textDecoration: "none", display: "flex" }}>
-                <div style={{
-                  background: "linear-gradient(160deg, #FFFFFF 0%, #FDFAF5 50%, #FAF6EE 100%)",
-                  borderRadius: "18px", padding: "1.5rem 1.25rem",
-                  border: "2px solid rgba(201,168,76,0.55)",
-                  boxShadow: "0 6px 28px rgba(201,168,76,0.18), 0 0 0 1px rgba(201,168,76,0.12)",
-                  cursor: "pointer", flex: 1, position: "relative", overflow: "hidden",
-                }}>
-                  <div style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(201,168,76,0.1)" }} />
-                  <div style={{ fontSize: "1.75rem", marginBottom: "0.75rem" }} aria-hidden="true">✨</div>
-                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1rem", color: "var(--charcoal)", marginBottom: "0.2rem" }}>Inclusion AI</div>
-                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "#8B6914", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.625rem" }}>Inclusion AI Tools</div>
-                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--gray-soft)", lineHeight: 1.55 }}>AI tools that do the heavy lifting: fast, evidence-based and ready to use.</div>
-                </div>
-              </Link>
-              {/* Apply card */}
-              <Link href="/early-access" style={{ textDecoration: "none", display: "flex" }}>
-                <div style={{
-                  background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)",
-                  borderRadius: "18px", padding: "1.5rem 1.25rem",
-                  boxShadow: "0 6px 28px rgba(42,74,48,0.22)",
-                  cursor: "pointer", flex: 1, position: "relative", overflow: "hidden",
-                }}>
-                  <div style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
-                  <div style={{ fontSize: "1.75rem", marginBottom: "0.75rem" }} aria-hidden="true">🛠️</div>
-                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1rem", color: "white", marginBottom: "0.2rem" }}>Apply</div>
-                  <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.625rem" }}>Practical Tools</div>
-                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.55 }}>Turn good intentions into documented, defensible action.</div>
-                </div>
-              </Link>
-            </div>
-            {/* Bottom row: Make the Case, The Inclusion Editors, Get Support — same height as top row */}
-            <div className="platform-cards-bottom" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem", maxWidth: "900px", margin: "0 auto", gridAutoRows: "1fr" }}>
-              {[
-                { href: "/early-access", icon: "📊", label: "Make the Case", sub: "Research and Case Studies", desc: "The data and evidence your leadership team needs." },
-                { href: "/early-access", icon: "🌍", label: "The Inclusion Editors", sub: "Community", desc: "Connect with others carrying inclusion, share what works, and know you are not alone." },
-                { href: "/early-access", icon: "🤝", label: "Get Support", sub: "Office Hours", desc: "Book office hours with an inclusion expert, or join a live event." },
-              ].map((f) => (
-                <Link key={f.label} href={f.href} style={{ textDecoration: "none", display: "flex" }}>
-                  <div style={{
-                    background: "linear-gradient(160deg, #3D6142 0%, #2C4A31 60%, #1E3624 100%)",
-                    borderRadius: "18px", padding: "1.5rem 1.25rem",
-                    boxShadow: "0 6px 28px rgba(42,74,48,0.22)",
-                    cursor: "pointer", flex: 1, position: "relative", overflow: "hidden",
-                  }}>
-                    <div style={{ position: "absolute", top: "-15px", right: "-15px", width: "80px", height: "80px", borderRadius: "50%", background: "rgba(255,255,255,0.05)" }} />
-                    <div style={{ fontSize: "1.75rem", marginBottom: "0.75rem" }} aria-hidden="true">{f.icon}</div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1rem", color: "white", marginBottom: "0.2rem" }}>{f.label}</div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.7rem", color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "0.625rem" }}>{f.sub}</div>
-                    <div style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(255,255,255,0.78)", lineHeight: 1.55 }}>{f.desc}</div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-
-
-
-
-        {/* WHAT'S INSIDE */}
-        <section style={{ padding: "3.5rem 1.5rem", position: "relative", overflow: "hidden" }}>
-          <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/team-meeting.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", zIndex: 0 }} aria-hidden="true" />
-          <div style={{ position: "absolute", inset: 0, background: "rgba(240, 244, 241, 0.91)", backdropFilter: "blur(2px)", zIndex: 1 }} aria-hidden="true" />
-          <div style={{ maxWidth: "1100px", margin: "0 auto", position: "relative", zIndex: 2 }}>
-
-            {/* Section heading */}
-            <div style={{ textAlign: "center", marginBottom: "2.5rem" }}>
-              <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.14em", color: "var(--sage-dark)", background: "var(--white)", border: "1px solid var(--sage-light)", padding: "0.3rem 0.875rem", borderRadius: "999px", marginBottom: "0.75rem" }}>
-                Inside the platform
-              </span>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.75rem, 4vw, 2.75rem)", color: "var(--charcoal)", marginBottom: "0.45rem" }}>
-                What&apos;s inside
-              </h2>
-              <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "1rem", maxWidth: "520px", margin: "0 auto" }}>
-                Practical knowledge, expert insight and ready-to-use tools, so you can lead inclusion with confidence, not guesswork.
-              </p>
-            </div>
-
-            {/* Row 1: Learning pathways */}
-            <div style={{ marginBottom: "2.5rem" }}>
-              <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", marginBottom: "1rem" }}>
-                <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1rem", color: "var(--charcoal)", margin: 0 }}>Learning pathways</h3>
-                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--gray-soft)" }}>Build a genuine understanding of the issues that matter</span>
-              </div>
-              <div className="pathways-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem" }}>
-                {PATHWAY_INFO.map((p) => (
-                  <div key={p.key} style={{ background: "var(--white)", borderRadius: "14px", overflow: "hidden", border: "1.5px solid var(--gray-border)" }}>
-                    <div style={{ height: "110px", backgroundImage: `url('${p.img}')`, backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
-                      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.5) 100%)" }} />
-                    </div>
-                    <div style={{ padding: "0.875rem 1rem 1rem" }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", marginBottom: "0.3rem" }}>
-                        <span style={{ fontSize: "1rem" }} aria-hidden="true">{p.icon}</span>
-                        <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.88rem", color: "var(--charcoal)" }}>{p.key}</span>
-                      </div>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--gray-soft)", lineHeight: 1.5, margin: 0 }}>{p.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Row 2: Watch library */}
-            <div style={{ marginBottom: "2.5rem" }}>
-              <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", marginBottom: "1rem" }}>
-                <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1rem", color: "var(--charcoal)", margin: 0 }}>Watch library</h3>
-                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--gray-soft)" }}>Get expert insight in the time you actually have</span>
-              </div>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem" }}>
-                {([
-                  { icon: "🎓", label: "Masterclasses", sub: "30–45 min", desc: "In-depth expert sessions on complex inclusion topics.", img: "/watch-deep-dives.jpg" },
-                  { icon: "🎬", label: "Skills Sessions", sub: "15–30 min", desc: "Step-by-step sessions on core inclusion skills.",  img: "/watch-masterclass.jpg" },
-                  { icon: "⚡",     label: "Quick Takes",    sub: "5–10 min",  desc: "Sharp, actionable takeaways for a busy week.",       img: "/watch-nuggets.jpg" },
-                ] as const).map((w) => (
-                  <div key={w.label} style={{ background: "var(--white)", borderRadius: "14px", overflow: "hidden", border: "1.5px solid var(--gray-border)" }}>
-                    <div style={{ height: "110px", backgroundImage: `url('${w.img}')`, backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
-                      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.55) 100%)" }} />
-                      <div style={{ position: "absolute", bottom: "0.6rem", left: "0.875rem", right: "0.875rem", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                        <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.82rem", color: "white" }}><span aria-hidden="true">{w.icon}</span> {w.label}</span>
-                        <span style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", color: "rgba(255,255,255,0.85)", whiteSpace: "nowrap" }}>{w.sub}</span>
-                      </div>
-                    </div>
-                    <div style={{ padding: "0.875rem 1rem 1rem", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--gray-soft)", lineHeight: 1.5, margin: 0 }}>{w.desc}</p>
-                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: "var(--sage-dark)" }}>Members only 🔒</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Row 3: Resources */}
-            <div style={{ marginBottom: "2rem" }}>
-              <div style={{ display: "flex", alignItems: "baseline", gap: "0.75rem", marginBottom: "1rem" }}>
-                <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "1rem", color: "var(--charcoal)", margin: 0 }}>Resources and frameworks</h3>
-                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--gray-soft)" }}>Pick up a tool and apply it today</span>
-              </div>
-              <div className="resources-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem" }}>
-                {[
-                  { title: "Inclusive Meeting Checklist", type: "Checklist", desc: "Run meetings where every voice is heard and psychological safety is maintained.", img: "/resources-meeting.jpg" },
-                  { title: "Inclusion Strategy Builder",        type: "Framework", desc: "Build a credible, evidence-led EDI strategy from the ground up.",               img: "/resources-strategy.jpg" },
-                  { title: "Business Case Template",      type: "Template",  desc: "Build the evidence-backed case for EDI investment; tailored for leadership teams.", img: "/resources-template.jpg" },
-                ].map((r) => (
-                  <div key={r.title} style={{ background: "var(--white)", borderRadius: "14px", overflow: "hidden", border: "1.5px solid var(--gray-border)" }}>
-                    <div style={{ height: "110px", backgroundImage: `url('${r.img}')`, backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
-                      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.5) 100%)" }} />
-                      <div style={{ position: "absolute", top: "0.6rem", left: "0.875rem", background: "var(--sage-dark)", color: "white", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.62rem", textTransform: "uppercase", letterSpacing: "0.08em", padding: "0.2rem 0.5rem", borderRadius: "999px" }}>{r.type}</div>
-                      <div style={{ position: "absolute", bottom: "0.6rem", left: "0.875rem", right: "0.875rem" }}>
-                        <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.82rem", color: "white", lineHeight: 1.3 }}>{r.title}</span>
-                      </div>
-                    </div>
-                    <div style={{ padding: "0.875rem 1rem 1rem", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--gray-soft)", lineHeight: 1.5, margin: 0 }}>{r.desc}</p>
-                      <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", color: "var(--sage-dark)" }}>Members only 🔒</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* CTA */}
-            <div style={{ textAlign: "center" }}>
-              <Link href="/early-access" className="btn-primary" style={{ fontSize: "0.95rem", padding: "0.875rem 2rem" }}>
-                Get Early Access
-              </Link>
-            </div>
-
-          </div>
-        </section>
 
 
         {/* COACHING */}
@@ -951,7 +806,7 @@ export default function Home() {
               border: "1.5px solid var(--sage-light)",
             }}>
               <div style={{
-                backgroundImage: "url('/coaching-people.jpg')",
+                backgroundImage: "url('/platform-resources.jpg')",
                 backgroundSize: "cover",
                 backgroundPosition: "center top",
                 minHeight: "380px",
@@ -971,12 +826,12 @@ export default function Home() {
                 </p>
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem", marginBottom: "1.75rem" }}>
                   {[
-                    { icon: "📅", text: "Office hours twice a month on organisation memberships: book a slot" },
-                    { icon: "🧠", text: "A monthly 1:1 with Rebekah on the Expert Track" },
-                    { icon: "💡", text: "Bring a challenge and get an expert perspective" },
+                    { icon: "calendar", text: "Office hours twice a month on organisation memberships: book a slot" },
+                    { icon: "people", text: "A monthly 1:1 with Rebekah on the Expert Track" },
+                    { icon: "message", text: "Bring a challenge and get an expert perspective" },
                   ].map((item) => (
                     <div key={item.text} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
-                      <span style={{ fontSize: "1rem", flexShrink: 0 }} aria-hidden="true">{item.icon}</span>
+                      <span style={{ flexShrink: 0, color: "#A8D4B0", marginTop: "0.1rem" }}><Icon name={item.icon} size={17} /></span>
                       <span style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.9)", lineHeight: 1.5 }}>{item.text}</span>
                     </div>
                   ))}
@@ -991,12 +846,14 @@ export default function Home() {
 
         {/* MEMBERSHIP / PRICING */}
         {/* PROOF: real words from people who use our resources */}
-        <section style={{ background: "linear-gradient(160deg, #F7FBF7 0%, #EEF6EE 55%, #E2EFE2 100%)", padding: "4.5rem 1.5rem" }}>
-          <div style={{ maxWidth: "1000px", margin: "0 auto 2.25rem", textAlign: "center" }}>
+        <section style={{ position: "relative", overflow: "hidden", padding: "4.5rem 1.5rem" }}>
+          <div aria-hidden="true" style={{ position: "absolute", inset: "-12px", backgroundImage: "url('/watch-1-team-coffee.jpg')", backgroundSize: "cover", backgroundPosition: "center 40%", filter: "blur(4px)" }} />
+          <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "rgba(253,250,245,0.88)" }} />
+          <div style={{ position: "relative", maxWidth: "1000px", margin: "0 auto 2.25rem", textAlign: "center" }}>
             <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", margin: "0 0 0.6rem" }}>In their own words</p>
             <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "clamp(1.6rem, 3.2vw, 2.25rem)", color: "var(--charcoal)", margin: 0, lineHeight: 1.2 }}>Time back, and resources people build on.</h2>
           </div>
-          <div style={{ maxWidth: "1000px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.5rem" }}>
+          <div style={{ position: "relative", maxWidth: "1000px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.5rem" }}>
             <div style={{ background: "var(--white)", border: "1px solid rgba(44,74,49,0.18)", borderRadius: "18px", padding: "1.75rem 1.6rem", boxShadow: "0 4px 20px rgba(26,50,32,0.08)", position: "relative", overflow: "hidden" }}>
               <svg aria-hidden="true" style={{ position: "absolute", top: "-30px", right: "-30px", width: "140px", height: "140px", opacity: 0.16, pointerEvents: "none" }} viewBox="0 0 160 160" fill="none"><circle cx="80" cy="80" r="70" stroke="#3D6142" strokeWidth="1.5"/><circle cx="80" cy="80" r="50" stroke="#3D6142" strokeWidth="1"/></svg>
               <div aria-hidden="true" style={{ fontFamily: "Georgia, serif", fontSize: "2.6rem", lineHeight: 1, color: "rgba(44,74,49,0.3)", marginBottom: "0.4rem" }}>&ldquo;</div>
@@ -1025,19 +882,9 @@ export default function Home() {
 
 
       {/* FOOTER */}
-      <footer role="contentinfo" style={{ borderTop: "1px solid var(--gray-border)", padding: "2rem 1.5rem", background: "var(--white)" }}>
-        <div style={{ maxWidth: "1100px", margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
-          <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.78rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--charcoal)" }}>
-            The Inclusion Edit
-          </span>
-          <div style={{ fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "var(--gray-soft)", display: "flex", gap: "1.5rem" }}>
-            <span>© {new Date().getFullYear()} The Inclusion Edit</span>
-            <Link href="/legal/accessibility" style={{ color: "var(--gray-soft)", textDecoration: "none" }}>Accessibility</Link>
-            <Link href="/legal/privacy" style={{ color: "var(--gray-soft)", textDecoration: "none" }}>Privacy</Link>
-            <Link href="/legal" style={{ color: "var(--gray-soft)", textDecoration: "none" }}>All Policies</Link>
-          </div>
-        </div>
-      </footer>
+      <Footer />
+      {/* Room under the footer so the sticky join banner never covers it */}
+      <div aria-hidden="true" style={{ height: "84px", background: "#2d3d2f" }} />
 
       {/* STICKY JOIN BANNER */}
       <div role="complementary" aria-label="Membership call to action" data-sticky-banner="" style={{
@@ -1060,6 +907,9 @@ export default function Home() {
         </div>
       </div>
 
+      <PlatformPreview area={preview?.area} tool={preview?.tool} onClose={() => setPreview(null)} />
+      <style>{`.pp-card { transition: transform 0.15s ease, box-shadow 0.15s ease; } .pp-card:hover { transform: translateY(-2px); } .pp-card:focus-visible { outline: 3px solid var(--evergreen); outline-offset: 3px; border-radius: 18px; }`}</style>
+
       {/* JOIN MODAL */}
       {joinModalOpen && (
         <div role="dialog" aria-modal="true" aria-labelledby="join-modal-title"
@@ -1067,7 +917,7 @@ export default function Home() {
           onClick={(e) => { if (e.target === e.currentTarget) setJoinModalOpen(false); }}
         >
           <div style={{ background: "var(--white)", borderRadius: "20px", padding: "2.75rem", maxWidth: "440px", width: "100%", textAlign: "center", boxShadow: "0 24px 80px rgba(0,0,0,0.25)" }}>
-            <div style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>🔐</div>
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: "1rem", color: "var(--evergreen)" }}><Icon name="lock" size={36} /></div>
             <h2 id="join-modal-title" style={{ fontFamily: "var(--font-display)", fontWeight: 700, fontSize: "1.5rem", color: "var(--charcoal)", marginBottom: "0.625rem" }}>Members only</h2>
             <p style={{ fontFamily: "var(--font-body)", color: "var(--gray-soft)", fontSize: "0.95rem", marginBottom: "0.5rem" }}>
               <strong style={{ color: "var(--charcoal)" }}>{joinModalItem}</strong> is available to Impact Platform members.

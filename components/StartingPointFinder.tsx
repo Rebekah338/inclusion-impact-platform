@@ -9,6 +9,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Icon from "@/app/components/BrandIcon";
 import { FINDER_STEPS, SECTOR_PHRASE, STAGE_LABEL } from "@/lib/finder-content";
 import { TOOL_CSS, Reveal, Preparing, NumberedSteps, ExpertSignature, ShareWithLeader, SITE_URL, logToolEvent, contactWithContext } from "@/components/ToolExtras";
 
@@ -41,6 +42,15 @@ const RESOURCE_NAME: Record<Route, string> = {
   strategy: "the 30/60/90 Day Action Planner",
   data: "the Inclusive Data Collection guide",
   general: "the Inclusion Maturity Framework",
+};
+
+const PLATFORM_STEP: Record<Route, string> = {
+  policy: "Explore the Policy Tools",
+  training: "Explore Learning for Your Team",
+  "business-case": "Explore the Business Case Tools",
+  strategy: "Explore the Strategy Tools",
+  data: "Explore the Data Tools",
+  general: "Explore the Impact Platform",
 };
 
 const NEXT_STEP: Record<Route, { cta: { label: string; href: string }; locked: string }> = {
@@ -245,7 +255,7 @@ export default function StartingPointFinder() {
             disabled={need.trim().length < 2}
             style={{ padding: "0.75rem 1.6rem", borderRadius: "10px", border: "1px solid rgba(255,255,255,0.35)", background: "linear-gradient(135deg, #C9A84C 0%, #E2C265 100%)", color: "#1A3220", fontFamily: font.heading, fontWeight: 700, fontSize: "0.95rem", cursor: need.trim().length < 2 ? "default" : "pointer", whiteSpace: "nowrap", minHeight: "44px", boxShadow: "0 6px 20px rgba(26,50,32,0.35), inset 0 1px 0 rgba(255,255,255,0.14)" }}
           >
-            <span aria-hidden="true" style={{ marginRight: "0.45rem" }}>✦</span>Find My Starting Point
+            <span style={{ marginRight: "0.45rem", display: "inline-flex", verticalAlign: "-3px" }}><Icon name="sparkle" size={16} /></span>Find My Starting Point
           </button>
         </form>
         {!route && (
@@ -303,18 +313,15 @@ export default function StartingPointFinder() {
 
                 {/* Next steps */}
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "0.6rem", marginTop: "1.1rem" }}>
-                  <Link href={NEXT_STEP[route].cta.href} style={{ padding: "0.7rem 1.4rem", borderRadius: "8px", background: "var(--evergreen)", color: "var(--white)", fontFamily: font.heading, fontWeight: 700, fontSize: "0.88rem", textDecoration: "none" }}>
-                    {NEXT_STEP[route].cta.label}
+                  <Link href="/about-our-impact-platform" style={{ padding: "0.7rem 1.4rem", borderRadius: "8px", background: "var(--evergreen)", color: "var(--white)", fontFamily: font.heading, fontWeight: 700, fontSize: "0.88rem", textDecoration: "none" }}>
+                    {PLATFORM_STEP[route]}
                   </Link>
-                  <Link href={contactWithContext(
-                    `Starting Point Finder: ${(NEEDS.find((n) => n.route === route)?.label || "Not sure yet").toLowerCase()}${sector ? `; ${sector.toLowerCase()}` : ""}${stage ? `; ${stage.toLowerCase()}` : ""}${need.trim() ? `; in their words: "${need.trim().slice(0, 120)}"` : ""}`,
-                    route === "training" ? "Inclusion Training" : "Inclusion Consultancy"
-                  )} style={{ padding: "0.7rem 1.4rem", borderRadius: "8px", background: "var(--white)", color: "var(--evergreen)", border: "2px solid var(--evergreen)", fontFamily: font.heading, fontWeight: 700, fontSize: "0.88rem", textDecoration: "none" }}>
-                    Book a Free Inclusion Call
+                  <Link href={NEXT_STEP[route].cta.href} style={{ padding: "0.7rem 1.4rem", borderRadius: "8px", background: "var(--white)", color: "var(--evergreen)", border: "2px solid var(--evergreen)", fontFamily: font.heading, fontWeight: 700, fontSize: "0.88rem", textDecoration: "none" }}>
+                    {NEXT_STEP[route].cta.label}
                   </Link>
                   <div style={{ position: "relative" }}>
                     <button type="button" onClick={() => setLockedOpen((v) => !v)} aria-expanded={lockedOpen} style={{ padding: "0.7rem 1.2rem", borderRadius: "8px", background: warm, color: "#7A5200", border: `1.5px solid ${goldEdge}`, fontFamily: font.heading, fontWeight: 700, fontSize: "0.88rem", cursor: "pointer" }}>
-                      <span aria-hidden="true">🔒</span> {NEXT_STEP[route].locked}
+                      <span style={{ display: "inline-flex", verticalAlign: "-2px" }}><Icon name="lock" size={15} /></span> {NEXT_STEP[route].locked}
                     </button>
                     {lockedOpen && (
                       <div style={{ position: "absolute", top: "calc(100% + 0.5rem)", left: 0, zIndex: 10, width: "280px", background: warm, border: `1.5px solid ${goldEdge}`, borderRadius: "12px", padding: "0.9rem 1.1rem", boxShadow: "0 8px 30px rgba(0,0,0,0.12)" }}>
@@ -325,6 +332,16 @@ export default function StartingPointFinder() {
                   </div>
                   <ShareWithLeader subject={shareSubject} body={shareBody} />
                 </div>
+
+                <p style={{ fontFamily: font.body, fontSize: "0.85rem", color: "var(--slate)", margin: "0.85rem 0 0" }}>
+                  Prefer to talk it through? <Link href={contactWithContext(
+                    `Starting Point Finder: ${(NEEDS.find((n) => n.route === route)?.label || "Not sure yet").toLowerCase()}${sector ? `; ${sector.toLowerCase()}` : ""}${stage ? `; ${stage.toLowerCase()}` : ""}${need.trim() ? `; in their words: "${need.trim().slice(0, 120)}"` : ""}`,
+                    route === "training" ? "Inclusion Training" : "Inclusion Consultancy"
+                  )} style={{ color: "var(--evergreen)", fontWeight: 700 }}>Book a free inclusion call</Link>.
+                </p>
+                <p style={{ fontFamily: font.body, fontSize: "0.88rem", color: "var(--slate)", margin: "1rem 0 0", lineHeight: 1.6 }}>
+                  Members of the Impact Platform get the lessons, tools and Inclusion AI for every step on this list. <Link href="/early-access" style={{ color: "var(--evergreen)", fontWeight: 700 }}>Get early access</Link>.
+                </p>
 
                 {/* Step 4: then the email ask */}
                 <div style={{ marginTop: "1.1rem", padding: "1rem 1.1rem", borderRadius: "12px", background: warm, border: "1px solid rgba(201,168,76,0.3)" }}>

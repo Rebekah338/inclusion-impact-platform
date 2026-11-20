@@ -9,7 +9,7 @@ import { backupSubmission } from "@/lib/backup";
 const clean = (v: unknown, max = 80) =>
   typeof v === "string" ? v.replace(/[\r\n\t]+/g, " ").trim().slice(0, max) : "";
 
-const SIZES = new Set(["Just me", "Around 5 people", "Around 10 people", "Around 25 people", "50 or more people", "Not sure yet"]);
+const SIZES = new Set(["Just me", "My organisation"]);
 const TIERS: Record<string, string> = {
   individual: "Individual",
   "practitioner-plus": "Practitioner Plus",
@@ -18,6 +18,8 @@ const TIERS: Record<string, string> = {
   "growing-teams": "Growing Teams",
   established: "Established Teams",
   enterprise: "Enterprise",
+  "me-unsure": "Not sure yet (individual)",
+  "org-unsure": "Not sure yet (organisation)",
 };
 
 export async function POST(req: NextRequest) {
@@ -41,7 +43,7 @@ export async function POST(req: NextRequest) {
   const newsletter = body.newsletter === true;
 
   const tags = ["Early access: Impact Platform", "Source: Early access page", newsletter ? "Newsletter: yes" : "Newsletter: no"];
-  if (SIZES.has(size)) tags.push(`Size: ${size}`);
+  if (SIZES.has(size)) tags.push(`For: ${size}`);
   if (tier) tags.push(`Interested in: ${tier}`);
 
   const backedUp = await backupSubmission({

@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import SiteNav from "@/components/SiteNav";
+import Icon from "@/app/components/BrandIcon";
+import HeroSideCard from "@/components/HeroSideCard";
 import Footer from "../components/Footer";
 import TrustStrip from "../components/TrustStrip";
 
@@ -47,10 +49,11 @@ export default function SubscribePage() {
         <div style={{ position: "absolute", inset: 0, backgroundImage: "url('/newsletter 1.jpg')", backgroundSize: "cover", backgroundPosition: "center 30%", zIndex: 0 }} />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(100deg, rgba(20,40,25,0.95) 0%, rgba(20,40,25,0.85) 38%, rgba(20,40,25,0.3) 70%, rgba(20,40,25,0.05) 100%)", zIndex: 1 }} />
         <div style={{ position: "relative", zIndex: 3, maxWidth: "1100px", width: "100%", margin: "0 auto", padding: "2.25rem 2rem" }}>
-          <div style={{ maxWidth: "900px" }}>
+            <HeroSideCard kind="facts" eyebrow="Why it is worth your inbox" title="Not another inbox filler." points={["The evidence and the honest take, not just the headlines", "One focused idea, not a wall of links", "Your email is only used to send you the newsletter"]} />
+          <div style={{ maxWidth: "640px" }}>
             <span style={{ display: "inline-block", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.75)", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: "999px", padding: "0.35rem 1rem", marginBottom: "1.75rem", backdropFilter: "blur(4px)" }}>Newsletter</span>
             <h1 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(2rem, 5vw, 3rem)", color: "var(--white)", marginBottom: "1.25rem", lineHeight: 1.1 }}>Inclusion Insight Worth Making Time For: Straight to Your Inbox.</h1>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "1.1rem", color: "rgba(255,255,255,0.88)", lineHeight: 1.8, marginBottom: "2rem", maxWidth: "680px" }}>Get the inclusion thinking your organisation needs. Each month, one inclusion idea unpacked properly, with practical tips you can use straight away.</p>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "1.1rem", color: "rgba(255,255,255,0.88)", lineHeight: 1.8, marginBottom: "2rem", maxWidth: "680px" }}>Get the inclusion thinking you need, at work and beyond it. Each month, one inclusion idea unpacked properly, with practical tips you can use straight away.</p>
             <a href="#sign-up" style={{ display: "inline-block", lineHeight: 1.4, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", color: "var(--sage-dark)", background: "var(--white)", padding: "0.875rem 1.875rem", borderRadius: "8px", textDecoration: "none", whiteSpace: "nowrap" }}>Sign Me Up</a>
           </div>
         </div>
@@ -82,13 +85,13 @@ export default function SubscribePage() {
               },
               {
                 icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4",
-                label: "How to apply it in your organisation",
-                detail: "Practical steps you can actually use the week you read it: not theory, but action."
+                label: "How to apply it where you work",
+                detail: "Practical steps and small, specific changes you can use the week you read it: for managers, HR professionals and EDI leads alike."
               },
               {
-                icon: "M13 10V3L4 14h7v7l9-11h-7z",
-                label: "Tips to shift your culture",
-                detail: "Small, specific changes that move the needle on inclusion, for managers, HR professionals and EDI leads alike."
+                icon: "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
+                label: "Inclusion beyond the workplace",
+                detail: "Every idea shows up outside work too. Each edition looks at what is happening in the world, and how to show up for it in your everyday life."
               },
               {
                 icon: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z",
@@ -103,7 +106,7 @@ export default function SubscribePage() {
               {
                 icon: "M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z",
                 label: "Free resources and tools",
-                detail: "Templates, guides and frameworks shared first with subscribers: practical tools you can put straight into practice."
+                detail: "Templates, guides and frameworks shared with subscribers first: practical tools you can put straight into practice."
               },
               {
                 icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z",
@@ -113,7 +116,7 @@ export default function SubscribePage() {
               {
                 icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z",
                 label: "Built for people doing the work",
-                detail: "Whether you are the only EDI lead in your organisation, a manager handed inclusion or an HR professional making the case upward, this is for you."
+                detail: "Whether you are the only EDI lead in your organisation, a manager handed inclusion, an HR professional making the case upward, or someone who simply cares about a fairer world, this is for you."
               },
             ].map((item) => (
               <div key={item.label} style={{ background: "var(--white)", borderRadius: "12px", padding: "1.5rem", border: "2px solid rgba(44,74,49,0.22)", boxShadow: "0 4px 20px rgba(26,50,32,0.10)", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
@@ -137,9 +140,9 @@ export default function SubscribePage() {
         <div style={{ maxWidth: "560px", margin: "0 auto" }}>
           {submitted ? (
             <div style={{ textAlign: "center", padding: "3rem 1rem" }}>
-              <span style={{ fontSize: "2.5rem", display: "block", marginBottom: "1rem" }}>🎉</span>
-              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.6rem", color: "var(--charcoal)", margin: "0 0 0.75rem" }}>You are signed up</h2>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "rgba(0,0,0,0.6)", margin: 0 }}>Welcome to The Inclusion Edit community. Look out for our next update in your inbox.</p>
+              <span style={{ display: "flex", justifyContent: "center", marginBottom: "1rem", color: "var(--evergreen)" }}><Icon name="check" size={40} strokeWidth={2} /></span>
+              <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.6rem", color: "var(--charcoal)", margin: "0 0 0.75rem" }}>You&apos;re signed up</h2>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "rgba(0,0,0,0.6)", margin: 0 }}>Thank you for joining. Keep an eye on your inbox for a welcome email with a free resource to get you started. If it doesn&apos;t arrive, check your spam or promotions folder.</p>
             </div>
           ) : (
             <>
@@ -197,14 +200,14 @@ export default function SubscribePage() {
                     <option>Instagram</option>
                     <option>TikTok</option>
                     <option>Podcast</option>
-                    <option>Word of mouth</option>
-                    <option>Google search</option>
-                    <option>AI search (ChatGPT, Claude, etc.)</option>
-                    <option>An event</option>
+                    <option>A client or colleague</option>
+                    <option>Event or webinar</option>
+                    <option>Search</option>
                     <option>Other</option>
                   </select>
                 </div>
                 <button type="submit" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.95rem", color: "var(--white)", background: "#1A3220", border: "none", padding: "1rem 2rem", borderRadius: "8px", cursor: sending ? "wait" : "pointer", marginTop: "0.5rem", opacity: sending ? 0.75 : 1 }} disabled={sending}>{sending ? "Signing you up..." : "Sign Me Up"}</button>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--slate)", margin: 0, textAlign: "center", lineHeight: 1.5 }}>One email a month. Free, and you can unsubscribe at any time.</p>
                 {error && <p role="alert" style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "#B42318", margin: 0, textAlign: "center", lineHeight: 1.5 }}>{error}</p>}
               </form>
             </>
