@@ -65,7 +65,7 @@ const SERVICES = [
     icon: "💡",
     image: "/images/card-impact-platform.jpg",
     heading: "Built for people leading inclusion, so you're not carrying it alone.",
-    body: "40 lessons, 10 specialist AI tools, evidence you can take to leadership, office hours with an inclusion expert, and room to bring your team in when you're ready.",
+    body: "40 lessons, 10 specialist AI tools, evidence you can take to leadership, expert support on selected memberships, and room to bring your team in when you're ready.",
     cta: "Explore the Platform",
   },
   {
@@ -109,8 +109,8 @@ const WHO_WE_WORK_WITH = [
 const STATS = [
   { number: "40+", label: "Years combined experience" },
   { number: "1,000+", label: "People reached" },
-  { number: "140+", label: "Platform resources" },
-  { number: "10+", label: "AI tools" },
+  { number: "160", label: "Platform resources" },
+  { number: "10", label: "AI tools" },
   { number: "25+", label: "Organisations supported" },
 ];
 
@@ -275,7 +275,7 @@ export default function Home() {
                 <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "1rem" }}>The Impact Platform</p>
                 <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.5rem, 3vw, 2.25rem)", color: "var(--charcoal)", lineHeight: 1.2, marginBottom: "1.25rem" }}>The tools, learning and expert support to make inclusion part of everyday work.</h2>
                 <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "var(--charcoal)", lineHeight: 1.7, opacity: 0.8, marginBottom: "1.5rem" }}>
-                  A digital learning and development space for inclusion practitioners and the organisations they serve: structured modules, practical tools, video masterclasses and specialist AI tools, all built around real inclusion work.
+                  A digital learning and development space for people leading inclusion and the organisations they serve: structured modules, practical tools, video masterclasses and specialist AI tools, all built around real inclusion work.
                 </p>
                 <div style={{ display: "flex", gap: "0.875rem", flexWrap: "wrap" }}>
                   <Link href="/about-our-impact-platform" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.875rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none" }}>Explore the Platform</Link>

@@ -154,7 +154,7 @@ export default function CommunityPage() {
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "1.5rem", fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--hero-cream)" }}>
             <span style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem" }}><Icon name="eyeoff" color="var(--hero-cream)" /> Ask anonymously</span>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem" }}><Icon name="globe" color="var(--hero-cream)" /> UK, Bermuda and US</span>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem" }}><Icon name="globe" color="var(--hero-cream)" /> Members worldwide</span>
             <span style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem" }}><Icon name="ticket" color="var(--hero-cream)" /> Member perks and events</span>
           </div>
         </div>

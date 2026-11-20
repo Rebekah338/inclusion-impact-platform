@@ -196,18 +196,18 @@ export const POLICIES: Policy[] = [
       { id: "memberships", heading: "2. Memberships and what is included", body: [
         "What each membership includes is set out on our Pricing page at the time you join. In summary:",
         { list: [
-          "Individual: one named account with the resource library, all lessons, templates, guides and progress tracking.",
+          "Individual: one named account with the resource library, all lessons, templates, guides, progress tracking and the Inclusion Editors community.",
           "Practitioner Plus: everything in Individual, plus the Inclusion AI tools, advanced resources and the full inclusion health check and action plan.",
           "The Expert Track: everything in Practitioner Plus, plus a guaranteed monthly 1:1 with Rebekah throughout the year. Places are limited.",
-          "Organisation memberships (Growing Teams, Established Organisations and Enterprise): the number of named full seats for your membership, plus onboarding access for new starters: up to 50 a year on Growing Teams, up to 200 a year on Established Organisations, and unlimited on Enterprise.",
+          "Organisation memberships (Small Teams, Growing Teams, Established Teams and Enterprise): the number of named full seats in your pack (5, 10, 25, or 50 or more), plus onboarding access for new starters: up to 25 a year on Small Teams, 50 on Growing Teams, 200 on Established Teams, and unlimited on Enterprise.",
         ] },
         "We add new content regularly and may update or replace content to keep it accurate. We will not remove the main features of your membership during your membership year.",
       ] },
       { id: "accounts-and-seats", heading: "3. Accounts and seats", body: [
         "Each named seat is for one person and must not be shared. An organisation can move a seat to a new person when someone leaves. New starter access gives the onboarding module only, unless the person is added as a named seat.",
         "Your organisation's administrator is responsible for who has a seat and for keeping the list up to date.",
-        "Organisation memberships are based on your organisation's total number of employees. We check this when you join and at each renewal. If your organisation has moved into a different membership band, we will tell you in your renewal reminder.",
-        "Each membership includes a set number of seats and new starter onboarding. If you need more, you can add seats (£295 a person a year on Growing Teams, £250 on Established Organisations), or move to the next membership at renewal.",
+        "Organisation memberships are chosen by the number of full seats you need, not by the size of your organisation. Each pack includes a set number of full seats and new starter onboarding places each year.",
+        "If you need more, you can add full seats at any time at your pack's price per seat (£350 a seat a year on Small Teams, £295 on Growing Teams and £220 on Established Teams), or move up to a larger pack at renewal. If you need more new starter places than your pack includes, we will talk with you about moving up a pack.",
       ] },
       { id: "price-and-payment", heading: "4. Price and payment", body: [
         "The price is shown on our Pricing page and confirmed before you pay. We are not currently registered for VAT, so no VAT is added. If we register in future, VAT may be added from your next renewal, and we will tell you in your renewal reminder.",

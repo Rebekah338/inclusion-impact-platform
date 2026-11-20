@@ -15,20 +15,21 @@ const MEMBER_GETS = [
   { image: "/images/early-access/apply.jpg", number: "45", title: "practical tools", desc: "Templates, toolkits, guides and checklists you can use the same day." },
   { image: "/images/early-access/make-the-case.jpg", number: "47", title: "research reports and case studies", desc: "Evidence you can take to leadership, so you are not making the case alone." },
   { image: "/images/early-access/inclusion-ai.jpg", number: "10", title: "Inclusion AI tools", desc: "Specialist tools for policy audits, business cases, fairer hiring and more." },
-  { image: "/images/early-access/get-support.jpg", number: "", title: "Office hours with an inclusion expert", desc: "A real person to check your thinking with, on selected memberships, so you are not working it out alone." },
+  { image: "/images/early-access/get-support.jpg", number: "", title: "Office hours with an inclusion expert", desc: "A real person to check your thinking with: office hours on organisation memberships, and a monthly 1:1 with Rebekah on the Expert Track." },
   { image: "/images/early-access/onboarding.jpg", number: "", title: "Onboarding for new starters", desc: "Inclusion Foundations for the people you hire, so inclusion starts from day one. Included with organisation memberships." },
 ];
 
 const TIERS_FOR_YOU = [
-  { name: "Individual", price: "£295 a year", desc: "the full resource library, all three learning pathways, templates and progress tracking." },
+  { name: "Individual", price: "£345 a year", desc: "the full resource library, all three learning pathways, templates and progress tracking." },
   { name: "Practitioner Plus", price: "£495 a year", desc: "everything in Individual, plus the Inclusion AI tools and a full inclusion health check and action plan." },
   { name: "Expert Track", price: "£1,800 a year", desc: "everything in Practitioner Plus, plus a monthly 1:1 with Rebekah all year. Limited places." },
 ];
 
 const TIERS_FOR_ORGS = [
-  { name: "Growing Teams", price: "£2,950 a year", size: "50 to 250 employees", desc: "10 full seats, Inclusion AI tools, expert sessions and onboarding for up to 50 new starters a year." },
-  { name: "Established Organisations", price: "£5,500 a year", size: "250 to 1,000 employees", desc: "25 full seats and everything in Growing Teams." },
-  { name: "Enterprise", price: "From £8,500", size: "1,000 or more employees", desc: "built around your organisation, by custom quote." },
+  { name: "Small Teams", price: "£1,750 a year", size: "5 full seats", desc: "everything in Practitioner Plus for 5 people, office hours with an inclusion expert and onboarding for up to 25 new starters a year." },
+  { name: "Growing Teams", price: "£2,950 a year", size: "10 full seats", desc: "everything in Small Teams for 10 people, with onboarding for up to 50 new starters a year." },
+  { name: "Established Teams", price: "£5,500 a year", size: "25 full seats", desc: "everything in Growing Teams for 25 people, with onboarding for up to 200 new starters a year." },
+  { name: "Enterprise", price: "From £8,500", size: "50 or more full seats", desc: "built around your organisation, with unlimited new starter onboarding." },
 ];
 
 const EARLY_ACCESS_POINTS = [
@@ -40,15 +41,17 @@ const EARLY_ACCESS_POINTS = [
 const FAQS = [
   { q: "When does the Impact Platform go live?", a: "We launch in January 2027, when our first group of 10 members is onboarded. After that, we open in small groups of 10, in the order people join the list. We will email you as soon as it is your turn." },
   { q: "Is it free to join the list?", a: "Yes. Joining the list costs nothing and there is no commitment to buy." },
-  { q: "Can my organisation join?", a: "Yes. Choose your organisation's size on the form, or book a free call and we will talk through what would work for you." },
+  { q: "Can my organisation join?", a: "Yes. Choose how many people would use it on the form, or book a free call and we will talk through what would work for you." },
   { q: "What if I am not sure which membership is right for me?", a: "You do not need to decide now. When it is your turn, we will help you choose, or you can reply to your confirmation email with any questions." },
 ];
 
 const SIZES = [
   { value: "Just me", label: "Just me" },
-  { value: "2 to 50 people", label: "An organisation of 2 to 50 people" },
-  { value: "51 to 250 people", label: "An organisation of 51 to 250 people" },
-  { value: "250 or more people", label: "An organisation of 250 or more people" },
+  { value: "Around 5 people", label: "My organisation: around 5 people would use it" },
+  { value: "Around 10 people", label: "My organisation: around 10 people would use it" },
+  { value: "Around 25 people", label: "My organisation: around 25 people would use it" },
+  { value: "50 or more people", label: "My organisation: 50 or more people would use it" },
+  { value: "Not sure yet", label: "My organisation: not sure yet" },
 ];
 
 // Membership buttons on the pricing page pass ?tier= so the right size is already chosen
@@ -56,9 +59,10 @@ const TIER_SIZE: Record<string, string> = {
   individual: "Just me",
   "practitioner-plus": "Just me",
   "expert-track": "Just me",
-  "growing-teams": "51 to 250 people",
-  established: "250 or more people",
-  enterprise: "250 or more people",
+  "small-teams": "Around 5 people",
+  "growing-teams": "Around 10 people",
+  established: "Around 25 people",
+  enterprise: "50 or more people",
 };
 
 const label = { fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.82rem", color: "var(--charcoal)", display: "block", marginBottom: "0.4rem" } as const;
@@ -136,8 +140,8 @@ export default function EarlyAccessPage() {
 
         {/* STATS STRIP */}
         <TrustStrip items={[
-            { value: "140+", label: "Platform resources" },
-            { value: "10+", label: "Inclusion AI tools" },
+            { value: "160", label: "Platform resources" },
+            { value: "10", label: "Inclusion AI tools" },
             { value: "Award-winning", label: "Best EDI Consultancy 2026" },
             { value: "Groups of 10", label: "Welcomed in the order they join" },
           ]} />
@@ -202,7 +206,7 @@ export default function EarlyAccessPage() {
                 </div>
               ))}
             </div>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", fontStyle: "italic", color: "var(--slate)", textAlign: "center", margin: "1.4rem 0 0" }}>Prices will be confirmed when the Impact Platform goes live.</p>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", fontStyle: "italic", color: "var(--slate)", textAlign: "center", margin: "1.4rem 0 0" }}>These are our launch prices. Join early access and your price stays the same for your first two renewals.</p>
           </div>
         </section>
 

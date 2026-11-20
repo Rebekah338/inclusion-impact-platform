@@ -16,7 +16,7 @@ export function buildEarlyAccessEmail(opts: { firstName: string; siteUrl: string
   const photoImg = `${opts.siteUrl}/email/rebekah.jpg`;
 
   const thanks = "Thank you for joining the early access list for the Impact Platform. We're opening in small groups of 10, in the order people join, and I'll email you as soon as it's your turn.";
-  const what = "The Impact Platform is built for the person carrying inclusion: 40 lessons, 45 practical tools, 47 research reports and case studies, 10 Inclusion AI tools and office hours with an inclusion expert, so you're not doing it alone.";
+  const what = "The Impact Platform is built for the person carrying inclusion: 40 lessons, 45 practical tools, 47 research reports and case studies, 10 Inclusion AI tools and expert support from a real person, so you're not doing it alone.";
   const planner = "While you wait, here's something you can use straight away: the Inclusion Maturity Framework. It shows where your organisation sits today, from Unaware to Leading, across six areas, and gives you prioritised next steps to take to your leaders. It can also help you decide whether a membership just for you or for your whole organisation would suit you best.";
   const acrobat = "Open it in Adobe Acrobat Reader to type straight into it.";
   const question = "What would make the Impact Platform most useful for you? Hit reply and tell me. Your answer helps shape what we build first.";

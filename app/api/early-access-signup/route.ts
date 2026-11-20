@@ -9,13 +9,14 @@ import { backupSubmission } from "@/lib/backup";
 const clean = (v: unknown, max = 80) =>
   typeof v === "string" ? v.replace(/[\r\n\t]+/g, " ").trim().slice(0, max) : "";
 
-const SIZES = new Set(["Just me", "2 to 50 people", "51 to 250 people", "250 or more people"]);
+const SIZES = new Set(["Just me", "Around 5 people", "Around 10 people", "Around 25 people", "50 or more people", "Not sure yet"]);
 const TIERS: Record<string, string> = {
   individual: "Individual",
   "practitioner-plus": "Practitioner Plus",
   "expert-track": "Expert Track",
+  "small-teams": "Small Teams",
   "growing-teams": "Growing Teams",
-  established: "Established Organisations",
+  established: "Established Teams",
   enterprise: "Enterprise",
 };
 

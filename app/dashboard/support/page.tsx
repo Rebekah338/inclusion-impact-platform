@@ -77,7 +77,7 @@ export default function SupportPage() {
           <div style={{ display: "flex", flexWrap: "wrap", gap: "1.5rem", fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--hero-cream)" }}>
             <span style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem" }}><Icon name="message" color="var(--hero-cream)" /> Office hours twice a month</span>
             <span style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem" }}><Icon name="clock" color="var(--hero-cream)" /> 30 minutes, one to one</span>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem" }}><Icon name="globe" color="var(--hero-cream)" /> UK, Bermuda and US</span>
+            <span style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem" }}><Icon name="globe" color="var(--hero-cream)" /> Wherever you are</span>
           </div>
         </div>
       </header>

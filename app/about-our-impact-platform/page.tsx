@@ -83,13 +83,13 @@ const WATCH_ITEMS = {
 
 function PricingSection() {
   const [path, setPath] = useState<"individual" | "org" | null>(null);
-  const [orgSize, setOrgSize] = useState<"small" | "mid" | "large" | null>(null);
+  const [orgSize, setOrgSize] = useState<"xs" | "small" | "mid" | "large" | null>(null);
 
   const individualTiers = [
     {
       name: "Individual",
-      price: "£295",
-      monthly: "£29",
+      price: "£345",
+      monthly: "£34",
       headline: "Everything you need to stop guessing.",
       desc: "Full access to the resource library, every learning module across all three pathways, templates and guides you can use the same day, and a way to track your own progress. Built for the person doing this work without the team around them yet.",
       features: [
@@ -98,7 +98,8 @@ function PricingSection() {
         "All lessons across all three pathways",
         "Templates and guides",
         "Progress tracking",
-        "Self-service: no AI tools or human support included",
+        "The Inclusion Editors community: ask questions, share what works and learn from others carrying inclusion",
+        "Self-service: no AI tools or one to one support included",
       ],
       cta: "Compare Memberships",
       highlight: false,
@@ -138,67 +139,95 @@ function PricingSection() {
   ];
 
   const orgBands: Record<string, { name: string; price: string; seats: string; band: string; headline: string; desc: string; features: string[]; cta: string; dark?: boolean }> = {
-    small: {
-      name: "Growing Teams",
-      price: "£2,950",
-      seats: "10 full seats: £295 a person",
-      band: "50 to 250 employees",
-      headline: "Enough seats for the people doing the work, and onboarding for up to 50 new starters a year.",
-      desc: "10 full seats for the person leading inclusion and their wider HR or People team, covering everything in Practitioner Plus plus scheduled time with a real inclusion expert. Up to 50 new starters a year get a consistent, guided introduction to inclusion: included in your membership at no extra charge.",
+    xs: {
+      name: "Small Teams",
+      price: "\u00a31,750",
+      seats: "5 full seats: \u00a3350 a seat",
+      band: "For your inclusion lead and a few colleagues",
+      headline: "A small group working from the same tools, evidence and language.",
+      desc: "5 full seats with everything in Practitioner Plus, office hours with a real inclusion expert, and onboarding for up to 25 new starters a year at no extra charge.",
       features: [
-        "10 full seats for the person leading inclusion, your HR or People team, and relevant leadership",
+        "5 full seats for the person leading inclusion, your HR or People team, and the managers and leaders you choose",
         "Full resource library",
         "All lessons across all three pathways",
         "Templates, guides and progress tracking",
+        "The Inclusion Editors community: ask questions, share what works and learn from others carrying inclusion",
         "Inclusion AI tools: policy audits, business case building, fairer hiring and more",
         "Full inclusion health check and action plan",
         "Advanced resources",
-        "Access to scheduled expert sessions through Get Support",
+        "Office hours with an inclusion expert, twice a month",
         "New starter access: onboarding module only, unless otherwise agreed",
-        "Onboarding for up to 50 new starters a year, enough for any organisation your size, at no extra charge",
+        "Onboarding for up to 25 new starters a year, at no extra charge",
         "Completion reporting and downloadable certificates",
+        "Add full seats at any time at \u00a3350 a seat a year",
+      ],
+      cta: "Compare Memberships",
+    },
+    small: {
+      name: "Growing Teams",
+      price: "\u00a32,950",
+      seats: "10 full seats: \u00a3295 a seat",
+      band: "For your inclusion lead, people team and key managers",
+      headline: "Enough seats for the people doing the work, and onboarding for up to 50 new starters a year.",
+      desc: "10 full seats with everything in Practitioner Plus, office hours with a real inclusion expert, and onboarding for up to 50 new starters a year at no extra charge.",
+      features: [
+        "10 full seats for the person leading inclusion, your HR or People team, and the managers and leaders you choose",
+        "Full resource library",
+        "All lessons across all three pathways",
+        "Templates, guides and progress tracking",
+        "The Inclusion Editors community: ask questions, share what works and learn from others carrying inclusion",
+        "Inclusion AI tools: policy audits, business case building, fairer hiring and more",
+        "Full inclusion health check and action plan",
+        "Advanced resources",
+        "Office hours with an inclusion expert, twice a month",
+        "New starter access: onboarding module only, unless otherwise agreed",
+        "Onboarding for up to 50 new starters a year, at no extra charge",
+        "Completion reporting and downloadable certificates",
+        "Add full seats at any time at \u00a3295 a seat a year",
       ],
       cta: "Compare Memberships",
     },
     mid: {
-      name: "Established Organisations",
-      price: "£5,500",
-      seats: "25 full seats: £220 a person",
-      band: "250 to 1,000 employees",
-      headline: "The same support, sized for a bigger team.",
-      desc: "25 full seats and everything in Growing Teams, sized for a bigger team. Need more full seats as you grow? Add them any time at £250 a person a year.",
+      name: "Established Teams",
+      price: "\u00a35,500",
+      seats: "25 full seats: \u00a3220 a seat",
+      band: "For leaders, managers and people teams across your organisation",
+      headline: "The same support, shared across more of your organisation.",
+      desc: "25 full seats and everything in Growing Teams, with onboarding for up to 200 new starters a year. The more people working from the same tools and evidence, the more aligned your inclusion work becomes.",
       features: [
-        "25 full seats for the person leading inclusion, your HR or People team, and relevant leadership",
+        "25 full seats for the person leading inclusion, your HR or People team, and the managers and leaders you choose",
         "Full resource library",
         "All lessons across all three pathways",
         "Templates, guides and progress tracking",
+        "The Inclusion Editors community: ask questions, share what works and learn from others carrying inclusion",
         "Inclusion AI tools: policy audits, business case building, fairer hiring and more",
         "Full inclusion health check and action plan",
         "Advanced resources",
-        "Access to scheduled expert sessions through Get Support",
+        "Office hours with an inclusion expert, twice a month",
         "New starter access: onboarding module only, unless otherwise agreed",
-        "Onboarding for up to 200 new starters a year, enough for any organisation your size, at no extra charge",
+        "Onboarding for up to 200 new starters a year, at no extra charge",
         "Completion reporting and downloadable certificates",
-        "Extra full seats at £250 a person a year",
+        "Add full seats at any time at \u00a3220 a seat a year",
       ],
       cta: "Compare Memberships",
     },
     large: {
       name: "Enterprise",
-      price: "From £8,500",
-      seats: "Seats by agreement",
-      band: "1,000 or more employees",
-      headline: "Built around your organisation, not a fixed band.",
-      desc: "Full seat count, pricing and entitlements agreed around your organisation's size and structure. Unlimited onboarding, as standard.",
+      price: "From \u00a38,500",
+      seats: "50 or more full seats: \u00a3170 a seat or less",
+      band: "For organisation wide alignment",
+      headline: "Built around your organisation.",
+      desc: "50 or more full seats, with pricing and entitlements agreed around your organisation. Unlimited new starter onboarding, as standard.",
       features: [
-        "Full seat count and pricing agreed per deal",
+        "50 or more full seats for the person leading inclusion, your HR or People team, and the managers and leaders you choose",
         "Full resource library",
         "All lessons across all three pathways",
         "Templates, guides and progress tracking",
+        "The Inclusion Editors community: ask questions, share what works and learn from others carrying inclusion",
         "Inclusion AI tools: policy audits, business case building, fairer hiring and more",
         "Full inclusion health check and action plan",
         "Advanced resources",
-        "Access to scheduled expert sessions through Get Support",
+        "Office hours with an inclusion expert, twice a month",
         "New starter access: onboarding module only, unless otherwise agreed",
         "However many people you hire this year, every new starter is included at no extra charge",
         "Completion reporting and downloadable certificates",
@@ -209,13 +238,13 @@ function PricingSection() {
     },
   };
 
-  const TIER_IDS: Record<string, string> = { "Individual": "individual", "Practitioner Plus": "practitioner-plus", "The Expert Track": "expert-track", "Growing Teams": "growing-teams", "Established Organisations": "established", "Enterprise": "enterprise" };
+  const TIER_IDS: Record<string, string> = { "Individual": "individual", "Practitioner Plus": "practitioner-plus", "The Expert Track": "expert-track", "Small Teams": "small-teams", "Growing Teams": "growing-teams", "Established Teams": "established", "Enterprise": "enterprise" };
   const earlyBtn = (dark?: boolean) => ({ display: "block", textAlign: "center" as const, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.9rem", padding: "0.8rem 1.5rem", borderRadius: "8px", textDecoration: "none", background: dark ? "var(--white)" : "var(--evergreen)", color: dark ? "var(--evergreen)" : "var(--white)", marginBottom: "1.5rem" });
 
   const orgSizeOptions = [
-    { id: "small" as const, label: "50 to 250 people" },
-    { id: "mid" as const, label: "250 to 1,000 people" },
-    { id: "large" as const, label: "1,000 or more" },
+    { id: "xs" as const, label: "Around 5 people" },
+    { id: "small" as const, label: "Around 10 people" },
+    { id: "mid" as const, label: "Around 25 people" },
   ];
 
   const activeBand = orgSize ? orgBands[orgSize] : null;
@@ -236,7 +265,7 @@ function PricingSection() {
             Join HR leaders, people managers and everyone responsible for inclusion, building capability backed by real expertise, not just content.
           </p>
           <p style={{ fontFamily: "var(--font-body)", color: "var(--slate)", fontSize: "0.875rem", maxWidth: "700px", margin: "0 auto", whiteSpace: "nowrap" as const }}>
-            Annual memberships, billed yearly. Cancel at the end of any year if you wish.
+            Pay yearly, or monthly on individual memberships. If you pay monthly, you can cancel any time.
           </p>
         </div>
 
@@ -335,30 +364,26 @@ function PricingSection() {
         {path === "org" && (
           <div>
             {/* Size selector */}
-            <div style={{ textAlign: "center" as const, marginBottom: "2rem" }}>
-              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", color: "var(--slate)", marginBottom: "0.5rem", textTransform: "uppercase" as const, letterSpacing: "0.08em" }}>
-                How many people work at your organisation?
-              </p>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--slate)", marginBottom: "1rem", opacity: 0.8 }}>
-                Fewer than 50 people? Practitioner Plus or the Expert Track are built for you: go back and take a look.
-              </p>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--slate)", marginBottom: "1rem" }}>
-                Organisation memberships are based on your total number of employees. We check this when you join and at each renewal. Each membership includes a set number of seats and new starter onboarding. If you need more, you can add seats (£295 a person a year on Growing Teams, £250 on Established Organisations), or move to the next membership at renewal.
-              </p>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "var(--slate)", marginBottom: "1rem" }}>
-                Where the budget can come from: learning and development, people and culture, leadership development, onboarding or employee engagement. One membership covers your team’s development and your new starters’ onboarding, so it often replaces costs you already have.
-              </p>
+            <div style={{ maxWidth: "720px", margin: "0 auto 2rem", background: "var(--white)", borderRadius: "18px", border: "1.5px solid #c8d9cb", boxShadow: "0 4px 20px rgba(26,50,32,0.08)", padding: "2rem 2rem 1.6rem", textAlign: "center" as const }}>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase" as const, color: "var(--sage-dark)", margin: "0 0 0.5rem" }}>How organisation memberships work</p>
+              <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "clamp(1.2rem, 2.4vw, 1.45rem)", color: "var(--forest)", margin: "0 0 0.75rem", lineHeight: 1.25 }}>Choose by the people who will use it, not the size of your organisation.</h3>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--slate)", lineHeight: 1.65, margin: "0 auto 1.4rem", maxWidth: "560px" }}>Seats are for the people leading and doing the inclusion work: your inclusion lead, your HR and people team, and the managers who shape everyday culture. Every pack also includes onboarding for your new starters.</p>
+              <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", color: "var(--charcoal)", textTransform: "uppercase" as const, letterSpacing: "0.08em", margin: "0 0 0.75rem" }}>How many people will use it?</p>
               <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" as const }}>
                 {orgSizeOptions.map((opt) => (
                   <button
                     key={opt.id}
                     onClick={() => setOrgSize(opt.id)}
+                    aria-pressed={orgSize === opt.id}
                     style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.875rem", padding: "0.6rem 1.25rem", borderRadius: "8px", border: orgSize === opt.id ? "2px solid var(--evergreen)" : "1.5px solid var(--line)", background: orgSize === opt.id ? "var(--pale-sage)" : "var(--white)", color: orgSize === opt.id ? "var(--evergreen)" : "var(--slate)", cursor: "pointer", transition: "all 0.15s" }}
                   >
                     {opt.label}
                   </button>
                 ))}
               </div>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--slate)", margin: "1.1rem 0 0", lineHeight: 1.6 }}>
+                Need 50 or more seats? <Link href="/contact-us" style={{ color: "var(--evergreen)", fontWeight: 700 }}>Talk to us about Enterprise</Link>. Not sure? <Link href="/pricing#organisation" style={{ color: "var(--evergreen)", fontWeight: 700 }}>See which pack fits</Link>.
+              </p>
             </div>
 
             {/* Band reveal */}
@@ -406,10 +431,9 @@ function PricingSection() {
                 <div style={{ marginTop: "1.5rem", background: "linear-gradient(160deg, #1A3220 0%, #1E3624 100%)", borderRadius: "14px", padding: "1.75rem 2rem", display: "flex", alignItems: "flex-start", gap: "1.25rem" }}>
                   <div style={{ flexShrink: 0, width: "40px", height: "40px", borderRadius: "50%", background: "rgba(255,255,255,0.1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.1rem" }}>👤</div>
                   <div>
-                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "rgba(255,255,255,0.65)", marginBottom: "0.4rem" }}>For the approver</div>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.85)", lineHeight: 1.65, margin: 0 }}>
-                      Most organisations fund this from existing learning, people or onboarding budgets, not a separate inclusion line. Every membership sits well below formal tender thresholds, and we can provide a quote, accept a purchase order or invoice you directly. Need sign-off? <a href="/downloads/impact-platform-organisation-summary.pdf" download style={{ color: "rgba(168,212,176,0.95)", textDecoration: "underline", fontWeight: 600 }}>Download a one-page summary</a> to forward to whoever approves the spend, or <Link href="/contact-us" style={{ color: "rgba(168,212,176,0.95)", textDecoration: "underline", fontWeight: 600 }}>get in touch for a formal quote</Link>.
-                    </p>
+                    <div style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.82rem", textTransform: "uppercase" as const, letterSpacing: "0.1em", color: "rgba(255,255,255,0.65)", marginBottom: "0.4rem" }}>For whoever approves the spend</div>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.85)", lineHeight: 1.65, margin: "0 0 0.6rem" }}><strong style={{ color: "var(--white)" }}>Where the budget can come from:</strong> learning and development, people and culture, leadership development, onboarding or employee engagement, not a separate inclusion line. One membership covers your team&rsquo;s development and your new starters&rsquo; onboarding, so it often replaces costs you already have.</p>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.875rem", color: "rgba(255,255,255,0.85)", lineHeight: 1.65, margin: 0 }}><strong style={{ color: "var(--white)" }}>Buying it:</strong> every membership sits well below formal tender thresholds. We can send a quote, accept a purchase order or invoice you directly. <a href="/downloads/impact-platform-organisation-summary.pdf" download style={{ color: "rgba(168,212,176,0.95)", textDecoration: "underline", fontWeight: 600 }}>Download a one-page summary</a> to forward to whoever approves the spend, or <Link href="/contact-us" style={{ color: "rgba(168,212,176,0.95)", textDecoration: "underline", fontWeight: 600 }}>get in touch for a formal quote</Link>.</p>
                   </div>
                 </div>
               </div>
@@ -590,10 +614,10 @@ export default function Home() {
         <TrustStrip items={[
             { value: "40", label: "Lessons" },
             { value: "45", label: "Practical tools" },
-            { value: "10+", label: "Inclusion AI tools", highlight: true },
+            { value: "10", label: "Inclusion AI tools", highlight: true },
             { value: "87%", label: "Better decisions" },
             { value: "39%", label: "Outperform competitors" },
-            { value: "WCAG 2.1", label: "Accessibility" },
+            { value: "WCAG 2.2", label: "Accessibility" },
           ]} footnote="87% stat: Cloverpop 2017 · 39% stat: McKinsey 2023" />
 
         {/* SEE WHAT'S INSIDE FOR YOU */}
@@ -780,7 +804,7 @@ export default function Home() {
               {[
                 { href: "/early-access", icon: "📊", label: "Make the Case", sub: "Research and Case Studies", desc: "The data and evidence your leadership team needs." },
                 { href: "/early-access", icon: "🌍", label: "The Inclusion Editors", sub: "Community", desc: "Connect with others carrying inclusion, share what works, and know you are not alone." },
-                { href: "/early-access", icon: "🤝", label: "Get Support", sub: "Coaching & Office Hours", desc: "Book office hours with Rebekah, enquire about expert coaching, or join a live event." },
+                { href: "/early-access", icon: "🤝", label: "Get Support", sub: "Office Hours", desc: "Book office hours with an inclusion expert, or join a live event." },
               ].map((f) => (
                 <Link key={f.label} href={f.href} style={{ textDecoration: "none", display: "flex" }}>
                   <div style={{
@@ -835,7 +859,6 @@ export default function Home() {
                   <div key={p.key} style={{ background: "var(--white)", borderRadius: "14px", overflow: "hidden", border: "1.5px solid var(--gray-border)" }}>
                     <div style={{ height: "110px", backgroundImage: `url('${p.img}')`, backgroundSize: "cover", backgroundPosition: "center", position: "relative" }}>
                       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.5) 100%)" }} />
-                      <span style={{ position: "absolute", bottom: "0.6rem", left: "0.875rem", fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.68rem", color: "white", textTransform: "uppercase", letterSpacing: "0.1em" }}>{p.count} lessons</span>
                     </div>
                     <div style={{ padding: "0.875rem 1rem 1rem" }}>
                       <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", marginBottom: "0.3rem" }}>
@@ -948,8 +971,8 @@ export default function Home() {
                 </p>
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.625rem", marginBottom: "1.75rem" }}>
                   {[
-                    { icon: "📅", text: "Office hours twice a month: book a slot" },
-                    { icon: "🧠", text: "One-to-one expert support sessions" },
+                    { icon: "📅", text: "Office hours twice a month on organisation memberships: book a slot" },
+                    { icon: "🧠", text: "A monthly 1:1 with Rebekah on the Expert Track" },
                     { icon: "💡", text: "Bring a challenge and get an expert perspective" },
                   ].map((item) => (
                     <div key={item.text} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem" }}>
