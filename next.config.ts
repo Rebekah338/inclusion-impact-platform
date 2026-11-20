@@ -17,13 +17,12 @@ const nextConfig: NextConfig = {
       { source: "/post/:path*", destination: "/listen-and-read#blogs", permanent: true },
       { source: "/podcast", destination: "/listen-and-read#podcast", permanent: true },
       { source: "/members-platform", destination: "/about-our-impact-platform", permanent: true },
+      // Short address to share and say out loud; the page itself stays at /about-our-impact-platform
+      { source: "/impact-platform", destination: "/about-our-impact-platform", permanent: false },
       { source: "/membership", destination: "/pricing", permanent: true },
       { source: "/pricing-plans", destination: "/pricing", permanent: true },
       { source: "/pricing-plans/:path*", destination: "/pricing", permanent: true },
       { source: "/plans-pricing", destination: "/pricing", permanent: true },
-      // Old Wix member area: members are told about the new platform by email; everyone else lands on early access
-      { source: "/profile/:path*", destination: "/early-access", permanent: false },
-      { source: "/account/:path*", destination: "/early-access", permanent: false },
       // Policies now live under /legal
       { source: "/privacy", destination: "/legal/privacy", permanent: true },
       { source: "/privacy-policy", destination: "/legal/privacy", permanent: true },
