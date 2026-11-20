@@ -17,8 +17,8 @@ const IMPACT_PLATFORM_LINKS = [
 
 const CONTACT_LINKS = [
   { href: "/contact-us", label: "Contact Us" },
-  { href: "/subscribe", label: "Newsletter Sign Up" },
-  { href: "/faqs", label: "FAQs" },
+  { href: "/subscribe-here", label: "Newsletter Sign Up" },
+  { href: "/faq", label: "FAQs" },
 ];
 
 export default function SiteNav() {

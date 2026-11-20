@@ -51,7 +51,7 @@ export default function Footer() {
         {/* Award + newsletter row */}
         <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: "0.75rem", flexWrap: "wrap", gap: "0.5rem" }}>
           <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.8)", margin: 0, fontStyle: "italic" }}>Recognised as an award-winning EDI consultancy by Corporate Vision</p>
-          <a href="/subscribe" style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.8)", textDecoration: "underline", textDecorationColor: "rgba(255,255,255,0.3)", whiteSpace: "nowrap", marginRight: "2rem" }}>Sign up to our newsletter</a>
+          <a href="/subscribe-here" style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "rgba(255,255,255,0.8)", textDecoration: "underline", textDecorationColor: "rgba(255,255,255,0.3)", whiteSpace: "nowrap", marginRight: "2rem" }}>Sign up to our newsletter</a>
         </div>
 
         {/* Site links */}
@@ -60,7 +60,7 @@ export default function Footer() {
             { href: "/about-our-impact-platform", label: "Impact Platform" },
             { href: "/pricing", label: "Pricing" },
             { href: "/early-access", label: "Get Early Access" },
-            { href: "/faqs", label: "FAQs" },
+            { href: "/faq", label: "FAQs" },
             { href: "/contact-us", label: "Contact Us" },
           ].map((l) => (
             <a key={l.href} href={l.href} style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "0.8rem", color: "rgba(255,255,255,0.92)", textDecoration: "none" }}>{l.label}</a>

@@ -385,7 +385,7 @@ export default function ListenAndReadClient() {
                 <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--sage-dark)", marginBottom: "0.75rem", display: "block" }}>Newsletter</span>
                 <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: "1.25rem", color: "var(--charcoal)", margin: "0 0 0.65rem", lineHeight: 1.25 }}>Get more like this</h3>
                 <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", color: "rgba(0,0,0,0.6)", lineHeight: 1.7, margin: "0 0 1.5rem", flex: 1 }}>One inclusion idea each month, unpacked properly, with practical tips you can use straight away. The kind of thinking we bring to organisations we work with, completely free.</p>
-                <Link href="/subscribe" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", display: "inline-block", textAlign: "center" }}>Sign Up Free →</Link>
+                <Link href="/subscribe-here" style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "0.85rem", color: "var(--white)", background: "var(--sage-dark)", padding: "0.75rem 1.5rem", borderRadius: "8px", textDecoration: "none", display: "inline-block", textAlign: "center" }}>Sign Up Free →</Link>
               </div>
               {/* Platform card */}
               <div style={{ background: "rgba(74,99,71,0.05)", borderRadius: "16px", padding: "2rem", border: "1.5px solid rgba(74,99,71,0.15)", display: "flex", flexDirection: "column", boxShadow: "0 4px 24px rgba(74,99,71,0.08)" }}>
